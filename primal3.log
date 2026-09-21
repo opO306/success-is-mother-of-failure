@@ -1,0 +1,207 @@
+﻿python : LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434
+): Read timed out. (read timeout=60.0)"))
+At line:1 char:302
++ ... tch {} } }; python run_primal.py --days 3 --seed 0 > primal3.log 2>&1 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (LLM decision at...imeout=60.0)")):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+기록: runs\20260914-184743_primal_seed0
+1번째 날(봄): 생존 45, 사건 0, 지은 것 0, 심은 곳 0, 누출 6명, 1464s
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+2번째 날(봄): 생존 45, 사건 0, 지은 것 0, 심은 곳 0, 누출 2명, 1219s
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 1/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+LLM decision attempt 2/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision attempt 3/3 failed: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host='localhost', port=11434): Read t
+imed out. (read timeout=60.0)"))
+LLM decision failed after 3 attempts, falling back to heuristic: ReadTimeout(ReadTimeoutError("HTTPConnectionPool(host=
+'localhost', port=11434): Read timed out. (read timeout=60.0)"))
+3번째 날(봄): 생존 45, 사건 0, 지은 것 0, 심은 곳 0, 누출 1명, 1089s
+총 3772s

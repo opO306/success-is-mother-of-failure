@@ -1,0 +1,44 @@
+{
+  "bytes": 98352,
+  "file_count": 7,
+  "files": [
+    {
+      "bytes": 66484,
+      "path": "runs/b_language_exact_adapter_v1/exchange.json",
+      "sha256": "5049438157b3de9926451425a13646fc032fd9aa858ea1007be6fa650dde371a"
+    },
+    {
+      "bytes": 10371,
+      "path": "runs/cognitive_map_benchmark_v1/result.json",
+      "sha256": "b9d201342ece0bb056d0e07da3e0cbdf71ae384a587df706956e5e9c4622c696"
+    },
+    {
+      "bytes": 5110,
+      "path": "runs/deterministic_scaling_audit_v1/audit.json",
+      "sha256": "2243309f89d02d20f646973f000f40be104d7e71df3f1e52db7d9b8a751e1f59"
+    },
+    {
+      "bytes": 1221,
+      "path": "runs/gpu_environment_parity_v1/report.json",
+      "sha256": "e39825eb311fc51352c3fdd02017f5a94a7c2ddf50904507a7e38a1f1123245d"
+    },
+    {
+      "bytes": 2683,
+      "path": "runs/gpu_resident_benchmark_v1/report.json",
+      "sha256": "e6b004eec8b2700c06119cc5cfc742c0269c4f5b8efc107d788d37664a5b98eb"
+    },
+    {
+      "bytes": 8660,
+      "path": "runs/physical_environment_scaling_audit_v1/audit.json",
+      "sha256": "8192b606f0a5f176bb85121496cb5b980a30ca3fe592a9caa581d216016a8b71"
+    },
+    {
+      "bytes": 3823,
+      "path": "runs/physical_scale_audit_v1/audit.json",
+      "sha256": "9a229c7998d24f7b4dcb134d641eef2a2fb09c88ed8eeeede32eb9be461102cc"
+    }
+  ],
+  "format": "llm-handoff-manifest-v1",
+  "lane": "current_evidence",
+  "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"
+}

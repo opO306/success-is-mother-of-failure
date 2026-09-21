@@ -1,0 +1,44 @@
+{
+  "bytes": 106349,
+  "file_count": 7,
+  "files": [
+    {
+      "bytes": 17361,
+      "path": "build_llm_handoff_catalog.py",
+      "sha256": "fa49c20b97575643f056d828016cffc8bd357391aa9a15f50cafe1cc40b8b727"
+    },
+    {
+      "bytes": 5286,
+      "path": "docs/MIDPOINT_A_B_AUDIT_2026-09-21.md",
+      "sha256": "44c39972653abbfc74ca055059fc762024b2eb6ff9ec26ad6ac87b338023e1b8"
+    },
+    {
+      "bytes": 5987,
+      "path": "docs/PROJECT_CLEANUP_AUDIT_V1.md",
+      "sha256": "82df3416ac812aeed303c46fa3069b929aec988d4d43d3faffc80c74a360a497"
+    },
+    {
+      "bytes": 27343,
+      "path": "EVOLUTION_V2_PLAN.md",
+      "sha256": "b923162d4f53253f10bc51f6eb903c75d41e9ac1d263c924e2e88d97de2030b4"
+    },
+    {
+      "bytes": 39047,
+      "path": "EVOLVABLE_LANGUAGE_PLAN.md",
+      "sha256": "0a9fe571f7eaa23b3026d5841f9bcf117fe5d83e4b12596fe0aca2fd08b5667f"
+    },
+    {
+      "bytes": 8540,
+      "path": "PROJECT_CONSTITUTION.md",
+      "sha256": "d03da18b3f3019dca72b3efab6ff34816435680062c095c6a7d585468492981e"
+    },
+    {
+      "bytes": 2785,
+      "path": "verify_llm_handoff_catalog.py",
+      "sha256": "9a22d597b4c2e99c761f2a4085c37c0911f2a02ee8275b41ade293d465005a48"
+    }
+  ],
+  "format": "llm-handoff-manifest-v1",
+  "lane": "shared_governance",
+  "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"
+}

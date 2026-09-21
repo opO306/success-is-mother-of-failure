@@ -1,0 +1,42 @@
+{
+  "format": "deterministic-environment-world-spec-v2",
+  "causal_world": {
+    "format": "deterministic-causal-world-spec-v1",
+    "world_id": "deterministic-geochemical-cycle-v2",
+    "kernel": {
+      "width": 16,
+      "height": 16,
+      "boundary": "wrap",
+      "arithmetic": "integer",
+      "deterministic": true,
+      "tick_order": ["break_existing_bonds", "stream_free_particles", "resolve_local_collisions"]
+    },
+    "materials": [{"kind": 0, "mass": 1, "ports": 4}],
+    "particles": [],
+    "heat": [{"x": 4, "y": 4, "energy": 6}],
+    "bond_rules": [],
+    "execution": {"ticks": 6},
+    "observer": {"hash_interval": 1}
+  },
+  "solute_kinds": 2,
+  "cells": [
+    {"x": 4, "y": 4, "elevation": 2, "water": 6, "mineral": 4, "solutes": [0, 0]},
+    {"x": 5, "y": 4, "elevation": 0, "water": 2, "mineral": 0, "solutes": [0, 0]},
+    {"x": 10, "y": 10, "elevation": 0, "water": 4, "mineral": 0, "solutes": [6, 2]}
+  ],
+  "blocked_edges": [],
+  "law": {
+    "max_heat_transfer": 0,
+    "max_water_transfer": 1,
+    "max_solute_transfer": 1,
+    "phase_order": ["horizontal_even", "horizontal_odd", "vertical_even", "vertical_odd"],
+    "max_carried_solute_per_water": 1,
+    "mineral_solute_kind": 0,
+    "dissolve_heat_at_least": 3,
+    "precipitate_heat_at_most": 1,
+    "hot_solubility_per_water": 2,
+    "cold_solubility_per_water": 1,
+    "max_mineral_conversion": 1,
+    "mineral_conversion_energy": 1
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "bytes": 122485,
+  "file_count": 4,
+  "files": [
+    {
+      "bytes": 32427,
+      "path": "docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md",
+      "sha256": "6bb7685d4ba524caf7a0dc48cd0f05701815858eddd672e6af8efcd6ab554318"
+    },
+    {
+      "bytes": 22352,
+      "path": "docs/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md",
+      "sha256": "29b7914f570ca6a6609fa2065e0fd2b860d89688d5a30fa6eb5b532ac6747f6c"
+    },
+    {
+      "bytes": 58549,
+      "path": "docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md",
+      "sha256": "822a8799d7f2d25ecd6d677f59479bed640603eee38578ed0af239531922a772"
+    },
+    {
+      "bytes": 9157,
+      "path": "engine/deterministic/__init__.py",
+      "sha256": "c5f5f6cec04dfb5e44c6cf4613a431dd16cbabca7b483c5f0c4c60f456684252"
+    }
+  ],
+  "format": "llm-handoff-manifest-v1",
+  "lane": "shared_current",
+  "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"
+}

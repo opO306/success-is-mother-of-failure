@@ -1,0 +1,66 @@
+{
+  "format": "deterministic-environment-world-spec-v4",
+  "causal_world": {
+    "format": "deterministic-causal-world-spec-v1",
+    "world_id": "deterministic-physical-flux-v4",
+    "kernel": {
+      "width": 16,
+      "height": 16,
+      "boundary": "wrap",
+      "arithmetic": "integer",
+      "deterministic": true,
+      "tick_order": ["break_existing_bonds", "stream_free_particles", "resolve_local_collisions"]
+    },
+    "materials": [{"kind": 0, "mass": 1, "ports": 4}],
+    "particles": [],
+    "heat": [{"x": 4, "y": 4, "energy": 256}],
+    "bond_rules": [],
+    "execution": {"ticks": 4},
+    "observer": {"hash_interval": 1}
+  },
+  "solute_kinds": 2,
+  "cells": [
+    {"x": 4, "y": 4, "elevation": 0, "water": 64, "vapor": 32, "mineral": 0, "solutes": [128, 64]},
+    {"x": 5, "y": 4, "elevation": 0, "water": 16, "vapor": 0, "mineral": 0, "solutes": [0, 0]}
+  ],
+  "blocked_edges": [],
+  "energy_boundaries": [],
+  "law": {
+    "max_heat_transfer": 1000000,
+    "max_water_transfer": 1000000,
+    "max_solute_transfer": 1000000,
+    "phase_order": ["horizontal_even", "horizontal_odd", "vertical_even", "vertical_odd"],
+    "max_carried_solute_per_water": 1000000,
+    "mineral_solute_kind": 0,
+    "dissolve_heat_at_least": 1000000,
+    "precipitate_heat_at_most": 0,
+    "hot_solubility_per_water": 2,
+    "cold_solubility_per_water": 1,
+    "max_mineral_conversion": 0,
+    "mineral_conversion_energy": 1,
+    "max_vapor_transfer": 1000000,
+    "evaporation_heat_at_least": 1000000,
+    "condensation_heat_at_most": 0,
+    "max_water_phase_change": 0,
+    "vaporization_energy": 1
+  },
+  "physical_scale": {
+    "cell_length_pm": 4,
+    "tick_duration_fs": 16,
+    "units": {
+      "cell_length_unit": "picometer",
+      "tick_duration_unit": "femtosecond",
+      "height_quantum_pm": 1,
+      "matter_quantum_unit": "yoctomole",
+      "matter_quantum_yoctomol": 1,
+      "energy_quantum_unit": "zeptojoule",
+      "energy_quantum_zj": 1
+    },
+    "flux_laws": [
+      {"channel": "heat", "diffusivity": {"numerator_pm2": 1, "denominator_fs": 4}},
+      {"channel": "solute", "diffusivity": {"numerator_pm2": 1, "denominator_fs": 4}},
+      {"channel": "vapor", "diffusivity": {"numerator_pm2": 1, "denominator_fs": 4}},
+      {"channel": "water_surface", "diffusivity": {"numerator_pm2": 1, "denominator_fs": 4}}
+    ]
+  }
+}

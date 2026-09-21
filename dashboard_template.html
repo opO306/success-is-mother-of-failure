@@ -1,0 +1,654 @@
+<title>코퍼레이션 월드 대시보드</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #E7EAEA;
+  --surface: #F5F7F6;
+  --surface-alt: #EDF1F0;
+  --ink: #16211F;
+  --ink-muted: #55625F;
+  --ink-faint: #7C8683;
+  --border: #C9D0CD;
+  --accent: #0088A8;
+  --accent-ink: #FFFFFF;
+  --series-b: #C1631E;
+  --good: #2F7D4C;
+  --warning: #B8862E;
+  --critical: #B23B3B;
+  --good-bg: #DEEDE1;
+  --warning-bg: #F1E4CB;
+  --critical-bg: #F3DBDA;
+  --shadow: 0 1px 2px rgba(20, 30, 28, 0.06), 0 4px 12px rgba(20, 30, 28, 0.05);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1513;
+    --surface: #16211E;
+    --surface-alt: #1C2925;
+    --ink: #E7EDEA;
+    --ink-muted: #93A29D;
+    --ink-faint: #6C7A75;
+    --border: #2A3733;
+    --accent: #2E9FB8;
+    --accent-ink: #05181A;
+    --series-b: #C96A2E;
+    --good: #4CAE72;
+    --warning: #D9A64B;
+    --critical: #E0615C;
+    --good-bg: #1B3226;
+    --warning-bg: #33291A;
+    --critical-bg: #3A2020;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1513;
+  --surface: #16211E;
+  --surface-alt: #1C2925;
+  --ink: #E7EDEA;
+  --ink-muted: #93A29D;
+  --ink-faint: #6C7A75;
+  --border: #2A3733;
+  --accent: #2E9FB8;
+  --accent-ink: #05181A;
+  --series-b: #C96A2E;
+  --good: #4CAE72;
+  --warning: #D9A64B;
+  --critical: #E0615C;
+  --good-bg: #1B3226;
+  --warning-bg: #33291A;
+  --critical-bg: #3A2020;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", "IBM Plex Sans KR", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+.tabular { font-variant-numeric: tabular-nums; }
+.eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding: 20px 24px 64px; }
+
+/* ---------- header ---------- */
+header.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+.topbar-inner { max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.title-row h1 { font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.title-row .subtitle { color: var(--ink-muted); font-size: 13px; }
+.seed-tag {
+  font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-muted);
+  border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px;
+}
+
+.controls-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.transport { display: flex; align-items: center; gap: 6px; }
+.transport button {
+  font-family: "IBM Plex Mono", monospace; font-size: 14px;
+  width: 34px; height: 34px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.transport button:hover { border-color: var(--accent); color: var(--accent); }
+.transport button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.transport button.play { width: 44px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tick-slider-wrap { flex: 1; min-width: 220px; display: flex; align-items: center; gap: 10px; }
+.tick-readout { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-muted); white-space: nowrap; }
+input[type="range"] {
+  flex: 1; height: 4px; border-radius: 2px; background: var(--border);
+  -webkit-appearance: none; appearance: none; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--surface); box-shadow: var(--shadow); cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%; background: var(--accent);
+  border: 2px solid var(--surface); box-shadow: var(--shadow); cursor: pointer;
+}
+
+.stat-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.tile {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 8px 12px; display: flex; flex-direction: column; gap: 2px;
+}
+.tile .n { font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 600; }
+.tile .l { font-size: 11px; color: var(--ink-muted); }
+.tile.good .n { color: var(--good); }
+.tile.warning .n { color: var(--warning); }
+.tile.critical .n { color: var(--critical); }
+
+/* ---------- sections ---------- */
+section { margin-top: 36px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.section-head h2 {
+  font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink);
+}
+.section-head p { margin: 0; color: var(--ink-muted); font-size: 12.5px; max-width: 60ch; }
+
+/* ---------- company grid ---------- */
+.company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 12px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow);
+}
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-head .names { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.card-head .display-name { font-weight: 600; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-head .archetype { font-size: 11.5px; color: var(--ink-muted); }
+.state-chip {
+  flex: none; font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600;
+  padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+}
+.state-chip.생존 { background: var(--good-bg); color: var(--good); }
+.state-chip.고립 { background: var(--warning-bg); color: var(--warning); }
+.state-chip.사망 { background: var(--critical-bg); color: var(--critical); }
+.blurb { font-size: 11.5px; color: var(--ink-faint); margin-top: -6px; }
+
+.bars { display: flex; flex-direction: column; gap: 6px; }
+.bar-row { display: grid; grid-template-columns: 34px 1fr 58px; align-items: center; gap: 8px; }
+.bar-row .label { font-size: 11px; color: var(--ink-muted); }
+.bar-track { height: 6px; border-radius: 3px; background: var(--surface-alt); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+.bar-fill.tech { background: #6C8B96; }
+.bar-fill.legitimacy { background: var(--good); }
+.bar-fill.coercion { background: var(--critical); }
+.bar-row .value { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; text-align: right; color: var(--ink); }
+
+.spark-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 4px; border-top: 1px dashed var(--border); }
+.spark-row .spark-label { font-size: 11px; color: var(--ink-muted); }
+.spark-row .spark-value { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; }
+svg.spark { display: block; overflow: visible; }
+svg.spark path.line { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+svg.spark path.area { fill: var(--accent); opacity: 0.10; stroke: none; }
+svg.spark circle.end { fill: var(--accent); }
+
+/* ---------- experiments ---------- */
+.experiments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 880px) { .experiments-grid { grid-template-columns: 1fr; } }
+.exp-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px 14px; box-shadow: var(--shadow);
+}
+.exp-card h3 { font-size: 14.5px; font-weight: 600; margin-bottom: 2px; }
+.exp-card .exp-note { font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; }
+.legend { display: flex; gap: 16px; margin-top: 6px; flex-wrap: wrap; }
+.legend .item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-muted); }
+.legend .swatch { width: 12px; height: 3px; border-radius: 2px; }
+.chart-wrap { position: relative; }
+.tooltip {
+  position: absolute; pointer-events: none; background: var(--ink); color: var(--bg);
+  font-family: "IBM Plex Mono", monospace; font-size: 11px; padding: 6px 9px; border-radius: 6px;
+  transform: translate(-50%, -115%); white-space: nowrap; opacity: 0; transition: opacity 0.08s;
+  box-shadow: var(--shadow);
+}
+.tooltip.show { opacity: 1; }
+.tooltip .row { display: flex; align-items: center; gap: 6px; }
+.tooltip .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+
+/* ---------- roster (individuals/vigilantes) ---------- */
+.roster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.roster-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.roster-card .names { display: flex; flex-direction: column; gap: 1px; }
+.roster-card .display-name { font-weight: 600; font-size: 13px; }
+.roster-card .archetype { font-size: 11px; color: var(--ink-muted); }
+.roster-card .value { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-align: right; }
+.roster-card .value .l { display: block; font-size: 10px; color: var(--ink-muted); font-weight: 400; }
+
+/* ---------- event log ---------- */
+.log-panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.log-summary {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border);
+}
+.log-summary .cell { background: var(--surface); padding: 12px 16px; }
+.log-summary .cell .n { font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 600; }
+.log-summary .cell .l { font-size: 11px; color: var(--ink-muted); }
+.log-list { max-height: 280px; overflow-y: auto; }
+.log-item {
+  display: flex; align-items: baseline; gap: 10px; padding: 8px 16px;
+  border-top: 1px solid var(--border); font-size: 12.5px;
+}
+.log-item .tick-tag { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--ink-faint); flex: none; width: 44px; }
+.log-item .icon { flex: none; width: 16px; text-align: center; }
+.log-item.trade .icon { color: var(--accent); }
+.log-item.espionage-success .icon { color: var(--warning); }
+.log-item.espionage-detected .icon { color: var(--critical); }
+.log-item.wmd .icon { color: var(--critical); }
+.log-empty { padding: 20px 16px; color: var(--ink-muted); font-size: 12.5px; }
+
+footer.note {
+  margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--border);
+  color: var(--ink-faint); font-size: 11.5px;
+}
+</style>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="title-row">
+      <div>
+        <h1>코퍼레이션 월드 대시보드</h1>
+        <div class="subtitle">무정부 코퍼레이션-스테이트 경제 시뮬레이션 · 휴리스틱 엔진 (LLM 미적용)</div>
+      </div>
+      <div class="seed-tag mono" id="seed-tag">seed —</div>
+    </div>
+    <div class="controls-row">
+      <div class="transport">
+        <button id="btn-back" title="이전 틱" aria-label="이전 틱">⏮</button>
+        <button id="btn-play" class="play" title="재생/정지" aria-label="재생/정지">▶</button>
+        <button id="btn-fwd" title="다음 틱" aria-label="다음 틱">⏭</button>
+      </div>
+      <div class="tick-slider-wrap">
+        <input type="range" id="tick-slider" min="0" max="39" value="0" />
+        <span class="tick-readout tabular" id="tick-readout">틱 0 / 39</span>
+      </div>
+    </div>
+    <div class="stat-tiles" id="stat-tiles"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section id="section-companies">
+    <div class="section-head">
+      <h2>기업 현황 — 12원형 + 분사</h2>
+      <p>매 틱 자원배분 휴리스틱으로 움직이는 코퍼레이션-스테이트. 통화가치 스파크라인은 0틱부터 현재 틱까지.</p>
+    </div>
+    <div class="company-grid" id="company-grid"></div>
+  </section>
+
+  <section id="section-experiments">
+    <div class="section-head">
+      <h2>핵심 실험 결과 — 사전 등록된 검증</h2>
+      <p>LLM 붙이기 전 배치 검증(100시드)에서 확인된 두 실험을 이 시드(0번)로 다시 그린 것.</p>
+    </div>
+    <div class="experiments-grid">
+      <div class="exp-card">
+        <h3>감정배제 처치군 vs 대조군</h3>
+        <div class="exp-note">관계값 R = −1.0(적대)인 상대와의 누적 거래 성사 횟수. 감정배제 기업은 λ=0이라 관계값을 무시하고 항상 거래.</div>
+        <div class="chart-wrap"><svg id="chart-emotionless"></svg><div class="tooltip" id="tooltip-emotionless"></div></div>
+        <div class="legend" id="legend-emotionless"></div>
+      </div>
+      <div class="exp-card">
+        <h3>하이브마인드 vs 일반기업 — 정당성 충격 회복력</h3>
+        <div class="exp-note">5틱 시점에 동일한 크기의 정당성 충격을 스크립트로 가함. 하이브마인드는 무완충·회복 없음.</div>
+        <div class="chart-wrap"><svg id="chart-hivemind"></svg><div class="tooltip" id="tooltip-hivemind"></div></div>
+        <div class="legend" id="legend-hivemind"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-roster">
+    <div class="section-head">
+      <h2>개인 에이전트 &amp; 자경단</h2>
+      <p>3종 개인 원형과 3파 자경단. 자본 규모가 작아 별도 요약으로 표시.</p>
+    </div>
+    <div class="roster-grid" id="roster-grid"></div>
+  </section>
+
+  <section id="section-log">
+    <div class="section-head">
+      <h2>이벤트 로그</h2>
+      <p>현재 틱 요약과 최근 이벤트(거래·공작·멸망시도) — 슬라이더를 움직이면 함께 갱신됩니다.</p>
+    </div>
+    <div class="log-panel">
+      <div class="log-summary" id="log-summary"></div>
+      <div class="log-list" id="log-list"></div>
+    </div>
+  </section>
+
+  <footer class="note">
+    Phase 2 검증 배치(<span class="mono">run_batch.py</span>, 100시드 × 50틱) 통과 후 생성된 대시보드 · 이 화면은 시드 0 하나의 재생입니다 · 다음 단계: Ollama + Qwen3 8B 판단 레이어
+  </footer>
+</div>
+
+<script>
+const DATA = __SIM_DATA_JSON__;
+</script>
+<script>
+(function () {
+  "use strict";
+
+  const css = getComputedStyle(document.documentElement);
+  const tok = (name) => css.getPropertyValue(name).trim();
+
+  const maxTick = DATA.ticks - 1;
+  let currentTick = 0;
+  let playing = false;
+  let timer = null;
+
+  const $ = (sel) => document.querySelector(sel);
+  const seedTag = $("#seed-tag");
+  const slider = $("#tick-slider");
+  const readout = $("#tick-readout");
+  const statTiles = $("#stat-tiles");
+  const companyGrid = $("#company-grid");
+  const rosterGrid = $("#roster-grid");
+  const logSummary = $("#log-summary");
+  const logList = $("#log-list");
+
+  slider.max = String(maxTick);
+  seedTag.textContent = `seed ${DATA.seed} · ${DATA.ticks}틱`;
+
+  function tickOf(entity, t) {
+    // entity.ticks[i].tick is not always === i (spawned companies start later)
+    if (!entity.ticks.length) return null;
+    if (t < entity.ticks[0].tick) return null;
+    const idx = Math.min(t - entity.ticks[0].tick, entity.ticks.length - 1);
+    return entity.ticks[idx];
+  }
+
+  function fmt(n, digits = 1) {
+    return Number(n).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  }
+
+  // ---------- resource bar scaling: shared max per resource across all companies/ticks ----------
+  const RES_MAX = { capital: 1, tech: 1, legitimacy: 1, coercion: 1 };
+  DATA.companies.forEach((c) => c.ticks.forEach((row) => {
+    RES_MAX.capital = Math.max(RES_MAX.capital, row.capital);
+    RES_MAX.tech = Math.max(RES_MAX.tech, row.tech);
+    RES_MAX.coercion = Math.max(RES_MAX.coercion, row.coercion);
+  }));
+  RES_MAX.legitimacy = 1; // legitimacy is already a 0..1-ish scale by construction
+
+  const CURRENCY_MAX = Math.max(1, ...DATA.companies.flatMap((c) => c.ticks.map((r) => r.currency_value)));
+
+  function sparkPath(values, w, h) {
+    if (values.length < 2) return { line: "", area: "" };
+    const max = Math.max(...values, 0.001);
+    const stepX = w / (values.length - 1);
+    const pts = values.map((v, i) => [i * stepX, h - (v / max) * (h - 2) - 1]);
+    const line = "M" + pts.map((p) => p.join(",")).join(" L");
+    const area = line + ` L${w},${h} L0,${h} Z`;
+    return { line, area, last: pts[pts.length - 1] };
+  }
+
+  function renderSparkline(svg, values) {
+    const w = 96, h = 28;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    svg.setAttribute("width", w);
+    svg.setAttribute("height", h);
+    const { line, area, last } = sparkPath(values, w, h);
+    svg.innerHTML = `
+      <path class="area" d="${area}"></path>
+      <path class="line" d="${line}"></path>
+      ${last ? `<circle class="end" cx="${last[0]}" cy="${last[1]}" r="2.4"></circle>` : ""}
+    `;
+  }
+
+  // ---------- company cards ----------
+  const cardEls = new Map();
+  DATA.companies.forEach((c) => {
+    const el = document.createElement("div");
+    el.className = "card";
+    el.innerHTML = `
+      <div class="card-head">
+        <div class="names">
+          <div class="display-name" title="${c.display_name}">${c.display_name}</div>
+          <div class="archetype">${c.archetype_kr}</div>
+        </div>
+        <div class="state-chip" data-role="state"></div>
+      </div>
+      <div class="blurb">${c.blurb_kr}</div>
+      <div class="bars">
+        <div class="bar-row"><span class="label">자본</span><span class="bar-track"><span class="bar-fill capital" data-role="bar-capital"></span></span><span class="value tabular" data-role="val-capital"></span></div>
+        <div class="bar-row"><span class="label">기술</span><span class="bar-track"><span class="bar-fill tech" data-role="bar-tech"></span></span><span class="value tabular" data-role="val-tech"></span></div>
+        <div class="bar-row"><span class="label">정당성</span><span class="bar-track"><span class="bar-fill legitimacy" data-role="bar-legitimacy"></span></span><span class="value tabular" data-role="val-legitimacy"></span></div>
+        <div class="bar-row"><span class="label">강제력</span><span class="bar-track"><span class="bar-fill coercion" data-role="bar-coercion"></span></span><span class="value tabular" data-role="val-coercion"></span></div>
+      </div>
+      <div class="spark-row">
+        <span class="spark-label">통화가치</span>
+        <svg class="spark" data-role="spark"></svg>
+        <span class="spark-value tabular" data-role="val-currency"></span>
+      </div>
+    `;
+    companyGrid.appendChild(el);
+    cardEls.set(c.name, el);
+  });
+
+  function renderCompanies(t) {
+    let alive = 0, isolated = 0, dead = 0;
+    let leader = null;
+    DATA.companies.forEach((c) => {
+      const el = cardEls.get(c.name);
+      const row = tickOf(c, t);
+      if (!row) { el.style.display = "none"; return; }
+      el.style.display = "";
+      const chip = el.querySelector('[data-role="state"]');
+      chip.textContent = row.state;
+      chip.className = "state-chip " + row.state;
+      if (row.state === "생존") alive++; else if (row.state === "고립") isolated++; else dead++;
+      if (!leader || row.currency_value > leader.value) leader = { name: c.display_name, value: row.currency_value };
+
+      el.querySelector('[data-role="bar-capital"]').style.width = Math.min(100, (row.capital / RES_MAX.capital) * 100) + "%";
+      el.querySelector('[data-role="val-capital"]').textContent = fmt(row.capital, 1);
+      el.querySelector('[data-role="bar-tech"]').style.width = Math.min(100, (row.tech / RES_MAX.tech) * 100) + "%";
+      el.querySelector('[data-role="val-tech"]').textContent = fmt(row.tech, 1);
+      el.querySelector('[data-role="bar-legitimacy"]').style.width = Math.min(100, row.legitimacy * 100) + "%";
+      el.querySelector('[data-role="val-legitimacy"]').textContent = fmt(row.legitimacy, 2);
+      el.querySelector('[data-role="bar-coercion"]').style.width = Math.min(100, (row.coercion / RES_MAX.coercion) * 100) + "%";
+      el.querySelector('[data-role="val-coercion"]').textContent = fmt(row.coercion, 1);
+      el.querySelector('[data-role="val-currency"]').textContent = fmt(row.currency_value, 1);
+
+      const history = c.ticks.filter((r) => r.tick <= t).map((r) => r.currency_value);
+      renderSparkline(el.querySelector('[data-role="spark"]'), history.length ? history : [0, 0]);
+    });
+
+    statTiles.innerHTML = `
+      <div class="tile good"><span class="n tabular">${alive}</span><span class="l">생존</span></div>
+      <div class="tile warning"><span class="n tabular">${isolated}</span><span class="l">고립</span></div>
+      <div class="tile critical"><span class="n tabular">${dead}</span><span class="l">사망</span></div>
+      <div class="tile"><span class="n" style="font-size:14px">${leader ? leader.name : "—"}</span><span class="l">통화가치 선두</span></div>
+    `;
+  }
+
+  // ---------- roster (individuals + vigilantes) ----------
+  DATA.individuals.forEach((i) => {
+    const el = document.createElement("div");
+    el.className = "roster-card";
+    el.innerHTML = `
+      <div class="names"><div class="display-name">${i.display_name}</div><div class="archetype">${i.archetype_kr}</div></div>
+      <div class="value tabular" data-role="v"><span class="l">자본</span><span data-role="capital"></span></div>
+    `;
+    rosterGrid.appendChild(el);
+    el.dataset.kind = "individual"; el.dataset.name = i.name;
+  });
+  DATA.vigilantes.forEach((v) => {
+    const el = document.createElement("div");
+    el.className = "roster-card";
+    el.innerHTML = `
+      <div class="names"><div class="display-name">${v.display_name}</div><div class="archetype">${v.faction_kr}</div></div>
+      <div class="value tabular" data-role="v"><span class="l">자본</span><span data-role="capital"></span></div>
+    `;
+    rosterGrid.appendChild(el);
+    el.dataset.kind = "vigilante"; el.dataset.name = v.name;
+  });
+
+  function renderRoster(t) {
+    const all = [...DATA.individuals, ...DATA.vigilantes];
+    all.forEach((entity) => {
+      const el = rosterGrid.querySelector(`[data-name="${entity.name}"]`);
+      const row = tickOf(entity, t);
+      if (!row) return;
+      el.querySelector('[data-role="capital"]').textContent = fmt(row.capital, 1);
+    });
+  }
+
+  // ---------- event log ----------
+  const displayNameOf = new Map(DATA.companies.map((c) => [c.name, c.display_name]));
+  const nameFor = (internalName) => displayNameOf.get(internalName) || internalName;
+
+  function renderLog(t) {
+    const row = DATA.events[t];
+    logSummary.innerHTML = `
+      <div class="cell"><div class="n tabular">${row.trades_proceeded}</div><div class="l">거래 성사</div></div>
+      <div class="cell"><div class="n tabular">${row.trades_refused}</div><div class="l">거래 거부</div></div>
+      <div class="cell"><div class="n tabular">${row.espionage.length}</div><div class="l">공작 시도</div></div>
+      <div class="cell"><div class="n tabular">${row.wmd.length}</div><div class="l">WMD 시도</div></div>
+    `;
+
+    const items = [];
+    for (let i = t; i >= 0 && items.length < 25; i--) {
+      const r = DATA.events[i];
+      r.espionage.forEach((e) => {
+        const cls = e.detected ? "espionage-detected" : "espionage-success";
+        const icon = e.detected ? "⚠" : (e.success ? "◆" : "◇");
+        const outcome = e.detected ? "탐지됨 (보복+정당성 손실)" : (e.success ? "기술 절취 성공" : "실패");
+        items.push({ tick: i, cls: "log-item " + cls, icon, text: `${nameFor(e.actor)} → ${nameFor(e.target)} 공작 시도: ${outcome}` });
+      });
+      r.wmd.forEach((w) => {
+        items.push({
+          tick: i, cls: "log-item wmd", icon: w.leaked ? "☢" : "●",
+          text: `${nameFor(w.company)} WMD 실행 시도 — ${w.leaked ? "이중첩자 유출로 노출" : "미유출"} (유출확률 ${w.leak_probability})`,
+        });
+      });
+    }
+    items.sort((a, b) => b.tick - a.tick);
+    logList.innerHTML = items.length
+      ? items.slice(0, 30).map((it) => `<div class="${it.cls}"><span class="tick-tag mono">틱 ${it.tick}</span><span class="icon">${it.icon}</span><span>${it.text}</span></div>`).join("")
+      : `<div class="log-empty">아직 특기할 공작·WMD 이벤트가 없습니다. 거래는 매 틱 조용히 이뤄지고 있어요.</div>`;
+  }
+
+  // ---------- generic line chart with crosshair tooltip ----------
+  function drawExperimentChart(svgId, tooltipId, legendId, series, opts) {
+    const svg = document.getElementById(svgId);
+    const tooltip = document.getElementById(tooltipId);
+    const legendEl = document.getElementById(legendId);
+    const w = 480, h = 220, padL = 34, padR = 12, padT = 12, padB = 26;
+    const plotW = w - padL - padR, plotH = h - padT - padB;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", h);
+    svg.style.display = "block";
+
+    const n = series[0].values.length;
+    const yMax = opts.yMax ?? Math.max(...series.flatMap((s) => s.values));
+    const yMin = opts.yMin ?? 0;
+    const x = (i) => padL + (i / (n - 1)) * plotW;
+    const y = (v) => padT + plotH - ((v - yMin) / (yMax - yMin || 1)) * plotH;
+
+    let svgContent = "";
+    // gridlines (recessive)
+    const gridColor = tok("--border");
+    const yTicks = 4;
+    for (let i = 0; i <= yTicks; i++) {
+      const v = yMin + (i / yTicks) * (yMax - yMin);
+      const gy = y(v);
+      svgContent += `<line x1="${padL}" y1="${gy}" x2="${w - padR}" y2="${gy}" stroke="${gridColor}" stroke-width="1"></line>`;
+      svgContent += `<text x="${padL - 6}" y="${gy + 3}" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="${tok("--ink-muted")}">${opts.yFmt ? opts.yFmt(v) : Math.round(v)}</text>`;
+    }
+    // x axis labels (first / mid / last tick)
+    [0, Math.floor((n - 1) / 2), n - 1].forEach((i) => {
+      svgContent += `<text x="${x(i)}" y="${h - 6}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="${tok("--ink-muted")}">${opts.labels ? opts.labels[i] : i}</text>`;
+    });
+    // shock marker
+    if (opts.markX !== undefined) {
+      svgContent += `<line x1="${x(opts.markX)}" y1="${padT}" x2="${x(opts.markX)}" y2="${padT + plotH}" stroke="${tok("--critical")}" stroke-width="1" stroke-dasharray="3,3"></line>`;
+      svgContent += `<text x="${x(opts.markX)}" y="${padT - 2}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="${tok("--critical")}">충격</text>`;
+    }
+    // series lines + endpoint
+    series.forEach((s) => {
+      const pts = s.values.map((v, i) => [x(i), y(v)]);
+      const d = "M" + pts.map((p) => p.join(",")).join(" L");
+      svgContent += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`;
+      const last = pts[pts.length - 1];
+      svgContent += `<circle cx="${last[0]}" cy="${last[1]}" r="3.2" fill="${s.color}" stroke="${tok("--surface")}" stroke-width="1.5"></circle>`;
+    });
+    // hover capture
+    svgContent += `<rect data-role="hover-capture" x="${padL}" y="${padT}" width="${plotW}" height="${plotH}" fill="transparent"></rect>`;
+    svgContent += `<line data-role="crosshair" x1="0" y1="${padT}" x2="0" y2="${padT + plotH}" stroke="${tok("--ink-muted")}" stroke-width="1" opacity="0"></line>`;
+    svg.innerHTML = svgContent;
+
+    legendEl.innerHTML = series.map((s) => `<span class="item"><span class="swatch" style="background:${s.color}"></span>${s.label}</span>`).join("");
+
+    const capture = svg.querySelector('[data-role="hover-capture"]');
+    const crosshair = svg.querySelector('[data-role="crosshair"]');
+    capture.addEventListener("mousemove", (ev) => {
+      const rect = svg.getBoundingClientRect();
+      const px = ((ev.clientX - rect.left) / rect.width) * w;
+      const i = Math.max(0, Math.min(n - 1, Math.round(((px - padL) / plotW) * (n - 1))));
+      const cx = x(i);
+      crosshair.setAttribute("x1", cx); crosshair.setAttribute("x2", cx); crosshair.setAttribute("opacity", 1);
+      tooltip.innerHTML = `<div class="mono" style="margin-bottom:4px;color:${tok("--ink-muted")}">${opts.labels ? opts.labels[i] : "틱 " + i}</div>` +
+        series.map((s) => `<div class="row"><span class="dot" style="background:${s.color}"></span>${s.label}: ${opts.yFmt ? opts.yFmt(s.values[i]) : s.values[i]}</div>`).join("");
+      const wrapRect = svg.parentElement.getBoundingClientRect();
+      tooltip.style.left = (rect.left - wrapRect.left + (cx / w) * rect.width) + "px";
+      tooltip.style.top = "0px";
+      tooltip.classList.add("show");
+    });
+    capture.addEventListener("mouseleave", () => { tooltip.classList.remove("show"); crosshair.setAttribute("opacity", 0); });
+  }
+
+  function renderExperiments() {
+    const emo = DATA.experiments.emotionless_ab;
+    drawExperimentChart("chart-emotionless", "tooltip-emotionless", "legend-emotionless", [
+      { label: "감정배제(처치군)", values: emo.treatment_cumulative, color: tok("--accent") },
+      { label: "대조군", values: emo.control_cumulative, color: tok("--series-b") },
+    ], { yFmt: (v) => Math.round(v), labels: emo.treatment_cumulative.map((_, i) => i) });
+
+    const hive = DATA.experiments.hive_mind_shock;
+    drawExperimentChart("chart-hivemind", "tooltip-hivemind", "legend-hivemind", [
+      { label: "하이브마인드", values: hive.hive_legitimacy, color: tok("--accent") },
+      { label: "일반기업", values: hive.ordinary_legitimacy, color: tok("--series-b") },
+    ], { yMax: 1, yMin: 0, yFmt: (v) => v.toFixed(2), markX: hive.shock_tick, labels: hive.hive_legitimacy.map((_, i) => i) });
+  }
+
+  // ---------- transport controls ----------
+  function render(t) {
+    currentTick = t;
+    slider.value = String(t);
+    readout.textContent = `틱 ${t} / ${maxTick}`;
+    renderCompanies(t);
+    renderRoster(t);
+    renderLog(t);
+  }
+
+  function stop() {
+    playing = false;
+    $("#btn-play").textContent = "▶";
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+  function play() {
+    playing = true;
+    $("#btn-play").textContent = "⏸";
+    timer = setInterval(() => {
+      if (currentTick >= maxTick) { stop(); return; }
+      render(currentTick + 1);
+    }, 420);
+  }
+
+  slider.addEventListener("input", () => { stop(); render(Number(slider.value)); });
+  $("#btn-back").addEventListener("click", () => { stop(); render(Math.max(0, currentTick - 1)); });
+  $("#btn-fwd").addEventListener("click", () => { stop(); render(Math.min(maxTick, currentTick + 1)); });
+  $("#btn-play").addEventListener("click", () => { playing ? stop() : play(); });
+
+  renderExperiments();
+  render(0);
+})();
+</script>

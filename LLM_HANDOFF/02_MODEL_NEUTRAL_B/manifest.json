@@ -1,0 +1,204 @@
+{
+  "bytes": 260011,
+  "file_count": 39,
+  "files": [
+    {
+      "bytes": 6126,
+      "path": "engine/deterministic/adapter_comparison.py",
+      "sha256": "641d4e3401c80f27ac523597e2944c6280f12a81fde8e1913697d49963c6c4e7"
+    },
+    {
+      "bytes": 12058,
+      "path": "engine/deterministic/b_language.py",
+      "sha256": "c8922741aff27ebdbb66a5c1f88719700527269c16ec3f79ae8e732f5a1e2427"
+    },
+    {
+      "bytes": 6474,
+      "path": "engine/deterministic/brain_adapter.py",
+      "sha256": "343fea3deb4218123479cd2e4eeb0141a23cef940abff8b44b17f0a0da1f91f0"
+    },
+    {
+      "bytes": 20311,
+      "path": "engine/deterministic/change_graph.py",
+      "sha256": "8b78d67e7843bbb1aa482772b2a32c8c5ee09d553be9c0b87813859908329a7f"
+    },
+    {
+      "bytes": 17079,
+      "path": "engine/deterministic/cognitive_map.py",
+      "sha256": "13e23834be669c8658c52c27531b75eff0d7b77d9e01e25899e7f44ebe9c41e6"
+    },
+    {
+      "bytes": 13730,
+      "path": "engine/deterministic/counterfactual.py",
+      "sha256": "82f3114ad13c19f9bebd6f043dbef49597872fdc4654fec29abca91b76dfc137"
+    },
+    {
+      "bytes": 11997,
+      "path": "engine/deterministic/environment_world_model.py",
+      "sha256": "ff80c0e918abef833bf5b49acf286e572ed483c1f6c77dc93953fe1a10cd40c2"
+    },
+    {
+      "bytes": 11201,
+      "path": "engine/deterministic/experiment_proposal.py",
+      "sha256": "6a8f30971c7930d95a7b0ae86bc6d70915e1f5871b4a12f64e2ec96b8a9d32b7"
+    },
+    {
+      "bytes": 15207,
+      "path": "engine/deterministic/hypotheses.py",
+      "sha256": "6ae0121cc28da6e01aa1dbbf111c5ff38b9cc9e02ff7da47b03faf16b8aadf49"
+    },
+    {
+      "bytes": 12557,
+      "path": "engine/deterministic/impact_scope.py",
+      "sha256": "0d0e717d923054ad002ea91cdbdeedddcd384d0213360d397287899f2b9a62d7"
+    },
+    {
+      "bytes": 14239,
+      "path": "engine/deterministic/provenance.py",
+      "sha256": "05a4b48e3aed0376f6232455e5819b909aa84bb02e89cd19736fcee560f8c708"
+    },
+    {
+      "bytes": 14675,
+      "path": "engine/deterministic/theory_revision.py",
+      "sha256": "371dfc4ae93e1fb097a66147422f5507c3a9348c535d279b50c7bc9ff00d7d1a"
+    },
+    {
+      "bytes": 4601,
+      "path": "engine/deterministic/trace_view_broker.py",
+      "sha256": "5ac103e178e638a01e3eb2298e80b31f48a05df4aaffefd8086bbd05ac1c54ec"
+    },
+    {
+      "bytes": 8664,
+      "path": "engine/deterministic/world_model.py",
+      "sha256": "637e22697c6de117ef59bb6bd8e34285e6b47f5cf336252134ff97e0d55e64ed"
+    },
+    {
+      "bytes": 1472,
+      "path": "run_adapter_comparison.py",
+      "sha256": "0d4396d8f2849ca36c2329ce0bdccf05dbff04755c4c929a811d6ca2bf0293e4"
+    },
+    {
+      "bytes": 1525,
+      "path": "run_b_environment_world_model.py",
+      "sha256": "46b74bdb070cd7507b45f82d26c4a7778fc098a373e5f809029f8f8e74d14d0c"
+    },
+    {
+      "bytes": 2001,
+      "path": "run_b_language_exact_adapter.py",
+      "sha256": "a225f2019d686ab190a2ac448b194cc0a1cf8c69c803d2692a5a4269e75f7185"
+    },
+    {
+      "bytes": 1443,
+      "path": "run_b_world_model.py",
+      "sha256": "3e7825524555a84de7731996d4d4206e028010fdb3d5cac5b9cb3275d48780fa"
+    },
+    {
+      "bytes": 2431,
+      "path": "run_change_graph_benchmark.py",
+      "sha256": "d6e5baefa40d183b87c8e73af696974bc96d5141b2340d5ef71670b1f0686277"
+    },
+    {
+      "bytes": 2321,
+      "path": "run_cognitive_map_benchmark.py",
+      "sha256": "24739d64adc97931d4cfdd66db474e6defcd6ea9aac688f835de6388d3f2c68a"
+    },
+    {
+      "bytes": 2423,
+      "path": "run_counterfactual_benchmark.py",
+      "sha256": "2ff56e6f550a953deda330404b3a94f4f34a22e208d8644ac8c8633c9993aca9"
+    },
+    {
+      "bytes": 3811,
+      "path": "run_experiment_proposal.py",
+      "sha256": "8eba484a0d81c0141f58b820dc4cd99a21fe9bae16e664762a899a400758e69f"
+    },
+    {
+      "bytes": 2232,
+      "path": "run_hypothesis_set_benchmark.py",
+      "sha256": "411124ab5bfbeeca819079dd425b59e322f5452cb5c6cdb61f9cd2a57b6abac7"
+    },
+    {
+      "bytes": 1996,
+      "path": "run_impact_scope_benchmark.py",
+      "sha256": "1111f13a416f2d4cfffa2e7ce293ca6f50d1bd369c05cfd6ef689d73d0eeb378"
+    },
+    {
+      "bytes": 1802,
+      "path": "run_private_ab_trace.py",
+      "sha256": "33ab30c08f4754c784bde9c7b58c5eee043b0d3f0b6637e0660eeb57121347cb"
+    },
+    {
+      "bytes": 5043,
+      "path": "run_theory_revision_campaign.py",
+      "sha256": "37503c3e453c254495bddf6727cb93f426beab1ec0e0223b703ef20336e1c3d7"
+    },
+    {
+      "bytes": 6609,
+      "path": "schemas/b_language_boundary_v1.schema.json",
+      "sha256": "c1c80444012a44d007c0b6bed6f36bb9226e74e0400bb5ecba2fc18d4e045e88"
+    },
+    {
+      "bytes": 2362,
+      "path": "tests/test_deterministic_adapter_comparison.py",
+      "sha256": "47c0704243251f65b2eb9c570c9b8b8e0c5baac3cd14a73bbaaac1287cfd431c"
+    },
+    {
+      "bytes": 5966,
+      "path": "tests/test_deterministic_b_language.py",
+      "sha256": "f676d0665ce5d4b2fb6ea9e3760fe74b2e505869268c5d75acbdbbe8ed5f764a"
+    },
+    {
+      "bytes": 5361,
+      "path": "tests/test_deterministic_change_graph.py",
+      "sha256": "ae338ad09cf02e2202eb7085a39e7e1fc4845c53015862ef6f4f337ed5e69922"
+    },
+    {
+      "bytes": 5079,
+      "path": "tests/test_deterministic_cognitive_map.py",
+      "sha256": "2251e005712b8b36a59099bd0a3cdd39e13f9d5c6bea9fd76fff20d456e19956"
+    },
+    {
+      "bytes": 4648,
+      "path": "tests/test_deterministic_counterfactual.py",
+      "sha256": "80d45126db8a172c958f916b955673b51ac57bb845169e7b189f8a493aaabb8c"
+    },
+    {
+      "bytes": 4602,
+      "path": "tests/test_deterministic_environment_world_model.py",
+      "sha256": "d43d33b5ef8b8f9b5d4f63e61eeffd6ea9997207ab3be9eb62fefff80e09c372"
+    },
+    {
+      "bytes": 5252,
+      "path": "tests/test_deterministic_experiment_proposal.py",
+      "sha256": "cb6a26210fab949723a011dc3bcf0c7764949fca880a7cc0d7e0def6c8174ab3"
+    },
+    {
+      "bytes": 5782,
+      "path": "tests/test_deterministic_hypotheses.py",
+      "sha256": "b2036b8dda9992806fcc8488e290a30a83e6619f0783b5b4bbf2d4b5d529960e"
+    },
+    {
+      "bytes": 3754,
+      "path": "tests/test_deterministic_impact_scope.py",
+      "sha256": "056d8d75000c5cc45ac3d90f146777d364cb87407305ca0cdc2338720a83c6ed"
+    },
+    {
+      "bytes": 4547,
+      "path": "tests/test_deterministic_provenance.py",
+      "sha256": "aa19d98ab3a74d73fd5695d1152ecefccc452faffe7e46c8bd42972c83f4fe5a"
+    },
+    {
+      "bytes": 5133,
+      "path": "tests/test_deterministic_theory_revision.py",
+      "sha256": "8cb665b93a4a15894bd13096a9803c075f44837c646d50dbab5332e1d22f1a4a"
+    },
+    {
+      "bytes": 3497,
+      "path": "tests/test_deterministic_world_model.py",
+      "sha256": "283287924f42cd69c435d173cb43e00aa45a4e6e16f6b18f56bac7ea408f4555"
+    }
+  ],
+  "format": "llm-handoff-manifest-v1",
+  "lane": "model_neutral_b",
+  "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"
+}

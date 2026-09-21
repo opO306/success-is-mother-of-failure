@@ -1,0 +1,26 @@
+{
+  "format": "deterministic-world-spec-v1",
+  "world_id": "deterministic-collision-smoke-v1",
+  "kernel": {
+    "kind": "hpp-lattice-v1",
+    "deterministic": true,
+    "arithmetic": "integer",
+    "dimensions": 2,
+    "width": 64,
+    "height": 64,
+    "boundary": "wrap",
+    "collision": "head-on-right-angle-v1"
+  },
+  "materials": [
+    {"kind": 0, "mass": 1},
+    {"kind": 1, "mass": 2}
+  ],
+  "initial_particles": [
+    {"kind": 0, "x": 10, "y": 9, "direction": "S"},
+    {"kind": 0, "x": 10, "y": 11, "direction": "N"},
+    {"kind": 1, "x": 30, "y": 30, "direction": "E"},
+    {"kind": 1, "x": 34, "y": 30, "direction": "W"}
+  ],
+  "execution": {"ticks": 128},
+  "observer": {"hash_interval": 16}
+}

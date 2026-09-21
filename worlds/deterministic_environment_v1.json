@@ -1,0 +1,63 @@
+{
+  "format": "deterministic-environment-world-spec-v1",
+  "causal_world": {
+    "format": "deterministic-causal-world-spec-v1",
+    "world_id": "deterministic-local-environment-v1",
+    "kernel": {
+      "width": 32,
+      "height": 32,
+      "boundary": "wrap",
+      "arithmetic": "integer",
+      "deterministic": true,
+      "tick_order": [
+        "break_existing_bonds",
+        "stream_free_particles",
+        "resolve_local_collisions"
+      ]
+    },
+    "materials": [
+      {"kind": 0, "mass": 1, "ports": 4}
+    ],
+    "particles": [
+      {"particle_id": 1, "kind": 0, "x": 9, "y": 10, "direction": "E", "orientation": "E", "kinetic_energy": 2},
+      {"particle_id": 2, "kind": 0, "x": 11, "y": 10, "direction": "W", "orientation": "W", "kinetic_energy": 2}
+    ],
+    "heat": [
+      {"x": 10, "y": 10, "energy": 6}
+    ],
+    "bond_rules": [
+      {
+        "rule_id": "kind0-facing-bond-v1",
+        "event": "local_reversible_bond",
+        "locality": "same_cell",
+        "conserves": ["material", "energy", "momentum"],
+        "left_kind": 0,
+        "right_kind": 0,
+        "left_orientation": "E",
+        "right_orientation": "W",
+        "minimum_collision_energy": 4,
+        "break_heat": 2,
+        "release_left": "W",
+        "release_right": "E"
+      }
+    ],
+    "execution": {"ticks": 8},
+    "observer": {"hash_interval": 1}
+  },
+  "solute_kinds": 2,
+  "cells": [
+    {"x": 4, "y": 4, "elevation": 2, "water": 6, "mineral": 5, "solutes": [4, 0]},
+    {"x": 5, "y": 4, "elevation": 0, "water": 2, "mineral": 0, "solutes": [0, 4]},
+    {"x": 20, "y": 20, "elevation": 0, "water": 4, "mineral": 7, "solutes": [2, 2]},
+    {"x": 21, "y": 20, "elevation": 0, "water": 4, "mineral": 0, "solutes": [0, 0]}
+  ],
+  "blocked_edges": [
+    {"first": [20, 20], "second": [21, 20]}
+  ],
+  "law": {
+    "max_heat_transfer": 1,
+    "max_water_transfer": 1,
+    "max_solute_transfer": 1,
+    "phase_order": ["horizontal_even", "horizontal_odd", "vertical_even", "vertical_odd"]
+  }
+}

@@ -1,0 +1,377 @@
+<title>단양 원시 세계 재생기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --ground: #eceee7;
+  --panel: #f7f8f3;
+  --ink: #1d2620;
+  --muted: #5f6b62;
+  --line: #c9cfc4;
+  --road: #b3bbae;
+  --water: #2c6e9b;
+  --fire: #d45f25;
+  --forest: #4f7a55;
+  --meadow: #b9a75a;
+  --foot: #8a7458;
+  --hill: #8b8f8a;
+  --river: #3d7fae;
+  --site: #2b2b2b;
+  --camp-a: #b23a48;
+  --camp-b: #3f6fb5;
+  --camp-c: #6a8f2f;
+  --act-drink: #2c6e9b;
+  --act-food: #5b8c3a;
+  --act-sleep: #33384a;
+  --act-move: #d08a2e;
+  --act-work: #9a7fb5;
+  --act-other: #aab1a6;
+  --focus: #d45f25;
+  --bar-bg: #dfe3da;
+  --danger: #b23a48;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --sans: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141916; --panel: #1b211d; --ink: #e2e8e1; --muted: #9aa69c; --line: #313a34; --road: #3d4740;
+    --water: #5a9fcf; --fire: #f07a3c; --forest: #5f8f66; --meadow: #b8a764; --foot: #9a8466; --hill: #7d827d;
+    --river: #5a9fcf; --site: #e2e8e1; --camp-a: #e06a78; --camp-b: #6d9be0; --camp-c: #98bf5a;
+    --act-drink: #5a9fcf; --act-food: #7fb35a; --act-sleep: #59607a; --act-move: #e3a14a; --act-work: #b39ad0;
+    --act-other: #5a635c; --focus: #f07a3c; --bar-bg: #2a322d; --danger: #e06a78;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #141916; --panel: #1b211d; --ink: #e2e8e1; --muted: #9aa69c; --line: #313a34; --road: #3d4740;
+  --water: #5a9fcf; --fire: #f07a3c; --forest: #5f8f66; --meadow: #b8a764; --foot: #9a8466; --hill: #7d827d;
+  --river: #5a9fcf; --site: #e2e8e1; --camp-a: #e06a78; --camp-b: #6d9be0; --camp-c: #98bf5a;
+  --act-drink: #5a9fcf; --act-food: #7fb35a; --act-sleep: #59607a; --act-move: #e3a14a; --act-work: #b39ad0;
+  --act-other: #5a635c; --focus: #f07a3c; --bar-bg: #2a322d; --danger: #e06a78;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 18px 40px; display: grid; gap: 14px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+h1 { font-size: 20px; margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+.meta { color: var(--muted); font-size: 13px; }
+.meta b { color: var(--ink); font-weight: 500; font-family: var(--mono); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px; }
+button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px;
+  cursor: pointer; min-width: 36px; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, input:focus-visible, select:focus-visible, canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+#play { min-width: 64px; font-weight: 500; }
+input[type=range] { flex: 1 1 220px; accent-color: var(--focus); }
+select { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; }
+.clock { font-family: var(--mono); font-size: 13px; display: flex; gap: 12px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.clock span { white-space: nowrap; }
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+@media (max-width: 860px) { .main { grid-template-columns: 1fr; } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }
+.card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 8px; font-weight: 500; }
+#map { width: 100%; aspect-ratio: 1 / 1; max-width: 100%; display: block; cursor: pointer; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+.who { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.who strong { font-size: 18px; }
+.state { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--line); white-space: nowrap; }
+.state.dead { color: var(--danger); border-color: var(--danger); }
+.state.asleep { color: var(--act-sleep); border-color: var(--act-sleep); }
+.rows { display: grid; gap: 5px; }
+.row { display: grid; grid-template-columns: 64px 1fr 42px; align-items: center; gap: 8px; font-size: 13px; }
+.row .num { font-family: var(--mono); text-align: right; font-variant-numeric: tabular-nums; font-size: 12px; }
+.track { height: 8px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; }
+.fill { height: 100%; background: var(--muted); border-radius: 4px; }
+.fill.hot { background: var(--danger); }
+.choice { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.choice .act { font-weight: 700; }
+.fail { color: var(--danger); font-size: 12px; margin-left: 6px; }
+.note { color: var(--muted); font-size: 12px; margin-top: 6px; }
+#timeline-box { overflow-x: auto; }
+#timeline { display: block; cursor: pointer; }
+.deaths { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.deaths button { font-size: 12px; padding: 2px 8px; }
+.explain { color: var(--muted); font-size: 13px; max-width: 70ch; margin: 0; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>단양 원시 세계 재생기</h1>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="bar">
+    <button id="play" type="button">재생</button>
+    <button id="back" type="button" aria-label="한 칸 뒤로">◀</button>
+    <button id="next" type="button" aria-label="한 칸 앞으로">▶</button>
+    <label class="meta" for="speed">빠르기</label>
+    <select id="speed"><option value="1">1×</option><option value="3" selected>3×</option><option value="8">8×</option></select>
+    <input id="scrub" type="range" min="0" value="0" aria-label="시각">
+    <div class="clock" id="clock"></div>
+  </div>
+
+  <div class="main">
+    <div class="card">
+      <h2>땅 · 사람 · 짐승</h2>
+      <canvas id="map" tabindex="0" aria-label="단양 지도 위의 사람과 짐승"></canvas>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="card" id="inspector">
+      <h2>안에서 본 한 사람</h2>
+      <div id="person"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>세계선 — 시간을 옆으로 펼친 삶</h2>
+    <p class="explain">가로가 시간(한 칸 = 4시간), 세로가 사람이에요. 안에 사는 사람은 지금 이 순간만 겪지만, 밖에서는 삶 전체가 한 번에 보여요. 칸을 누르면 그 순간으로 가요.</p>
+    <div id="timeline-box"><canvas id="timeline" aria-label="사람별 행동 시간표"></canvas></div>
+    <div class="legend" id="act-legend"></div>
+    <div class="deaths" id="deaths"></div>
+  </div>
+</div>
+
+<script id="replay-data" type="application/json">__REPLAY_DATA__</script>
+<script>
+(() => {
+  const data = JSON.parse(document.getElementById("replay-data").textContent);
+  const H = data.head, F = data.frames, P = H.places, OPS = H.ops, FIELDS = H.person_fields;
+  const col = Object.fromEntries(FIELDS.map((f, i) => [f, i]));
+  const SLOT_KO = { "새벽": "새벽", "아침": "아침", "낮": "낮", "오후": "오후", "저녁": "저녁", "밤": "밤" };
+  const OP_KO = { wait: "기다리기", rest: "쉬기", sleep: "자기", train: "단련", guard: "지키기", go: "가기", flee: "도망",
+    gather: "채집", pick: "줍기", drink: "마시기", eat: "먹기", fill: "물 담기", drop: "내려놓기", heat: "데우기", soak: "적시기",
+    dry: "말리기", fire: "불 피우기", build: "짓기", plant: "심기", fish: "물고기 잡기", hunt: "사냥", feed: "먹이 주기",
+    strike: "내리치기", grind: "갈기", scrape: "긁기", cut: "자르기", bind: "묶기", mix: "섞기", shape: "빚기", weave: "엮기",
+    give: "주기", follow: "따라가기", attack: "공격", steal: "훔치기", taste: "맛보기", mate: "짝짓기", nurse: "젖 먹이기" };
+  const FELT_KO = { thirst: "목마름", hunger: "배고픔", cold: "추위", sleepy: "졸림", pain: "통증", danger: "위급" };
+  const GROUP = op => op === "drink" || op === "fill" ? "drink"
+    : ["eat", "gather", "pick", "fish", "hunt", "taste", "nurse"].includes(op) ? "food"
+    : op === "sleep" || op === "rest" ? "sleep" : op === "go" || op === "flee" || op === "follow" ? "move"
+    : op === "wait" ? "other" : "work";
+  const GROUP_KO = { drink: "물", food: "먹을 것", sleep: "잠·쉼", move: "이동", work: "일·도구", other: "기다림" };
+  const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const camps = [...new Set(H.people.map(p => p.camp))];
+  const campVar = ["--camp-a", "--camp-b", "--camp-c"];
+  const kindVar = { "숲": "--forest", "초원": "--meadow", "산기슭": "--foot", "언덕": "--hill", "강": "--river" };
+
+  let t = 0, playing = false, selected = 0, timer = null;
+  const $ = id => document.getElementById(id);
+  const scrub = $("scrub");
+  scrub.max = F.length - 1;
+
+  const m = data.meta;
+  $("meta").innerHTML = `뇌 <b>${m.brain}</b> · 세계 <b>${m.seed}</b> · <b>${H.people.length}</b>명 · 산 날 <b>${m.days_lived}</b>일 · 평균 수명 <b>${m.lifespan}</b>일`;
+
+  // ---- map
+  const lats = P.map(p => p.lat), lons = P.map(p => p.lon);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats), minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const kx = Math.cos((minLat + maxLat) / 2 * Math.PI / 180);
+  const spanX = (maxLon - minLon) * kx, spanY = maxLat - minLat, span = Math.max(spanX, spanY);
+  const canvas = $("map"), ctx = canvas.getContext("2d");
+  let S = 600, pad = 40, hits = [];
+  const xy = p => [pad + ((p.lon - minLon) * kx + (span - spanX) / 2) / span * (S - 2 * pad),
+                   pad + ((maxLat - p.lat) + (span - spanY) / 2) / span * (S - 2 * pad)];
+  const index = Object.fromEntries(P.map((p, i) => [p.name, i]));
+
+  function sizeCanvas(c, w, h) {
+    const r = window.devicePixelRatio || 1;
+    c.width = Math.round(w * r); c.height = Math.round(h * r);
+    c.style.height = h + "px";
+    const g = c.getContext("2d"); g.setTransform(r, 0, 0, r, 0, 0); return g;
+  }
+
+  function drawMap() {
+    S = canvas.clientWidth || 600;
+    sizeCanvas(canvas, S, S);
+    pad = Math.max(24, S * 0.06);
+    const f = F[t];
+    ctx.clearRect(0, 0, S, S);
+    ctx.strokeStyle = css("--road"); ctx.lineWidth = 1;
+    for (const [a, b] of H.roads) {
+      const [x1, y1] = xy(P[index[a]]), [x2, y2] = xy(P[index[b]]);
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    }
+    const r = S / 60;
+    P.forEach((p, i) => {
+      const [x, y] = xy(p);
+      const site = !kindVar[p.kind];
+      ctx.fillStyle = css(kindVar[p.kind] || "--site");
+      ctx.globalAlpha = site ? 1 : 0.55;
+      ctx.beginPath();
+      if (site) ctx.rect(x - r * 0.6, y - r * 0.6, r * 1.2, r * 1.2); else ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill(); ctx.globalAlpha = 1;
+      if (p.water) { ctx.strokeStyle = css("--water"); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r + 2.5, 0, Math.PI * 2); ctx.stroke(); }
+      if (site) { ctx.fillStyle = css("--muted"); ctx.font = `${Math.max(10, S / 60)}px ${css("--sans")}`; ctx.fillText(p.name, x + r, y - r); }
+    });
+    for (const pi of f.fires) {
+      const [x, y] = xy(P[pi]);
+      ctx.fillStyle = css("--fire"); ctx.beginPath(); ctx.moveTo(x, y - r * 1.6); ctx.lineTo(x + r * 0.7, y - r * 0.4); ctx.lineTo(x - r * 0.7, y - r * 0.4); ctx.fill();
+    }
+    const herdsAt = {};
+    for (const [s, n, pi] of f.herds) (herdsAt[pi] ||= []).push([s, n]);
+    ctx.font = `${Math.max(9, S / 70)}px ${css("--sans")}`;
+    for (const [pi, list] of Object.entries(herdsAt)) {
+      const [x, y] = xy(P[pi]);
+      const label = list.map(([s, n]) => `${H.species[s]?.[0] ?? "?"}${n}`).join(" ");
+      ctx.fillStyle = css("--muted"); ctx.fillText(label, x - r, y + r * 2.4);
+    }
+    hits = [];
+    const at = {};
+    f.people.forEach((row, j) => (at[row[col.place]] ||= []).push(j));
+    for (const [pi, js] of Object.entries(at)) {
+      const [cx, cy] = xy(P[pi]);
+      js.forEach((j, k) => {
+        const row = f.people[j];
+        const a = (k / Math.max(js.length, 1)) * Math.PI * 2, rr = js.length > 1 ? r * 0.9 : 0;
+        const x = cx + Math.cos(a) * rr, y = cy + Math.sin(a) * rr, pr = Math.max(3.5, S / 130);
+        const color = css(campVar[camps.indexOf(H.people[j].camp)] || "--ink");
+        if (!row[col.alive]) {
+          ctx.strokeStyle = css("--muted"); ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(x - pr, y - pr); ctx.lineTo(x + pr, y + pr); ctx.moveTo(x + pr, y - pr); ctx.lineTo(x - pr, y + pr); ctx.stroke();
+        } else if (row[col.asleep]) {
+          ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, pr, 0, Math.PI * 2); ctx.stroke();
+        } else {
+          ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, pr, 0, Math.PI * 2); ctx.fill();
+        }
+        if (j === selected) { ctx.strokeStyle = css("--focus"); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, pr + 4, 0, Math.PI * 2); ctx.stroke(); }
+        hits.push([x, y, j]);
+      });
+    }
+  }
+
+  // ---- inspector
+  function bar(label, value, max = 1, hot = 0.6) {
+    const share = Math.max(0, Math.min(1, value / max));
+    return `<div class="row"><span>${label}</span><div class="track"><div class="fill${value / max >= hot ? " hot" : ""}" style="width:${share * 100}%"></div></div><span class="num">${(+value).toFixed(2)}</span></div>`;
+  }
+  function drawPerson() {
+    const f = F[t], row = f.people[selected], who = H.people[selected];
+    const death = data.deaths.find(d => d.person === who.name && (d.day < f.day || (d.day === f.day && d.slot <= f.slot)));
+    const state = !row[col.alive] ? `<span class="state dead">죽음</span>` : row[col.asleep] ? `<span class="state asleep">잠듦</span>` : `<span class="state">깨어 있음</span>`;
+    let html = `<div class="who"><strong>${who.name}</strong>${state}</div><div class="note">${who.camp} 무리 · 지금 ${P[row[col.place]].name}${P[row[col.place]].water ? " (물 있음)" : ""}</div>`;
+    if (death) html += `<div class="note" style="color:var(--danger)">${death.day}일 ${H.slots[death.slot]}: ${death.cause}</div>`;
+    html += `<div class="rows" style="margin-top:10px">` + H.felt.map(k => bar(FELT_KO[k], row[col[k]])).join("")
+      + bar("몸 상태", row[col.health], 100, 2) + bar("겁", row[col.fear]) + bar("아드레날린", row[col.adrenaline])
+      + bar("지방(일)", row[col.fat], 20, 2) + (col.sleep_debt !== undefined ? bar("잠 빚(칸)", row[col.sleep_debt], 8, 1) : "") + `</div>`;
+    const op = row[col.op];
+    html += `<div class="choice">`;
+    if (op === null) {
+      html += `<div class="note">${!row[col.alive] ? "더 이상 고르지 않아요." : row[col.asleep] ? "몸이 잠들어 이번 칸에는 아무것도 고르지 않았어요." : "하던 일을 이어가는 중이라 묻지 않았어요."}</div>`;
+    } else {
+      html += `<div>고른 행동 <span class="act">${OP_KO[OPS[op]] ?? OPS[op]}</span>${row[col.target] ? ` → ${row[col.target]}` : ""}${row[col.ok] ? "" : `<span class="fail">안 됨</span>`}</div>`;
+      html += `<div class="rows" style="margin-top:8px">` + row[col.top].map(([o, p]) => bar(OP_KO[OPS[o]] ?? OPS[o], p, 1, 2)).join("") + `</div>`;
+      html += `<div class="note">떠올린 행동 가운데 확률이 높은 다섯 개예요.</div>`;
+      const areas = col.areas !== undefined ? row[col.areas] : null;
+      if (areas) {
+        const AREA_KO = { hypothalamus: "시상하부 (몸)", amygdala: "편도체 (위협)", hippocampus: "해마 (장소)", social: "사회" };
+        const most = Math.max(0.5, ...Object.values(areas).map(Math.abs));
+        html += `<div class="rows" style="margin-top:10px">` + Object.entries(areas).map(([k, v]) =>
+          `<div class="row"><span>${AREA_KO[k] ?? k}</span><div class="track"><div class="fill${v < 0 ? " hot" : ""}" style="width:${Math.abs(v) / most * 100}%"></div></div><span class="num">${v.toFixed(2)}</span></div>`).join("") + `</div>`;
+        html += `<div class="note">이 행동에 각 구역이 던진 표예요 (빨강은 반대표).</div>`;
+      }
+    }
+    html += `</div>`;
+    $("person").innerHTML = html;
+  }
+
+  // ---- timeline (the world lines)
+  const tl = $("timeline"), tctx = tl.getContext("2d");
+  const rowH = 14, labelW = 44;
+  let cellW = 6;
+  function drawTimeline() {
+    const box = $("timeline-box").clientWidth || 800;
+    cellW = Math.max(3, Math.min(14, (box - labelW) / F.length));
+    const w = labelW + cellW * F.length, h = rowH * H.people.length + 18;
+    sizeCanvas(tl, w, h); tl.style.width = w + "px";
+    tctx.clearRect(0, 0, w, h);
+    tctx.font = `11px ${css("--mono")}`;
+    const colors = Object.fromEntries(Object.keys(GROUP_KO).map(g => [g, css("--act-" + g)]));
+    H.people.forEach((p, j) => {
+      const y = j * rowH;
+      tctx.fillStyle = j === selected ? css("--focus") : css("--muted");
+      tctx.fillText(p.name, 2, y + 11);
+      F.forEach((f, i) => {
+        const row = f.people[j];
+        if (!row[col.alive]) return;
+        const x = labelW + i * cellW;
+        tctx.fillStyle = row[col.asleep] ? colors.sleep : row[col.op] === null ? colors.other : colors[GROUP(OPS[row[col.op]])];
+        tctx.globalAlpha = row[col.op] === null && !row[col.asleep] ? 0.45 : 1;
+        tctx.fillRect(x, y + 2, Math.max(1, cellW - 0.5), rowH - 4);
+        tctx.globalAlpha = 1;
+        if (row[col.thirst] >= 0.99) { tctx.fillStyle = css("--danger"); tctx.fillRect(x, y + rowH - 3, Math.max(1, cellW - 0.5), 2); }
+      });
+    });
+    const days = H.people.length * rowH + 12;
+    tctx.fillStyle = css("--muted");
+    F.forEach((f, i) => { if (f.slot === 0 && (f.day % 5 === 0)) tctx.fillText(`${f.day}일`, labelW + i * cellW, days + 4); });
+    tctx.strokeStyle = css("--focus"); tctx.lineWidth = 2;
+    const cx = labelW + t * cellW + cellW / 2;
+    tctx.beginPath(); tctx.moveTo(cx, 0); tctx.lineTo(cx, H.people.length * rowH); tctx.stroke();
+  }
+
+  function drawClock() {
+    const f = F[t];
+    $("clock").innerHTML = `<span>${f.day}일 ${SLOT_KO[H.slots[f.slot]] ?? H.slots[f.slot]}</span><span>${f.season}</span><span>${f.temp.toFixed(1)}°C</span><span>${f.rain ? "비" : "맑음"}</span><span>햇빛 ${Math.round(f.sun * 100)}%</span><span>살아 있음 ${f.people.filter(r => r[col.alive]).length}명</span>`;
+  }
+
+  function render() { scrub.value = t; drawClock(); drawMap(); drawPerson(); drawTimeline(); }
+
+  // ---- legends and deaths
+  $("legend").innerHTML = camps.map((c, i) => `<span><i style="background:var(${campVar[i]})"></i>${c}</span>`).join("")
+    + `<span>속 빈 원 = 잠듦 · ✕ = 죽음 · 파란 테 = 물 · 삼각형 = 불</span><span>짐승: 이름 첫 글자 + 마릿수</span>`;
+  $("act-legend").innerHTML = Object.entries(GROUP_KO).map(([g, k]) => `<span><i style="background:var(--act-${g})"></i>${k}</span>`).join("")
+    + `<span><i style="background:var(--danger);border-radius:0;height:3px"></i>목마름 최고</span>`;
+  $("deaths").innerHTML = data.deaths.map((d, k) => `<button type="button" data-k="${k}">${d.person} · ${d.day}일 · ${d.cause}</button>`).join("");
+  $("deaths").addEventListener("click", e => {
+    const k = e.target.closest("button")?.dataset.k; if (k === undefined) return;
+    const d = data.deaths[k];
+    selected = H.people.findIndex(p => p.name === d.person);
+    const i = F.findIndex(f => f.day === d.day && f.slot === d.slot);
+    t = Math.max(0, (i < 0 ? F.length - 1 : i) - 30); render();
+  });
+
+  // ---- controls
+  function step(dt) { t = Math.max(0, Math.min(F.length - 1, t + dt)); render(); }
+  function play(on) {
+    playing = on; $("play").textContent = on ? "멈춤" : "재생";
+    clearInterval(timer);
+    if (on) timer = setInterval(() => { if (t >= F.length - 1) return play(false); step(1); }, 700 / +$("speed").value);
+  }
+  $("play").onclick = () => play(!playing);
+  $("back").onclick = () => { play(false); step(-1); };
+  $("next").onclick = () => { play(false); step(1); };
+  $("speed").onchange = () => playing && play(true);
+  scrub.oninput = () => { t = +scrub.value; render(); };
+  canvas.addEventListener("click", e => {
+    const b = canvas.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+    let best = null, bd = 18 * 18;
+    for (const [hx, hy, j] of hits) { const d = (hx - x) ** 2 + (hy - y) ** 2; if (d < bd) { bd = d; best = j; } }
+    if (best !== null) { selected = best; render(); }
+  });
+  tl.addEventListener("click", e => {
+    const b = tl.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+    const j = Math.floor(y / rowH), i = Math.floor((x - labelW) / cellW);
+    if (j >= 0 && j < H.people.length) selected = j;
+    if (i >= 0 && i < F.length) t = i;
+    render();
+  });
+  document.addEventListener("keydown", e => {
+    if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
+    if (e.key === " ") { e.preventDefault(); play(!playing); }
+    if (e.key === "ArrowRight") step(1);
+    if (e.key === "ArrowLeft") step(-1);
+  });
+  window.addEventListener("resize", render);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", render);
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+  const firstDeath = data.deaths[0];
+  if (firstDeath) {
+    selected = H.people.findIndex(p => p.name === firstDeath.person);
+    const i = F.findIndex(f => f.day === firstDeath.day && f.slot === firstDeath.slot);
+    t = Math.max(0, (i < 0 ? F.length - 1 : i) - 60);
+  }
+  render();
+})();
+</script>

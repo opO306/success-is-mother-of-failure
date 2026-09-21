@@ -1,0 +1,60 @@
+{
+  "format": "deterministic-causal-world-spec-v1",
+  "world_id": "local-energy-bond-cycle-v1",
+  "kernel": {
+    "width": 32,
+    "height": 32,
+    "boundary": "wrap",
+    "arithmetic": "integer",
+    "deterministic": true,
+    "tick_order": [
+      "break_existing_bonds",
+      "stream_free_particles",
+      "resolve_local_collisions"
+    ]
+  },
+  "materials": [
+    {"kind": 0, "mass": 1, "ports": 4}
+  ],
+  "particles": [
+    {
+      "particle_id": 1,
+      "kind": 0,
+      "x": 9,
+      "y": 10,
+      "direction": "E",
+      "orientation": "E",
+      "kinetic_energy": 2
+    },
+    {
+      "particle_id": 2,
+      "kind": 0,
+      "x": 11,
+      "y": 10,
+      "direction": "W",
+      "orientation": "W",
+      "kinetic_energy": 2
+    }
+  ],
+  "heat": [
+    {"x": 10, "y": 10, "energy": 2}
+  ],
+  "bond_rules": [
+    {
+      "rule_id": "kind0-facing-bond-v1",
+      "event": "local_reversible_bond",
+      "locality": "same_cell",
+      "conserves": ["material", "energy", "momentum"],
+      "left_kind": 0,
+      "right_kind": 0,
+      "left_orientation": "E",
+      "right_orientation": "W",
+      "minimum_collision_energy": 4,
+      "break_heat": 2,
+      "release_left": "W",
+      "release_right": "E"
+    }
+  ],
+  "execution": {"ticks": 4},
+  "observer": {"hash_interval": 1}
+}

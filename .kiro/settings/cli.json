@@ -1,0 +1,22 @@
+{
+  "toolSearch.enabled": true,
+  "toolSearch.minPct": 5,
+  "toolSearch.minTokens": 50000,
+  "chat.modelDefaults": {
+    "gpt-5.6-terra": {
+      "reasoning": {
+        "effort": "medium"
+      }
+    },
+    "gpt-5.6-sol": {
+      "reasoning": {
+        "effort": "high"
+      }
+    },
+    "claude-opus-4.8": {
+      "output_config": {
+        "effort": "high"
+      }
+    }
+  }
+}

@@ -1,0 +1,10771 @@
+{
+ "region": [
+  36.45,
+  37.65,
+  128.0,
+  129.0
+ ],
+ "cell_km": 6.0,
+ "slot_hours": 4.0,
+ "lake_level": null,
+ "places": [
+  {
+   "name": "0-0 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 0,
+   "lat": 37.62273,
+   "lon": 128.03333,
+   "elevation": 348.5,
+   "slope": 19.6,
+   "catchment_km2": 31.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-1 산기슭",
+   "kind": "산기슭",
+   "row": 0,
+   "col": 1,
+   "lat": 37.62273,
+   "lon": 128.1,
+   "elevation": 494.3,
+   "slope": 25.7,
+   "catchment_km2": 20.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-2 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 2,
+   "lat": 37.62273,
+   "lon": 128.16667,
+   "elevation": 428.1,
+   "slope": 20.0,
+   "catchment_km2": 50.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-3 산기슭",
+   "kind": "산기슭",
+   "row": 0,
+   "col": 3,
+   "lat": 37.62273,
+   "lon": 128.23333,
+   "elevation": 707.7,
+   "slope": 26.6,
+   "catchment_km2": 9.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-4 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 4,
+   "lat": 37.62273,
+   "lon": 128.3,
+   "elevation": 887.1,
+   "slope": 20.9,
+   "catchment_km2": 17.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-5 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 5,
+   "lat": 37.62273,
+   "lon": 128.36667,
+   "elevation": 661.7,
+   "slope": 14.7,
+   "catchment_km2": 49.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-6 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 6,
+   "lat": 37.62273,
+   "lon": 128.43333,
+   "elevation": 715.8,
+   "slope": 17.1,
+   "catchment_km2": 50.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-7 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 7,
+   "lat": 37.62273,
+   "lon": 128.5,
+   "elevation": 719.0,
+   "slope": 16.3,
+   "catchment_km2": 17.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-8 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 8,
+   "lat": 37.62273,
+   "lon": 128.56667,
+   "elevation": 656.1,
+   "slope": 17.0,
+   "catchment_km2": 29.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-9 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 9,
+   "lat": 37.62273,
+   "lon": 128.63333,
+   "elevation": 944.5,
+   "slope": 21.5,
+   "catchment_km2": 10.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-10 산기슭",
+   "kind": "산기슭",
+   "row": 0,
+   "col": 10,
+   "lat": 37.62273,
+   "lon": 128.7,
+   "elevation": 913.8,
+   "slope": 23.1,
+   "catchment_km2": 27.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-11 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 11,
+   "lat": 37.62273,
+   "lon": 128.76667,
+   "elevation": 810.7,
+   "slope": 18.8,
+   "catchment_km2": 13.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-12 숲",
+   "kind": "숲",
+   "row": 0,
+   "col": 12,
+   "lat": 37.62273,
+   "lon": 128.83333,
+   "elevation": 611.4,
+   "slope": 19.9,
+   "catchment_km2": 38.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-13 산기슭",
+   "kind": "산기슭",
+   "row": 0,
+   "col": 13,
+   "lat": 37.62273,
+   "lon": 128.9,
+   "elevation": 585.7,
+   "slope": 27.4,
+   "catchment_km2": 10.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "0-14 산기슭",
+   "kind": "산기슭",
+   "row": 0,
+   "col": 14,
+   "lat": 37.62273,
+   "lon": 128.96667,
+   "elevation": 299.2,
+   "slope": 24.8,
+   "catchment_km2": 27.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-0 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 0,
+   "lat": 37.56818,
+   "lon": 128.03333,
+   "elevation": 261.3,
+   "slope": 17.5,
+   "catchment_km2": 255.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-1 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 1,
+   "lat": 37.56818,
+   "lon": 128.1,
+   "elevation": 336.7,
+   "slope": 18.5,
+   "catchment_km2": 185.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-2 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 2,
+   "lat": 37.56818,
+   "lon": 128.16667,
+   "elevation": 338.0,
+   "slope": 15.3,
+   "catchment_km2": 81.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-3 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 3,
+   "lat": 37.56818,
+   "lon": 128.23333,
+   "elevation": 562.4,
+   "slope": 15.7,
+   "catchment_km2": 31.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-4 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 4,
+   "lat": 37.56818,
+   "lon": 128.3,
+   "elevation": 810.5,
+   "slope": 16.2,
+   "catchment_km2": 10.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-5 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 5,
+   "lat": 37.56818,
+   "lon": 128.36667,
+   "elevation": 668.5,
+   "slope": 16.9,
+   "catchment_km2": 188.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-6 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 6,
+   "lat": 37.56818,
+   "lon": 128.43333,
+   "elevation": 696.6,
+   "slope": 17.9,
+   "catchment_km2": 136.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-7 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 7,
+   "lat": 37.56818,
+   "lon": 128.5,
+   "elevation": 831.1,
+   "slope": 23.0,
+   "catchment_km2": 14.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-8 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 8,
+   "lat": 37.56818,
+   "lon": 128.56667,
+   "elevation": 756.2,
+   "slope": 25.7,
+   "catchment_km2": 106.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-9 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 9,
+   "lat": 37.56818,
+   "lon": 128.63333,
+   "elevation": 926.5,
+   "slope": 27.6,
+   "catchment_km2": 16.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-10 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 10,
+   "lat": 37.56818,
+   "lon": 128.7,
+   "elevation": 780.7,
+   "slope": 27.8,
+   "catchment_km2": 121.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-11 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 11,
+   "lat": 37.56818,
+   "lon": 128.76667,
+   "elevation": 818.9,
+   "slope": 20.0,
+   "catchment_km2": 99.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-12 숲",
+   "kind": "숲",
+   "row": 1,
+   "col": 12,
+   "lat": 37.56818,
+   "lon": 128.83333,
+   "elevation": 777.4,
+   "slope": 14.4,
+   "catchment_km2": 14.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-13 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 13,
+   "lat": 37.56818,
+   "lon": 128.9,
+   "elevation": 660.3,
+   "slope": 22.3,
+   "catchment_km2": 11.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "1-14 산기슭",
+   "kind": "산기슭",
+   "row": 1,
+   "col": 14,
+   "lat": 37.56818,
+   "lon": 128.96667,
+   "elevation": 329.0,
+   "slope": 24.4,
+   "catchment_km2": 58.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-0 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 0,
+   "lat": 37.51364,
+   "lon": 128.03333,
+   "elevation": 216.9,
+   "slope": 12.1,
+   "catchment_km2": 263.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-1 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 1,
+   "lat": 37.51364,
+   "lon": 128.1,
+   "elevation": 302.0,
+   "slope": 15.8,
+   "catchment_km2": 173.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-2 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 2,
+   "lat": 37.51364,
+   "lon": 128.16667,
+   "elevation": 506.9,
+   "slope": 14.2,
+   "catchment_km2": 16.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-3 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 3,
+   "lat": 37.51364,
+   "lon": 128.23333,
+   "elevation": 586.6,
+   "slope": 12.6,
+   "catchment_km2": 85.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-4 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 4,
+   "lat": 37.51364,
+   "lon": 128.3,
+   "elevation": 852.8,
+   "slope": 18.3,
+   "catchment_km2": 9.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-5 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 5,
+   "lat": 37.51364,
+   "lon": 128.36667,
+   "elevation": 692.5,
+   "slope": 22.0,
+   "catchment_km2": 243.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-6 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 6,
+   "lat": 37.51364,
+   "lon": 128.43333,
+   "elevation": 684.8,
+   "slope": 21.6,
+   "catchment_km2": 72.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-7 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 7,
+   "lat": 37.51364,
+   "lon": 128.5,
+   "elevation": 901.3,
+   "slope": 24.7,
+   "catchment_km2": 15.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-8 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 8,
+   "lat": 37.51364,
+   "lon": 128.56667,
+   "elevation": 727.0,
+   "slope": 28.9,
+   "catchment_km2": 191.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-9 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 9,
+   "lat": 37.51364,
+   "lon": 128.63333,
+   "elevation": 939.6,
+   "slope": 27.4,
+   "catchment_km2": 12.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-10 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 10,
+   "lat": 37.51364,
+   "lon": 128.7,
+   "elevation": 783.5,
+   "slope": 27.5,
+   "catchment_km2": 225.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-11 산기슭",
+   "kind": "산기슭",
+   "row": 2,
+   "col": 11,
+   "lat": 37.51364,
+   "lon": 128.76667,
+   "elevation": 771.2,
+   "slope": 24.1,
+   "catchment_km2": 131.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-12 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 12,
+   "lat": 37.51364,
+   "lon": 128.83333,
+   "elevation": 677.9,
+   "slope": 17.2,
+   "catchment_km2": 160.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-13 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 13,
+   "lat": 37.51364,
+   "lon": 128.9,
+   "elevation": 661.2,
+   "slope": 17.7,
+   "catchment_km2": 138.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "2-14 숲",
+   "kind": "숲",
+   "row": 2,
+   "col": 14,
+   "lat": 37.51364,
+   "lon": 128.96667,
+   "elevation": 688.8,
+   "slope": 21.5,
+   "catchment_km2": 25.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-0 초원",
+   "kind": "초원",
+   "row": 3,
+   "col": 0,
+   "lat": 37.45909,
+   "lon": 128.03333,
+   "elevation": 226.4,
+   "slope": 11.3,
+   "catchment_km2": 166.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-1 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 1,
+   "lat": 37.45909,
+   "lon": 128.1,
+   "elevation": 358.9,
+   "slope": 15.7,
+   "catchment_km2": 42.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-2 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 2,
+   "lat": 37.45909,
+   "lon": 128.16667,
+   "elevation": 533.6,
+   "slope": 13.8,
+   "catchment_km2": 130.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-3 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 3,
+   "lat": 37.45909,
+   "lon": 128.23333,
+   "elevation": 723.6,
+   "slope": 19.2,
+   "catchment_km2": 112.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-4 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 4,
+   "lat": 37.45909,
+   "lon": 128.3,
+   "elevation": 689.6,
+   "slope": 19.3,
+   "catchment_km2": 65.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-5 산기슭",
+   "kind": "산기슭",
+   "row": 3,
+   "col": 5,
+   "lat": 37.45909,
+   "lon": 128.36667,
+   "elevation": 649.4,
+   "slope": 23.1,
+   "catchment_km2": 257.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-6 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 6,
+   "lat": 37.45909,
+   "lon": 128.43333,
+   "elevation": 524.9,
+   "slope": 17.9,
+   "catchment_km2": 396.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-7 산기슭",
+   "kind": "산기슭",
+   "row": 3,
+   "col": 7,
+   "lat": 37.45909,
+   "lon": 128.5,
+   "elevation": 863.0,
+   "slope": 23.2,
+   "catchment_km2": 25.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-8 산기슭",
+   "kind": "산기슭",
+   "row": 3,
+   "col": 8,
+   "lat": 37.45909,
+   "lon": 128.56667,
+   "elevation": 1014.2,
+   "slope": 26.6,
+   "catchment_km2": 200.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-9 산기슭",
+   "kind": "산기슭",
+   "row": 3,
+   "col": 9,
+   "lat": 37.45909,
+   "lon": 128.63333,
+   "elevation": 657.1,
+   "slope": 24.4,
+   "catchment_km2": 809.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-10 강",
+   "kind": "강",
+   "row": 3,
+   "col": 10,
+   "lat": 37.45909,
+   "lon": 128.7,
+   "elevation": 591.4,
+   "slope": 22.0,
+   "catchment_km2": 803.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-11 강",
+   "kind": "강",
+   "row": 3,
+   "col": 11,
+   "lat": 37.45909,
+   "lon": 128.76667,
+   "elevation": 624.4,
+   "slope": 23.1,
+   "catchment_km2": 503.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-12 강",
+   "kind": "강",
+   "row": 3,
+   "col": 12,
+   "lat": 37.45909,
+   "lon": 128.83333,
+   "elevation": 597.1,
+   "slope": 20.4,
+   "catchment_km2": 445.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-13 숲",
+   "kind": "숲",
+   "row": 3,
+   "col": 13,
+   "lat": 37.45909,
+   "lon": 128.9,
+   "elevation": 897.0,
+   "slope": 20.0,
+   "catchment_km2": 19.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "3-14 산기슭",
+   "kind": "산기슭",
+   "row": 3,
+   "col": 14,
+   "lat": 37.45909,
+   "lon": 128.96667,
+   "elevation": 937.4,
+   "slope": 24.3,
+   "catchment_km2": 12.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-0 숲",
+   "kind": "숲",
+   "row": 4,
+   "col": 0,
+   "lat": 37.40455,
+   "lon": 128.03333,
+   "elevation": 414.3,
+   "slope": 19.5,
+   "catchment_km2": 28.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-1 숲",
+   "kind": "숲",
+   "row": 4,
+   "col": 1,
+   "lat": 37.40455,
+   "lon": 128.1,
+   "elevation": 646.8,
+   "slope": 21.8,
+   "catchment_km2": 12.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-2 숲",
+   "kind": "숲",
+   "row": 4,
+   "col": 2,
+   "lat": 37.40455,
+   "lon": 128.16667,
+   "elevation": 537.8,
+   "slope": 17.6,
+   "catchment_km2": 224.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-3 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 3,
+   "lat": 37.40455,
+   "lon": 128.23333,
+   "elevation": 765.7,
+   "slope": 22.6,
+   "catchment_km2": 22.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-4 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 4,
+   "lat": 37.40455,
+   "lon": 128.3,
+   "elevation": 806.7,
+   "slope": 22.8,
+   "catchment_km2": 9.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-5 강",
+   "kind": "강",
+   "row": 4,
+   "col": 5,
+   "lat": 37.40455,
+   "lon": 128.36667,
+   "elevation": 485.6,
+   "slope": 21.1,
+   "catchment_km2": 561.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-6 숲",
+   "kind": "숲",
+   "row": 4,
+   "col": 6,
+   "lat": 37.40455,
+   "lon": 128.43333,
+   "elevation": 597.7,
+   "slope": 21.5,
+   "catchment_km2": 563.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-7 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 7,
+   "lat": 37.40455,
+   "lon": 128.5,
+   "elevation": 857.3,
+   "slope": 23.0,
+   "catchment_km2": 9.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-8 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 8,
+   "lat": 37.40455,
+   "lon": 128.56667,
+   "elevation": 644.1,
+   "slope": 24.7,
+   "catchment_km2": 46.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-9 강",
+   "kind": "강",
+   "row": 4,
+   "col": 9,
+   "lat": 37.40455,
+   "lon": 128.63333,
+   "elevation": 535.2,
+   "slope": 22.7,
+   "catchment_km2": 1414.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-10 강",
+   "kind": "강",
+   "row": 4,
+   "col": 10,
+   "lat": 37.40455,
+   "lon": 128.7,
+   "elevation": 551.7,
+   "slope": 23.7,
+   "catchment_km2": 1085.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-11 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 11,
+   "lat": 37.40455,
+   "lon": 128.76667,
+   "elevation": 728.4,
+   "slope": 25.3,
+   "catchment_km2": 12.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-12 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 12,
+   "lat": 37.40455,
+   "lon": 128.83333,
+   "elevation": 724.1,
+   "slope": 24.1,
+   "catchment_km2": 230.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-13 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 13,
+   "lat": 37.40455,
+   "lon": 128.9,
+   "elevation": 828.0,
+   "slope": 22.8,
+   "catchment_km2": 221.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "4-14 산기슭",
+   "kind": "산기슭",
+   "row": 4,
+   "col": 14,
+   "lat": 37.40455,
+   "lon": 128.96667,
+   "elevation": 944.5,
+   "slope": 23.4,
+   "catchment_km2": 36.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-0 숲",
+   "kind": "숲",
+   "row": 5,
+   "col": 0,
+   "lat": 37.35,
+   "lon": 128.03333,
+   "elevation": 654.3,
+   "slope": 21.3,
+   "catchment_km2": 7.3,
+   "water": null,
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-1 숲",
+   "kind": "숲",
+   "row": 5,
+   "col": 1,
+   "lat": 37.35,
+   "lon": 128.1,
+   "elevation": 628.4,
+   "slope": 18.8,
+   "catchment_km2": 229.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-2 숲",
+   "kind": "숲",
+   "row": 5,
+   "col": 2,
+   "lat": 37.35,
+   "lon": 128.16667,
+   "elevation": 525.0,
+   "slope": 18.9,
+   "catchment_km2": 306.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-3 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 3,
+   "lat": 37.35,
+   "lon": 128.23333,
+   "elevation": 657.2,
+   "slope": 22.9,
+   "catchment_km2": 41.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-4 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 4,
+   "lat": 37.35,
+   "lon": 128.3,
+   "elevation": 567.3,
+   "slope": 23.9,
+   "catchment_km2": 36.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-5 강",
+   "kind": "강",
+   "row": 5,
+   "col": 5,
+   "lat": 37.35,
+   "lon": 128.36667,
+   "elevation": 404.1,
+   "slope": 17.6,
+   "catchment_km2": 664.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-6 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 6,
+   "lat": 37.35,
+   "lon": 128.43333,
+   "elevation": 568.8,
+   "slope": 24.2,
+   "catchment_km2": 610.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-7 숲",
+   "kind": "숲",
+   "row": 5,
+   "col": 7,
+   "lat": 37.35,
+   "lon": 128.5,
+   "elevation": 527.9,
+   "slope": 21.8,
+   "catchment_km2": 63.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-8 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 8,
+   "lat": 37.35,
+   "lon": 128.56667,
+   "elevation": 555.5,
+   "slope": 24.5,
+   "catchment_km2": 14.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-9 강",
+   "kind": "강",
+   "row": 5,
+   "col": 9,
+   "lat": 37.35,
+   "lon": 128.63333,
+   "elevation": 512.7,
+   "slope": 25.0,
+   "catchment_km2": 1451.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-10 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 10,
+   "lat": 37.35,
+   "lon": 128.7,
+   "elevation": 521.0,
+   "slope": 23.5,
+   "catchment_km2": 1086.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-11 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 11,
+   "lat": 37.35,
+   "lon": 128.76667,
+   "elevation": 590.4,
+   "slope": 24.2,
+   "catchment_km2": 160.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-12 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 12,
+   "lat": 37.35,
+   "lon": 128.83333,
+   "elevation": 776.2,
+   "slope": 23.1,
+   "catchment_km2": 112.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-13 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 13,
+   "lat": 37.35,
+   "lon": 128.9,
+   "elevation": 839.1,
+   "slope": 23.0,
+   "catchment_km2": 169.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "5-14 산기슭",
+   "kind": "산기슭",
+   "row": 5,
+   "col": 14,
+   "lat": 37.35,
+   "lon": 128.96667,
+   "elevation": 873.4,
+   "slope": 22.4,
+   "catchment_km2": 96.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-0 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 0,
+   "lat": 37.29545,
+   "lon": 128.03333,
+   "elevation": 673.5,
+   "slope": 24.7,
+   "catchment_km2": 29.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-1 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 1,
+   "lat": 37.29545,
+   "lon": 128.1,
+   "elevation": 711.5,
+   "slope": 22.6,
+   "catchment_km2": 18.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-2 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 2,
+   "lat": 37.29545,
+   "lon": 128.16667,
+   "elevation": 563.2,
+   "slope": 22.2,
+   "catchment_km2": 435.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-3 강",
+   "kind": "강",
+   "row": 6,
+   "col": 3,
+   "lat": 37.29545,
+   "lon": 128.23333,
+   "elevation": 423.3,
+   "slope": 19.3,
+   "catchment_km2": 531.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-4 숲",
+   "kind": "숲",
+   "row": 6,
+   "col": 4,
+   "lat": 37.29545,
+   "lon": 128.3,
+   "elevation": 433.0,
+   "slope": 21.7,
+   "catchment_km2": 710.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-5 강",
+   "kind": "강",
+   "row": 6,
+   "col": 5,
+   "lat": 37.29545,
+   "lon": 128.36667,
+   "elevation": 421.9,
+   "slope": 23.3,
+   "catchment_km2": 714.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-6 숲",
+   "kind": "숲",
+   "row": 6,
+   "col": 6,
+   "lat": 37.29545,
+   "lon": 128.43333,
+   "elevation": 432.3,
+   "slope": 21.5,
+   "catchment_km2": 32.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-7 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 7,
+   "lat": 37.29545,
+   "lon": 128.5,
+   "elevation": 487.2,
+   "slope": 24.5,
+   "catchment_km2": 1871.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-8 강",
+   "kind": "강",
+   "row": 6,
+   "col": 8,
+   "lat": 37.29545,
+   "lon": 128.56667,
+   "elevation": 514.6,
+   "slope": 26.4,
+   "catchment_km2": 1864.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-9 강",
+   "kind": "강",
+   "row": 6,
+   "col": 9,
+   "lat": 37.29545,
+   "lon": 128.63333,
+   "elevation": 506.1,
+   "slope": 25.1,
+   "catchment_km2": 1722.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-10 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 10,
+   "lat": 37.29545,
+   "lon": 128.7,
+   "elevation": 594.9,
+   "slope": 24.9,
+   "catchment_km2": 209.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-11 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 11,
+   "lat": 37.29545,
+   "lon": 128.76667,
+   "elevation": 743.8,
+   "slope": 24.1,
+   "catchment_km2": 166.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-12 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 12,
+   "lat": 37.29545,
+   "lon": 128.83333,
+   "elevation": 771.8,
+   "slope": 23.6,
+   "catchment_km2": 112.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-13 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 13,
+   "lat": 37.29545,
+   "lon": 128.9,
+   "elevation": 876.9,
+   "slope": 24.1,
+   "catchment_km2": 64.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "6-14 산기슭",
+   "kind": "산기슭",
+   "row": 6,
+   "col": 14,
+   "lat": 37.29545,
+   "lon": 128.96667,
+   "elevation": 928.2,
+   "slope": 23.3,
+   "catchment_km2": 64.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-0 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 0,
+   "lat": 37.24091,
+   "lon": 128.03333,
+   "elevation": 561.0,
+   "slope": 20.5,
+   "catchment_km2": 14.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-1 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 1,
+   "lat": 37.24091,
+   "lon": 128.1,
+   "elevation": 519.9,
+   "slope": 18.9,
+   "catchment_km2": 60.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-2 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 2,
+   "lat": 37.24091,
+   "lon": 128.16667,
+   "elevation": 548.4,
+   "slope": 20.0,
+   "catchment_km2": 51.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-3 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 3,
+   "lat": 37.24091,
+   "lon": 128.23333,
+   "elevation": 408.3,
+   "slope": 17.2,
+   "catchment_km2": 532.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-4 강",
+   "kind": "강",
+   "row": 7,
+   "col": 4,
+   "lat": 37.24091,
+   "lon": 128.3,
+   "elevation": 315.5,
+   "slope": 14.7,
+   "catchment_km2": 1363.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-5 강",
+   "kind": "강",
+   "row": 7,
+   "col": 5,
+   "lat": 37.24091,
+   "lon": 128.36667,
+   "elevation": 320.1,
+   "slope": 16.8,
+   "catchment_km2": 1465.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-6 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 6,
+   "lat": 37.24091,
+   "lon": 128.43333,
+   "elevation": 349.8,
+   "slope": 18.9,
+   "catchment_km2": 87.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-7 강",
+   "kind": "강",
+   "row": 7,
+   "col": 7,
+   "lat": 37.24091,
+   "lon": 128.5,
+   "elevation": 428.3,
+   "slope": 22.4,
+   "catchment_km2": 1914.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-8 강",
+   "kind": "강",
+   "row": 7,
+   "col": 8,
+   "lat": 37.24091,
+   "lon": 128.56667,
+   "elevation": 474.5,
+   "slope": 25.6,
+   "catchment_km2": 1895.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-9 산기슭",
+   "kind": "산기슭",
+   "row": 7,
+   "col": 9,
+   "lat": 37.24091,
+   "lon": 128.63333,
+   "elevation": 583.6,
+   "slope": 23.7,
+   "catchment_km2": 1722.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-10 산기슭",
+   "kind": "산기슭",
+   "row": 7,
+   "col": 10,
+   "lat": 37.24091,
+   "lon": 128.7,
+   "elevation": 730.4,
+   "slope": 23.3,
+   "catchment_km2": 27.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-11 산기슭",
+   "kind": "산기슭",
+   "row": 7,
+   "col": 11,
+   "lat": 37.24091,
+   "lon": 128.76667,
+   "elevation": 773.4,
+   "slope": 23.9,
+   "catchment_km2": 150.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-12 산기슭",
+   "kind": "산기슭",
+   "row": 7,
+   "col": 12,
+   "lat": 37.24091,
+   "lon": 128.83333,
+   "elevation": 822.7,
+   "slope": 22.6,
+   "catchment_km2": 74.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-13 산기슭",
+   "kind": "산기슭",
+   "row": 7,
+   "col": 13,
+   "lat": 37.24091,
+   "lon": 128.9,
+   "elevation": 964.8,
+   "slope": 23.0,
+   "catchment_km2": 25.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "7-14 숲",
+   "kind": "숲",
+   "row": 7,
+   "col": 14,
+   "lat": 37.24091,
+   "lon": 128.96667,
+   "elevation": 949.4,
+   "slope": 19.9,
+   "catchment_km2": 40.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-0 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 0,
+   "lat": 37.18636,
+   "lon": 128.03333,
+   "elevation": 525.0,
+   "slope": 19.5,
+   "catchment_km2": 10.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-1 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 1,
+   "lat": 37.18636,
+   "lon": 128.1,
+   "elevation": 400.2,
+   "slope": 17.9,
+   "catchment_km2": 105.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-2 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 2,
+   "lat": 37.18636,
+   "lon": 128.16667,
+   "elevation": 497.5,
+   "slope": 20.0,
+   "catchment_km2": 10.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-3 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 3,
+   "lat": 37.18636,
+   "lon": 128.23333,
+   "elevation": 380.5,
+   "slope": 13.1,
+   "catchment_km2": 18.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-4 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 4,
+   "lat": 37.18636,
+   "lon": 128.3,
+   "elevation": 329.8,
+   "slope": 14.8,
+   "catchment_km2": 51.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-5 강",
+   "kind": "강",
+   "row": 8,
+   "col": 5,
+   "lat": 37.18636,
+   "lon": 128.36667,
+   "elevation": 288.9,
+   "slope": 15.5,
+   "catchment_km2": 1480.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-6 강",
+   "kind": "강",
+   "row": 8,
+   "col": 6,
+   "lat": 37.18636,
+   "lon": 128.43333,
+   "elevation": 275.3,
+   "slope": 15.9,
+   "catchment_km2": 1637.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-7 강",
+   "kind": "강",
+   "row": 8,
+   "col": 7,
+   "lat": 37.18636,
+   "lon": 128.5,
+   "elevation": 373.9,
+   "slope": 21.2,
+   "catchment_km2": 3718.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-8 산기슭",
+   "kind": "산기슭",
+   "row": 8,
+   "col": 8,
+   "lat": 37.18636,
+   "lon": 128.56667,
+   "elevation": 568.4,
+   "slope": 24.8,
+   "catchment_km2": 117.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-9 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 9,
+   "lat": 37.18636,
+   "lon": 128.63333,
+   "elevation": 610.7,
+   "slope": 21.9,
+   "catchment_km2": 80.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-10 산기슭",
+   "kind": "산기슭",
+   "row": 8,
+   "col": 10,
+   "lat": 37.18636,
+   "lon": 128.7,
+   "elevation": 681.3,
+   "slope": 23.3,
+   "catchment_km2": 48.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-11 산기슭",
+   "kind": "산기슭",
+   "row": 8,
+   "col": 11,
+   "lat": 37.18636,
+   "lon": 128.76667,
+   "elevation": 884.3,
+   "slope": 25.8,
+   "catchment_km2": 31.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-12 산기슭",
+   "kind": "산기슭",
+   "row": 8,
+   "col": 12,
+   "lat": 37.18636,
+   "lon": 128.83333,
+   "elevation": 1017.3,
+   "slope": 22.1,
+   "catchment_km2": 44.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-13 산기슭",
+   "kind": "산기슭",
+   "row": 8,
+   "col": 13,
+   "lat": 37.18636,
+   "lon": 128.9,
+   "elevation": 1133.1,
+   "slope": 22.9,
+   "catchment_km2": 26.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "8-14 숲",
+   "kind": "숲",
+   "row": 8,
+   "col": 14,
+   "lat": 37.18636,
+   "lon": 128.96667,
+   "elevation": 881.1,
+   "slope": 19.2,
+   "catchment_km2": 41.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-0 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 0,
+   "lat": 37.13182,
+   "lon": 128.03333,
+   "elevation": 345.7,
+   "slope": 16.2,
+   "catchment_km2": 45.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-1 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 1,
+   "lat": 37.13182,
+   "lon": 128.1,
+   "elevation": 301.3,
+   "slope": 13.8,
+   "catchment_km2": 298.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-2 초원",
+   "kind": "초원",
+   "row": 9,
+   "col": 2,
+   "lat": 37.13182,
+   "lon": 128.16667,
+   "elevation": 289.6,
+   "slope": 11.0,
+   "catchment_km2": 109.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-3 초원",
+   "kind": "초원",
+   "row": 9,
+   "col": 3,
+   "lat": 37.13182,
+   "lon": 128.23333,
+   "elevation": 276.8,
+   "slope": 7.1,
+   "catchment_km2": 52.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-4 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 4,
+   "lat": 37.13182,
+   "lon": 128.3,
+   "elevation": 424.1,
+   "slope": 20.1,
+   "catchment_km2": 14.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-5 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 5,
+   "lat": 37.13182,
+   "lon": 128.36667,
+   "elevation": 394.6,
+   "slope": 18.3,
+   "catchment_km2": 17.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-6 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 6,
+   "lat": 37.13182,
+   "lon": 128.43333,
+   "elevation": 373.1,
+   "slope": 19.3,
+   "catchment_km2": 11.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-7 강",
+   "kind": "강",
+   "row": 9,
+   "col": 7,
+   "lat": 37.13182,
+   "lon": 128.5,
+   "elevation": 468.1,
+   "slope": 24.3,
+   "catchment_km2": 4269.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-8 강",
+   "kind": "강",
+   "row": 9,
+   "col": 8,
+   "lat": 37.13182,
+   "lon": 128.56667,
+   "elevation": 419.3,
+   "slope": 23.8,
+   "catchment_km2": 4261.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-9 강",
+   "kind": "강",
+   "row": 9,
+   "col": 9,
+   "lat": 37.13182,
+   "lon": 128.63333,
+   "elevation": 503.3,
+   "slope": 24.2,
+   "catchment_km2": 462.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-10 산기슭",
+   "kind": "산기슭",
+   "row": 9,
+   "col": 10,
+   "lat": 37.13182,
+   "lon": 128.7,
+   "elevation": 544.8,
+   "slope": 25.5,
+   "catchment_km2": 352.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-11 산기슭",
+   "kind": "산기슭",
+   "row": 9,
+   "col": 11,
+   "lat": 37.13182,
+   "lon": 128.76667,
+   "elevation": 736.5,
+   "slope": 25.6,
+   "catchment_km2": 155.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-12 산기슭",
+   "kind": "산기슭",
+   "row": 9,
+   "col": 12,
+   "lat": 37.13182,
+   "lon": 128.83333,
+   "elevation": 813.3,
+   "slope": 26.9,
+   "catchment_km2": 107.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-13 산기슭",
+   "kind": "산기슭",
+   "row": 9,
+   "col": 13,
+   "lat": 37.13182,
+   "lon": 128.9,
+   "elevation": 1038.4,
+   "slope": 23.0,
+   "catchment_km2": 48.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "9-14 숲",
+   "kind": "숲",
+   "row": 9,
+   "col": 14,
+   "lat": 37.13182,
+   "lon": 128.96667,
+   "elevation": 886.5,
+   "slope": 21.5,
+   "catchment_km2": 94.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-0 강",
+   "kind": "강",
+   "row": 10,
+   "col": 0,
+   "lat": 37.07727,
+   "lon": 128.03333,
+   "elevation": 328.4,
+   "slope": 21.6,
+   "catchment_km2": 403.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-1 숲",
+   "kind": "숲",
+   "row": 10,
+   "col": 1,
+   "lat": 37.07727,
+   "lon": 128.1,
+   "elevation": 323.8,
+   "slope": 17.9,
+   "catchment_km2": 319.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-2 숲",
+   "kind": "숲",
+   "row": 10,
+   "col": 2,
+   "lat": 37.07727,
+   "lon": 128.16667,
+   "elevation": 258.8,
+   "slope": 14.2,
+   "catchment_km2": 43.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-3 숲",
+   "kind": "숲",
+   "row": 10,
+   "col": 3,
+   "lat": 37.07727,
+   "lon": 128.23333,
+   "elevation": 305.2,
+   "slope": 17.4,
+   "catchment_km2": 13.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-4 숲",
+   "kind": "숲",
+   "row": 10,
+   "col": 4,
+   "lat": 37.07727,
+   "lon": 128.3,
+   "elevation": 343.8,
+   "slope": 17.9,
+   "catchment_km2": 34.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-5 숲",
+   "kind": "숲",
+   "row": 10,
+   "col": 5,
+   "lat": 37.07727,
+   "lon": 128.36667,
+   "elevation": 334.0,
+   "slope": 21.0,
+   "catchment_km2": 56.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-6 강",
+   "kind": "강",
+   "row": 10,
+   "col": 6,
+   "lat": 37.07727,
+   "lon": 128.43333,
+   "elevation": 342.8,
+   "slope": 21.3,
+   "catchment_km2": 4435.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-7 강",
+   "kind": "강",
+   "row": 10,
+   "col": 7,
+   "lat": 37.07727,
+   "lon": 128.5,
+   "elevation": 342.2,
+   "slope": 20.1,
+   "catchment_km2": 4374.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-8 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 8,
+   "lat": 37.07727,
+   "lon": 128.56667,
+   "elevation": 605.4,
+   "slope": 25.1,
+   "catchment_km2": 23.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-9 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 9,
+   "lat": 37.07727,
+   "lon": 128.63333,
+   "elevation": 639.0,
+   "slope": 22.4,
+   "catchment_km2": 70.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-10 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 10,
+   "lat": 37.07727,
+   "lon": 128.7,
+   "elevation": 687.0,
+   "slope": 25.4,
+   "catchment_km2": 92.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-11 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 11,
+   "lat": 37.07727,
+   "lon": 128.76667,
+   "elevation": 756.2,
+   "slope": 22.8,
+   "catchment_km2": 53.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-12 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 12,
+   "lat": 37.07727,
+   "lon": 128.83333,
+   "elevation": 970.6,
+   "slope": 23.7,
+   "catchment_km2": 9.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-13 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 13,
+   "lat": 37.07727,
+   "lon": 128.9,
+   "elevation": 1066.7,
+   "slope": 24.4,
+   "catchment_km2": 36.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "10-14 산기슭",
+   "kind": "산기슭",
+   "row": 10,
+   "col": 14,
+   "lat": 37.07727,
+   "lon": 128.96667,
+   "elevation": 943.4,
+   "slope": 23.7,
+   "catchment_km2": 22.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-0 강",
+   "kind": "강",
+   "row": 11,
+   "col": 0,
+   "lat": 37.02273,
+   "lon": 128.03333,
+   "elevation": 289.6,
+   "slope": 19.9,
+   "catchment_km2": 440.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-1 숲",
+   "kind": "숲",
+   "row": 11,
+   "col": 1,
+   "lat": 37.02273,
+   "lon": 128.1,
+   "elevation": 259.8,
+   "slope": 19.0,
+   "catchment_km2": 5272.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-2 강",
+   "kind": "강",
+   "row": 11,
+   "col": 2,
+   "lat": 37.02273,
+   "lon": 128.16667,
+   "elevation": 240.4,
+   "slope": 16.3,
+   "catchment_km2": 5173.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-3 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 3,
+   "lat": 37.02273,
+   "lon": 128.23333,
+   "elevation": 487.3,
+   "slope": 22.9,
+   "catchment_km2": 21.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-4 숲",
+   "kind": "숲",
+   "row": 11,
+   "col": 4,
+   "lat": 37.02273,
+   "lon": 128.3,
+   "elevation": 248.4,
+   "slope": 16.1,
+   "catchment_km2": 108.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-5 강",
+   "kind": "강",
+   "row": 11,
+   "col": 5,
+   "lat": 37.02273,
+   "lon": 128.36667,
+   "elevation": 265.1,
+   "slope": 18.1,
+   "catchment_km2": 4704.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-6 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 6,
+   "lat": 37.02273,
+   "lon": 128.43333,
+   "elevation": 457.3,
+   "slope": 23.5,
+   "catchment_km2": 4520.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-7 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 7,
+   "lat": 37.02273,
+   "lon": 128.5,
+   "elevation": 676.2,
+   "slope": 27.4,
+   "catchment_km2": 34.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-8 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 8,
+   "lat": 37.02273,
+   "lon": 128.56667,
+   "elevation": 781.4,
+   "slope": 23.6,
+   "catchment_km2": 7.5,
+   "water": null,
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-9 숲",
+   "kind": "숲",
+   "row": 11,
+   "col": 9,
+   "lat": 37.02273,
+   "lon": 128.63333,
+   "elevation": 680.1,
+   "slope": 21.1,
+   "catchment_km2": 19.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-10 숲",
+   "kind": "숲",
+   "row": 11,
+   "col": 10,
+   "lat": 37.02273,
+   "lon": 128.7,
+   "elevation": 717.5,
+   "slope": 20.8,
+   "catchment_km2": 21.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-11 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 11,
+   "lat": 37.02273,
+   "lon": 128.76667,
+   "elevation": 809.6,
+   "slope": 22.6,
+   "catchment_km2": 13.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-12 숲",
+   "kind": "숲",
+   "row": 11,
+   "col": 12,
+   "lat": 37.02273,
+   "lon": 128.83333,
+   "elevation": 705.1,
+   "slope": 21.5,
+   "catchment_km2": 38.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-13 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 13,
+   "lat": 37.02273,
+   "lon": 128.9,
+   "elevation": 851.1,
+   "slope": 25.7,
+   "catchment_km2": 26.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "11-14 산기슭",
+   "kind": "산기슭",
+   "row": 11,
+   "col": 14,
+   "lat": 37.02273,
+   "lon": 128.96667,
+   "elevation": 841.6,
+   "slope": 24.2,
+   "catchment_km2": 38.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-0 강",
+   "kind": "강",
+   "row": 12,
+   "col": 0,
+   "lat": 36.96818,
+   "lon": 128.03333,
+   "elevation": 222.7,
+   "slope": 15.3,
+   "catchment_km2": 6024.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-1 강",
+   "kind": "강",
+   "row": 12,
+   "col": 1,
+   "lat": 36.96818,
+   "lon": 128.1,
+   "elevation": 213.9,
+   "slope": 16.8,
+   "catchment_km2": 5771.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-2 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 2,
+   "lat": 36.96818,
+   "lon": 128.16667,
+   "elevation": 198.6,
+   "slope": 13.6,
+   "catchment_km2": 5159.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-3 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 3,
+   "lat": 36.96818,
+   "lon": 128.23333,
+   "elevation": 380.5,
+   "slope": 20.2,
+   "catchment_km2": 5122.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-4 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 4,
+   "lat": 36.96818,
+   "lon": 128.3,
+   "elevation": 325.7,
+   "slope": 19.3,
+   "catchment_km2": 4918.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-5 강",
+   "kind": "강",
+   "row": 12,
+   "col": 5,
+   "lat": 36.96818,
+   "lon": 128.36667,
+   "elevation": 307.3,
+   "slope": 21.4,
+   "catchment_km2": 4771.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-6 산기슭",
+   "kind": "산기슭",
+   "row": 12,
+   "col": 6,
+   "lat": 36.96818,
+   "lon": 128.43333,
+   "elevation": 622.3,
+   "slope": 25.3,
+   "catchment_km2": 27.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-7 산기슭",
+   "kind": "산기슭",
+   "row": 12,
+   "col": 7,
+   "lat": 36.96818,
+   "lon": 128.5,
+   "elevation": 994.5,
+   "slope": 24.7,
+   "catchment_km2": 13.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-8 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 8,
+   "lat": 36.96818,
+   "lon": 128.56667,
+   "elevation": 558.7,
+   "slope": 20.4,
+   "catchment_km2": 26.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-9 초원",
+   "kind": "초원",
+   "row": 12,
+   "col": 9,
+   "lat": 36.96818,
+   "lon": 128.63333,
+   "elevation": 332.7,
+   "slope": 11.9,
+   "catchment_km2": 54.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-10 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 10,
+   "lat": 36.96818,
+   "lon": 128.7,
+   "elevation": 348.1,
+   "slope": 12.1,
+   "catchment_km2": 29.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-11 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 11,
+   "lat": 36.96818,
+   "lon": 128.76667,
+   "elevation": 459.2,
+   "slope": 17.0,
+   "catchment_km2": 67.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-12 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 12,
+   "lat": 36.96818,
+   "lon": 128.83333,
+   "elevation": 688.3,
+   "slope": 20.6,
+   "catchment_km2": 47.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-13 숲",
+   "kind": "숲",
+   "row": 12,
+   "col": 13,
+   "lat": 36.96818,
+   "lon": 128.9,
+   "elevation": 528.8,
+   "slope": 18.7,
+   "catchment_km2": 109.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "12-14 산기슭",
+   "kind": "산기슭",
+   "row": 12,
+   "col": 14,
+   "lat": 36.96818,
+   "lon": 128.96667,
+   "elevation": 583.2,
+   "slope": 24.2,
+   "catchment_km2": 62.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-0 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 0,
+   "lat": 36.91364,
+   "lon": 128.03333,
+   "elevation": 240.7,
+   "slope": 17.1,
+   "catchment_km2": 194.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-1 산기슭",
+   "kind": "산기슭",
+   "row": 13,
+   "col": 1,
+   "lat": 36.91364,
+   "lon": 128.1,
+   "elevation": 331.0,
+   "slope": 23.9,
+   "catchment_km2": 171.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-2 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 2,
+   "lat": 36.91364,
+   "lon": 128.16667,
+   "elevation": 330.1,
+   "slope": 17.0,
+   "catchment_km2": 54.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-3 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 3,
+   "lat": 36.91364,
+   "lon": 128.23333,
+   "elevation": 326.7,
+   "slope": 19.1,
+   "catchment_km2": 5061.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-4 산기슭",
+   "kind": "산기슭",
+   "row": 13,
+   "col": 4,
+   "lat": 36.91364,
+   "lon": 128.3,
+   "elevation": 387.2,
+   "slope": 23.2,
+   "catchment_km2": 5039.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-5 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 5,
+   "lat": 36.91364,
+   "lon": 128.36667,
+   "elevation": 419.3,
+   "slope": 21.8,
+   "catchment_km2": 128.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-6 산기슭",
+   "kind": "산기슭",
+   "row": 13,
+   "col": 6,
+   "lat": 36.91364,
+   "lon": 128.43333,
+   "elevation": 819.9,
+   "slope": 23.6,
+   "catchment_km2": 17.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-7 산기슭",
+   "kind": "산기슭",
+   "row": 13,
+   "col": 7,
+   "lat": 36.91364,
+   "lon": 128.5,
+   "elevation": 581.9,
+   "slope": 22.2,
+   "catchment_km2": 26.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-8 초원",
+   "kind": "초원",
+   "row": 13,
+   "col": 8,
+   "lat": 36.91364,
+   "lon": 128.56667,
+   "elevation": 291.1,
+   "slope": 12.0,
+   "catchment_km2": 74.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-9 초원",
+   "kind": "초원",
+   "row": 13,
+   "col": 9,
+   "lat": 36.91364,
+   "lon": 128.63333,
+   "elevation": 249.9,
+   "slope": 10.5,
+   "catchment_km2": 80.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-10 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 10,
+   "lat": 36.91364,
+   "lon": 128.7,
+   "elevation": 267.2,
+   "slope": 12.0,
+   "catchment_km2": 175.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-11 초원",
+   "kind": "초원",
+   "row": 13,
+   "col": 11,
+   "lat": 36.91364,
+   "lon": 128.76667,
+   "elevation": 282.2,
+   "slope": 11.2,
+   "catchment_km2": 156.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-12 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 12,
+   "lat": 36.91364,
+   "lon": 128.83333,
+   "elevation": 417.1,
+   "slope": 15.3,
+   "catchment_km2": 23.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-13 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 13,
+   "lat": 36.91364,
+   "lon": 128.9,
+   "elevation": 402.8,
+   "slope": 14.3,
+   "catchment_km2": 165.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "13-14 숲",
+   "kind": "숲",
+   "row": 13,
+   "col": 14,
+   "lat": 36.91364,
+   "lon": 128.96667,
+   "elevation": 453.5,
+   "slope": 17.4,
+   "catchment_km2": 162.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-0 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 0,
+   "lat": 36.85909,
+   "lon": 128.03333,
+   "elevation": 423.1,
+   "slope": 23.0,
+   "catchment_km2": 21.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-1 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 1,
+   "lat": 36.85909,
+   "lon": 128.1,
+   "elevation": 523.7,
+   "slope": 24.9,
+   "catchment_km2": 49.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-2 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 2,
+   "lat": 36.85909,
+   "lon": 128.16667,
+   "elevation": 565.8,
+   "slope": 25.5,
+   "catchment_km2": 42.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-3 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 3,
+   "lat": 36.85909,
+   "lon": 128.23333,
+   "elevation": 659.8,
+   "slope": 23.3,
+   "catchment_km2": 12.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-4 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 4,
+   "lat": 36.85909,
+   "lon": 128.3,
+   "elevation": 539.4,
+   "slope": 22.4,
+   "catchment_km2": 69.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-5 숲",
+   "kind": "숲",
+   "row": 14,
+   "col": 5,
+   "lat": 36.85909,
+   "lon": 128.36667,
+   "elevation": 500.1,
+   "slope": 21.7,
+   "catchment_km2": 76.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-6 산기슭",
+   "kind": "산기슭",
+   "row": 14,
+   "col": 6,
+   "lat": 36.85909,
+   "lon": 128.43333,
+   "elevation": 808.0,
+   "slope": 26.2,
+   "catchment_km2": 13.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-7 숲",
+   "kind": "숲",
+   "row": 14,
+   "col": 7,
+   "lat": 36.85909,
+   "lon": 128.5,
+   "elevation": 375.3,
+   "slope": 13.2,
+   "catchment_km2": 55.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-8 초원",
+   "kind": "초원",
+   "row": 14,
+   "col": 8,
+   "lat": 36.85909,
+   "lon": 128.56667,
+   "elevation": 201.3,
+   "slope": 7.4,
+   "catchment_km2": 125.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-9 초원",
+   "kind": "초원",
+   "row": 14,
+   "col": 9,
+   "lat": 36.85909,
+   "lon": 128.63333,
+   "elevation": 209.0,
+   "slope": 9.6,
+   "catchment_km2": 297.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-10 초원",
+   "kind": "초원",
+   "row": 14,
+   "col": 10,
+   "lat": 36.85909,
+   "lon": 128.7,
+   "elevation": 213.3,
+   "slope": 9.4,
+   "catchment_km2": 314.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-11 초원",
+   "kind": "초원",
+   "row": 14,
+   "col": 11,
+   "lat": 36.85909,
+   "lon": 128.76667,
+   "elevation": 300.7,
+   "slope": 11.3,
+   "catchment_km2": 26.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-12 숲",
+   "kind": "숲",
+   "row": 14,
+   "col": 12,
+   "lat": 36.85909,
+   "lon": 128.83333,
+   "elevation": 393.3,
+   "slope": 15.2,
+   "catchment_km2": 20.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-13 숲",
+   "kind": "숲",
+   "row": 14,
+   "col": 13,
+   "lat": 36.85909,
+   "lon": 128.9,
+   "elevation": 345.5,
+   "slope": 19.2,
+   "catchment_km2": 328.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "14-14 숲",
+   "kind": "숲",
+   "row": 14,
+   "col": 14,
+   "lat": 36.85909,
+   "lon": 128.96667,
+   "elevation": 413.3,
+   "slope": 20.9,
+   "catchment_km2": 76.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-0 산기슭",
+   "kind": "산기슭",
+   "row": 15,
+   "col": 0,
+   "lat": 36.80455,
+   "lon": 128.03333,
+   "elevation": 509.5,
+   "slope": 22.7,
+   "catchment_km2": 20.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-1 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 1,
+   "lat": 36.80455,
+   "lon": 128.1,
+   "elevation": 603.7,
+   "slope": 22.0,
+   "catchment_km2": 8.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-2 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 2,
+   "lat": 36.80455,
+   "lon": 128.16667,
+   "elevation": 508.8,
+   "slope": 19.0,
+   "catchment_km2": 37.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-3 산기슭",
+   "kind": "산기슭",
+   "row": 15,
+   "col": 3,
+   "lat": 36.80455,
+   "lon": 128.23333,
+   "elevation": 681.9,
+   "slope": 23.5,
+   "catchment_km2": 15.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-4 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 4,
+   "lat": 36.80455,
+   "lon": 128.3,
+   "elevation": 633.4,
+   "slope": 20.0,
+   "catchment_km2": 20.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-5 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 5,
+   "lat": 36.80455,
+   "lon": 128.36667,
+   "elevation": 761.5,
+   "slope": 20.5,
+   "catchment_km2": 9.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-6 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 6,
+   "lat": 36.80455,
+   "lon": 128.43333,
+   "elevation": 570.5,
+   "slope": 20.7,
+   "catchment_km2": 26.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-7 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 7,
+   "lat": 36.80455,
+   "lon": 128.5,
+   "elevation": 447.3,
+   "slope": 18.6,
+   "catchment_km2": 18.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-8 초원",
+   "kind": "초원",
+   "row": 15,
+   "col": 8,
+   "lat": 36.80455,
+   "lon": 128.56667,
+   "elevation": 178.3,
+   "slope": 8.5,
+   "catchment_km2": 19.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-9 강",
+   "kind": "강",
+   "row": 15,
+   "col": 9,
+   "lat": 36.80455,
+   "lon": 128.63333,
+   "elevation": 177.2,
+   "slope": 8.5,
+   "catchment_km2": 338.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-10 강",
+   "kind": "강",
+   "row": 15,
+   "col": 10,
+   "lat": 36.80455,
+   "lon": 128.7,
+   "elevation": 221.0,
+   "slope": 11.1,
+   "catchment_km2": 454.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-11 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 11,
+   "lat": 36.80455,
+   "lon": 128.76667,
+   "elevation": 281.9,
+   "slope": 15.0,
+   "catchment_km2": 105.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-12 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 12,
+   "lat": 36.80455,
+   "lon": 128.83333,
+   "elevation": 461.3,
+   "slope": 20.0,
+   "catchment_km2": 8.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-13 강",
+   "kind": "강",
+   "row": 15,
+   "col": 13,
+   "lat": 36.80455,
+   "lon": 128.9,
+   "elevation": 480.9,
+   "slope": 24.4,
+   "catchment_km2": 378.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "15-14 숲",
+   "kind": "숲",
+   "row": 15,
+   "col": 14,
+   "lat": 36.80455,
+   "lon": 128.96667,
+   "elevation": 457.0,
+   "slope": 17.6,
+   "catchment_km2": 43.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-0 산기슭",
+   "kind": "산기슭",
+   "row": 16,
+   "col": 0,
+   "lat": 36.75,
+   "lon": 128.03333,
+   "elevation": 521.1,
+   "slope": 25.0,
+   "catchment_km2": 27.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-1 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 1,
+   "lat": 36.75,
+   "lon": 128.1,
+   "elevation": 374.9,
+   "slope": 19.7,
+   "catchment_km2": 153.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-2 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 2,
+   "lat": 36.75,
+   "lon": 128.16667,
+   "elevation": 436.7,
+   "slope": 21.6,
+   "catchment_km2": 89.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-3 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 3,
+   "lat": 36.75,
+   "lon": 128.23333,
+   "elevation": 469.0,
+   "slope": 20.7,
+   "catchment_km2": 29.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-4 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 4,
+   "lat": 36.75,
+   "lon": 128.3,
+   "elevation": 454.5,
+   "slope": 18.6,
+   "catchment_km2": 76.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-5 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 5,
+   "lat": 36.75,
+   "lon": 128.36667,
+   "elevation": 547.8,
+   "slope": 19.8,
+   "catchment_km2": 17.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-6 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 6,
+   "lat": 36.75,
+   "lon": 128.43333,
+   "elevation": 325.2,
+   "slope": 16.7,
+   "catchment_km2": 91.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-7 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 7,
+   "lat": 36.75,
+   "lon": 128.5,
+   "elevation": 282.1,
+   "slope": 14.7,
+   "catchment_km2": 40.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-8 초원",
+   "kind": "초원",
+   "row": 16,
+   "col": 8,
+   "lat": 36.75,
+   "lon": 128.56667,
+   "elevation": 155.5,
+   "slope": 9.1,
+   "catchment_km2": 76.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-9 강",
+   "kind": "강",
+   "row": 16,
+   "col": 9,
+   "lat": 36.75,
+   "lon": 128.63333,
+   "elevation": 185.6,
+   "slope": 11.2,
+   "catchment_km2": 884.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-10 강",
+   "kind": "강",
+   "row": 16,
+   "col": 10,
+   "lat": 36.75,
+   "lon": 128.7,
+   "elevation": 259.6,
+   "slope": 15.2,
+   "catchment_km2": 491.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-11 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 11,
+   "lat": 36.75,
+   "lon": 128.76667,
+   "elevation": 324.1,
+   "slope": 15.3,
+   "catchment_km2": 15.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-12 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 12,
+   "lat": 36.75,
+   "lon": 128.83333,
+   "elevation": 282.7,
+   "slope": 14.7,
+   "catchment_km2": 450.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-13 강",
+   "kind": "강",
+   "row": 16,
+   "col": 13,
+   "lat": 36.75,
+   "lon": 128.9,
+   "elevation": 394.8,
+   "slope": 21.1,
+   "catchment_km2": 408.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "16-14 숲",
+   "kind": "숲",
+   "row": 16,
+   "col": 14,
+   "lat": 36.75,
+   "lon": 128.96667,
+   "elevation": 467.2,
+   "slope": 21.1,
+   "catchment_km2": 18.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-0 산기슭",
+   "kind": "산기슭",
+   "row": 17,
+   "col": 0,
+   "lat": 36.69545,
+   "lon": 128.03333,
+   "elevation": 518.5,
+   "slope": 24.4,
+   "catchment_km2": 18.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-1 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 1,
+   "lat": 36.69545,
+   "lon": 128.1,
+   "elevation": 332.3,
+   "slope": 17.7,
+   "catchment_km2": 191.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-2 산기슭",
+   "kind": "산기슭",
+   "row": 17,
+   "col": 2,
+   "lat": 36.69545,
+   "lon": 128.16667,
+   "elevation": 414.8,
+   "slope": 22.7,
+   "catchment_km2": 16.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-3 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 3,
+   "lat": 36.69545,
+   "lon": 128.23333,
+   "elevation": 259.4,
+   "slope": 18.1,
+   "catchment_km2": 78.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-4 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 4,
+   "lat": 36.69545,
+   "lon": 128.3,
+   "elevation": 324.4,
+   "slope": 18.4,
+   "catchment_km2": 106.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-5 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 5,
+   "lat": 36.69545,
+   "lon": 128.36667,
+   "elevation": 288.8,
+   "slope": 14.5,
+   "catchment_km2": 28.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-6 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 6,
+   "lat": 36.69545,
+   "lon": 128.43333,
+   "elevation": 192.0,
+   "slope": 12.4,
+   "catchment_km2": 186.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-7 초원",
+   "kind": "초원",
+   "row": 17,
+   "col": 7,
+   "lat": 36.69545,
+   "lon": 128.5,
+   "elevation": 168.8,
+   "slope": 10.9,
+   "catchment_km2": 1108.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-8 강",
+   "kind": "강",
+   "row": 17,
+   "col": 8,
+   "lat": 36.69545,
+   "lon": 128.56667,
+   "elevation": 178.6,
+   "slope": 12.9,
+   "catchment_km2": 1036.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-9 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 9,
+   "lat": 36.69545,
+   "lon": 128.63333,
+   "elevation": 304.8,
+   "slope": 18.4,
+   "catchment_km2": 908.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-10 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 10,
+   "lat": 36.69545,
+   "lon": 128.7,
+   "elevation": 269.3,
+   "slope": 14.0,
+   "catchment_km2": 491.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-11 초원",
+   "kind": "초원",
+   "row": 17,
+   "col": 11,
+   "lat": 36.69545,
+   "lon": 128.76667,
+   "elevation": 232.2,
+   "slope": 11.6,
+   "catchment_km2": 52.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-12 강",
+   "kind": "강",
+   "row": 17,
+   "col": 12,
+   "lat": 36.69545,
+   "lon": 128.83333,
+   "elevation": 203.2,
+   "slope": 11.0,
+   "catchment_km2": 650.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-13 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 13,
+   "lat": 36.69545,
+   "lon": 128.9,
+   "elevation": 297.8,
+   "slope": 18.6,
+   "catchment_km2": 83.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "17-14 숲",
+   "kind": "숲",
+   "row": 17,
+   "col": 14,
+   "lat": 36.69545,
+   "lon": 128.96667,
+   "elevation": 414.2,
+   "slope": 21.8,
+   "catchment_km2": 11.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-0 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 0,
+   "lat": 36.64091,
+   "lon": 128.03333,
+   "elevation": 262.7,
+   "slope": 18.3,
+   "catchment_km2": 50.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-1 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 1,
+   "lat": 36.64091,
+   "lon": 128.1,
+   "elevation": 298.4,
+   "slope": 21.4,
+   "catchment_km2": 335.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-2 강",
+   "kind": "강",
+   "row": 18,
+   "col": 2,
+   "lat": 36.64091,
+   "lon": 128.16667,
+   "elevation": 190.4,
+   "slope": 14.8,
+   "catchment_km2": 377.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-3 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 3,
+   "lat": 36.64091,
+   "lon": 128.23333,
+   "elevation": 153.6,
+   "slope": 12.5,
+   "catchment_km2": 411.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-4 초원",
+   "kind": "초원",
+   "row": 18,
+   "col": 4,
+   "lat": 36.64091,
+   "lon": 128.3,
+   "elevation": 137.0,
+   "slope": 9.1,
+   "catchment_km2": 186.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-5 초원",
+   "kind": "초원",
+   "row": 18,
+   "col": 5,
+   "lat": 36.64091,
+   "lon": 128.36667,
+   "elevation": 135.7,
+   "slope": 8.4,
+   "catchment_km2": 20.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-6 초원",
+   "kind": "초원",
+   "row": 18,
+   "col": 6,
+   "lat": 36.64091,
+   "lon": 128.43333,
+   "elevation": 123.6,
+   "slope": 7.9,
+   "catchment_km2": 249.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-7 강",
+   "kind": "강",
+   "row": 18,
+   "col": 7,
+   "lat": 36.64091,
+   "lon": 128.5,
+   "elevation": 141.5,
+   "slope": 11.0,
+   "catchment_km2": 1160.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-8 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 8,
+   "lat": 36.64091,
+   "lon": 128.56667,
+   "elevation": 304.6,
+   "slope": 17.5,
+   "catchment_km2": 7.1,
+   "water": null,
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-9 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 9,
+   "lat": 36.64091,
+   "lon": 128.63333,
+   "elevation": 312.8,
+   "slope": 15.7,
+   "catchment_km2": 18.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-10 초원",
+   "kind": "초원",
+   "row": 18,
+   "col": 10,
+   "lat": 36.64091,
+   "lon": 128.7,
+   "elevation": 190.3,
+   "slope": 10.3,
+   "catchment_km2": 70.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-11 초원",
+   "kind": "초원",
+   "row": 18,
+   "col": 11,
+   "lat": 36.64091,
+   "lon": 128.76667,
+   "elevation": 240.4,
+   "slope": 9.7,
+   "catchment_km2": 14.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-12 강",
+   "kind": "강",
+   "row": 18,
+   "col": 12,
+   "lat": 36.64091,
+   "lon": 128.83333,
+   "elevation": 219.5,
+   "slope": 12.7,
+   "catchment_km2": 693.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-13 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 13,
+   "lat": 36.64091,
+   "lon": 128.9,
+   "elevation": 263.3,
+   "slope": 16.7,
+   "catchment_km2": 34.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "18-14 숲",
+   "kind": "숲",
+   "row": 18,
+   "col": 14,
+   "lat": 36.64091,
+   "lon": 128.96667,
+   "elevation": 360.0,
+   "slope": 19.9,
+   "catchment_km2": 28.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-0 숲",
+   "kind": "숲",
+   "row": 19,
+   "col": 0,
+   "lat": 36.58636,
+   "lon": 128.03333,
+   "elevation": 279.4,
+   "slope": 16.3,
+   "catchment_km2": 23.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-1 숲",
+   "kind": "숲",
+   "row": 19,
+   "col": 1,
+   "lat": 36.58636,
+   "lon": 128.1,
+   "elevation": 266.9,
+   "slope": 15.8,
+   "catchment_km2": 21.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-2 초원",
+   "kind": "초원",
+   "row": 19,
+   "col": 2,
+   "lat": 36.58636,
+   "lon": 128.16667,
+   "elevation": 132.6,
+   "slope": 9.7,
+   "catchment_km2": 23.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-3 강",
+   "kind": "강",
+   "row": 19,
+   "col": 3,
+   "lat": 36.58636,
+   "lon": 128.23333,
+   "elevation": 90.4,
+   "slope": 6.0,
+   "catchment_km2": 457.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-4 강",
+   "kind": "강",
+   "row": 19,
+   "col": 4,
+   "lat": 36.58636,
+   "lon": 128.3,
+   "elevation": 88.5,
+   "slope": 8.3,
+   "catchment_km2": 3613.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-5 강",
+   "kind": "강",
+   "row": 19,
+   "col": 5,
+   "lat": 36.58636,
+   "lon": 128.36667,
+   "elevation": 127.7,
+   "slope": 11.5,
+   "catchment_km2": 1497.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-6 강",
+   "kind": "강",
+   "row": 19,
+   "col": 6,
+   "lat": 36.58636,
+   "lon": 128.43333,
+   "elevation": 103.7,
+   "slope": 8.3,
+   "catchment_km2": 1442.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-7 초원",
+   "kind": "초원",
+   "row": 19,
+   "col": 7,
+   "lat": 36.58636,
+   "lon": 128.5,
+   "elevation": 124.2,
+   "slope": 9.0,
+   "catchment_km2": 1174.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-8 초원",
+   "kind": "초원",
+   "row": 19,
+   "col": 8,
+   "lat": 36.58636,
+   "lon": 128.56667,
+   "elevation": 117.9,
+   "slope": 8.0,
+   "catchment_km2": 1523.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-9 초원",
+   "kind": "초원",
+   "row": 19,
+   "col": 9,
+   "lat": 36.58636,
+   "lon": 128.63333,
+   "elevation": 153.8,
+   "slope": 10.4,
+   "catchment_km2": 1447.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-10 초원",
+   "kind": "초원",
+   "row": 19,
+   "col": 10,
+   "lat": 36.58636,
+   "lon": 128.7,
+   "elevation": 146.9,
+   "slope": 9.2,
+   "catchment_km2": 112.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-11 강",
+   "kind": "강",
+   "row": 19,
+   "col": 11,
+   "lat": 36.58636,
+   "lon": 128.76667,
+   "elevation": 201.7,
+   "slope": 11.9,
+   "catchment_km2": 854.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-12 강",
+   "kind": "강",
+   "row": 19,
+   "col": 12,
+   "lat": 36.58636,
+   "lon": 128.83333,
+   "elevation": 204.0,
+   "slope": 10.3,
+   "catchment_km2": 807.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-13 숲",
+   "kind": "숲",
+   "row": 19,
+   "col": 13,
+   "lat": 36.58636,
+   "lon": 128.9,
+   "elevation": 222.3,
+   "slope": 13.5,
+   "catchment_km2": 759.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "19-14 숲",
+   "kind": "숲",
+   "row": 19,
+   "col": 14,
+   "lat": 36.58636,
+   "lon": 128.96667,
+   "elevation": 267.2,
+   "slope": 17.3,
+   "catchment_km2": 51.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-0 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 0,
+   "lat": 36.53182,
+   "lon": 128.03333,
+   "elevation": 357.3,
+   "slope": 17.6,
+   "catchment_km2": 12.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-1 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 1,
+   "lat": 36.53182,
+   "lon": 128.1,
+   "elevation": 164.9,
+   "slope": 15.3,
+   "catchment_km2": 121.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-2 초원",
+   "kind": "초원",
+   "row": 20,
+   "col": 2,
+   "lat": 36.53182,
+   "lon": 128.16667,
+   "elevation": 96.4,
+   "slope": 7.9,
+   "catchment_km2": 166.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-3 강",
+   "kind": "강",
+   "row": 20,
+   "col": 3,
+   "lat": 36.53182,
+   "lon": 128.23333,
+   "elevation": 110.5,
+   "slope": 11.2,
+   "catchment_km2": 4285.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-4 강",
+   "kind": "강",
+   "row": 20,
+   "col": 4,
+   "lat": 36.53182,
+   "lon": 128.3,
+   "elevation": 97.4,
+   "slope": 8.7,
+   "catchment_km2": 4289.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-5 강",
+   "kind": "강",
+   "row": 20,
+   "col": 5,
+   "lat": 36.53182,
+   "lon": 128.36667,
+   "elevation": 116.1,
+   "slope": 9.8,
+   "catchment_km2": 1798.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-6 강",
+   "kind": "강",
+   "row": 20,
+   "col": 6,
+   "lat": 36.53182,
+   "lon": 128.43333,
+   "elevation": 108.1,
+   "slope": 9.0,
+   "catchment_km2": 1742.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-7 강",
+   "kind": "강",
+   "row": 20,
+   "col": 7,
+   "lat": 36.53182,
+   "lon": 128.5,
+   "elevation": 137.5,
+   "slope": 11.7,
+   "catchment_km2": 1611.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-8 강",
+   "kind": "강",
+   "row": 20,
+   "col": 8,
+   "lat": 36.53182,
+   "lon": 128.56667,
+   "elevation": 169.4,
+   "slope": 18.6,
+   "catchment_km2": 1575.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-9 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 9,
+   "lat": 36.53182,
+   "lon": 128.63333,
+   "elevation": 166.9,
+   "slope": 16.4,
+   "catchment_km2": 1448.5,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-10 강",
+   "kind": "강",
+   "row": 20,
+   "col": 10,
+   "lat": 36.53182,
+   "lon": 128.7,
+   "elevation": 142.2,
+   "slope": 11.6,
+   "catchment_km2": 1268.7,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-11 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 11,
+   "lat": 36.53182,
+   "lon": 128.76667,
+   "elevation": 175.6,
+   "slope": 13.4,
+   "catchment_km2": 854.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-12 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 12,
+   "lat": 36.53182,
+   "lon": 128.83333,
+   "elevation": 179.9,
+   "slope": 13.3,
+   "catchment_km2": 223.3,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-13 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 13,
+   "lat": 36.53182,
+   "lon": 128.9,
+   "elevation": 209.3,
+   "slope": 13.1,
+   "catchment_km2": 135.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "20-14 숲",
+   "kind": "숲",
+   "row": 20,
+   "col": 14,
+   "lat": 36.53182,
+   "lon": 128.96667,
+   "elevation": 302.1,
+   "slope": 18.4,
+   "catchment_km2": 45.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-0 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 0,
+   "lat": 36.47727,
+   "lon": 128.03333,
+   "elevation": 271.5,
+   "slope": 17.2,
+   "catchment_km2": 20.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-1 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 1,
+   "lat": 36.47727,
+   "lon": 128.1,
+   "elevation": 189.4,
+   "slope": 14.0,
+   "catchment_km2": 39.9,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-2 초원",
+   "kind": "초원",
+   "row": 21,
+   "col": 2,
+   "lat": 36.47727,
+   "lon": 128.16667,
+   "elevation": 96.2,
+   "slope": 6.9,
+   "catchment_km2": 90.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-3 초원",
+   "kind": "초원",
+   "row": 21,
+   "col": 3,
+   "lat": 36.47727,
+   "lon": 128.23333,
+   "elevation": 87.1,
+   "slope": 7.3,
+   "catchment_km2": 4353.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-4 초원",
+   "kind": "초원",
+   "row": 21,
+   "col": 4,
+   "lat": 36.47727,
+   "lon": 128.3,
+   "elevation": 124.2,
+   "slope": 10.3,
+   "catchment_km2": 4329.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-5 초원",
+   "kind": "초원",
+   "row": 21,
+   "col": 5,
+   "lat": 36.47727,
+   "lon": 128.36667,
+   "elevation": 138.7,
+   "slope": 11.3,
+   "catchment_km2": 18.4,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-6 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 6,
+   "lat": 36.47727,
+   "lon": 128.43333,
+   "elevation": 194.7,
+   "slope": 17.7,
+   "catchment_km2": 71.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-7 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 7,
+   "lat": 36.47727,
+   "lon": 128.5,
+   "elevation": 229.5,
+   "slope": 18.3,
+   "catchment_km2": 65.2,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-8 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 8,
+   "lat": 36.47727,
+   "lon": 128.56667,
+   "elevation": 251.2,
+   "slope": 17.3,
+   "catchment_km2": 15.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-9 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 9,
+   "lat": 36.47727,
+   "lon": 128.63333,
+   "elevation": 174.0,
+   "slope": 14.1,
+   "catchment_km2": 76.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-10 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 10,
+   "lat": 36.47727,
+   "lon": 128.7,
+   "elevation": 202.9,
+   "slope": 17.1,
+   "catchment_km2": 81.8,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-11 산기슭",
+   "kind": "산기슭",
+   "row": 21,
+   "col": 11,
+   "lat": 36.47727,
+   "lon": 128.76667,
+   "elevation": 320.2,
+   "slope": 22.4,
+   "catchment_km2": 9.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-12 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 12,
+   "lat": 36.47727,
+   "lon": 128.83333,
+   "elevation": 268.4,
+   "slope": 20.2,
+   "catchment_km2": 45.1,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-13 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 13,
+   "lat": 36.47727,
+   "lon": 128.9,
+   "elevation": 236.7,
+   "slope": 16.9,
+   "catchment_km2": 27.0,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "21-14 숲",
+   "kind": "숲",
+   "row": 21,
+   "col": 14,
+   "lat": 36.47727,
+   "lon": 128.96667,
+   "elevation": 301.7,
+   "slope": 18.6,
+   "catchment_km2": 37.6,
+   "water": "맑은 물",
+   "site": null,
+   "roof": 0.0
+  },
+  {
+   "name": "금굴",
+   "kind": "동굴",
+   "row": 11,
+   "col": 5,
+   "lat": 36.99639,
+   "lon": 128.3575,
+   "elevation": 265.1,
+   "slope": 18.1,
+   "catchment_km2": 4706.9,
+   "water": "맑은 물",
+   "site": "금굴",
+   "roof": 0.8
+  },
+  {
+   "name": "점말동굴",
+   "kind": "동굴",
+   "row": 8,
+   "col": 3,
+   "lat": 37.19611,
+   "lon": 128.22028,
+   "elevation": 380.5,
+   "slope": 13.1,
+   "catchment_km2": 1.4,
+   "water": null,
+   "site": "점말동굴",
+   "roof": 0.8
+  },
+  {
+   "name": "상시 바위그늘",
+   "kind": "바위그늘",
+   "row": 10,
+   "col": 1,
+   "lat": 37.0667,
+   "lon": 128.1167,
+   "elevation": 323.8,
+   "slope": 17.9,
+   "catchment_km2": 1.6,
+   "water": null,
+   "site": "상시 바위그늘",
+   "roof": 0.5
+  },
+  {
+   "name": "수양개",
+   "kind": "야영지",
+   "row": 12,
+   "col": 4,
+   "lat": 36.95889,
+   "lon": 128.33194,
+   "elevation": 325.7,
+   "slope": 19.3,
+   "catchment_km2": 4916.7,
+   "water": "맑은 물",
+   "site": "수양개",
+   "roof": 0.0
+  }
+ ],
+ "roads": [
+  [
+   "0-0 숲",
+   "0-1 산기슭",
+   2
+  ],
+  [
+   "0-0 숲",
+   "1-0 숲",
+   1
+  ],
+  [
+   "0-0 숲",
+   "1-1 숲",
+   1
+  ],
+  [
+   "0-1 산기슭",
+   "0-2 숲",
+   1
+  ],
+  [
+   "0-1 산기슭",
+   "1-0 숲",
+   1
+  ],
+  [
+   "0-1 산기슭",
+   "1-1 숲",
+   1
+  ],
+  [
+   "0-1 산기슭",
+   "1-2 숲",
+   1
+  ],
+  [
+   "0-2 숲",
+   "0-3 산기슭",
+   1
+  ],
+  [
+   "0-2 숲",
+   "1-1 숲",
+   1
+  ],
+  [
+   "0-2 숲",
+   "1-2 숲",
+   1
+  ],
+  [
+   "0-2 숲",
+   "1-3 숲",
+   1
+  ],
+  [
+   "0-3 산기슭",
+   "0-4 숲",
+   1
+  ],
+  [
+   "0-3 산기슭",
+   "1-2 숲",
+   1
+  ],
+  [
+   "0-3 산기슭",
+   "1-3 숲",
+   1
+  ],
+  [
+   "0-3 산기슭",
+   "1-4 숲",
+   2
+  ],
+  [
+   "0-4 숲",
+   "0-5 숲",
+   1
+  ],
+  [
+   "0-4 숲",
+   "1-3 숲",
+   1
+  ],
+  [
+   "0-4 숲",
+   "1-4 숲",
+   1
+  ],
+  [
+   "0-4 숲",
+   "1-5 숲",
+   1
+  ],
+  [
+   "0-5 숲",
+   "0-6 숲",
+   1
+  ],
+  [
+   "0-5 숲",
+   "1-4 숲",
+   1
+  ],
+  [
+   "0-5 숲",
+   "1-5 숲",
+   1
+  ],
+  [
+   "0-5 숲",
+   "1-6 숲",
+   1
+  ],
+  [
+   "0-6 숲",
+   "0-7 숲",
+   1
+  ],
+  [
+   "0-6 숲",
+   "1-5 숲",
+   1
+  ],
+  [
+   "0-6 숲",
+   "1-6 숲",
+   1
+  ],
+  [
+   "0-6 숲",
+   "1-7 산기슭",
+   1
+  ],
+  [
+   "0-7 숲",
+   "0-8 숲",
+   1
+  ],
+  [
+   "0-7 숲",
+   "1-6 숲",
+   1
+  ],
+  [
+   "0-7 숲",
+   "1-7 산기슭",
+   1
+  ],
+  [
+   "0-7 숲",
+   "1-8 산기슭",
+   1
+  ],
+  [
+   "0-8 숲",
+   "0-9 숲",
+   1
+  ],
+  [
+   "0-8 숲",
+   "1-7 산기슭",
+   1
+  ],
+  [
+   "0-8 숲",
+   "1-8 산기슭",
+   1
+  ],
+  [
+   "0-8 숲",
+   "1-9 산기슭",
+   2
+  ],
+  [
+   "0-9 숲",
+   "0-10 산기슭",
+   1
+  ],
+  [
+   "0-9 숲",
+   "1-8 산기슭",
+   2
+  ],
+  [
+   "0-9 숲",
+   "1-9 산기슭",
+   1
+  ],
+  [
+   "0-9 숲",
+   "1-10 산기슭",
+   2
+  ],
+  [
+   "0-10 산기슭",
+   "0-11 숲",
+   1
+  ],
+  [
+   "0-10 산기슭",
+   "1-9 산기슭",
+   2
+  ],
+  [
+   "0-10 산기슭",
+   "1-10 산기슭",
+   1
+  ],
+  [
+   "0-10 산기슭",
+   "1-11 숲",
+   1
+  ],
+  [
+   "0-11 숲",
+   "0-12 숲",
+   1
+  ],
+  [
+   "0-11 숲",
+   "1-10 산기슭",
+   2
+  ],
+  [
+   "0-11 숲",
+   "1-11 숲",
+   1
+  ],
+  [
+   "0-11 숲",
+   "1-12 숲",
+   1
+  ],
+  [
+   "0-12 숲",
+   "0-13 산기슭",
+   1
+  ],
+  [
+   "0-12 숲",
+   "1-11 숲",
+   1
+  ],
+  [
+   "0-12 숲",
+   "1-12 숲",
+   1
+  ],
+  [
+   "0-12 숲",
+   "1-13 산기슭",
+   1
+  ],
+  [
+   "0-13 산기슭",
+   "0-14 산기슭",
+   1
+  ],
+  [
+   "0-13 산기슭",
+   "1-12 숲",
+   2
+  ],
+  [
+   "0-13 산기슭",
+   "1-13 산기슭",
+   1
+  ],
+  [
+   "0-13 산기슭",
+   "1-14 산기슭",
+   1
+  ],
+  [
+   "0-14 산기슭",
+   "1-13 산기슭",
+   2
+  ],
+  [
+   "0-14 산기슭",
+   "1-14 산기슭",
+   1
+  ],
+  [
+   "1-0 숲",
+   "1-1 숲",
+   1
+  ],
+  [
+   "1-0 숲",
+   "2-0 숲",
+   1
+  ],
+  [
+   "1-0 숲",
+   "2-1 숲",
+   1
+  ],
+  [
+   "1-1 숲",
+   "1-2 숲",
+   1
+  ],
+  [
+   "1-1 숲",
+   "2-0 숲",
+   1
+  ],
+  [
+   "1-1 숲",
+   "2-1 숲",
+   1
+  ],
+  [
+   "1-1 숲",
+   "2-2 숲",
+   1
+  ],
+  [
+   "1-2 숲",
+   "1-3 숲",
+   1
+  ],
+  [
+   "1-2 숲",
+   "2-1 숲",
+   1
+  ],
+  [
+   "1-2 숲",
+   "2-2 숲",
+   1
+  ],
+  [
+   "1-2 숲",
+   "2-3 숲",
+   1
+  ],
+  [
+   "1-3 숲",
+   "1-4 숲",
+   1
+  ],
+  [
+   "1-3 숲",
+   "2-2 숲",
+   1
+  ],
+  [
+   "1-3 숲",
+   "2-3 숲",
+   1
+  ],
+  [
+   "1-3 숲",
+   "2-4 숲",
+   1
+  ],
+  [
+   "1-4 숲",
+   "1-5 숲",
+   1
+  ],
+  [
+   "1-4 숲",
+   "2-3 숲",
+   1
+  ],
+  [
+   "1-4 숲",
+   "2-4 숲",
+   1
+  ],
+  [
+   "1-4 숲",
+   "2-5 산기슭",
+   1
+  ],
+  [
+   "1-5 숲",
+   "1-6 숲",
+   1
+  ],
+  [
+   "1-5 숲",
+   "2-4 숲",
+   1
+  ],
+  [
+   "1-5 숲",
+   "2-5 산기슭",
+   1
+  ],
+  [
+   "1-5 숲",
+   "2-6 숲",
+   2
+  ],
+  [
+   "1-6 숲",
+   "1-7 산기슭",
+   1
+  ],
+  [
+   "1-6 숲",
+   "2-5 산기슭",
+   2
+  ],
+  [
+   "1-6 숲",
+   "2-6 숲",
+   1
+  ],
+  [
+   "1-6 숲",
+   "2-7 산기슭",
+   1
+  ],
+  [
+   "1-7 산기슭",
+   "1-8 산기슭",
+   1
+  ],
+  [
+   "1-7 산기슭",
+   "2-6 숲",
+   1
+  ],
+  [
+   "1-7 산기슭",
+   "2-7 산기슭",
+   2
+  ],
+  [
+   "1-7 산기슭",
+   "2-8 산기슭",
+   2
+  ],
+  [
+   "1-8 산기슭",
+   "1-9 산기슭",
+   2
+  ],
+  [
+   "1-8 산기슭",
+   "2-7 산기슭",
+   1
+  ],
+  [
+   "1-8 산기슭",
+   "2-8 산기슭",
+   1
+  ],
+  [
+   "1-8 산기슭",
+   "2-9 산기슭",
+   2
+  ],
+  [
+   "1-9 산기슭",
+   "1-10 산기슭",
+   2
+  ],
+  [
+   "1-9 산기슭",
+   "2-8 산기슭",
+   2
+  ],
+  [
+   "1-9 산기슭",
+   "2-9 산기슭",
+   1
+  ],
+  [
+   "1-9 산기슭",
+   "2-10 산기슭",
+   2
+  ],
+  [
+   "1-10 산기슭",
+   "1-11 숲",
+   1
+  ],
+  [
+   "1-10 산기슭",
+   "2-9 산기슭",
+   2
+  ],
+  [
+   "1-10 산기슭",
+   "2-10 산기슭",
+   1
+  ],
+  [
+   "1-10 산기슭",
+   "2-11 산기슭",
+   2
+  ],
+  [
+   "1-11 숲",
+   "1-12 숲",
+   1
+  ],
+  [
+   "1-11 숲",
+   "2-10 산기슭",
+   2
+  ],
+  [
+   "1-11 숲",
+   "2-11 산기슭",
+   1
+  ],
+  [
+   "1-11 숲",
+   "2-12 숲",
+   1
+  ],
+  [
+   "1-12 숲",
+   "1-13 산기슭",
+   1
+  ],
+  [
+   "1-12 숲",
+   "2-11 산기슭",
+   1
+  ],
+  [
+   "1-12 숲",
+   "2-12 숲",
+   1
+  ],
+  [
+   "1-12 숲",
+   "2-13 숲",
+   1
+  ],
+  [
+   "1-13 산기슭",
+   "1-14 산기슭",
+   1
+  ],
+  [
+   "1-13 산기슭",
+   "2-12 숲",
+   1
+  ],
+  [
+   "1-13 산기슭",
+   "2-13 숲",
+   1
+  ],
+  [
+   "1-13 산기슭",
+   "2-14 숲",
+   1
+  ],
+  [
+   "1-14 산기슭",
+   "2-13 숲",
+   1
+  ],
+  [
+   "1-14 산기슭",
+   "2-14 숲",
+   1
+  ],
+  [
+   "2-0 숲",
+   "2-1 숲",
+   1
+  ],
+  [
+   "2-0 숲",
+   "3-0 초원",
+   1
+  ],
+  [
+   "2-0 숲",
+   "3-1 숲",
+   1
+  ],
+  [
+   "2-1 숲",
+   "2-2 숲",
+   1
+  ],
+  [
+   "2-1 숲",
+   "3-0 초원",
+   1
+  ],
+  [
+   "2-1 숲",
+   "3-1 숲",
+   1
+  ],
+  [
+   "2-1 숲",
+   "3-2 숲",
+   1
+  ],
+  [
+   "2-2 숲",
+   "2-3 숲",
+   1
+  ],
+  [
+   "2-2 숲",
+   "3-1 숲",
+   1
+  ],
+  [
+   "2-2 숲",
+   "3-2 숲",
+   1
+  ],
+  [
+   "2-2 숲",
+   "3-3 숲",
+   1
+  ],
+  [
+   "2-3 숲",
+   "2-4 숲",
+   1
+  ],
+  [
+   "2-3 숲",
+   "3-2 숲",
+   1
+  ],
+  [
+   "2-3 숲",
+   "3-3 숲",
+   1
+  ],
+  [
+   "2-3 숲",
+   "3-4 숲",
+   1
+  ],
+  [
+   "2-4 숲",
+   "2-5 산기슭",
+   1
+  ],
+  [
+   "2-4 숲",
+   "3-3 숲",
+   1
+  ],
+  [
+   "2-4 숲",
+   "3-4 숲",
+   1
+  ],
+  [
+   "2-4 숲",
+   "3-5 산기슭",
+   1
+  ],
+  [
+   "2-5 산기슭",
+   "2-6 숲",
+   1
+  ],
+  [
+   "2-5 산기슭",
+   "3-4 숲",
+   1
+  ],
+  [
+   "2-5 산기슭",
+   "3-5 산기슭",
+   1
+  ],
+  [
+   "2-5 산기슭",
+   "3-6 숲",
+   1
+  ],
+  [
+   "2-6 숲",
+   "2-7 산기슭",
+   1
+  ],
+  [
+   "2-6 숲",
+   "3-5 산기슭",
+   1
+  ],
+  [
+   "2-6 숲",
+   "3-6 숲",
+   1
+  ],
+  [
+   "2-6 숲",
+   "3-7 산기슭",
+   1
+  ],
+  [
+   "2-7 산기슭",
+   "2-8 산기슭",
+   1
+  ],
+  [
+   "2-7 산기슭",
+   "3-6 숲",
+   1
+  ],
+  [
+   "2-7 산기슭",
+   "3-7 산기슭",
+   1
+  ],
+  [
+   "2-7 산기슭",
+   "3-8 산기슭",
+   2
+  ],
+  [
+   "2-8 산기슭",
+   "2-9 산기슭",
+   2
+  ],
+  [
+   "2-8 산기슭",
+   "3-7 산기슭",
+   2
+  ],
+  [
+   "2-8 산기슭",
+   "3-8 산기슭",
+   2
+  ],
+  [
+   "2-8 산기슭",
+   "3-9 산기슭",
+   2
+  ],
+  [
+   "2-9 산기슭",
+   "2-10 산기슭",
+   1
+  ],
+  [
+   "2-9 산기슭",
+   "3-8 산기슭",
+   2
+  ],
+  [
+   "2-9 산기슭",
+   "3-9 산기슭",
+   1
+  ],
+  [
+   "2-9 산기슭",
+   "3-10 강",
+   2
+  ],
+  [
+   "2-10 산기슭",
+   "2-11 산기슭",
+   1
+  ],
+  [
+   "2-10 산기슭",
+   "3-9 산기슭",
+   2
+  ],
+  [
+   "2-10 산기슭",
+   "3-10 강",
+   2
+  ],
+  [
+   "2-10 산기슭",
+   "3-11 강",
+   1
+  ],
+  [
+   "2-11 산기슭",
+   "2-12 숲",
+   1
+  ],
+  [
+   "2-11 산기슭",
+   "3-10 강",
+   1
+  ],
+  [
+   "2-11 산기슭",
+   "3-11 강",
+   1
+  ],
+  [
+   "2-11 산기슭",
+   "3-12 강",
+   1
+  ],
+  [
+   "2-12 숲",
+   "2-13 숲",
+   1
+  ],
+  [
+   "2-12 숲",
+   "3-11 강",
+   1
+  ],
+  [
+   "2-12 숲",
+   "3-12 강",
+   1
+  ],
+  [
+   "2-12 숲",
+   "3-13 숲",
+   1
+  ],
+  [
+   "2-13 숲",
+   "2-14 숲",
+   1
+  ],
+  [
+   "2-13 숲",
+   "3-12 강",
+   1
+  ],
+  [
+   "2-13 숲",
+   "3-13 숲",
+   1
+  ],
+  [
+   "2-13 숲",
+   "3-14 산기슭",
+   1
+  ],
+  [
+   "2-14 숲",
+   "3-13 숲",
+   1
+  ],
+  [
+   "2-14 숲",
+   "3-14 산기슭",
+   1
+  ],
+  [
+   "3-0 초원",
+   "3-1 숲",
+   1
+  ],
+  [
+   "3-0 초원",
+   "4-0 숲",
+   1
+  ],
+  [
+   "3-0 초원",
+   "4-1 숲",
+   1
+  ],
+  [
+   "3-1 숲",
+   "3-2 숲",
+   1
+  ],
+  [
+   "3-1 숲",
+   "4-0 숲",
+   1
+  ],
+  [
+   "3-1 숲",
+   "4-1 숲",
+   1
+  ],
+  [
+   "3-1 숲",
+   "4-2 숲",
+   1
+  ],
+  [
+   "3-2 숲",
+   "3-3 숲",
+   1
+  ],
+  [
+   "3-2 숲",
+   "4-1 숲",
+   1
+  ],
+  [
+   "3-2 숲",
+   "4-2 숲",
+   1
+  ],
+  [
+   "3-2 숲",
+   "4-3 산기슭",
+   1
+  ],
+  [
+   "3-3 숲",
+   "3-4 숲",
+   1
+  ],
+  [
+   "3-3 숲",
+   "4-2 숲",
+   1
+  ],
+  [
+   "3-3 숲",
+   "4-3 산기슭",
+   1
+  ],
+  [
+   "3-3 숲",
+   "4-4 산기슭",
+   1
+  ],
+  [
+   "3-4 숲",
+   "3-5 산기슭",
+   1
+  ],
+  [
+   "3-4 숲",
+   "4-3 산기슭",
+   1
+  ],
+  [
+   "3-4 숲",
+   "4-4 산기슭",
+   1
+  ],
+  [
+   "3-4 숲",
+   "4-5 강",
+   1
+  ],
+  [
+   "3-5 산기슭",
+   "3-6 숲",
+   1
+  ],
+  [
+   "3-5 산기슭",
+   "4-4 산기슭",
+   1
+  ],
+  [
+   "3-5 산기슭",
+   "4-5 강",
+   1
+  ],
+  [
+   "3-5 산기슭",
+   "4-6 숲",
+   2
+  ],
+  [
+   "3-6 숲",
+   "3-7 산기슭",
+   1
+  ],
+  [
+   "3-6 숲",
+   "4-5 강",
+   2
+  ],
+  [
+   "3-6 숲",
+   "4-6 숲",
+   1
+  ],
+  [
+   "3-6 숲",
+   "4-7 산기슭",
+   1
+  ],
+  [
+   "3-7 산기슭",
+   "3-8 산기슭",
+   1
+  ],
+  [
+   "3-7 산기슭",
+   "4-6 숲",
+   1
+  ],
+  [
+   "3-7 산기슭",
+   "4-7 산기슭",
+   1
+  ],
+  [
+   "3-7 산기슭",
+   "4-8 산기슭",
+   2
+  ],
+  [
+   "3-8 산기슭",
+   "3-9 산기슭",
+   1
+  ],
+  [
+   "3-8 산기슭",
+   "4-7 산기슭",
+   2
+  ],
+  [
+   "3-8 산기슭",
+   "4-8 산기슭",
+   2
+  ],
+  [
+   "3-8 산기슭",
+   "4-9 강",
+   1
+  ],
+  [
+   "3-9 산기슭",
+   "3-10 강",
+   1
+  ],
+  [
+   "3-9 산기슭",
+   "4-8 산기슭",
+   2
+  ],
+  [
+   "3-9 산기슭",
+   "4-9 강",
+   1
+  ],
+  [
+   "3-9 산기슭",
+   "4-10 강",
+   1
+  ],
+  [
+   "3-10 강",
+   "3-11 강",
+   2
+  ],
+  [
+   "3-10 강",
+   "4-9 강",
+   1
+  ],
+  [
+   "3-10 강",
+   "4-10 강",
+   1
+  ],
+  [
+   "3-10 강",
+   "4-11 산기슭",
+   2
+  ],
+  [
+   "3-11 강",
+   "3-12 강",
+   1
+  ],
+  [
+   "3-11 강",
+   "4-10 강",
+   2
+  ],
+  [
+   "3-11 강",
+   "4-11 산기슭",
+   1
+  ],
+  [
+   "3-11 강",
+   "4-12 산기슭",
+   2
+  ],
+  [
+   "3-12 강",
+   "3-13 숲",
+   1
+  ],
+  [
+   "3-12 강",
+   "4-11 산기슭",
+   1
+  ],
+  [
+   "3-12 강",
+   "4-12 산기슭",
+   1
+  ],
+  [
+   "3-12 강",
+   "4-13 산기슭",
+   2
+  ],
+  [
+   "3-13 숲",
+   "3-14 산기슭",
+   1
+  ],
+  [
+   "3-13 숲",
+   "4-12 산기슭",
+   1
+  ],
+  [
+   "3-13 숲",
+   "4-13 산기슭",
+   1
+  ],
+  [
+   "3-13 숲",
+   "4-14 산기슭",
+   2
+  ],
+  [
+   "3-14 산기슭",
+   "4-13 산기슭",
+   1
+  ],
+  [
+   "3-14 산기슭",
+   "4-14 산기슭",
+   1
+  ],
+  [
+   "4-0 숲",
+   "4-1 숲",
+   1
+  ],
+  [
+   "4-0 숲",
+   "5-0 숲",
+   1
+  ],
+  [
+   "4-0 숲",
+   "5-1 숲",
+   1
+  ],
+  [
+   "4-1 숲",
+   "4-2 숲",
+   1
+  ],
+  [
+   "4-1 숲",
+   "5-0 숲",
+   2
+  ],
+  [
+   "4-1 숲",
+   "5-1 숲",
+   1
+  ],
+  [
+   "4-1 숲",
+   "5-2 숲",
+   1
+  ],
+  [
+   "4-2 숲",
+   "4-3 산기슭",
+   1
+  ],
+  [
+   "4-2 숲",
+   "5-1 숲",
+   1
+  ],
+  [
+   "4-2 숲",
+   "5-2 숲",
+   1
+  ],
+  [
+   "4-2 숲",
+   "5-3 산기슭",
+   1
+  ],
+  [
+   "4-3 산기슭",
+   "4-4 산기슭",
+   1
+  ],
+  [
+   "4-3 산기슭",
+   "5-2 숲",
+   1
+  ],
+  [
+   "4-3 산기슭",
+   "5-3 산기슭",
+   1
+  ],
+  [
+   "4-3 산기슭",
+   "5-4 산기슭",
+   1
+  ],
+  [
+   "4-4 산기슭",
+   "4-5 강",
+   1
+  ],
+  [
+   "4-4 산기슭",
+   "5-3 산기슭",
+   1
+  ],
+  [
+   "4-4 산기슭",
+   "5-4 산기슭",
+   1
+  ],
+  [
+   "4-4 산기슭",
+   "5-5 강",
+   1
+  ],
+  [
+   "4-5 강",
+   "4-6 숲",
+   1
+  ],
+  [
+   "4-5 강",
+   "5-4 산기슭",
+   1
+  ],
+  [
+   "4-5 강",
+   "5-5 강",
+   1
+  ],
+  [
+   "4-5 강",
+   "5-6 산기슭",
+   1
+  ],
+  [
+   "4-6 숲",
+   "4-7 산기슭",
+   1
+  ],
+  [
+   "4-6 숲",
+   "5-5 강",
+   1
+  ],
+  [
+   "4-6 숲",
+   "5-6 산기슭",
+   1
+  ],
+  [
+   "4-6 숲",
+   "5-7 숲",
+   1
+  ],
+  [
+   "4-7 산기슭",
+   "4-8 산기슭",
+   1
+  ],
+  [
+   "4-7 산기슭",
+   "5-6 산기슭",
+   2
+  ],
+  [
+   "4-7 산기슭",
+   "5-7 숲",
+   1
+  ],
+  [
+   "4-7 산기슭",
+   "5-8 산기슭",
+   2
+  ],
+  [
+   "4-8 산기슭",
+   "4-9 강",
+   1
+  ],
+  [
+   "4-8 산기슭",
+   "5-7 숲",
+   1
+  ],
+  [
+   "4-8 산기슭",
+   "5-8 산기슭",
+   1
+  ],
+  [
+   "4-8 산기슭",
+   "5-9 강",
+   2
+  ],
+  [
+   "4-9 강",
+   "4-10 강",
+   1
+  ],
+  [
+   "4-9 강",
+   "5-8 산기슭",
+   1
+  ],
+  [
+   "4-9 강",
+   "5-9 강",
+   2
+  ],
+  [
+   "4-9 강",
+   "5-10 산기슭",
+   1
+  ],
+  [
+   "4-10 강",
+   "4-11 산기슭",
+   1
+  ],
+  [
+   "4-10 강",
+   "5-9 강",
+   2
+  ],
+  [
+   "4-10 강",
+   "5-10 산기슭",
+   1
+  ],
+  [
+   "4-10 강",
+   "5-11 산기슭",
+   2
+  ],
+  [
+   "4-11 산기슭",
+   "4-12 산기슭",
+   1
+  ],
+  [
+   "4-11 산기슭",
+   "5-10 산기슭",
+   2
+  ],
+  [
+   "4-11 산기슭",
+   "5-11 산기슭",
+   1
+  ],
+  [
+   "4-11 산기슭",
+   "5-12 산기슭",
+   2
+  ],
+  [
+   "4-12 산기슭",
+   "4-13 산기슭",
+   1
+  ],
+  [
+   "4-12 산기슭",
+   "5-11 산기슭",
+   1
+  ],
+  [
+   "4-12 산기슭",
+   "5-12 산기슭",
+   1
+  ],
+  [
+   "4-12 산기슭",
+   "5-13 산기슭",
+   1
+  ],
+  [
+   "4-13 산기슭",
+   "4-14 산기슭",
+   1
+  ],
+  [
+   "4-13 산기슭",
+   "5-12 산기슭",
+   1
+  ],
+  [
+   "4-13 산기슭",
+   "5-13 산기슭",
+   1
+  ],
+  [
+   "4-13 산기슭",
+   "5-14 산기슭",
+   2
+  ],
+  [
+   "4-14 산기슭",
+   "5-13 산기슭",
+   1
+  ],
+  [
+   "4-14 산기슭",
+   "5-14 산기슭",
+   1
+  ],
+  [
+   "5-0 숲",
+   "5-1 숲",
+   1
+  ],
+  [
+   "5-0 숲",
+   "6-0 산기슭",
+   1
+  ],
+  [
+   "5-0 숲",
+   "6-1 산기슭",
+   1
+  ],
+  [
+   "5-1 숲",
+   "5-2 숲",
+   1
+  ],
+  [
+   "5-1 숲",
+   "6-0 산기슭",
+   1
+  ],
+  [
+   "5-1 숲",
+   "6-1 산기슭",
+   1
+  ],
+  [
+   "5-1 숲",
+   "6-2 산기슭",
+   1
+  ],
+  [
+   "5-2 숲",
+   "5-3 산기슭",
+   1
+  ],
+  [
+   "5-2 숲",
+   "6-1 산기슭",
+   1
+  ],
+  [
+   "5-2 숲",
+   "6-2 산기슭",
+   2
+  ],
+  [
+   "5-2 숲",
+   "6-3 강",
+   1
+  ],
+  [
+   "5-3 산기슭",
+   "5-4 산기슭",
+   1
+  ],
+  [
+   "5-3 산기슭",
+   "6-2 산기슭",
+   2
+  ],
+  [
+   "5-3 산기슭",
+   "6-3 강",
+   1
+  ],
+  [
+   "5-3 산기슭",
+   "6-4 숲",
+   1
+  ],
+  [
+   "5-4 산기슭",
+   "5-5 강",
+   1
+  ],
+  [
+   "5-4 산기슭",
+   "6-3 강",
+   1
+  ],
+  [
+   "5-4 산기슭",
+   "6-4 숲",
+   1
+  ],
+  [
+   "5-4 산기슭",
+   "6-5 강",
+   2
+  ],
+  [
+   "5-5 강",
+   "5-6 산기슭",
+   1
+  ],
+  [
+   "5-5 강",
+   "6-4 숲",
+   1
+  ],
+  [
+   "5-5 강",
+   "6-5 강",
+   1
+  ],
+  [
+   "5-5 강",
+   "6-6 숲",
+   1
+  ],
+  [
+   "5-6 산기슭",
+   "5-7 숲",
+   1
+  ],
+  [
+   "5-6 산기슭",
+   "6-5 강",
+   2
+  ],
+  [
+   "5-6 산기슭",
+   "6-6 숲",
+   1
+  ],
+  [
+   "5-6 산기슭",
+   "6-7 산기슭",
+   1
+  ],
+  [
+   "5-7 숲",
+   "5-8 산기슭",
+   1
+  ],
+  [
+   "5-7 숲",
+   "6-6 숲",
+   1
+  ],
+  [
+   "5-7 숲",
+   "6-7 산기슭",
+   1
+  ],
+  [
+   "5-7 숲",
+   "6-8 강",
+   2
+  ],
+  [
+   "5-8 산기슭",
+   "5-9 강",
+   1
+  ],
+  [
+   "5-8 산기슭",
+   "6-7 산기슭",
+   1
+  ],
+  [
+   "5-8 산기슭",
+   "6-8 강",
+   1
+  ],
+  [
+   "5-8 산기슭",
+   "6-9 강",
+   2
+  ],
+  [
+   "5-9 강",
+   "5-10 산기슭",
+   1
+  ],
+  [
+   "5-9 강",
+   "6-8 강",
+   2
+  ],
+  [
+   "5-9 강",
+   "6-9 강",
+   1
+  ],
+  [
+   "5-9 강",
+   "6-10 산기슭",
+   2
+  ],
+  [
+   "5-10 산기슭",
+   "5-11 산기슭",
+   1
+  ],
+  [
+   "5-10 산기슭",
+   "6-9 강",
+   2
+  ],
+  [
+   "5-10 산기슭",
+   "6-10 산기슭",
+   1
+  ],
+  [
+   "5-10 산기슭",
+   "6-11 산기슭",
+   2
+  ],
+  [
+   "5-11 산기슭",
+   "5-12 산기슭",
+   1
+  ],
+  [
+   "5-11 산기슭",
+   "6-10 산기슭",
+   2
+  ],
+  [
+   "5-11 산기슭",
+   "6-11 산기슭",
+   1
+  ],
+  [
+   "5-11 산기슭",
+   "6-12 산기슭",
+   1
+  ],
+  [
+   "5-12 산기슭",
+   "5-13 산기슭",
+   1
+  ],
+  [
+   "5-12 산기슭",
+   "6-11 산기슭",
+   1
+  ],
+  [
+   "5-12 산기슭",
+   "6-12 산기슭",
+   1
+  ],
+  [
+   "5-12 산기슭",
+   "6-13 산기슭",
+   1
+  ],
+  [
+   "5-13 산기슭",
+   "5-14 산기슭",
+   1
+  ],
+  [
+   "5-13 산기슭",
+   "6-12 산기슭",
+   1
+  ],
+  [
+   "5-13 산기슭",
+   "6-13 산기슭",
+   1
+  ],
+  [
+   "5-13 산기슭",
+   "6-14 산기슭",
+   2
+  ],
+  [
+   "5-14 산기슭",
+   "6-13 산기슭",
+   1
+  ],
+  [
+   "5-14 산기슭",
+   "6-14 산기슭",
+   1
+  ],
+  [
+   "6-0 산기슭",
+   "6-1 산기슭",
+   1
+  ],
+  [
+   "6-0 산기슭",
+   "7-0 숲",
+   1
+  ],
+  [
+   "6-0 산기슭",
+   "7-1 숲",
+   1
+  ],
+  [
+   "6-1 산기슭",
+   "6-2 산기슭",
+   1
+  ],
+  [
+   "6-1 산기슭",
+   "7-0 숲",
+   1
+  ],
+  [
+   "6-1 산기슭",
+   "7-1 숲",
+   1
+  ],
+  [
+   "6-1 산기슭",
+   "7-2 숲",
+   1
+  ],
+  [
+   "6-2 산기슭",
+   "6-3 강",
+   1
+  ],
+  [
+   "6-2 산기슭",
+   "7-1 숲",
+   1
+  ],
+  [
+   "6-2 산기슭",
+   "7-2 숲",
+   1
+  ],
+  [
+   "6-2 산기슭",
+   "7-3 숲",
+   1
+  ],
+  [
+   "6-3 강",
+   "6-4 숲",
+   1
+  ],
+  [
+   "6-3 강",
+   "7-2 숲",
+   1
+  ],
+  [
+   "6-3 강",
+   "7-3 숲",
+   1
+  ],
+  [
+   "6-3 강",
+   "7-4 강",
+   1
+  ],
+  [
+   "6-4 숲",
+   "6-5 강",
+   1
+  ],
+  [
+   "6-4 숲",
+   "7-3 숲",
+   1
+  ],
+  [
+   "6-4 숲",
+   "7-4 강",
+   1
+  ],
+  [
+   "6-4 숲",
+   "7-5 강",
+   1
+  ],
+  [
+   "6-5 강",
+   "6-6 숲",
+   1
+  ],
+  [
+   "6-5 강",
+   "7-4 강",
+   1
+  ],
+  [
+   "6-5 강",
+   "7-5 강",
+   1
+  ],
+  [
+   "6-5 강",
+   "7-6 숲",
+   1
+  ],
+  [
+   "6-6 숲",
+   "6-7 산기슭",
+   1
+  ],
+  [
+   "6-6 숲",
+   "7-5 강",
+   1
+  ],
+  [
+   "6-6 숲",
+   "7-6 숲",
+   1
+  ],
+  [
+   "6-6 숲",
+   "7-7 강",
+   1
+  ],
+  [
+   "6-7 산기슭",
+   "6-8 강",
+   1
+  ],
+  [
+   "6-7 산기슭",
+   "7-6 숲",
+   1
+  ],
+  [
+   "6-7 산기슭",
+   "7-7 강",
+   1
+  ],
+  [
+   "6-7 산기슭",
+   "7-8 강",
+   2
+  ],
+  [
+   "6-8 강",
+   "6-9 강",
+   1
+  ],
+  [
+   "6-8 강",
+   "7-7 강",
+   2
+  ],
+  [
+   "6-8 강",
+   "7-8 강",
+   1
+  ],
+  [
+   "6-8 강",
+   "7-9 산기슭",
+   2
+  ],
+  [
+   "6-9 강",
+   "6-10 산기슭",
+   2
+  ],
+  [
+   "6-9 강",
+   "7-8 강",
+   2
+  ],
+  [
+   "6-9 강",
+   "7-9 산기슭",
+   1
+  ],
+  [
+   "6-9 강",
+   "7-10 산기슭",
+   1
+  ],
+  [
+   "6-10 산기슭",
+   "6-11 산기슭",
+   1
+  ],
+  [
+   "6-10 산기슭",
+   "7-9 산기슭",
+   1
+  ],
+  [
+   "6-10 산기슭",
+   "7-10 산기슭",
+   1
+  ],
+  [
+   "6-10 산기슭",
+   "7-11 산기슭",
+   2
+  ],
+  [
+   "6-11 산기슭",
+   "6-12 산기슭",
+   1
+  ],
+  [
+   "6-11 산기슭",
+   "7-10 산기슭",
+   2
+  ],
+  [
+   "6-11 산기슭",
+   "7-11 산기슭",
+   2
+  ],
+  [
+   "6-11 산기슭",
+   "7-12 산기슭",
+   1
+  ],
+  [
+   "6-12 산기슭",
+   "6-13 산기슭",
+   1
+  ],
+  [
+   "6-12 산기슭",
+   "7-11 산기슭",
+   1
+  ],
+  [
+   "6-12 산기슭",
+   "7-12 산기슭",
+   1
+  ],
+  [
+   "6-12 산기슭",
+   "7-13 산기슭",
+   1
+  ],
+  [
+   "6-13 산기슭",
+   "6-14 산기슭",
+   1
+  ],
+  [
+   "6-13 산기슭",
+   "7-12 산기슭",
+   1
+  ],
+  [
+   "6-13 산기슭",
+   "7-13 산기슭",
+   1
+  ],
+  [
+   "6-13 산기슭",
+   "7-14 숲",
+   1
+  ],
+  [
+   "6-14 산기슭",
+   "7-13 산기슭",
+   1
+  ],
+  [
+   "6-14 산기슭",
+   "7-14 숲",
+   1
+  ],
+  [
+   "7-0 숲",
+   "7-1 숲",
+   1
+  ],
+  [
+   "7-0 숲",
+   "8-0 숲",
+   1
+  ],
+  [
+   "7-0 숲",
+   "8-1 숲",
+   1
+  ],
+  [
+   "7-1 숲",
+   "7-2 숲",
+   1
+  ],
+  [
+   "7-1 숲",
+   "8-0 숲",
+   1
+  ],
+  [
+   "7-1 숲",
+   "8-1 숲",
+   1
+  ],
+  [
+   "7-1 숲",
+   "8-2 숲",
+   1
+  ],
+  [
+   "7-2 숲",
+   "7-3 숲",
+   1
+  ],
+  [
+   "7-2 숲",
+   "8-1 숲",
+   1
+  ],
+  [
+   "7-2 숲",
+   "8-2 숲",
+   1
+  ],
+  [
+   "7-2 숲",
+   "8-3 숲",
+   1
+  ],
+  [
+   "7-3 숲",
+   "7-4 강",
+   1
+  ],
+  [
+   "7-3 숲",
+   "8-2 숲",
+   1
+  ],
+  [
+   "7-3 숲",
+   "8-3 숲",
+   1
+  ],
+  [
+   "7-3 숲",
+   "8-4 숲",
+   1
+  ],
+  [
+   "7-4 강",
+   "7-5 강",
+   1
+  ],
+  [
+   "7-4 강",
+   "8-3 숲",
+   1
+  ],
+  [
+   "7-4 강",
+   "8-4 숲",
+   1
+  ],
+  [
+   "7-4 강",
+   "8-5 강",
+   1
+  ],
+  [
+   "7-5 강",
+   "7-6 숲",
+   1
+  ],
+  [
+   "7-5 강",
+   "8-4 숲",
+   1
+  ],
+  [
+   "7-5 강",
+   "8-5 강",
+   1
+  ],
+  [
+   "7-5 강",
+   "8-6 강",
+   1
+  ],
+  [
+   "7-6 숲",
+   "7-7 강",
+   1
+  ],
+  [
+   "7-6 숲",
+   "8-5 강",
+   1
+  ],
+  [
+   "7-6 숲",
+   "8-6 강",
+   1
+  ],
+  [
+   "7-6 숲",
+   "8-7 강",
+   2
+  ],
+  [
+   "7-7 강",
+   "7-8 강",
+   1
+  ],
+  [
+   "7-7 강",
+   "8-6 강",
+   2
+  ],
+  [
+   "7-7 강",
+   "8-7 강",
+   1
+  ],
+  [
+   "7-7 강",
+   "8-8 산기슭",
+   1
+  ],
+  [
+   "7-8 강",
+   "7-9 산기슭",
+   1
+  ],
+  [
+   "7-8 강",
+   "8-7 강",
+   2
+  ],
+  [
+   "7-8 강",
+   "8-8 산기슭",
+   2
+  ],
+  [
+   "7-8 강",
+   "8-9 숲",
+   2
+  ],
+  [
+   "7-9 산기슭",
+   "7-10 산기슭",
+   1
+  ],
+  [
+   "7-9 산기슭",
+   "8-8 산기슭",
+   1
+  ],
+  [
+   "7-9 산기슭",
+   "8-9 숲",
+   1
+  ],
+  [
+   "7-9 산기슭",
+   "8-10 산기슭",
+   2
+  ],
+  [
+   "7-10 산기슭",
+   "7-11 산기슭",
+   1
+  ],
+  [
+   "7-10 산기슭",
+   "8-9 숲",
+   1
+  ],
+  [
+   "7-10 산기슭",
+   "8-10 산기슭",
+   1
+  ],
+  [
+   "7-10 산기슭",
+   "8-11 산기슭",
+   2
+  ],
+  [
+   "7-11 산기슭",
+   "7-12 산기슭",
+   1
+  ],
+  [
+   "7-11 산기슭",
+   "8-10 산기슭",
+   1
+  ],
+  [
+   "7-11 산기슭",
+   "8-11 산기슭",
+   1
+  ],
+  [
+   "7-11 산기슭",
+   "8-12 산기슭",
+   2
+  ],
+  [
+   "7-12 산기슭",
+   "7-13 산기슭",
+   1
+  ],
+  [
+   "7-12 산기슭",
+   "8-11 산기슭",
+   2
+  ],
+  [
+   "7-12 산기슭",
+   "8-12 산기슭",
+   1
+  ],
+  [
+   "7-12 산기슭",
+   "8-13 산기슭",
+   2
+  ],
+  [
+   "7-13 산기슭",
+   "7-14 숲",
+   1
+  ],
+  [
+   "7-13 산기슭",
+   "8-12 산기슭",
+   1
+  ],
+  [
+   "7-13 산기슭",
+   "8-13 산기슭",
+   1
+  ],
+  [
+   "7-13 산기슭",
+   "8-14 숲",
+   1
+  ],
+  [
+   "7-14 숲",
+   "8-13 산기슭",
+   1
+  ],
+  [
+   "7-14 숲",
+   "8-14 숲",
+   1
+  ],
+  [
+   "8-0 숲",
+   "8-1 숲",
+   1
+  ],
+  [
+   "8-0 숲",
+   "9-0 숲",
+   1
+  ],
+  [
+   "8-0 숲",
+   "9-1 숲",
+   1
+  ],
+  [
+   "8-1 숲",
+   "8-2 숲",
+   1
+  ],
+  [
+   "8-1 숲",
+   "9-0 숲",
+   1
+  ],
+  [
+   "8-1 숲",
+   "9-1 숲",
+   1
+  ],
+  [
+   "8-1 숲",
+   "9-2 초원",
+   1
+  ],
+  [
+   "8-2 숲",
+   "8-3 숲",
+   1
+  ],
+  [
+   "8-2 숲",
+   "9-1 숲",
+   1
+  ],
+  [
+   "8-2 숲",
+   "9-2 초원",
+   1
+  ],
+  [
+   "8-2 숲",
+   "9-3 초원",
+   1
+  ],
+  [
+   "8-3 숲",
+   "8-4 숲",
+   1
+  ],
+  [
+   "8-3 숲",
+   "9-2 초원",
+   1
+  ],
+  [
+   "8-3 숲",
+   "9-3 초원",
+   1
+  ],
+  [
+   "8-3 숲",
+   "9-4 숲",
+   1
+  ],
+  [
+   "8-4 숲",
+   "8-5 강",
+   1
+  ],
+  [
+   "8-4 숲",
+   "9-3 초원",
+   1
+  ],
+  [
+   "8-4 숲",
+   "9-4 숲",
+   1
+  ],
+  [
+   "8-4 숲",
+   "9-5 숲",
+   1
+  ],
+  [
+   "8-5 강",
+   "8-6 강",
+   1
+  ],
+  [
+   "8-5 강",
+   "9-4 숲",
+   1
+  ],
+  [
+   "8-5 강",
+   "9-5 숲",
+   1
+  ],
+  [
+   "8-5 강",
+   "9-6 숲",
+   1
+  ],
+  [
+   "8-6 강",
+   "8-7 강",
+   1
+  ],
+  [
+   "8-6 강",
+   "9-5 숲",
+   1
+  ],
+  [
+   "8-6 강",
+   "9-6 숲",
+   1
+  ],
+  [
+   "8-6 강",
+   "9-7 강",
+   1
+  ],
+  [
+   "8-7 강",
+   "8-8 산기슭",
+   1
+  ],
+  [
+   "8-7 강",
+   "9-6 숲",
+   1
+  ],
+  [
+   "8-7 강",
+   "9-7 강",
+   1
+  ],
+  [
+   "8-7 강",
+   "9-8 강",
+   2
+  ],
+  [
+   "8-8 산기슭",
+   "8-9 숲",
+   1
+  ],
+  [
+   "8-8 산기슭",
+   "9-7 강",
+   2
+  ],
+  [
+   "8-8 산기슭",
+   "9-8 강",
+   1
+  ],
+  [
+   "8-8 산기슭",
+   "9-9 강",
+   1
+  ],
+  [
+   "8-9 숲",
+   "8-10 산기슭",
+   1
+  ],
+  [
+   "8-9 숲",
+   "9-8 강",
+   1
+  ],
+  [
+   "8-9 숲",
+   "9-9 강",
+   1
+  ],
+  [
+   "8-9 숲",
+   "9-10 산기슭",
+   1
+  ],
+  [
+   "8-10 산기슭",
+   "8-11 산기슭",
+   1
+  ],
+  [
+   "8-10 산기슭",
+   "9-9 강",
+   1
+  ],
+  [
+   "8-10 산기슭",
+   "9-10 산기슭",
+   1
+  ],
+  [
+   "8-10 산기슭",
+   "9-11 산기슭",
+   2
+  ],
+  [
+   "8-11 산기슭",
+   "8-12 산기슭",
+   1
+  ],
+  [
+   "8-11 산기슭",
+   "9-10 산기슭",
+   2
+  ],
+  [
+   "8-11 산기슭",
+   "9-11 산기슭",
+   1
+  ],
+  [
+   "8-11 산기슭",
+   "9-12 산기슭",
+   2
+  ],
+  [
+   "8-12 산기슭",
+   "8-13 산기슭",
+   1
+  ],
+  [
+   "8-12 산기슭",
+   "9-11 산기슭",
+   1
+  ],
+  [
+   "8-12 산기슭",
+   "9-12 산기슭",
+   1
+  ],
+  [
+   "8-12 산기슭",
+   "9-13 산기슭",
+   2
+  ],
+  [
+   "8-13 산기슭",
+   "8-14 숲",
+   1
+  ],
+  [
+   "8-13 산기슭",
+   "9-12 산기슭",
+   1
+  ],
+  [
+   "8-13 산기슭",
+   "9-13 산기슭",
+   1
+  ],
+  [
+   "8-13 산기슭",
+   "9-14 숲",
+   1
+  ],
+  [
+   "8-14 숲",
+   "9-13 산기슭",
+   2
+  ],
+  [
+   "8-14 숲",
+   "9-14 숲",
+   1
+  ],
+  [
+   "9-0 숲",
+   "9-1 숲",
+   1
+  ],
+  [
+   "9-0 숲",
+   "10-0 강",
+   1
+  ],
+  [
+   "9-0 숲",
+   "10-1 숲",
+   1
+  ],
+  [
+   "9-1 숲",
+   "9-2 초원",
+   1
+  ],
+  [
+   "9-1 숲",
+   "10-0 강",
+   1
+  ],
+  [
+   "9-1 숲",
+   "10-1 숲",
+   1
+  ],
+  [
+   "9-1 숲",
+   "10-2 숲",
+   1
+  ],
+  [
+   "9-2 초원",
+   "9-3 초원",
+   1
+  ],
+  [
+   "9-2 초원",
+   "10-1 숲",
+   1
+  ],
+  [
+   "9-2 초원",
+   "10-2 숲",
+   1
+  ],
+  [
+   "9-2 초원",
+   "10-3 숲",
+   1
+  ],
+  [
+   "9-3 초원",
+   "9-4 숲",
+   1
+  ],
+  [
+   "9-3 초원",
+   "10-2 숲",
+   1
+  ],
+  [
+   "9-3 초원",
+   "10-3 숲",
+   1
+  ],
+  [
+   "9-3 초원",
+   "10-4 숲",
+   1
+  ],
+  [
+   "9-4 숲",
+   "9-5 숲",
+   1
+  ],
+  [
+   "9-4 숲",
+   "10-3 숲",
+   1
+  ],
+  [
+   "9-4 숲",
+   "10-4 숲",
+   1
+  ],
+  [
+   "9-4 숲",
+   "10-5 숲",
+   1
+  ],
+  [
+   "9-5 숲",
+   "9-6 숲",
+   1
+  ],
+  [
+   "9-5 숲",
+   "10-4 숲",
+   1
+  ],
+  [
+   "9-5 숲",
+   "10-5 숲",
+   1
+  ],
+  [
+   "9-5 숲",
+   "10-6 강",
+   1
+  ],
+  [
+   "9-6 숲",
+   "9-7 강",
+   1
+  ],
+  [
+   "9-6 숲",
+   "10-5 숲",
+   1
+  ],
+  [
+   "9-6 숲",
+   "10-6 강",
+   1
+  ],
+  [
+   "9-6 숲",
+   "10-7 강",
+   1
+  ],
+  [
+   "9-7 강",
+   "9-8 강",
+   1
+  ],
+  [
+   "9-7 강",
+   "10-6 강",
+   1
+  ],
+  [
+   "9-7 강",
+   "10-7 강",
+   1
+  ],
+  [
+   "9-7 강",
+   "10-8 산기슭",
+   2
+  ],
+  [
+   "9-8 강",
+   "9-9 강",
+   1
+  ],
+  [
+   "9-8 강",
+   "10-7 강",
+   1
+  ],
+  [
+   "9-8 강",
+   "10-8 산기슭",
+   1
+  ],
+  [
+   "9-8 강",
+   "10-9 산기슭",
+   2
+  ],
+  [
+   "9-9 강",
+   "9-10 산기슭",
+   1
+  ],
+  [
+   "9-9 강",
+   "10-8 산기슭",
+   2
+  ],
+  [
+   "9-9 강",
+   "10-9 산기슭",
+   1
+  ],
+  [
+   "9-9 강",
+   "10-10 산기슭",
+   2
+  ],
+  [
+   "9-10 산기슭",
+   "9-11 산기슭",
+   1
+  ],
+  [
+   "9-10 산기슭",
+   "10-9 산기슭",
+   1
+  ],
+  [
+   "9-10 산기슭",
+   "10-10 산기슭",
+   1
+  ],
+  [
+   "9-10 산기슭",
+   "10-11 산기슭",
+   2
+  ],
+  [
+   "9-11 산기슭",
+   "9-12 산기슭",
+   1
+  ],
+  [
+   "9-11 산기슭",
+   "10-10 산기슭",
+   2
+  ],
+  [
+   "9-11 산기슭",
+   "10-11 산기슭",
+   1
+  ],
+  [
+   "9-11 산기슭",
+   "10-12 산기슭",
+   1
+  ],
+  [
+   "9-12 산기슭",
+   "9-13 산기슭",
+   1
+  ],
+  [
+   "9-12 산기슭",
+   "10-11 산기슭",
+   2
+  ],
+  [
+   "9-12 산기슭",
+   "10-12 산기슭",
+   1
+  ],
+  [
+   "9-12 산기슭",
+   "10-13 산기슭",
+   1
+  ],
+  [
+   "9-13 산기슭",
+   "9-14 숲",
+   1
+  ],
+  [
+   "9-13 산기슭",
+   "10-12 산기슭",
+   1
+  ],
+  [
+   "9-13 산기슭",
+   "10-13 산기슭",
+   1
+  ],
+  [
+   "9-13 산기슭",
+   "10-14 산기슭",
+   1
+  ],
+  [
+   "9-14 숲",
+   "10-13 산기슭",
+   1
+  ],
+  [
+   "9-14 숲",
+   "10-14 산기슭",
+   1
+  ],
+  [
+   "10-0 강",
+   "10-1 숲",
+   1
+  ],
+  [
+   "10-0 강",
+   "11-0 강",
+   1
+  ],
+  [
+   "10-0 강",
+   "11-1 숲",
+   1
+  ],
+  [
+   "10-1 숲",
+   "10-2 숲",
+   1
+  ],
+  [
+   "10-1 숲",
+   "11-0 강",
+   1
+  ],
+  [
+   "10-1 숲",
+   "11-1 숲",
+   1
+  ],
+  [
+   "10-1 숲",
+   "11-2 강",
+   1
+  ],
+  [
+   "10-2 숲",
+   "10-3 숲",
+   1
+  ],
+  [
+   "10-2 숲",
+   "11-1 숲",
+   1
+  ],
+  [
+   "10-2 숲",
+   "11-2 강",
+   1
+  ],
+  [
+   "10-2 숲",
+   "11-3 산기슭",
+   1
+  ],
+  [
+   "10-3 숲",
+   "10-4 숲",
+   1
+  ],
+  [
+   "10-3 숲",
+   "11-2 강",
+   1
+  ],
+  [
+   "10-3 숲",
+   "11-3 산기슭",
+   1
+  ],
+  [
+   "10-3 숲",
+   "11-4 숲",
+   1
+  ],
+  [
+   "10-4 숲",
+   "10-5 숲",
+   1
+  ],
+  [
+   "10-4 숲",
+   "11-3 산기슭",
+   1
+  ],
+  [
+   "10-4 숲",
+   "11-4 숲",
+   1
+  ],
+  [
+   "10-4 숲",
+   "11-5 강",
+   1
+  ],
+  [
+   "10-5 숲",
+   "10-6 강",
+   1
+  ],
+  [
+   "10-5 숲",
+   "11-4 숲",
+   1
+  ],
+  [
+   "10-5 숲",
+   "11-5 강",
+   1
+  ],
+  [
+   "10-5 숲",
+   "11-6 산기슭",
+   2
+  ],
+  [
+   "10-6 강",
+   "10-7 강",
+   1
+  ],
+  [
+   "10-6 강",
+   "11-5 강",
+   1
+  ],
+  [
+   "10-6 강",
+   "11-6 산기슭",
+   1
+  ],
+  [
+   "10-6 강",
+   "11-7 산기슭",
+   2
+  ],
+  [
+   "10-7 강",
+   "10-8 산기슭",
+   1
+  ],
+  [
+   "10-7 강",
+   "11-6 산기슭",
+   1
+  ],
+  [
+   "10-7 강",
+   "11-7 산기슭",
+   1
+  ],
+  [
+   "10-7 강",
+   "11-8 산기슭",
+   1
+  ],
+  [
+   "10-8 산기슭",
+   "10-9 산기슭",
+   1
+  ],
+  [
+   "10-8 산기슭",
+   "11-7 산기슭",
+   2
+  ],
+  [
+   "10-8 산기슭",
+   "11-8 산기슭",
+   1
+  ],
+  [
+   "10-8 산기슭",
+   "11-9 숲",
+   1
+  ],
+  [
+   "10-9 산기슭",
+   "10-10 산기슭",
+   1
+  ],
+  [
+   "10-9 산기슭",
+   "11-8 산기슭",
+   1
+  ],
+  [
+   "10-9 산기슭",
+   "11-9 숲",
+   1
+  ],
+  [
+   "10-9 산기슭",
+   "11-10 숲",
+   1
+  ],
+  [
+   "10-10 산기슭",
+   "10-11 산기슭",
+   1
+  ],
+  [
+   "10-10 산기슭",
+   "11-9 숲",
+   1
+  ],
+  [
+   "10-10 산기슭",
+   "11-10 숲",
+   1
+  ],
+  [
+   "10-10 산기슭",
+   "11-11 산기슭",
+   1
+  ],
+  [
+   "10-11 산기슭",
+   "10-12 산기슭",
+   1
+  ],
+  [
+   "10-11 산기슭",
+   "11-10 숲",
+   1
+  ],
+  [
+   "10-11 산기슭",
+   "11-11 산기슭",
+   1
+  ],
+  [
+   "10-11 산기슭",
+   "11-12 숲",
+   1
+  ],
+  [
+   "10-12 산기슭",
+   "10-13 산기슭",
+   1
+  ],
+  [
+   "10-12 산기슭",
+   "11-11 산기슭",
+   1
+  ],
+  [
+   "10-12 산기슭",
+   "11-12 숲",
+   1
+  ],
+  [
+   "10-12 산기슭",
+   "11-13 산기슭",
+   1
+  ],
+  [
+   "10-13 산기슭",
+   "10-14 산기슭",
+   1
+  ],
+  [
+   "10-13 산기슭",
+   "11-12 숲",
+   2
+  ],
+  [
+   "10-13 산기슭",
+   "11-13 산기슭",
+   1
+  ],
+  [
+   "10-13 산기슭",
+   "11-14 산기슭",
+   2
+  ],
+  [
+   "10-14 산기슭",
+   "11-13 산기슭",
+   2
+  ],
+  [
+   "10-14 산기슭",
+   "11-14 산기슭",
+   1
+  ],
+  [
+   "11-0 강",
+   "11-1 숲",
+   1
+  ],
+  [
+   "11-0 강",
+   "12-0 강",
+   1
+  ],
+  [
+   "11-0 강",
+   "12-1 강",
+   1
+  ],
+  [
+   "11-1 숲",
+   "11-2 강",
+   1
+  ],
+  [
+   "11-1 숲",
+   "12-0 강",
+   1
+  ],
+  [
+   "11-1 숲",
+   "12-1 강",
+   1
+  ],
+  [
+   "11-1 숲",
+   "12-2 숲",
+   1
+  ],
+  [
+   "11-2 강",
+   "11-3 산기슭",
+   1
+  ],
+  [
+   "11-2 강",
+   "12-1 강",
+   1
+  ],
+  [
+   "11-2 강",
+   "12-2 숲",
+   1
+  ],
+  [
+   "11-2 강",
+   "12-3 숲",
+   1
+  ],
+  [
+   "11-3 산기슭",
+   "11-4 숲",
+   1
+  ],
+  [
+   "11-3 산기슭",
+   "12-2 숲",
+   1
+  ],
+  [
+   "11-3 산기슭",
+   "12-3 숲",
+   1
+  ],
+  [
+   "11-3 산기슭",
+   "12-4 숲",
+   1
+  ],
+  [
+   "11-4 숲",
+   "11-5 강",
+   1
+  ],
+  [
+   "11-4 숲",
+   "12-3 숲",
+   1
+  ],
+  [
+   "11-4 숲",
+   "12-4 숲",
+   1
+  ],
+  [
+   "11-4 숲",
+   "12-5 강",
+   1
+  ],
+  [
+   "11-5 강",
+   "11-6 산기슭",
+   1
+  ],
+  [
+   "11-5 강",
+   "12-4 숲",
+   1
+  ],
+  [
+   "11-5 강",
+   "12-5 강",
+   1
+  ],
+  [
+   "11-5 강",
+   "12-6 산기슭",
+   1
+  ],
+  [
+   "11-6 산기슭",
+   "11-7 산기슭",
+   1
+  ],
+  [
+   "11-6 산기슭",
+   "12-5 강",
+   2
+  ],
+  [
+   "11-6 산기슭",
+   "12-6 산기슭",
+   1
+  ],
+  [
+   "11-6 산기슭",
+   "12-7 산기슭",
+   2
+  ],
+  [
+   "11-7 산기슭",
+   "11-8 산기슭",
+   1
+  ],
+  [
+   "11-7 산기슭",
+   "12-6 산기슭",
+   2
+  ],
+  [
+   "11-7 산기슭",
+   "12-7 산기슭",
+   2
+  ],
+  [
+   "11-7 산기슭",
+   "12-8 숲",
+   1
+  ],
+  [
+   "11-8 산기슭",
+   "11-9 숲",
+   1
+  ],
+  [
+   "11-8 산기슭",
+   "12-7 산기슭",
+   1
+  ],
+  [
+   "11-8 산기슭",
+   "12-8 숲",
+   1
+  ],
+  [
+   "11-8 산기슭",
+   "12-9 초원",
+   1
+  ],
+  [
+   "11-9 숲",
+   "11-10 숲",
+   1
+  ],
+  [
+   "11-9 숲",
+   "12-8 숲",
+   1
+  ],
+  [
+   "11-9 숲",
+   "12-9 초원",
+   1
+  ],
+  [
+   "11-9 숲",
+   "12-10 숲",
+   1
+  ],
+  [
+   "11-10 숲",
+   "11-11 산기슭",
+   1
+  ],
+  [
+   "11-10 숲",
+   "12-9 초원",
+   1
+  ],
+  [
+   "11-10 숲",
+   "12-10 숲",
+   1
+  ],
+  [
+   "11-10 숲",
+   "12-11 숲",
+   1
+  ],
+  [
+   "11-11 산기슭",
+   "11-12 숲",
+   1
+  ],
+  [
+   "11-11 산기슭",
+   "12-10 숲",
+   1
+  ],
+  [
+   "11-11 산기슭",
+   "12-11 숲",
+   1
+  ],
+  [
+   "11-11 산기슭",
+   "12-12 숲",
+   1
+  ],
+  [
+   "11-12 숲",
+   "11-13 산기슭",
+   1
+  ],
+  [
+   "11-12 숲",
+   "12-11 숲",
+   1
+  ],
+  [
+   "11-12 숲",
+   "12-12 숲",
+   1
+  ],
+  [
+   "11-12 숲",
+   "12-13 숲",
+   1
+  ],
+  [
+   "11-13 산기슭",
+   "11-14 산기슭",
+   1
+  ],
+  [
+   "11-13 산기슭",
+   "12-12 숲",
+   1
+  ],
+  [
+   "11-13 산기슭",
+   "12-13 숲",
+   1
+  ],
+  [
+   "11-13 산기슭",
+   "12-14 산기슭",
+   1
+  ],
+  [
+   "11-14 산기슭",
+   "12-13 숲",
+   2
+  ],
+  [
+   "11-14 산기슭",
+   "12-14 산기슭",
+   1
+  ],
+  [
+   "12-0 강",
+   "12-1 강",
+   1
+  ],
+  [
+   "12-0 강",
+   "13-0 숲",
+   1
+  ],
+  [
+   "12-0 강",
+   "13-1 산기슭",
+   1
+  ],
+  [
+   "12-1 강",
+   "12-2 숲",
+   1
+  ],
+  [
+   "12-1 강",
+   "13-0 숲",
+   1
+  ],
+  [
+   "12-1 강",
+   "13-1 산기슭",
+   1
+  ],
+  [
+   "12-1 강",
+   "13-2 숲",
+   1
+  ],
+  [
+   "12-2 숲",
+   "12-3 숲",
+   1
+  ],
+  [
+   "12-2 숲",
+   "13-1 산기슭",
+   1
+  ],
+  [
+   "12-2 숲",
+   "13-2 숲",
+   1
+  ],
+  [
+   "12-2 숲",
+   "13-3 숲",
+   1
+  ],
+  [
+   "12-3 숲",
+   "12-4 숲",
+   1
+  ],
+  [
+   "12-3 숲",
+   "13-2 숲",
+   1
+  ],
+  [
+   "12-3 숲",
+   "13-3 숲",
+   2
+  ],
+  [
+   "12-3 숲",
+   "13-4 산기슭",
+   2
+  ],
+  [
+   "12-4 숲",
+   "12-5 강",
+   1
+  ],
+  [
+   "12-4 숲",
+   "13-3 숲",
+   1
+  ],
+  [
+   "12-4 숲",
+   "13-4 산기슭",
+   1
+  ],
+  [
+   "12-4 숲",
+   "13-5 숲",
+   1
+  ],
+  [
+   "12-5 강",
+   "12-6 산기슭",
+   1
+  ],
+  [
+   "12-5 강",
+   "13-4 산기슭",
+   1
+  ],
+  [
+   "12-5 강",
+   "13-5 숲",
+   1
+  ],
+  [
+   "12-5 강",
+   "13-6 산기슭",
+   2
+  ],
+  [
+   "12-6 산기슭",
+   "12-7 산기슭",
+   1
+  ],
+  [
+   "12-6 산기슭",
+   "13-5 숲",
+   2
+  ],
+  [
+   "12-6 산기슭",
+   "13-6 산기슭",
+   1
+  ],
+  [
+   "12-6 산기슭",
+   "13-7 산기슭",
+   2
+  ],
+  [
+   "12-7 산기슭",
+   "12-8 숲",
+   1
+  ],
+  [
+   "12-7 산기슭",
+   "13-6 산기슭",
+   2
+  ],
+  [
+   "12-7 산기슭",
+   "13-7 산기슭",
+   1
+  ],
+  [
+   "12-7 산기슭",
+   "13-8 초원",
+   1
+  ],
+  [
+   "12-8 숲",
+   "12-9 초원",
+   1
+  ],
+  [
+   "12-8 숲",
+   "13-7 산기슭",
+   2
+  ],
+  [
+   "12-8 숲",
+   "13-8 초원",
+   1
+  ],
+  [
+   "12-8 숲",
+   "13-9 초원",
+   1
+  ],
+  [
+   "12-9 초원",
+   "12-10 숲",
+   1
+  ],
+  [
+   "12-9 초원",
+   "13-8 초원",
+   1
+  ],
+  [
+   "12-9 초원",
+   "13-9 초원",
+   1
+  ],
+  [
+   "12-9 초원",
+   "13-10 숲",
+   1
+  ],
+  [
+   "12-10 숲",
+   "12-11 숲",
+   1
+  ],
+  [
+   "12-10 숲",
+   "13-9 초원",
+   1
+  ],
+  [
+   "12-10 숲",
+   "13-10 숲",
+   1
+  ],
+  [
+   "12-10 숲",
+   "13-11 초원",
+   1
+  ],
+  [
+   "12-11 숲",
+   "12-12 숲",
+   1
+  ],
+  [
+   "12-11 숲",
+   "13-10 숲",
+   1
+  ],
+  [
+   "12-11 숲",
+   "13-11 초원",
+   1
+  ],
+  [
+   "12-11 숲",
+   "13-12 숲",
+   1
+  ],
+  [
+   "12-12 숲",
+   "12-13 숲",
+   1
+  ],
+  [
+   "12-12 숲",
+   "13-11 초원",
+   1
+  ],
+  [
+   "12-12 숲",
+   "13-12 숲",
+   1
+  ],
+  [
+   "12-12 숲",
+   "13-13 숲",
+   1
+  ],
+  [
+   "12-13 숲",
+   "12-14 산기슭",
+   1
+  ],
+  [
+   "12-13 숲",
+   "13-12 숲",
+   1
+  ],
+  [
+   "12-13 숲",
+   "13-13 숲",
+   1
+  ],
+  [
+   "12-13 숲",
+   "13-14 숲",
+   1
+  ],
+  [
+   "12-14 산기슭",
+   "13-13 숲",
+   1
+  ],
+  [
+   "12-14 산기슭",
+   "13-14 숲",
+   1
+  ],
+  [
+   "13-0 숲",
+   "13-1 산기슭",
+   1
+  ],
+  [
+   "13-0 숲",
+   "14-0 산기슭",
+   1
+  ],
+  [
+   "13-0 숲",
+   "14-1 산기슭",
+   2
+  ],
+  [
+   "13-1 산기슭",
+   "13-2 숲",
+   1
+  ],
+  [
+   "13-1 산기슭",
+   "14-0 산기슭",
+   2
+  ],
+  [
+   "13-1 산기슭",
+   "14-1 산기슭",
+   2
+  ],
+  [
+   "13-1 산기슭",
+   "14-2 산기슭",
+   2
+  ],
+  [
+   "13-2 숲",
+   "13-3 숲",
+   1
+  ],
+  [
+   "13-2 숲",
+   "14-1 산기슭",
+   2
+  ],
+  [
+   "13-2 숲",
+   "14-2 산기슭",
+   1
+  ],
+  [
+   "13-2 숲",
+   "14-3 산기슭",
+   1
+  ],
+  [
+   "13-3 숲",
+   "13-4 산기슭",
+   1
+  ],
+  [
+   "13-3 숲",
+   "14-2 산기슭",
+   2
+  ],
+  [
+   "13-3 숲",
+   "14-3 산기슭",
+   1
+  ],
+  [
+   "13-3 숲",
+   "14-4 산기슭",
+   2
+  ],
+  [
+   "13-4 산기슭",
+   "13-5 숲",
+   1
+  ],
+  [
+   "13-4 산기슭",
+   "14-3 산기슭",
+   2
+  ],
+  [
+   "13-4 산기슭",
+   "14-4 산기슭",
+   1
+  ],
+  [
+   "13-4 산기슭",
+   "14-5 숲",
+   1
+  ],
+  [
+   "13-5 숲",
+   "13-6 산기슭",
+   1
+  ],
+  [
+   "13-5 숲",
+   "14-4 산기슭",
+   1
+  ],
+  [
+   "13-5 숲",
+   "14-5 숲",
+   1
+  ],
+  [
+   "13-5 숲",
+   "14-6 산기슭",
+   2
+  ],
+  [
+   "13-6 산기슭",
+   "13-7 산기슭",
+   1
+  ],
+  [
+   "13-6 산기슭",
+   "14-5 숲",
+   1
+  ],
+  [
+   "13-6 산기슭",
+   "14-6 산기슭",
+   1
+  ],
+  [
+   "13-6 산기슭",
+   "14-7 숲",
+   1
+  ],
+  [
+   "13-7 산기슭",
+   "13-8 초원",
+   1
+  ],
+  [
+   "13-7 산기슭",
+   "14-6 산기슭",
+   2
+  ],
+  [
+   "13-7 산기슭",
+   "14-7 숲",
+   1
+  ],
+  [
+   "13-7 산기슭",
+   "14-8 초원",
+   1
+  ],
+  [
+   "13-8 초원",
+   "13-9 초원",
+   1
+  ],
+  [
+   "13-8 초원",
+   "14-7 숲",
+   1
+  ],
+  [
+   "13-8 초원",
+   "14-8 초원",
+   1
+  ],
+  [
+   "13-8 초원",
+   "14-9 초원",
+   1
+  ],
+  [
+   "13-9 초원",
+   "13-10 숲",
+   1
+  ],
+  [
+   "13-9 초원",
+   "14-8 초원",
+   1
+  ],
+  [
+   "13-9 초원",
+   "14-9 초원",
+   1
+  ],
+  [
+   "13-9 초원",
+   "14-10 초원",
+   1
+  ],
+  [
+   "13-10 숲",
+   "13-11 초원",
+   1
+  ],
+  [
+   "13-10 숲",
+   "14-9 초원",
+   1
+  ],
+  [
+   "13-10 숲",
+   "14-10 초원",
+   1
+  ],
+  [
+   "13-10 숲",
+   "14-11 초원",
+   1
+  ],
+  [
+   "13-11 초원",
+   "13-12 숲",
+   1
+  ],
+  [
+   "13-11 초원",
+   "14-10 초원",
+   1
+  ],
+  [
+   "13-11 초원",
+   "14-11 초원",
+   1
+  ],
+  [
+   "13-11 초원",
+   "14-12 숲",
+   1
+  ],
+  [
+   "13-12 숲",
+   "13-13 숲",
+   1
+  ],
+  [
+   "13-12 숲",
+   "14-11 초원",
+   1
+  ],
+  [
+   "13-12 숲",
+   "14-12 숲",
+   1
+  ],
+  [
+   "13-12 숲",
+   "14-13 숲",
+   1
+  ],
+  [
+   "13-13 숲",
+   "13-14 숲",
+   1
+  ],
+  [
+   "13-13 숲",
+   "14-12 숲",
+   1
+  ],
+  [
+   "13-13 숲",
+   "14-13 숲",
+   1
+  ],
+  [
+   "13-13 숲",
+   "14-14 숲",
+   1
+  ],
+  [
+   "13-14 숲",
+   "14-13 숲",
+   1
+  ],
+  [
+   "13-14 숲",
+   "14-14 숲",
+   1
+  ],
+  [
+   "14-0 산기슭",
+   "14-1 산기슭",
+   1
+  ],
+  [
+   "14-0 산기슭",
+   "15-0 산기슭",
+   1
+  ],
+  [
+   "14-0 산기슭",
+   "15-1 숲",
+   1
+  ],
+  [
+   "14-1 산기슭",
+   "14-2 산기슭",
+   1
+  ],
+  [
+   "14-1 산기슭",
+   "15-0 산기슭",
+   2
+  ],
+  [
+   "14-1 산기슭",
+   "15-1 숲",
+   1
+  ],
+  [
+   "14-1 산기슭",
+   "15-2 숲",
+   1
+  ],
+  [
+   "14-2 산기슭",
+   "14-3 산기슭",
+   1
+  ],
+  [
+   "14-2 산기슭",
+   "15-1 숲",
+   2
+  ],
+  [
+   "14-2 산기슭",
+   "15-2 숲",
+   1
+  ],
+  [
+   "14-2 산기슭",
+   "15-3 산기슭",
+   1
+  ],
+  [
+   "14-3 산기슭",
+   "14-4 산기슭",
+   1
+  ],
+  [
+   "14-3 산기슭",
+   "15-2 숲",
+   1
+  ],
+  [
+   "14-3 산기슭",
+   "15-3 산기슭",
+   1
+  ],
+  [
+   "14-3 산기슭",
+   "15-4 숲",
+   1
+  ],
+  [
+   "14-4 산기슭",
+   "14-5 숲",
+   1
+  ],
+  [
+   "14-4 산기슭",
+   "15-3 산기슭",
+   2
+  ],
+  [
+   "14-4 산기슭",
+   "15-4 숲",
+   1
+  ],
+  [
+   "14-4 산기슭",
+   "15-5 숲",
+   1
+  ],
+  [
+   "14-5 숲",
+   "14-6 산기슭",
+   1
+  ],
+  [
+   "14-5 숲",
+   "15-4 숲",
+   1
+  ],
+  [
+   "14-5 숲",
+   "15-5 숲",
+   1
+  ],
+  [
+   "14-5 숲",
+   "15-6 숲",
+   1
+  ],
+  [
+   "14-6 산기슭",
+   "14-7 숲",
+   1
+  ],
+  [
+   "14-6 산기슭",
+   "15-5 숲",
+   1
+  ],
+  [
+   "14-6 산기슭",
+   "15-6 숲",
+   1
+  ],
+  [
+   "14-6 산기슭",
+   "15-7 숲",
+   1
+  ],
+  [
+   "14-7 숲",
+   "14-8 초원",
+   1
+  ],
+  [
+   "14-7 숲",
+   "15-6 숲",
+   1
+  ],
+  [
+   "14-7 숲",
+   "15-7 숲",
+   1
+  ],
+  [
+   "14-7 숲",
+   "15-8 초원",
+   1
+  ],
+  [
+   "14-8 초원",
+   "14-9 초원",
+   1
+  ],
+  [
+   "14-8 초원",
+   "15-7 숲",
+   1
+  ],
+  [
+   "14-8 초원",
+   "15-8 초원",
+   1
+  ],
+  [
+   "14-8 초원",
+   "15-9 강",
+   1
+  ],
+  [
+   "14-9 초원",
+   "14-10 초원",
+   1
+  ],
+  [
+   "14-9 초원",
+   "15-8 초원",
+   1
+  ],
+  [
+   "14-9 초원",
+   "15-9 강",
+   1
+  ],
+  [
+   "14-9 초원",
+   "15-10 강",
+   1
+  ],
+  [
+   "14-10 초원",
+   "14-11 초원",
+   1
+  ],
+  [
+   "14-10 초원",
+   "15-9 강",
+   1
+  ],
+  [
+   "14-10 초원",
+   "15-10 강",
+   1
+  ],
+  [
+   "14-10 초원",
+   "15-11 숲",
+   1
+  ],
+  [
+   "14-11 초원",
+   "14-12 숲",
+   1
+  ],
+  [
+   "14-11 초원",
+   "15-10 강",
+   1
+  ],
+  [
+   "14-11 초원",
+   "15-11 숲",
+   1
+  ],
+  [
+   "14-11 초원",
+   "15-12 숲",
+   1
+  ],
+  [
+   "14-12 숲",
+   "14-13 숲",
+   1
+  ],
+  [
+   "14-12 숲",
+   "15-11 숲",
+   1
+  ],
+  [
+   "14-12 숲",
+   "15-12 숲",
+   1
+  ],
+  [
+   "14-12 숲",
+   "15-13 강",
+   1
+  ],
+  [
+   "14-13 숲",
+   "14-14 숲",
+   1
+  ],
+  [
+   "14-13 숲",
+   "15-12 숲",
+   1
+  ],
+  [
+   "14-13 숲",
+   "15-13 강",
+   1
+  ],
+  [
+   "14-13 숲",
+   "15-14 숲",
+   1
+  ],
+  [
+   "14-14 숲",
+   "15-13 강",
+   1
+  ],
+  [
+   "14-14 숲",
+   "15-14 숲",
+   1
+  ],
+  [
+   "15-0 산기슭",
+   "15-1 숲",
+   1
+  ],
+  [
+   "15-0 산기슭",
+   "16-0 산기슭",
+   1
+  ],
+  [
+   "15-0 산기슭",
+   "16-1 숲",
+   1
+  ],
+  [
+   "15-1 숲",
+   "15-2 숲",
+   1
+  ],
+  [
+   "15-1 숲",
+   "16-0 산기슭",
+   2
+  ],
+  [
+   "15-1 숲",
+   "16-1 숲",
+   1
+  ],
+  [
+   "15-1 숲",
+   "16-2 숲",
+   1
+  ],
+  [
+   "15-2 숲",
+   "15-3 산기슭",
+   1
+  ],
+  [
+   "15-2 숲",
+   "16-1 숲",
+   1
+  ],
+  [
+   "15-2 숲",
+   "16-2 숲",
+   1
+  ],
+  [
+   "15-2 숲",
+   "16-3 숲",
+   1
+  ],
+  [
+   "15-3 산기슭",
+   "15-4 숲",
+   1
+  ],
+  [
+   "15-3 산기슭",
+   "16-2 숲",
+   2
+  ],
+  [
+   "15-3 산기슭",
+   "16-3 숲",
+   1
+  ],
+  [
+   "15-3 산기슭",
+   "16-4 숲",
+   1
+  ],
+  [
+   "15-4 숲",
+   "15-5 숲",
+   1
+  ],
+  [
+   "15-4 숲",
+   "16-3 숲",
+   1
+  ],
+  [
+   "15-4 숲",
+   "16-4 숲",
+   1
+  ],
+  [
+   "15-4 숲",
+   "16-5 숲",
+   1
+  ],
+  [
+   "15-5 숲",
+   "15-6 숲",
+   1
+  ],
+  [
+   "15-5 숲",
+   "16-4 숲",
+   1
+  ],
+  [
+   "15-5 숲",
+   "16-5 숲",
+   1
+  ],
+  [
+   "15-5 숲",
+   "16-6 숲",
+   1
+  ],
+  [
+   "15-6 숲",
+   "15-7 숲",
+   1
+  ],
+  [
+   "15-6 숲",
+   "16-5 숲",
+   1
+  ],
+  [
+   "15-6 숲",
+   "16-6 숲",
+   1
+  ],
+  [
+   "15-6 숲",
+   "16-7 숲",
+   1
+  ],
+  [
+   "15-7 숲",
+   "15-8 초원",
+   1
+  ],
+  [
+   "15-7 숲",
+   "16-6 숲",
+   1
+  ],
+  [
+   "15-7 숲",
+   "16-7 숲",
+   1
+  ],
+  [
+   "15-7 숲",
+   "16-8 초원",
+   1
+  ],
+  [
+   "15-8 초원",
+   "15-9 강",
+   1
+  ],
+  [
+   "15-8 초원",
+   "16-7 숲",
+   1
+  ],
+  [
+   "15-8 초원",
+   "16-8 초원",
+   1
+  ],
+  [
+   "15-8 초원",
+   "16-9 강",
+   1
+  ],
+  [
+   "15-9 강",
+   "15-10 강",
+   1
+  ],
+  [
+   "15-9 강",
+   "16-8 초원",
+   1
+  ],
+  [
+   "15-9 강",
+   "16-9 강",
+   1
+  ],
+  [
+   "15-9 강",
+   "16-10 강",
+   1
+  ],
+  [
+   "15-10 강",
+   "15-11 숲",
+   1
+  ],
+  [
+   "15-10 강",
+   "16-9 강",
+   1
+  ],
+  [
+   "15-10 강",
+   "16-10 강",
+   1
+  ],
+  [
+   "15-10 강",
+   "16-11 숲",
+   1
+  ],
+  [
+   "15-11 숲",
+   "15-12 숲",
+   1
+  ],
+  [
+   "15-11 숲",
+   "16-10 강",
+   1
+  ],
+  [
+   "15-11 숲",
+   "16-11 숲",
+   1
+  ],
+  [
+   "15-11 숲",
+   "16-12 숲",
+   1
+  ],
+  [
+   "15-12 숲",
+   "15-13 강",
+   1
+  ],
+  [
+   "15-12 숲",
+   "16-11 숲",
+   1
+  ],
+  [
+   "15-12 숲",
+   "16-12 숲",
+   1
+  ],
+  [
+   "15-12 숲",
+   "16-13 강",
+   1
+  ],
+  [
+   "15-13 강",
+   "15-14 숲",
+   1
+  ],
+  [
+   "15-13 강",
+   "16-12 숲",
+   1
+  ],
+  [
+   "15-13 강",
+   "16-13 강",
+   2
+  ],
+  [
+   "15-13 강",
+   "16-14 숲",
+   2
+  ],
+  [
+   "15-14 숲",
+   "16-13 강",
+   2
+  ],
+  [
+   "15-14 숲",
+   "16-14 숲",
+   1
+  ],
+  [
+   "16-0 산기슭",
+   "16-1 숲",
+   1
+  ],
+  [
+   "16-0 산기슭",
+   "17-0 산기슭",
+   1
+  ],
+  [
+   "16-0 산기슭",
+   "17-1 숲",
+   1
+  ],
+  [
+   "16-1 숲",
+   "16-2 숲",
+   1
+  ],
+  [
+   "16-1 숲",
+   "17-0 산기슭",
+   2
+  ],
+  [
+   "16-1 숲",
+   "17-1 숲",
+   1
+  ],
+  [
+   "16-1 숲",
+   "17-2 산기슭",
+   1
+  ],
+  [
+   "16-2 숲",
+   "16-3 숲",
+   1
+  ],
+  [
+   "16-2 숲",
+   "17-1 숲",
+   1
+  ],
+  [
+   "16-2 숲",
+   "17-2 산기슭",
+   2
+  ],
+  [
+   "16-2 숲",
+   "17-3 숲",
+   1
+  ],
+  [
+   "16-3 숲",
+   "16-4 숲",
+   1
+  ],
+  [
+   "16-3 숲",
+   "17-2 산기슭",
+   1
+  ],
+  [
+   "16-3 숲",
+   "17-3 숲",
+   1
+  ],
+  [
+   "16-3 숲",
+   "17-4 숲",
+   1
+  ],
+  [
+   "16-4 숲",
+   "16-5 숲",
+   1
+  ],
+  [
+   "16-4 숲",
+   "17-3 숲",
+   1
+  ],
+  [
+   "16-4 숲",
+   "17-4 숲",
+   1
+  ],
+  [
+   "16-4 숲",
+   "17-5 숲",
+   1
+  ],
+  [
+   "16-5 숲",
+   "16-6 숲",
+   1
+  ],
+  [
+   "16-5 숲",
+   "17-4 숲",
+   1
+  ],
+  [
+   "16-5 숲",
+   "17-5 숲",
+   1
+  ],
+  [
+   "16-5 숲",
+   "17-6 숲",
+   1
+  ],
+  [
+   "16-6 숲",
+   "16-7 숲",
+   1
+  ],
+  [
+   "16-6 숲",
+   "17-5 숲",
+   1
+  ],
+  [
+   "16-6 숲",
+   "17-6 숲",
+   1
+  ],
+  [
+   "16-6 숲",
+   "17-7 초원",
+   1
+  ],
+  [
+   "16-7 숲",
+   "16-8 초원",
+   1
+  ],
+  [
+   "16-7 숲",
+   "17-6 숲",
+   1
+  ],
+  [
+   "16-7 숲",
+   "17-7 초원",
+   1
+  ],
+  [
+   "16-7 숲",
+   "17-8 강",
+   1
+  ],
+  [
+   "16-8 초원",
+   "16-9 강",
+   1
+  ],
+  [
+   "16-8 초원",
+   "17-7 초원",
+   1
+  ],
+  [
+   "16-8 초원",
+   "17-8 강",
+   1
+  ],
+  [
+   "16-8 초원",
+   "17-9 숲",
+   2
+  ],
+  [
+   "16-9 강",
+   "16-10 강",
+   1
+  ],
+  [
+   "16-9 강",
+   "17-8 강",
+   1
+  ],
+  [
+   "16-9 강",
+   "17-9 숲",
+   1
+  ],
+  [
+   "16-9 강",
+   "17-10 숲",
+   1
+  ],
+  [
+   "16-10 강",
+   "16-11 숲",
+   1
+  ],
+  [
+   "16-10 강",
+   "17-9 숲",
+   1
+  ],
+  [
+   "16-10 강",
+   "17-10 숲",
+   1
+  ],
+  [
+   "16-10 강",
+   "17-11 초원",
+   1
+  ],
+  [
+   "16-11 숲",
+   "16-12 숲",
+   1
+  ],
+  [
+   "16-11 숲",
+   "17-10 숲",
+   1
+  ],
+  [
+   "16-11 숲",
+   "17-11 초원",
+   1
+  ],
+  [
+   "16-11 숲",
+   "17-12 강",
+   1
+  ],
+  [
+   "16-12 숲",
+   "16-13 강",
+   1
+  ],
+  [
+   "16-12 숲",
+   "17-11 초원",
+   1
+  ],
+  [
+   "16-12 숲",
+   "17-12 강",
+   1
+  ],
+  [
+   "16-12 숲",
+   "17-13 숲",
+   1
+  ],
+  [
+   "16-13 강",
+   "16-14 숲",
+   1
+  ],
+  [
+   "16-13 강",
+   "17-12 강",
+   1
+  ],
+  [
+   "16-13 강",
+   "17-13 숲",
+   1
+  ],
+  [
+   "16-13 강",
+   "17-14 숲",
+   1
+  ],
+  [
+   "16-14 숲",
+   "17-13 숲",
+   1
+  ],
+  [
+   "16-14 숲",
+   "17-14 숲",
+   1
+  ],
+  [
+   "17-0 산기슭",
+   "17-1 숲",
+   2
+  ],
+  [
+   "17-0 산기슭",
+   "18-0 숲",
+   1
+  ],
+  [
+   "17-0 산기슭",
+   "18-1 숲",
+   2
+  ],
+  [
+   "17-1 숲",
+   "17-2 산기슭",
+   1
+  ],
+  [
+   "17-1 숲",
+   "18-0 숲",
+   1
+  ],
+  [
+   "17-1 숲",
+   "18-1 숲",
+   1
+  ],
+  [
+   "17-1 숲",
+   "18-2 강",
+   1
+  ],
+  [
+   "17-2 산기슭",
+   "17-3 숲",
+   1
+  ],
+  [
+   "17-2 산기슭",
+   "18-1 숲",
+   2
+  ],
+  [
+   "17-2 산기슭",
+   "18-2 강",
+   1
+  ],
+  [
+   "17-2 산기슭",
+   "18-3 숲",
+   1
+  ],
+  [
+   "17-3 숲",
+   "17-4 숲",
+   1
+  ],
+  [
+   "17-3 숲",
+   "18-2 강",
+   1
+  ],
+  [
+   "17-3 숲",
+   "18-3 숲",
+   1
+  ],
+  [
+   "17-3 숲",
+   "18-4 초원",
+   1
+  ],
+  [
+   "17-4 숲",
+   "17-5 숲",
+   1
+  ],
+  [
+   "17-4 숲",
+   "18-3 숲",
+   1
+  ],
+  [
+   "17-4 숲",
+   "18-4 초원",
+   1
+  ],
+  [
+   "17-4 숲",
+   "18-5 초원",
+   1
+  ],
+  [
+   "17-5 숲",
+   "17-6 숲",
+   1
+  ],
+  [
+   "17-5 숲",
+   "18-4 초원",
+   1
+  ],
+  [
+   "17-5 숲",
+   "18-5 초원",
+   1
+  ],
+  [
+   "17-5 숲",
+   "18-6 초원",
+   1
+  ],
+  [
+   "17-6 숲",
+   "17-7 초원",
+   1
+  ],
+  [
+   "17-6 숲",
+   "18-5 초원",
+   1
+  ],
+  [
+   "17-6 숲",
+   "18-6 초원",
+   1
+  ],
+  [
+   "17-6 숲",
+   "18-7 강",
+   1
+  ],
+  [
+   "17-7 초원",
+   "17-8 강",
+   1
+  ],
+  [
+   "17-7 초원",
+   "18-6 초원",
+   1
+  ],
+  [
+   "17-7 초원",
+   "18-7 강",
+   1
+  ],
+  [
+   "17-7 초원",
+   "18-8 숲",
+   2
+  ],
+  [
+   "17-8 강",
+   "17-9 숲",
+   1
+  ],
+  [
+   "17-8 강",
+   "18-7 강",
+   1
+  ],
+  [
+   "17-8 강",
+   "18-8 숲",
+   1
+  ],
+  [
+   "17-8 강",
+   "18-9 숲",
+   1
+  ],
+  [
+   "17-9 숲",
+   "17-10 숲",
+   1
+  ],
+  [
+   "17-9 숲",
+   "18-8 숲",
+   1
+  ],
+  [
+   "17-9 숲",
+   "18-9 숲",
+   1
+  ],
+  [
+   "17-9 숲",
+   "18-10 초원",
+   1
+  ],
+  [
+   "17-10 숲",
+   "17-11 초원",
+   1
+  ],
+  [
+   "17-10 숲",
+   "18-9 숲",
+   1
+  ],
+  [
+   "17-10 숲",
+   "18-10 초원",
+   1
+  ],
+  [
+   "17-10 숲",
+   "18-11 초원",
+   1
+  ],
+  [
+   "17-11 초원",
+   "17-12 강",
+   1
+  ],
+  [
+   "17-11 초원",
+   "18-10 초원",
+   1
+  ],
+  [
+   "17-11 초원",
+   "18-11 초원",
+   1
+  ],
+  [
+   "17-11 초원",
+   "18-12 강",
+   1
+  ],
+  [
+   "17-12 강",
+   "17-13 숲",
+   1
+  ],
+  [
+   "17-12 강",
+   "18-11 초원",
+   1
+  ],
+  [
+   "17-12 강",
+   "18-12 강",
+   1
+  ],
+  [
+   "17-12 강",
+   "18-13 숲",
+   1
+  ],
+  [
+   "17-13 숲",
+   "17-14 숲",
+   1
+  ],
+  [
+   "17-13 숲",
+   "18-12 강",
+   1
+  ],
+  [
+   "17-13 숲",
+   "18-13 숲",
+   1
+  ],
+  [
+   "17-13 숲",
+   "18-14 숲",
+   1
+  ],
+  [
+   "17-14 숲",
+   "18-13 숲",
+   1
+  ],
+  [
+   "17-14 숲",
+   "18-14 숲",
+   1
+  ],
+  [
+   "18-0 숲",
+   "18-1 숲",
+   1
+  ],
+  [
+   "18-0 숲",
+   "19-0 숲",
+   1
+  ],
+  [
+   "18-0 숲",
+   "19-1 숲",
+   1
+  ],
+  [
+   "18-1 숲",
+   "18-2 강",
+   1
+  ],
+  [
+   "18-1 숲",
+   "19-0 숲",
+   1
+  ],
+  [
+   "18-1 숲",
+   "19-1 숲",
+   1
+  ],
+  [
+   "18-1 숲",
+   "19-2 초원",
+   1
+  ],
+  [
+   "18-2 강",
+   "18-3 숲",
+   1
+  ],
+  [
+   "18-2 강",
+   "19-1 숲",
+   1
+  ],
+  [
+   "18-2 강",
+   "19-2 초원",
+   1
+  ],
+  [
+   "18-2 강",
+   "19-3 강",
+   1
+  ],
+  [
+   "18-3 숲",
+   "18-4 초원",
+   1
+  ],
+  [
+   "18-3 숲",
+   "19-2 초원",
+   1
+  ],
+  [
+   "18-3 숲",
+   "19-3 강",
+   1
+  ],
+  [
+   "18-3 숲",
+   "19-4 강",
+   1
+  ],
+  [
+   "18-4 초원",
+   "18-5 초원",
+   1
+  ],
+  [
+   "18-4 초원",
+   "19-3 강",
+   1
+  ],
+  [
+   "18-4 초원",
+   "19-4 강",
+   1
+  ],
+  [
+   "18-4 초원",
+   "19-5 강",
+   1
+  ],
+  [
+   "18-5 초원",
+   "18-6 초원",
+   1
+  ],
+  [
+   "18-5 초원",
+   "19-4 강",
+   1
+  ],
+  [
+   "18-5 초원",
+   "19-5 강",
+   1
+  ],
+  [
+   "18-5 초원",
+   "19-6 강",
+   1
+  ],
+  [
+   "18-6 초원",
+   "18-7 강",
+   1
+  ],
+  [
+   "18-6 초원",
+   "19-5 강",
+   1
+  ],
+  [
+   "18-6 초원",
+   "19-6 강",
+   1
+  ],
+  [
+   "18-6 초원",
+   "19-7 초원",
+   1
+  ],
+  [
+   "18-7 강",
+   "18-8 숲",
+   1
+  ],
+  [
+   "18-7 강",
+   "19-6 강",
+   1
+  ],
+  [
+   "18-7 강",
+   "19-7 초원",
+   1
+  ],
+  [
+   "18-7 강",
+   "19-8 초원",
+   1
+  ],
+  [
+   "18-8 숲",
+   "18-9 숲",
+   1
+  ],
+  [
+   "18-8 숲",
+   "19-7 초원",
+   1
+  ],
+  [
+   "18-8 숲",
+   "19-8 초원",
+   1
+  ],
+  [
+   "18-8 숲",
+   "19-9 초원",
+   1
+  ],
+  [
+   "18-9 숲",
+   "18-10 초원",
+   1
+  ],
+  [
+   "18-9 숲",
+   "19-8 초원",
+   1
+  ],
+  [
+   "18-9 숲",
+   "19-9 초원",
+   1
+  ],
+  [
+   "18-9 숲",
+   "19-10 초원",
+   1
+  ],
+  [
+   "18-10 초원",
+   "18-11 초원",
+   1
+  ],
+  [
+   "18-10 초원",
+   "19-9 초원",
+   1
+  ],
+  [
+   "18-10 초원",
+   "19-10 초원",
+   1
+  ],
+  [
+   "18-10 초원",
+   "19-11 강",
+   1
+  ],
+  [
+   "18-11 초원",
+   "18-12 강",
+   1
+  ],
+  [
+   "18-11 초원",
+   "19-10 초원",
+   1
+  ],
+  [
+   "18-11 초원",
+   "19-11 강",
+   1
+  ],
+  [
+   "18-11 초원",
+   "19-12 강",
+   1
+  ],
+  [
+   "18-12 강",
+   "18-13 숲",
+   1
+  ],
+  [
+   "18-12 강",
+   "19-11 강",
+   1
+  ],
+  [
+   "18-12 강",
+   "19-12 강",
+   1
+  ],
+  [
+   "18-12 강",
+   "19-13 숲",
+   1
+  ],
+  [
+   "18-13 숲",
+   "18-14 숲",
+   1
+  ],
+  [
+   "18-13 숲",
+   "19-12 강",
+   1
+  ],
+  [
+   "18-13 숲",
+   "19-13 숲",
+   1
+  ],
+  [
+   "18-13 숲",
+   "19-14 숲",
+   1
+  ],
+  [
+   "18-14 숲",
+   "19-13 숲",
+   1
+  ],
+  [
+   "18-14 숲",
+   "19-14 숲",
+   1
+  ],
+  [
+   "19-0 숲",
+   "19-1 숲",
+   1
+  ],
+  [
+   "19-0 숲",
+   "20-0 숲",
+   1
+  ],
+  [
+   "19-0 숲",
+   "20-1 숲",
+   1
+  ],
+  [
+   "19-1 숲",
+   "19-2 초원",
+   1
+  ],
+  [
+   "19-1 숲",
+   "20-0 숲",
+   1
+  ],
+  [
+   "19-1 숲",
+   "20-1 숲",
+   1
+  ],
+  [
+   "19-1 숲",
+   "20-2 초원",
+   1
+  ],
+  [
+   "19-2 초원",
+   "19-3 강",
+   1
+  ],
+  [
+   "19-2 초원",
+   "20-1 숲",
+   1
+  ],
+  [
+   "19-2 초원",
+   "20-2 초원",
+   1
+  ],
+  [
+   "19-2 초원",
+   "20-3 강",
+   1
+  ],
+  [
+   "19-3 강",
+   "19-4 강",
+   1
+  ],
+  [
+   "19-3 강",
+   "20-2 초원",
+   1
+  ],
+  [
+   "19-3 강",
+   "20-3 강",
+   1
+  ],
+  [
+   "19-3 강",
+   "20-4 강",
+   1
+  ],
+  [
+   "19-4 강",
+   "19-5 강",
+   1
+  ],
+  [
+   "19-4 강",
+   "20-3 강",
+   1
+  ],
+  [
+   "19-4 강",
+   "20-4 강",
+   1
+  ],
+  [
+   "19-4 강",
+   "20-5 강",
+   1
+  ],
+  [
+   "19-5 강",
+   "19-6 강",
+   1
+  ],
+  [
+   "19-5 강",
+   "20-4 강",
+   1
+  ],
+  [
+   "19-5 강",
+   "20-5 강",
+   1
+  ],
+  [
+   "19-5 강",
+   "20-6 강",
+   1
+  ],
+  [
+   "19-6 강",
+   "19-7 초원",
+   1
+  ],
+  [
+   "19-6 강",
+   "20-5 강",
+   1
+  ],
+  [
+   "19-6 강",
+   "20-6 강",
+   1
+  ],
+  [
+   "19-6 강",
+   "20-7 강",
+   1
+  ],
+  [
+   "19-7 초원",
+   "19-8 초원",
+   1
+  ],
+  [
+   "19-7 초원",
+   "20-6 강",
+   1
+  ],
+  [
+   "19-7 초원",
+   "20-7 강",
+   1
+  ],
+  [
+   "19-7 초원",
+   "20-8 강",
+   1
+  ],
+  [
+   "19-8 초원",
+   "19-9 초원",
+   1
+  ],
+  [
+   "19-8 초원",
+   "20-7 강",
+   1
+  ],
+  [
+   "19-8 초원",
+   "20-8 강",
+   1
+  ],
+  [
+   "19-8 초원",
+   "20-9 숲",
+   2
+  ],
+  [
+   "19-9 초원",
+   "19-10 초원",
+   1
+  ],
+  [
+   "19-9 초원",
+   "20-8 강",
+   1
+  ],
+  [
+   "19-9 초원",
+   "20-9 숲",
+   2
+  ],
+  [
+   "19-9 초원",
+   "20-10 강",
+   1
+  ],
+  [
+   "19-10 초원",
+   "19-11 강",
+   1
+  ],
+  [
+   "19-10 초원",
+   "20-9 숲",
+   1
+  ],
+  [
+   "19-10 초원",
+   "20-10 강",
+   1
+  ],
+  [
+   "19-10 초원",
+   "20-11 숲",
+   2
+  ],
+  [
+   "19-11 강",
+   "19-12 강",
+   1
+  ],
+  [
+   "19-11 강",
+   "20-10 강",
+   1
+  ],
+  [
+   "19-11 강",
+   "20-11 숲",
+   1
+  ],
+  [
+   "19-11 강",
+   "20-12 숲",
+   1
+  ],
+  [
+   "19-12 강",
+   "19-13 숲",
+   1
+  ],
+  [
+   "19-12 강",
+   "20-11 숲",
+   1
+  ],
+  [
+   "19-12 강",
+   "20-12 숲",
+   1
+  ],
+  [
+   "19-12 강",
+   "20-13 숲",
+   1
+  ],
+  [
+   "19-13 숲",
+   "19-14 숲",
+   1
+  ],
+  [
+   "19-13 숲",
+   "20-12 숲",
+   1
+  ],
+  [
+   "19-13 숲",
+   "20-13 숲",
+   1
+  ],
+  [
+   "19-13 숲",
+   "20-14 숲",
+   1
+  ],
+  [
+   "19-14 숲",
+   "20-13 숲",
+   1
+  ],
+  [
+   "19-14 숲",
+   "20-14 숲",
+   1
+  ],
+  [
+   "20-0 숲",
+   "20-1 숲",
+   1
+  ],
+  [
+   "20-0 숲",
+   "21-0 숲",
+   1
+  ],
+  [
+   "20-0 숲",
+   "21-1 숲",
+   1
+  ],
+  [
+   "20-1 숲",
+   "20-2 초원",
+   1
+  ],
+  [
+   "20-1 숲",
+   "21-0 숲",
+   1
+  ],
+  [
+   "20-1 숲",
+   "21-1 숲",
+   1
+  ],
+  [
+   "20-1 숲",
+   "21-2 초원",
+   1
+  ],
+  [
+   "20-2 초원",
+   "20-3 강",
+   1
+  ],
+  [
+   "20-2 초원",
+   "21-1 숲",
+   1
+  ],
+  [
+   "20-2 초원",
+   "21-2 초원",
+   1
+  ],
+  [
+   "20-2 초원",
+   "21-3 초원",
+   1
+  ],
+  [
+   "20-3 강",
+   "20-4 강",
+   1
+  ],
+  [
+   "20-3 강",
+   "21-2 초원",
+   1
+  ],
+  [
+   "20-3 강",
+   "21-3 초원",
+   1
+  ],
+  [
+   "20-3 강",
+   "21-4 초원",
+   1
+  ],
+  [
+   "20-4 강",
+   "20-5 강",
+   1
+  ],
+  [
+   "20-4 강",
+   "21-3 초원",
+   1
+  ],
+  [
+   "20-4 강",
+   "21-4 초원",
+   1
+  ],
+  [
+   "20-4 강",
+   "21-5 초원",
+   1
+  ],
+  [
+   "20-5 강",
+   "20-6 강",
+   1
+  ],
+  [
+   "20-5 강",
+   "21-4 초원",
+   1
+  ],
+  [
+   "20-5 강",
+   "21-5 초원",
+   1
+  ],
+  [
+   "20-5 강",
+   "21-6 숲",
+   1
+  ],
+  [
+   "20-6 강",
+   "20-7 강",
+   1
+  ],
+  [
+   "20-6 강",
+   "21-5 초원",
+   1
+  ],
+  [
+   "20-6 강",
+   "21-6 숲",
+   1
+  ],
+  [
+   "20-6 강",
+   "21-7 숲",
+   1
+  ],
+  [
+   "20-7 강",
+   "20-8 강",
+   1
+  ],
+  [
+   "20-7 강",
+   "21-6 숲",
+   1
+  ],
+  [
+   "20-7 강",
+   "21-7 숲",
+   1
+  ],
+  [
+   "20-7 강",
+   "21-8 숲",
+   1
+  ],
+  [
+   "20-8 강",
+   "20-9 숲",
+   1
+  ],
+  [
+   "20-8 강",
+   "21-7 숲",
+   1
+  ],
+  [
+   "20-8 강",
+   "21-8 숲",
+   1
+  ],
+  [
+   "20-8 강",
+   "21-9 숲",
+   1
+  ],
+  [
+   "20-9 숲",
+   "20-10 강",
+   1
+  ],
+  [
+   "20-9 숲",
+   "21-8 숲",
+   1
+  ],
+  [
+   "20-9 숲",
+   "21-9 숲",
+   1
+  ],
+  [
+   "20-9 숲",
+   "21-10 숲",
+   1
+  ],
+  [
+   "20-10 강",
+   "20-11 숲",
+   1
+  ],
+  [
+   "20-10 강",
+   "21-9 숲",
+   1
+  ],
+  [
+   "20-10 강",
+   "21-10 숲",
+   1
+  ],
+  [
+   "20-10 강",
+   "21-11 산기슭",
+   1
+  ],
+  [
+   "20-11 숲",
+   "20-12 숲",
+   1
+  ],
+  [
+   "20-11 숲",
+   "21-10 숲",
+   1
+  ],
+  [
+   "20-11 숲",
+   "21-11 산기슭",
+   1
+  ],
+  [
+   "20-11 숲",
+   "21-12 숲",
+   1
+  ],
+  [
+   "20-12 숲",
+   "20-13 숲",
+   1
+  ],
+  [
+   "20-12 숲",
+   "21-11 산기슭",
+   1
+  ],
+  [
+   "20-12 숲",
+   "21-12 숲",
+   1
+  ],
+  [
+   "20-12 숲",
+   "21-13 숲",
+   1
+  ],
+  [
+   "20-13 숲",
+   "20-14 숲",
+   1
+  ],
+  [
+   "20-13 숲",
+   "21-12 숲",
+   1
+  ],
+  [
+   "20-13 숲",
+   "21-13 숲",
+   1
+  ],
+  [
+   "20-13 숲",
+   "21-14 숲",
+   1
+  ],
+  [
+   "20-14 숲",
+   "21-13 숲",
+   1
+  ],
+  [
+   "20-14 숲",
+   "21-14 숲",
+   1
+  ],
+  [
+   "21-0 숲",
+   "21-1 숲",
+   1
+  ],
+  [
+   "21-1 숲",
+   "21-2 초원",
+   1
+  ],
+  [
+   "21-2 초원",
+   "21-3 초원",
+   1
+  ],
+  [
+   "21-3 초원",
+   "21-4 초원",
+   1
+  ],
+  [
+   "21-4 초원",
+   "21-5 초원",
+   1
+  ],
+  [
+   "21-5 초원",
+   "21-6 숲",
+   1
+  ],
+  [
+   "21-6 숲",
+   "21-7 숲",
+   1
+  ],
+  [
+   "21-7 숲",
+   "21-8 숲",
+   1
+  ],
+  [
+   "21-8 숲",
+   "21-9 숲",
+   1
+  ],
+  [
+   "21-9 숲",
+   "21-10 숲",
+   1
+  ],
+  [
+   "21-10 숲",
+   "21-11 산기슭",
+   1
+  ],
+  [
+   "21-11 산기슭",
+   "21-12 숲",
+   1
+  ],
+  [
+   "21-12 숲",
+   "21-13 숲",
+   1
+  ],
+  [
+   "21-13 숲",
+   "21-14 숲",
+   1
+  ],
+  [
+   "금굴",
+   "11-5 강",
+   1
+  ],
+  [
+   "점말동굴",
+   "8-3 숲",
+   1
+  ],
+  [
+   "상시 바위그늘",
+   "10-1 숲",
+   1
+  ],
+  [
+   "수양개",
+   "12-4 숲",
+   1
+  ]
+ ],
+ "camps": [
+  "수양개",
+  "상시 바위그늘",
+  "점말동굴"
+ ]
+}

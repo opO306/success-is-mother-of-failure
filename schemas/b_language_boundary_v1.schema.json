@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/b-language-boundary-v1.schema.json",
+  "title": "Model-neutral B-Language boundary v1",
+  "description": "Standardizes observable inputs, external claims, evidence bridges, and evaluations. It does not prescribe internal representations or reasoning traces.",
+  "oneOf": [
+    {"$ref": "#/$defs/capability_manifest"},
+    {"$ref": "#/$defs/observation_contract"},
+    {"$ref": "#/$defs/claim_set"},
+    {"$ref": "#/$defs/boundary_evaluation"}
+  ],
+  "$defs": {
+    "digest": {"type": "string", "minLength": 1},
+    "string_list": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "confidence": {
+      "enum": ["exact", "measured", "author_reported", "approximate", "hypothesis", "unknown"]
+    },
+    "exact_json_value": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string"},
+        {"type": "integer"},
+        {"type": "boolean"},
+        {"type": "array", "items": {"$ref": "#/$defs/exact_json_value"}},
+        {"type": "object", "additionalProperties": {"$ref": "#/$defs/exact_json_value"}}
+      ]
+    },
+    "capability_manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "message_type", "adapter_id", "adapter_kind", "adapter_version", "capabilities", "accepted_observation_views", "internal_representation", "deterministic"],
+      "properties": {
+        "format": {"const": "b-language-boundary-v1"},
+        "message_type": {"const": "capability_manifest"},
+        "adapter_id": {"type": "string", "minLength": 1},
+        "adapter_kind": {"type": "string", "minLength": 1},
+        "adapter_version": {"type": "string", "minLength": 1},
+        "capabilities": {"$ref": "#/$defs/string_list"},
+        "accepted_observation_views": {"$ref": "#/$defs/string_list"},
+        "internal_representation": {"type": "string", "minLength": 1},
+        "deterministic": {"type": "boolean"}
+      }
+    },
+    "observation_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "message_type", "challenge_id", "task_kind", "visible_digests", "allowed_views", "hidden_fields", "limits", "success_conditions"],
+      "properties": {
+        "format": {"const": "b-language-boundary-v1"},
+        "message_type": {"const": "observation_contract"},
+        "challenge_id": {"type": "string", "minLength": 1},
+        "task_kind": {"type": "string", "minLength": 1},
+        "task_payload": {"type": "object", "additionalProperties": {"$ref": "#/$defs/exact_json_value"}},
+        "visible_digests": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/digest"}},
+        "allowed_views": {"$ref": "#/$defs/string_list"},
+        "hidden_fields": {"$ref": "#/$defs/string_list"},
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_ticks", "max_compute_units", "max_memory_bytes"],
+          "properties": {
+            "max_ticks": {"type": "integer", "minimum": 0},
+            "max_compute_units": {"type": "integer", "minimum": 0},
+            "max_memory_bytes": {"type": "integer", "minimum": 0}
+          }
+        },
+        "success_conditions": {"$ref": "#/$defs/string_list"}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "claim_kind", "confidence_class", "subject_digest", "payload"],
+      "properties": {
+        "claim_id": {"type": "string", "minLength": 1},
+        "claim_kind": {"type": "string", "minLength": 1},
+        "confidence_class": {"$ref": "#/$defs/confidence"},
+        "subject_digest": {"$ref": "#/$defs/digest"},
+        "payload": {"type": "object", "additionalProperties": {"$ref": "#/$defs/exact_json_value"}}
+      }
+    },
+    "evidence_bridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "test_kind", "test_input_digests", "expected_observables", "falsification_conditions"],
+      "properties": {
+        "claim_id": {"type": "string", "minLength": 1},
+        "test_kind": {"type": "string", "minLength": 1},
+        "test_input_digests": {"$ref": "#/$defs/string_list"},
+        "expected_observables": {"type": "object", "additionalProperties": {"$ref": "#/$defs/exact_json_value"}},
+        "falsification_conditions": {"$ref": "#/$defs/string_list"}
+      }
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attachment_kind", "content_digest", "producer_format"],
+      "properties": {
+        "attachment_kind": {"type": "string", "minLength": 1},
+        "content_digest": {"$ref": "#/$defs/digest"},
+        "producer_format": {"type": "string", "minLength": 1},
+        "decoder_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim_set": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "message_type", "challenge_digest", "manifest_digest", "claims", "evidence_bridges", "attachments"],
+      "properties": {
+        "format": {"const": "b-language-boundary-v1"},
+        "message_type": {"const": "claim_set"},
+        "challenge_digest": {"$ref": "#/$defs/digest"},
+        "manifest_digest": {"$ref": "#/$defs/digest"},
+        "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}},
+        "evidence_bridges": {"type": "array", "items": {"$ref": "#/$defs/evidence_bridge"}},
+        "attachments": {"type": "array", "items": {"$ref": "#/$defs/attachment"}}
+      }
+    },
+    "boundary_evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "message_type", "challenge_digest", "claim_set_digest", "oracle_digest", "verified_claim_ids", "falsified_claim_ids", "untested_claim_ids", "findings", "complete_match"],
+      "properties": {
+        "format": {"const": "b-language-boundary-v1"},
+        "message_type": {"const": "boundary_evaluation"},
+        "challenge_digest": {"$ref": "#/$defs/digest"},
+        "claim_set_digest": {"$ref": "#/$defs/digest"},
+        "oracle_digest": {"$ref": "#/$defs/digest"},
+        "verified_claim_ids": {"$ref": "#/$defs/string_list"},
+        "falsified_claim_ids": {"$ref": "#/$defs/string_list"},
+        "untested_claim_ids": {"$ref": "#/$defs/string_list"},
+        "findings": {"type": "array", "items": {"type": "object", "additionalProperties": {"$ref": "#/$defs/exact_json_value"}}},
+        "complete_match": {"type": "boolean"}
+      }
+    }
+  }
+}

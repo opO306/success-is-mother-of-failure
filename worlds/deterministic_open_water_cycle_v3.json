@@ -1,0 +1,50 @@
+{
+  "format": "deterministic-environment-world-spec-v3",
+  "causal_world": {
+    "format": "deterministic-causal-world-spec-v1",
+    "world_id": "deterministic-open-water-cycle-v3",
+    "kernel": {
+      "width": 16,
+      "height": 16,
+      "boundary": "wrap",
+      "arithmetic": "integer",
+      "deterministic": true,
+      "tick_order": ["break_existing_bonds", "stream_free_particles", "resolve_local_collisions"]
+    },
+    "materials": [{"kind": 0, "mass": 1, "ports": 4}],
+    "particles": [],
+    "heat": [{"x": 4, "y": 4, "energy": 2}],
+    "bond_rules": [],
+    "execution": {"ticks": 6},
+    "observer": {"hash_interval": 1}
+  },
+  "solute_kinds": 2,
+  "cells": [
+    {"x": 4, "y": 4, "elevation": 0, "water": 4, "vapor": 0, "mineral": 2, "solutes": [0, 0]},
+    {"x": 10, "y": 10, "elevation": 0, "water": 0, "vapor": 4, "mineral": 0, "solutes": [0, 0]}
+  ],
+  "blocked_edges": [],
+  "energy_boundaries": [
+    {"x": 4, "y": 4, "input_per_tick": 4, "output_per_tick": 0},
+    {"x": 10, "y": 10, "input_per_tick": 0, "output_per_tick": 2}
+  ],
+  "law": {
+    "max_heat_transfer": 0,
+    "max_water_transfer": 0,
+    "max_solute_transfer": 0,
+    "phase_order": ["horizontal_even", "horizontal_odd", "vertical_even", "vertical_odd"],
+    "max_carried_solute_per_water": 0,
+    "mineral_solute_kind": 0,
+    "dissolve_heat_at_least": 3,
+    "precipitate_heat_at_most": 1,
+    "hot_solubility_per_water": 2,
+    "cold_solubility_per_water": 1,
+    "max_mineral_conversion": 1,
+    "mineral_conversion_energy": 1,
+    "max_vapor_transfer": 1,
+    "evaporation_heat_at_least": 4,
+    "condensation_heat_at_most": 1,
+    "max_water_phase_change": 1,
+    "vaporization_energy": 2
+  }
+}

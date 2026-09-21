@@ -1,0 +1,34 @@
+{
+  "seeds": 100,
+  "ticks": 50,
+  "checks": {
+    "invariants": {
+      "passed": true,
+      "violation_count": 0,
+      "exception_count": 0
+    },
+    "emotionless_ab": {
+      "passed": true,
+      "treatment_proceed_rate": 0.828,
+      "control_proceed_rate": 0.0,
+      "treatment_proceed_rate_when_possible": 1.0,
+      "control_proceed_rate_when_possible": 0.0,
+      "seeds_with_a_death": 46
+    },
+    "hive_mind_ab": {
+      "passed": true,
+      "hive_mind_pre_shock": 0.8,
+      "hive_mind_post_shock": 0.5,
+      "hive_mind_final": 0.5,
+      "ordinary_pre_shock": 0.8,
+      "ordinary_post_shock": 0.65,
+      "ordinary_final": 0.7259629343757787
+    },
+    "espionage_tech_gap": {
+      "observational_only": true,
+      "initial_gap_mean": 2.448787002920089,
+      "final_gap_mean": 168.5063254287761
+    }
+  },
+  "overall_pass": true
+}

@@ -1,0 +1,204 @@
+{
+  "bytes": 193983,
+  "file_count": 39,
+  "files": [
+    {
+      "bytes": 11912,
+      "path": "engine/deterministic/causal_kernel.py",
+      "sha256": "9d10bb53e05473b8c4fdd441a7b500d3ef598543c94f330d2ee069d459d9d266"
+    },
+    {
+      "bytes": 13095,
+      "path": "engine/deterministic/causal_spec.py",
+      "sha256": "52548d1a351aa4a479405611ad73e8368d07d5e19f104936627b93d50d2692e2"
+    },
+    {
+      "bytes": 17027,
+      "path": "engine/deterministic/environment_kernel.py",
+      "sha256": "88014389a094ff92767817ba3bcb639321696be383c46292fd81c73a1aa85ce2"
+    },
+    {
+      "bytes": 18241,
+      "path": "engine/deterministic/environment_spec.py",
+      "sha256": "0aac02dfe78fffe384d9fb61e83401f6196a27cbadef27d2311777d99d2d35f0"
+    },
+    {
+      "bytes": 17275,
+      "path": "engine/deterministic/gpu_environment.py",
+      "sha256": "7e777cce09ea3c8f777d1065a44b24134c6ab2b27b67c60f89b96b1d6d6ec0a8"
+    },
+    {
+      "bytes": 6066,
+      "path": "engine/deterministic/kernel.py",
+      "sha256": "419e2121853839436a6695a9d75cafbc745b2c9e10c35dfc13550bfe36935068"
+    },
+    {
+      "bytes": 9186,
+      "path": "engine/deterministic/physical_environment_scaling.py",
+      "sha256": "aeb52a3c4f3d6399754695b5a58b081c8866e8be83f2fecbd6d63f54daa93893"
+    },
+    {
+      "bytes": 14282,
+      "path": "engine/deterministic/physical_scale.py",
+      "sha256": "4e8eaf975a5e9a6eb7a52acc4b9307a3283839b57b4d9bd6eafb27b3259daff1"
+    },
+    {
+      "bytes": 8705,
+      "path": "engine/deterministic/scaling.py",
+      "sha256": "97e45f4fef969feede8e1c5559077122518ef812f1964c3a4f2c88b2b8c581b3"
+    },
+    {
+      "bytes": 9077,
+      "path": "engine/deterministic/spec.py",
+      "sha256": "7f793e671771e297777b029cf0edd40b405622c598dbeda4c8e96bf0fde5b519"
+    },
+    {
+      "bytes": 1033,
+      "path": "run_deterministic_causal_world.py",
+      "sha256": "197ef64bdb9f2ebbd444a74bf8c7ffa16cfb0c74d58568b7838f1f2fa73cc6dd"
+    },
+    {
+      "bytes": 1021,
+      "path": "run_deterministic_environment.py",
+      "sha256": "7abecffe167f07abf6b757177e941101749be895040f08b4d9542b5afa12849f"
+    },
+    {
+      "bytes": 890,
+      "path": "run_deterministic_scaling_audit.py",
+      "sha256": "72e43c8c67abeef9c8f0b362ec8c6bd632b6c1d251d14a398c0351ecd1cbd4f6"
+    },
+    {
+      "bytes": 1033,
+      "path": "run_deterministic_world.py",
+      "sha256": "8951fe432fad53da3cb897db177f352b56d16782858a3f910d79cc64e35b0b1d"
+    },
+    {
+      "bytes": 1135,
+      "path": "run_gpu_environment_parity.py",
+      "sha256": "0976b5fcde571ce1abaf3cee8934af0d62ec273512da83fb71b7514ec7f1fc76"
+    },
+    {
+      "bytes": 1544,
+      "path": "run_gpu_resident_benchmark.py",
+      "sha256": "ce6f61bd9963121f34cb3a2f1a1ecf2390a528d64f995cf0f5125d9fa97bb1ce"
+    },
+    {
+      "bytes": 935,
+      "path": "run_physical_environment_scaling_audit.py",
+      "sha256": "37c6b47d0645155f6471964e9f8bf9b840416053b035c5dcbf3506cfe744b1a6"
+    },
+    {
+      "bytes": 3193,
+      "path": "run_physical_recombination_probe.py",
+      "sha256": "2f99774e04c26f1a137508520499e19c7b01e910a39a870d76ebd45e4f2e8846"
+    },
+    {
+      "bytes": 1055,
+      "path": "run_physical_scale_audit.py",
+      "sha256": "c19c841f345fcb436f1294b876b94f233dd176fded92543f8298a1dde3a2e7b5"
+    },
+    {
+      "bytes": 4129,
+      "path": "tests/test_deterministic_causal_kernel.py",
+      "sha256": "f93f49e110e8f3d252354d5530b753f85687c76054d4f8715f8bf49d5dbf8e90"
+    },
+    {
+      "bytes": 2040,
+      "path": "tests/test_deterministic_causal_spec.py",
+      "sha256": "6582b449abe8ea0f58ea0228fe60489cc0978165c525bc5b4e6f25155896291c"
+    },
+    {
+      "bytes": 4423,
+      "path": "tests/test_deterministic_environment_kernel.py",
+      "sha256": "1bc38bc10c8af9219aac8c5db3504774ae7dc52ad652f707bbe3f18af740a903"
+    },
+    {
+      "bytes": 1657,
+      "path": "tests/test_deterministic_environment_spec.py",
+      "sha256": "07cbf33565b5afd5dbca33638bd799a8e2515f76c6ad57b2580159b188f58a32"
+    },
+    {
+      "bytes": 4171,
+      "path": "tests/test_deterministic_geochemistry_kernel.py",
+      "sha256": "b2b4c46d3789946ccdb58c80e73cdbd71a960ad88e7a48ba0a93119b8c8d6090"
+    },
+    {
+      "bytes": 1857,
+      "path": "tests/test_deterministic_geochemistry_spec.py",
+      "sha256": "3d34f3e95e475965a9bfe3382b4e05ec44545587569e9548dc2fbf5d2ae73f40"
+    },
+    {
+      "bytes": 3939,
+      "path": "tests/test_deterministic_gpu_environment.py",
+      "sha256": "bfbf87426ca99ac8a973a59d63557c1cb9ff0fb59c7a3281c1774f818764e9d7"
+    },
+    {
+      "bytes": 4942,
+      "path": "tests/test_deterministic_kernel.py",
+      "sha256": "87e63900b6239f9489feffc31748f188da90f86328ea7f64148abb5e23a95a2f"
+    },
+    {
+      "bytes": 5707,
+      "path": "tests/test_deterministic_open_environment.py",
+      "sha256": "d6caefd7f1c244a6715758238a589a6dcce07fc3a735637791d4672e0cad6396"
+    },
+    {
+      "bytes": 2182,
+      "path": "tests/test_deterministic_open_environment_spec.py",
+      "sha256": "c7e40bc94ab97eced161741c1eadace940b6efa1883d11168dcd001df34ddde8"
+    },
+    {
+      "bytes": 4940,
+      "path": "tests/test_deterministic_physical_environment.py",
+      "sha256": "1e4cbac3c26c3d5a484860dd78facf1493b291eed91197f2198512c596601526"
+    },
+    {
+      "bytes": 3188,
+      "path": "tests/test_deterministic_physical_scale.py",
+      "sha256": "ab79d8f976e316dc9b9f57e89d4c034c4c351ecee33de015027ad420bda886e9"
+    },
+    {
+      "bytes": 2441,
+      "path": "tests/test_deterministic_scaling.py",
+      "sha256": "150534a84a3311c27df988e2d56124c0ffa9acc822a602d3ad557da7371e73b9"
+    },
+    {
+      "bytes": 2189,
+      "path": "tests/test_deterministic_spec.py",
+      "sha256": "8240273f9db4f5ec57a69d52922e0d3711d740e7c4e28ec04817ff58cb5c22ae"
+    },
+    {
+      "bytes": 1294,
+      "path": "worlds/deterministic_bond_cycle_v1.json",
+      "sha256": "50ec5124a1fa8868f993d3e5b08bf3358e2e9e4e94773f85790fa747983043cc"
+    },
+    {
+      "bytes": 708,
+      "path": "worlds/deterministic_collision_smoke_v1.json",
+      "sha256": "92fadf66b663257f6ea968836dee8edad8c4107023f8b29239069fbedce8e2ae"
+    },
+    {
+      "bytes": 2006,
+      "path": "worlds/deterministic_environment_v1.json",
+      "sha256": "a2556535b736db30fd5da1cf9d25ef3d9eeef127b76be70632e6d39e2022064f"
+    },
+    {
+      "bytes": 1428,
+      "path": "worlds/deterministic_geochemical_cycle_v2.json",
+      "sha256": "5fab235f111a942a982eb97c0e14c2b512fd08a210333e1596ad2a4d225782bd"
+    },
+    {
+      "bytes": 1693,
+      "path": "worlds/deterministic_open_water_cycle_v3.json",
+      "sha256": "e2e42eb1f12352c09afbdb9646162a0f9d6fe4074e56728604032d6202b1040b"
+    },
+    {
+      "bytes": 2344,
+      "path": "worlds/deterministic_physical_flux_v4.json",
+      "sha256": "f3c47795b3aefb9b00a41a8be16897c0115007ff7660b572efcb346ca8effe95"
+    }
+  ],
+  "format": "llm-handoff-manifest-v1",
+  "lane": "deterministic_a",
+  "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"
+}

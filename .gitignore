@@ -1,0 +1,10 @@
+# 재생성 가능한 캐시
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 대용량 실험 결과 (D: KiroCrewTraceVault에 별도 보존, Git 밖에서 관리)
+runs/
+
+# 로컬 도구/에디터 상태
+.claude/settings.local.json
