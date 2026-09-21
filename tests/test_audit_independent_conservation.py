@@ -233,7 +233,8 @@ def test_recount_folds_the_external_energy_ledger_into_the_accounted_total() -> 
     assert ledger.energy_accounted == 10 + 1 - 4
 
 
-def test_recount_counts_momentum_only_for_unbonded_particles() -> None:
+def test_recount_counts_momentum_for_free_particles_and_whole_chains() -> None:
+    """Free particles count individually; a chain counts once, at its full mass."""
     document = json.loads(STATIC_WORLD.read_text(encoding="utf-8"))
     parameters = read_parameters(document)
     snapshot = {
@@ -250,12 +251,46 @@ def test_recount_counts_momentum_only_for_unbonded_particles() -> None:
     assert free.momentum == (3, -5)
     assert free.energy_internal == 8
 
-    bonded = json.loads(json.dumps(snapshot))
-    bonded["causal"]["bonds"] = [
+    # A standing pair: neither member is moving, so nothing is carried.
+    standing = json.loads(json.dumps(snapshot))
+    for particle in standing["causal"]["particles"]:
+        particle["kinetic_energy"] = 0
+        particle["x"], particle["y"] = 0, 0
+    standing["causal"]["bonds"] = [
         {"left_id": 1, "right_id": 2, "rule_id": 0, "stored_energy": 2, "x": 0, "y": 0}]
-    held = recount(bonded, parameters)
-    assert held.momentum == (0, 0), "bonded particles are held in place"
-    assert held.energy_internal == 10, "bond energy is still counted"
+    held = recount(standing, parameters)
+    assert held.momentum == (0, 0), "a standing chain carries no momentum"
+    assert held.energy_internal == 2, "the bond still holds the energy it absorbed"
+
+    # The same pair travelling: one member holds the velocity for both, and the
+    # chain's momentum is that velocity carried by the mass of the whole body.
+    moving = json.loads(json.dumps(standing))
+    moving["causal"]["particles"][0]["kinetic_energy"] = 4
+    moving["causal"]["particles"][0]["direction"] = "E"
+    chain = recount(moving, parameters)
+    assert chain.momentum == (8, 0), "two unit masses at speed 4"
+    assert chain.energy_internal == 6, "motion plus the energy stored in the bond"
+
+
+def test_recount_rejects_a_chain_that_records_motion_twice() -> None:
+    """Two members each holding the velocity would double the chain's momentum."""
+    document = json.loads(STATIC_WORLD.read_text(encoding="utf-8"))
+    parameters = read_parameters(document)
+    snapshot = {
+        "causal": {
+            "particles": [
+                {"particle_id": 1, "kind": 0, "x": 0, "y": 0, "direction": "E", "kinetic_energy": 3},
+                {"particle_id": 2, "kind": 0, "x": 0, "y": 0, "direction": "E", "kinetic_energy": 3},
+            ],
+            "heat": [],
+            "bonds": [{"left_id": 1, "right_id": 2, "rule_id": 0,
+                       "stored_energy": 0, "x": 0, "y": 0}],
+            "tick": 0,
+        },
+        "cells": [], "energy_supplied": 0, "energy_removed": 0,
+    }
+    with pytest.raises(LedgerError):
+        recount(snapshot, parameters)
 
 
 def test_recount_rejects_a_direction_it_does_not_know() -> None:

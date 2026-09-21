@@ -1,0 +1,37 @@
+{
+  "format": "deterministic-causal-world-spec-v2",
+  "world_id": "deterministic-polymer-chain-v2",
+  "kernel": {
+    "width": 32,
+    "height": 32,
+    "boundary": "wrap",
+    "arithmetic": "integer",
+    "deterministic": true,
+    "tick_order": ["break_existing_bonds", "stream_free_particles", "resolve_local_collisions"]
+  },
+  "materials": [{"kind": 0, "mass": 1, "ports": 4}],
+  "particles": [
+    {"particle_id": 1, "kind": 0, "x": 9, "y": 10, "direction": "E", "orientation": "E", "kinetic_energy": 2},
+    {"particle_id": 2, "kind": 0, "x": 11, "y": 10, "direction": "W", "orientation": "W", "kinetic_energy": 2},
+    {"particle_id": 3, "kind": 0, "x": 7, "y": 10, "direction": "E", "orientation": "E", "kinetic_energy": 3}
+  ],
+  "heat": [],
+  "bond_rules": [
+    {
+      "rule_id": "kind0-facing-bond-v2",
+      "event": "local_reversible_bond",
+      "locality": "same_cell",
+      "conserves": ["material", "energy", "momentum"],
+      "left_kind": 0,
+      "right_kind": 0,
+      "left_orientation": "E",
+      "right_orientation": "W",
+      "minimum_collision_energy": 3,
+      "break_heat": 2,
+      "release_left": "W",
+      "release_right": "E"
+    }
+  ],
+  "execution": {"ticks": 6},
+  "observer": {"hash_interval": 1}
+}

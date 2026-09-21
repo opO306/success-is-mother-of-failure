@@ -73,6 +73,37 @@ def _integer(value: Any, what: str) -> int:
     return value
 
 
+def _chains(bonds: Any) -> list[set[Any]]:
+    """Group bonded particle ids into the chains they form.
+
+    Written as a plain breadth-first walk over an adjacency map, deliberately
+    unlike the engine's union-find: two implementations that disagree about
+    what is joined to what should disagree visibly rather than share a bug.
+    """
+    neighbours: dict[Any, set[Any]] = {}
+    for bond in bonds or ():
+        left, right = bond.get("left_id"), bond.get("right_id")
+        neighbours.setdefault(left, set()).add(right)
+        neighbours.setdefault(right, set()).add(left)
+
+    seen: set[Any] = set()
+    groups: list[set[Any]] = []
+    for start in sorted(neighbours, key=repr):
+        if start in seen:
+            continue
+        group, queue = {start}, [start]
+        seen.add(start)
+        while queue:
+            current = queue.pop()
+            for neighbour in neighbours[current]:
+                if neighbour not in group:
+                    group.add(neighbour)
+                    seen.add(neighbour)
+                    queue.append(neighbour)
+        groups.append(group)
+    return groups
+
+
 @dataclass(frozen=True)
 class WorldParameters:
     """The handful of spec numbers a recount needs."""
@@ -179,12 +210,14 @@ def recount(snapshot: Mapping[str, Any], parameters: WorldParameters) -> Ledger:
         bonded.add(bond.get("right_id"))
 
     momentum_x = momentum_y = 0
+    held: dict[Any, dict[str, Any]] = {}
     for particle in particles:
         kinetic = _integer(particle.get("kinetic_energy", 0), "particle kinetic_energy")
         kind = _integer(particle.get("kind"), "particle kind")
         energy += kinetic
         counts[kind] = counts.get(kind, 0) + 1
         if particle.get("particle_id") in bonded:
+            held[particle.get("particle_id")] = particle
             continue
         direction = particle.get("direction")
         if direction not in _VELOCITY:
@@ -195,6 +228,35 @@ def recount(snapshot: Mapping[str, Any], parameters: WorldParameters) -> Ledger:
         step_x, step_y = _VELOCITY[direction]
         momentum_x += mass * kinetic * step_x
         momentum_y += mass * kinetic * step_y
+
+    # A bonded group may travel as one body, with its velocity recorded on a
+    # single member. Such a chain carries the momentum of its whole mass, so
+    # skipping every bonded particle — correct while chains always stood still
+    # — would lose it. Chains are grouped here rather than read from the
+    # engine, so a disagreement about what is joined to what still surfaces.
+    for members in _chains(bonds):
+        holders = [held[item] for item in sorted(members)
+                   if item in held and held[item].get("kinetic_energy")]
+        if not holders:
+            continue
+        if len(holders) > 1:
+            raise LedgerError("a chain records motion on more than one member")
+        holder = holders[0]
+        direction = holder.get("direction")
+        if direction not in _VELOCITY:
+            raise LedgerError(f"unknown particle direction {direction!r}")
+        chain_mass = 0
+        for item in members:
+            if item not in held:
+                raise LedgerError("a bond refers to a particle the snapshot omits")
+            mass = parameters.masses.get(_integer(held[item].get("kind"), "particle kind"))
+            if mass is None:
+                raise LedgerError("spec declares no mass for a bonded particle kind")
+            chain_mass += mass
+        step_x, step_y = _VELOCITY[direction]
+        speed = _integer(holder.get("kinetic_energy", 0), "particle kinetic_energy")
+        momentum_x += chain_mass * speed * step_x
+        momentum_y += chain_mass * speed * step_y
 
     for cell in heat_cells:
         energy += _integer(cell.get("energy", 0), "heat cell energy")

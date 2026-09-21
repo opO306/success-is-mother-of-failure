@@ -10,6 +10,11 @@ from typing import Any, Mapping
 from .spec import DIRECTIONS, FORBIDDEN_COMMANDS, FORBIDDEN_KEYS
 
 FORMAT = "deterministic-causal-world-spec-v1"
+# v2 lets a particle hold more than one bond at a time, up to the `ports` its
+# material already declares. Chains longer than two are then something the
+# collisions can build, rather than something the kernel forbids outright.
+FORMAT_V2 = "deterministic-causal-world-spec-v2"
+SUPPORTED_FORMATS = (FORMAT, FORMAT_V2)
 
 
 def _digest(value: object) -> str:
@@ -175,8 +180,9 @@ class CausalWorldSpec:
     def from_mapping(cls, raw: Mapping[str, Any]) -> "CausalWorldSpec":
         _scan(raw)
         _exact(raw, {"format", "world_id", "kernel", "materials", "particles", "heat", "bond_rules", "execution", "observer"}, "world")
-        if raw["format"] != FORMAT:
+        if raw["format"] not in SUPPORTED_FORMATS:
             raise ValueError("unsupported causal world format")
+        world_format = raw["format"]
         world_id = raw["world_id"]
         if not isinstance(world_id, str) or not world_id.strip():
             raise ValueError("world_id must be a non-empty string")
@@ -285,7 +291,7 @@ class CausalWorldSpec:
         obs = _object(raw["observer"], "observer"); _exact(obs, {"hash_interval"}, "observer")
         return cls(world_id.strip(), kernel, tuple(sorted(materials)), tuple(sorted(particles)), tuple(sorted(heat)),
                    tuple(sorted(rules)), _integer(er["ticks"], "execution.ticks"),
-                   _integer(obs["hash_interval"], "observer.hash_interval", 1))
+                   _integer(obs["hash_interval"], "observer.hash_interval", 1), world_format)
 
 
 def load_causal_world_spec(path: Path) -> CausalWorldSpec:

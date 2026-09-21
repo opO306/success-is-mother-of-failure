@@ -4,9 +4,16 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import defaultdict
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
+from typing import Mapping
 
-from .causal_spec import BondRuleSpec, CausalParticleSpec, CausalWorldSpec, HeatCellSpec
+from .causal_spec import (
+    FORMAT_V2,
+    BondRuleSpec,
+    CausalParticleSpec,
+    CausalWorldSpec,
+    HeatCellSpec,
+)
 from .spec import DIRECTIONS
 
 VELOCITY = {"N": (0, -1), "E": (1, 0), "S": (0, 1), "W": (-1, 0)}
@@ -39,26 +46,75 @@ class CausalWorldState:
     particles: tuple[CausalParticleSpec, ...]
     heat: tuple[HeatCellSpec, ...]
     bonds: tuple[PhysicalBond, ...] = ()
+    # How many bonds each material may hold at once, by kind. Empty means the
+    # v1 rule: one bond per particle, whatever the material declares. A world
+    # passes its own `ports` here to allow chains.
+    #
+    # This is a rule the world is run under, not part of the state itself, so
+    # it stays out of `canonical()`, out of the digest, and out of equality:
+    # two states with the same particles are the same state regardless of what
+    # the surrounding world would permit.
+    port_limits: Mapping[int, int] = field(default_factory=dict, compare=False, repr=False)
+    # Whether a bonded group may carry motion. Under v1 a bond parks all the
+    # motion it absorbed, so bonded particles are always at rest; under v2 a
+    # chain can travel, which is what lets a moving particle join a standing
+    # chain without the collision having to cancel to zero momentum.
+    chains_may_move: bool = field(default=False, compare=False, repr=False)
 
     def __post_init__(self) -> None:
         particles, heat, bonds = tuple(sorted(self.particles)), tuple(sorted(self.heat)), tuple(sorted(self.bonds))
         if len({item.particle_id for item in particles}) != len(particles):
             raise ValueError("particle ids must be unique")
-        if len({(item.kind, item.x, item.y, item.direction) for item in particles}) != len(particles):
-            raise ValueError("directional material channels must be unique")
         if len({(item.x, item.y) for item in heat}) != len(heat):
             raise ValueError("heat cells must be unique")
-        used = [value for bond in bonds for value in (bond.left_id, bond.right_id)]
-        if len(used) != len(set(used)):
-            raise ValueError("causal v1 permits at most one bond per particle")
         by_id = {item.particle_id: item for item in particles}
+        held = {value for bond in self.bonds for value in (bond.left_id, bond.right_id)}
+        # Two free particles of one material travelling the same way through the
+        # same cell are the same channel and cannot be told apart. Chain members
+        # are exempt: sitting together in one cell is what being bonded means,
+        # and they are distinguished by the bonds rather than by their heading.
+        free = [item for item in particles if item.particle_id not in held]
+        if len({(item.kind, item.x, item.y, item.direction) for item in free}) != len(free):
+            raise ValueError("directional material channels must be unique")
+
+        occupied: dict[int, int] = {}
+        for bond in bonds:
+            if bond.left_id == bond.right_id:
+                raise ValueError("a bond cannot join a particle to itself")
+            occupied[bond.left_id] = occupied.get(bond.left_id, 0) + 1
+            occupied[bond.right_id] = occupied.get(bond.right_id, 0) + 1
+        if len({(bond.left_id, bond.right_id) for bond in bonds}) != len(bonds):
+            raise ValueError("the same pair cannot be bonded twice")
+        for particle_id, count in occupied.items():
+            if particle_id not in by_id:
+                raise ValueError("bond refers to a missing particle")
+            allowed = self.port_limits.get(by_id[particle_id].kind, 1) if self.port_limits else 1
+            if count > allowed:
+                raise ValueError(
+                    f"particle {particle_id} holds {count} bonds, above the {allowed} "
+                    f"its material declares")
+
         for bond in bonds:
             if bond.left_id not in by_id or bond.right_id not in by_id:
                 raise ValueError("bond refers to a missing particle")
             if by_id[bond.left_id].x != bond.x or by_id[bond.left_id].y != bond.y or by_id[bond.right_id].x != bond.x or by_id[bond.right_id].y != bond.y:
                 raise ValueError("bonded particles must share the bond location")
-            if by_id[bond.left_id].kinetic_energy or by_id[bond.right_id].kinetic_energy:
+            if not self.chains_may_move and (by_id[bond.left_id].kinetic_energy
+                                             or by_id[bond.right_id].kinetic_energy):
                 raise ValueError("bonded particles must store motion energy in the bond")
+
+        if self.chains_may_move:
+            # A travelling chain keeps its motion on exactly one member — the
+            # lowest id. Spreading a copy across every member would count the
+            # same motion several times in the energy and momentum totals, so
+            # the single holder is what makes "the chain moves" a quantity
+            # rather than a description.
+            for members in set(chains(bonds).values()):
+                holders = [item for item in sorted(members) if by_id[item].kinetic_energy]
+                if len(holders) > 1:
+                    raise ValueError("a chain carries its motion on one member, not several")
+                if holders and holders[0] != min(members):
+                    raise ValueError("a chain carries its motion on its lowest-numbered member")
         object.__setattr__(self, "particles", particles); object.__setattr__(self, "heat", heat); object.__setattr__(self, "bonds", bonds)
 
     @property
@@ -82,13 +138,34 @@ class CausalWorldState:
         return dict(sorted(result.items()))
 
     def momentum(self, spec: CausalWorldSpec) -> tuple[int, int]:
-        masses = {item.kind: item.mass for item in spec.materials}; x = y = 0
+        """Total momentum carried by everything that is free to move.
+
+        Under v1 a bond parks every bit of motion it absorbed, so bonded
+        particles contribute nothing and are skipped. Under v2 a chain may
+        travel: one member holds the velocity for the whole body, and the
+        chain contributes that velocity carried by the chain's total mass.
+        """
+        masses = {item.kind: item.mass for item in spec.materials}
         bonded = {value for bond in self.bonds for value in (bond.left_id, bond.right_id)}
+        x = y = 0
         for item in self.particles:
-            if item.particle_id in bonded: continue
+            if item.particle_id in bonded:
+                continue
             dx, dy = VELOCITY[item.direction]
             x += masses[item.kind] * item.kinetic_energy * dx
             y += masses[item.kind] * item.kinetic_energy * dy
+        if not self.chains_may_move:
+            return x, y
+
+        by_id = {item.particle_id: item for item in self.particles}
+        for members in set(chains(self.bonds).values()):
+            holder = by_id[min(members)]
+            if not holder.kinetic_energy:
+                continue
+            dx, dy = VELOCITY[holder.direction]
+            mass = sum(masses[by_id[item].kind] for item in members)
+            x += mass * holder.kinetic_energy * dx
+            y += mass * holder.kinetic_energy * dy
         return x, y
 
 
@@ -123,8 +200,52 @@ class CausalRun:
                 "spec_digest": self.spec_digest}
 
 
+def chains(bonds: tuple[PhysicalBond, ...]) -> dict[int, frozenset[int]]:
+    """Group bonded particles into the chains they form.
+
+    Returns `{particle_id: the whole chain it belongs to}`. Unbonded particles
+    are absent. Built by union-find rather than a fresh graph walk per query,
+    so the cost is near-linear in the number of bonds — the chain structure is
+    only ever rebuilt when bonds actually change.
+    """
+    parent: dict[int, int] = {}
+
+    def find(item: int) -> int:
+        parent.setdefault(item, item)
+        root = item
+        while parent[root] != root:
+            root = parent[root]
+        while parent[item] != root:          # path compression
+            parent[item], item = root, parent[item]
+        return root
+
+    for bond in bonds:
+        left, right = find(bond.left_id), find(bond.right_id)
+        if left != right:
+            parent[left] = right
+
+    grouped: dict[int, set[int]] = {}
+    for item in parent:
+        grouped.setdefault(find(item), set()).add(item)
+    return {item: frozenset(members) for members in grouped.values() for item in members}
+
+
+def port_limits(spec: CausalWorldSpec) -> dict[int, int]:
+    """How many bonds each material may hold at once under this world.
+
+    v1 worlds keep the original rule of one bond per particle regardless of
+    what their materials declare, so existing runs reproduce exactly. v2
+    worlds honour the `ports` their materials already carry, which is what
+    lets a collision extend a chain instead of being refused.
+    """
+    if spec.format != FORMAT_V2:
+        return {item.kind: 1 for item in spec.materials}
+    return {item.kind: item.ports for item in spec.materials}
+
+
 def initial_causal_state(spec: CausalWorldSpec) -> CausalWorldState:
-    return CausalWorldState(0, spec.particles, spec.heat)
+    return CausalWorldState(0, spec.particles, spec.heat, (), port_limits(spec),
+                            spec.format == FORMAT_V2)
 
 
 def _heat_map(state: CausalWorldState) -> dict[tuple[int, int], int]:
@@ -156,17 +277,51 @@ def _break_existing(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWor
             left, right = particles[bond.left_id], particles[bond.right_id]
             particles[bond.left_id] = replace(left, direction=rule.release_left, orientation=rule.release_left, kinetic_energy=each)
             particles[bond.right_id] = replace(right, direction=rule.release_right, orientation=rule.release_right, kinetic_energy=each)
-    return CausalWorldState(state.tick, tuple(particles.values()), _heat_cells(heat), tuple(remaining))
+    return CausalWorldState(state.tick, tuple(particles.values()), _heat_cells(heat), tuple(remaining), state.port_limits, state.chains_may_move)
 
 
 def _stream_free(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
-    bonded = {value for bond in state.bonds for value in (bond.left_id, bond.right_id)}; particles = []
+    bonded = {value for bond in state.bonds for value in (bond.left_id, bond.right_id)}
+    membership = chains(state.bonds) if state.chains_may_move else {}
+    by_id = {item.particle_id: item for item in state.particles}
+
+    # A travelling chain moves as one body: every member steps together, in the
+    # direction its holder carries. Working out the step once per chain rather
+    # than once per member is also what keeps this linear in the particle count.
+    chain_step: dict[int, tuple[int, int]] = {}
+    for members in set(membership.values()):
+        holder = by_id[min(members)]
+        if holder.kinetic_energy:
+            chain_step[min(members)] = VELOCITY[holder.direction]
+
+    particles = []
     for item in state.particles:
-        if item.particle_id in bonded or item.kinetic_energy == 0:
-            particles.append(item); continue
-        dx, dy = VELOCITY[item.direction]
-        particles.append(replace(item, x=(item.x + dx) % spec.kernel.width, y=(item.y + dy) % spec.kernel.height))
-    return CausalWorldState(state.tick, tuple(particles), state.heat, state.bonds)
+        if item.particle_id in bonded:
+            members = membership.get(item.particle_id)
+            step = chain_step.get(min(members)) if members else None
+            if step is None:
+                particles.append(item)
+                continue
+            dx, dy = step
+        elif item.kinetic_energy == 0:
+            particles.append(item)
+            continue
+        else:
+            dx, dy = VELOCITY[item.direction]
+        particles.append(replace(item, x=(item.x + dx) % spec.kernel.width,
+                                 y=(item.y + dy) % spec.kernel.height))
+
+    moved = tuple(particles)
+    # Bonds record where their particles are, so a chain that stepped carries
+    # its bonds with it rather than leaving them behind at the old cell.
+    if chain_step:
+        placed = {item.particle_id: item for item in moved}
+        bonds = tuple(replace(bond, x=placed[bond.left_id].x, y=placed[bond.left_id].y)
+                      for bond in state.bonds)
+    else:
+        bonds = state.bonds
+    return CausalWorldState(state.tick, moved, state.heat, bonds,
+                            state.port_limits, state.chains_may_move)
 
 
 def _match_rule(rules: tuple[BondRuleSpec, ...], first: CausalParticleSpec, second: CausalParticleSpec) -> tuple[BondRuleSpec, bool] | None:
@@ -176,6 +331,83 @@ def _match_rule(rules: tuple[BondRuleSpec, ...], first: CausalParticleSpec, seco
         if direct: return rule, False
         if reverse: return rule, True
     return None
+
+
+def _grow_chains(spec: CausalWorldSpec, state: CausalWorldState,
+                 particles: dict[int, CausalParticleSpec],
+                 bonds: list[PhysicalBond]) -> None:
+    """Let a free particle join a chain it has arrived at, in place.
+
+    A standing chain cannot take part in a head-on collision, so under v1 a
+    chain could never reach three: every bond needed two free particles whose
+    momenta cancelled. Here the arriving particle is absorbed instead, and the
+    chain takes up the momentum it brought — total mass moving slower, rather
+    than the motion vanishing.
+
+    The exchange only happens when it comes out exact in integers. A collision
+    that would need a fractional velocity is left alone, which is a real
+    outcome rather than a rounding.
+    """
+    masses = {item.kind: item.mass for item in spec.materials}
+    membership = chains(tuple(bonds))
+    occupied: dict[int, int] = {}
+    for bond in bonds:
+        occupied[bond.left_id] = occupied.get(bond.left_id, 0) + 1
+        occupied[bond.right_id] = occupied.get(bond.right_id, 0) + 1
+
+    free_at: dict[tuple[int, int], list[CausalParticleSpec]] = defaultdict(list)
+    for item in particles.values():
+        if item.particle_id not in membership and item.kinetic_energy:
+            free_at[(item.x, item.y)].append(item)
+
+    for members in sorted(set(membership.values()), key=min):
+        anchor = min(members)
+        holder = particles[anchor]
+        if holder.kinetic_energy:
+            continue            # a moving chain is left to travel, not grown
+        point = (particles[anchor].x, particles[anchor].y)
+        arrivals = sorted(free_at.get(point, ()),
+                          key=lambda p: (p.kind, p.orientation, p.direction, p.particle_id))
+        for arriving in arrivals:
+            if arriving.particle_id in membership:
+                continue        # already absorbed by an earlier chain this tick
+            # Try every member with a free port, not just the first: whether a
+            # bond forms depends on the pair's orientations, so one end of a
+            # chain can accept an arrival the other end has no rule for.
+            attachment = None
+            for item in sorted(members):
+                if occupied.get(item, 0) >= state.port_limits.get(particles[item].kind, 1):
+                    continue
+                matched = _match_rule(spec.bond_rules, particles[item], arriving)
+                if matched is not None:
+                    attachment = (item, matched)
+                    break
+            if attachment is None:
+                continue        # no free port on this chain bonds with this arrival
+            attach, (rule, reversed_roles) = attachment
+            if arriving.kinetic_energy < rule.minimum_collision_energy:
+                continue
+
+            chain_mass = sum(masses[particles[item].kind] for item in members)
+            total_mass = chain_mass + masses[arriving.kind]
+            carried = masses[arriving.kind] * arriving.kinetic_energy
+            if carried % total_mass:
+                continue        # no exact integer velocity for the joined body
+            speed = carried // total_mass
+            absorbed = arriving.kinetic_energy - speed
+
+            left, right = ((arriving, particles[attach]) if reversed_roles
+                           else (particles[attach], arriving))
+            bonds.append(PhysicalBond(left.particle_id, right.particle_id,
+                                      rule.rule_id, absorbed, point[0], point[1]))
+            particles[arriving.particle_id] = replace(arriving, kinetic_energy=0)
+            if speed:
+                particles[anchor] = replace(particles[anchor],
+                                            direction=arriving.direction, kinetic_energy=speed)
+            occupied[attach] = occupied.get(attach, 0) + 1
+            occupied[arriving.particle_id] = occupied.get(arriving.particle_id, 0) + 1
+            membership = chains(tuple(bonds))
+            break               # one arrival per chain per tick
 
 
 def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
@@ -204,7 +436,10 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
             ordered = sorted((first, second), key=lambda p: DIRECTIONS.index(p.direction))
             for particle, direction in zip(ordered, replacement):
                 particles[particle.particle_id] = replace(particle, direction=direction, orientation=direction)
-    return CausalWorldState(state.tick, tuple(particles.values()), state.heat, tuple(bonds))
+    if state.chains_may_move:
+        _grow_chains(spec, state, particles, bonds)
+    return CausalWorldState(state.tick, tuple(particles.values()), state.heat, tuple(bonds),
+                            state.port_limits, state.chains_may_move)
 
 
 def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
@@ -212,7 +447,8 @@ def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState) -> CausalW
     result = _break_existing(spec, state)
     result = _stream_free(spec, result)
     result = _resolve_collisions(spec, result)
-    result = CausalWorldState(state.tick + 1, result.particles, result.heat, result.bonds)
+    result = CausalWorldState(state.tick + 1, result.particles, result.heat, result.bonds,
+                              state.port_limits, state.chains_may_move)
     if result.material_counts() != counts: raise AssertionError("causal tick changed material counts")
     if result.total_energy() != energy: raise AssertionError("causal tick changed total energy")
     if result.momentum(spec) != momentum: raise AssertionError("causal tick changed momentum")
