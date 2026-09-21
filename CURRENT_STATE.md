@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-21
-**검증:** 전체 테스트 872개 통과
+**검증:** 전체 테스트 892개 통과
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -68,7 +68,9 @@
 
 - `independent_trace/` — 기록장 검증. 해시를 직접 정규화하고 델타를 **적용**해 확인
 - `independent_conservation/` — 보존 재집계. 커널 집계와 대조
-- 둘 다 결함 주입으로 실효성 확인됨 (`docs/VERIFICATION_LIMITS_AND_LESSONS.md`)
+- `independent_compliance/` — **명세 준수.** 막힌 벽·순간이동·한도 초과 등
+  "총량은 맞는데 경로가 틀린" 위반 탐지
+- 셋 다 결함 주입으로 실효성 확인됨 (`docs/VERIFICATION_LIMITS_AND_LESSONS.md`)
 
 ---
 
@@ -184,8 +186,9 @@ A records         = 0
 
 ### (라) 감사 확장
 
-- vault trace 중 `spec.json` 없는 8개는 보존 감사 불가 → 이후 실행은 spec을 함께 저장
-- 명세 준수 검증 (현재는 총량 보존만, "규칙대로 움직였는가"는 미검증)
+- vault trace 중 `spec.json` 없는 8개는 보존·준수 감사 불가 → 이후 실행은 spec을 함께 저장
+- ~~명세 준수 검증~~ **완료 (2026-09-21)** — `audit/independent_compliance/`
+- 남은 미검증: 입자 충돌·결합 규칙 준수, 세밀한 이동량 공식
 
 ---
 
@@ -198,4 +201,4 @@ A records         = 0
 | 2026-09-20 | **`exactly one ordinary event` 발견.** tick당 사건 하나만 처리되어 경쟁이 불가능했음이 드러남. 확률 → 결정론 전환 결정 |
 | 2026-09-20~21 | A/B 분리 확정. B 도구 10종 구현 (806→837 테스트) |
 | 2026-09-21 | 중간 점검, LLM_HANDOFF 카탈로그, D: 스냅샷 + Git 초기화 |
-| 2026-09-21 | 지침 4종. 독립 trace 검증기(837→856). 독립 보존 검증기(856→872) |
+| 2026-09-21 | 지침 4종. 독립 검증기 3종 — trace(837→856), 보존(→872), 명세 준수(→892) |

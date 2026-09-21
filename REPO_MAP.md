@@ -128,11 +128,24 @@ exact   실제 A 실행                    예산 제한 (보류분은 deferred_
 | `independent_conservation/ledger.py` | 스냅샷에서 에너지·물질·입자·운동량을 직접 재집계 |
 | `independent_conservation/checker.py` | 매 tick 보존 + 커널 집계와 대조 |
 | `independent_conservation/README.md` | 사각지대의 모양 (일정한 오류 vs 변하는 오류) |
+| `independent_compliance/rules.py` | 명세에서 검사 가능한 규칙 추출 |
+| `independent_compliance/field.py` | 스냅샷을 칸별 수치로 평탄화 |
+| `independent_compliance/checker.py` | 단계별 규칙 준수 검사 (막힌 벽·짝 균형·한도·온도 조건) |
+| `independent_compliance/README.md` | 총량이 맞아도 경로가 틀릴 수 있다 |
+
+**세 검증기가 보는 층이 다르다:**
+
+```
+trace       기록이 정확한가
+conservation 총량이 보존되는가
+compliance   규칙대로 움직였는가   <- 총량이 맞아도 위반 가능
+```
 
 실행:
 ```bash
 python run_independent_trace_audit.py --vault --compare-engine
 python run_independent_conservation_audit.py --worlds --vault
+python run_independent_compliance_audit.py --worlds --vault
 ```
 
 독립성은 `tests/test_audit_*.py`가 AST 검사로 강제한다 — `audit/` 아래에 `engine` import가 생기면 테스트가 깨진다.
@@ -209,11 +222,11 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 872개 통과.
+`tests/` — 총 892개 통과.
 
 ```
 test_deterministic_*.py   결정론 A/B (26개 파일)
-test_audit_*.py           독립 감사 (trace 19개 + 보존 16개)
+test_audit_*.py           독립 감사 (trace 19 + 보존 16 + 준수 20)
 test_sequence_*.py        확률 세계 (동결)
 test_living_*.py          living 계통
 test_primal_*.py          레거시 원시인
