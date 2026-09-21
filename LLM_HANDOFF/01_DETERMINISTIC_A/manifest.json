@@ -1,16 +1,16 @@
 {
-  "bytes": 193983,
-  "file_count": 39,
+  "bytes": 216871,
+  "file_count": 41,
   "files": [
     {
-      "bytes": 11912,
+      "bytes": 23943,
       "path": "engine/deterministic/causal_kernel.py",
-      "sha256": "9d10bb53e05473b8c4fdd441a7b500d3ef598543c94f330d2ee069d459d9d266"
+      "sha256": "b9460e810f4d80334c3574ced2d7a8eaae38a751df7e2006982727f1668c9b29"
     },
     {
-      "bytes": 13095,
+      "bytes": 13478,
       "path": "engine/deterministic/causal_spec.py",
-      "sha256": "52548d1a351aa4a479405611ad73e8368d07d5e19f104936627b93d50d2692e2"
+      "sha256": "5804c3b84cd8872788c66d62d44c5da90c88e8be8b5084e7c498803e58d253fd"
     },
     {
       "bytes": 17027,
@@ -158,6 +158,11 @@
       "sha256": "ab79d8f976e316dc9b9f57e89d4c034c4c351ecee33de015027ad420bda886e9"
     },
     {
+      "bytes": 9232,
+      "path": "tests/test_deterministic_polymer_chain.py",
+      "sha256": "64f22b00287cfd1117f3ddfa854d7550868414cb0ec5db8deb7a557d55074441"
+    },
+    {
       "bytes": 2441,
       "path": "tests/test_deterministic_scaling.py",
       "sha256": "150534a84a3311c27df988e2d56124c0ffa9acc822a602d3ad557da7371e73b9"
@@ -196,6 +201,11 @@
       "bytes": 2344,
       "path": "worlds/deterministic_physical_flux_v4.json",
       "sha256": "f3c47795b3aefb9b00a41a8be16897c0115007ff7660b572efcb346ca8effe95"
+    },
+    {
+      "bytes": 1242,
+      "path": "worlds/deterministic_polymer_chain_v2.json",
+      "sha256": "617c250e785b647ea9597f9afd60e4855c8f9130968d9958771743b7d8a5a3c5"
     }
   ],
   "format": "llm-handoff-manifest-v1",

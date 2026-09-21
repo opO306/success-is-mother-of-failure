@@ -256,20 +256,32 @@ test_agent*.py            레거시 사회
 
 **작업 전 필수 4개:** `AGENTS.md`, `RULES.md`, `CURRENT_STATE.md`, `REPO_MAP.md`(이 문서)
 
+**`docs/` 구조** (2026-09-21 계통별로 정리됨, 상세는 `docs/README.md`):
+
+```
+docs/
+├── README.md                 이 폴더 안내
+├── current/                  결정론 A/B — 지금 작업 대상
+├── legacy-probabilistic/     확률 세계 sequence·GCP — 동결된 기준선
+├── legacy-society-brain/     초기 사회·원시인·뇌 장기 설계 구상 — 보존
+└── PROJECT_CLEANUP_AUDIT_V1.md   프로젝트 전체를 다루는 운영 문서 (루트에 유지)
+```
+
 **참조용:**
 
 | 문서 | 내용 |
 |---|---|
 | `PROJECT_CONSTITUTION.md` | 헌법 24조 |
-| `docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 (58KB) |
-| `docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서·완료 판정 (32KB) |
-| `docs/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 |
-| `docs/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검 |
-| `docs/SCHEDULER_V1_AUDIT.md` | 확률 세계 실패 원인 분석 |
-| `docs/EVENT_RATE_AND_TIME_AUDIT_V1.md` | 사건율·시간 감사 |
-| `docs/DUAL_GCP_EVALUATION_PROTOCOL.md` | GCP 실험 프로토콜 |
+| `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 (58KB) |
+| `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서·완료 판정 (32KB) |
+| `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 |
+| `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검 |
+| `docs/current/VERIFICATION_LIMITS_AND_LESSONS.md` | 검증이 무엇을 못 잡는가, 결함 주입 기록 |
+| `docs/legacy-probabilistic/SCHEDULER_V1_AUDIT.md` | 확률 세계 실패 원인 분석 |
+| `docs/legacy-probabilistic/EVENT_RATE_AND_TIME_AUDIT_V1.md` | 사건율·시간 감사 |
+| `docs/legacy-probabilistic/DUAL_GCP_EVALUATION_PROTOCOL.md` | GCP 실험 프로토콜 |
 | `docs/PROJECT_CLEANUP_AUDIT_V1.md` | 정리 원칙 |
-| `docs/STAGE_C_*_REVIEW.md` | 확률 세계 단계별 검토 (약 20개) |
+| `docs/legacy-probabilistic/STAGE_C_*_REVIEW.md` | 확률 세계 단계별 검토 (약 20개) |
 | `LLM_HANDOFF/` | 계통별 파일 카탈로그 (외부 LLM 전달용, 논리 카탈로그이며 원본 이동 없음) |
 
 ---

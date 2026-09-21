@@ -1,7 +1,7 @@
 # 자기 해석형 서열 골격 절단 수치 물리 v0
 
 **상태:** 단계 C 기준 실행기 네 번째 조각  
-**상위 수치 명세:** `docs/SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md`
+**상위 수치 명세:** `SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md`
 
 ## 1. 목적
 

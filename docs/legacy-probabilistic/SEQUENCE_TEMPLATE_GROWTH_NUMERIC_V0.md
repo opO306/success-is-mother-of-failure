@@ -1,7 +1,7 @@
 # 자기 해석형 서열 주형 성장 수치 물리 v0
 
 **상태:** 단계 C 기준 실행기 세 번째 조각  
-**상위 수치 명세:** `docs/SEQUENCE_PHYSICS_NUMERIC_V0.md`, `docs/SEQUENCE_FOLDING_NUMERIC_V0.md`
+**상위 수치 명세:** `SEQUENCE_PHYSICS_NUMERIC_V0.md`, `SEQUENCE_FOLDING_NUMERIC_V0.md`
 
 ## 1. 목적
 

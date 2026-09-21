@@ -1,6 +1,6 @@
 # 단계 C 자기 해석형 서열 설계 감사
 
-**대상:** `docs/SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md`  
+**대상:** `SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md`  
 **판정:** 방향 통과, 수치 법칙 확정 전 구현 보류
 
 ## 1. 설계 의도와 일치하는 부분

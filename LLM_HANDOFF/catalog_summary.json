@@ -1,7 +1,7 @@
 {
   "excluded": {
-    "generated_cache": 326,
-    "private_settings": 3
+    "generated_cache": 345,
+    "private_settings": 577
   },
   "format": "llm-handoff-catalog-v1",
   "lanes": {
@@ -12,22 +12,22 @@
       "manifest_sha256": "7381037cf6dacdae4bdce519537f00dbe674d371cf1b9a58791777fe2a40cd84"
     },
     "deterministic_a": {
-      "bytes": 193983,
-      "file_count": 39,
+      "bytes": 216871,
+      "file_count": 41,
       "folder": "01_DETERMINISTIC_A",
-      "manifest_sha256": "e6c29ea632b5cfaf272a7909c48497bad2a58b712c7099d67d7acd0785889aed"
+      "manifest_sha256": "426f73095dbe56209d997edc15deb07c74f2bf0fd480ebffc16b535f2aae7dc2"
     },
     "legacy_probability_world": {
-      "bytes": 3329098989,
+      "bytes": 3329098964,
       "file_count": 865,
       "folder": "03_LEGACY_PROBABILISTIC_WORLD",
-      "manifest_sha256": "724d3217c71aac66d4aadafa7fb4fd7fa621617484b2f16f97f645c011c71eef"
+      "manifest_sha256": "f6f034d2b74678ccacdd2ee8fd2c2bbb5aa81e6d7d97d88d80df0cc5b6f09d26"
     },
     "legacy_society_primal_brain": {
-      "bytes": 1170486096,
-      "file_count": 31484,
+      "bytes": 1170543674,
+      "file_count": 31488,
       "folder": "04_LEGACY_SOCIETY_PRIMAL_BRAIN",
-      "manifest_sha256": "974d5d049ee1e13f559dfe4abf9594b3854569a9ed02d52144a10148451ab0c1"
+      "manifest_sha256": "16ee4fe54c0c860b17ceb53e0fdd21c42dceca6e220fc618dd5bc5669fee0827"
     },
     "model_neutral_b": {
       "bytes": 260011,
@@ -36,22 +36,22 @@
       "manifest_sha256": "477caab19bd90c2a81c48e76cb6b8d7a3967a1f567ae40fc22b57581d0e7686f"
     },
     "shared_current": {
-      "bytes": 122485,
-      "file_count": 4,
+      "bytes": 253428,
+      "file_count": 22,
       "folder": "07_SHARED_CURRENT_DESIGN",
-      "manifest_sha256": "9ed8574eedf859b1e707760ebf1b37202d10808d39d55dda30c265e6d49f4ef1"
+      "manifest_sha256": "8878e7aa687cab0b7f7aae104f994acc9951d1f301f4b6029197cbd6482fd8ad"
     },
     "shared_governance": {
-      "bytes": 106349,
-      "file_count": 7,
+      "bytes": 162675,
+      "file_count": 15,
       "folder": "09_SHARED_GOVERNANCE",
-      "manifest_sha256": "10afea50a4440c21544836e0057dbfaba6bae1d05d2c9436221bb7bd8a7bb583"
+      "manifest_sha256": "74eaea4ecb4916d341f24ef6fa81cf4c3740d62adfb6b06219f512e233a4713e"
     },
     "unclassified": {
-      "bytes": 0,
-      "file_count": 0,
+      "bytes": 4681,
+      "file_count": 4,
       "folder": "06_UNCLASSIFIED",
-      "manifest_sha256": "4d23b89035479d6b8a3a67483ccb1a4b1e487cadf366e1dddc3d88159a36e653"
+      "manifest_sha256": "5eb39ddce342c040bc34419d6d1fbe46d00d85d494e21fe396c0f8705317b4ff"
     }
   },
   "physical_moves_performed": 0,

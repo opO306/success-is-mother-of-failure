@@ -3,8 +3,8 @@
 scheduler-v1 sequence 계통과 GCP·계보·실패 실험 증거
 
 - 파일 수: 865
-- 총 bytes: 3329098989
-- manifest SHA-256: `724d3217c71aac66d4aadafa7fb4fd7fa621617484b2f16f97f645c011c71eef`
+- 총 bytes: 3329098964
+- manifest SHA-256: `f6f034d2b74678ccacdd2ee8fd2c2bbb5aa81e6d7d97d88d80df0cc5b6f09d26`
 
 다른 LLM에는 먼저 이 README와 필요한 원본 경로만 전달한다.
 
@@ -14,9 +14,9 @@ scheduler-v1 sequence 계통과 GCP·계보·실패 실험 증거
 
 ## 가장 먼저 읽을 것
 
-1. `docs/EVENT_RATE_AND_TIME_AUDIT_V1.md`
-2. `docs/SCHEDULER_V1_AUDIT.md`
-3. `docs/DUAL_GCP_EVALUATION_PROTOCOL.md`
+1. `docs/legacy-probabilistic/EVENT_RATE_AND_TIME_AUDIT_V1.md`
+2. `docs/legacy-probabilistic/SCHEDULER_V1_AUDIT.md`
+3. `docs/legacy-probabilistic/DUAL_GCP_EVALUATION_PROTOCOL.md`
 4. `engine/sequence/nonliving_world.py`, `observation.py`, `lineage.py`
 5. `engine/living/events.py`
 6. `runs/dual_gcp_precommit_20260919_185150/`

@@ -2,9 +2,9 @@
 
 자동 분류가 확실하지 않아 사람이 확인할 파일
 
-- 파일 수: 0
-- 총 bytes: 0
-- manifest SHA-256: `4d23b89035479d6b8a3a67483ccb1a4b1e487cadf366e1dddc3d88159a36e653`
+- 파일 수: 4
+- 총 bytes: 4681
+- manifest SHA-256: `5eb39ddce342c040bc34419d6d1fbe46d00d85d494e21fe396c0f8705317b4ff`
 
 다른 LLM에는 먼저 이 README와 필요한 원본 경로만 전달한다.
 

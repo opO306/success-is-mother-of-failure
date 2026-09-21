@@ -1,7 +1,28 @@
 {
-  "bytes": 0,
-  "file_count": 0,
-  "files": [],
+  "bytes": 4681,
+  "file_count": 4,
+  "files": [
+    {
+      "bytes": 943,
+      "path": "docs/current/README.md",
+      "sha256": "935d64afce963591821fe272acf7a8b9b9b8f3b3f808b223795c085f9657690c"
+    },
+    {
+      "bytes": 1568,
+      "path": "docs/legacy-probabilistic/README.md",
+      "sha256": "bebd46d448b562589f954670412a59f7afa43d3bff4348f17652b0aaa907df6f"
+    },
+    {
+      "bytes": 1166,
+      "path": "docs/legacy-society-brain/README.md",
+      "sha256": "44867c772372346eec3b0ff6281b1e337e260024cd8b8a21d15a41ae3636c2a1"
+    },
+    {
+      "bytes": 1004,
+      "path": "docs/README.md",
+      "sha256": "6169ca75b869f25b8c8fa642b3ad3b39f220a6d11cb17091cafd95defbc164fe"
+    }
+  ],
   "format": "llm-handoff-manifest-v1",
   "lane": "unclassified",
   "project_root": "C:\\Users\\zun24\\성공은 실패의 어머니"

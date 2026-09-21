@@ -1,15 +1,30 @@
 {
-  "bytes": 106349,
-  "file_count": 7,
+  "bytes": 162675,
+  "file_count": 15,
   "files": [
     {
-      "bytes": 17361,
+      "bytes": 221,
+      "path": ".gitignore",
+      "sha256": "904e0fa3ae22b93e868e49429dadc02abb6dcdb2a5df8238ee040f0872045551"
+    },
+    {
+      "bytes": 5224,
+      "path": "AGENTS.md",
+      "sha256": "afdd6c5642162f23a309e3d3b0a9cf00a573ba2004a6b6284a0b57781f72bb2c"
+    },
+    {
+      "bytes": 19997,
       "path": "build_llm_handoff_catalog.py",
-      "sha256": "fa49c20b97575643f056d828016cffc8bd357391aa9a15f50cafe1cc40b8b727"
+      "sha256": "f0b259d15faa056fef72eebcaff92fab2509eb56e8a963fd0c78f0ef61294ef3"
+    },
+    {
+      "bytes": 10184,
+      "path": "CURRENT_STATE.md",
+      "sha256": "21549f05e9a686f2f52986752d1b5b756a00a7f9d09ae7d44271452350ea916a"
     },
     {
       "bytes": 5286,
-      "path": "docs/MIDPOINT_A_B_AUDIT_2026-09-21.md",
+      "path": "docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md",
       "sha256": "44c39972653abbfc74ca055059fc762024b2eb6ff9ec26ad6ac87b338023e1b8"
     },
     {
@@ -18,19 +33,44 @@
       "sha256": "82df3416ac812aeed303c46fa3069b929aec988d4d43d3faffc80c74a360a497"
     },
     {
-      "bytes": 27343,
+      "bytes": 27739,
       "path": "EVOLUTION_V2_PLAN.md",
-      "sha256": "b923162d4f53253f10bc51f6eb903c75d41e9ac1d263c924e2e88d97de2030b4"
+      "sha256": "e38dfbe84cab6b24469145ee8809e72981c560290c21b57335a0e52bcc71f8f2"
     },
     {
-      "bytes": 39047,
+      "bytes": 40550,
       "path": "EVOLVABLE_LANGUAGE_PLAN.md",
-      "sha256": "0a9fe571f7eaa23b3026d5841f9bcf117fe5d83e4b12596fe0aca2fd08b5667f"
+      "sha256": "a85f4b6bd3cf174fd4d9cb0f497dc4fb788258e1b0cbb2e91ba3acbd1a1aa1e6"
     },
     {
       "bytes": 8540,
       "path": "PROJECT_CONSTITUTION.md",
       "sha256": "d03da18b3f3019dca72b3efab6ff34816435680062c095c6a7d585468492981e"
+    },
+    {
+      "bytes": 13540,
+      "path": "REPO_MAP.md",
+      "sha256": "f6849c0855c3bfe535cbc5cf04255a65c49e6018a2992c31eded12a4fdae579b"
+    },
+    {
+      "bytes": 7152,
+      "path": "RULES.md",
+      "sha256": "d202c2ed4e999ce9d2b87abd2eda806c759fea4601c261362622389758657ac7"
+    },
+    {
+      "bytes": 4995,
+      "path": "run_independent_compliance_audit.py",
+      "sha256": "4688b44847b4293740eb7a68a62fc77730d258a2a175017b6bcde485236e7bb4"
+    },
+    {
+      "bytes": 5261,
+      "path": "run_independent_conservation_audit.py",
+      "sha256": "a0f338297b85578a8fd512f72b5000d61d2a13522b4ec5b4165bbf018e556220"
+    },
+    {
+      "bytes": 5214,
+      "path": "run_independent_trace_audit.py",
+      "sha256": "43024d451a11e1eb2677fe61553c19fb1fca1eba516f4f1a99a0855bc07f3727"
     },
     {
       "bytes": 2785,

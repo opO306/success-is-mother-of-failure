@@ -1,21 +1,111 @@
 {
-  "bytes": 122485,
-  "file_count": 4,
+  "bytes": 253428,
+  "file_count": 22,
   "files": [
     {
+      "bytes": 246,
+      "path": "audit/__init__.py",
+      "sha256": "15e18d60da71314d40aaffa12c4996c6b4deb43e9661a3b5fc84570042b85024"
+    },
+    {
+      "bytes": 1048,
+      "path": "audit/independent_compliance/__init__.py",
+      "sha256": "bd0328da97f3417dd81da1b4c84718696c710f9b08b5d06cf541a30f345c224b"
+    },
+    {
+      "bytes": 22479,
+      "path": "audit/independent_compliance/checker.py",
+      "sha256": "1e79e76a89074f32fef34ff55d666e8261765ec7d44b4ae41897ef7f1353d059"
+    },
+    {
+      "bytes": 4227,
+      "path": "audit/independent_compliance/field.py",
+      "sha256": "1f736d889d3f195481ba9058297e64cf20541b4651d46d21fc485feb2e7a417c"
+    },
+    {
+      "bytes": 17771,
+      "path": "audit/independent_compliance/particles.py",
+      "sha256": "a2308e44c6a5a620bb568734b5ebcde293cecd264472758729bd49d4149eb534"
+    },
+    {
+      "bytes": 6951,
+      "path": "audit/independent_compliance/README.md",
+      "sha256": "d4f25faac79d79fa86e2412ee6f29212d35c56da260e0bd70608d96138cc9781"
+    },
+    {
+      "bytes": 7744,
+      "path": "audit/independent_compliance/rules.py",
+      "sha256": "70f985355be1bf015751befb21e82bea51ee5599c16976fd461b12ef38301ae7"
+    },
+    {
+      "bytes": 689,
+      "path": "audit/independent_conservation/__init__.py",
+      "sha256": "64179def8a71b7e1c6b5f04593fe9cef343920712d38122cb023ab2778597f2c"
+    },
+    {
+      "bytes": 8432,
+      "path": "audit/independent_conservation/checker.py",
+      "sha256": "f02a089c5ed4e84b171a85051c14ac15d091ce7c9ebf26576047cff9e6a77882"
+    },
+    {
+      "bytes": 11758,
+      "path": "audit/independent_conservation/ledger.py",
+      "sha256": "b6d2a181bb0956d48955b38a7500cea0151b23f293715b48b8cd268737e2ab54"
+    },
+    {
+      "bytes": 6486,
+      "path": "audit/independent_conservation/README.md",
+      "sha256": "9459094287af4be0010fb7ac239e197eaa3e9bfc82ff49dc82958b4869a05732"
+    },
+    {
+      "bytes": 877,
+      "path": "audit/independent_trace/__init__.py",
+      "sha256": "e7e0094965ab4cb607bdc4a847feae322b1b37932f4df15cc5a48a1c6fc3bea4"
+    },
+    {
+      "bytes": 3233,
+      "path": "audit/independent_trace/canonical.py",
+      "sha256": "0888afe56a263227af6044a6ba457c7381c69c086807a6b57aacda81913bbe58"
+    },
+    {
+      "bytes": 4620,
+      "path": "audit/independent_trace/delta.py",
+      "sha256": "a0aa01fd723dadbb157ac5c5699ea96739b87f86820623330b9283354fb44eb2"
+    },
+    {
+      "bytes": 2321,
+      "path": "audit/independent_trace/external_hash.py",
+      "sha256": "5e21ddd3b27b22cd63cec0a1f7002559c6492fd288942db96a66403acaf66456"
+    },
+    {
+      "bytes": 4986,
+      "path": "audit/independent_trace/README.md",
+      "sha256": "736d8a8fdbd0158d1591205db7d99d278cc385faff9e9f13ff693de802a0cfd0"
+    },
+    {
+      "bytes": 10507,
+      "path": "audit/independent_trace/verifier.py",
+      "sha256": "03ffd5f9793f0d00e8d11c8cfa189fa42f8abd944af17e624f62afb40629f686"
+    },
+    {
       "bytes": 32427,
-      "path": "docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md",
+      "path": "docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md",
       "sha256": "6bb7685d4ba524caf7a0dc48cd0f05701815858eddd672e6af8efcd6ab554318"
     },
     {
       "bytes": 22352,
-      "path": "docs/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md",
+      "path": "docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md",
       "sha256": "29b7914f570ca6a6609fa2065e0fd2b860d89688d5a30fa6eb5b532ac6747f6c"
     },
     {
       "bytes": 58549,
-      "path": "docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md",
+      "path": "docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md",
       "sha256": "822a8799d7f2d25ecd6d677f59479bed640603eee38578ed0af239531922a772"
+    },
+    {
+      "bytes": 16568,
+      "path": "docs/current/VERIFICATION_LIMITS_AND_LESSONS.md",
+      "sha256": "3c88002594e45d496a12d1fb511a433a67798b0278aa5ac0ae7f1347c04953c4"
     },
     {
       "bytes": 9157,

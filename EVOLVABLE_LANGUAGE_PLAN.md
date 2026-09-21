@@ -376,7 +376,7 @@ Python의 의사난수는 새 언어의 철학을 훼손하지 않는다. Python
 완료 기록:
 
 - `PROJECT_CONSTITUTION.md`를 최상위 기준으로 추가했다.
-- `docs/FORCING_ASSUMPTION_AUDIT.md`에서 현재 가정을 불변식·임시 근사·제거 대상으로 분류했다.
+- `docs/legacy-society-brain/FORCING_ASSUMPTION_AUDIT.md`에서 현재 가정을 불변식·임시 근사·제거 대상으로 분류했다.
 - ADR의 비결정성 문구를 재현 불가능성과 구분하도록 고쳤다.
 
 ### 단계 B — 관측 격리 기록기와 확률 사건원
@@ -401,46 +401,46 @@ Python의 의사난수는 새 언어의 철학을 훼손하지 않는다. Python
 - 기록된 난수 사건만으로 원래 난수기 없이 실행 경로를 재생하고, 호출 종류나 인수가 달라지면 중단한다.
 - 현재는 독립 기반 검증까지 완료했으며 새 언어의 세계 전환 함수와의 실제 연결은 단계 C에서 수행한다.
 - 전용 테스트 9개와 전체 회귀 테스트 481개가 통과했다. 구상 일치성 결과와 남은 근사는
-  `docs/STAGE_B_CONCEPT_REVIEW.md`에 기록했다.
+  `docs/legacy-probabilistic/STAGE_B_CONCEPT_REVIEW.md`에 기록했다.
 
 ### 단계 C — 원시 실행 기반
 
 설계 문서:
 
-- `docs/SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md`
-- `docs/STAGE_C_DESIGN_AUDIT.md`
-- `docs/SEQUENCE_PHYSICS_NUMERIC_V0.md`
-- `docs/SEQUENCE_FOLDING_NUMERIC_V0.md`
-- `docs/SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md`
-- `docs/SEQUENCE_BACKBONE_CLEAVAGE_NUMERIC_V0.md`
-- `docs/SEQUENCE_STRUCTURAL_CONTEXT_NUMERIC_V0.md`
-- `docs/SEQUENCE_REACTION_EXPERIMENT_V0.md`
-- `docs/SEQUENCE_CAPABILITY_PROBE_V0.md`
-- `docs/SEQUENCE_CAPABILITY_PROBE_LENGTH3_V0.md`
-- `docs/SEQUENCE_CHECKPOINT_ARCHIVE_V0.md`
-- `docs/SEQUENCE_LONG_HORIZON_96_V0.md`
-- `docs/SEQUENCE_JOIN_BOTTLENECK_AUDIT_V0.md`
-- `docs/LOCAL_DYNAMICS_V1.md`
-- `docs/CONTEXTUAL_INHERITANCE_V1.md`
-- `docs/PHYSICAL_RECOMBINATION_V1.md`
-- `docs/SPATIAL_BOUNDARY_V1.md`
-- `docs/COMPONENT_MOTION_V1.md`
-- `docs/STAGE_C_SLICE1_CONCEPT_REVIEW.md`
-- `docs/STAGE_C_SLICE2_CONCEPT_REVIEW.md`
-- `docs/STAGE_C_SLICE3_CONCEPT_REVIEW.md`
-- `docs/STAGE_C_SLICE4_CONCEPT_REVIEW.md`
-- `docs/STAGE_C_SLICE5_CONCEPT_REVIEW.md`
-- `docs/STAGE_C_REACTION_EXPERIMENT_REVIEW.md`
-- `docs/STAGE_C_CAPABILITY_PROBE_REVIEW.md`
-- `docs/STAGE_C_LENGTH3_PROBE_REVIEW.md`
-- `docs/STAGE_C_ARCHIVE_REVIEW.md`
-- `docs/STAGE_C_LONG96_REVIEW.md`
-- `docs/STAGE_C_JOIN_BOTTLENECK_REVIEW.md`
-- `docs/STAGE_C_LOCAL_DYNAMICS_V1_REVIEW.md`
-- `docs/STAGE_C_CONTEXTUAL_INHERITANCE_V1_REVIEW.md`
-- `docs/STAGE_C_PHYSICAL_RECOMBINATION_V1_REVIEW.md`
-- `docs/STAGE_C_SPATIAL_BOUNDARY_V1_REVIEW.md`
-- `docs/STAGE_C_COMPONENT_MOTION_V1_REVIEW.md`
+- `docs/legacy-probabilistic/SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md`
+- `docs/legacy-probabilistic/STAGE_C_DESIGN_AUDIT.md`
+- `docs/legacy-probabilistic/SEQUENCE_PHYSICS_NUMERIC_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_FOLDING_NUMERIC_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_BACKBONE_CLEAVAGE_NUMERIC_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_STRUCTURAL_CONTEXT_NUMERIC_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_REACTION_EXPERIMENT_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_CAPABILITY_PROBE_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_CAPABILITY_PROBE_LENGTH3_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_CHECKPOINT_ARCHIVE_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_LONG_HORIZON_96_V0.md`
+- `docs/legacy-probabilistic/SEQUENCE_JOIN_BOTTLENECK_AUDIT_V0.md`
+- `docs/legacy-probabilistic/LOCAL_DYNAMICS_V1.md`
+- `docs/legacy-probabilistic/CONTEXTUAL_INHERITANCE_V1.md`
+- `docs/legacy-probabilistic/PHYSICAL_RECOMBINATION_V1.md`
+- `docs/legacy-probabilistic/SPATIAL_BOUNDARY_V1.md`
+- `docs/legacy-probabilistic/COMPONENT_MOTION_V1.md`
+- `docs/legacy-probabilistic/STAGE_C_SLICE1_CONCEPT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_SLICE2_CONCEPT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_SLICE3_CONCEPT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_SLICE4_CONCEPT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_SLICE5_CONCEPT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_REACTION_EXPERIMENT_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_CAPABILITY_PROBE_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_LENGTH3_PROBE_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_ARCHIVE_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_LONG96_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_JOIN_BOTTLENECK_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_LOCAL_DYNAMICS_V1_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_CONTEXTUAL_INHERITANCE_V1_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_PHYSICAL_RECOMBINATION_V1_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_SPATIAL_BOUNDARY_V1_REVIEW.md`
+- `docs/legacy-probabilistic/STAGE_C_COMPONENT_MOTION_V1_REVIEW.md`
 
 할 일:
 

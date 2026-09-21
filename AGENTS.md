@@ -104,9 +104,9 @@ python -m pytest tests/test_sequence_*.py -q         # 동결된 확률 세계
 | 문서 | 내용 | 크기 |
 |---|---|---|
 | `PROJECT_CONSTITUTION.md` | 헌법 24조. 모든 설계 판단의 최종 기준 | 8KB |
-| `docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 + 장기 후보 | 58KB |
-| `docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서와 완료 판정 | 32KB |
-| `docs/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검. 한계가 솔직히 적혀 있음 | 5KB |
-| `docs/VERIFICATION_LIMITS_AND_LESSONS.md` | **검증이 무엇을 못 잡는가.** 오류 유형·결함 주입 기록·체크리스트 | 6KB |
-| `docs/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 | 22KB |
+| `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 + 장기 후보 | 58KB |
+| `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서와 완료 판정 | 32KB |
+| `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검. 한계가 솔직히 적혀 있음 | 5KB |
+| `docs/current/VERIFICATION_LIMITS_AND_LESSONS.md` | **검증이 무엇을 못 잡는가.** 오류 유형·결함 주입 기록·체크리스트 | 6KB |
+| `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 | 22KB |
 | `LLM_HANDOFF/README.md` | 계통별 파일 카탈로그 (외부 LLM 전달용) | 1KB |

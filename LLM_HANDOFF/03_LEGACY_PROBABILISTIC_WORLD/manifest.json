@@ -1,5 +1,5 @@
 {
-  "bytes": 3329098989,
+  "bytes": 3329098964,
   "file_count": 865,
   "files": [
     {
@@ -18,243 +18,243 @@
       "sha256": "f82e1bc4285c131b374ecdba0b1a0bac87684ecc1405c35080f2b59e44c3e7a7"
     },
     {
-      "bytes": 4378,
-      "path": "docs/ADR-001-shared-life-substrate.md",
-      "sha256": "2de9f1e2504ab62c326c95d3123355faa87cfefba31a5133bbe45726fa18b9ba"
-    },
-    {
       "bytes": 2074,
-      "path": "docs/COMPONENT_MOTION_V1.md",
+      "path": "docs/legacy-probabilistic/COMPONENT_MOTION_V1.md",
       "sha256": "9fa74d66bd9704a22d962bfd7f179e99b6075203fdc3944a65285c4167b4bde0"
     },
     {
       "bytes": 2608,
-      "path": "docs/CONTEXTUAL_INHERITANCE_V1.md",
+      "path": "docs/legacy-probabilistic/CONTEXTUAL_INHERITANCE_V1.md",
       "sha256": "2c7a3b4645dbe77ab23d30f06b0a9d07cdf770f91ec9956ac0f547d630e053ba"
     },
     {
       "bytes": 19972,
-      "path": "docs/DUAL_GCP_EVALUATION_PROTOCOL.md",
+      "path": "docs/legacy-probabilistic/DUAL_GCP_EVALUATION_PROTOCOL.md",
       "sha256": "531dc3815c6aae31715f7ce9ff9b69cb6fa873ec9c6282fbe8cd61a2270070be"
     },
     {
-      "bytes": 4150,
-      "path": "docs/EMERGENT_AFFECT_SUBSTRATE.md",
-      "sha256": "0660a81a35197768faac0d9d775e677b0cf527e5e34f800e89b2f6d543b919e3"
-    },
-    {
-      "bytes": 3028,
-      "path": "docs/EMERGENT_REPRODUCTIVE_MODES.md",
-      "sha256": "dde6c4e5690da0b2a501adc1842680275d5ba35e29d6c56381ec4cc65863ffcd"
-    },
-    {
       "bytes": 27692,
-      "path": "docs/EVENT_RATE_AND_TIME_AUDIT_V1.md",
+      "path": "docs/legacy-probabilistic/EVENT_RATE_AND_TIME_AUDIT_V1.md",
       "sha256": "2c53053615785b7112e2b8da9427ad0cf98de63103ab7e8e79a9fae81d747a07"
     },
     {
-      "bytes": 4996,
-      "path": "docs/EVOLVABLE_COMPUTATION_SUBSTRATE.md",
-      "sha256": "94c33b7e684ed7322cf557c7bafa9e651e9ee7db3aeb754f205a0d761e4aa446"
-    },
-    {
-      "bytes": 4701,
-      "path": "docs/FORCING_ASSUMPTION_AUDIT.md",
-      "sha256": "2f2b28d6a2fed89812f1e51a12e1a354271fcb956ebc8b44c8de8ab5137cc641"
-    },
-    {
       "bytes": 3609,
-      "path": "docs/INTEGRATED_GENETIC_WORLD_V0_REVIEW.md",
+      "path": "docs/legacy-probabilistic/INTEGRATED_GENETIC_WORLD_V0_REVIEW.md",
       "sha256": "1ab59a9c2f0208ff03d0605a82734f8f3557d7c7daf5da301d928d58626266f0"
     },
     {
       "bytes": 2883,
-      "path": "docs/LOCAL_DYNAMICS_V1.md",
+      "path": "docs/legacy-probabilistic/LOCAL_DYNAMICS_V1.md",
       "sha256": "6d90567f8b53b167e6dd9c19e2edfd3a5d3a21c5c08c2d539986b23b9ceced18"
     },
     {
       "bytes": 2050,
-      "path": "docs/PHYSICAL_RECOMBINATION_V1.md",
+      "path": "docs/legacy-probabilistic/PHYSICAL_RECOMBINATION_V1.md",
       "sha256": "642d000347eb056ade4722dbdf6ec58635f889e30964b97f2911e96faf74ffa8"
     },
     {
       "bytes": 12436,
-      "path": "docs/SCHEDULER_V1_AUDIT.md",
+      "path": "docs/legacy-probabilistic/SCHEDULER_V1_AUDIT.md",
       "sha256": "3a46d7951c8a1fa1d79aa5b72dcab2bea72d6a8e471b66766f6b8ea913ef071d"
     },
     {
       "bytes": 17806,
-      "path": "docs/SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md",
+      "path": "docs/legacy-probabilistic/SELF_INTERPRETING_SEQUENCE_SUBSTRATE_V0.md",
       "sha256": "d1d63d7ba502c239a88db7905b42e8e77c28631dde4888112f0dfb30fbc0a2d0"
     },
     {
-      "bytes": 3635,
-      "path": "docs/SEQUENCE_BACKBONE_CLEAVAGE_NUMERIC_V0.md",
-      "sha256": "626ab0c6e78879653bf760ba0692097aadff9067d3942873aa79f88a3967a32a"
+      "bytes": 3630,
+      "path": "docs/legacy-probabilistic/SEQUENCE_BACKBONE_CLEAVAGE_NUMERIC_V0.md",
+      "sha256": "7a33605c4c0c14b7f5a10b216139d752eda8f0436b3ea89d444b05c05da3c373"
     },
     {
       "bytes": 2339,
-      "path": "docs/SEQUENCE_CAPABILITY_PROBE_LENGTH3_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_CAPABILITY_PROBE_LENGTH3_V0.md",
       "sha256": "70d630075dfd43c1f73de117641c03539eae75ac632bd09e751068e89edb8d07"
     },
     {
       "bytes": 2938,
-      "path": "docs/SEQUENCE_CAPABILITY_PROBE_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_CAPABILITY_PROBE_V0.md",
       "sha256": "5bed33cd0b0df9a03ca31d90928b3ef807e08fa54cae53871ef132d7c07a9fd4"
     },
     {
       "bytes": 2454,
-      "path": "docs/SEQUENCE_CHECKPOINT_ARCHIVE_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_CHECKPOINT_ARCHIVE_V0.md",
       "sha256": "1477de9c41785718814cf6d70a6047959791fadf1505c36c737cce7b8d7f4829"
     },
     {
-      "bytes": 3688,
-      "path": "docs/SEQUENCE_FOLDING_NUMERIC_V0.md",
-      "sha256": "5db8a1047e5765c26e4758b87dcfbd25468180610ad0feab637e17329fbcbc34"
+      "bytes": 3683,
+      "path": "docs/legacy-probabilistic/SEQUENCE_FOLDING_NUMERIC_V0.md",
+      "sha256": "3d87c22b748d1bcfdbf10b532ac86d72a84160f7a23b6b60302b154209f08d1d"
     },
     {
       "bytes": 2059,
-      "path": "docs/SEQUENCE_JOIN_BOTTLENECK_AUDIT_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_JOIN_BOTTLENECK_AUDIT_V0.md",
       "sha256": "334761730432e180090caa6ac103008f3e546d26783e5cbfafda25fb9da440e4"
     },
     {
       "bytes": 1874,
-      "path": "docs/SEQUENCE_LONG_HORIZON_96_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_LONG_HORIZON_96_V0.md",
       "sha256": "c6dad1ab41577a278373a051264d25f63bd950cdb5c4df82ddc785f590dc611e"
     },
     {
       "bytes": 3742,
-      "path": "docs/SEQUENCE_PHYSICS_NUMERIC_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_PHYSICS_NUMERIC_V0.md",
       "sha256": "afb72ba6d00e2667bd8ee974229f8b3ebecc20b0a7240b22686fc46da7e5457f"
     },
     {
       "bytes": 4120,
-      "path": "docs/SEQUENCE_REACTION_EXPERIMENT_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_REACTION_EXPERIMENT_V0.md",
       "sha256": "06d7888bfcbb913eb54ba36ec1df7492e52d097c642f212d45909847738da4bc"
     },
     {
       "bytes": 4057,
-      "path": "docs/SEQUENCE_STRUCTURAL_CONTEXT_NUMERIC_V0.md",
+      "path": "docs/legacy-probabilistic/SEQUENCE_STRUCTURAL_CONTEXT_NUMERIC_V0.md",
       "sha256": "705f86b67e945475f051d9ecd5c9d9c3dfddd93efe712ad291693779858937d8"
     },
     {
-      "bytes": 4294,
-      "path": "docs/SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md",
-      "sha256": "7cdbc6563b2003c871cd929f430f98cd1a0ddabe3dab5cc2247108849a5eaea9"
+      "bytes": 4284,
+      "path": "docs/legacy-probabilistic/SEQUENCE_TEMPLATE_GROWTH_NUMERIC_V0.md",
+      "sha256": "bce52980cd59f661658306a9a74c4e23beae0f62f0519519f0809c7ff246dfae"
     },
     {
       "bytes": 1757,
-      "path": "docs/SPATIAL_BOUNDARY_V1.md",
+      "path": "docs/legacy-probabilistic/SPATIAL_BOUNDARY_V1.md",
       "sha256": "cf145f98f636e751b61a3bf9f94b958a748e59a330db92ad6d32d8e6a1dea210"
     },
     {
       "bytes": 2801,
-      "path": "docs/SPATIAL_SEQUENCE_PROBE_V0_REVIEW.md",
+      "path": "docs/legacy-probabilistic/SPATIAL_SEQUENCE_PROBE_V0_REVIEW.md",
       "sha256": "f8ddf4cb65973eaffa57d2926afb70960152caa6e2c51162d2778902e029927e"
     },
     {
       "bytes": 1778,
-      "path": "docs/SPATIAL_SEQUENCE_PROBE_V1_SEED512_REVIEW.md",
+      "path": "docs/legacy-probabilistic/SPATIAL_SEQUENCE_PROBE_V1_SEED512_REVIEW.md",
       "sha256": "254b39249e7208146360ee1393069e089999c64bd0d2fdde96caeeeb9170ff6b"
     },
     {
       "bytes": 2614,
-      "path": "docs/SPATIAL_SEQUENCE_PROBE_V2_SEED2048_REVIEW.md",
+      "path": "docs/legacy-probabilistic/SPATIAL_SEQUENCE_PROBE_V2_SEED2048_REVIEW.md",
       "sha256": "7342e43557654797fa04320c003c8771648de673a79022b1afb650473bf62e77"
     },
     {
       "bytes": 2850,
-      "path": "docs/STAGE_B_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_B_CONCEPT_REVIEW.md",
       "sha256": "3660f939c4cc0a86aa7cdeb1b6283c054ab34d96a4721c912a08725482f63609"
     },
     {
       "bytes": 3616,
-      "path": "docs/STAGE_C_ARCHIVE_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_ARCHIVE_REVIEW.md",
       "sha256": "0cef80fe35aed08e0b10f162a52bef3b042e5452c8eb7347fe6b5f32b65c528f"
     },
     {
       "bytes": 3968,
-      "path": "docs/STAGE_C_CAPABILITY_PROBE_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_CAPABILITY_PROBE_REVIEW.md",
       "sha256": "5b49e66218f8c75c422c5a4c98a66dc507895440a92e1a6303c22cde0b41a0fc"
     },
     {
       "bytes": 2985,
-      "path": "docs/STAGE_C_COMPONENT_MOTION_V1_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_COMPONENT_MOTION_V1_REVIEW.md",
       "sha256": "e9f36e41ef0456a87133c530440ef68683a454116896f4d5e9aa3a5d68fe4464"
     },
     {
       "bytes": 3649,
-      "path": "docs/STAGE_C_CONTEXTUAL_INHERITANCE_V1_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_CONTEXTUAL_INHERITANCE_V1_REVIEW.md",
       "sha256": "72d155e1683f74689b7bbee755773c552847060fa49d6b9d2643da2d2dd5a792"
     },
     {
-      "bytes": 3708,
-      "path": "docs/STAGE_C_DESIGN_AUDIT.md",
-      "sha256": "78e3285814654d9406b0fda0f87304c6bbf3918d1010f43498dcc336db7c393e"
+      "bytes": 3703,
+      "path": "docs/legacy-probabilistic/STAGE_C_DESIGN_AUDIT.md",
+      "sha256": "ceea51134d92748628e471dd6ba0509be68d5a343f34fd885a90c7d8572061fa"
     },
     {
       "bytes": 4127,
-      "path": "docs/STAGE_C_JOIN_BOTTLENECK_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_JOIN_BOTTLENECK_REVIEW.md",
       "sha256": "e2c5ef7883ee527e611566173cfdda987696561532d354206a2c54ad9c06cca8"
     },
     {
       "bytes": 4419,
-      "path": "docs/STAGE_C_LENGTH3_PROBE_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_LENGTH3_PROBE_REVIEW.md",
       "sha256": "34a90827f2945edbe489e79db45102e8355a349758af9c494de679f91c8d64f7"
     },
     {
       "bytes": 3764,
-      "path": "docs/STAGE_C_LOCAL_DYNAMICS_V1_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_LOCAL_DYNAMICS_V1_REVIEW.md",
       "sha256": "21ac15a4690f084dfda87303374f0614d749e9737b5c7bb6b9646aba7b073351"
     },
     {
       "bytes": 4419,
-      "path": "docs/STAGE_C_LONG96_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_LONG96_REVIEW.md",
       "sha256": "676fccb64e22c10b424410c707f334c32855c43dc68648d8cabcba9d51dac8f3"
     },
     {
       "bytes": 3001,
-      "path": "docs/STAGE_C_PHYSICAL_RECOMBINATION_V1_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_PHYSICAL_RECOMBINATION_V1_REVIEW.md",
       "sha256": "04be180e17ec219f35f61b26b540e1f63cfe840e293039e6494b0da6fed3e9ca"
     },
     {
       "bytes": 3685,
-      "path": "docs/STAGE_C_REACTION_EXPERIMENT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_REACTION_EXPERIMENT_REVIEW.md",
       "sha256": "a0505137480e2c1bc414ff02c28a22a882b2a7c6ecdc64949dca428b7c4d5bd6"
     },
     {
       "bytes": 3727,
-      "path": "docs/STAGE_C_SLICE1_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SLICE1_CONCEPT_REVIEW.md",
       "sha256": "f7a55f4f760f61c9497f8d97ef76ef6a58b41ac783ec78770d904ee233c1143e"
     },
     {
       "bytes": 3211,
-      "path": "docs/STAGE_C_SLICE2_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SLICE2_CONCEPT_REVIEW.md",
       "sha256": "5947caf517e60d1c1bc2c872293c847f21049166d691f39a24adfec7e2d79e8d"
     },
     {
       "bytes": 3696,
-      "path": "docs/STAGE_C_SLICE3_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SLICE3_CONCEPT_REVIEW.md",
       "sha256": "7c5aaf8727b1fc4799713f2d8c9e0387c91ea41a649410b78bdd0e628e1e7024"
     },
     {
       "bytes": 3269,
-      "path": "docs/STAGE_C_SLICE4_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SLICE4_CONCEPT_REVIEW.md",
       "sha256": "118c932df15a86102443cb5d0ec83ccede3372c4d0501c5ddc07bde6f905b086"
     },
     {
       "bytes": 3453,
-      "path": "docs/STAGE_C_SLICE5_CONCEPT_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SLICE5_CONCEPT_REVIEW.md",
       "sha256": "65604bffcad2d38bba0b9bf4a7388a7d7a2cb72826aa4d0d87a5f71c91ae5213"
     },
     {
       "bytes": 3588,
-      "path": "docs/STAGE_C_SPATIAL_BOUNDARY_V1_REVIEW.md",
+      "path": "docs/legacy-probabilistic/STAGE_C_SPATIAL_BOUNDARY_V1_REVIEW.md",
       "sha256": "0adc5fcc14b4265ae675ea92657f803f1507b97302209eb86e3e38cba252243f"
     },
     {
+      "bytes": 4378,
+      "path": "docs/legacy-society-brain/ADR-001-shared-life-substrate.md",
+      "sha256": "2de9f1e2504ab62c326c95d3123355faa87cfefba31a5133bbe45726fa18b9ba"
+    },
+    {
+      "bytes": 4150,
+      "path": "docs/legacy-society-brain/EMERGENT_AFFECT_SUBSTRATE.md",
+      "sha256": "0660a81a35197768faac0d9d775e677b0cf527e5e34f800e89b2f6d543b919e3"
+    },
+    {
+      "bytes": 3028,
+      "path": "docs/legacy-society-brain/EMERGENT_REPRODUCTIVE_MODES.md",
+      "sha256": "dde6c4e5690da0b2a501adc1842680275d5ba35e29d6c56381ec4cc65863ffcd"
+    },
+    {
+      "bytes": 4996,
+      "path": "docs/legacy-society-brain/EVOLVABLE_COMPUTATION_SUBSTRATE.md",
+      "sha256": "94c33b7e684ed7322cf557c7bafa9e651e9ee7db3aeb754f205a0d761e4aa446"
+    },
+    {
+      "bytes": 4701,
+      "path": "docs/legacy-society-brain/FORCING_ASSUMPTION_AUDIT.md",
+      "sha256": "2f2b28d6a2fed89812f1e51a12e1a354271fcb956ebc8b44c8de8ab5137cc641"
+    },
+    {
       "bytes": 3040,
-      "path": "docs/WORLD_GENERATIVE_LANGUAGE_CONSTRAINTS.md",
+      "path": "docs/legacy-society-brain/WORLD_GENERATIVE_LANGUAGE_CONSTRAINTS.md",
       "sha256": "4fecac2a4cc5a44956fac8a5012367b4962f815f96d93e2d39ad41ea434e9d8e"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "bytes": 1170486096,
-  "file_count": 31484,
+  "bytes": 1170543674,
+  "file_count": 31488,
   "files": [
     {
       "bytes": 22540,
@@ -157041,6 +157041,26 @@
       "bytes": 18799,
       "path": "tests/test_agentworld.py",
       "sha256": "f38f8d13ade6885b36b17cad2a57207bc7afe6f700b8955cce1b1091ca1171dd"
+    },
+    {
+      "bytes": 14086,
+      "path": "tests/test_audit_independent_compliance.py",
+      "sha256": "e95c54710a6500b9d26deb2a9e9ff1eb50a9694a8902701b2b7e268831344b11"
+    },
+    {
+      "bytes": 14737,
+      "path": "tests/test_audit_independent_conservation.py",
+      "sha256": "80029503396552ffad642849ec2636a537fe6f453f66de8dce62bc3c472d0736"
+    },
+    {
+      "bytes": 12543,
+      "path": "tests/test_audit_independent_trace.py",
+      "sha256": "2e8ce19ff26ab6db0fbc494d5376cdfe687596f210fc22aba304645806a77cc3"
+    },
+    {
+      "bytes": 16212,
+      "path": "tests/test_audit_particle_compliance.py",
+      "sha256": "3aaca1b8369861d4ec917d57d6a11b74698b7117d8ccd04750af1e28fbc0971c"
     },
     {
       "bytes": 3131,

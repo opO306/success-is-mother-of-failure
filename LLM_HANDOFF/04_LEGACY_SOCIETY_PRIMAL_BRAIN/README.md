@@ -2,9 +2,9 @@
 
 현재 A/B 이전 연구 계통; 삭제가 아니라 별도 archive 후보
 
-- 파일 수: 31484
-- 총 bytes: 1170486096
-- manifest SHA-256: `974d5d049ee1e13f559dfe4abf9594b3854569a9ed02d52144a10148451ab0c1`
+- 파일 수: 31488
+- 총 bytes: 1170543674
+- manifest SHA-256: `16ee4fe54c0c860b17ceb53e0fdd21c42dceca6e220fc618dd5bc5669fee0827`
 
 다른 LLM에는 먼저 이 README와 필요한 원본 경로만 전달한다.
 

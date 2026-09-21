@@ -44,6 +44,9 @@ PROB_SCRIPT_NAMES = {
 }
 SHARED_NAMES = {
     "PROJECT_CONSTITUTION.md", "EVOLVABLE_LANGUAGE_PLAN.md", "EVOLUTION_V2_PLAN.md",
+    "AGENTS.md", "RULES.md", "CURRENT_STATE.md", "REPO_MAP.md", ".gitignore",
+    "run_independent_trace_audit.py", "run_independent_conservation_audit.py",
+    "run_independent_compliance_audit.py",
 }
 
 
@@ -58,7 +61,8 @@ def classify(path: Path) -> str:
     rel = path.relative_to(ROOT); parts = rel.parts; name = path.name
     if any(part in {"__pycache__", ".pytest_cache"} for part in parts) or path.suffix == ".pyc":
         return "generated_cache"
-    if parts[0] in {".kiro", ".claude", "LLM_HANDOFF"}: return "excluded_private_or_catalog"
+    if parts[0] in {".kiro", ".claude", ".git", "LLM_HANDOFF"}: return "excluded_private_or_catalog"
+    if parts[0] == "audit": return "shared_current"
     if parts[:2] == ("engine", "deterministic"):
         if name in CURRENT_A_MODULES: return "deterministic_a"
         if name in CURRENT_B_MODULES: return "model_neutral_b"
@@ -96,7 +100,7 @@ def classify(path: Path) -> str:
         return "legacy_probability_world"
     if parts[0] == "docs" and name in {
         "DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md", "DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md",
-        "EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md"}:
+        "EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md", "VERIFICATION_LIMITS_AND_LESSONS.md"}:
         return "shared_current"
     if parts[0] == "docs" and name in {"MIDPOINT_A_B_AUDIT_2026-09-21.md", "PROJECT_CLEANUP_AUDIT_V1.md"}:
         return "shared_governance"
@@ -145,7 +149,7 @@ LANE_NOTES = {
     "deterministic_a": """
 ## 권장 읽기 순서
 
-1. `docs/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md`
+1. `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md`
 2. `engine/deterministic/spec.py`, `causal_spec.py`, `environment_spec.py`
 3. `engine/deterministic/kernel.py`, `causal_kernel.py`, `environment_kernel.py`
 4. `engine/deterministic/physical_scale.py`, `gpu_environment.py`
@@ -159,7 +163,7 @@ A0 이동·충돌, A1 에너지·결합, A2.3 환경 field, 물리 flux, CPU/GPU
     "model_neutral_b": """
 ## 권장 읽기 순서
 
-1. `docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md`
+1. `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md`
 2. `schemas/b_language_boundary_v1.schema.json`
 3. `engine/deterministic/b_language.py`, `brain_adapter.py`
 4. `cognitive_map.py`, `change_graph.py`, `provenance.py`
@@ -177,9 +181,9 @@ A0 이동·충돌, A1 에너지·결합, A2.3 환경 field, 물리 flux, CPU/GPU
 
 ## 가장 먼저 읽을 것
 
-1. `docs/EVENT_RATE_AND_TIME_AUDIT_V1.md`
-2. `docs/SCHEDULER_V1_AUDIT.md`
-3. `docs/DUAL_GCP_EVALUATION_PROTOCOL.md`
+1. `docs/legacy-probabilistic/EVENT_RATE_AND_TIME_AUDIT_V1.md`
+2. `docs/legacy-probabilistic/SCHEDULER_V1_AUDIT.md`
+3. `docs/legacy-probabilistic/DUAL_GCP_EVALUATION_PROTOCOL.md`
 4. `engine/sequence/nonliving_world.py`, `observation.py`, `lineage.py`
 5. `engine/living/events.py`
 6. `runs/dual_gcp_precommit_20260919_185150/`
@@ -202,7 +206,7 @@ A0 이동·충돌, A1 에너지·결합, A2.3 환경 field, 물리 flux, CPU/GPU
     "shared_current": """
 ## 핵심
 
-A·B 전체 설계와 현재 구현 순서를 함께 읽는 계통이다. `docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md`가 현재 완료·다음 단계의 기준이다.
+A·B 전체 설계와 현재 구현 순서를 함께 읽는 계통이다. `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md`가 현재 완료·다음 단계의 기준이다.
 """,
     "current_evidence": """
 ## 주의
@@ -213,7 +217,7 @@ A·B 전체 설계와 현재 구현 순서를 함께 읽는 계통이다. `docs/
 ## 먼저 읽을 것
 
 - `PROJECT_CONSTITUTION.md`
-- `docs/MIDPOINT_A_B_AUDIT_2026-09-21.md`
+- `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md`
 - `docs/PROJECT_CLEANUP_AUDIT_V1.md`
 
 삭제·물리 이동·승격 권한과 증거 해석 원칙을 담는다.
@@ -230,7 +234,7 @@ PROMPTS = """# 다른 LLM에게 전달할 요청 예시
 ## Legacy 확률 세계 감사
 
 ```text
-이 프로젝트의 legacy 확률 세계를 검토해줘. 먼저 LLM_HANDOFF/03_LEGACY_PROBABILISTIC_WORLD/README.md를 읽고, docs/EVENT_RATE_AND_TIME_AUDIT_V1.md와 docs/SCHEDULER_V1_AUDIT.md를 확인해. 필요할 때만 같은 폴더 manifest.json에서 원본 경로와 SHA-256을 찾아 읽어. 확률 결과를 결정론 결과와 합산하지 말고, 관찰된 분할을 독립 세포 분열이라고 부르지 마.
+이 프로젝트의 legacy 확률 세계를 검토해줘. 먼저 LLM_HANDOFF/03_LEGACY_PROBABILISTIC_WORLD/README.md를 읽고, docs/legacy-probabilistic/EVENT_RATE_AND_TIME_AUDIT_V1.md와 docs/legacy-probabilistic/SCHEDULER_V1_AUDIT.md를 확인해. 필요할 때만 같은 폴더 manifest.json에서 원본 경로와 SHA-256을 찾아 읽어. 확률 결과를 결정론 결과와 합산하지 말고, 관찰된 분할을 독립 세포 분열이라고 부르지 마.
 ```
 
 ## 현재 결정론 A 검토
@@ -242,13 +246,13 @@ PROMPTS = """# 다른 LLM에게 전달할 요청 예시
 ## 모델 중립 B 검토
 
 ```text
-모델 중립 B를 검토해줘. LLM_HANDOFF/02_MODEL_NEUTRAL_B/README.md와 docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md를 먼저 읽어. exact oracle, Cognitive Map, ChangeGraph, HypothesisSet, CounterfactualBranch, TheoryRevisionProposal의 실제 구현과 한계를 구분하고, 이것을 학습형 독립 모델이라고 과장하지 마. 사용자 전용 D: raw trace는 요청하지 마.
+모델 중립 B를 검토해줘. LLM_HANDOFF/02_MODEL_NEUTRAL_B/README.md와 docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md를 먼저 읽어. exact oracle, Cognitive Map, ChangeGraph, HypothesisSet, CounterfactualBranch, TheoryRevisionProposal의 실제 구현과 한계를 구분하고, 이것을 학습형 독립 모델이라고 과장하지 마. 사용자 전용 D: raw trace는 요청하지 마.
 ```
 
 ## 중간 상태 반대 검토
 
 ```text
-프로젝트 중간 상태를 비판적으로 검토해줘. LLM_HANDOFF/00_CURRENT_STATUS/README.md와 docs/MIDPOINT_A_B_AUDIT_2026-09-21.md를 읽어. 특히 held-out 실행 전 후보별 예측 미봉인, 독립 trace parser 부재, held-out 다양성 부족, private stage API 결합을 확인해. 수정 제안은 A 실행 중 개입이나 기존 결과 삭제 없이 제시해.
+프로젝트 중간 상태를 비판적으로 검토해줘. LLM_HANDOFF/00_CURRENT_STATUS/README.md와 docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md를 읽어. 특히 held-out 실행 전 후보별 예측 미봉인, 독립 trace parser 부재, held-out 다양성 부족, private stage API 결합을 확인해. 수정 제안은 A 실행 중 개입이나 기존 결과 삭제 없이 제시해.
 ```
 
 ## 폴더 실제 이동 검토
@@ -283,9 +287,9 @@ def main() -> None:
     (OUT / "README.md").write_text(README, encoding="utf-8")
     status = OUT / "00_CURRENT_STATUS"; status.mkdir(exist_ok=True)
     (status / "README.md").write_text(
-        "# 현재 상태\n\n- 중간 점검: `../../docs/MIDPOINT_A_B_AUDIT_2026-09-21.md`\n"
-        "- 구현 순서: `../../docs/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md`\n"
-        "- B 아키텍처: `../../docs/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md`\n"
+        "# 현재 상태\n\n- 중간 점검: `../../docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md`\n"
+        "- 구현 순서: `../../docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md`\n"
+        "- B 아키텍처: `../../docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md`\n"
         "- 최신 전체 테스트: 837 passed\n- held-out A 실행: 사용자 승인 대기, 현재 0개\n",
         encoding="utf-8")
     summary = {}

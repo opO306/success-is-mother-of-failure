@@ -70,7 +70,7 @@
 - `independent_conservation/` — 보존 재집계. 커널 집계와 대조
 - `independent_compliance/` — **명세 준수.** 환경 field(막힌 벽·순간이동·한도 초과)와
   입자 물리(결합 규칙·최소 에너지·포트 한도·한 칸 이동·사슬 무결성)
-- 셋 다 결함 주입으로 실효성 확인됨 (`docs/VERIFICATION_LIMITS_AND_LESSONS.md`)
+- 셋 다 결함 주입으로 실효성 확인됨 (`docs/current/VERIFICATION_LIMITS_AND_LESSONS.md`)
 
 ---
 
