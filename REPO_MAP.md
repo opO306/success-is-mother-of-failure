@@ -125,10 +125,17 @@ exact   실제 A 실행                    예산 제한 (보류분은 deferred_
 | `independent_trace/verifier.py` | 체인·스냅샷·델타 전체 검사. 발견을 모두 수집 |
 | `independent_trace/external_hash.py` | 외부 `sha256sum` 병행 |
 | `independent_trace/README.md` | 왜 필요한지, 결함 주입 실험 결과 |
+| `independent_conservation/ledger.py` | 스냅샷에서 에너지·물질·입자·운동량을 직접 재집계 |
+| `independent_conservation/checker.py` | 매 tick 보존 + 커널 집계와 대조 |
+| `independent_conservation/README.md` | 사각지대의 모양 (일정한 오류 vs 변하는 오류) |
 
-실행: `python run_independent_trace_audit.py --vault --compare-engine`
+실행:
+```bash
+python run_independent_trace_audit.py --vault --compare-engine
+python run_independent_conservation_audit.py --worlds --vault
+```
 
-독립성은 `tests/test_audit_independent_trace.py`가 AST 검사로 강제한다.
+독립성은 `tests/test_audit_*.py`가 AST 검사로 강제한다 — `audit/` 아래에 `engine` import가 생기면 테스트가 깨진다.
 
 ---
 
@@ -202,10 +209,11 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 837개 통과.
+`tests/` — 총 872개 통과.
 
 ```
-test_deterministic_*.py   결정론 A/B (26개 파일, 약 1,858줄)
+test_deterministic_*.py   결정론 A/B (26개 파일)
+test_audit_*.py           독립 감사 (trace 19개 + 보존 16개)
 test_sequence_*.py        확률 세계 (동결)
 test_living_*.py          living 계통
 test_primal_*.py          레거시 원시인
