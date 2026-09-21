@@ -27,6 +27,13 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from .field import FieldError, FieldView, changed_points, read_field
+from .particles import (
+    ParticleRuleError,
+    ParticleRules,
+    check_particle_transition,
+    read_particle_rules,
+    read_particles,
+)
 from .rules import RuleError, WorldRules, read_rules
 
 _TRANSPORT_CHANNELS = ("heat", "water", "vapor")
@@ -50,6 +57,7 @@ class ComplianceReport:
     source: str
     stages_checked: int = 0
     transport_stages: int = 0
+    particle_stages: int = 0
     findings: list[ComplianceFinding] = dataclass_field(default_factory=list)
 
     @property
@@ -58,6 +66,7 @@ class ComplianceReport:
 
     def canonical(self) -> dict[str, Any]:
         return {"findings": [item.canonical() for item in self.findings],
+                "particle_stages": self.particle_stages,
                 "source": self.source,
                 "stages_checked": self.stages_checked,
                 "transport_stages": self.transport_stages,
@@ -326,12 +335,38 @@ _STAGE_CHECKS = {
 }
 
 
+def _check_causal_particles(report: ComplianceReport, particle_rules: ParticleRules | None,
+                            before_snapshot: Mapping[str, Any] | None,
+                            after_snapshot: Mapping[str, Any] | None,
+                            tick: int | None) -> None:
+    """Hold the causal stage to the particle contract the world declares."""
+    if particle_rules is None or before_snapshot is None or after_snapshot is None:
+        return
+    try:
+        before = read_particles(before_snapshot)
+        after = read_particles(after_snapshot)
+    except ParticleRuleError as error:
+        _note(report, "particles_unreadable", str(error), tick, "causal")
+        return
+    if not before.particles and not after.particles:
+        return
+    report.particle_stages += 1
+    for code, detail, particle_id in check_particle_transition(particle_rules, before, after):
+        report.findings.append(ComplianceFinding(code, detail, tick, "causal", None))
+        if particle_id is not None:
+            report.findings[-1].detail = f"particle {particle_id}: {detail}"
+
+
 def check_stage(report: ComplianceReport, rules: WorldRules, before: FieldView, after: FieldView,
-                tick: int | None, phase: str | None) -> None:
+                tick: int | None, phase: str | None,
+                particle_rules: ParticleRules | None = None,
+                before_snapshot: Mapping[str, Any] | None = None,
+                after_snapshot: Mapping[str, Any] | None = None) -> None:
     """Apply whichever rules govern the named stage."""
     report.stages_checked += 1
     if phase == "causal":
         _check_causal_stage(report, rules, before, after, tick)
+        _check_causal_particles(report, particle_rules, before_snapshot, after_snapshot, tick)
     elif phase in _STAGE_CHECKS:
         _STAGE_CHECKS[phase](report, rules, before, after, tick)
     elif phase and (phase.startswith("horizontal") or phase.startswith("vertical")):
@@ -364,8 +399,14 @@ def check_trace_compliance(run_dir: Path, spec: Mapping[str, Any]) -> Compliance
         _note(report, "spec_unreadable", str(error), None, None)
         return report
 
+    try:
+        particle_rules = read_particle_rules(spec)
+    except ParticleRuleError:
+        particle_rules = None      # a world with no causal section to check
+
     declared = set(rules.phase_order)
     current: FieldView | None = None
+    current_snapshot: Mapping[str, Any] | None = None
     for line in records_path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
@@ -380,6 +421,7 @@ def check_trace_compliance(run_dir: Path, spec: Mapping[str, Any]) -> Compliance
                 snapshot = payload.get("full_snapshot")
                 if isinstance(snapshot, Mapping):
                     current = read_field(snapshot, rules.solute_kinds)
+                    current_snapshot = snapshot
                 continue
             if kind != "stage_commit":
                 continue
@@ -397,6 +439,7 @@ def check_trace_compliance(run_dir: Path, spec: Mapping[str, Any]) -> Compliance
             _note(report, "stage_without_predecessor",
                   "a stage was recorded before any snapshot", tick, phase)
             current = after
+            current_snapshot = after_snapshot
             continue
 
         if (phase and phase not in declared
@@ -406,8 +449,10 @@ def check_trace_compliance(run_dir: Path, spec: Mapping[str, Any]) -> Compliance
                   f"phase_order does not declare: {list(rules.phase_order)}",
                   tick, phase)
 
-        check_stage(report, rules, current, after, tick, phase)
+        check_stage(report, rules, current, after, tick, phase,
+                    particle_rules, current_snapshot, after_snapshot)
         current = after
+        current_snapshot = after_snapshot
 
     if report.stages_checked == 0:
         _note(report, "no_stages", "trace records no A-stream stages", None, None)

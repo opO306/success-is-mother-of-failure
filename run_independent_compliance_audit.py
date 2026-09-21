@@ -52,7 +52,8 @@ def describe(report: ComplianceReport) -> str:
     head = "OK " if report.valid else "!! "
     lines = [f"{head}{report.source}",
              f"    stages      : {report.stages_checked}"
-             f"  ({report.transport_stages} transport)"]
+             f"  ({report.transport_stages} transport,"
+             f" {report.particle_stages} particle)"]
     if report.findings:
         counts = Counter(item.code for item in report.findings)
         lines.append(f"    findings    : {len(report.findings)}")

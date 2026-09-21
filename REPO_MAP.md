@@ -131,6 +131,7 @@ exact   실제 A 실행                    예산 제한 (보류분은 deferred_
 | `independent_compliance/rules.py` | 명세에서 검사 가능한 규칙 추출 |
 | `independent_compliance/field.py` | 스냅샷을 칸별 수치로 평탄화 |
 | `independent_compliance/checker.py` | 단계별 규칙 준수 검사 (막힌 벽·짝 균형·한도·온도 조건) |
+| `independent_compliance/particles.py` | 입자 물리 준수 (결합 규칙·최소 에너지·포트·한 칸 이동·사슬) |
 | `independent_compliance/README.md` | 총량이 맞아도 경로가 틀릴 수 있다 |
 
 **세 검증기가 보는 층이 다르다:**
@@ -139,6 +140,7 @@ exact   실제 A 실행                    예산 제한 (보류분은 deferred_
 trace       기록이 정확한가
 conservation 총량이 보존되는가
 compliance   규칙대로 움직였는가   <- 총량이 맞아도 위반 가능
+             (환경 field + 입자 물리)
 ```
 
 실행:
@@ -222,11 +224,11 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 892개 통과.
+`tests/` — 총 932개 통과.
 
 ```
 test_deterministic_*.py   결정론 A/B (26개 파일)
-test_audit_*.py           독립 감사 (trace 19 + 보존 16 + 준수 20)
+test_audit_*.py           독립 감사 (trace 19 + 보존 17 + 준수 20 + 입자 25)
 test_sequence_*.py        확률 세계 (동결)
 test_living_*.py          living 계통
 test_primal_*.py          레거시 원시인

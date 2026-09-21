@@ -11,18 +11,34 @@ from .checker import (
     check_trace_compliance,
 )
 from .field import FieldError, FieldView, changed_points, read_field
+from .particles import (
+    BondRule,
+    ParticleRuleError,
+    ParticleRules,
+    ParticleView,
+    check_particle_transition,
+    read_particle_rules,
+    read_particles,
+)
 from .rules import RuleError, WorldRules, read_rules
 
 __all__ = [
+    "BondRule",
     "ComplianceFinding",
     "ComplianceReport",
     "FieldError",
     "FieldView",
+    "ParticleRuleError",
+    "ParticleRules",
+    "ParticleView",
     "RuleError",
     "WorldRules",
     "changed_points",
+    "check_particle_transition",
     "check_stage",
     "check_trace_compliance",
     "read_field",
+    "read_particle_rules",
+    "read_particles",
     "read_rules",
 ]
