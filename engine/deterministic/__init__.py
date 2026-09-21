@@ -38,6 +38,12 @@ from .causal_spec import (
     HeatCellSpec,
     load_causal_world_spec,
 )
+from .precondition_census import (
+    TickCensus,
+    WorldCensus,
+    census_causal_world,
+    render_census,
+)
 from .experiment_proposal import (
     ExperimentArm,
     ExperimentProposal,
@@ -295,6 +301,8 @@ __all__ = [
     "CausalWorldState",
     "HeatCellSpec",
     "PhysicalBond",
+    "TickCensus",
+    "WorldCensus",
     "DIRECTIONS",
     "FORMAT",
     "DeterministicRun",
@@ -347,6 +355,8 @@ __all__ = [
     "make_locality_probe_spec",
     "make_physical_channel_spec",
     "make_resolution_probe_spec",
+    "census_causal_world",
+    "render_census",
     "run_causal_world",
     "run_scaling_audit",
     "run_environment_world",
