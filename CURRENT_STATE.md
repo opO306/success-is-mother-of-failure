@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-21
-**검증:** 전체 테스트 837개 통과
+**검증:** 전체 테스트 856개 통과
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -84,9 +84,12 @@ A records         = 0
    "heldout-vapor-5에서 어느 위치의 vapor가 얼마→얼마로 바뀔 것인가"라는 구체적 예측이 없다.
    이 상태로 실행하면 결과를 본 뒤 설명을 맞추는 사후 해석이 된다.
 
-2. **독립 trace parser가 없다.**
-   제안서에 `independent_trace_extraction` arm이 있지만, 현재 모든 검사가 **같은 `verify_trace()`와 같은 추출기**를 쓴다.
-   저울이 고장났는지 같은 저울로 재는 셈이다. 코드를 공유하지 않는 두 번째 parser가 필요하다.
+2. ~~**독립 trace parser가 없다.**~~ → **2026-09-21 해결됨.**
+   `audit/independent_trace/`가 `engine`을 전혀 import하지 않는 두 번째 검증기다.
+   해시는 정규화 규칙을 직접 명시해 생성하고, 델타는 재생성 비교가 아니라 **실제 적용**으로 검증한다.
+   결함 주입 실험에서 엔진 검증기가 통과시킨 기록 결함을 독립 검증기가 잡아냈다.
+   현재 vault trace 12/12가 엔진·독립·외부 `sha256sum` 3중 일치.
+   실행: `python run_independent_trace_audit.py --vault --compare-engine`
 
 3. **held-out이 약하다.**
    훈련 vapor 값 4·6·8·10 / held-out 0·5·13 — 값은 겹치지 않지만 **위치·열 경계·격자 크기가 거의 동일하다.**
@@ -153,8 +156,10 @@ A records         = 0
 
 ### (가) held-out v2 — B를 계속 판다
 
-1. 독립 trace parser 구현 (기존 `verify_trace()`와 코드 공유 금지)
-2. 후보별 수치 예측 봉인
+1. ~~독립 trace parser 구현~~ **완료 (2026-09-21)** — `audit/independent_trace/`
+2. **후보별 수치 예측 봉인** ← 다음 차례
+   세 후보(관측 pipeline / vapor 변수 추가 / vapor 관계 모델)가
+   "heldout-vapor-5의 어느 위치에서 vapor가 얼마→얼마"를 각각 예측하게 하고 해시로 봉인
 3. 위치·열 경계·격자 크기까지 바꾼 강한 held-out spec
 4. v2 생성 (v1은 보존)
 5. 사용자 승인 후 실행

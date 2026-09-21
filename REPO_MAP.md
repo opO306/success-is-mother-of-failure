@@ -14,6 +14,7 @@
 |---|---|---|---|
 | **결정론 A** | `engine/deterministic/` (물리 부분) | 현재 주 개발 | 가능 |
 | **모델 중립 B** | `engine/deterministic/` (관찰 부분) | 현재 주 개발 | 가능 |
+| **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
 
@@ -108,6 +109,26 @@ low     ChangeGraph 영향 범위만        전 분기
 medium  Cognitive Map 구성             전 분기
 exact   실제 A 실행                    예산 제한 (보류분은 deferred_budget으로 보존)
 ```
+
+---
+
+## 독립 감사 — `audit/`
+
+**`engine`을 import하지 않는다.** 기록장이 정확한지를 두 번째 경로로 확인한다.
+기존 `verify_trace()`는 기록할 때 쓴 함수(`_delta`, `_digest`)를 검증할 때 다시 쓰므로,
+그 함수에 결함이 있으면 스스로 잡지 못한다.
+
+| 파일 | 역할 |
+|---|---|
+| `independent_trace/canonical.py` | 정규화·해시. `json.dumps`에 의존하지 않고 규칙을 직접 명시 |
+| `independent_trace/delta.py` | 델타를 **적용**해서 검증 (재생성 비교 아님) |
+| `independent_trace/verifier.py` | 체인·스냅샷·델타 전체 검사. 발견을 모두 수집 |
+| `independent_trace/external_hash.py` | 외부 `sha256sum` 병행 |
+| `independent_trace/README.md` | 왜 필요한지, 결함 주입 실험 결과 |
+
+실행: `python run_independent_trace_audit.py --vault --compare-engine`
+
+독립성은 `tests/test_audit_independent_trace.py`가 AST 검사로 강제한다.
 
 ---
 
