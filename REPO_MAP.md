@@ -224,7 +224,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 932개 통과.
+`tests/` — 총 936개 통과.
 
 ```
 test_deterministic_*.py   결정론 A/B (26개 파일)

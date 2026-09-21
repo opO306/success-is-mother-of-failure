@@ -94,13 +94,66 @@ def test_recorded_worlds_obey_their_particle_rules(tmp_path: Path, world: str) -
 def test_a_released_particle_may_step_the_tick_it_is_freed() -> None:
     """Breaking runs before streaming, so a freed particle moves the same tick.
 
-    Reading that as "a bonded particle moved" was this checker's own first
-    mistake; the bond is gone by the time streaming happens.
+    Reading that as "a bonded particle moved" was this checker's own mistake,
+    and the root cause is worth stating: the checker had invented the rule
+    instead of reading `tick_order`, which the world declares. The engine runs
+    the phases in the declared order, so with breaking first the bond is gone
+    by the time streaming happens.
     """
     before = _snapshot([_particle(1, 10, 10, "E"), _particle(2, 10, 10, "W")],
                        [_bond(1, 2, 10, 10)], [{"x": 10, "y": 10, "energy": 6}])
     after = _snapshot([_particle(1, 9, 10, "W", 3), _particle(2, 11, 10, "E", 3)])
     assert _codes(before, after) == set()
+
+
+def test_the_verdict_follows_the_declared_tick_order_not_an_assumption() -> None:
+    """The same snapshots are legal or not depending on what the world declares.
+
+    This is the regression guard for the checker's own bug. If the movement
+    rules were hardcoded again rather than read from `tick_order`, both
+    orders below would give the same verdict and this test would fail.
+    """
+    before = _snapshot([_particle(1, 10, 10, "E"), _particle(2, 10, 10, "W")],
+                       [_bond(1, 2, 10, 10)], [{"x": 10, "y": 10, "energy": 6}])
+    after = _snapshot([_particle(1, 9, 10, "W", 3), _particle(2, 11, 10, "E", 3)])
+
+    declared = _rules()
+    assert declared.breaking_precedes_streaming is True
+    assert _codes(before, after, declared) == set()
+
+    document = json.loads(POLYMER.read_text(encoding="utf-8"))
+    document["kernel"] = {**document["kernel"],
+                          "tick_order": ["stream_free_particles",
+                                         "break_existing_bonds",
+                                         "resolve_local_collisions"]}
+    reordered = read_particle_rules(document)
+    assert reordered.breaking_precedes_streaming is False
+    assert "released_particle_moved_before_streaming" in _codes(before, after, reordered)
+
+
+def test_the_declared_tick_order_is_read_from_the_specification() -> None:
+    document = json.loads(POLYMER.read_text(encoding="utf-8"))
+    rules = read_particle_rules(document)
+
+    assert rules.tick_order == tuple(document["kernel"]["tick_order"])
+    assert rules.breaking_precedes_streaming is True
+    assert rules.streaming_precedes_collisions is True
+
+
+def test_arriving_and_bonding_in_one_tick_needs_streaming_before_collisions() -> None:
+    before = _snapshot([_particle(1, 4, 5, "E", 4), _particle(2, 5, 5, "W", 0)])
+    after = _snapshot([_particle(1, 5, 5, "E"), _particle(2, 5, 5, "W")],
+                      [_bond(1, 2, 5, 5)])
+
+    assert "particle_moved_and_bonded_in_one_tick" not in _codes(before, after)
+
+    document = json.loads(POLYMER.read_text(encoding="utf-8"))
+    document["kernel"] = {**document["kernel"],
+                          "tick_order": ["break_existing_bonds",
+                                         "resolve_local_collisions",
+                                         "stream_free_particles"]}
+    reordered = read_particle_rules(document)
+    assert "particle_moved_and_bonded_in_one_tick" in _codes(before, after, reordered)
 
 
 def test_the_polymer_world_complies_under_its_own_rules() -> None:

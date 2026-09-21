@@ -75,10 +75,36 @@ class ParticleRules:
     ports: Mapping[int, int]
     bond_rules: tuple[BondRule, ...]
     chains_may_move: bool
+    # The phases a tick runs, in the order the world declares them. What a
+    # snapshot pair may legally show depends on this order: with breaking
+    # before streaming, a particle freed this tick has already lost its bond
+    # by the time it steps, so "it was bonded and it moved" is not a
+    # violation. Reading the declared order rather than assuming one is the
+    # difference between checking the world's contract and checking a guess
+    # about it.
+    tick_order: tuple[str, ...] = ()
 
     @property
     def wraps(self) -> bool:
         return self.boundary == "wrap"
+
+    @property
+    def breaking_precedes_streaming(self) -> bool:
+        """Whether a bond released this tick can carry its particle a step."""
+        try:
+            return (self.tick_order.index("break_existing_bonds")
+                    < self.tick_order.index("stream_free_particles"))
+        except ValueError:
+            return False
+
+    @property
+    def streaming_precedes_collisions(self) -> bool:
+        """Whether a particle may arrive and bond within one tick."""
+        try:
+            return (self.tick_order.index("stream_free_particles")
+                    < self.tick_order.index("resolve_local_collisions"))
+        except ValueError:
+            return False
 
     def rule(self, rule_id: str) -> BondRule | None:
         return next((item for item in self.bond_rules if item.rule_id == rule_id), None)
@@ -157,6 +183,7 @@ def read_particle_rules(spec: Mapping[str, Any]) -> ParticleRules:
         # Only a v2 causal world lets a particle hold several bonds or a chain
         # travel; under v1 both are violations rather than permitted behaviour.
         chains_may_move=str(causal.get("format", "")).endswith("-v2"),
+        tick_order=tuple(kernel.get("tick_order") or ()),
     )
 
 
@@ -264,13 +291,25 @@ def check_particle_transition(rules: ParticleRules, before: ParticleView,
                      particle_id)
             continue
         if was_held:
-            # Released this tick: breaking runs before streaming, so a freed
-            # particle legitimately takes one step in the direction its rule
-            # sent it. Its pre-tick heading says nothing about that step.
+            # Released this tick. Whether it could also step depends on the
+            # order the world declares: with breaking before streaming it is
+            # free by the time streaming runs, and its pre-tick heading says
+            # nothing about the direction its release rule sent it.
+            if not rules.breaking_precedes_streaming:
+                note("released_particle_moved_before_streaming",
+                     f"moved {start} -> {end} the tick it was released, but this world "
+                     f"declares {list(rules.tick_order)}, which streams before breaking",
+                     particle_id)
             continue
         if still_held:
-            # Arrived and bonded in the same tick: it moved while still free.
-            if before.particles[particle_id].get("kinetic_energy", 0) == 0:
+            # Arrived and bonded within one tick, which only the declared
+            # order permits.
+            if not rules.streaming_precedes_collisions:
+                note("particle_moved_and_bonded_in_one_tick",
+                     f"moved {start} -> {end} and bonded, but this world declares "
+                     f"{list(rules.tick_order)}, which resolves collisions before streaming",
+                     particle_id)
+            elif before.particles[particle_id].get("kinetic_energy", 0) == 0:
                 note("still_particle_moved",
                      f"moved {start} -> {end} while carrying no motion", particle_id)
             continue

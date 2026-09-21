@@ -105,9 +105,66 @@ def test_every_world_obeys_its_own_declared_rules(tmp_path: Path, world: str) ->
 
 
 def test_the_causal_stage_may_move_heat_but_not_water(tmp_path: Path) -> None:
-    """Heat lives with the particles, so the causal stage redistributes it legally."""
+    """Heat belongs to the causal world, so that stage may redistribute it.
+
+    This checker's first draft called any change during `causal` a violation
+    and fired on a real run. The cause was reading the stage name without
+    reading what the stage owns: `CausalWorldState` carries `heat` alongside
+    its particles and bonds, while water, vapour, mineral and solutes live in
+    the environment cells. Asserting only that the run passes would not have
+    caught that — the heat has to actually move for the test to mean anything.
+    """
     run_dir, document = _run(tmp_path, WORLDS / "deterministic_environment_v1.json")
+    records = [json.loads(line) for line
+               in (run_dir / "records.jsonl").read_text(encoding="utf-8").splitlines()]
+
+    moved_heat = False
+    previous = None
+    for record in records:
+        if record.get("stream") != "A":
+            continue
+        payload = record.get("payload") or {}
+        if record.get("kind") in ("run_start", "tick_start", "tick_commit"):
+            previous = payload.get("full_snapshot")
+            continue
+        if record.get("kind") != "stage_commit" or record.get("phase") != "causal":
+            previous = payload.get("after_snapshot", previous)
+            continue
+        after = payload.get("after_snapshot")
+        if previous and after and previous["causal"]["heat"] != after["causal"]["heat"]:
+            moved_heat = True
+        previous = after
+
+    assert moved_heat, "the fixture must actually move heat during a causal stage"
     assert check_trace_compliance(run_dir, document).valid is True
+
+
+def test_the_causal_stage_may_not_touch_the_environment_fields(tmp_path: Path) -> None:
+    """The other half of the rule: cells are not the causal stage's to change."""
+    run_dir, document = _run(tmp_path, WORLDS / "deterministic_environment_v1.json")
+    records = [json.loads(line) for line
+               in (run_dir / "records.jsonl").read_text(encoding="utf-8").splitlines()]
+
+    touched = False
+    for record in records:
+        if record.get("phase") != "causal" or record.get("kind") != "stage_commit":
+            continue
+        cells = record["payload"]["after_snapshot"]["cells"]
+        if cells and not touched:
+            cells[0]["water"] = cells[0].get("water", 0) + 5
+            touched = True
+    assert touched, "the fixture must carry a cell to alter"
+
+    tampered = tmp_path / "causal-touched-cells"
+    tampered.mkdir()
+    (tampered / "manifest.json").write_text(
+        (run_dir / "manifest.json").read_text(encoding="utf-8"), encoding="utf-8")
+    (tampered / "records.jsonl").write_text(
+        "".join(json.dumps(item, ensure_ascii=False, sort_keys=True,
+                           separators=(",", ":")) + "\n" for item in records),
+        encoding="utf-8", newline="\n")
+
+    assert "causal_stage_touched_environment" in _codes(tampered, document)
 
 
 # --- violations that conserve perfectly -------------------------------------
