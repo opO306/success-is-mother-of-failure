@@ -32,7 +32,7 @@
 12. [`STRUCTURE_STATE_V1.md`](STRUCTURE_STATE_V1.md) — **8번의 단계 3 설계.**
     구조의 운동을 최저 번호 멤버에게서 빼앗아 구조 자체에 준다.
     11번의 5문장 검사를 실제 코드 측정으로 통과시킨 첫 문서.
-    **승인 대기 — Q1~Q5 판단 전에는 구현하지 않는다**
+    **승인됨 (Q1~Q5 확정).** Q2는 측정으로 두 번 반박돼 별도 상태량 저장으로 확정됐다
 
 **중간 점검 기록:** [`../중간 결과/MIDPOINT_LOCAL_GEOMETRY_AND_WORLD_LANGUAGE_2026-09-22.md`](../중간%20결과/MIDPOINT_LOCAL_GEOMETRY_AND_WORLD_LANGUAGE_2026-09-22.md) —
 7~10번 작업 전체(원칙 채택부터 `PortBond` 구현까지)를 처음부터 요약. 지금까지
