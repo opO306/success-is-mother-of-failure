@@ -43,6 +43,9 @@ EVENT_TYPES = frozenset({
     "observation_request_submitted", "mechanism_test_request_submitted", "instrumentation_request_submitted",
     # G6d event -- autonomous experiment design: which candidate was ranked/selected, and why.
     "experiment_candidate_ranked",
+    # G7.2 event -- blind protocol: B's terminal answer for one blind research
+    # journal, sealed before any evaluator appears. See blind_protocol.py.
+    "final_discovery_sealed",
 })
 
 
