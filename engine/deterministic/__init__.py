@@ -44,6 +44,12 @@ from .precondition_census import (
     census_causal_world,
     render_census,
 )
+from .contested_census import (
+    ContestedCensus,
+    ContestedMoment,
+    contested_causal_world,
+    render_contested,
+)
 from .experiment_proposal import (
     ExperimentArm,
     ExperimentProposal,
@@ -301,6 +307,8 @@ __all__ = [
     "CausalWorldState",
     "HeatCellSpec",
     "PhysicalBond",
+    "ContestedCensus",
+    "ContestedMoment",
     "TickCensus",
     "WorldCensus",
     "DIRECTIONS",
@@ -356,7 +364,9 @@ __all__ = [
     "make_physical_channel_spec",
     "make_resolution_probe_spec",
     "census_causal_world",
+    "contested_causal_world",
     "render_census",
+    "render_contested",
     "run_causal_world",
     "run_scaling_audit",
     "run_environment_world",

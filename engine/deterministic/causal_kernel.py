@@ -114,6 +114,9 @@ class CausalWorldState:
                 if len(holders) > 1:
                     raise ValueError("a chain carries its motion on one member, not several")
                 if holders and holders[0] != min(members):
+                    # DEFECT: an id decides where a structure's motion lives.
+                    # Momentum belongs to the connected component, not to a
+                    # member picked by number.
                     raise ValueError("a chain carries its motion on its lowest-numbered member")
         object.__setattr__(self, "particles", particles); object.__setattr__(self, "heat", heat); object.__setattr__(self, "bonds", bonds)
 
@@ -360,11 +363,17 @@ def _grow_chains(spec: CausalWorldSpec, state: CausalWorldState,
         if item.particle_id not in membership and item.kinetic_energy:
             free_at[(item.x, item.y)].append(item)
 
+    # KNOWN DEFECT (2026-09-22): the next few lines let particle ids decide
+    # physics, and cap growth for no declared reason. See
+    # `docs/current/LOCAL_INTERACTION_PRINCIPLES_V1.md` and the recorded
+    # evidence in `tests/test_known_defects_causal_kernel.py`. These are
+    # scheduled for replacement once local geometry exists; do not build new
+    # rules on top of them.
     for members in sorted(set(membership.values()), key=min):
         anchor = min(members)
         holder = particles[anchor]
         if holder.kinetic_energy:
-            continue            # a moving chain is left to travel, not grown
+            continue            # DEFECT: no declared law stops a moving chain growing
         point = (particles[anchor].x, particles[anchor].y)
         arrivals = sorted(free_at.get(point, ()),
                           key=lambda p: (p.kind, p.orientation, p.direction, p.particle_id))
@@ -375,6 +384,9 @@ def _grow_chains(spec: CausalWorldSpec, state: CausalWorldState,
             # bond forms depends on the pair's orientations, so one end of a
             # chain can accept an arrival the other end has no rule for.
             attachment = None
+            # DEFECT: `sorted` means the lowest-numbered member wins whenever
+            # more than one could accept this arrival. The physics does not
+            # choose; the name does.
             for item in sorted(members):
                 if occupied.get(item, 0) >= state.port_limits.get(particles[item].kind, 1):
                     continue
@@ -407,7 +419,7 @@ def _grow_chains(spec: CausalWorldSpec, state: CausalWorldState,
             occupied[attach] = occupied.get(attach, 0) + 1
             occupied[arriving.particle_id] = occupied.get(arriving.particle_id, 0) + 1
             membership = chains(tuple(bonds))
-            break               # one arrival per chain per tick
+            break               # DEFECT: an undeclared one-bond-per-tick ceiling
 
 
 def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
@@ -418,6 +430,10 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
     particles = {item.particle_id: item for item in state.particles}; bonds = list(state.bonds)
     masses = {item.kind: item.mass for item in spec.materials}
     for (x, y), group in sorted(groups.items()):
+        # KNOWN DEFECT (2026-09-21): three or more free bodies in one cell are
+        # skipped entirely, so they pass through each other. Counted in
+        # `precondition_census`; do not simply delete this line -- without
+        # local geometry there is no way to say which of them touched which.
         if len(group) != 2: continue
         first, second = sorted(group, key=lambda p: (p.kind, p.orientation, p.direction, p.kinetic_energy, p.particle_id))
         matched = _match_rule(spec.bond_rules, first, second)
