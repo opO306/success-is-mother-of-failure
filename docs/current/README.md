@@ -21,6 +21,17 @@
     **7·8번(causal v2→v3)을 실제 사례로 삼아, 앞으로 B가 언어 확장을 제안하고
     인간이 승인하는 절차를 정의한다.** B에게는 제안권만 있고 최종 변경권은 없다.
     설계 초안, `RULES.md` 승격 전
+11. [`PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md`](PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md) —
+    **새 국소 상호작용을 짜기 전에 통과해야 하는 5문장 검사.**
+    "무엇이 존재하는가 → 어떤 결과가 가능한가 → 뭐가 동시에 가능한가 →
+    하나만 골라야 하면 뭐가 정하는가 → 답이 ID·순서면 뭐가 빠졌는가."
+    "둘씩 처리" 제안이 기각된 사건(7번)에서 나온 절차를 일반화했다.
+    **`StructureState`(다음 작업)를 포함해 모든 새 물리는 이 검사를 먼저 문서로
+    통과시키고 시작한다.**
+
+**중간 점검 기록:** [`../중간 결과/MIDPOINT_LOCAL_GEOMETRY_AND_WORLD_LANGUAGE_2026-09-22.md`](../중간%20결과/MIDPOINT_LOCAL_GEOMETRY_AND_WORLD_LANGUAGE_2026-09-22.md) —
+7~10번 작업 전체(원칙 채택부터 `PortBond` 구현까지)를 처음부터 요약. 지금까지
+구현된 것과 아직 안 된 것(`StructureState` 등)을 한 문서에서 대조하고 싶을 때 여기부터 본다.
 
 **커널을 건드리기 전에 7번을 먼저 읽는다.** 현재 물리가 particle_id에 의존하고 있고,
 `tests/test_known_defects_causal_kernel.py`의 테스트들은 **깨지라고 만든 것**이다.
