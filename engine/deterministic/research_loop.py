@@ -17,7 +17,6 @@ from typing import Mapping
 from .causal_executor import AExecutor, ExecutionResult
 from .causal_experiment import CausalExperimentPortfolio, PredictionSeal
 from .causal_hypothesis import CausalHypothesisSet
-from .causal_kernel import initial_causal_state
 from .causal_spec import CausalWorldSpec
 from .hypothesis_assessment import derive_hypothesis_assessment
 from .hypothesis_graph import (
@@ -26,6 +25,8 @@ from .hypothesis_graph import (
     HypothesisEdge,
     HypothesisGraph,
 )
+from .physical_research_adapter import PhysicalCausalResearchAdapter
+from .research_adapter import ResearchWorldAdapter
 from .research_axis import AxisRegistry, CAUSAL_AXIS_REGISTRY
 from .research_domain import ResearchDomain
 from .research_journal import ResearchJournal, read_journal
@@ -36,20 +37,37 @@ from .research_state import (
     ObservationRecord,
     ResearchState,
 )
+from .research_world import ResearchWorldSpec
+
+_PHYSICAL_ADAPTER = PhysicalCausalResearchAdapter()
 
 
-def observe(journal: ResearchJournal, spec: CausalWorldSpec, description: str) -> ObservationRecord:
-    """Record what was directly read off `spec`'s initial state, before any interpretation."""
-    initial = initial_causal_state(spec)
+def observe_world(journal: ResearchJournal, adapter: ResearchWorldAdapter,
+                  spec: ResearchWorldSpec, description: str) -> ObservationRecord:
+    """Record what `adapter` read off `spec`'s initial state, before any interpretation.
+
+    World-agnostic core of `observe()`: the observable payload comes from
+    `adapter.initial_observation`, so this works for any `ResearchWorldSpec`
+    an adapter knows how to read, not just `CausalWorldSpec`.
+    """
+    world_observation = adapter.initial_observation(spec)
     observation = ObservationRecord(
-        f"OBS-{journal.next_sequence}", spec.digest, initial.tick,
-        {"material_counts": {str(k): v for k, v in initial.material_counts().items()},
-         "total_energy": initial.total_energy(),
-         "momentum": list(initial.momentum(spec)), "state_digest": initial.digest},
-        description,
+        f"OBS-{journal.next_sequence}", world_observation.world_digest, world_observation.tick,
+        {**world_observation.observables, "state_digest": world_observation.state_digest}, description,
     )
     journal.append("observation_recorded", observation.observation_id, observation.canonical())
     return observation
+
+
+def observe(journal: ResearchJournal, spec: CausalWorldSpec, description: str) -> ObservationRecord:
+    """Record what was directly read off `spec`'s initial state, before any interpretation.
+
+    Physical-A compatibility wrapper around `observe_world` -- unchanged
+    signature and behavior for existing callers (see
+    `test_deterministic_research_world_characterization.py` for the exact
+    payload this must keep producing).
+    """
+    return observe_world(journal, _PHYSICAL_ADAPTER, spec, description)
 
 
 def record_hypothesis_set(journal: ResearchJournal, hypothesis_set: CausalHypothesisSet) -> CausalHypothesisSet:
@@ -112,32 +130,27 @@ def _observed_value(prediction: object, result: ExecutionResult) -> object | Non
     raise ValueError(f"unsupported prediction kind {kind!r}")
 
 
-def compare_results(
-    journal: ResearchJournal, hypothesis_set: CausalHypothesisSet, seal: PredictionSeal,
-    arm_id: str, result: ExecutionResult,
-) -> Mapping[str, str]:
-    """Compare each hypothesis's sealed predictions against the executed run.
+_EVALUATION_STATUS_TO_VERDICT = {
+    "match": "supported", "mismatch": "contradicted_in_domain", "unavailable": "underspecified",
+}
 
-    Returns `{hypothesis_id: "supported" | "contradicted_in_domain" | "underspecified"}`
-    for hypotheses this seal covers. A hypothesis is `underspecified` when the
-    execution failed outright or a predicted tick has no checkpoint to compare
-    against -- that is a gap in what could be checked, not evidence against
-    the claim.
+
+def compare_results_with_adapter(
+    journal: ResearchJournal, adapter: ResearchWorldAdapter, hypothesis_set: CausalHypothesisSet,
+    seal: PredictionSeal, arm_id: str, result: ExecutionResult,
+) -> Mapping[str, str]:
+    """World-agnostic core of `compare_results`: `adapter.evaluate_prediction`
+    decides match/mismatch/unavailable per prediction; this function only
+    folds several predictions for one hypothesis into one verdict, exactly
+    as `compare_results` always has.
     """
     verdicts: dict[str, str] = {}
     for hypothesis_id, predictions in seal.predictions_by_hypothesis.items():
         if result.status == "failed":
             verdicts[hypothesis_id] = "underspecified"
             continue
-        outcomes = []
-        for prediction in predictions:
-            observed = _observed_value(prediction, result)
-            if observed is None:
-                outcomes.append("underspecified")
-            elif observed == _predicted_value(prediction):
-                outcomes.append("supported")
-            else:
-                outcomes.append("contradicted_in_domain")
+        outcomes = [_EVALUATION_STATUS_TO_VERDICT[adapter.evaluate_prediction(prediction, result).status]
+                   for prediction in predictions]
         if "contradicted_in_domain" in outcomes:
             verdicts[hypothesis_id] = "contradicted_in_domain"
         elif "underspecified" in outcomes:
@@ -149,6 +162,24 @@ def compare_results(
         "seal_id": seal.seal_id, "verdicts": dict(sorted(verdicts.items())),
     })
     return verdicts
+
+
+def compare_results(
+    journal: ResearchJournal, hypothesis_set: CausalHypothesisSet, seal: PredictionSeal,
+    arm_id: str, result: ExecutionResult,
+) -> Mapping[str, str]:
+    """Compare each hypothesis's sealed predictions against the executed run.
+
+    Returns `{hypothesis_id: "supported" | "contradicted_in_domain" | "underspecified"}`
+    for hypotheses this seal covers. A hypothesis is `underspecified` when the
+    execution failed outright or a predicted tick has no checkpoint to compare
+    against -- that is a gap in what could be checked, not evidence against
+    the claim.
+
+    Physical-A compatibility wrapper around `compare_results_with_adapter` --
+    unchanged signature and behavior for existing callers.
+    """
+    return compare_results_with_adapter(journal, _PHYSICAL_ADAPTER, hypothesis_set, seal, arm_id, result)
 
 
 def register_domain(journal: ResearchJournal, domain: ResearchDomain,
