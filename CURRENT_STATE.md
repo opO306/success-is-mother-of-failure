@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-23
-**검증:** 전체 테스트 1246개 통과
+**검증:** 전체 테스트 1285개 통과 (B0.7 완료 시점 실측 1228개 — 이 문서의 옛 "→1046" 표기는 B0.7 커밋이 갱신하지 않고 지나간 낡은 숫자였음, 2026-09-23 확인)
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -246,6 +246,75 @@ A records         = 0
 - ~~명세 준수 검증~~ **완료 (2026-09-21)** — 환경 field + 입자 물리
 - 남은 미검증: 세밀한 이동량 공식 (한도만 보고 정확한 양은 안 봄)
 
+### (마) Ground-Truth를 B가 실제로 연구 가능하게 만들기 *(2026-09-23 착수, G0~G2 완료)*
+
+`ground_truth/`의 GT-M1/GT-2/GT-3는 현재 답안지 레벨(순수함수)에만 있고, B가 평소 쓰는
+`AExecutor → research_loop → broad_explorer → prediction/evidence` 경로로 연구할 수 있는
+A-compatible 실행 world가 아니다. B0.3~B0.7 blind evaluation(B가 정답을 모르는 채로 이 세
+구조를 스스로 재발견하는가)을 하려면 이게 선행돼야 한다.
+
+조사 결과(2026-09-23), "`AExecutor`만 얇은 Protocol로 감싸면 된다"는 최초 가정은 실제
+코드에서 반박됨. `CausalWorldSpec`을 참조하는 B0 모듈이 20개 있고, 그중:
+
+- **얕은 결합** (수 줄 내 어댑터화 가능): `causal_executor.py`(이미 Protocol), `research_loop.py`의
+  `execute_through_a`/digest 비교/journal·domain·evidence 부기, `broad_explorer.py`의
+  `apply_control`+`from_mapping` 호출(정확히 1곳)
+- **구조적으로 깊음** (신규 타입/분기 추가가 불가피, 얇은 어댑터로 안 됨):
+  - `causal_hypothesis.py` — `CausalPrediction` Union이 `expected_total_energy`/`expected_momentum`/
+    `expected_bond_count`/`expected_counts` 등 A0 물리 필드에 하드코딩. generic observable
+    (`"particle.kinetic_energy"` 같은 role.field 표현) prediction 타입이 아예 없음
+  - `exploration_control.py` — `PARTICLE_FIELDS`/`HEAT_FIELDS`/`BOND_RULE_FIELDS` 화이트리스트와
+    `apply_control()`이 `spec.particles`/`spec.heat`/`spec.bond_rules`를 직접 `replace()`하는
+    A0 전용 로직. GT-2/3/M1용 새 `ControlTarget`이 병렬로 필요
+  - `research_loop.py`의 `observe()`/`_observed_value()` — `initial_causal_state`/`CausalRun.checkpoints`
+    필드에 직접 결합
+  - `causal_experiment.py`의 `CausalExperimentArm.intended_spec`/`submitted_spec` — `CausalWorldSpec`
+    타입 고정
+
+사용자가 제안한 절단선: `ResearchWorldSpec`/`ResearchWorldAdapter` 최소 공통 Protocol을 새로
+추가하고, `PhysicalCausalWorldAdapter`(기존 코드 그대로 감쌈, 물리 A 무변경)와
+`SyntheticWorldAdapter`(GT-M1/GT-2/GT-3 공용) 두 구현체로 나눈다. `deep_investigator`,
+`trace_model`, `mechanism_tester`, `intervention_feasibility`는 이번 범위에서 제외 — B0.4/B0.5
+전체 일반화는 더 뒤로 미룬다. B에게는 world 이름에 "direct"/"conditional"/"mediator" 같은
+정답 힌트를 노출하지 않는다(`WORLD-S02` 같은 익명 id만).
+
+**사용자가 `RESEARCH_WORLD_ABSTRACTION_V1` 구현 명세를 완성** (Gate G0~G11, 커밋 A~I,
+Phase 1~3 로드맵). 이번 세션은 **G0~G2까지만** 진행하기로 명시적으로 범위를 잘랐다 —
+G3부터는 `research_loop`/`broad_explorer`의 실행 경로 자체를 바꾸기 시작해서 "새 추상화
+검증"에서 "기존 B 동작 이주"로 성격이 바뀌기 때문.
+
+**G0 완료** — `tests/test_deterministic_research_world_characterization.py` (11개).
+아직 아무 코드도 바꾸지 않은 상태에서 `ExecutionResult.canonical()`, `observe()`의
+observable payload, `compare_results()`의 정확한 verdict 문자열(`supported`/
+`contradicted_in_domain`/`underspecified`), `run_exploration()`의 heat-sweep 정확한
+evidence/coverage, `CausalExperimentArm.canonical()`을 리터럴 값으로 고정. 명세 초안에서
+`total_energy == 4`, `spec_digest`, `CausalExperimentArm(arm_id, intended, submitted)` 등
+여러 가정이 실제 코드와 달랐음을 이 단계에서 발견·정정 (heat cell 에너지를 빼먹음, 실제
+키는 `intended_spec_digest`, 실제 생성자는 `dimension`/`resolves_hypothesis_ids` 필수).
+
+**G1 완료** — `engine/deterministic/research_world.py`(`ResearchWorldSpec`/`ResearchRun`
+Protocol, `ResearchWorldError`/`WorldCompatibilityError`/`UnknownControlError`/
+`InvalidControlValueError`/`UnsupportedPredictionError`), `research_adapter.py`
+(`ResearchControlDefinition` Protocol, `WorldObservation`, `PredictionEvaluation`,
+`ResearchWorldAdapter` Protocol — `execute()` 없음, 실행과 해석 책임 분리). `CausalWorldSpec`/
+`CausalRun`/`ControlDefinition`이 **코드 수정 없이** 구조적으로 Protocol을 만족함을 확인
+(`test_deterministic_research_world.py` 4개, `test_deterministic_research_adapter.py` 6개).
+
+**G2 완료** — `engine/deterministic/physical_research_adapter.py`:
+`PhysicalCausalResearchAdapter`가 기존 `apply_control`/`CausalWorldSpec.from_mapping`/
+`initial_causal_state`/`research_loop._observed_value`의 kind-dispatch를 그대로 감싼다
+(런타임에서 `research_loop`를 import하지 않도록 dispatch 로직은 독립 재구현 — 주석으로
+이유 명시: G3에서 `research_loop`가 adapter에 의존하게 될 예정이므로 반대 방향 의존을
+만들지 않음). `test_deterministic_physical_research_adapter.py`(13개)가 adapter 출력과
+"레거시 방식으로 직접 계산한 값"을 매번 나란히 비교해서 **한 비트도 다르지 않음**을 증명 —
+하드코딩된 기대값이 아니라 기존 함수 재호출과의 동등성만 assert. `engine/deterministic/__init__.py`
+에 신규 이름 export. 전체 테스트 1251→1285 (신규 34개), 전부 통과.
+
+**다음 세션 (G3~G5, 커밋 C+D):** `research_loop.py`/`broad_explorer.py`가 실제로 Adapter를
+거쳐 실행되도록 이주. `CandidatePredictionProvider`(Static/Functional) 도입. 이번 세션에서는
+건드리지 않음: `causal_experiment.py`/`causal_hypothesis.py`의 타입 일반화, synthetic
+kernel/spec/adapter, GT-2/3/M1의 실행 가능 버전.
+
 ---
 
 ## 최근 이력
@@ -271,4 +340,5 @@ A records         = 0
 | 2026-09-22 | **새 결함 기록** — 고정 속도 격자 충돌 규칙(A0 상속)이 에너지가 다르면 운동량을 90도 회전시킨다. 교훈 유형 F 신설. 대각 도달 불가능성을 테스트로 고정 |
 | 2026-09-22 | **v3의 `port_limits`/`chains_may_move`가 실측과 다르게 문서화돼 있었음을 발견·정정** (→1041). 둘 다 format 동등성 비교(`== FORMAT_V2`)로만 판정해 v3가 v2가 아니라 v1 갈래로 빠진다 — `port_limits=1`, `chains_may_move=False`. 값 자체는 현재 단계에 맞으므로(구조 이동 미구현) 코드는 그대로 두고 문서를 정정, 테스트로 고정. AST 회귀 검사도 `ck.CausalWorldState(...)` 같은 qualified call을 놓치는 구멍을 발견해 하드닝 |
 | 2026-09-22 | **causal v4 Stage A 구현 완료** (→1046). `FORMAT_V4` 추가, v3 named-port 문법 계승. `corrected_collision_semantics = spec.format == FORMAT_V4` 게이트로 orientation 암묵 회전 제거 + 90도 산란을 등에너지로 제한 — v4 경로만. v1/v2/v3 digest는 Stage A 적용 전후 동일함을 측정 확인. known-defect 테스트 1종을 legacy로 이동, v4 positive test 3종 신설. 부수 발견: 대각 불가능성·v3 상태 지속성 테스트의 `_Spec` fixture 두 곳에 `format` 속성이 없어 새 게이트가 `AttributeError`를 냄 — 각각 레거시 포맷 명시로 수정 |
-| 2026-09-23 | **독립 Ground-Truth 감사기 신설** (`audit/ground_truth/`, →1246). `test_deterministic_missing_link_investigator.py`의 "hidden mediator" 시나리오가 B0.7 자신의 출력(`investigate_missing_link`)을 정답처럼 assert하는 순환논리였음을 사용자가 지적. B0.3 이상(`MechanismCandidate`·`CausalPath`·`MissingLinkHypothesis`·`causal_path_builder`·`missing_link_investigator` 등)을 전혀 import하지 않는 3-world 감사기 신설: GT-1(Mediator, A0 `causal_kernel`을 직접 조작해 heat→bond→particle 개입 3종 — A가 B를 바꾸는가·B가 C를 바꾸는가·B를 결합 불가 위치로 막으면 A→C 효과가 사라지는가 — 전부 확인), GT-2(Direct, 감사기 전용 2필드 순수함수 `outcome_active := source_active`, 2케이스 전수검사), GT-3(Conditional, 감사기 전용 3필드 순수함수 `outcome_active := source_active AND gate_enabled`, 4케이스 전수검사). 판정은 VALID/INVALID_WORLD/AMBIGUOUS/AUDIT_ERROR 네 가지, 빈 검사 목록은 AMBIGUOUS로 처리(무검증 VALID 방지). `run_ground_truth_audit.py --seal`로 `sealed/GT-*.json`에 digest와 함께 봉인 — 이미 봉인된 digest와 다르면 `--force` 없이는 거부(결과 본 뒤 정답 슬쩍 수정 방지). 3/3 VALID로 최초 봉인 완료. 부수 발견: 기존 `test_audit_package_imports_nothing_from_engine`(전체 `audit/`가 engine import 금지)이 GT-1의 A0 직접 구동과 충돌 — `ground_truth`는 그 검사에서 명시적으로 제외하고, 별도의 좁은 경계(B0.3+ 금지, AST 검사)를 `test_audit_ground_truth.py`에 추가 |
+| 2026-09-23 | **독립 Ground-Truth 답안지 신설, 같은 날 세 차례 정정** (최종 `ground_truth/`, 저장소 최상위, 1228→1251). 최초 구현: `test_deterministic_missing_link_investigator.py`의 "hidden mediator" 시나리오가 B0.7 자신의 출력(`investigate_missing_link`)을 정답처럼 assert하는 순환논리였음을 사용자가 지적. B0.3 이상을 전혀 import하지 않는 답안지로 GT-1(Mediator, A0 `causal_kernel` 직접 조작)·GT-2(Direct)·GT-3(Conditional) 3-world를 `audit/ground_truth/`에 신설, 3/3 VALID로 봉인. 사용자가 같은 날 세 가지를 지적해 정정: (1) 테스트 개수 표기가 "1046→1246"으로 잘못됨(B0.7 완료 시점 실측은 1228) — "1228→1246"으로 수정. (2) `audit/`의 "engine import 절대 금지" 불변식에 `ground_truth`만 예외를 둔 게 그 불변식을 약화시킨다 — 예외를 없애고 `ground_truth/`를 저장소 최상위로 이동, `audit/`는 원래 불변식 복원. (3) GT-1의 intervention 3("B 차단")이 실제로는 입자 배치를 바꿔 다른 세계를 만든 것이라 순수 mediator 정답지로는 약하다 — GT-1은 "레거시 physical sanity test"로 격하하고, mediator(B)에 A와 독립된 public control(`step_with_mediator_override`)을 가진 전용 synthetic world **GT-M1**을 정답지 레벨에서 신설(4-world, 4/4 VALID, 신규 테스트 5개). GT-2/3(와 향후 GT-M1의 실행 가능 버전)가 B가 실제로 연구할 수 있는 A-compatible world가 아니라는 지적은 조사 결과 범위가 커서 별도 세션으로 분리: `CausalWorldSpec`이 `causal_hypothesis.py`(prediction 어휘가 물리 필드에 폐쇄)·`exploration_control.py`(control 필드 화이트리스트가 A0 물리 어휘 전용) 등 B0 20개 모듈에 구조적으로 얽혀 있어, "AExecutor만 얇게 Protocol화하면 된다"는 최초 가정이 조사로 반박됨 — `ResearchWorldAdapter` 공통 경계 설계가 선행돼야 함 |
+| 2026-09-23 | **Research World Abstraction G0~G2 완료** (1251→1285). 사용자가 `RESEARCH_WORLD_ABSTRACTION_V1` 구현 명세(Gate G0~G11, Phase 1~3)를 작성, 이번 세션은 G0~G2로 명시적 절단. G0: `ExecutionResult.canonical()`/`observe()`/`compare_results()`/`run_exploration()`/`CausalExperimentArm.canonical()`의 현재 동작을 characterization test 11개로 리터럴 고정 — 이 단계에서 명세 초안의 여러 가정(`total_energy` 계산에서 heat 누락, 존재하지 않는 `spec_digest` 필드명, `CausalExperimentArm`의 실제 생성자 인자 수)이 실제 코드와 다름을 발견·정정. G1: `research_world.py`(`ResearchWorldSpec`/`ResearchRun` Protocol + 4종 오류 타입), `research_adapter.py`(`ResearchControlDefinition` Protocol, `WorldObservation`, `PredictionEvaluation`, `ResearchWorldAdapter` Protocol — `execute()` 없음, 실행/해석 책임 분리) 신설. `CausalWorldSpec`/`CausalRun`/`ControlDefinition`이 **코드 수정 없이** 구조적으로 Protocol을 만족함을 확인. G2: `PhysicalCausalResearchAdapter`가 기존 물리 경로(`apply_control`/`from_mapping`/`initial_causal_state`/`_observed_value` kind-dispatch)를 그대로 감쌈 — 하드코딩 기대값이 아니라 "레거시 함수 재호출과의 동등성"만 assert하는 방식으로 13개 테스트가 "한 비트도 안 바뀜"을 증명. 다음 세션은 G3~G5(`research_loop`/`broad_explorer`를 실제로 Adapter 경유로 이주, `CandidatePredictionProvider` 도입) |
