@@ -132,25 +132,37 @@ class DivergenceEvent:
 
 
 @dataclass(frozen=True)
-class FirstResponseDivergence:
-    """The earliest `DivergenceEvent` whose origin is `ENDOGENOUS_RESPONSE` or `UNKNOWN`.
+class FirstResponseMoment:
+    """Every `DivergenceEvent` whose origin is `ENDOGENOUS_RESPONSE`/`UNKNOWN`, at the earliest such (tick, phase).
 
-    `DIRECT_INTERVENTION` and `INTERVENTION_MAINTAINED` events are excluded
-    by construction: they are the experiment's own design (or its continued
-    enforcement), not the world's reaction to it.
+    Deliberately not "the first field that responded": when several fields
+    change together at the same (tick, phase), picking one by alphabetical
+    (role, field) order would manufacture a claim the evidence never made --
+    that this one field was somehow the leading response and the others
+    followed it. The question this type answers is "when did the world
+    first react, and what changed together in that moment", not "which
+    field reacted first" -- exactly the atomic-event discipline
+    `causal_timeline.AtomicChangeGroup` already applies on the single-trace
+    side of B0.6.
+
+    `DIRECT_INTERVENTION` and `INTERVENTION_MAINTAINED`/`INTERVENTION_PERSISTED`
+    events are excluded by construction: they are the experiment's own
+    design (or its continued enforcement/persistence), not the world's
+    reaction to it.
     """
     tick: int
     phase: KernelPhase
-    role: str
-    field: str
-    left_value: Any
-    right_value: Any
-    divergence_kind: str
+    changes: tuple[DivergenceEvent, ...]
+
+    def __post_init__(self) -> None:
+        if not self.changes:
+            raise ValueError("a first-response moment needs at least one change")
+        if any((c.tick, c.phase) != (self.tick, self.phase) for c in self.changes):
+            raise ValueError("all changes in a first-response moment must share its (tick, phase)")
 
     def canonical(self) -> dict[str, object]:
-        return {"divergence_kind": self.divergence_kind, "field": self.field, "format": FORMAT,
-                "left_value": self.left_value, "phase": self.phase.value, "right_value": self.right_value,
-                "role": self.role, "tick": self.tick}
+        return {"changes": [c.canonical() for c in sorted(self.changes, key=lambda c: (c.role, c.field))],
+                "format": FORMAT, "phase": self.phase.value, "tick": self.tick}
 
 
 @dataclass(frozen=True)
@@ -159,7 +171,7 @@ class DivergenceChain:
     trace_id_left: str
     trace_id_right: str
     interventions: tuple[InterventionRecord, ...]
-    first_response: FirstResponseDivergence | None
+    first_response: FirstResponseMoment | None
     events: tuple[DivergenceEvent, ...]
 
     def canonical(self) -> dict[str, object]:
@@ -205,6 +217,19 @@ def compare_snapshot_sequences(
 
     `left` and `right` must report exactly the same `(tick, phase)` pairs --
     both produced by `trace_model.run_traced` against comparable `TraceSpec`s.
+
+    `(tick, phase)` is used here strictly as a *structural alignment key*:
+    it identifies "baseline's AFTER_BOND_BREAK_PHASE at tick 1" and
+    "contrast's AFTER_BOND_BREAK_PHASE at tick 1" as the same logical
+    observation point across the two independent runs, so their values can
+    be compared. It is never used to derive a cross-run time ordering --
+    `observation_seq` is per-trace only (see `TraceSnapshot`'s docstring)
+    and comparing `left.observation_seq` against `right.observation_seq`
+    would be meaningless, since the two traces' counters advance
+    independently. Within-trace ordering decisions (e.g. `causal_timeline.py`)
+    must use `observation_seq`; this function's own within-chain event
+    ordering (`_PHASE_ORDER`) is likewise a display/grouping convenience
+    for one shared alignment key, not a claim about real elapsed time.
     """
     by_key_left = {(s.tick, s.phase): s for s in left}
     by_key_right = {(s.tick, s.phase): s for s in right}
@@ -229,8 +254,7 @@ def compare_snapshot_sequences(
     responses = [e for e in events if e.origin in _RESPONSE_ORIGINS]
     if responses:
         earliest_key = min((e.tick, _PHASE_ORDER[e.phase]) for e in responses)
-        candidates = [e for e in responses if (e.tick, _PHASE_ORDER[e.phase]) == earliest_key]
-        first = min(candidates, key=lambda e: (e.role, e.field))
-        first_response = FirstResponseDivergence(first.tick, first.phase, first.role, first.field,
-                                                 first.left_value, first.right_value, first.divergence_kind)
+        moment_events = tuple(sorted((e for e in responses if (e.tick, _PHASE_ORDER[e.phase]) == earliest_key),
+                                     key=lambda e: (e.role, e.field)))
+        first_response = FirstResponseMoment(moment_events[0].tick, moment_events[0].phase, moment_events)
     return DivergenceChain(trace_id_left, trace_id_right, interventions, first_response, tuple(events))

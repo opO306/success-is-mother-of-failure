@@ -121,6 +121,7 @@ A records         = 0
 | 평가 의미 혼재 | `BoundaryEvaluation.complete_match=false`가 반박·미검사·예산 보류·실행 전을 모두 표현 | `protocol_valid` / `scientific_status` / `coverage_status` / `execution_status` 분리 필요 |
 | 영향 범위 과잉 | 후보 263칸 vs 실제 변화 4칸 (누락 0, 과잉 259) | 안전하지만 "효율적"이라 부를 수 없음. 누락을 줄이기 전에 과잉부터 줄이면 원인을 놓칠 위험이 있어 현재 순서는 맞음 |
 | 권한 격리 | Windows ACL은 다른 OS 계정만 차단. 같은 사용자 권한의 임의 B 코드는 못 막음 | 학습형 B 붙이기 전에 저권한 프로세스나 trace broker 필요 |
+| MechanismCandidate 필드 의미 혼동 위험 | `MechanismCandidate.source_role`은 조사가 시작된 개입/관심 출발 role이고, 이 candidate가 실제로 분석하는 role은 `candidate.path[*].role`(현재 계약상 path 전체가 동일 role)이다. 이름만 보면 `source_role`이 관찰 대상처럼 보여 실제로 `causal_path_builder.build_from_evidence`에서 `source_role`을 잘못 참조해 path가 항상 None이 되는 버그가 발생한 적 있음 (수정됨) | `test_deterministic_causal_path_builder.py::test_build_from_evidence_uses_observed_role_not_source_role`로 현재 동작(`path`의 role 사용, `source_role` 미사용)을 회귀 고정함. 장기적으로는 `investigation_source_role`/`observed_role`처럼 필드명 자체를 분리하는 리팩터링 권장. 현재 동작을 깨지 않는 별도 변경으로 수행할 것 |
 
 ---
 

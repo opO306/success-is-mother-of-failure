@@ -115,7 +115,7 @@ from .trace_model import (
 from .divergence_analysis import (
     DivergenceChain,
     DivergenceEvent,
-    FirstResponseDivergence,
+    FirstResponseMoment,
     InterventionRecord,
     classify_field_divergence,
     compare_snapshot_sequences,
@@ -484,7 +484,7 @@ __all__ = [
     "ExplorationOutcome",
     "ExplorationPlan",
     "FEASIBILITY_STATUSES",
-    "FirstResponseDivergence",
+    "FirstResponseMoment",
     "FollowupExperimentProposal",
     "HeatCellRoleTarget",
     "HeatCellTraceSubject",

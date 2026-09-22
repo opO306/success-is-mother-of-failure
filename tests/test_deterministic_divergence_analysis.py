@@ -47,6 +47,7 @@ def test_set_once_intervention_persists_then_becomes_endogenous() -> None:
     assert origins[(1, KernelPhase.POST_TICK)] == "ENDOGENOUS_RESPONSE"
     assert chain.first_response.tick == 1
     assert chain.first_response.phase == KernelPhase.POST_TICK
+    assert [c.role for c in chain.first_response.changes] == ["heat"]
 
 
 def test_clamp_intervention_stays_maintained_and_never_becomes_first_response() -> None:
@@ -68,9 +69,43 @@ def test_clamp_intervention_stays_maintained_and_never_becomes_first_response() 
     assert origins[(1, KernelPhase.PRE_TICK, "heat")] == "INTERVENTION_MAINTAINED"
     assert origins[(1, KernelPhase.POST_TICK, "heat")] == "INTERVENTION_MAINTAINED"
     assert origins[(1, KernelPhase.POST_TICK, "other")] == "ENDOGENOUS_RESPONSE"
-    assert chain.first_response.role == "other"
+    assert [c.role for c in chain.first_response.changes] == ["other"]
 
 
 def test_intervention_record_rejects_unsupported_mode() -> None:
     with pytest.raises(ValueError, match="unsupported intervention mode"):
         InterventionRecord("heat", "energy", 1, 2, 0, "TELEPORT")
+
+
+def test_first_response_moment_groups_simultaneous_changes_never_picks_one() -> None:
+    """Several fields responding at the same (tick, phase) must be preserved together --
+    never collapsed to a single "first" field by alphabetical (role, field) order.
+    """
+    left = (
+        _snap(0, KernelPhase.PRE_TICK, heat={"energy": 1}, particle_a={"kinetic_energy": 2},
+             target_bond={"exists": True}),
+        _snap(1, KernelPhase.AFTER_BOND_BREAK_PHASE, heat={"energy": 1}, particle_a={"kinetic_energy": 2},
+             target_bond={"exists": True}),
+    )
+    right = (
+        _snap(0, KernelPhase.PRE_TICK, heat={"energy": 2}, particle_a={"kinetic_energy": 2},
+             target_bond={"exists": True}),
+        _snap(1, KernelPhase.AFTER_BOND_BREAK_PHASE, heat={"energy": 0}, particle_a={"kinetic_energy": 3},
+             target_bond={"exists": False}),
+    )
+    interventions = (InterventionRecord("heat", "energy", 1, 2, 0, "SET_ONCE"),)
+    chain = compare_snapshot_sequences("L", "R", left, right, interventions)
+
+    assert chain.first_response is not None
+    assert chain.first_response.tick == 1
+    assert chain.first_response.phase == KernelPhase.AFTER_BOND_BREAK_PHASE
+    responding_roles = {c.role for c in chain.first_response.changes}
+    assert responding_roles == {"heat", "particle_a", "target_bond"}
+
+
+def test_first_response_moment_rejects_mismatched_tick_phase_changes() -> None:
+    from engine.deterministic.divergence_analysis import DivergenceEvent, FirstResponseMoment
+    e1 = DivergenceEvent(1, KernelPhase.AFTER_BOND_BREAK_PHASE, "a", "x", 1, 2, "STATE", "ENDOGENOUS_RESPONSE")
+    e2 = DivergenceEvent(2, KernelPhase.POST_TICK, "b", "y", 1, 2, "STATE", "ENDOGENOUS_RESPONSE")
+    with pytest.raises(ValueError, match="share its \\(tick, phase\\)"):
+        FirstResponseMoment(1, KernelPhase.AFTER_BOND_BREAK_PHASE, (e1, e2))

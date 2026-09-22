@@ -102,10 +102,14 @@ def test_deep_investigation_finds_first_response_after_heat_boundary(tmp_path: P
                       and (e.tick, e.phase) == (1, KernelPhase.AFTER_BOND_BREAK_PHASE))
     assert endogenous.origin == "ENDOGENOUS_RESPONSE"
 
-    # the first genuine reaction happens where the bond actually breaks
+    # the first genuine reaction happens where the bond actually breaks --
+    # and every role that reacted at that same moment is preserved together,
+    # never collapsed to a single "first" field.
     assert outcome.chain.first_response is not None
     assert outcome.chain.first_response.tick == 1
     assert outcome.chain.first_response.phase == KernelPhase.AFTER_BOND_BREAK_PHASE
+    first_response_roles = {c.role for c in outcome.chain.first_response.changes}
+    assert first_response_roles == {"heated_cell", "particle_a", "particle_b", "target_bond"}
 
     # every role that diverged got its own mechanism candidate
     candidate_roles = {c.source_role for c in outcome.mechanism_candidates.candidates}

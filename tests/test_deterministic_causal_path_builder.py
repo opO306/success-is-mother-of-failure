@@ -1,4 +1,5 @@
 import json
+import tempfile
 from pathlib import Path
 
 import pytest
@@ -37,6 +38,9 @@ from engine.deterministic import (
     verify_journal,
 )
 from engine.deterministic.causal_graph_model import CausalNode
+from engine.deterministic.causal_timeline import StateChangeEvent
+from engine.deterministic.mechanism_candidate import MechanismCandidate, MechanismCandidateSet, MechanismStep
+from engine.deterministic.mechanism_test import MechanismEvidence
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "worlds" / "deterministic_bond_cycle_v1.json"
@@ -238,3 +242,48 @@ def test_can_chain_rejects_different_middle_nodes() -> None:
     domain = ResearchDomain("D-1", ())
     rejection = can_chain(ab_target, bc_source, domain, domain)
     assert rejection is not None
+
+
+def test_build_from_evidence_uses_observed_role_not_source_role() -> None:
+    """Field-semantics contract test (per docs/README's B0.6_Causal_Timeline_Evidence_Rules.md
+    rule 10-12): a MechanismCandidate's `source_role` names where the
+    investigation started, not the role its `path` actually concerns.
+    build_from_evidence must derive which roles to build edges from by
+    reading `candidate.path[*].role` -- never by reading `source_role`.
+    This is deliberately set up so the two disagree: if a future change
+    reintroduces the `source_role` bug, this test catches it immediately.
+    """
+    # source_role is "heated_cell" -- the investigation's starting point --
+    # but this candidate's path is entirely about target_bond, a different role.
+    candidate = MechanismCandidate(
+        "MECH-IT-1-target_bond", "IT-1", "heated_cell",
+        (MechanismStep("target_bond", "exists"), MechanismStep("target_bond", "stored_energy")),
+    )
+    candidate_set = MechanismCandidateSet("IT-1", (candidate,))
+    evidence = (MechanismEvidence("MECH-IT-1-target_bond", "P-1", "SUPPORTS", "matched prediction"),)
+
+    # A synthetic two-moment timeline touching only target_bond, so the
+    # test isolates the role-selection logic from the real trace.
+    e1 = StateChangeEvent(3, 1, KernelPhase.AFTER_BOND_BREAK_PHASE, "target_bond", "exists", True, False)
+    e2 = StateChangeEvent(4, 1, KernelPhase.POST_TICK, "target_bond", "stored_energy", 4, None)
+    timeline = build_cross_role_timeline((e1, e2))
+
+    with tempfile.TemporaryDirectory() as tmp:
+        journal = ResearchJournal.create(Path(tmp) / "journal.jsonl")
+        domain = ResearchDomain("D-1", ())
+        path = build_from_evidence(journal, "PATH-1", timeline, candidate_set, evidence, domain)
+
+        # If the code mistakenly used source_role ("heated_cell") to select
+        # relevant timeline groups, no group would match (heated_cell never
+        # appears in this synthetic timeline) and path would be None.
+        assert path is not None
+        graph = rebuild_causal_graph(journal.path)
+        edge = graph["edges"][path.edge_ids[0]]
+        expected_source = CausalNode("state", "target_bond", "exists", domain.domain_id).node_id
+        expected_target = CausalNode("state", "target_bond", "stored_energy", domain.domain_id).node_id
+        heated_cell_node = CausalNode("state", "heated_cell", "energy", domain.domain_id).node_id
+        assert edge.source_node_id == expected_source
+        assert edge.target_node_id == expected_target
+        assert edge.source_node_id != heated_cell_node
+        assert edge.target_node_id != heated_cell_node
+        journal.close()
