@@ -13,7 +13,10 @@
 7. [`LOCAL_INTERACTION_PRINCIPLES_V1.md`](LOCAL_INTERACTION_PRINCIPLES_V1.md) — **국소 상호작용 원칙 4종 + 현재 커널 결함 증거.**
    1~4번 설계 문서보다 **이쪽이 최신 판정이다.** 충돌하면 이 문서가 우선한다
 8. [`MINIMAL_LOCAL_GEOMETRY_V1.md`](MINIMAL_LOCAL_GEOMETRY_V1.md) — 7번의 단계 2 설계.
-   **승인 대기 중이며 아직 구현되지 않았다** — 코드가 이 문서와 다른 것은 정상이다
+   **승인됨. 구현 진행 중** — 단계별 완료 표시는 문서 안에 있다
+9. [`WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md`](WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md) —
+   **B가 A를 만들 때 쓰는 명세 언어 사전.** 세계 JSON을 쓰거나 읽을 때 이 문서를 본다.
+   B-Language(`b_language.py`)와는 다른 언어이니 헷갈리지 말 것
 
 **커널을 건드리기 전에 7번을 먼저 읽는다.** 현재 물리가 particle_id에 의존하고 있고,
 `tests/test_known_defects_causal_kernel.py`의 테스트들은 **깨지라고 만든 것**이다.
