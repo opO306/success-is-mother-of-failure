@@ -97,6 +97,7 @@ from .causal_hypothesis import (
     ConservationPrediction,
     MaterialCountsPrediction,
     MomentumPrediction,
+    ResearchPrediction,
     StateDigestPrediction,
 )
 from .research_axis import (
@@ -657,6 +658,7 @@ __all__ = [
     "ResearchDomain",
     "ResearchJournal",
     "ResearchMemoryIndex",
+    "ResearchPrediction",
     "ResearchRun",
     "ResearchState",
     "ResearchWorldAdapter",

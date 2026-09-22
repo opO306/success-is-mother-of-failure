@@ -6,7 +6,9 @@ from engine.deterministic import (
     CausalHypothesisSet,
     ConservationPrediction,
     EvidenceReference,
+    InterventionalPrediction,
     MomentumPrediction,
+    ObservablePrediction,
     RationalWeight,
 )
 
@@ -37,6 +39,28 @@ def test_causal_hypothesis_digest_changes_with_status() -> None:
     updated = CausalHypothesis("H1", "claim", ("m=0",), (MomentumPrediction(1, (0, 0)),), _evidence(), "supported")
 
     assert base.digest != updated.digest
+
+
+# G7.0's representation repair: `predictions` is typed `ResearchPrediction`
+# (CausalPrediction | ObservablePrediction | InterventionalPrediction), not
+# just physical A's five CausalPrediction kinds -- these three tests confirm
+# a CausalHypothesis actually accepts all three domains the type promises,
+# not only the physical one construction happens to exercise elsewhere.
+
+def test_causal_hypothesis_accepts_a_physical_causal_prediction() -> None:
+    hypothesis = CausalHypothesis("H1", "claim", (), (BondCountPrediction(1, 0),), _evidence(), "untested")
+    assert hypothesis.predictions == (BondCountPrediction(1, 0),)
+
+
+def test_causal_hypothesis_accepts_a_bare_observable_prediction() -> None:
+    hypothesis = CausalHypothesis("H1", "claim", (), (ObservablePrediction(1, "x3", True),), _evidence(), "untested")
+    assert hypothesis.predictions == (ObservablePrediction(1, "x3", True),)
+
+
+def test_causal_hypothesis_accepts_an_interventional_prediction() -> None:
+    prediction = InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x3", True))
+    hypothesis = CausalHypothesis("H1", "claim", (), (prediction,), _evidence(), "untested")
+    assert hypothesis.predictions == (prediction,)
 
 
 def test_causal_hypothesis_set_rejects_duplicate_ids() -> None:

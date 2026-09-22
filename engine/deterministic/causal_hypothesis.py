@@ -18,6 +18,8 @@ from dataclasses import dataclass
 from typing import Union
 
 from .hypotheses import EvidenceReference, RationalWeight
+from .interventional_prediction import InterventionalPrediction
+from .research_observable_prediction import ObservablePrediction
 from .research_state import HYPOTHESIS_STATUSES
 
 FORMAT = "causal-hypothesis-v1"
@@ -144,6 +146,20 @@ CausalPrediction = Union[
     BondCountPrediction, MaterialCountsPrediction,
 ]
 
+# The actual domain `CausalHypothesis.predictions` accepts: physical A's five
+# CausalPrediction kinds, plus the two world-agnostic kinds this project
+# added after CausalPrediction was closed (ObservablePrediction, G6c-3;
+# InterventionalPrediction, G7.0's representation repair). CausalPrediction
+# itself is left untouched -- widening it would make every physical-A-only
+# caller matching on `Union[StateDigestPrediction, ...]` also need to handle
+# two kinds it can never actually receive. ResearchPrediction is the type a
+# hypothesis's own `predictions` field actually promises; the earlier
+# `predictions: tuple[CausalPrediction, ...]` hint was correct in practice
+# only because nothing checked it -- documenting a wider domain without
+# widening the type is exactly the "Python doesn't stop it" trap G7.0's
+# repair exists to close.
+ResearchPrediction = Union[CausalPrediction, ObservablePrediction, InterventionalPrediction]
+
 
 @dataclass(frozen=True)
 class CausalHypothesis:
@@ -155,22 +171,20 @@ class CausalHypothesis:
     domain keeps `contradicted_in_domain` rather than being deleted or marked
     globally false -- a later hypothesis may narrow or extend its domain.
 
-    `predictions`'s element type names `CausalPrediction` (physical A's five
-    kinds), but this is not runtime-enforced -- `ObservablePrediction`
-    (`research_observable_prediction.py`) and `InterventionalPrediction`
-    (`interventional_prediction.py`) are both sanctioned sixth/seventh kinds
-    a caller may hold here instead of or alongside the physical five, the
-    same kind-dispatch discipline `ObservablePrediction`'s own docstring
-    describes. `InterventionalPrediction` in particular is how a hypothesis
-    expresses "under this specific intervention, this observable will be
-    this value" -- a `CausalPrediction` alone has no control-value context,
+    `predictions` is typed `ResearchPrediction`, not `CausalPrediction` --
+    physical A's five kinds, plus `ObservablePrediction` and
+    `InterventionalPrediction`, all equally sanctioned (see
+    `ResearchPrediction`'s own comment above). `InterventionalPrediction`
+    in particular is how a hypothesis expresses "under this specific
+    intervention, this observable will be this value" -- a bare
+    `CausalPrediction`/`ObservablePrediction` has no control-value context,
     so a hypothesis whose predictions vary by intervention needs this kind
     to say which intervention each prediction holds under.
     """
     hypothesis_id: str
     statement: str
     applicability_conditions: tuple[str, ...]
-    predictions: tuple[CausalPrediction, ...]
+    predictions: tuple[ResearchPrediction, ...]
     evidence: tuple[EvidenceReference, ...]
     status: str
     parent_hypothesis_ids: tuple[str, ...] = ()
