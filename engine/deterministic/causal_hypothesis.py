@@ -154,6 +154,18 @@ class CausalHypothesis:
     been learned so far within that scope. A hypothesis contradicted in one
     domain keeps `contradicted_in_domain` rather than being deleted or marked
     globally false -- a later hypothesis may narrow or extend its domain.
+
+    `predictions`'s element type names `CausalPrediction` (physical A's five
+    kinds), but this is not runtime-enforced -- `ObservablePrediction`
+    (`research_observable_prediction.py`) and `InterventionalPrediction`
+    (`interventional_prediction.py`) are both sanctioned sixth/seventh kinds
+    a caller may hold here instead of or alongside the physical five, the
+    same kind-dispatch discipline `ObservablePrediction`'s own docstring
+    describes. `InterventionalPrediction` in particular is how a hypothesis
+    expresses "under this specific intervention, this observable will be
+    this value" -- a `CausalPrediction` alone has no control-value context,
+    so a hypothesis whose predictions vary by intervention needs this kind
+    to say which intervention each prediction holds under.
     """
     hypothesis_id: str
     statement: str

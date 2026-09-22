@@ -4,6 +4,15 @@ correct causal structure for S01/S02/S03 and pass it, and (b) reject
 representative wrong structures, including both under-models (missing a
 real effect) and over-models (claiming an effect that does not exist).
 
+Every fixture below is a real, production `CausalHypothesis` holding only
+`InterventionalPrediction` (`interventional_prediction.py`) -- the same
+prediction kind any live B research session would construct. An earlier
+draft used an evaluator-only `ConditionedPrediction` wrapper defined inside
+`ground_truth_signature.py` itself, which proved "an evaluator-only type
+can express GT-2/3/M1," not "B's own hypothesis language can" -- see
+`interventional_prediction.py`'s docstring for the representation-repair
+history.
+
 No blind session, no alias, no ExperimentDesigner, and no execution against
 a SyntheticWorldSpec appears anywhere in this file -- this Gate only asks
 whether the scoring harness itself is valid. If any of these tests fails,
@@ -13,14 +22,18 @@ language needs fixing), never INFERENCE_FAILURE -- B has not been run yet.
 from __future__ import annotations
 
 from engine.deterministic.causal_hypothesis import CausalHypothesis, CausalHypothesisSet
-from engine.deterministic.ground_truth_signature import ConditionedPrediction, ground_truth_signature_for
+from engine.deterministic.ground_truth_signature import ground_truth_signature_for
+from engine.deterministic.interventional_prediction import InterventionalPrediction
 from engine.deterministic.research_observable_prediction import ObservablePrediction
 
 
-def _hypothesis(hypothesis_id: str, conditioned: tuple[ConditionedPrediction, ...]) -> CausalHypothesis:
+def _hypothesis(hypothesis_id: str, predictions: tuple[InterventionalPrediction, ...]) -> CausalHypothesis:
+    """Builds a real, production `CausalHypothesis` -- `predictions` holds
+    only `InterventionalPrediction`, the same kind any live B research
+    session would hold, never an evaluator-only wrapper."""
     return CausalHypothesis(
         hypothesis_id=hypothesis_id, statement=f"hand-authored theory {hypothesis_id}",
-        applicability_conditions=("oracle-test",), predictions=conditioned,
+        applicability_conditions=("oracle-test",), predictions=predictions,
         evidence=(), status="untested",
     )
 
@@ -40,8 +53,8 @@ def _all_pass(hypothesis_set: CausalHypothesisSet, real_world_id: str) -> bool:
 
 def test_s01_correct_direct_theory_passes() -> None:
     correct = _hypothesis("H-direct", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x3", True)),
     ))
     assert _all_pass(_set(correct), "GT-2")
 
@@ -50,8 +63,8 @@ def test_s01_constant_theory_fails() -> None:
     """Representative wrong answer: x3 never changes regardless of x1 --
     no effect claimed at all."""
     wrong = _hypothesis("H-constant", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x3", False)),
     ))
     assert not _all_pass(_set(wrong), "GT-2")
 
@@ -62,13 +75,13 @@ def test_s01_constant_theory_fails() -> None:
 
 def _s02_correct() -> CausalHypothesis:
     return _hypothesis("H-gated", (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
         # x1 never moves x2, at either level of x2 held fixed by its own clamp.
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
     ))
 
 
@@ -80,10 +93,10 @@ def test_s02_unconditional_direct_only_theory_fails() -> None:
     """Under-model: claims x1 always determines x3, ignoring x2 entirely --
     the representative wrong answer the design doc names explicitly."""
     wrong = _hypothesis("H-always", (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", True)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
     ))
     assert not _all_pass(_set(wrong), "GT-3")
 
@@ -93,13 +106,13 @@ def test_s02_false_x1_to_x2_edge_theory_fails() -> None:
     moves x2 -- an extra edge that does not exist. Confirms the evaluator
     catches an over-model, not only an under-model."""
     wrong = _hypothesis("H-gated-plus-false-edge", (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
         # Falsely claims x1 flips x2.
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", True)),
     ))
     assert not _all_pass(_set(wrong), "GT-3")
 
@@ -111,14 +124,14 @@ def test_s02_false_x1_to_x2_edge_theory_fails() -> None:
 def _s03_correct() -> CausalHypothesis:
     return _hypothesis("H-mediator", (
         # x1 alone (x2 unclamped, tick 1) determines x2.
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
         # x2 alone (clamped, x1 fixed True) determines x3 at tick 2.
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", True)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", True)),
         # Pinning x2 at either value severs x1's effect on x3.
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", True)),
     ))
 
 
@@ -131,13 +144,13 @@ def test_s03_missing_mediator_theory_fails() -> None:
     stray depends-only-on-x1-directly reading) -- misses the mediator
     entirely."""
     wrong = _hypothesis("H-no-mediator-effect", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
         # x2 claimed to have NO effect on x3 -- both same value.
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),
     ))
     assert not _all_pass(_set(wrong), "GT-M1")
 
@@ -147,13 +160,13 @@ def test_s03_false_direct_edge_theory_fails() -> None:
     direct x1->x3 edge survives even with x2 pinned -- pinning x2 does not
     sever x1's apparent effect on x3 in this (wrong) theory."""
     wrong = _hypothesis("H-mediator-plus-false-direct-edge", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", True)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", True)),
         # Falsely claims x1 still moves x3 even with x2 pinned at False.
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", True)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", True)),
     ))
     assert not _all_pass(_set(wrong), "GT-M1")
 
@@ -173,12 +186,12 @@ def test_gt3_gate_off_obligation_is_individually_load_bearing() -> None:
     """Correct everywhere except: x3 changes with x1 even when x2=OFF --
     violates gate_off_blocks_effect only."""
     wrong = _hypothesis("H-gate-off-broken", (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", True)),   # broken
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", True)),   # broken
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", True)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
     ))
     results = ground_truth_signature_for("GT-3").evaluate(_set(wrong))
     assert results["gt3.gate_off_blocks_effect"] is False
@@ -190,12 +203,12 @@ def test_gt3_gate_on_obligation_is_individually_load_bearing() -> None:
     """Correct everywhere except: x3 does not change with x1 when x2=ON --
     violates gate_on_lets_effect_through only."""
     wrong = _hypothesis("H-gate-on-broken", (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", False)),   # broken
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(1, "x3", False)),   # broken
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", False)),
     ))
     results = ground_truth_signature_for("GT-3").evaluate(_set(wrong))
     assert results["gt3.gate_off_blocks_effect"] is True
@@ -207,8 +220,8 @@ def test_gt3_x1_never_changes_x2_obligation_is_individually_load_bearing() -> No
     """Correct everywhere except: x1 is claimed to flip x2 -- violates
     x1_never_changes_x2 only."""
     wrong = _hypothesis("H-false-x1-to-x2-only", _s02_correct().predictions[:4] + (
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", True)),   # broken
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(1, "x2", True)),   # broken
     ))
     results = ground_truth_signature_for("GT-3").evaluate(_set(wrong))
     assert results["gt3.gate_off_blocks_effect"] is True
@@ -219,8 +232,8 @@ def test_gt3_x1_never_changes_x2_obligation_is_individually_load_bearing() -> No
 def test_gt_m1_x1_alone_changes_x2_obligation_is_individually_load_bearing() -> None:
     correct = _s03_correct().predictions
     wrong = _hypothesis("H-broken-x1-to-x2", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x2", False)),   # broken: no longer differs
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x2", False)),   # broken: no longer differs
         *correct[2:],
     ))
     results = ground_truth_signature_for("GT-M1").evaluate(_set(wrong))
@@ -236,12 +249,12 @@ def test_gt_m1_x2_alone_changes_x3_obligation_is_individually_load_bearing() -> 
     obligation -- which compares across x1, not across x2 -- still holds:
     pin=False gives x3=False both ways, pin=True gives x3=False both ways."""
     wrong = _hypothesis("H-broken-x2-to-x3", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
-        ConditionedPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
-        ConditionedPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", False)),   # broken
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),   # kept consistent with the break above
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x2", False)),
+        InterventionalPrediction((("x1", True),), ObservablePrediction(1, "x2", True)),
+        InterventionalPrediction((("x1", True), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", True), ("x2", True)), ObservablePrediction(2, "x3", False)),   # broken
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),   # kept consistent with the break above
     ))
     results = ground_truth_signature_for("GT-M1").evaluate(_set(wrong))
     assert results["gtm1.x1_alone_changes_x2"] is True
@@ -257,8 +270,8 @@ def test_gt_m1_pinning_severs_effect_obligation_is_individually_load_bearing() -
     correct = _s03_correct().predictions
     wrong = _hypothesis("H-broken-pin", (
         *correct[:4],
-        ConditionedPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
-        ConditionedPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),   # broken
+        InterventionalPrediction((("x1", False), ("x2", False)), ObservablePrediction(2, "x3", False)),
+        InterventionalPrediction((("x1", False), ("x2", True)), ObservablePrediction(2, "x3", False)),   # broken
     ))
     results = ground_truth_signature_for("GT-M1").evaluate(_set(wrong))
     assert results["gtm1.x1_alone_changes_x2"] is True
@@ -275,7 +288,7 @@ def test_gt_m1_pinning_severs_effect_obligation_is_individually_load_bearing() -
 
 def test_missing_coverage_never_defaults_to_pass() -> None:
     sparse = _hypothesis("H-incomplete", (
-        ConditionedPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
+        InterventionalPrediction((("x1", False),), ObservablePrediction(1, "x3", False)),
     ))
     assert not _all_pass(_set(sparse), "GT-2")
 

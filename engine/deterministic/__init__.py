@@ -64,12 +64,12 @@ from .research_adapter import (
     WorldObservation,
 )
 from .research_observable_prediction import ObservablePrediction
+from .interventional_prediction import InterventionalPrediction
 from .ground_truth_signature import (
-    ConditionedPrediction,
     GroundTruthSignature,
     StructuralObligation,
-    conditioned_predictions,
     ground_truth_signature_for,
+    interventional_predictions,
 )
 from .research_world import (
     InvalidControlValueError,
@@ -571,7 +571,6 @@ __all__ = [
     "CausalNode",
     "CausalPath",
     "CausalPrediction",
-    "ConditionedPrediction",
     "ConservationPrediction",
     "ContradictionRecord",
     "ControlBinding",
@@ -621,6 +620,7 @@ __all__ = [
     "HeatCellTraceSubject",
     "InterventionDefinition",
     "InterventionFeasibility",
+    "InterventionalPrediction",
     "HYPOTHESIS_STATUSES",
     "HypothesisAssessment",
     "HypothesisDomainLink",
@@ -805,7 +805,6 @@ __all__ = [
     "compare_results_with_adapter",
     "compare_snapshot_sequences",
     "compute_coverage",
-    "conditioned_predictions",
     "derive_effective_status",
     "derive_evidence_status",
     "derive_hypothesis_assessment",
@@ -827,6 +826,7 @@ __all__ = [
     "FunctionalPredictionProvider",
     "generate_candidates",
     "ground_truth_signature_for",
+    "interventional_predictions",
     "investigate",
     "investigate_missing_link",
     "is_eligible_missing_link",
