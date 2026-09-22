@@ -37,7 +37,7 @@ CTRL_X2 = SyntheticControlDefinition("CTRL-X2", "axis.synthetic.x2", "x2")
 
 def _s01_spec() -> SyntheticWorldSpec:
     return SyntheticWorldSpec(
-        world_id="WORLD-S01", rule_id="RULE-S01", variables=("x1", "x3"),
+        world_id="WORLD-S01", world_revision="R-7F93C2", variables=("x1", "x3"),
         initial_values=(("x1", False), ("x3", False)), clamps=(),
         public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
     )
@@ -45,7 +45,7 @@ def _s01_spec() -> SyntheticWorldSpec:
 
 def _s02_spec() -> SyntheticWorldSpec:
     return SyntheticWorldSpec(
-        world_id="WORLD-S02", rule_id="RULE-S02", variables=("x1", "x2", "x3"),
+        world_id="WORLD-S02", world_revision="R-A18D40", variables=("x1", "x2", "x3"),
         initial_values=(("x1", False), ("x2", False), ("x3", False)), clamps=(),
         public_controls=("x1", "x2"), public_observables=("x1", "x2", "x3"), ticks=1,
     )
@@ -95,6 +95,18 @@ def test_apply_control_rejects_a_bool_value_even_though_bool_equals_int() -> Non
     adapter = SyntheticResearchAdapter()
     with pytest.raises(InvalidControlValueError):
         adapter.apply_control(_s01_spec(), CTRL_X1, True)
+
+
+def test_apply_control_rejects_a_control_targeting_a_non_public_variable() -> None:
+    """G6c-3.1.D: CTRL_X2 targets x2, which _s01_spec never declares a
+    public control -- this is a wiring mistake (the caller built a control
+    for the wrong world), not an illegal value a candidate tried, so it
+    must raise WorldCompatibilityError rather than eventually surfacing as
+    a bare ValueError from SyntheticWorldSpec.__post_init__ that
+    broad_explorer would swallow as a CandidateCompilationFailure."""
+    adapter = SyntheticResearchAdapter()
+    with pytest.raises(WorldCompatibilityError, match="x2"):
+        adapter.apply_control(_s01_spec(), CTRL_X2, 1)
 
 
 def test_initial_observation_reflects_clamps() -> None:
@@ -244,13 +256,21 @@ def test_synthetic_adapter_does_not_import_ground_truth() -> None:
 
 def test_no_answer_revealing_names_in_b_facing_synthetic_world_data() -> None:
     """B never sees engine source code or docstrings -- it sees a spec's
-    canonical() form (world_id, rule_id, variable names, control ids) and
-    whatever a control definition's own fields say. None of that B-facing
-    *data* may spell out what a variable or world is for: direct/conditional/
-    mediator, or names like source_active/mediator_active/gate_enabled that
-    ground_truth/'s own modules use for the same roles. (Source comments
-    explaining this rule, like this docstring, are not B-facing data and are
-    exempt -- that's why this checks canonical()/field values, not file text.)
+    canonical() form (world_id, world_revision, variable names, control ids)
+    and whatever a control definition's own fields say. None of that
+    B-facing *data* may spell out what a variable or world is for:
+    direct/conditional/mediator, or names like source_active/mediator_active/
+    gate_enabled that ground_truth/'s own modules use for the same roles.
+    (Source comments explaining this rule, like this docstring, are not
+    B-facing data and are exempt -- that's why this checks canonical()/field
+    values, not file text.)
+
+    world_revision itself is exactly the field G6c-3.1 replaced rule_id
+    with, specifically so no selector-shaped B-facing string would exist at
+    all -- this check would have caught rule_id="RULE-S01" too, since
+    "mediator" is not literally in it, but a hidden-rule *selector* sitting
+    in B's own research subject was the deeper problem world_revision's
+    opacity (a token with no interpretable structure) fixes.
     """
     forbidden = ("direct", "conditional", "mediator", "source_active", "mediator_active",
                 "gate_enabled", "conditional_source")
@@ -258,10 +278,10 @@ def test_no_answer_revealing_names_in_b_facing_synthetic_world_data() -> None:
     b_facing_strings = [
         *_s01_spec().canonical().get("variables", []),
         _s01_spec().canonical()["world_id"],
-        _s01_spec().canonical()["rule_id"],
+        _s01_spec().canonical()["world_revision"],
         *_s02_spec().canonical().get("variables", []),
         _s02_spec().canonical()["world_id"],
-        _s02_spec().canonical()["rule_id"],
+        _s02_spec().canonical()["world_revision"],
         CTRL_X1.control_id, CTRL_X1.research_axis, CTRL_X1.variable_id,
         CTRL_X2.control_id, CTRL_X2.research_axis, CTRL_X2.variable_id,
     ]

@@ -1,4 +1,4 @@
-"""G6c-2: the hidden, opaque one-tick rules that actually govern a synthetic world.
+"""G6c-2/G6c-3.1: the hidden, opaque one-tick rules that actually govern a synthetic world.
 
 Each rule function is a private, from-scratch implementation -- it does not
 import or call anything from `ground_truth/`. Any resemblance between a rule
@@ -9,30 +9,42 @@ Python code itself is written twice, independently, so that a bug in one
 cannot silently also be a bug in the other (see `synthetic_spec.py`'s
 docstring and CURRENT_STATE.md's "hidden mediator" circularity).
 
-Rule ids (`RULE-S01`/`RULE-S02`/`RULE-S03`) and variable names (`x1`/`x2`/`x3`)
-are deliberately anonymous. A `SyntheticWorldSpec`'s `rule_id` selects which
-function below governs it; nothing about the id or a variable's name
-implies what the rule actually does.
+`RULE_S01`/`RULE_S02`/`RULE_S03` are exported so `synthetic_runtime.py` can
+bind them to a `(world_id, world_revision)` pair -- this module has no
+opinion on which world a rule belongs to, or which rule a spec should run;
+see `synthetic_runtime.py` for that binding, and `synthetic_executor.py`
+for the only caller allowed to resolve it. Variable names (`x1`/`x2`/`x3`)
+are deliberately anonymous.
+
+`run_synthetic_world` takes the rule function directly (not a spec-embedded
+id) and returns a `SyntheticRun` whose checkpoints hold only
+`public_observables` -- a private variable a rule computes internally (say,
+an intermediate `x2` a world does not declare observable) never reaches the
+run B's adapter reads, closing the gap where `public_observables` used to
+gate only `initial_observation`'s tick-0 payload while every later tick's
+full internal state was reachable through any `ObservablePrediction` naming
+it by string.
 """
 from __future__ import annotations
 
 from typing import Callable, Mapping
 
-from .research_world import WorldCompatibilityError
 from .synthetic_spec import SyntheticCheckpoint, SyntheticRun, SyntheticWorldSpec
 
+SyntheticRule = Callable[[Mapping[str, bool]], Mapping[str, bool]]
 
-def _rule_s01(values: Mapping[str, bool]) -> Mapping[str, bool]:
+
+def RULE_S01(values: Mapping[str, bool]) -> Mapping[str, bool]:
     """x3 copies x1. No third variable is read or written."""
     return {"x1": values["x1"], "x3": values["x1"]}
 
 
-def _rule_s02(values: Mapping[str, bool]) -> Mapping[str, bool]:
+def RULE_S02(values: Mapping[str, bool]) -> Mapping[str, bool]:
     """x3 is x1 AND x2."""
     return {"x1": values["x1"], "x2": values["x2"], "x3": values["x1"] and values["x2"]}
 
 
-def _rule_s03(values: Mapping[str, bool]) -> Mapping[str, bool]:
+def RULE_S03(values: Mapping[str, bool]) -> Mapping[str, bool]:
     """Ordinary evolution: x2 follows x1, x3 follows x2.
 
     Clamping is handled by `run_synthetic_world`, outside this function --
@@ -42,13 +54,6 @@ def _rule_s03(values: Mapping[str, bool]) -> Mapping[str, bool]:
     function would have produced unclamped.
     """
     return {"x1": values["x1"], "x2": values["x1"], "x3": values["x2"]}
-
-
-_RULES: Mapping[str, Callable[[Mapping[str, bool]], Mapping[str, bool]]] = {
-    "RULE-S01": _rule_s01,
-    "RULE-S02": _rule_s02,
-    "RULE-S03": _rule_s03,
-}
 
 
 def _apply_clamps(spec: SyntheticWorldSpec, values: Mapping[str, bool]) -> dict[str, bool]:
@@ -62,28 +67,37 @@ def _apply_clamps(spec: SyntheticWorldSpec, values: Mapping[str, bool]) -> dict[
     return result
 
 
-def _checkpoint(tick: int, values: Mapping[str, bool]) -> SyntheticCheckpoint:
-    return SyntheticCheckpoint(tick, tuple(sorted(values.items())))
+def _public_checkpoint(spec: SyntheticWorldSpec, tick: int, values: Mapping[str, bool]) -> SyntheticCheckpoint:
+    """Only `public_observables` survive into a checkpoint B can ever read.
+
+    A variable a rule computes but the spec does not declare observable
+    (an internal-only intermediate, say) is discarded here -- not merely
+    absent from `initial_observation`'s tick-0 payload the way an earlier
+    draft left it, but genuinely unrecoverable from any later tick's
+    checkpoint either, closing the "read a private variable by naming it in
+    an ObservablePrediction" gap.
+    """
+    return SyntheticCheckpoint(tick, tuple(sorted((k, v) for k, v in values.items()
+                                                  if k in spec.public_observables)))
 
 
-def run_synthetic_world(spec: SyntheticWorldSpec) -> SyntheticRun:
+def run_synthetic_world(spec: SyntheticWorldSpec, rule: SyntheticRule) -> SyntheticRun:
     """The plain A-loop for a synthetic world: apply clamps, record tick 0,
     then step the hidden rule and reapply clamps once per remaining tick.
+
+    `rule` is resolved by the caller (`synthetic_executor.py`, via
+    `synthetic_runtime.resolve_rule`) -- this function has no registry of
+    its own and does not know or care which world a rule "belongs to".
 
     Clamps apply every tick, not just the initial one -- a `SyntheticClamp`
     is a standing intervention for the whole run (`synthetic_spec.py`'s
     docstring), the same way `PortBond`/heat interventions in the physical
     A0 world persist across ticks rather than being consumed once.
     """
-    try:
-        rule = _RULES[spec.rule_id]
-    except KeyError:
-        raise WorldCompatibilityError(f"no synthetic rule registered for rule_id {spec.rule_id!r}") from None
-
     values = _apply_clamps(spec, dict(spec.initial_values))
-    checkpoints = [_checkpoint(0, values)]
+    checkpoints = [_public_checkpoint(spec, 0, values)]
     for tick in range(1, spec.ticks + 1):
         values = _apply_clamps(spec, dict(rule(values)))
-        checkpoints.append(_checkpoint(tick, values))
+        checkpoints.append(_public_checkpoint(spec, tick, values))
 
     return SyntheticRun(spec.world_id, spec.digest, tuple(checkpoints))

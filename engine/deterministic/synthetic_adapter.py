@@ -80,6 +80,19 @@ class SyntheticResearchAdapter:
         if not isinstance(control, SyntheticControlDefinition):
             raise WorldCompatibilityError(
                 f"SyntheticResearchAdapter requires a SyntheticControlDefinition, got {type(control).__name__}")
+        if control.variable_id not in synthetic_spec.public_controls:
+            # A control naming a variable this spec never declared
+            # controllable is a wiring mistake (the caller built a
+            # SyntheticControlDefinition for the wrong world, or the wrong
+            # variable within it), not an illegal value a candidate tried --
+            # without this check, SyntheticWorldSpec.__post_init__ would
+            # reject the resulting clamp with a bare ValueError, which
+            # broad_explorer.run_research_exploration would then swallow as
+            # a CandidateCompilationFailure (research data about a candidate
+            # that was never legally formed to begin with).
+            raise WorldCompatibilityError(
+                f"control {control.control_id!r} targets variable {control.variable_id!r}, "
+                f"which is not a public control of {synthetic_spec.world_id!r}")
         if isinstance(value, bool) or value not in _CONTROL_VALUE_TO_MODE:
             raise InvalidControlValueError(
                 f"control {control.control_id!r} only accepts 0/1/None, got {value!r}")

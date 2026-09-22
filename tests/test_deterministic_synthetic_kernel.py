@@ -1,4 +1,6 @@
-"""G6c-2: the hidden rules' actual behavior, and SyntheticAExecutor's
+"""G6c-2/G6c-3.1: the hidden rules' actual behavior, the private
+world_id/world_revision -> rule binding (synthetic_runtime.py), the
+public_observables checkpoint boundary, and SyntheticAExecutor's
 compatibility contract (same shape as RealCausalAExecutor's, G6a.1).
 """
 from __future__ import annotations
@@ -6,60 +8,82 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
+import pytest
+
 from engine.deterministic.causal_executor import ExecutionResult
 from engine.deterministic.research_world import WorldCompatibilityError
 from engine.deterministic.synthetic_executor import SyntheticAExecutor
-from engine.deterministic.synthetic_kernel import run_synthetic_world
+from engine.deterministic.synthetic_kernel import RULE_S01, RULE_S02, RULE_S03, run_synthetic_world
+from engine.deterministic.synthetic_runtime import resolve_rule
 from engine.deterministic.synthetic_spec import SyntheticClamp, SyntheticWorldSpec
-
-import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _spec(rule_id: str, variables: tuple[str, ...], initial: dict[str, bool],
+def _spec(world_id: str, world_revision: str, variables: tuple[str, ...], initial: dict[str, bool],
          controls: tuple[str, ...], observables: tuple[str, ...], ticks: int,
          clamps: tuple[SyntheticClamp, ...] = ()) -> SyntheticWorldSpec:
     return SyntheticWorldSpec(
-        world_id=f"WORLD-{rule_id}", rule_id=rule_id, variables=variables,
+        world_id=world_id, world_revision=world_revision, variables=variables,
         initial_values=tuple(sorted(initial.items())), clamps=clamps,
         public_controls=controls, public_observables=observables, ticks=ticks,
     )
 
 
+def _s01(**overrides) -> SyntheticWorldSpec:
+    defaults = dict(world_id="WORLD-S01", world_revision="R-7F93C2", variables=("x1", "x3"),
+                    initial={"x1": False, "x3": False}, controls=("x1",), observables=("x1", "x3"), ticks=1)
+    defaults.update(overrides)
+    return _spec(**defaults)
+
+
+def _s02(**overrides) -> SyntheticWorldSpec:
+    defaults = dict(world_id="WORLD-S02", world_revision="R-A18D40", variables=("x1", "x2", "x3"),
+                    initial={"x1": False, "x2": False, "x3": False},
+                    controls=("x1", "x2"), observables=("x1", "x2", "x3"), ticks=1)
+    defaults.update(overrides)
+    return _spec(**defaults)
+
+
+def _s03(**overrides) -> SyntheticWorldSpec:
+    defaults = dict(world_id="WORLD-S03", world_revision="R-51E8B7", variables=("x1", "x2", "x3"),
+                    initial={"x1": False, "x2": False, "x3": False},
+                    controls=("x1", "x2"), observables=("x1", "x2", "x3"), ticks=2)
+    defaults.update(overrides)
+    return _spec(**defaults)
+
+
 # ---------------------------------------------------------------------------
-# RULE-S01: x3 := x1 (exhaustive over the 2 cases)
+# RULE_S01: x3 := x1 (exhaustive over the 2 cases)
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize("x1", [False, True])
 def test_rule_s01_truth_table(x1: bool) -> None:
-    spec = _spec("RULE-S01", ("x1", "x3"), {"x1": x1, "x3": False}, ("x1",), ("x1", "x3"), 1)
-    run = run_synthetic_world(spec)
+    spec = _s01(initial={"x1": x1, "x3": False})
+    run = run_synthetic_world(spec, RULE_S01)
     assert run.checkpoint_at(1).value_of("x3") is x1
 
 
 # ---------------------------------------------------------------------------
-# RULE-S02: x3 := x1 AND x2 (exhaustive over the 4 cases)
+# RULE_S02: x3 := x1 AND x2 (exhaustive over the 4 cases)
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize("x1,x2,expected", [
     (False, False, False), (True, False, False), (False, True, False), (True, True, True),
 ])
 def test_rule_s02_truth_table(x1: bool, x2: bool, expected: bool) -> None:
-    spec = _spec("RULE-S02", ("x1", "x2", "x3"), {"x1": x1, "x2": x2, "x3": False},
-                 ("x1", "x2"), ("x1", "x2", "x3"), 1)
-    run = run_synthetic_world(spec)
+    spec = _s02(initial={"x1": x1, "x2": x2, "x3": False})
+    run = run_synthetic_world(spec, RULE_S02)
     assert run.checkpoint_at(1).value_of("x3") is expected
 
 
 # ---------------------------------------------------------------------------
-# RULE-S03: ordinary x2 := x1, x3 := x2; and clamp-based intervention on x2.
+# RULE_S03: ordinary x2 := x1, x3 := x2; and clamp-based intervention on x2.
 # ---------------------------------------------------------------------------
 
 def test_rule_s03_signal_propagates_over_two_ticks_when_unclamped() -> None:
-    spec = _spec("RULE-S03", ("x1", "x2", "x3"), {"x1": True, "x2": False, "x3": False},
-                 ("x1", "x2"), ("x1", "x2", "x3"), 2)
-    run = run_synthetic_world(spec)
+    spec = _s03(initial={"x1": True, "x2": False, "x3": False})
+    run = run_synthetic_world(spec, RULE_S03)
     assert run.checkpoint_at(0).value_of("x2") is False
     assert run.checkpoint_at(1).value_of("x2") is True   # x2 caught up to x1
     assert run.checkpoint_at(1).value_of("x3") is False  # x3 has not caught up yet
@@ -69,12 +93,10 @@ def test_rule_s03_signal_propagates_over_two_ticks_when_unclamped() -> None:
 def test_rule_s03_clamping_x2_off_blocks_x1_effect_on_x3() -> None:
     """The mediator-defining check: pin x2, vary x1, x3 must not move."""
     clamp = (SyntheticClamp("x2", "OFF"),)
-    spec_x1_false = _spec("RULE-S03", ("x1", "x2", "x3"), {"x1": False, "x2": False, "x3": False},
-                          ("x1", "x2"), ("x1", "x2", "x3"), 2, clamp)
-    spec_x1_true = _spec("RULE-S03", ("x1", "x2", "x3"), {"x1": True, "x2": False, "x3": False},
-                         ("x1", "x2"), ("x1", "x2", "x3"), 2, clamp)
-    run_false = run_synthetic_world(spec_x1_false)
-    run_true = run_synthetic_world(spec_x1_true)
+    spec_x1_false = _s03(initial={"x1": False, "x2": False, "x3": False}, clamps=clamp)
+    spec_x1_true = _s03(initial={"x1": True, "x2": False, "x3": False}, clamps=clamp)
+    run_false = run_synthetic_world(spec_x1_false, RULE_S03)
+    run_true = run_synthetic_world(spec_x1_true, RULE_S03)
     assert run_false.checkpoint_at(2).value_of("x3") == run_true.checkpoint_at(2).value_of("x3") is False
 
 
@@ -82,9 +104,8 @@ def test_rule_s03_clamping_x2_on_drives_x3_independent_of_x1() -> None:
     """The other half: forcing x2 on, with x1 off, still drives x3 -- proving
     x2 (not x1) is what x3 actually tracks."""
     clamp = (SyntheticClamp("x2", "ON"),)
-    spec = _spec("RULE-S03", ("x1", "x2", "x3"), {"x1": False, "x2": False, "x3": False},
-                ("x1", "x2"), ("x1", "x2", "x3"), 2, clamp)
-    run = run_synthetic_world(spec)
+    spec = _s03(initial={"x1": False, "x2": False, "x3": False}, clamps=clamp)
+    run = run_synthetic_world(spec, RULE_S03)
     assert run.checkpoint_at(2).value_of("x3") is True
 
 
@@ -94,11 +115,57 @@ def test_rule_s03_clamp_is_reapplied_every_tick_not_just_the_first() -> None:
     identical to the unclamped case, and the mediator check above would be
     meaningless. Confirms the clamp actually persists."""
     clamp = (SyntheticClamp("x2", "OFF"),)
-    spec = _spec("RULE-S03", ("x1", "x2", "x3"), {"x1": True, "x2": False, "x3": False},
-                ("x1", "x2"), ("x1", "x2", "x3"), 3, clamp)
-    run = run_synthetic_world(spec)
+    spec = _s03(initial={"x1": True, "x2": False, "x3": False}, ticks=3, clamps=clamp)
+    run = run_synthetic_world(spec, RULE_S03)
     for tick in range(4):
         assert run.checkpoint_at(tick).value_of("x2") is False
+
+
+# ---------------------------------------------------------------------------
+# G6c-3.1.A: public_observables boundary survives execution, not just tick 0.
+# ---------------------------------------------------------------------------
+
+def test_checkpoints_never_carry_a_non_public_variable() -> None:
+    """x2 is a real variable RULE_S03 computes every tick, but this spec
+    never declares it a public observable -- no checkpoint may expose it,
+    even though initial_observation would already have hidden it at tick 0.
+    This is the exact gap G6c-3 left open: a private variable was reachable
+    at any later tick just by naming it in an ObservablePrediction."""
+    spec = _s03(observables=("x1", "x3"))  # x2 deliberately NOT public
+    run = run_synthetic_world(spec, RULE_S03)
+    for checkpoint in run.checkpoints:
+        assert checkpoint.value_of("x2") is None
+        assert set(name for name, _ in checkpoint.values) <= {"x1", "x3"}
+
+
+def test_checkpoints_carry_every_public_observable() -> None:
+    spec = _s03(observables=("x1", "x2", "x3"))
+    run = run_synthetic_world(spec, RULE_S03)
+    for checkpoint in run.checkpoints:
+        assert set(name for name, _ in checkpoint.values) == {"x1", "x2", "x3"}
+
+
+# ---------------------------------------------------------------------------
+# G6c-3.1.B/C: synthetic_runtime.py -- the private world_id/world_revision -> rule binding.
+# ---------------------------------------------------------------------------
+
+def test_resolve_rule_finds_each_bound_world() -> None:
+    assert resolve_rule("WORLD-S01", "R-7F93C2") is RULE_S01
+    assert resolve_rule("WORLD-S02", "R-A18D40") is RULE_S02
+    assert resolve_rule("WORLD-S03", "R-51E8B7") is RULE_S03
+
+
+def test_resolve_rule_rejects_an_unbound_world_id() -> None:
+    with pytest.raises(WorldCompatibilityError, match="WORLD-DOES-NOT-EXIST"):
+        resolve_rule("WORLD-DOES-NOT-EXIST", "R-7F93C2")
+
+
+def test_resolve_rule_rejects_a_known_world_with_the_wrong_revision() -> None:
+    """A revision mismatch must fail exactly like an unknown world_id --
+    the reproducibility guarantee this field exists for (synthetic_spec.py's
+    docstring) is meaningless if a stale/wrong revision is accepted anyway."""
+    with pytest.raises(WorldCompatibilityError, match="WORLD-S01"):
+        resolve_rule("WORLD-S01", "R-WRONG-REVISION")
 
 
 # ---------------------------------------------------------------------------
@@ -121,21 +188,21 @@ def test_executor_rejects_a_non_synthetic_spec() -> None:
 
 
 def test_executor_succeeds_for_a_legal_spec() -> None:
-    spec = _spec("RULE-S01", ("x1", "x3"), {"x1": True, "x3": False}, ("x1",), ("x1", "x3"), 1)
+    spec = _s01(initial={"x1": True, "x3": False})
     result = SyntheticAExecutor().execute(spec)
     assert isinstance(result, ExecutionResult)
     assert result.status == "success"
     assert result.run.checkpoint_at(1).value_of("x3") is True
 
 
-def test_executor_reports_an_unknown_rule_id_as_a_failed_execution_not_a_crash() -> None:
-    """An unrecognized rule_id inside an otherwise-legal spec is A failing
-    internally, not a spec/executor mismatch -- must become
-    ExecutionResult(status="failed"), never raise."""
-    spec = _spec("RULE-DOES-NOT-EXIST", ("x1",), {"x1": False}, ("x1",), ("x1",), 1)
-    result = SyntheticAExecutor().execute(spec)
-    assert result.status == "failed"
-    assert result.error_kind == "WorldCompatibilityError"
+def test_executor_raises_world_compatibility_error_for_an_unbound_world_not_a_failed_result() -> None:
+    """G6c-3.1.C: an unbound (world_id, world_revision) is a configuration
+    mistake -- resolve_rule is called before SyntheticAExecutor's own
+    try/except, so this must raise directly, never come back as
+    ExecutionResult(status="failed")."""
+    spec = _s01(world_id="WORLD-NEVER-BOUND", world_revision="R-NOPE")
+    with pytest.raises(WorldCompatibilityError):
+        SyntheticAExecutor().execute(spec)
 
 
 # ---------------------------------------------------------------------------
@@ -153,7 +220,7 @@ def _imported_module_names(source: str) -> set[str]:
     return names
 
 
-@pytest.mark.parametrize("filename", ["synthetic_kernel.py", "synthetic_executor.py"])
+@pytest.mark.parametrize("filename", ["synthetic_kernel.py", "synthetic_executor.py", "synthetic_runtime.py"])
 def test_synthetic_module_does_not_import_ground_truth(filename: str) -> None:
     path = ROOT / "engine" / "deterministic" / filename
     imported = _imported_module_names(path.read_text(encoding="utf-8"))

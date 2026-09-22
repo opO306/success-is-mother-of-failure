@@ -73,13 +73,19 @@ class SyntheticWorldSpec:
     """An A-compatible world: named boolean variables, an initial value for
     each, optional clamps, and which variables/ticks B may control/observe.
 
-    `rule_id` selects which hidden one-tick rule (`synthetic_kernel.py`'s
-    private registry) actually governs this world -- never exposed to B in
-    any generic observation, only used internally by
-    `SyntheticAExecutor`/`SyntheticResearchAdapter` to run/interpret the spec.
+    `world_revision` is an opaque identifier with no meaning to B -- it
+    exists so a `(world_id, world_revision)` pair uniquely pins which
+    hidden rule actually governs this world (see `synthetic_runtime.py`),
+    without the spec itself naming or hinting at that rule the way an
+    earlier draft's `rule_id` field did (`RULE-S01` etc.). If the hidden
+    rule bound to a world ever changes, its `world_revision` must change
+    too, so `digest` cannot claim two different rules are "the same
+    world" -- exactly the reproducibility guarantee this field exists to
+    protect. Never spell out what a revision represents (no `REV-DIRECT`);
+    a short opaque token (`R-7F93C2`) is the right shape.
     """
     world_id: str
-    rule_id: str
+    world_revision: str
     variables: tuple[str, ...]
     initial_values: tuple[tuple[str, bool], ...]
     clamps: tuple[SyntheticClamp, ...]
@@ -90,7 +96,7 @@ class SyntheticWorldSpec:
 
     def __post_init__(self) -> None:
         _text(self.world_id, "world_id")
-        _text(self.rule_id, "rule_id")
+        _text(self.world_revision, "world_revision")
         if not self.variables:
             raise ValueError("variables must be non-empty")
         if len(set(self.variables)) != len(self.variables):
@@ -135,10 +141,10 @@ class SyntheticWorldSpec:
             "initial_values": [[name, value] for name, value in sorted(self.initial_values)],
             "public_controls": sorted(self.public_controls),
             "public_observables": sorted(self.public_observables),
-            "rule_id": self.rule_id,
             "ticks": self.ticks,
             "variables": sorted(self.variables),
             "world_id": self.world_id,
+            "world_revision": self.world_revision,
         }
 
     def clamp_for(self, variable_id: str) -> str:
@@ -151,7 +157,7 @@ class SyntheticWorldSpec:
     def from_mapping(cls, raw: Mapping[str, Any]) -> "SyntheticWorldSpec":
         if not isinstance(raw, Mapping):
             raise ValueError("synthetic world spec must be an object")
-        allowed_keys = {"format", "world_id", "rule_id", "variables", "initial_values",
+        allowed_keys = {"format", "world_id", "world_revision", "variables", "initial_values",
                         "clamps", "public_controls", "public_observables", "ticks"}
         unknown = set(raw) - allowed_keys
         if unknown:
@@ -192,7 +198,7 @@ class SyntheticWorldSpec:
             ticks = execution
 
         return cls(
-            world_id=str(raw.get("world_id")), rule_id=str(raw.get("rule_id")),
+            world_id=str(raw.get("world_id")), world_revision=str(raw.get("world_revision")),
             variables=tuple(variables), initial_values=initial_values, clamps=clamps,
             public_controls=tuple(controls), public_observables=tuple(observables),
             ticks=ticks, format=str(raw.get("format", FORMAT)),

@@ -19,9 +19,9 @@ from engine.deterministic.synthetic_spec import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _minimal_spec(world_id: str = "WORLD-S01", rule_id: str = "RULE-S01") -> SyntheticWorldSpec:
+def _minimal_spec(world_id: str = "WORLD-S01", world_revision: str = "R-7F93C2") -> SyntheticWorldSpec:
     return SyntheticWorldSpec(
-        world_id=world_id, rule_id=rule_id, variables=("x1", "x3"),
+        world_id=world_id, world_revision=world_revision, variables=("x1", "x3"),
         initial_values=(("x1", False), ("x3", False)), clamps=(),
         public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
     )
@@ -37,22 +37,40 @@ def test_minimal_spec_round_trips_through_canonical_and_from_mapping() -> None:
 def test_digest_changes_when_a_clamp_changes() -> None:
     free_spec = _minimal_spec()
     clamped_spec = SyntheticWorldSpec(
-        world_id="WORLD-S01", rule_id="RULE-S01", variables=("x1", "x3"),
+        world_id="WORLD-S01", world_revision="R-7F93C2", variables=("x1", "x3"),
         initial_values=(("x1", False), ("x3", False)), clamps=(SyntheticClamp("x1", "ON"),),
         public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
     )
     assert free_spec.digest != clamped_spec.digest
 
 
+def test_digest_changes_when_world_revision_changes() -> None:
+    """The reproducibility guarantee world_revision exists for: if the
+    hidden rule bound to a world ever changes, its revision must change
+    too, so a stale digest can never claim "same world" over a changed
+    rule (see synthetic_runtime.py)."""
+    a = SyntheticWorldSpec(
+        world_id="WORLD-S01", world_revision="R-7F93C2", variables=("x1", "x3"),
+        initial_values=(("x1", False), ("x3", False)), clamps=(),
+        public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
+    )
+    b = SyntheticWorldSpec(
+        world_id="WORLD-S01", world_revision="R-DIFFERENT", variables=("x1", "x3"),
+        initial_values=(("x1", False), ("x3", False)), clamps=(),
+        public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
+    )
+    assert a.digest != b.digest
+
+
 def test_digest_is_stable_regardless_of_construction_order() -> None:
     a = SyntheticWorldSpec(
-        world_id="WORLD-S02", rule_id="RULE-S02", variables=("x1", "x2", "x3"),
+        world_id="WORLD-S02", world_revision="R-A18D40", variables=("x1", "x2", "x3"),
         initial_values=(("x1", False), ("x2", True), ("x3", False)),
         clamps=(SyntheticClamp("x2", "ON"), SyntheticClamp("x1", "OFF")),
         public_controls=("x1", "x2"), public_observables=("x1", "x2", "x3"), ticks=1,
     )
     b = SyntheticWorldSpec(
-        world_id="WORLD-S02", rule_id="RULE-S02", variables=("x3", "x2", "x1"),
+        world_id="WORLD-S02", world_revision="R-A18D40", variables=("x3", "x2", "x1"),
         initial_values=(("x3", False), ("x1", False), ("x2", True)),
         clamps=(SyntheticClamp("x1", "OFF"), SyntheticClamp("x2", "ON")),
         public_controls=("x2", "x1"), public_observables=("x3", "x1", "x2"), ticks=1,
@@ -67,7 +85,7 @@ def test_clamp_for_returns_free_when_unclamped() -> None:
 
 def test_clamp_for_returns_the_declared_mode() -> None:
     spec = SyntheticWorldSpec(
-        world_id="WORLD-S01", rule_id="RULE-S01", variables=("x1", "x3"),
+        world_id="WORLD-S01", world_revision="R-7F93C2", variables=("x1", "x3"),
         initial_values=(("x1", False), ("x3", False)), clamps=(SyntheticClamp("x1", "ON"),),
         public_controls=("x1",), public_observables=("x1", "x3"), ticks=1,
     )
@@ -77,7 +95,7 @@ def test_clamp_for_returns_the_declared_mode() -> None:
 def test_rejects_initial_values_missing_a_declared_variable() -> None:
     with pytest.raises(ValueError, match="initial_values"):
         SyntheticWorldSpec(
-            world_id="W", rule_id="R", variables=("x1", "x2"),
+            world_id="W", world_revision="R-1", variables=("x1", "x2"),
             initial_values=(("x1", False),), clamps=(),
             public_controls=("x1",), public_observables=("x1",), ticks=1,
         )
@@ -86,7 +104,7 @@ def test_rejects_initial_values_missing_a_declared_variable() -> None:
 def test_rejects_a_clamp_on_a_non_public_control() -> None:
     with pytest.raises(ValueError, match="public control"):
         SyntheticWorldSpec(
-            world_id="W", rule_id="R", variables=("x1", "x2"),
+            world_id="W", world_revision="R-1", variables=("x1", "x2"),
             initial_values=(("x1", False), ("x2", False)), clamps=(SyntheticClamp("x2", "ON"),),
             public_controls=("x1",), public_observables=("x1", "x2"), ticks=1,
         )
@@ -95,7 +113,7 @@ def test_rejects_a_clamp_on_a_non_public_control() -> None:
 def test_rejects_a_public_observable_not_in_variables() -> None:
     with pytest.raises(ValueError, match="public_observables"):
         SyntheticWorldSpec(
-            world_id="W", rule_id="R", variables=("x1",),
+            world_id="W", world_revision="R-1", variables=("x1",),
             initial_values=(("x1", False),), clamps=(),
             public_controls=("x1",), public_observables=("x1", "x99"), ticks=1,
         )
