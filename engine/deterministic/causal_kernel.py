@@ -9,6 +9,8 @@ from typing import Mapping
 
 from .causal_spec import (
     FORMAT_V2,
+    FORMAT_V3,
+    OPPOSITE_PORT,
     BondRuleSpec,
     CausalParticleSpec,
     CausalWorldSpec,
@@ -24,8 +26,29 @@ def _digest(value: object) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
+def neighbour(x: int, y: int, direction: str, width: int, height: int) -> tuple[int, int]:
+    """The cell one step from `(x, y)` in `direction`, on this wrapped grid.
+
+    This is the SAME formula `_stream_free` uses to move a particle
+    (`VELOCITY[direction]` plus modulo wrap). Bond adjacency must use exactly
+    this and nothing else: if movement wraps at the edge but a bond's notion
+    of "neighbour" did not, particles would stream across the seam while
+    bonds could not reach across it -- one wrapped world with two different
+    geometries, silently.
+    """
+    dx, dy = VELOCITY[direction]
+    return (x + dx) % width, (y + dy) % height
+
+
 @dataclass(frozen=True, order=True)
 class PhysicalBond:
+    """A v1/v2 bond: two particles sharing one cell, no named ports.
+
+    Kept exactly as it was. v3 does not extend this type -- see `PortBond`
+    below and `LOCAL_INTERACTION_PRINCIPLES_V1.md` on why a bond with
+    optional, version-dependent fields was rejected in favour of two
+    separate types.
+    """
     left_id: int
     right_id: int
     rule_id: str
@@ -37,6 +60,44 @@ class PhysicalBond:
         return {
             "left_id": self.left_id, "right_id": self.right_id, "rule_id": self.rule_id,
             "stored_energy": self.stored_energy, "x": self.x, "y": self.y,
+        }
+
+
+@dataclass(frozen=True, order=True)
+class PortBond:
+    """A v3 bond: a relation between two particles' named ports, not a place.
+
+    `left_id`/`right_id` name the pair; the ordering carries no physics.
+    `canonical()` always emits the lower id first specifically so that a bond
+    built as `(A, port, B, port)` and one built as `(B, port, A, port)` for
+    the same physical contact hash identically -- "left" and "right" are
+    labels for this record, not "processed first" and "processed second".
+
+    No `x, y`: position belongs to the particles. A bond is legal exactly
+    when the two particles are neighbours (via `neighbour()` above, so it
+    agrees with how particles actually move) and each side's port faces the
+    other's cell -- checked in `CausalWorldState.__post_init__`.
+    """
+    left_id: int
+    left_port: str
+    right_id: int
+    right_port: str
+    rule_id: str
+    stored_energy: int
+
+    def __post_init__(self) -> None:
+        if self.right_id < self.left_id:
+            left_id, left_port = self.left_id, self.left_port
+            object.__setattr__(self, "left_id", self.right_id)
+            object.__setattr__(self, "left_port", self.right_port)
+            object.__setattr__(self, "right_id", left_id)
+            object.__setattr__(self, "right_port", left_port)
+
+    def canonical(self) -> dict[str, object]:
+        return {
+            "left_id": self.left_id, "left_port": self.left_port,
+            "right_id": self.right_id, "right_port": self.right_port,
+            "rule_id": self.rule_id, "stored_energy": self.stored_energy,
         }
 
 
@@ -60,15 +121,41 @@ class CausalWorldState:
     # chain can travel, which is what lets a moving particle join a standing
     # chain without the collision having to cancel to zero momentum.
     chains_may_move: bool = field(default=False, compare=False, repr=False)
+    # The grid a `port_bonds` adjacency check is judged against, and which
+    # ports each material declares. Like `port_limits` above, these are rules
+    # the world is run under, not part of the state: two states with the same
+    # particles and bonds are the same state regardless of the grid size or
+    # the materials' port declarations, so both stay out of `canonical()`,
+    # the digest, and equality.
+    grid_size: tuple[int, int] | None = field(default=None, compare=False, repr=False)
+    named_ports: Mapping[int, tuple[str, ...]] = field(default_factory=dict, compare=False, repr=False)
+    # v3 bonds, kept in a field of their own rather than folded into `bonds`.
+    # A single bond type carrying both `x, y` (v1/v2's meaning: a place) and
+    # `left_port`/`right_port` (v3's meaning: a relation between neighbours)
+    # would need every reader to ask "which fields does this bond actually
+    # use" -- a state space with combinations no world can produce. Two types
+    # make the illegal combinations unrepresentable instead of merely
+    # unvalidated. v3 worlds populate this and leave `bonds` empty; v1/v2
+    # worlds do the reverse. The kernel does not yet step `port_bonds`
+    # forward (that is stage 3+, once structures can move) -- this stage only
+    # asks whether a given set of them is spatially and physically legal.
+    #
+    # Placed last, after every v1/v2 field, so existing positional
+    # constructions of this state (internal to the kernel; there is no public
+    # constructor contract otherwise) keep meaning exactly what they meant
+    # before this field existed.
+    port_bonds: tuple[PortBond, ...] = ()
 
     def __post_init__(self) -> None:
         particles, heat, bonds = tuple(sorted(self.particles)), tuple(sorted(self.heat)), tuple(sorted(self.bonds))
+        port_bonds_sorted = tuple(sorted(self.port_bonds))
         if len({item.particle_id for item in particles}) != len(particles):
             raise ValueError("particle ids must be unique")
         if len({(item.x, item.y) for item in heat}) != len(heat):
             raise ValueError("heat cells must be unique")
         by_id = {item.particle_id: item for item in particles}
         held = {value for bond in self.bonds for value in (bond.left_id, bond.right_id)}
+        held |= {value for bond in port_bonds_sorted for value in (bond.left_id, bond.right_id)}
         # Two free particles of one material travelling the same way through the
         # same cell are the same channel and cannot be told apart. Chain members
         # are exempt: sitting together in one cell is what being bonded means,
@@ -103,6 +190,59 @@ class CausalWorldState:
                                              or by_id[bond.right_id].kinetic_energy):
                 raise ValueError("bonded particles must store motion energy in the bond")
 
+        # v3 port bonds: a relation between neighbours' named ports, checked
+        # entirely from the state -- no `x, y` on the bond to trust or distrust.
+        port_bonds = port_bonds_sorted
+        if port_bonds and self.grid_size is None:
+            raise ValueError("port bonds need a grid size to judge adjacency against")
+        width, height = self.grid_size or (0, 0)
+        port_occupied: dict[tuple[int, str], int] = {}
+        for bond in port_bonds:
+            if bond.left_id == bond.right_id:
+                raise ValueError("a bond cannot join a particle to itself")
+            if bond.left_id not in by_id or bond.right_id not in by_id:
+                raise ValueError("port bond refers to a missing particle")
+            left, right = by_id[bond.left_id], by_id[bond.right_id]
+
+            left_ports = self.named_ports.get(left.kind, ())
+            right_ports = self.named_ports.get(right.kind, ())
+            if bond.left_port not in left_ports:
+                raise ValueError(
+                    f"particle {bond.left_id} has no {bond.left_port!r} port "
+                    f"to bond with (declares {list(left_ports)})")
+            if bond.right_port not in right_ports:
+                raise ValueError(
+                    f"particle {bond.right_id} has no {bond.right_port!r} port "
+                    f"to bond with (declares {list(right_ports)})")
+            if OPPOSITE_PORT[bond.left_port] != bond.right_port:
+                raise ValueError(
+                    f"ports {bond.left_port!r} and {bond.right_port!r} do not "
+                    f"face each other")
+
+            # Adjacency is judged with the SAME formula streaming uses to move
+            # a particle (`neighbour()`, which wraps by `grid_size`). Using
+            # any other rule here would let one wrapped world have two
+            # different geometries -- particles that stream across the seam,
+            # bonds that cannot reach across it.
+            expected = neighbour(left.x, left.y, bond.left_port, width, height)
+            if (right.x, right.y) != expected:
+                raise ValueError(
+                    f"particle {bond.right_id} at ({right.x},{right.y}) is not "
+                    f"{left.particle_id}'s {bond.left_port!r} neighbour "
+                    f"(expected {expected})")
+
+            port_occupied[(bond.left_id, bond.left_port)] = port_occupied.get(
+                (bond.left_id, bond.left_port), 0) + 1
+            port_occupied[(bond.right_id, bond.right_port)] = port_occupied.get(
+                (bond.right_id, bond.right_port), 0) + 1
+        if len({(b.left_id, b.left_port, b.right_id, b.right_port) for b in port_bonds}) != len(port_bonds):
+            raise ValueError("the same port pair cannot be bonded twice")
+        for (particle_id, port_name), count in port_occupied.items():
+            if count > 1:
+                raise ValueError(
+                    f"particle {particle_id}'s {port_name!r} port is claimed "
+                    f"by {count} bonds at once")
+
         if self.chains_may_move:
             # A travelling chain keeps its motion on exactly one member — the
             # lowest id. Spreading a copy across every member would count the
@@ -119,21 +259,28 @@ class CausalWorldState:
                     # member picked by number.
                     raise ValueError("a chain carries its motion on its lowest-numbered member")
         object.__setattr__(self, "particles", particles); object.__setattr__(self, "heat", heat); object.__setattr__(self, "bonds", bonds)
+        object.__setattr__(self, "port_bonds", port_bonds)
 
     @property
     def digest(self) -> str:
         return _digest(self.canonical())
 
     def canonical(self) -> dict[str, object]:
-        return {
+        result = {
             "bonds": [item.canonical() for item in self.bonds],
             "heat": [item.canonical() for item in self.heat],
             "particles": [item.canonical() for item in self.particles],
             "tick": self.tick,
         }
+        if self.port_bonds:
+            result["port_bonds"] = [item.canonical() for item in self.port_bonds]
+        return result
 
     def total_energy(self) -> int:
-        return sum(item.kinetic_energy for item in self.particles) + sum(item.energy for item in self.heat) + sum(item.stored_energy for item in self.bonds)
+        return (sum(item.kinetic_energy for item in self.particles)
+                + sum(item.energy for item in self.heat)
+                + sum(item.stored_energy for item in self.bonds)
+                + sum(item.stored_energy for item in self.port_bonds))
 
     def material_counts(self) -> dict[int, int]:
         result: dict[int, int] = {}

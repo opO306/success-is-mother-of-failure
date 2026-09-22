@@ -188,7 +188,7 @@ observer  = { hash_interval: int (>= 1) }    -- 몇 tick마다 체크포인트�
 | `format` | `...-causal-world-spec-v1` | `...-v2` | `...-v3` |
 | 포트 | ✅ 개수만 (`ports: 4`) | ✅ 개수만 | ✅ **이름** (`ports: ["N","E","S","W"]`) |
 | 결합 위치 (명세) | ✅ 같은 칸 | ✅ 같은 칸 | ✅ **이웃 칸** 선언 가능 (`locality: adjacent_cells`) |
-| 결합 위치 (커널 실행) | ✅ 같은 칸 강제 | ✅ 같은 칸 강제 | 📜 **여전히 같은 칸 강제** — 명세의 인접 선언을 커널이 아직 안 읽음 |
+| 결합 위치 (커널 실행) | ✅ 같은 칸 강제 (`PhysicalBond`) | ✅ 같은 칸 강제 (`PhysicalBond`) | ✅ **인접 강제 (`PortBond`, 2026-09-22 구현)** — 별도 필드 `port_bonds`. `PhysicalBond`는 무손상 |
 | 규칙 필드 | `left_orientation`/`right_orientation` | 동일 | `left_port`/`right_port` |
 | 최대 결합 수 | 1 (선언과 무관) | 재료가 선언한 `ports`(개수)만큼 | 재료가 선언한 `ports`(이름 목록) 길이만큼 |
 | 사슬 이동 | 불가 (`chains_may_move=False`) | ✅ 가능 | 📜 명세는 표현 가능, 커널 미구현 |
@@ -327,19 +327,49 @@ v3 (명세로 선언됨, 그러나 커널이 아직 실행하지 않음 — 2026
     포트가 마주 보는 두 이웃 칸이 결합의 정의다.
 ```
 
-**왜 이렇게 강조하는가:** `CausalWorldState.__post_init__`의
-`bonded particles must share the bond location` 불변조건은 **아직 버전을
-구분하지 않는다** — v3 명세를 실행해도 이 불변조건이 그대로 적용되어
-같은 칸을 요구한다. 즉 **v3의 `adjacent_cells` 선언은 지금 명세 수준에서만
-존재하고, 커널 수준에서는 아직 v1/v2와 동일하게 처리된다.**
+**✅ 단계 2 완료 (2026-09-22).** `CausalWorldState`에 v3 전용 `PortBond`와
+`port_bonds` 필드가 추가됐다. `bonded particles must share the bond location`
+불변조건은 **`PhysicalBond`(v1/v2)에만 그대로 적용된다** — 손대지 않았다.
+`PortBond`는 별도 검증 경로를 갖는다.
 
-이건 `MINIMAL_LOCAL_GEOMETRY_V1.md` 구현 순서의 **단계 2**(`PhysicalBond`
-재구성, 인접 불변조건)가 아직 끝나지 않았다는 뜻과 정확히 같다. 이 사전을
-읽는 사람이 "v3 명세가 있으니 커널도 인접을 강제하겠지"라고 추론하면 틀린다 —
-**명세 문법과 커널 실행 사이에 간극이 있고, 그 간극이 지금 이 지점이다.**
+**타입을 나눈 이유:** 하나의 dataclass에 `x,y`(v1/v2 의미: 위치)와
+`left_port`/`right_port`(v3 의미: 관계)를 optional로 같이 두면, 어느
+조합이 합법인지 검증기가 계속 떠안아야 한다("x도 있고 port도 있음",
+"v2인데 port 있음" 같은 쓰레기 상태 공간). 두 타입으로 나누면 그런
+조합 자체가 표현 불가능해진다.
 
-이 절이 구현되면(단계 2 완료), 위 "커널이 아직 실행하지 않음" 문구를 지우고
-검증 방법(어떤 오류 메시지로 거부되는지)을 채운다.
+**`PortBond`의 검증 규칙 (전부 상태만 보고 판정, `x,y` 없음):**
+
+```
+left_id, right_id       -- 서로 달라야 함 (자기 결합 금지)
+left_port, right_port   -- 각 입자가 실제로 선언한 포트여야 함
+                            서로 마주 봐야 함 (OPPOSITE_PORT)
+인접성                    -- neighbour() 로 판정. 스트리밍(_stream_free)이
+                            입자를 옮길 때 쓰는 것과 완전히 같은 공식
+                            (VELOCITY[direction] + wrap). 새 인접 규칙을
+                            발명하지 않는다 -- 안 그러면 "이동은 wrap되는데
+                            결합은 세계 끝에서 끊기는" 세계가 생긴다
+포트 점유                 -- 한 입자의 한 포트를 두 결합이 동시에 못 씀
+좌우 순서                 -- 물리적 의미 없음. canonical()이 항상 낮은 id를
+                            left로 정규화 -- (A,B) 순서로 지어도
+                            (B,A) 순서로 지어도 같은 해시가 나온다
+```
+
+**아직 안 하는 것 (단계 3+):** 이 결합들로 이루어진 구조가 실제로 움직이는
+것. 지금은 "이 결합 하나가 공간적으로 유효한가"만 판정한다.
+
+**결함 주입 5종 (전부 검출됨):**
+
+| 주입 | 결과 |
+|---|---|
+| 인접성 검사 제거 | 검출 |
+| 마주보는 포트 검사 제거 | 검출 |
+| 포트 중복 점유 검사 제거 | 검출 |
+| 선언 안 된 포트 허용 | 검출 |
+| 대각선도 인접으로 인정 | 검출 |
+
+`v1/v2` `PhysicalBond`는 한 글자도 안 바뀌었고, `deterministic_polymer_chain_v2`의
+run digest가 byte 단위로 그대로임을 테스트로 고정했다.
 
 ### 4.6 `HeatCellSpec`
 
@@ -398,12 +428,14 @@ B가 A를 "읽을" 때 만나는 것들이기 때문이다.
 
 | 용어 | 뜻 |
 |---|---|
-| `PhysicalBond` | 결합 하나. v1/v2는 `(left_id, right_id, rule_id, stored_energy, x, y)`.
-  **예정 (v3):** `x,y` 대신 `left_port`/`right_port`로 재구성 — 아직 미구현 |
-| `chain` (사슬) | 결합으로 이어진 입자들의 연결 성분. `chains()` 함수가 union-find로 계산 |
-| `stored_energy` | 결합이 흡수해 저장한 운동 에너지. 끊어질 때 `break_heat`와 함께 방출 |
-| `port_limits` | 이 세계에서 재료별로 몇 개까지 결합 가능한지. v1은 전부 1, v2/v3는 선언값 |
-| `chains_may_move` | 사슬이 운동을 가질 수 있는가. v1은 불가, v2/v3는 가능 |
+| `PhysicalBond` | ✅ v1/v2 결합 하나. `(left_id, right_id, rule_id, stored_energy, x, y)`. v3 도입 이후에도 **손대지 않음** |
+| `PortBond` | ✅ **v3 결합 하나 (2026-09-22 구현).** `(left_id, left_port, right_id, right_port, rule_id, stored_energy)` — `x,y` 없음, 위치는 참가 입자에서 유도. `canonical()`이 항상 낮은 id를 `left`로 정규화하므로 끝점을 뒤집어 지어도 같은 해시가 나온다 |
+| `port_bonds` | ✅ `CausalWorldState`의 별도 필드. v3 세계가 채우고 `bonds`는 비워둔다. **아직 커널이 이걸 tick마다 전진시키지 않는다** — 지금은 "이 결합 집합이 공간적으로 유효한가"만 판정 (단계 2). 전진은 단계 3+ |
+| `neighbour()` | ✅ `(x,y,direction) → 이웃 칸`. `_stream_free`가 입자를 옮길 때 쓰는 것과 **완전히 같은 공식**을 `PortBond` 인접 판정에도 그대로 재사용. 새 인접 규칙을 따로 만들지 않음 |
+| `chain` (사슬) | 결합으로 이어진 입자들의 연결 성분. `chains()` 함수가 union-find로 계산. **`port_bonds`는 아직 `chains()`가 못 읽는다** — union-find는 `bonds`(v1/v2)만 본다 |
+| `stored_energy` | 결합이 흡수해 저장한 운동 에너지. 끊어질 때 `break_heat`와 함께 방출. v3에서는 `total_energy()`가 `port_bonds`의 몫도 합산 |
+| `port_limits` | 이 세계에서 재료별로 몇 개까지 결합 가능한지. v1은 전부 1, v2/v3는 선언값. **`PortBond`의 포트 점유 검사는 이것과 별도로 포트 단위(`(particle_id, port_name)`)까지 본다** |
+| `chains_may_move` | 사슬이 운동을 가질 수 있는가. v1은 불가, v2/v3는 가능. v3 `PortBond`에는 아직 해당 없음(단계 3+) |
 
 **🧭 예정 (파서에도 커널에도 없음 — 설계 문서에만 있다):**
 
