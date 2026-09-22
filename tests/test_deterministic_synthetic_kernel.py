@@ -185,13 +185,14 @@ def test_synthetic_runtime_imports_cleanly_meaning_current_rules_match_their_sea
         assert runtime_module._fingerprint(binding.rule) == runtime_module._SEALED_FINGERPRINTS[key]
 
 
-def test_sealed_fingerprint_check_catches_a_silent_rule_behavior_change() -> None:
-    """Reproduces, without touching the real module on disk, what happens
-    when a rule's behavior changes without minting a new revision: the
-    fingerprint no longer matches what was sealed, and the check must
-    reject it -- confirmed directly against _verify_sealed_fingerprints'
-    own logic rather than trusting that the module simply importing today
-    means the check would catch a future drift."""
+def test_verify_bindings_catches_a_silent_rule_behavior_change() -> None:
+    """Calls the real production verifier, verify_bindings, directly --
+    not a re-implementation of its comparison logic. Re-deriving the
+    mismatch check here (as an earlier draft of this test did) would let a
+    real regression in verify_bindings itself (e.g. someone reducing it to
+    a no-op) pass unnoticed, since the test would keep asserting against
+    its own separate copy of the logic rather than the function actually
+    guarding import time."""
     import engine.deterministic.synthetic_runtime as runtime_module
 
     def _mutated_rule_s01(values):
@@ -201,9 +202,17 @@ def test_sealed_fingerprint_check_catches_a_silent_rule_behavior_change() -> Non
         ("WORLD-S01", "R-7F93C2"): runtime_module.SyntheticWorldBinding(
             "WORLD-S01", "R-7F93C2", _mutated_rule_s01),
     }
-    mismatches = [key for key, binding in tampered_bindings.items()
-                 if runtime_module._fingerprint(binding.rule) != runtime_module._SEALED_FINGERPRINTS.get(key)]
-    assert mismatches == [("WORLD-S01", "R-7F93C2")]
+    with pytest.raises(WorldCompatibilityError, match="WORLD-S01"):
+        runtime_module.verify_bindings(tampered_bindings, runtime_module._SEALED_FINGERPRINTS)
+
+
+def test_verify_bindings_accepts_matching_bindings() -> None:
+    """The positive case, also against the real function: today's actual
+    _BINDINGS/_SEALED_FINGERPRINTS must not raise -- redundant with the
+    module having imported successfully, but explicit here as the direct
+    counterpart to the tampered case above."""
+    import engine.deterministic.synthetic_runtime as runtime_module
+    runtime_module.verify_bindings(runtime_module._BINDINGS, runtime_module._SEALED_FINGERPRINTS)
 
 
 def test_fingerprint_hashes_source_text_not_a_truth_table() -> None:

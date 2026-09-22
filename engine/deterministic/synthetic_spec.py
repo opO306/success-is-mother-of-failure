@@ -233,7 +233,16 @@ class SyntheticWorldSpec:
 
 @dataclass(frozen=True)
 class SyntheticCheckpoint:
-    """One tick's worth of every variable's value, after clamps for that tick were applied."""
+    """One tick's worth of a world's *public* variable values, after clamps
+    for that tick were applied.
+
+    `values` holds only `public_observables` -- not every declared
+    variable. `synthetic_kernel.run_synthetic_world` filters to that set at
+    checkpoint-construction time for every tick, tick 0 included, so a
+    non-public variable's value is unrecoverable from any `SyntheticRun`
+    regardless of what a prediction names (see `run_synthetic_world`'s
+    docstring for why this replaced an earlier draft that kept every
+    variable in every checkpoint)."""
     tick: int
     values: tuple[tuple[str, bool], ...]
 

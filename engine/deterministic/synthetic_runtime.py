@@ -20,12 +20,33 @@ discipline, not by anything checked: nothing stops someone from editing
 `RULE_S01`'s actual behavior in `synthetic_kernel.py` without also minting
 a new revision here, at which point `spec.digest` would keep claiming "same
 world" over two different physical laws -- silently. `_SEALED_FINGERPRINTS`
-closes that gap: each binding is sealed against a hash of its rule
-function's *source code* (via `inspect.getsource`), checked once at import
-time. If `RULE_S01`'s implementation changes, its fingerprint changes, this
-module fails to import, and the mismatch is impossible to miss -- forcing
-whoever changed the rule to consciously mint (and record here) a new
-revision for it.
+closes *that* specific gap: each binding is sealed against a hash of its
+rule function's own source text, checked once at import time. If
+`RULE_S01`'s implementation changes, its fingerprint changes, this module
+fails to import, and the mismatch is impossible to miss -- forcing whoever
+changed the rule to consciously mint (and record here) a new revision for
+it.
+
+Precisely: this is a **sealed source/implementation fingerprint**, not a
+semantic one -- it hashes `inspect.getsource(rule)`, so a purely cosmetic
+edit (`return {"x3": values["x1"]}` rewritten as `x = values["x1"]; return
+{"x3": x}`) changes the fingerprint even though the world's actual causal
+law is unchanged. That is intentional conservatism, not a bug: for three
+small boolean rules, treating "the implementation text changed at all" as
+"go check whether a new revision is warranted" is cheap insurance, and
+building an actual semantic-equivalence checker (proving two functions
+compute the same truth table for all real reasons, not just testing it)
+is far more machinery than three rules justify.
+
+What this does NOT do: automatically force `world_revision` itself to
+change. Someone can still edit a rule, regenerate its fingerprint to match
+the new source, and leave `world_revision` untouched -- the check would
+pass. This is a development-time guardrail against the *accidental* drift
+(edit a rule, forget the fingerprint/revision entirely), not a
+cryptographic guarantee against a deliberate one. Anything stronger (HMAC
+signing, an external immutable manifest, git-history-based verification)
+is disproportionate machinery for three boolean worlds and is deliberately
+out of scope here.
 
 The fingerprint hashes source *text*, never the rule's truth table (every
 input mapped to its output). Hashing the truth table would hand B something
@@ -74,16 +95,23 @@ _SEALED_FINGERPRINTS: Mapping[tuple[str, str], str] = {
 }
 
 
-def _verify_sealed_fingerprints() -> None:
-    mismatches = [key for key, binding in _BINDINGS.items()
-                 if _fingerprint(binding.rule) != _SEALED_FINGERPRINTS.get(key)]
+def verify_bindings(bindings: Mapping[tuple[str, str], SyntheticWorldBinding],
+                    fingerprints: Mapping[tuple[str, str], str]) -> None:
+    """The actual check, parameterized so a test can call it directly
+    against a tampered `bindings`/`fingerprints` pair -- rather than
+    re-implementing this comparison in the test file, which would let a
+    real regression here (e.g. someone reducing this function to a no-op)
+    pass unnoticed while the test kept asserting against its own copy of
+    the logic."""
+    mismatches = [key for key, binding in bindings.items()
+                 if _fingerprint(binding.rule) != fingerprints.get(key)]
     if mismatches:
         raise WorldCompatibilityError(
             f"rule implementation changed without minting a new world_revision for: {mismatches} -- "
             f"see synthetic_runtime.py's module docstring before regenerating a sealed fingerprint")
 
 
-_verify_sealed_fingerprints()
+verify_bindings(_BINDINGS, _SEALED_FINGERPRINTS)
 
 
 def resolve_rule(world_id: str, world_revision: str) -> SyntheticRule:

@@ -1,7 +1,15 @@
 """G6c-3: SyntheticResearchAdapter -- same shape as PhysicalCausalResearchAdapter,
 and (the real point) run_research_exploration actually accepts it: the same
 generic Broad Research core that runs physical A also runs a synthetic
-world, with zero changes to broad_explorer.py or research_loop.py.
+world. Not "zero changes" to broad_explorer.py/research_loop.py, precisely:
+wiring a synthetic world through this path found one real bug in the
+existing generic algorithm (run_research_exploration forwarded no
+axis_registry to register_domain, silently falling back to its
+CAUSAL_AXIS_REGISTRY default -- invisible for physical A, since its axis
+ids were always in that default). No synthetic-specific branch was added
+anywhere in broad_explorer.py/research_loop.py; the one line that changed
+made the existing generic path actually generic, rather than teaching it a
+special case for this new world kind.
 """
 from __future__ import annotations
 
@@ -135,6 +143,44 @@ def test_initial_observation_excludes_a_non_public_variable_though_the_spec_stil
 
     observation = SyntheticResearchAdapter().initial_observation(spec)
     assert "x2" not in observation.observables  # but its value is never readable, even at tick 0
+
+
+def test_state_digest_is_not_the_spec_digest() -> None:
+    """G6c-3.3: an earlier draft passed spec.digest itself as state_digest --
+    wrong, because spec.digest folds in world_revision/clamps/public_controls/
+    public_observables/ticks, none of which are the *state* this observation
+    reports. Confirmed directly: for a real spec, the two must differ."""
+    spec = _s01_spec()
+    observation = SyntheticResearchAdapter().initial_observation(spec)
+    assert observation.state_digest != spec.digest
+
+
+def test_state_digest_does_not_leak_a_non_public_variables_value() -> None:
+    """The side channel this fixes: if state_digest were derived from
+    spec.digest (or from anything else that includes non-public
+    initial_values), two runs with identical PUBLIC state but different
+    PRIVATE variable values would get different state_digests -- letting
+    anyone comparing digests infer something about a value never exposed in
+    observables. With state_digest computed only from the public payload,
+    changing only a non-public variable's initial value must leave
+    state_digest unchanged."""
+    spec_private_false = SyntheticWorldSpec(
+        world_id="WORLD-S03", world_revision="R-51E8B7", variables=("x1", "x2", "x3"),
+        initial_values=(("x1", False), ("x2", False), ("x3", False)), clamps=(),
+        public_controls=("x1",), public_observables=("x1", "x3"), ticks=2,
+    )
+    spec_private_true = SyntheticWorldSpec(
+        world_id="WORLD-S03", world_revision="R-51E8B7", variables=("x1", "x2", "x3"),
+        initial_values=(("x1", False), ("x2", True), ("x3", False)), clamps=(),  # only x2 (private) differs
+        public_controls=("x1",), public_observables=("x1", "x3"), ticks=2,
+    )
+    assert spec_private_false.digest != spec_private_true.digest  # the specs ARE genuinely different
+
+    adapter = SyntheticResearchAdapter()
+    observation_false = adapter.initial_observation(spec_private_false)
+    observation_true = adapter.initial_observation(spec_private_true)
+    assert observation_false.state_digest == observation_true.state_digest
+    assert observation_false.observables == observation_true.observables
 
 
 def test_evaluate_prediction_match() -> None:

@@ -16,7 +16,7 @@ from .research_world import (
     UnsupportedPredictionError,
     WorldCompatibilityError,
 )
-from .synthetic_spec import SyntheticClamp, SyntheticRun, SyntheticWorldSpec
+from .synthetic_spec import SyntheticCheckpoint, SyntheticClamp, SyntheticRun, SyntheticWorldSpec
 
 # `_point_domain` (broad_explorer.py) validates every candidate's constraint
 # axes against an AxisRegistry -- CAUSAL_AXIS_REGISTRY only knows physical
@@ -102,6 +102,19 @@ class SyntheticResearchAdapter:
         return replace(synthetic_spec, clamps=tuple(sorted(clamps)))
 
     def initial_observation(self, spec: ResearchWorldSpec) -> WorldObservation:
+        """`state_digest` hashes only the public tick-0 state -- never
+        `spec.digest` itself (an earlier draft's bug). `spec.digest` folds
+        in `world_revision`, `clamps`, `public_controls`/`public_observables`,
+        and (worse) non-public variables' `initial_values` -- none of which
+        are the *state* this observation reports, and the last of which
+        would make state_digest a side channel: in a small boolean world, a
+        digest that shifts with a private variable's value leaks information
+        about that value to anyone comparing digests across otherwise-identical
+        runs, without ever appearing in `observables` itself. Hashing only
+        the same public payload `observables` already carries (via
+        `SyntheticCheckpoint`, the same type a later tick's checkpoint uses)
+        closes that gap by construction, not by discipline.
+        """
         synthetic_spec = _assert_synthetic_world_spec(spec)
         clamped_initial = {name: value for name, value in synthetic_spec.initial_values}
         for control in synthetic_spec.public_controls:
@@ -111,7 +124,8 @@ class SyntheticResearchAdapter:
             elif mode == "OFF":
                 clamped_initial[control] = False
         observables = {name: clamped_initial[name] for name in synthetic_spec.public_observables}
-        return WorldObservation(synthetic_spec.digest, 0, observables, synthetic_spec.digest)
+        state_digest = SyntheticCheckpoint(0, tuple(sorted(observables.items()))).digest
+        return WorldObservation(synthetic_spec.digest, 0, observables, state_digest)
 
     def evaluate_prediction(self, prediction: object, result: ExecutionResult) -> PredictionEvaluation:
         if not isinstance(prediction, ObservablePrediction):
