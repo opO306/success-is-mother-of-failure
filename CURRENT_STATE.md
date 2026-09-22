@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-23
-**검증:** 전체 테스트 1290개 로컬 통과 (B0.7 완료 시점 실측 1228개 — 이 문서의 옛 "→1046" 표기는 B0.7 커밋이 갱신하지 않고 지나간 낡은 숫자였음, 2026-09-23 확인). GitHub Actions 독립 재실행 기록 없음 — 로컬 실행 결과임을 구분해 기록
+**검증:** 전체 테스트 1296개 로컬 통과 (B0.7 완료 시점 실측 1228개 — 이 문서의 옛 "→1046" 표기는 B0.7 커밋이 갱신하지 않고 지나간 낡은 숫자였음, 2026-09-23 확인). GitHub Actions 독립 재실행 기록 없음 — 로컬 실행 결과임을 구분해 기록
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -335,8 +335,38 @@ prediction을 가져오는가"만 분리). 예외 처리: `WorldCompatibilityErr
 일반화(`CausalPrediction`은 여전히 물리 필드 전용), synthetic kernel/spec/adapter,
 GT-2/3/M1의 실행 가능 버전 — 이건 G6+ (다음 세션들).
 
-**검증 수준 메모:** "1290개 전부 통과"는 이 세션에서 로컬로 직접 실행해 확인한 결과다.
+**검증 수준 메모:** 아래 "1296개 전부 통과"도 이 세션에서 로컬로 직접 실행해 확인한 결과다.
 GitHub Actions의 독립 CI 재실행 기록은 없다 — 이 구분을 흐리지 않을 것.
+
+**G6a+G6b 완료** (같은 날, 1290→1296). 사용자가 G3~G5를 GitHub 실제 HEAD로 재검증한 뒤,
+연구 쪽(Broad Explorer)은 world-generic이 됐는데 **실행 경계는 여전히 물리 전용**이라는
+병목을 지적 — `AExecutor.execute(spec: CausalWorldSpec)`, `ExecutionResult.run: CausalRun | None`,
+`execute_through_a(..., submitted_spec: CausalWorldSpec)`가 타입 힌트 레벨에서 아직 좁았음.
+
+- **G6a**: `causal_executor.py`의 `AExecutor` Protocol과 `ExecutionResult.run`을
+  `ResearchWorldSpec`/`ResearchRun`으로 확장. `research_loop.execute_through_a`도 동일하게
+  확장. `RealCausalAExecutor`/`StubAExecutor`의 실제 동작은 무변경 — `@runtime_checkable`
+  Protocol은 파라미터 타입을 검사하지 않으므로 안전하게 넓어짐을 확인. `RealCausalAExecutor.execute`
+  자체의 파라미터는 의도적으로 `CausalWorldSpec`으로 유지(실제로 물리 전용이므로 거짓 계약을
+  피함) — Protocol이 넓어진 것과 개별 구현체가 자기 세계에 맞게 좁은 것은 다른 문제.
+- **G6b**: 오류 계약 정리. (1) `run_research_exploration`에서 `controls[control_id]`가
+  없을 때 `KeyError`가 그대로 새는 구멍을 발견 — `UnknownControlError`로 명시 변환
+  (동작 방향은 우연히 맞았지만 G1 오류 계약이 실제로 적용되지 않고 있었음). (2)
+  `InvalidControlValueError`가 `ResearchWorldError`(설정 오류) 계층에 있는데 실제로는
+  `broad_explorer`가 연구 데이터(`CandidateCompilationFailure`)로 처리하는 모순을 발견 —
+  타입 계층은 그대로 두고 docstring으로 "이 타입만 예외: 설정 오류가 아니라 후보 자신의
+  불법 값"임을 명시해 의미를 확정. 아직 어떤 adapter도 실제로 이 타입을 던지지 않음(향후
+  synthetic adapter가 쓸 예정) — 그럼에도 `except` 절이 올바르게 처리 준비돼 있음을
+  단위 테스트로 고정.
+- **문서 정정**: `broad_explorer.py` 상단 docstring이 "각 candidate가 `CausalWorldSpec`으로
+  컴파일된다"/"`causal_kernel`에서 실행된다"고 낡게 남아있던 것을 G4~G6a 이후 실제 구조에
+  맞게 갱신.
+
+신규 `tests/test_deterministic_research_execution_boundary.py`(6개): `_FakeSpec`/`_FakeRun`/
+`_FakeExecutor`(물리 타입이 전혀 아닌 최소 fake)로 `AExecutor` Protocol이 실제로 비물리
+executor를 받아들임을 증명, `UnknownControlError`/`InvalidControlValueError`가 각각
+올바른 경로(전파 vs 컴파일 실패)로 가는지 확인. G6c(synthetic kernel/spec/adapter/executor)는
+아직 미착수 — 이번엔 실행 경계 타입만 넓혔을 뿐 실제 synthetic 세계는 여전히 없음.
 
 ---
 
@@ -366,3 +396,4 @@ GitHub Actions의 독립 CI 재실행 기록은 없다 — 이 구분을 흐리�
 | 2026-09-23 | **독립 Ground-Truth 답안지 신설, 같은 날 세 차례 정정** (최종 `ground_truth/`, 저장소 최상위, 1228→1251). 최초 구현: `test_deterministic_missing_link_investigator.py`의 "hidden mediator" 시나리오가 B0.7 자신의 출력(`investigate_missing_link`)을 정답처럼 assert하는 순환논리였음을 사용자가 지적. B0.3 이상을 전혀 import하지 않는 답안지로 GT-1(Mediator, A0 `causal_kernel` 직접 조작)·GT-2(Direct)·GT-3(Conditional) 3-world를 `audit/ground_truth/`에 신설, 3/3 VALID로 봉인. 사용자가 같은 날 세 가지를 지적해 정정: (1) 테스트 개수 표기가 "1046→1246"으로 잘못됨(B0.7 완료 시점 실측은 1228) — "1228→1246"으로 수정. (2) `audit/`의 "engine import 절대 금지" 불변식에 `ground_truth`만 예외를 둔 게 그 불변식을 약화시킨다 — 예외를 없애고 `ground_truth/`를 저장소 최상위로 이동, `audit/`는 원래 불변식 복원. (3) GT-1의 intervention 3("B 차단")이 실제로는 입자 배치를 바꿔 다른 세계를 만든 것이라 순수 mediator 정답지로는 약하다 — GT-1은 "레거시 physical sanity test"로 격하하고, mediator(B)에 A와 독립된 public control(`step_with_mediator_override`)을 가진 전용 synthetic world **GT-M1**을 정답지 레벨에서 신설(4-world, 4/4 VALID, 신규 테스트 5개). GT-2/3(와 향후 GT-M1의 실행 가능 버전)가 B가 실제로 연구할 수 있는 A-compatible world가 아니라는 지적은 조사 결과 범위가 커서 별도 세션으로 분리: `CausalWorldSpec`이 `causal_hypothesis.py`(prediction 어휘가 물리 필드에 폐쇄)·`exploration_control.py`(control 필드 화이트리스트가 A0 물리 어휘 전용) 등 B0 20개 모듈에 구조적으로 얽혀 있어, "AExecutor만 얇게 Protocol화하면 된다"는 최초 가정이 조사로 반박됨 — `ResearchWorldAdapter` 공통 경계 설계가 선행돼야 함 |
 | 2026-09-23 | **Research World Abstraction G0~G2 완료** (1251→1285). 사용자가 `RESEARCH_WORLD_ABSTRACTION_V1` 구현 명세(Gate G0~G11, Phase 1~3)를 작성, 이번 세션은 G0~G2로 명시적 절단. G0: `ExecutionResult.canonical()`/`observe()`/`compare_results()`/`run_exploration()`/`CausalExperimentArm.canonical()`의 현재 동작을 characterization test 11개로 리터럴 고정 — 이 단계에서 명세 초안의 여러 가정(`total_energy` 계산에서 heat 누락, 존재하지 않는 `spec_digest` 필드명, `CausalExperimentArm`의 실제 생성자 인자 수)이 실제 코드와 다름을 발견·정정. G1: `research_world.py`(`ResearchWorldSpec`/`ResearchRun` Protocol + 4종 오류 타입), `research_adapter.py`(`ResearchControlDefinition` Protocol, `WorldObservation`, `PredictionEvaluation`, `ResearchWorldAdapter` Protocol — `execute()` 없음, 실행/해석 책임 분리) 신설. `CausalWorldSpec`/`CausalRun`/`ControlDefinition`이 **코드 수정 없이** 구조적으로 Protocol을 만족함을 확인. G2: `PhysicalCausalResearchAdapter`가 기존 물리 경로(`apply_control`/`from_mapping`/`initial_causal_state`/`_observed_value` kind-dispatch)를 그대로 감쌈 — 하드코딩 기대값이 아니라 "레거시 함수 재호출과의 동등성"만 assert하는 방식으로 13개 테스트가 "한 비트도 안 바뀜"을 증명. 부수 발견: 이전 커밋(`1913829`)이 실제로는 `ModuleNotFoundError`로 깨진 상태였음을 이번 세션에서 발견해 별도 fix 커밋(`5771d60`)으로 수정 |
 | 2026-09-23 | **Research World Abstraction G3~G5 완료** (같은 날, 1285→1290). `research_loop.observe/compare_results`와 `broad_explorer.run_exploration`이 각각 새 generic core(`observe_world`/`compare_results_with_adapter`/`run_research_exploration`)의 물리-A 호환 wrapper가 됨. `apply_control`+`CausalWorldSpec.from_mapping` → `adapter.apply_control()`+`adapter.validate()`, prediction 비교 → `adapter.evaluate_prediction()` 기반으로 치환. 신규 `research_prediction.py`: `CandidatePredictionProvider`(`StaticPredictionProvider`/`FunctionalPredictionProvider`) — 후보별로 다른 prediction을 줄 수 있는 구조이지만 `CausalPrediction` 자체는 여전히 물리 필드 전용, 이번엔 "출처 분리"만. 마이그레이션 중 실동작 차이 하나 발견: 기존 `observe()`는 `state_digest`를 `observables` 딕셔너리 안에 병합했는데 `WorldObservation`은 별도 필드라 그대로 옮기면 payload가 달라짐 — 명시 병합으로 정정. 예외 정책: `WorldCompatibilityError`/`UnknownControlError`(설정 실수)는 전파, `ValueError`/`TypeError`(후보 자신의 불법 값)만 컴파일 실패로 기록 — 이 구분을 테스트로 고정. G0 characterization 출력·digest가 새 경로에서도 완전히 동일함을 확인(완료 조건 충족). GitHub Actions 독립 CI 재실행 기록은 없음 — "1290개 통과"는 로컬 실행 결과. 다음은 G6+(synthetic kernel/spec/adapter, GT-2/3/M1 실행 가능 버전) |
+| 2026-09-23 | **Research World Abstraction G6a+G6b 완료** (같은 날, 1290→1296). 사용자가 G3~G5를 GitHub HEAD로 재검증하며 "연구 쪽은 world-generic인데 실행 쪽(`AExecutor.execute`, `ExecutionResult.run`)은 여전히 `CausalWorldSpec`/`CausalRun` 전용 타입"이라는 병목을 지적. G6a: `AExecutor`/`ExecutionResult`/`execute_through_a`를 `ResearchWorldSpec`/`ResearchRun`으로 확장, `RealCausalAExecutor`/`StubAExecutor` 실제 동작은 무변경(`@runtime_checkable` Protocol이 파라미터 타입을 검사하지 않아 안전). G6b: `run_research_exploration`에서 `controls[control_id]` 조회 실패 시 `KeyError`가 그대로 새던 구멍을 `UnknownControlError`로 명시 변환(G1 오류 계약이 실제로는 적용 안 되고 있었음). `InvalidControlValueError`가 "설정 오류" 계층에 있으면서 실제로는 연구 데이터로 처리되는 의미 모순을 발견해 docstring으로 "이 타입만 예외"임을 명시 — 아직 아무 adapter도 실제로 던지지 않는 죽은 코드였음도 확인. `broad_explorer.py` 상단 docstring의 낡은 설명("각 candidate가 CausalWorldSpec으로 컴파일")도 정정. 신규 테스트 6개(`test_deterministic_research_execution_boundary.py`)가 비물리 fake executor/spec으로 Protocol이 실제로 넓어졌음을 증명. G6c(synthetic kernel/spec/adapter/executor)는 여전히 미착수 |

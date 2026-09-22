@@ -45,13 +45,17 @@ class ResearchWorldError(Exception):
 
     Distinct from a *research* failure (an illegal candidate, an A execution
     that fails, a prediction with no matching checkpoint) -- those are data
-    B records and reasons about. A `ResearchWorldError` means the caller
-    wired an adapter to a spec it was never built for, named a control that
-    does not exist, or asked for a prediction kind the adapter cannot
-    evaluate. These are programming/configuration mistakes, not observations
-    about a world, so they raise immediately rather than becoming a journal
-    entry (see `causal_executor.py`'s docstring on the same distinction for
-    A-execution failures specifically).
+    B records and reasons about. `WorldCompatibilityError` and
+    `UnknownControlError` mean the caller wired an adapter to a spec it was
+    never built for, or named a control that does not exist at all -- these
+    are programming/configuration mistakes, not observations about a world,
+    so callers (`broad_explorer.run_research_exploration` included) must let
+    them propagate rather than catching them as research data (see
+    `causal_executor.py`'s docstring on the same distinction for A-execution
+    failures specifically).
+
+    `InvalidControlValueError` is the one exception to that rule -- see its
+    own docstring below.
     """
 
 
@@ -64,7 +68,19 @@ class UnknownControlError(ResearchWorldError):
 
 
 class InvalidControlValueError(ResearchWorldError):
-    """A control was asked to take a value outside what it accepts."""
+    """A named, existing control was asked to take a value its world rejects as illegal.
+
+    Grouped under `ResearchWorldError` by category (an adapter raises it,
+    same as the others), but *not* a configuration mistake the way
+    `WorldCompatibilityError`/`UnknownControlError` are: the control exists
+    and the caller's wiring is correct, the *value* a particular candidate
+    tried is simply outside what this world permits (heat=-1, say). That is
+    research data about the candidate, exactly like the `ValueError` a
+    physical `CausalWorldSpec.from_mapping` raises for the same kind of
+    mistake -- `broad_explorer.run_research_exploration` catches this one
+    (alongside `ValueError`/`TypeError`) as a `CandidateCompilationFailure`,
+    never lets it propagate as a wiring error.
+    """
 
 
 class UnsupportedPredictionError(ResearchWorldError):

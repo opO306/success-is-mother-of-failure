@@ -1,17 +1,29 @@
 """Broad Explorer: plan -> candidates -> execute -> evidence -> coverage/boundary analysis.
 
-Reuses B0.1/B0.2 unchanged: each candidate compiles to a `CausalWorldSpec`,
+`run_research_exploration` (G4-G5) is the world-agnostic core: each candidate
+compiles to a `ResearchWorldSpec` via `adapter.apply_control`/`adapter.validate`,
 runs through the same `execute_through_a`/`PredictionSeal`/`record_domain_evidence`
-path a hand-written experiment would use. This module's only job is
-generating many candidates systematically and registering one *point* domain
-per candidate -- never one shared domain for the whole sweep, which would
-make every disagreeing pair of candidates look like a same-domain
-`ContradictionRecord` instead of the expected "different points, different
-outcomes" (see docs/README's point-domain requirement).
+path a hand-written experiment would use, with `prediction_provider` supplying
+each candidate's sealed predictions. `run_exploration` is the physical-A
+compatibility wrapper -- `PhysicalCausalResearchAdapter` and
+`StaticPredictionProvider`, unchanged signature for existing callers. This
+module's own job either way is generating many candidates systematically and
+registering one *point* domain per candidate -- never one shared domain for
+the whole sweep, which would make every disagreeing pair of candidates look
+like a same-domain `ContradictionRecord` instead of the expected "different
+points, different outcomes" (see docs/README's point-domain requirement).
+
+As of G6a, `AExecutor.execute` itself accepts any `ResearchWorldSpec`
+(`causal_executor.py`) -- so which A a candidate actually runs through is
+entirely the `executor`/`adapter` pair a caller supplies, not something this
+module hardcodes. `RealCausalAExecutor` is still physical-only in what it
+does (it calls `causal_kernel.run_causal_world`, which only understands
+`CausalWorldSpec`), but nothing here or in `AExecutor`'s own Protocol says
+that has to be the only kind of executor.
 
 "Broad" names a research strategy (many different conditions), not a
-hardware target -- this runs every candidate through `causal_kernel`
-sequentially on CPU. Parallelizing is a later, purely mechanical change.
+hardware target -- each candidate runs sequentially on CPU, whatever
+executor is in use. Parallelizing is a later, purely mechanical change.
 """
 from __future__ import annotations
 
@@ -151,7 +163,20 @@ def run_research_exploration(
         try:
             spec = base_spec
             for control_id, value in candidate.control_values:
-                spec = adapter.apply_control(spec, controls[control_id], value)
+                try:
+                    control = controls[control_id]
+                except KeyError:
+                    # A plan naming a control this call never defined is a
+                    # wiring mistake, not a fact about the candidate -- same
+                    # category as WorldCompatibilityError below, so it must
+                    # not be swallowed as a CandidateCompilationFailure
+                    # either. Converted explicitly here because a bare dict
+                    # lookup raises plain KeyError, not the ResearchWorldError
+                    # this module's contract promises for configuration
+                    # mistakes (see run_research_exploration's docstring).
+                    raise UnknownControlError(
+                        f"plan names control {control_id!r}, which is not in `controls`") from None
+                spec = adapter.apply_control(spec, control, value)
             # `apply_control` mutates the spec and does not itself validate,
             # so round-trip through the adapter's own validation to catch an
             # illegal combination -- negative energy, an unknown material
