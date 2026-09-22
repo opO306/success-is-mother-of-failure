@@ -195,8 +195,13 @@ def run_research_exploration(
             raise  # configuration mistakes, never a candidate's data
 
         domain = _point_domain(plan, candidate, controls)
+        # register_domain's own default is CAUSAL_AXIS_REGISTRY -- passing
+        # axis_registry explicitly here matters for any non-physical caller
+        # (a synthetic sweep's axes are never in CAUSAL_AXIS_REGISTRY); the
+        # validate_against call just above is not a substitute, since
+        # register_domain would otherwise re-validate against its own default.
         domain.validate_against(axis_registry)
-        register_domain(journal, domain)
+        register_domain(journal, domain, axis_registry)
 
         predictions_for_hypothesis = prediction_provider.predictions_for(candidate, spec)
         seal = PredictionSeal(f"PS-{candidate.candidate_id}", candidate.candidate_id, journal.next_sequence,

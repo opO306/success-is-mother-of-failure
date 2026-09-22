@@ -1,4 +1,14 @@
-"""Deterministic world language and CPU reference runtime."""
+"""Deterministic world language and CPU reference runtime.
+
+`synthetic_spec.py`/`synthetic_kernel.py`/`synthetic_executor.py`/
+`synthetic_adapter.py` (G6c) implement small A-compatible worlds (`WORLD-S01`
+etc.) independently of `ground_truth/`'s answer key for the same worlds --
+neither package imports the other. See `synthetic_spec.py`'s module
+docstring for why a shared `step()` function between "the world B
+researches" and "the answer key B is graded against" would defeat the
+point, and `tests/test_deterministic_synthetic_*.py` for the leakage checks
+that enforce it.
+"""
 from .adapter_comparison import (
     AdapterComparison,
     AdapterComparisonMetrics,
@@ -53,6 +63,7 @@ from .research_adapter import (
     ResearchWorldAdapter,
     WorldObservation,
 )
+from .research_observable_prediction import ObservablePrediction
 from .research_world import (
     InvalidControlValueError,
     ResearchRun,
@@ -62,6 +73,10 @@ from .research_world import (
     UnsupportedPredictionError,
     WorldCompatibilityError,
 )
+from .synthetic_adapter import SYNTHETIC_AXIS_REGISTRY, SyntheticControlDefinition, SyntheticResearchAdapter
+from .synthetic_executor import SyntheticAExecutor
+from .synthetic_kernel import run_synthetic_world
+from .synthetic_spec import SyntheticCheckpoint, SyntheticClamp, SyntheticRun, SyntheticWorldSpec
 from .causal_experiment import (
     CausalExperimentArm,
     CausalExperimentPortfolio,
@@ -613,6 +628,7 @@ __all__ = [
     "MechanismTestResult",
     "MissingLink",
     "MomentumPrediction",
+    "ObservablePrediction",
     "ObservationRecord",
     "ParticleRoleTarget",
     "ParticleTraceSubject",
@@ -637,6 +653,14 @@ __all__ = [
     "StaticPredictionProvider",
     "StubAExecutor",
     "SweepDimension",
+    "SYNTHETIC_AXIS_REGISTRY",
+    "SyntheticAExecutor",
+    "SyntheticCheckpoint",
+    "SyntheticClamp",
+    "SyntheticControlDefinition",
+    "SyntheticResearchAdapter",
+    "SyntheticRun",
+    "SyntheticWorldSpec",
     "TraceBinding",
     "TraceSnapshot",
     "TraceSpec",
@@ -821,6 +845,7 @@ __all__ = [
     "run_exploration",
     "run_research_exploration",
     "run_mechanism_test",
+    "run_synthetic_world",
     "run_traced",
     "seal_missing_link_investigation",
     "submit_instrumentation_request",

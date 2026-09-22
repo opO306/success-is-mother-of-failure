@@ -134,3 +134,54 @@ def test_run_research_exploration_never_swallows_world_compatibility_error(tmp_p
             journal, executor, AlwaysIncompatibleAdapter(), StaticPredictionProvider({"H1": ()}),
             _heat_sweep_plan(base_spec), base_spec, {HEAT_CONTROL.control_id: HEAT_CONTROL}, observation.observation_id,
         )
+
+
+def test_run_research_exploration_actually_uses_the_passed_axis_registry(tmp_path: Path) -> None:
+    """register_domain's own default parameter is CAUSAL_AXIS_REGISTRY, so a
+    caller passing a *different* axis_registry to run_research_exploration
+    only has an effect if run_research_exploration forwards it to
+    register_domain too, not just to the domain.validate_against call
+    alongside it. Found exactly this gap while wiring a synthetic-world axis
+    registry through this same path (G6c-3): a candidate would pass its own
+    axis_registry's validate_against check, then fail deep inside
+    register_domain, which was silently re-validating against its
+    CAUSAL_AXIS_REGISTRY default instead of the registry the caller passed.
+
+    Reproducing this needs a registry that legitimately covers this axis
+    (so the validate_against call above register_domain succeeds) while
+    CAUSAL_AXIS_REGISTRY does not (so register_domain's stale default would
+    fail if reached) -- a registry CAUSAL_AXIS_REGISTRY is simply missing
+    the axis from, as the previous version of this test used, cannot tell
+    the two code paths apart, since validate_against already raises first
+    either way.
+    """
+    from engine.deterministic.research_axis import AxisDefinition, AxisRegistry
+
+    base_spec = load_causal_world_spec(EXAMPLE)
+    journal = ResearchJournal.create(tmp_path / "journal.jsonl")
+    executor = RealCausalAExecutor()
+    observation = observe(journal, base_spec, "axis only this custom registry knows")
+    record_hypothesis_set(journal, CausalHypothesisSet(base_spec.digest, (
+        CausalHypothesis("H1", "claim", (), (BondCountPrediction(2, 0),), (), "untested"),)))
+
+    # A control whose research_axis is NOT in CAUSAL_AXIS_REGISTRY at all --
+    # register_domain's stale default would reject it; only the custom
+    # registry this test passes explicitly can accept it.
+    custom_axis_control = ControlDefinition(
+        "causal.control.local_heat_energy", HeatCellRoleTarget("local_heat_source", 10, 10, "energy"),
+        "custom.axis.not.in.causal.registry",
+    )
+    custom_registry = AxisRegistry((
+        AxisDefinition("custom.axis.not.in.causal.registry", "integer", ("eq", "set"), "spec", "custom_v1"),
+    ))
+    plan = ExplorationPlan("P-custom-axis", base_spec.digest, ("H1",),
+                           (SweepDimension(custom_axis_control.control_id, (0, 2)),), "full_factorial", 10)
+
+    outcome = run_research_exploration(
+        journal, executor, PhysicalCausalResearchAdapter(),
+        StaticPredictionProvider({"H1": (BondCountPrediction(2, 0),)}),
+        plan, base_spec, {custom_axis_control.control_id: custom_axis_control}, observation.observation_id,
+        axis_registry=custom_registry,
+    )
+    assert outcome.compilation_failures == ()
+    assert len(outcome.evidence) == 2
