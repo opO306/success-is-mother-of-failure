@@ -1,10 +1,17 @@
 """G7.1: the blind information-boundary itself -- not what B discovers.
 
+Two modules, one direction of dependency:
+  - `blind_session.py`   (B-facing)   -- BlindWorldDescriptor/BlindControlDescriptor/
+                                          BlindObservableDescriptor only
+  - `blind_evaluator.py` (evaluator-only) -- BlindTranslationManifest, make_blind_session,
+                                          translate_control, translate_observable;
+                                          imports FROM blind_session, never the reverse
+
 Four layers, each sealed by its own tests below:
   1. type boundary       -- Blind*Descriptor types cannot structurally carry
                              real identity/GT/rule/fingerprint fields
-  2. dependency boundary  -- blind_session.py's import closure never reaches
-                             ground_truth/ or synthetic_runtime.py
+  2. dependency boundary -- blind_session.py's import closure never reaches
+                             blind_evaluator.py, ground_truth/, or synthetic_runtime.py
   3. serialized-data leakage -- canonical()/digest of a real blind session
                              never contains real world/control/observable ids
   4. runtime tripwire     -- a normal blind path never touches the manifest's
@@ -32,8 +39,10 @@ from engine.deterministic.blind_session import (
     FORMAT,
     BlindControlDescriptor,
     BlindObservableDescriptor,
-    BlindTranslationManifest,
     BlindWorldDescriptor,
+)
+from engine.deterministic.blind_evaluator import (
+    BlindTranslationManifest,
     ForbiddenBlindAccess,
     make_blind_session,
     translate_control,
@@ -92,12 +101,24 @@ def test_blind_observable_descriptor_has_no_real_observable_id() -> None:
 def test_translation_manifest_contains_mapping_but_is_evaluator_only() -> None:
     """The manifest is allowed to hold real identity -- that is its whole
     job -- as long as it never reaches a B-facing object graph (layer 4
-    below proves that at runtime)."""
+    below proves that at runtime) and is not defined in the B-facing module
+    (layer 2 below proves that by import closure)."""
     descriptor, manifest = make_blind_session(_s02_spec(), seed=0)
     assert manifest.real_world_id == "WORLD-S02"
     assert manifest.real_world_revision == "R-A18D40"
     assert manifest.alias_world_id == descriptor.alias_world_id
     assert set(manifest.real_variable.values()) == {"x1", "x2", "x3"}
+
+
+def test_blind_translation_manifest_is_not_defined_in_blind_session_module() -> None:
+    """`BlindTranslationManifest` must live in blind_evaluator.py, not
+    blind_session.py -- proves the type split actually happened, not just
+    that this test file imports it from the right place."""
+    import engine.deterministic.blind_session as blind_session_module
+    assert not hasattr(blind_session_module, "BlindTranslationManifest")
+    assert not hasattr(blind_session_module, "make_blind_session")
+    assert not hasattr(blind_session_module, "translate_control")
+    assert not hasattr(blind_session_module, "translate_observable")
 
 
 # ---------------------------------------------------------------------------
@@ -122,14 +143,15 @@ def _has_star_import(source: str) -> bool:
 
 
 FORBIDDEN_MODULES = {
-    # "synthetic_runtime" (bare) is what `ast.ImportFrom.module` actually
-    # holds for `from .synthetic_runtime import X` -- `node.module` never
-    # carries the leading dot, only `node.level` does. Listing only
-    # ".synthetic_runtime"/the fully-qualified form here would silently miss
-    # the relative-import form actual code in this package uses (see
+    # "synthetic_runtime"/"blind_evaluator" (bare) is what `ast.ImportFrom.module`
+    # actually holds for `from .synthetic_runtime import X` -- `node.module`
+    # never carries the leading dot, only `node.level` does. Listing only
+    # the dotted/fully-qualified form here would silently miss the
+    # relative-import form actual code in this package uses (see
     # `synthetic_adapter.py`'s own `from .research_world import ...` style).
     "ground_truth", "engine.deterministic.synthetic_runtime",
     ".synthetic_runtime", "synthetic_runtime",
+    "engine.deterministic.blind_evaluator", ".blind_evaluator", "blind_evaluator",
 }
 
 
@@ -139,9 +161,30 @@ def test_blind_session_does_not_import_ground_truth_or_synthetic_runtime() -> No
     assert not any(name in FORBIDDEN_MODULES or name.startswith("ground_truth.") for name in imported)
 
 
+def test_blind_session_does_not_import_blind_evaluator() -> None:
+    """The direction that actually matters for this repair: the B-facing
+    module must not import the evaluator-only module, even though the
+    reverse (blind_evaluator imports blind_session for BlindWorldDescriptor)
+    is expected and fine."""
+    path = ROOT / "engine" / "deterministic" / "blind_session.py"
+    imported = _imported_module_names(path.read_text(encoding="utf-8"))
+    forbidden = {"engine.deterministic.blind_evaluator", ".blind_evaluator", "blind_evaluator"}
+    assert not any(name in forbidden for name in imported)
+
+
 def test_blind_session_has_no_wildcard_imports() -> None:
     path = ROOT / "engine" / "deterministic" / "blind_session.py"
     assert not _has_star_import(path.read_text(encoding="utf-8"))
+
+
+def test_blind_evaluator_imports_from_blind_session_not_the_reverse() -> None:
+    """Confirms the one-way edge actually exists in the direction intended:
+    blind_evaluator.py depends on blind_session.py (for BlindWorldDescriptor),
+    which is the only direction this repair allows."""
+    path = ROOT / "engine" / "deterministic" / "blind_evaluator.py"
+    imported = _imported_module_names(path.read_text(encoding="utf-8"))
+    assert any(name in {"engine.deterministic.blind_session", ".blind_session", "blind_session"}
+              for name in imported)
 
 
 def test_experiment_designer_dependency_closure_has_no_forbidden_imports() -> None:
@@ -242,8 +285,8 @@ def test_runtime_blind_path_never_touches_translation_manifest(monkeypatch) -> N
     def _tripped(*_args, **_kwargs):
         raise ForbiddenBlindAccess("blind path reached evaluator-only translation")
 
-    monkeypatch.setattr("engine.deterministic.blind_session.translate_control", _tripped)
-    monkeypatch.setattr("engine.deterministic.blind_session.translate_observable", _tripped)
+    monkeypatch.setattr("engine.deterministic.blind_evaluator.translate_control", _tripped)
+    monkeypatch.setattr("engine.deterministic.blind_evaluator.translate_observable", _tripped)
 
     _run_minimal_blind_path(descriptor)  # must not raise
 
@@ -253,18 +296,18 @@ def test_runtime_tripwire_detects_forbidden_manifest_access() -> None:
     translate_control/translate_observable) must actually be catchable, so
     the tripwire above is proven to detect real violations, not just
     silently pass on any input."""
-    import engine.deterministic.blind_session as blind_session_module
+    import engine.deterministic.blind_evaluator as blind_evaluator_module
 
     descriptor, manifest = make_blind_session(_s02_spec(), seed=0)
 
     def _forbidden_blind_path() -> None:
         # A hypothetical bug: B-side code reaching into the manifest through
         # the module (not a locally-bound name), same as real call sites would.
-        blind_session_module.translate_control(manifest, descriptor.public_controls[0])
+        blind_evaluator_module.translate_control(manifest, descriptor.public_controls[0])
 
     import unittest.mock as mock
     with mock.patch.object(
-        blind_session_module, "translate_control",
+        blind_evaluator_module, "translate_control",
         side_effect=ForbiddenBlindAccess("forbidden manifest access"),
     ):
         with pytest.raises(ForbiddenBlindAccess):
