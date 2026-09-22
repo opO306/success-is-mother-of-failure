@@ -35,6 +35,8 @@ from engine.deterministic.causal_kernel import (
     CausalWorldState,
     PhysicalBond,
     _resolve_collisions,
+    _stream_free,
+    step_causal_world,
 )
 from engine.deterministic.causal_spec import (
     BondRuleSpec,
@@ -168,3 +170,83 @@ def test_defect_a_chain_takes_at_most_one_arrival_per_tick():
     after = _resolve_collisions(_spec(), state)
     added = [b for b in after.bonds if {b.left_id, b.right_id} != {1, 2}]
     assert len(added) == 1, "the ceiling is gone -- see replace_with in this docstring"
+
+
+def test_defect_unequal_energy_head_on_same_kind_breaks_momentum():
+    """DEFECT: the 90-degree scatter rule rotates momentum instead of conserving it.
+
+    measured:     2026-09-22
+    principle:    conservation -- a tick may move momentum around, not change it
+    cause:        `_resolve_collisions` applies A0's fixed-speed lattice
+                  collision (`N/S -> E/W`) whenever two particles of one kind
+                  meet head-on, without checking that they carry equal energy.
+                  A0 had no `kinetic_energy` at all: its `momentum()` sums
+                  `mass * dx`, so every particle moved at speed 1 and a swapped
+                  pair always summed to zero either way. causal added variable
+                  energy and inherited the rule without narrowing its premise.
+    replace_with: test_unequal_energy_head_on_collision_preserves_momentum --
+                  the scatter applies only where its premise holds (equal
+                  energy); an unequal pair is left alone and passes through,
+                  which is the kernel's existing default when no interaction
+                  rule applies.
+
+    The rule was sound in A0 because every particle had the same speed:
+
+        N + S  ->  E + W        momentum 0 -> 0
+
+    With energy it is not:
+
+        N/1 + S/2  ->  E/1 + W/2        momentum (0,1) -> (-1,0)
+
+    Same magnitude, rotated 90 degrees. The kernel's own conservation check
+    catches it and raises, so this is not silent -- but it means a legal world
+    can be built today that cannot be stepped at all.
+
+    Swept exhaustively over energies 1..4: 48 violating combinations, every one
+    of them with unequal energies, and none with equal energies. That is what
+    makes "equal energy" the right narrowing rather than a guess.
+
+    Reachability note: the two shipped world files do not trigger this.
+    `polymer_chain_v2` mixes energies 2 and 3 but has no same-kind head-on
+    meeting. The defect is latent, not theoretical.
+    """
+    spec = _spec()
+    # Converging on (10, 10): same kind, opposite headings, unequal energy.
+    state = CausalWorldState(
+        0,
+        (CausalParticleSpec(1, 0, 10, 11, "N", "N", 1),
+         CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
+        (), (), {}, False)
+    assert state.momentum(spec) == (0, 1)
+
+    streamed = _stream_free(spec, state)
+    assert streamed.momentum(spec) == (0, 1), "streaming is not where it breaks"
+
+    scattered = _resolve_collisions(spec, streamed)
+    assert scattered.momentum(spec) == (-1, 0), (
+        "the scatter no longer rotates momentum -- see replace_with above")
+
+    # The kernel's own guard catches it, so the whole tick is unsteppable.
+    with pytest.raises(AssertionError, match="changed momentum"):
+        step_causal_world(spec, state)
+
+
+def test_defect_equal_energy_head_on_is_the_case_the_rule_was_built_for():
+    """Not a defect: the boundary of the one above, pinned so the fix is aimed.
+
+    Equal energies make the scatter conserve momentum exactly, because both
+    sides cancel before and after. A fix that narrows the rule to this case
+    must keep this behaviour; a fix that removes the scatter altogether would
+    change it, which is a different decision and should be made deliberately.
+    """
+    spec = _spec()
+    state = CausalWorldState(
+        0,
+        (CausalParticleSpec(1, 0, 10, 11, "N", "N", 2),
+         CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
+        (), (), {}, False)
+    assert state.momentum(spec) == (0, 0)
+    after = step_causal_world(spec, state)
+    assert after.momentum(spec) == (0, 0)
+    assert {p.direction for p in after.particles} == {"E", "W"}, (
+        "the equal-energy scatter still happens")
