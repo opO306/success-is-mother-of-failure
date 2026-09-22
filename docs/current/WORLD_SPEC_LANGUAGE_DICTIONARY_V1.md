@@ -190,8 +190,21 @@ observer  = { hash_interval: int (>= 1) }    -- 몇 tick마다 체크포인트�
 | 결합 위치 (명세) | ✅ 같은 칸 | ✅ 같은 칸 | ✅ **이웃 칸** 선언 가능 (`locality: adjacent_cells`) |
 | 결합 위치 (커널 실행) | ✅ 같은 칸 강제 | ✅ 같은 칸 강제 | 📜 **여전히 같은 칸 강제** — 명세의 인접 선언을 커널이 아직 안 읽음 |
 | 규칙 필드 | `left_orientation`/`right_orientation` | 동일 | `left_port`/`right_port` |
-| 최대 결합 수 | 1 (선언과 무관) | 재료의 `ports`만큼 | 재료의 `port_names`만큼 |
+| 최대 결합 수 | 1 (선언과 무관) | 재료가 선언한 `ports`(개수)만큼 | 재료가 선언한 `ports`(이름 목록) 길이만큼 |
 | 사슬 이동 | 불가 (`chains_may_move=False`) | ✅ 가능 | 📜 명세는 표현 가능, 커널 미구현 |
+
+**용어 주의 — JSON 필드명과 파싱 후 필드명이 다르다:**
+
+```
+JSON 명세 필드 (쓸 때):        "ports": ["N","E","S","W"]
+파싱된 CausalMaterialSpec (읽을 때):
+    .ports        -> 4                      (개수. v1/v2/v3 전부 존재)
+    .port_names   -> ("N","E","S","W")      (이름 목록. v3만 채워짐, v1/v2는 빈 튜플)
+```
+
+즉 JSON을 쓸 때는 항상 `ports` 키 하나만 쓴다(개수 또는 이름 목록).
+파싱된 객체를 코드에서 다룰 때는 `.ports`(개수, 항상 존재)와
+`.port_names`(이름, v3에서만 비어있지 않음)가 별도 필드로 나뉜다.
 
 ### 4.2 최상위 구조 (공통 골격)
 
