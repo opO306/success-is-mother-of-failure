@@ -1,6 +1,11 @@
 """G6a: the execution boundary (AExecutor/ExecutionResult) no longer types
-physical-only, and G6b: a plan naming an undefined control raises
+physical-only. G6b: a plan naming an undefined control raises
 UnknownControlError, never a bare KeyError or a CandidateCompilationFailure.
+G6a.1: the widened Protocol signatures are backed by real runtime checks --
+RealCausalAExecutor and PhysicalCausalResearchAdapter both explicitly
+reject a spec/run they cannot actually handle (WorldCompatibilityError)
+instead of silently accepting it and failing confusingly deep inside
+physical-only field access.
 
 Neither a synthetic AExecutor nor a synthetic spec exists yet (G6c is
 separate, later work) -- these tests confirm the *boundary itself* widened
@@ -187,3 +192,35 @@ def test_invalid_control_value_error_is_recorded_as_a_compilation_failure_not_ra
     )
     assert len(outcome.compilation_failures) == 2
     assert outcome.evidence == ()
+
+
+# ---------------------------------------------------------------------------
+# G6a.1: executors and adapters check their input's real type, not just its
+# Protocol shape -- a wiring mistake must fail as WorldCompatibilityError,
+# never as physical-A research data (ExecutionResult(status="failed")) or a
+# bare AttributeError from deep inside kind-dispatch.
+# ---------------------------------------------------------------------------
+
+def test_real_causal_executor_rejects_a_non_causal_world_spec_as_wiring_mistake() -> None:
+    """Must raise WorldCompatibilityError directly -- never wrap the mismatch
+    as ExecutionResult(status="failed"), which would make a wiring mistake
+    look like a fact about A's physics."""
+    from engine.deterministic.research_world import WorldCompatibilityError
+
+    with pytest.raises(WorldCompatibilityError, match="CausalWorldSpec"):
+        RealCausalAExecutor().execute(_FakeSpec("WORLD-FAKE-3"))
+
+
+def test_physical_adapter_rejects_a_non_causal_run_in_evaluate_prediction() -> None:
+    """ExecutionResult.run is typed ResearchRun | None -- only `digest` is
+    guaranteed. A run that is not actually a CausalRun (e.g. one produced by
+    a mismatched executor) must be rejected explicitly, not read into
+    `.checkpoints` and crash with an unrelated AttributeError."""
+    from engine.deterministic.research_world import WorldCompatibilityError
+
+    spec = load_causal_world_spec(EXAMPLE)
+    fake_result = ExecutionResult("success", spec.digest, _FakeRun("not-a-causal-run"))
+    adapter = PhysicalCausalResearchAdapter()
+
+    with pytest.raises(WorldCompatibilityError, match="CausalRun"):
+        adapter.evaluate_prediction(BondCountPrediction(1, 1), fake_result)

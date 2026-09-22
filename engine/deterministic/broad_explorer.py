@@ -56,12 +56,7 @@ from .research_loop import (
 )
 from .research_memory import DomainEvidence
 from .research_prediction import CandidatePredictionProvider, StaticPredictionProvider
-from .research_world import (
-    InvalidControlValueError,
-    ResearchWorldSpec,
-    UnknownControlError,
-    WorldCompatibilityError,
-)
+from .research_world import ResearchWorldSpec, UnknownControlError, WorldCompatibilityError
 
 _PHYSICAL_ADAPTER = PhysicalCausalResearchAdapter()
 
@@ -182,12 +177,14 @@ def run_research_exploration(
             # illegal combination -- negative energy, an unknown material
             # kind, and so on -- before it ever reaches the executor.
             spec = adapter.validate(spec)
-        except (InvalidControlValueError, ValueError, TypeError) as exc:
+        except (ValueError, TypeError) as exc:
             # A candidate's own illegal control value or combination --
             # research data about this candidate, not a wiring mistake.
-            # ValueError/TypeError (rather than only InvalidControlValueError)
-            # matches what CausalWorldSpec.from_mapping and
-            # exploration_control's ControlTarget.resolve() actually raise
+            # InvalidControlValueError subclasses ValueError directly (see
+            # research_world.py's docstring on why it is not a
+            # ResearchWorldError), so it is caught here without being named;
+            # ValueError/TypeError also matches what CausalWorldSpec.from_mapping
+            # and exploration_control's ControlTarget.resolve() actually raise
             # for the physical adapter today (see test_deterministic_broad_explorer.py's
             # negative-heat compilation-failure test).
             compilation_failures.append(CandidateCompilationFailure(

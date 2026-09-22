@@ -39,11 +39,23 @@ def test_causal_run_satisfies_research_run_protocol_unmodified() -> None:
     assert isinstance(run.digest, str) and run.digest
 
 
-def test_error_hierarchy() -> None:
-    for error_type in (WorldCompatibilityError, UnknownControlError,
-                       InvalidControlValueError, UnsupportedPredictionError):
+def test_configuration_mistake_errors_are_research_world_errors() -> None:
+    # These three mean the caller wired something wrong -- never research data.
+    for error_type in (WorldCompatibilityError, UnknownControlError, UnsupportedPredictionError):
         assert issubclass(error_type, ResearchWorldError)
         assert issubclass(error_type, Exception)
+
+
+def test_invalid_control_value_error_is_deliberately_not_a_research_world_error() -> None:
+    # A candidate's own illegal control value is research data (a
+    # CandidateCompilationFailure), not a configuration mistake -- see
+    # research_world.py's docstring on why this one type was pulled out of
+    # the ResearchWorldError hierarchy. It subclasses ValueError instead, so
+    # existing `except ValueError` handling (physical A's CausalWorldSpec.from_mapping,
+    # broad_explorer's compilation-failure catch) picks it up without
+    # needing to name it explicitly.
+    assert not issubclass(InvalidControlValueError, ResearchWorldError)
+    assert issubclass(InvalidControlValueError, ValueError)
 
 
 def test_research_world_errors_are_distinct_types() -> None:

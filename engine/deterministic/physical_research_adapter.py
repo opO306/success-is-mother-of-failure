@@ -1,7 +1,10 @@
-"""G2: wraps the real A0 physical causal kernel behind the `ResearchWorldAdapter` contract.
+"""G2/G6a.1: wraps the real A0 physical causal kernel behind the `ResearchWorldAdapter` contract.
 
 This module changes no behavior of the existing physical path. Every method
-delegates to the existing function it stands in for:
+delegates to the existing function it stands in for, and (G6a.1) checks its
+input actually is a `CausalWorldSpec`/`CausalRun` before touching a
+physical-only field, raising `WorldCompatibilityError` instead of letting a
+wrong-adapter mistake surface as a confusing `AttributeError`:
 
     apply_control        -> exploration_control.apply_control (unmodified)
     validate              -> CausalWorldSpec.from_mapping(spec.canonical())
@@ -20,7 +23,7 @@ characterization-equivalence checks against
 from __future__ import annotations
 
 from .causal_executor import ExecutionResult
-from .causal_kernel import initial_causal_state
+from .causal_kernel import CausalRun, initial_causal_state
 from .causal_spec import CausalWorldSpec
 from .exploration_control import ControlDefinition, apply_control
 from .research_adapter import PredictionEvaluation, WorldObservation
@@ -44,9 +47,20 @@ def _observed_value(prediction: object, result: ExecutionResult) -> object | Non
     """Exactly `research_loop._observed_value`'s kind-dispatch, restated here
     rather than imported, so the adapter has no runtime dependency on
     `research_loop` (which will come to depend on adapters, not the other way
-    around, once G3 lands)."""
+    around, once G3 lands).
+
+    `ExecutionResult.run` is typed `ResearchRun | None` (G6a) -- only
+    `digest` is guaranteed by that Protocol, but everything below reads
+    `.checkpoints`, a `CausalRun`-only field. G6a.1 checks that explicitly:
+    a `run` that is not a `CausalRun` (e.g. a `SyntheticRun` reaching this
+    adapter through the wrong wiring) raises `WorldCompatibilityError`
+    rather than a bare `AttributeError` deep inside kind-dispatch.
+    """
     if result.run is None:
         return None
+    if not isinstance(result.run, CausalRun):
+        raise WorldCompatibilityError(
+            f"PhysicalCausalResearchAdapter requires a CausalRun, got {type(result.run).__name__}")
     kind = prediction.canonical()["kind"]
     if kind not in _SUPPORTED_PREDICTION_KINDS:
         raise UnsupportedPredictionError(f"PhysicalCausalResearchAdapter cannot evaluate prediction kind {kind!r}")

@@ -41,47 +41,48 @@ class ResearchRun(Protocol):
 
 
 class ResearchWorldError(Exception):
-    """Base class for every error this abstraction layer raises on its own.
+    """Base class for every *configuration-mistake* error this layer raises.
 
     Distinct from a *research* failure (an illegal candidate, an A execution
     that fails, a prediction with no matching checkpoint) -- those are data
-    B records and reasons about. `WorldCompatibilityError` and
-    `UnknownControlError` mean the caller wired an adapter to a spec it was
-    never built for, or named a control that does not exist at all -- these
-    are programming/configuration mistakes, not observations about a world,
-    so callers (`broad_explorer.run_research_exploration` included) must let
+    B records and reasons about, never raised as a `ResearchWorldError`.
+    Every subclass here means the caller wired an adapter to a spec it was
+    never built for, or named a control that does not exist at all --
+    programming/configuration mistakes, not observations about a world, so
+    callers (`broad_explorer.run_research_exploration` included) must let
     them propagate rather than catching them as research data (see
     `causal_executor.py`'s docstring on the same distinction for A-execution
     failures specifically).
 
-    `InvalidControlValueError` is the one exception to that rule -- see its
-    own docstring below.
+    `InvalidControlValueError` (below) is deliberately *not* one of these
+    subclasses -- see its own docstring for why grouping it here was wrong.
     """
 
 
 class WorldCompatibilityError(ResearchWorldError):
-    """An adapter was asked to handle a `ResearchWorldSpec` it does not recognize."""
+    """An adapter was asked to handle a `ResearchWorldSpec`/`ResearchRun` it does not recognize."""
 
 
 class UnknownControlError(ResearchWorldError):
     """A control id was named that the adapter has no definition for."""
 
 
-class InvalidControlValueError(ResearchWorldError):
-    """A named, existing control was asked to take a value its world rejects as illegal.
-
-    Grouped under `ResearchWorldError` by category (an adapter raises it,
-    same as the others), but *not* a configuration mistake the way
-    `WorldCompatibilityError`/`UnknownControlError` are: the control exists
-    and the caller's wiring is correct, the *value* a particular candidate
-    tried is simply outside what this world permits (heat=-1, say). That is
-    research data about the candidate, exactly like the `ValueError` a
-    physical `CausalWorldSpec.from_mapping` raises for the same kind of
-    mistake -- `broad_explorer.run_research_exploration` catches this one
-    (alongside `ValueError`/`TypeError`) as a `CandidateCompilationFailure`,
-    never lets it propagate as a wiring error.
-    """
-
-
 class UnsupportedPredictionError(ResearchWorldError):
     """A prediction kind was given to an adapter that cannot evaluate it."""
+
+
+class InvalidControlValueError(ValueError):
+    """A named, existing control was asked to take a value its world rejects as illegal.
+
+    Earlier drafted as a `ResearchWorldError` subclass, which was wrong: the
+    control exists and the caller's wiring is correct, only the *value* a
+    particular candidate tried is outside what this world permits (heat=-1,
+    say). That is research data about the candidate, exactly like the
+    `ValueError` a physical `CausalWorldSpec.from_mapping` already raises for
+    the same kind of mistake -- so this now subclasses `ValueError` directly,
+    the same category `broad_explorer.run_research_exploration` was always
+    catching as a `CandidateCompilationFailure`. A future adapter that wants
+    to distinguish "this candidate's value is illegal" from a generic
+    `ValueError` can still raise this specific type; nothing about catching
+    it as research data depends on a `ResearchWorldError` ancestor.
+    """
