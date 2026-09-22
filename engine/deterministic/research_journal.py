@@ -38,6 +38,9 @@ EVENT_TYPES = frozenset({
     # B0.6 events -- causal path building: edges, atomic co-occurring events, paths, missing links.
     "atomic_event_recorded", "causal_edge_proposed", "causal_edge_rejected", "causal_edge_updated",
     "missing_link_recorded", "causal_path_created", "causal_path_updated",
+    # B0.7 events -- missing link investigation: hypotheses, follow-up requests, results.
+    "missing_link_investigation_sealed", "missing_link_hypothesis_proposed", "missing_link_result_recorded",
+    "observation_request_submitted", "mechanism_test_request_submitted", "instrumentation_request_submitted",
 })
 
 
