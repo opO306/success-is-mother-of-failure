@@ -1,6 +1,8 @@
 # 구조 상태 v1 — 설계
 
 **상태:** **승인됨 (2026-09-22).** Q1~Q5 확정. 구현 미착수 — **선행 작업은 9절**
+**구현 단계:** causal **v4 Stage B**. Stage A(수정된 충돌 의미)가 선행 —
+`CAUSAL_COLLISION_SEMANTICS_V4.md`
 **날짜:** 2026-09-22
 **단계:** `MINIMAL_LOCAL_GEOMETRY_V1.md` 7단계 중 **단계 3**
 **선행:** `PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md`(5문장 검사),
@@ -730,6 +732,23 @@ A0의 고정 속도 격자 충돌 규칙을 causal이 물려받았는데, causal
 > **순서 판단:** 자유 입자 충돌이 운동량을 깨는 상태에서 그 위에 구조의
 > 운동량·에너지를 얹으면 원인 추적이 꼬인다. **9.2를 먼저 해결하고
 > `StructureState` 구현으로 간다.**
+
+**그리고 "해결"의 방식이 확정됐다 (2026-09-22).** 고치려고 시도했더니
+**v1의 digest가 바뀌었다** — 이 결함은 포맷 무관 공용 코드에 있어서
+causal 도입 시점부터 v1에 있었다. `LANGUAGE_REVISION_GOVERNANCE_V1.md`
+9·10번(기존 버전 의미를 조용히 바꾸지 않는다)에 따라 **v1/v2/v3는
+레거시로 동결하고 새 버전 v4에서 고친다.**
+
+같은 조사에서 **두 번째 유형 F 결함**도 나왔다 — 산란과 절단이
+`orientation`까지 함께 회전시키는데, 그런 회전 법칙은 선언된 적이 없다
+(A0에는 `orientation` 필드 자체가 없었다).
+
+> **따라서 이 설계의 구현은 v4 Stage B다.** v4 Stage A(수정된 충돌 의미)가
+> 먼저다. v4의 범위는 처음부터 "충돌 의미 수정 + 구조가 소유하는 운동
+> 상태"로 선언되므로, `StructureState`가 나중에 v4의 의미를 바꾸는 것이
+> 아니라 예정된 단계다.
+>
+> 설계: `CAUSAL_COLLISION_SEMANTICS_V4.md`
 
 기록: `tests/test_known_defects_causal_kernel.py::test_defect_unequal_energy_head_on_same_kind_breaks_momentum`
 교훈: `VERIFICATION_LIMITS_AND_LESSONS.md` 유형 F

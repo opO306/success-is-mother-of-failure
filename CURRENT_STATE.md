@@ -190,8 +190,23 @@ A records         = 0
 | 1 | **다체 충돌 처리** — `_resolve_collisions`의 `len(group) != 2` | 촉매의 전제. 3체가 한 칸에 모여도 커널이 건너뛰어 서로 통과한다. 입자 24개·60 tick에서도 3체 처리 **0회** |
 | 2 | **사슬 성장 조건** — 움직이는 사슬은 자랄 수 없음 (`if holder.kinetic_energy: continue`) | 길이 4의 전제. 현재 최장 3에서 멈춘다. 완화할지는 **설계 결정, 버그 아님** |
 | 2 | ~~`PhysicalBond` 재구성, 인접 불변조건~~ **완료 (2026-09-22)** | v3 `PortBond` 타입 신설(v1/v2 `PhysicalBond`는 그대로). `neighbour()`가 스트리밍과 같은 공식으로 인접 판정. 10개 성공 조건 검증, 결함 주입 5종 전부 검출. **v2 run digest byte 동일 유지** |
-| 3 | **사슬의 공간 구조** — 결합된 입자가 전부 같은 칸에 겹쳐 있음 | 주형의 전제. **다음 차례** → `docs/current/MINIMAL_LOCAL_GEOMETRY_V1.md` |
+| 3 | **사슬의 공간 구조** — 결합된 입자가 전부 같은 칸에 겹쳐 있음 | 주형의 전제 → `docs/current/MINIMAL_LOCAL_GEOMETRY_V1.md`. v3 `PortBond`로 기하는 열렸고, 다음은 아래 v4 단계 |
 | 4 | 촉매 / 주형 복사 / 경계 물질 / 독립 분열 | 위가 열린 뒤 |
+
+**causal v4 — 다음 실제 작업 (2026-09-22 확정):**
+
+유형 F 결함 둘이 v1부터 있었음이 측정으로 드러났다. 고치려 하자 v1 digest가
+바뀌었고, 거버넌스 9·10번에 따라 **v1/v2/v3는 레거시로 동결하고 v4에서
+고친다.** v4의 지위는 `experimental` — Stage D까지 끝난 뒤 동결을 판단한다.
+
+| 단계 | 내용 | 상태 |
+|---|---|---|
+| **Stage A** | 수정된 충돌 의미 — 암묵적 orientation 회전 제거, 등에너지에서만 90도 산란 | **다음 차례** |
+| Stage B | `StructureState` — 구조가 운동량을 소유 | Stage A 뒤 |
+| Stage C | 재명명·순서 불변성 | |
+| Stage D | 구조 이동 | |
+
+설계: `docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md`
 
 이미 열려 있는 기회: **정지 사슬+빈 port**(60/60 tick), **동시 사슬 2개 이상**(최대 12).
 주형·분열은 "기회 없음"이 아니다.

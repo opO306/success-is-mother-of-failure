@@ -1,6 +1,7 @@
 # causal 충돌 의미 v4 — 설계
 
-**상태:** **초안. 미승인.**
+**상태:** **4절 확정 (2026-09-22). Stage A 구현 미착수.**
+v4의 지위는 `experimental` — Stage D까지 끝난 뒤 adoption을 판단한다.
 **날짜:** 2026-09-22
 **선행:** `STRUCTURE_STATE_V1.md` 9.2(unequal-energy 정면충돌 결함),
 `LANGUAGE_REVISION_GOVERNANCE_V1.md`(9·10번 — 기존 버전 의미를 조용히 바꾸지 않는다)
@@ -180,11 +181,156 @@ same kind + 정반대 direction + 다른 kinetic_energy
 
 ---
 
-## 4. 미결 — 다음 세션에서 확정할 것
+## 4. 확정 사항 (2026-09-22)
 
-- v4 포맷 분기를 코드에서 어떻게 표현할지 (`FORMAT_V4`를 causal에도
-  둘지, 아니면 다른 이름). **environment 쪽 `FORMAT_V4`와 이름이
-  겹치므로 혼동 주의** — environment의 v4는 물리 단위·flux 계약이고
-  전혀 다른 의미다
-- known-defect 테스트 이름·문서를 정확히 어떻게 재규정할지
-- `StructureState`를 v3 위에서 시작할지, v4가 확정된 뒤 시작할지
+### 4.1 포맷 상수 이름 — `FORMAT_V4`를 그대로 쓴다
+
+```python
+# causal_spec.py
+FORMAT    = "deterministic-causal-world-spec-v1"
+FORMAT_V2 = "deterministic-causal-world-spec-v2"
+FORMAT_V3 = "deterministic-causal-world-spec-v3"
+FORMAT_V4 = "deterministic-causal-world-spec-v4"
+
+SUPPORTED_FORMATS = (FORMAT, FORMAT_V2, FORMAT_V3, FORMAT_V4)
+```
+
+`environment_spec.FORMAT_V4`와 이름이 같아도 **namespace 충돌은 없다.**
+확인했다:
+
+```
+causal_spec.FORMAT_V4       = "deterministic-causal-world-spec-v4"
+environment_spec.FORMAT_V4  = "deterministic-environment-world-spec-v4"
+```
+
+서로 다른 모듈이고 문자열 값도 다르다. 그리고 `__init__.py`가
+re-export 하는 포맷 상수는 `spec.py`(A0)의 `FORMAT` 하나뿐 —
+`FORMAT_V2/V3/V4`는 공용 namespace에 올라오지 않는다(측정 확인).
+
+`CAUSAL_FORMAT_V4` 같은 별도 이름을 모듈 내부에 만드는 것은 오히려
+기존 패턴(`FORMAT`, `FORMAT_V2`, `FORMAT_V3`)을 깨뜨린다.
+
+> **규칙: 모듈 내부 이름은 `FORMAT_V4`로 통일한다. 모듈 경계를 넘어
+> 둘을 동시에 쓰는 파일에서만 alias 한다.**
+
+```python
+from .causal_spec import FORMAT_V4 as CAUSAL_FORMAT_V4
+from .environment_spec import FORMAT_V4 as ENVIRONMENT_FORMAT_V4
+```
+
+### 4.2 v4의 지위 — `experimental`, 범위를 미리 선언한다
+
+v4를 충돌 수정 직후 동결하면 `StructureState`를 넣으려고 v5가 또
+필요해진다. 기능 하나마다 버전을 올리는 사태를 피하려면 **v4의 범위를
+지금 선언**해야 한다.
+
+> **causal v4는 v3의 named-port geometry를 계승하고, 수정된 충돌
+> 의미(corrected collision semantics)와 구조가 소유하는 운동
+> 상태(structure-owned motion state)를 도입하는 실험 버전이다.**
+
+이렇게 선언해두면 `StructureState`가 나중에 v4의 의미를 바꾸는 것이
+아니라 **처음부터 예정된 v4 구현 단계**가 된다.
+
+```
+causal v1/v2/v3   frozen legacy semantics
+causal v4         experimental
+```
+
+단계:
+
+| 단계 | 내용 |
+|---|---|
+| Stage A | 수정된 충돌 의미 (이 문서 2절) |
+| Stage B | `StructureState` |
+| Stage C | 재명명·순서 불변성 |
+| Stage D | 구조 이동 |
+
+**Stage D까지 끝난 뒤에 v4의 adoption(동결)을 판단한다.**
+
+### 4.3 `StructureState`는 Stage A가 끝난 뒤 시작한다
+
+v3 위에서 시작하지 않는다. v3에는 역사적으로 보존하기로 한
+암묵적 orientation 회전과 가변 에너지 운동량 회전이 **그대로
+존재**하므로, 그 위에 `StructureState(momentum, motion_energy)`를
+얹으면 **구조 수준에서는 운동량을 엄격히 관리하는데 바로 아래 자유
+입자는 합법 상태에서 운동량을 깨는** 기묘한 계층이 생긴다.
+
+```
+v3  named ports / PortBond / adjacent geometry
+      ↓
+v4 Stage A  collision semantics 수정
+      ↓
+검증
+      ↓
+v4 Stage B  StructureState
+      ↓
+v4 Stage C  relabeling invariance
+      ↓
+v4 Stage D  structure motion
+      ↓
+v4 adoption 판단
+```
+
+### 4.4 레거시 테스트의 지위 — 세 종류로 분리한다
+
+v4가 등장하면 v1/v2/v3의 이 동작은 **일부러 보존해야 하는 legacy
+semantics**가 된다. 그러면 `test_known_defects_causal_kernel.py`의
+철학("실패하면 좋은 소식")이 더 이상 맞지 않는다 — 실패하면 오히려
+**과거 버전을 실수로 변경했다는 뜻**이다.
+
+> **v4 Stage A 구현 시점에** unequal-energy / orientation 구버전 동작을
+> `tests/test_known_defects_causal_kernel.py`에서
+> `tests/test_legacy_causal_semantics.py`로 옮긴다.
+
+```
+known_defects      현재 주 개발 버전에서도 아직 고쳐야 하는 것
+                   → 실패하면 좋은 소식
+
+legacy_semantics   틀렸지만 과거 버전 재현성을 위해 의도적으로 보존
+                   → 실패하면 나쁜 소식 (과거를 실수로 바꿨다)
+
+normal tests       현재 올바른 동작
+```
+
+레거시 쪽:
+```
+test_v1_v2_v3_unequal_energy_scatter_keeps_legacy_behaviour()
+test_v1_v2_v3_break_keeps_legacy_orientation_rotation()
+```
+
+v4 쪽:
+```
+test_v4_unequal_energy_head_on_preserves_momentum()
+test_v4_scatter_does_not_rotate_orientation()
+test_v4_bond_break_does_not_rotate_orientation()
+```
+
+### 4.5 구현 시 금지 — 포맷 문자열 비교
+
+```python
+if spec.format >= FORMAT_V4:        # 절대 안 됨. 문자열 버전 비교
+```
+
+**"v4니까 v3보다 최신 기능을 자동으로 다 가진다"가 아니다.** 각 의미가
+어떤 포맷을 계승하는지 코드에 드러나야 한다:
+
+```python
+has_named_ports              = spec.format in (FORMAT_V3, FORMAT_V4)
+corrected_collision_semantics = spec.format == FORMAT_V4
+structure_owned_motion        = spec.format == FORMAT_V4
+```
+
+의미별로 명시적으로 분기한다.
+
+---
+
+## 5. 다음 작업 — v4 Stage A
+
+**`StructureState`가 아니라 충돌 의미 구현이 먼저다.**
+
+1. `causal_spec.py`에 `FORMAT_V4` 추가, v3와 **동일한 named-port
+   문법을 계승**하도록 파싱
+2. 오직 v4 코드 경로에서만 `orientation` 자동회전 제거
+3. 오직 v4 코드 경로에서만 등에너지 조건으로 90도 산란 제한
+4. v1/v2/v3 digest 불변 확인 (기존 고정 테스트가 그대로 통과해야 한다)
+5. 3절의 검증 순서 진행
