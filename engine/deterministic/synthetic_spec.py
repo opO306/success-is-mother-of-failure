@@ -16,6 +16,32 @@ Variable and world names here are deliberately anonymous -- `x1`/`x2`/`x3`,
 `direct`/`conditional`/`mediator`. A name is not evidence; B has to find
 the causal structure by intervening on the world, not by reading the
 identifiers.
+
+Threat model / what "blind" means here (G6c-4 depends on this being exact):
+blindness is scoped to the B-facing API and B-facing *data* -- a spec's
+`canonical()` output, a `WorldObservation`, a `PredictionEvaluation`, and
+anything a `ResearchControlDefinition`'s own fields say. B is assumed to
+have no access to this repository's source, to `synthetic_runtime.py`
+specifically, or to `ground_truth/` -- if B were given filesystem or
+`import` access to either, reading `synthetic_runtime._BINDINGS` or
+`ground_truth/gt_m1_mediator.py` directly would answer every question this
+package exists to make B answer by experiment. A benchmark harness that
+hands B a Python process with this repository on its path is not running a
+blind evaluation, whatever the variable names say.
+
+Within that boundary, `variables`/`initial_values` in a spec's own
+`canonical()` are deliberately B-facing even for a variable that is *not* a
+public observable -- `public_observables` gates whether a variable's value
+at any tick (including tick 0, via `WorldObservation`) is ever readable,
+not whether the variable is known to exist at all. A world that wants a
+variable's existence itself hidden (not just its value) needs a stronger
+model than this package currently implements -- a private runtime state
+kept entirely apart from the public spec -- which none of GT-2/GT-3/GT-M1's
+intended structures need: in each, every causally relevant variable is
+something B must be able to name in a control or a prediction to run the
+interventions that distinguish direct/conditional/mediator structure at
+all, so "exists but not yet observed" is the only privacy GT-2/3/M1 (and
+therefore this package, for now) require.
 """
 from __future__ import annotations
 

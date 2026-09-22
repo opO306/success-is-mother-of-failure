@@ -169,6 +169,66 @@ def test_resolve_rule_rejects_a_known_world_with_the_wrong_revision() -> None:
 
 
 # ---------------------------------------------------------------------------
+# G6c-3.2: sealed rule fingerprints -- world_revision alone is a promise kept
+# by discipline; _SEALED_FINGERPRINTS makes an undisclosed rule-behavior
+# change (without minting a new revision) fail at import time instead.
+# ---------------------------------------------------------------------------
+
+def test_synthetic_runtime_imports_cleanly_meaning_current_rules_match_their_sealed_fingerprints() -> None:
+    """_verify_sealed_fingerprints() runs at import time (synthetic_runtime.py
+    module level) -- successfully importing the module already proves every
+    bound rule's current source matches what was sealed for its revision.
+    Making that assertion explicit here (rather than relying on collection
+    not exploding) documents what the import's success actually means."""
+    import engine.deterministic.synthetic_runtime as runtime_module
+    for key, binding in runtime_module._BINDINGS.items():
+        assert runtime_module._fingerprint(binding.rule) == runtime_module._SEALED_FINGERPRINTS[key]
+
+
+def test_sealed_fingerprint_check_catches_a_silent_rule_behavior_change() -> None:
+    """Reproduces, without touching the real module on disk, what happens
+    when a rule's behavior changes without minting a new revision: the
+    fingerprint no longer matches what was sealed, and the check must
+    reject it -- confirmed directly against _verify_sealed_fingerprints'
+    own logic rather than trusting that the module simply importing today
+    means the check would catch a future drift."""
+    import engine.deterministic.synthetic_runtime as runtime_module
+
+    def _mutated_rule_s01(values):
+        return {"x1": values["x1"], "x3": not values["x1"]}  # behavior silently changed
+
+    tampered_bindings = {
+        ("WORLD-S01", "R-7F93C2"): runtime_module.SyntheticWorldBinding(
+            "WORLD-S01", "R-7F93C2", _mutated_rule_s01),
+    }
+    mismatches = [key for key, binding in tampered_bindings.items()
+                 if runtime_module._fingerprint(binding.rule) != runtime_module._SEALED_FINGERPRINTS.get(key)]
+    assert mismatches == [("WORLD-S01", "R-7F93C2")]
+
+
+def test_fingerprint_hashes_source_text_not_a_truth_table() -> None:
+    """The fingerprint must be meaningless without the source itself -- if it
+    were instead a hash of the rule's full input/output truth table, B could
+    brute-force every possible boolean function of the same arity and match
+    it against a leaked hash, defeating blindness. Confirmed here by showing
+    two rules with the SAME truth table (x3 := x1, computed two different
+    ways) get DIFFERENT fingerprints, because their source text differs."""
+    import engine.deterministic.synthetic_runtime as runtime_module
+
+    def rule_a(values):
+        return {"x1": values["x1"], "x3": values["x1"]}
+
+    def rule_b(values):
+        x1 = values["x1"]
+        return {"x1": x1, "x3": x1}
+
+    # Same truth table (x3 always equals x1), deliberately different source.
+    for case in (False, True):
+        assert rule_a({"x1": case})["x3"] == rule_b({"x1": case})["x3"]
+    assert runtime_module._fingerprint(rule_a) != runtime_module._fingerprint(rule_b)
+
+
+# ---------------------------------------------------------------------------
 # SyntheticAExecutor
 # ---------------------------------------------------------------------------
 

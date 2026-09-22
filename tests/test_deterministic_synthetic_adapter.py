@@ -116,6 +116,27 @@ def test_initial_observation_reflects_clamps() -> None:
     assert observation.observables["x1"] is True
 
 
+def test_initial_observation_excludes_a_non_public_variable_though_the_spec_still_declares_it() -> None:
+    """G6c-3.2's documented privacy model: variables/initial_values in a
+    spec's own canonical() are B-facing even for a variable that is not a
+    public observable (its existence and starting value are known) -- but
+    initial_observation, at every tick including this one, must never
+    surface its value. See synthetic_spec.py's module docstring on why this
+    is the only privacy GT-2/3/M1 need (every causally relevant variable
+    must be nameable in a control/prediction to run the distinguishing
+    interventions at all)."""
+    spec = SyntheticWorldSpec(
+        world_id="WORLD-S03", world_revision="R-51E8B7", variables=("x1", "x2", "x3"),
+        initial_values=(("x1", False), ("x2", False), ("x3", False)), clamps=(),
+        public_controls=("x1",), public_observables=("x1", "x3"), ticks=2,  # x2 deliberately not public
+    )
+    assert "x2" in spec.canonical()["variables"]  # existence/initial value IS B-facing data
+    assert dict(spec.canonical()["initial_values"])["x2"] is False
+
+    observation = SyntheticResearchAdapter().initial_observation(spec)
+    assert "x2" not in observation.observables  # but its value is never readable, even at tick 0
+
+
 def test_evaluate_prediction_match() -> None:
     executor = SyntheticAExecutor()
     adapter = SyntheticResearchAdapter()
