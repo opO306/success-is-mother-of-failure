@@ -1,0 +1,81 @@
+{
+  "checks": [
+    {
+      "detail": "one of 2 exhaustive cases: mediator_active follows source_active when nothing overrides it",
+      "expected": false,
+      "name": "A_changes_B_ordinary_evolution_source=False",
+      "observed": false,
+      "passed": true
+    },
+    {
+      "detail": "one of 2 exhaustive cases: mediator_active follows source_active when nothing overrides it",
+      "expected": true,
+      "name": "A_changes_B_ordinary_evolution_source=True",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "outcome_active differs when mediator_active is forced False vs True, with source_active identical (True) in both",
+      "name": "B_changes_C_with_A_held_fixed",
+      "observed": {
+        "outcome_with_B_false": false,
+        "outcome_with_B_true": true
+      },
+      "passed": true
+    },
+    {
+      "detail": "the strict mediator check GT-1 could only approximate: here B is pinned in the SAME world via a real control, not by constructing a different initial placement",
+      "expected": "outcome_active identical across source_active=False/True when mediator_active is pinned at False",
+      "name": "blocking_B_at_False_severs_A_effect_on_C",
+      "observed": {
+        "outcome_source_False": false,
+        "outcome_source_True": false
+      },
+      "passed": true
+    },
+    {
+      "detail": "the strict mediator check GT-1 could only approximate: here B is pinned in the SAME world via a real control, not by constructing a different initial placement",
+      "expected": "outcome_active identical across source_active=False/True when mediator_active is pinned at True",
+      "name": "blocking_B_at_True_severs_A_effect_on_C",
+      "observed": {
+        "outcome_source_False": true,
+        "outcome_source_True": true
+      },
+      "passed": true
+    },
+    {
+      "detail": "static confirmation the override is a genuine independent control on B, not source_active relabelled",
+      "expected": "step_with_mediator_override sets mediator_active from forced_mediator, not from state.source_active",
+      "name": "override_control_reads_forced_value_not_source",
+      "observed": {
+        "source": "def step_with_mediator_override(state: MediatorState, forced_mediator: bool) -> MediatorState:\n    \"\"\"The public control on B: pin mediator_active to `forced_mediator` this tick.\n\n    source_active is still read and carried forward (it is not deleted by\n    the intervention), but it does not determine mediator_active while this\n    override is in effect -- only outcome_active continues to follow\n    whatever mediator_active ends up being.\n    \"\"\"\n    return MediatorState(source_active=state.source_active, mediator_active=forced_mediator,\n                         outcome_active=forced_mediator)"
+      },
+      "passed": true
+    }
+  ],
+  "exhaustive": true,
+  "exhaustive_cases_checked": 8,
+  "expected_edges": [
+    [
+      "source_active",
+      "mediator_active"
+    ],
+    [
+      "mediator_active",
+      "outcome_active"
+    ]
+  ],
+  "forbidden_edges": [
+    [
+      "source_active",
+      "outcome_active"
+    ]
+  ],
+  "format": "ground-truth-report-v1",
+  "ground_truth_digest": "4e26c6691f79babe93fcbb988edbc15e274dc70325eadd6df63e18182bd55b78",
+  "notes": [],
+  "verdict": "VALID",
+  "world_id": "GT-M1-mediator-canonical-A-to-B-to-C",
+  "world_spec_digest": "6b049adfe405910cba8cacd7a768c57716ab9497eabfbbb0fc8144ba86f5bf35"
+}
