@@ -41,6 +41,8 @@ EVENT_TYPES = frozenset({
     # B0.7 events -- missing link investigation: hypotheses, follow-up requests, results.
     "missing_link_investigation_sealed", "missing_link_hypothesis_proposed", "missing_link_result_recorded",
     "observation_request_submitted", "mechanism_test_request_submitted", "instrumentation_request_submitted",
+    # G6d event -- autonomous experiment design: which candidate was ranked/selected, and why.
+    "experiment_candidate_ranked",
 })
 
 

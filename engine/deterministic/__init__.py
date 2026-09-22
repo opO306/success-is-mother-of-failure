@@ -132,6 +132,11 @@ from .research_prediction import (
     FunctionalPredictionProvider,
     StaticPredictionProvider,
 )
+from .experiment_designer import (
+    DiscriminatingCandidate,
+    rank_discriminating_candidates,
+    select_next_experiment,
+)
 from .role_resolver import (
     resolve_bond_rule_role,
     resolve_heat_cell_role,
@@ -568,6 +573,7 @@ __all__ = [
     "DERIVED_OPERATIONS",
     "DeepInvestigationOutcome",
     "DerivedFeatureCandidate",
+    "DiscriminatingCandidate",
     "DiscriminatingPrediction",
     "DivergenceChain",
     "DivergenceEvent",
@@ -834,6 +840,7 @@ __all__ = [
     "propose_causal_edge",
     "propose_followup_experiment",
     "propose_mechanism_candidates",
+    "rank_discriminating_candidates",
     "rebuild_causal_graph",
     "rebuild_research_state",
     "register_atomic_phase_event",
@@ -853,6 +860,7 @@ __all__ = [
     "submit_observation_request",
     "seal_investigation_target",
     "seal_predictions",
+    "select_next_experiment",
     "strengthen_edge_with_contradiction",
     "trace_and_compare",
     "update_accident_status",
