@@ -98,7 +98,7 @@ def test_bad_port_declarations_are_refused(tmp_path, ports, message):
 
 def test_named_ports_require_v3(tmp_path):
     """A v2 world counts its ports; it has no way to mean a named one."""
-    with pytest.raises(ValueError, match="named ports require the v3 format"):
+    with pytest.raises(ValueError, match="named ports require the v3 or v4 format"):
         _load(tmp_path, _world(fmt=FORMAT_V2))
 
 

@@ -172,72 +172,20 @@ def test_defect_a_chain_takes_at_most_one_arrival_per_tick():
     assert len(added) == 1, "the ceiling is gone -- see replace_with in this docstring"
 
 
-def test_defect_unequal_energy_head_on_same_kind_breaks_momentum():
-    """DEFECT: the 90-degree scatter rule rotates momentum instead of conserving it.
-
-    measured:     2026-09-22
-    principle:    conservation -- a tick may move momentum around, not change it
-    cause:        `_resolve_collisions` applies A0's fixed-speed lattice
-                  collision (`N/S -> E/W`) whenever two particles of one kind
-                  meet head-on, without checking that they carry equal energy.
-                  A0 had no `kinetic_energy` at all: its `momentum()` sums
-                  `mass * dx`, so every particle moved at speed 1 and a swapped
-                  pair always summed to zero either way. causal added variable
-                  energy and inherited the rule without narrowing its premise.
-    replace_with: test_unequal_energy_head_on_collision_preserves_momentum --
-                  whatever the tick does with an unequal pair, momentum must
-                  come out unchanged.
-
-                  What it should do is NOT yet decided. Narrowing the scatter
-                  to equal energies and letting an unequal pair pass through is
-                  the smallest candidate -- it restores the rule's original
-                  premise rather than inventing physics -- but "pass through"
-                  is one answer among several (bounce, scatter by a
-                  momentum-preserving rule, bond, convert the difference to
-                  stored energy). Conservation is settled; the mechanism is not.
-
-    The rule was sound in A0 because every particle had the same speed:
-
-        N + S  ->  E + W        momentum 0 -> 0
-
-    With energy it is not:
-
-        N/1 + S/2  ->  E/1 + W/2        momentum (0,1) -> (-1,0)
-
-    Same magnitude, rotated 90 degrees. The kernel's own conservation check
-    catches it and raises, so this is not silent -- but it means a legal world
-    can be built today that cannot be stepped at all.
-
-    Swept exhaustively over energies 1..4: 48 violating combinations, every one
-    of them with unequal energies, and none with equal energies. That is what
-    makes "equal energy" the right narrowing rather than a guess.
-
-    Reachability note: the two shipped world files do not trigger this.
-    `polymer_chain_v2` mixes energies 2 and 3 but has no same-kind head-on
-    meeting. The defect is latent, not theoretical.
-    """
-    spec = _spec()
-    # Converging on (10, 10): same kind, opposite headings, unequal energy.
-    state = CausalWorldState(
-        0,
-        (CausalParticleSpec(1, 0, 10, 11, "N", "N", 1),
-         CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
-        (), (), {}, False)
-    assert state.momentum(spec) == (0, 1)
-
-    streamed = _stream_free(spec, state)
-    assert streamed.momentum(spec) == (0, 1), "streaming is not where it breaks"
-
-    scattered = _resolve_collisions(spec, streamed)
-    assert scattered.momentum(spec) == (-1, 0), (
-        "the scatter no longer rotates momentum -- see replace_with above")
-
-    # The kernel's own guard catches it, so the whole tick is unsteppable.
-    with pytest.raises(AssertionError, match="changed momentum"):
-        step_causal_world(spec, state)
-
-
-    # The equal-energy boundary of this defect -- the case the rule was
-    # actually built for -- is a positive test and lives in the normal suite:
-    # test_deterministic_causal_kernel.py::
-    #   test_an_equal_energy_head_on_scatter_conserves_momentum
+# test_defect_unequal_energy_head_on_same_kind_breaks_momentum was here.
+#
+# FIXED on the v4 code path (2026-09-22, causal v4 Stage A --
+# docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md). v4 narrows the 90-degree
+# scatter to equal-energy pairs; an unequal pair matches no other declared
+# rule and the tick leaves it unchanged, which section 1.2 of that document
+# shows is the unique conservation-preserving outcome.
+#
+# v1/v2/v3 still exhibit the defect exactly as measured below, and are held
+# there on purpose (LANGUAGE_REVISION_GOVERNANCE_V1.md 9-10: an existing
+# format's meaning does not change). See:
+#   tests/test_legacy_causal_semantics.py::
+#     test_v1_v2_v3_unequal_energy_scatter_keeps_legacy_behaviour  (v1/v2/v3)
+#   tests/test_deterministic_causal_kernel.py::
+#     test_v4_unequal_energy_head_on_leaves_particles_unchanged   (v4, new)
+#     test_an_equal_energy_head_on_scatter_conserves_momentum     (the
+#       positive case the rule was always built for, unaffected by v4)

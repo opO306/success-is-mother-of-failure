@@ -21,7 +21,14 @@ FORMAT_V2 = "deterministic-causal-world-spec-v2"
 # same arrival, nothing physical chose between them and the kernel fell back
 # on particle ids. Named ports are what the state was missing.
 FORMAT_V3 = "deterministic-causal-world-spec-v3"
-SUPPORTED_FORMATS = (FORMAT, FORMAT_V2, FORMAT_V3)
+# v4 keeps v3's named-port geometry unchanged and corrects two collision
+# defects that v1/v2/v3 share (see docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md):
+# an implicit `orientation` rotation on scatter/break, and a 90-degree scatter
+# applied to head-on pairs of unequal energy. v4 is `experimental` -- its
+# collision semantics are corrected only on this format's own code path;
+# v1/v2/v3 keep their legacy behaviour and their digests are unaffected.
+FORMAT_V4 = "deterministic-causal-world-spec-v4"
+SUPPORTED_FORMATS = (FORMAT, FORMAT_V2, FORMAT_V3, FORMAT_V4)
 
 # Which cell a port faces, and which port on the neighbour it meets there. A
 # bond is legal when each side's port points at the other's cell, so the pair
@@ -72,7 +79,7 @@ def _scan(value: Any, path: str = "world") -> None:
 class CausalMaterialSpec:
     kind: int
     mass: int
-    # v1/v2 count their ports; v3 names them. `port_names` is empty for the
+    # v1/v2 count their ports; v3/v4 name them. `port_names` is empty for the
     # older formats, where a port has no identity and `ports` is only a limit.
     ports: int
     port_names: tuple[str, ...] = ()
@@ -123,20 +130,20 @@ class BondRuleSpec:
     right_kind: int
     # Under v1/v2 these hold the particles' `orientation`, which stands in for
     # both "which way the particle faces" and "which face it bonds with".
-    # Under v3 they hold port names, and the two meanings are separated: the
-    # particle keeps its orientation, while the bond names the face it uses.
+    # Under v3/v4 they hold port names, and the two meanings are separated:
+    # the particle keeps its orientation, while the bond names the face it uses.
     left_orientation: str
     right_orientation: str
     minimum_collision_energy: int
     break_heat: int
     release_left: str
     release_right: str
-    # v3 bonds join neighbouring cells; v1/v2 bonds join particles sharing one.
+    # v3/v4 bonds join neighbouring cells; v1/v2 bonds join particles sharing one.
     locality: str = "same_cell"
 
     @property
     def left_port(self) -> str:
-        """The face the left participant bonds with (v3 naming)."""
+        """The face the left participant bonds with (v3/v4 naming)."""
         return self.left_orientation
 
     @property
@@ -252,13 +259,17 @@ class CausalWorldSpec:
         if not isinstance(mr, list) or not mr:
             raise ValueError("materials must be a non-empty list")
         materials = []
-        is_v3 = world_format == FORMAT_V3
+        # v4 inherits v3's named-port geometry unchanged (see FORMAT_V4 above)
+        # -- this is a parsing decision, not the format-string comparison
+        # section 4.5 of CAUSAL_COLLISION_SEMANTICS_V4.md forbids. Each
+        # semantic v4 changes is gated on its own, separately, in the kernel.
+        has_named_ports = world_format in (FORMAT_V3, FORMAT_V4)
         for index, value in enumerate(mr):
             item = _object(value, f"materials[{index}]")
             _exact(item, {"kind", "mass", "ports"}, f"materials[{index}]")
             raw_ports = item["ports"]
-            if is_v3:
-                # v3 names its ports. A material declares the faces it can
+            if has_named_ports:
+                # v3/v4 name their ports. A material declares the faces it can
                 # bond with, so "how many" follows from "which ones" rather
                 # than standing on its own.
                 if not isinstance(raw_ports, list) or not raw_ports:
@@ -274,7 +285,7 @@ class CausalWorldSpec:
                     len(names), names))
                 continue
             if isinstance(raw_ports, list):
-                raise ValueError("named ports require the v3 format")
+                raise ValueError("named ports require the v3 or v4 format")
             materials.append(CausalMaterialSpec(
                 _integer(item["kind"], "material.kind"), _integer(item["mass"], "material.mass", 1),
                 _integer(raw_ports, "material.ports", 1),
@@ -325,8 +336,8 @@ class CausalWorldSpec:
             raise ValueError("bond_rules must be a list")
         rules = []
         port_names = {item.kind: item.port_names for item in materials}
-        left_key, right_key = ("left_port", "right_port") if is_v3 else ("left_orientation", "right_orientation")
-        locality = "adjacent_cells" if is_v3 else "same_cell"
+        left_key, right_key = ("left_port", "right_port") if has_named_ports else ("left_orientation", "right_orientation")
+        locality = "adjacent_cells" if has_named_ports else "same_cell"
         for index, value in enumerate(rr):
             item = _object(value, f"bond_rules[{index}]")
             _exact(item, {"rule_id", "event", "locality", "conserves", "left_kind", "right_kind", left_key, right_key, "minimum_collision_energy", "break_heat", "release_left", "release_right"}, f"bond_rules[{index}]")
@@ -343,7 +354,7 @@ class CausalWorldSpec:
                 raise ValueError("bond rule has an invalid id or material kind")
             if any(value not in DIRECTIONS for value in (rule.left_orientation, rule.right_orientation, rule.release_left, rule.release_right)):
                 raise ValueError("bond rule orientations must be cardinal directions")
-            if is_v3:
+            if has_named_ports:
                 # The rule may only name faces its materials actually have,
                 # and the two faces must point at each other -- one contact
                 # described from both ends.

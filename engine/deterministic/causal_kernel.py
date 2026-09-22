@@ -10,6 +10,7 @@ from typing import Mapping
 from .causal_spec import (
     FORMAT_V2,
     FORMAT_V3,
+    FORMAT_V4,
     OPPOSITE_PORT,
     BondRuleSpec,
     CausalParticleSpec,
@@ -414,6 +415,12 @@ def _heat_cells(values: dict[tuple[int, int], int]) -> tuple[HeatCellSpec, ...]:
 
 
 def _break_existing(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
+    # v4 corrects a defect present since causal(A1) began: release rotated
+    # `orientation` to match the release `direction`, though nothing declares
+    # that a break should touch orientation at all (see
+    # docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md section 1.1). v1/v2/v3
+    # keep the legacy rotation so their digests are unaffected.
+    corrected_collision_semantics = spec.format == FORMAT_V4
     particles = {item.particle_id: item for item in state.particles}
     heat = _heat_map(state)
     rules = {item.rule_id: item for item in spec.bond_rules}
@@ -432,8 +439,12 @@ def _break_existing(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWor
             rule = rules[bond.rule_id]
             each = released // 2
             left, right = particles[bond.left_id], particles[bond.right_id]
-            particles[bond.left_id] = replace(left, direction=rule.release_left, orientation=rule.release_left, kinetic_energy=each)
-            particles[bond.right_id] = replace(right, direction=rule.release_right, orientation=rule.release_right, kinetic_energy=each)
+            if corrected_collision_semantics:
+                particles[bond.left_id] = replace(left, direction=rule.release_left, kinetic_energy=each)
+                particles[bond.right_id] = replace(right, direction=rule.release_right, kinetic_energy=each)
+            else:
+                particles[bond.left_id] = replace(left, direction=rule.release_left, orientation=rule.release_left, kinetic_energy=each)
+                particles[bond.right_id] = replace(right, direction=rule.release_right, orientation=rule.release_right, kinetic_energy=each)
     return replace(state, particles=tuple(particles.values()), heat=_heat_cells(heat),
                    bonds=tuple(remaining))
 
@@ -577,6 +588,16 @@ def _grow_chains(spec: CausalWorldSpec, state: CausalWorldState,
 
 
 def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
+    # v4 corrects two defects (docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md
+    # section 1): the scatter no longer rotates `orientation`, and it only
+    # applies when the pair's energies are equal -- the premise A0 actually
+    # built it under. With unequal energies no other declared rule matches,
+    # so nothing happens; section 1.2 shows this is the unique
+    # conservation-preserving outcome, not new physics. v1/v2/v3 keep the
+    # legacy behaviour (orientation rotates, scatter fires regardless of
+    # energy, and an unequal pair breaks momentum -- see
+    # tests/test_legacy_causal_semantics.py).
+    corrected_collision_semantics = spec.format == FORMAT_V4
     bonded = {value for bond in state.bonds for value in (bond.left_id, bond.right_id)}
     groups: dict[tuple[int, int], list[CausalParticleSpec]] = defaultdict(list)
     for item in state.particles:
@@ -601,11 +622,15 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
                 particles[second.particle_id] = replace(second, kinetic_energy=0)
                 bonds.append(PhysicalBond(left.particle_id, right.particle_id, rule.rule_id, total, x, y))
                 continue
-        if first.kind == second.kind and {first.direction, second.direction} in ({"N", "S"}, {"E", "W"}):
+        if (first.kind == second.kind and {first.direction, second.direction} in ({"N", "S"}, {"E", "W"})
+                and (not corrected_collision_semantics or first.kinetic_energy == second.kinetic_energy)):
             replacement = ("E", "W") if {first.direction, second.direction} == {"N", "S"} else ("N", "S")
             ordered = sorted((first, second), key=lambda p: DIRECTIONS.index(p.direction))
             for particle, direction in zip(ordered, replacement):
-                particles[particle.particle_id] = replace(particle, direction=direction, orientation=direction)
+                if corrected_collision_semantics:
+                    particles[particle.particle_id] = replace(particle, direction=direction)
+                else:
+                    particles[particle.particle_id] = replace(particle, direction=direction, orientation=direction)
     if state.chains_may_move:
         _grow_chains(spec, state, particles, bonds)
     return replace(state, particles=tuple(particles.values()), bonds=tuple(bonds))

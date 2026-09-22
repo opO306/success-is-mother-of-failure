@@ -49,6 +49,10 @@ class _Spec:
     class kernel:
         width, height = WIDTH, HEIGHT
     materials = (CausalMaterialSpec(0, 1, 4),)
+    # Legacy (pre-v4) collision semantics -- this fixture predates FORMAT_V4
+    # and its expectations (orientation rotates, scatter fires regardless of
+    # energy) are the v1/v2/v3 behaviour, not v4's corrected one.
+    format = "deterministic-causal-world-spec-v2"
     # (rule_id, left_kind, right_kind, left_orientation, right_orientation,
     #  minimum_collision_energy, break_heat, release_left, release_right).
     # break_heat is high enough that a bond, once formed, is not torn apart on

@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-22
-**검증:** 전체 테스트 1041개 통과
+**검증:** 전체 테스트 1046개 통과
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -201,10 +201,28 @@ A records         = 0
 
 | 단계 | 내용 | 상태 |
 |---|---|---|
-| **Stage A** | 수정된 충돌 의미 — 암묵적 orientation 회전 제거, 등에너지에서만 90도 산란 | **다음 차례** |
-| Stage B | `StructureState` — 구조가 운동량을 소유 | Stage A 뒤 |
+| **Stage A** | 수정된 충돌 의미 — 암묵적 orientation 회전 제거, 등에너지에서만 90도 산란 | **완료 (2026-09-22)** |
+| Stage B | `StructureState` — 구조가 운동량을 소유 | **다음 차례** |
 | Stage C | 재명명·순서 불변성 | |
 | Stage D | 구조 이동 | |
+
+**Stage A 구현 요약:**
+
+- `causal_spec.py`: `FORMAT_V4` 추가. v3와 동일한 named-port 문법을 계승
+  (`is_v3` → `has_named_ports = format in (FORMAT_V3, FORMAT_V4)`로 일반화)
+- `causal_kernel.py`: `_break_existing`·`_resolve_collisions`에
+  `corrected_collision_semantics = spec.format == FORMAT_V4` 게이트 추가.
+  v4 경로에서만 (1) 방출·산란이 `orientation`을 건드리지 않음 (2) 90도
+  산란이 등에너지 쌍에서만 발동 — 다른 규칙도 안 맞으면 상태 불변
+- 레거시 테스트 분리: `test_known_defects_causal_kernel.py`의
+  unequal-energy 결함 테스트를 `tests/test_legacy_causal_semantics.py`로
+  이동(v1/v2/v3 전용, "실패하면 나쁜 소식"). v4용 positive test 3종을
+  `test_deterministic_causal_kernel.py`에 추가
+- 검증: 출하된 v1 세계 digest가 Stage A 적용 전후 동일
+  (`21385184...93ce79`) — v3 상태 지속성·대각 불가능성 등 기존 테스트의
+  `_Spec` fixture 두 곳이 `format` 속성이 없어 `AttributeError`로 드러남 →
+  각각 v2/v3 레거시 포맷 명시로 수정 (설계 변경 아님, fixture 결함)
+- 전체 테스트 1046개 통과 (기존 1041 + v4 신규 5)
 
 설계: `docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md`
 
@@ -251,3 +269,4 @@ A records         = 0
 | 2026-09-22 | **v3 구조가 tick을 못 넘기던 문제 해결** (→1040). 상태를 위치 인수로 재구성해 `port_bonds`·`grid_size`·`named_ports`가 매 tick 증발하고 있었다. causal 4곳 + environment 4곳 + GPU 2곳 + counterfactual 1곳을 `replace()`로 전환. environment 경로는 `port_limits`·`chains_may_move`까지 잃고 있었다 — v2 사슬도 환경 세계 안에서는 작동하지 않았다는 뜻 |
 | 2026-09-22 | **새 결함 기록** — 고정 속도 격자 충돌 규칙(A0 상속)이 에너지가 다르면 운동량을 90도 회전시킨다. 교훈 유형 F 신설. 대각 도달 불가능성을 테스트로 고정 |
 | 2026-09-22 | **v3의 `port_limits`/`chains_may_move`가 실측과 다르게 문서화돼 있었음을 발견·정정** (→1041). 둘 다 format 동등성 비교(`== FORMAT_V2`)로만 판정해 v3가 v2가 아니라 v1 갈래로 빠진다 — `port_limits=1`, `chains_may_move=False`. 값 자체는 현재 단계에 맞으므로(구조 이동 미구현) 코드는 그대로 두고 문서를 정정, 테스트로 고정. AST 회귀 검사도 `ck.CausalWorldState(...)` 같은 qualified call을 놓치는 구멍을 발견해 하드닝 |
+| 2026-09-22 | **causal v4 Stage A 구현 완료** (→1046). `FORMAT_V4` 추가, v3 named-port 문법 계승. `corrected_collision_semantics = spec.format == FORMAT_V4` 게이트로 orientation 암묵 회전 제거 + 90도 산란을 등에너지로 제한 — v4 경로만. v1/v2/v3 digest는 Stage A 적용 전후 동일함을 측정 확인. known-defect 테스트 1종을 legacy로 이동, v4 positive test 3종 신설. 부수 발견: 대각 불가능성·v3 상태 지속성 테스트의 `_Spec` fixture 두 곳에 `format` 속성이 없어 새 게이트가 `AttributeError`를 냄 — 각각 레거시 포맷 명시로 수정 |

@@ -1,6 +1,6 @@
 # causal 충돌 의미 v4 — 설계
 
-**상태:** **4절 확정 (2026-09-22). Stage A 구현 미착수.**
+**상태:** **Stage A 구현 완료 (2026-09-22).** Stage B(`StructureState`)가 다음 차례.
 v4의 지위는 `experimental` — Stage D까지 끝난 뒤 adoption을 판단한다.
 **날짜:** 2026-09-22
 **선행:** `STRUCTURE_STATE_V1.md` 9.2(unequal-energy 정면충돌 결함),
@@ -334,3 +334,61 @@ structure_owned_motion        = spec.format == FORMAT_V4
 3. 오직 v4 코드 경로에서만 등에너지 조건으로 90도 산란 제한
 4. v1/v2/v3 digest 불변 확인 (기존 고정 테스트가 그대로 통과해야 한다)
 5. 3절의 검증 순서 진행
+
+---
+
+## 6. Stage A 구현 완료 (2026-09-22)
+
+위 5개 항목 모두 완료.
+
+**`causal_spec.py`:**
+
+- `FORMAT_V4` 상수 추가, `SUPPORTED_FORMATS`에 포함
+- `is_v3` 불리언을 `has_named_ports = world_format in (FORMAT_V3, FORMAT_V4)`로
+  일반화 — 포맷 문자열 비교(4.5절 금지 사항)가 아니라 "이 포맷이 이
+  의미를 계승하는가"를 명시적으로 묻는 형태 유지
+- v4 세계는 v3와 동일하게 `port_names` 리스트로 포트를 선언
+
+**`causal_kernel.py`:**
+
+- `_break_existing`, `_resolve_collisions` 각각에
+  `corrected_collision_semantics = spec.format == FORMAT_V4` 지역 변수 추가
+- `_break_existing`: `corrected_collision_semantics`일 때만 `orientation`
+  인수를 `replace()`에서 뺀다 (direction·kinetic_energy만 갱신)
+- `_resolve_collisions`: 90도 산란 조건에
+  `and (not corrected_collision_semantics or first.kinetic_energy ==
+  second.kinetic_energy)` 추가. 조건이 거짓이면 다른 선언된 규칙도 없으므로
+  두 입자는 그대로 남는다 — "통과"를 구현한 게 아니라 아무 분기도 타지
+  않을 뿐이다. 산란이 발동하는 경우도 `orientation` 인수는 뺐다
+
+**측정 검증:**
+
+- 출하된 `deterministic_bond_cycle_v1.json`(FORMAT v1) 실행 digest가
+  Stage A 적용 전후 완전히 동일 (`2138518494c89e15d624932ee11cedd402f4f77ead4c4c10170ab8534793ce79`).
+  0절이 인용한 `e37f773f...`/`75266ff3...` 두 값은 이 저장소의 현재 세계
+  파일로는 재현되지 않았다 — 다른 측정 맥락에서 나온 예시로 보이며,
+  결론(게이팅으로 v1 digest 불변)은 이번 측정으로 독립적으로 재확인됐다
+- 테스트 1046개 전부 통과 (기존 1041 + v4 신규 5)
+
+**테스트 분리:**
+
+- `tests/test_known_defects_causal_kernel.py`의
+  `test_defect_unequal_energy_head_on_same_kind_breaks_momentum`을 제거하고
+  이동 주석으로 대체
+- `tests/test_legacy_causal_semantics.py` 신설 —
+  `test_v1_v2_v3_unequal_energy_scatter_keeps_legacy_behaviour`,
+  `test_v1_v2_v3_break_keeps_legacy_orientation_rotation`
+- `tests/test_deterministic_causal_kernel.py`에 v4 positive test 5종 추가:
+  `test_v4_scatter_does_not_rotate_orientation`,
+  `test_v4_bond_break_does_not_rotate_orientation`,
+  `test_v4_unequal_energy_head_on_leaves_particles_unchanged`,
+  `test_v4_leaves_the_shipped_v1_digest_unchanged`
+
+**부수 발견 (설계 변경 아님):** 새 `spec.format` 읽기가
+`tests/test_diagonal_momentum_is_unreachable.py`와
+`tests/test_deterministic_v3_state_persistence.py`의 최소 `_Spec` stub
+클래스 두 곳에서 `AttributeError`를 드러냈다 — 두 stub 모두 진짜
+`CausalWorldSpec`을 흉내 내지만 `format` 속성이 없었다. 각각 자신이
+대표하는 세대의 레거시 포맷(`v2`, `v3`)을 명시해 수정. 이 stub들은 v4
+이전부터 존재했으므로 새로 만든 결함이 아니라, 게이트가 없어 드러나지
+않았던 완전성 구멍이었다.

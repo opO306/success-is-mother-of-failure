@@ -54,6 +54,8 @@ class _Spec:
         width, height = WIDTH, HEIGHT
     bond_rules = ()
     materials = (CausalMaterialSpec(0, 1, 4, ("N", "E", "S", "W")),)
+    # v3-era fixture: legacy (pre-v4) collision semantics.
+    format = "deterministic-causal-world-spec-v3"
 
 
 # --- the gate: v3 state survives each phase ---------------------------------

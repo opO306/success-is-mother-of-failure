@@ -12,6 +12,14 @@ from engine.deterministic import (
     step_causal_world,
 )
 import engine.deterministic.causal_kernel as causal_kernel
+from engine.deterministic.causal_kernel import PhysicalBond
+from engine.deterministic.causal_spec import (
+    FORMAT_V4,
+    BondRuleSpec,
+    CausalKernelSpec,
+    CausalMaterialSpec,
+    CausalParticleSpec,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE = ROOT / "worlds" / "deterministic_bond_cycle_v1.json"
@@ -118,12 +126,12 @@ def test_an_equal_energy_head_on_scatter_conserves_momentum() -> None:
     head-on pair's axis always summed to zero either way. With equal energies
     that premise still holds here, and the scatter is correct.
 
-    It does NOT hold for unequal energies -- recorded as a defect in
-    `test_known_defects_causal_kernel.py::
-    test_defect_unequal_energy_head_on_same_kind_breaks_momentum`. This test is
-    the boundary: a fix that narrows the rule to equal energies must keep this
-    behaviour, while one that removes the scatter outright would change it, and
-    that is a separate decision to make deliberately.
+    It does NOT hold for unequal energies on v1/v2/v3 -- see
+    `tests/test_legacy_causal_semantics.py::
+    test_v1_v2_v3_unequal_energy_scatter_keeps_legacy_behaviour`. v4 narrows
+    the scatter to equal energies (see the `test_v4_*` tests below); this
+    test is the boundary either fix has to preserve, since removing the
+    scatter outright would change this too.
     """
     spec = _spec()
     state = causal_kernel.CausalWorldState(
@@ -138,3 +146,106 @@ def test_an_equal_energy_head_on_scatter_conserves_momentum() -> None:
     assert after.momentum(spec) == (0, 0)
     assert after.total_energy() == state.total_energy()
     assert {item.direction for item in after.particles} == {"E", "W"}
+
+
+# --- causal v4 Stage A: corrected collision semantics ------------------------
+#
+# docs/current/CAUSAL_COLLISION_SEMANTICS_V4.md. v4 is `experimental`; these
+# tests hold Stage A's two fixes (no implicit orientation rotation, scatter
+# narrowed to equal energy) shut on the FORMAT_V4 code path only. v1/v2/v3
+# keep the legacy behaviour these fixes replace -- see
+# tests/test_legacy_causal_semantics.py.
+
+def _v4_spec(rules: tuple[BondRuleSpec, ...] = ()) -> CausalWorldSpec:
+    return CausalWorldSpec(
+        "v4-stage-a-fixture",
+        CausalKernelSpec(16, 16, "wrap", "integer", True,
+                         ("break_existing_bonds", "stream_free_particles",
+                          "resolve_local_collisions")),
+        (CausalMaterialSpec(0, 1, 4),), (), (), rules, 4, 1, FORMAT_V4)
+
+
+def test_v4_scatter_does_not_rotate_orientation() -> None:
+    """v4's equal-energy scatter changes `direction` only; `orientation` is
+    left exactly as it was, since nothing declares that a scatter should
+    touch it (CAUSAL_COLLISION_SEMANTICS_V4.md 1.1, 2.1)."""
+    spec = _v4_spec()
+    state = causal_kernel.CausalWorldState(
+        0,
+        (CausalParticleSpec(1, 0, 10, 11, "N", "S", 2),
+         CausalParticleSpec(2, 0, 10, 9, "S", "N", 2)),
+        (), (), {}, False)
+
+    after = step_causal_world(spec, state)
+
+    by_id = {item.particle_id: item for item in after.particles}
+    assert {item.direction for item in after.particles} == {"E", "W"}
+    assert by_id[1].orientation == "S", "v4 must not rotate orientation on scatter"
+    assert by_id[2].orientation == "N", "v4 must not rotate orientation on scatter"
+    assert after.momentum(spec) == (0, 0)
+    assert after.total_energy() == state.total_energy()
+
+
+def test_v4_bond_break_does_not_rotate_orientation() -> None:
+    """v4's break sets `direction` from the rule's release, and leaves
+    `orientation` untouched (CAUSAL_COLLISION_SEMANTICS_V4.md 1.1, 2.1)."""
+    rule = BondRuleSpec("ew", 0, 0, "E", "W", 3, 2, "W", "E")
+    spec = _v4_spec((rule,))
+    particles = (
+        CausalParticleSpec(1, 0, 10, 10, "N", "S", 0),
+        CausalParticleSpec(2, 0, 10, 10, "N", "S", 0),
+    )
+    bonds = (PhysicalBond(1, 2, "ew", 4, 10, 10),)
+    heat = (HeatCellSpec(10, 10, 2),)
+    state = causal_kernel.CausalWorldState(0, particles, heat, bonds, {0: 4}, False)
+
+    broken = causal_kernel._break_existing(spec, state)
+
+    by_id = {item.particle_id: item for item in broken.particles}
+    assert by_id[1].direction == "W" and by_id[1].orientation == "S"
+    assert by_id[2].direction == "E" and by_id[2].orientation == "S"
+
+
+def test_v4_unequal_energy_head_on_leaves_particles_unchanged() -> None:
+    """v4's narrowed scatter does not fire on an unequal-energy head-on pair,
+    and no other declared rule matches -- so the tick leaves them as they
+    are. CAUSAL_COLLISION_SEMANTICS_V4.md 1.2 shows this is the unique
+    conservation-preserving outcome given the existing state representation,
+    not new physics.
+
+    v1/v2/v3 hit the same setup and break momentum instead -- see
+    tests/test_legacy_causal_semantics.py::
+    test_v1_v2_v3_unequal_energy_scatter_keeps_legacy_behaviour.
+    """
+    spec = _v4_spec()
+    state = causal_kernel.CausalWorldState(
+        0,
+        (CausalParticleSpec(1, 0, 10, 11, "N", "N", 1),
+         CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
+        (), (), {}, False)
+    assert state.momentum(spec) == (0, 1)
+
+    after = step_causal_world(spec, state)
+
+    assert after.momentum(spec) == (0, 1)
+    assert after.total_energy() == state.total_energy()
+    by_id = {item.particle_id: item for item in after.particles}
+    assert by_id[1].direction == "N" and by_id[1].kinetic_energy == 1
+    assert by_id[2].direction == "S" and by_id[2].kinetic_energy == 2
+
+
+def test_v4_leaves_the_shipped_v1_digest_unchanged() -> None:
+    """The governance constraint made concrete: v4's corrections must not
+    leak onto any other format's code path. Pinned to the digest measured on
+    this repository's shipped v1 world with Stage A's gating in place --
+    unchanged from the digest measured before Stage A existed
+    (test_particle_labels_do_not_change_physical_history and friends above
+    exercise the same spec; this test exists so a future edit that widens the
+    `FORMAT_V4` gate too far is caught here specifically)."""
+    spec = _spec()  # the shipped deterministic_bond_cycle_v1.json, FORMAT (v1)
+    assert spec.format != FORMAT_V4
+
+    run = run_causal_world(spec)
+
+    assert run.digest == (
+        "2138518494c89e15d624932ee11cedd402f4f77ead4c4c10170ab8534793ce79")
