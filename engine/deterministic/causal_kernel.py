@@ -394,8 +394,15 @@ def port_limits(spec: CausalWorldSpec) -> dict[int, int]:
 
 
 def initial_causal_state(spec: CausalWorldSpec) -> CausalWorldState:
+    # A v3 world carries its grid and its materials' named ports in the state so
+    # that a `PortBond`'s adjacency can be judged from the state alone. Without
+    # them the state cannot tell a legal bond from an illegal one, so v3 worlds
+    # have to start with them rather than acquire them later.
+    named = {item.kind: item.port_names for item in spec.materials if item.port_names}
     return CausalWorldState(0, spec.particles, spec.heat, (), port_limits(spec),
-                            spec.format == FORMAT_V2)
+                            spec.format == FORMAT_V2,
+                            (spec.kernel.width, spec.kernel.height) if named else None,
+                            named)
 
 
 def _heat_map(state: CausalWorldState) -> dict[tuple[int, int], int]:
@@ -427,7 +434,8 @@ def _break_existing(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWor
             left, right = particles[bond.left_id], particles[bond.right_id]
             particles[bond.left_id] = replace(left, direction=rule.release_left, orientation=rule.release_left, kinetic_energy=each)
             particles[bond.right_id] = replace(right, direction=rule.release_right, orientation=rule.release_right, kinetic_energy=each)
-    return CausalWorldState(state.tick, tuple(particles.values()), _heat_cells(heat), tuple(remaining), state.port_limits, state.chains_may_move)
+    return replace(state, particles=tuple(particles.values()), heat=_heat_cells(heat),
+                   bonds=tuple(remaining))
 
 
 def _stream_free(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
@@ -470,8 +478,7 @@ def _stream_free(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldS
                       for bond in state.bonds)
     else:
         bonds = state.bonds
-    return CausalWorldState(state.tick, moved, state.heat, bonds,
-                            state.port_limits, state.chains_may_move)
+    return replace(state, particles=moved, bonds=bonds)
 
 
 def _match_rule(rules: tuple[BondRuleSpec, ...], first: CausalParticleSpec, second: CausalParticleSpec) -> tuple[BondRuleSpec, bool] | None:
@@ -601,8 +608,7 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
                 particles[particle.particle_id] = replace(particle, direction=direction, orientation=direction)
     if state.chains_may_move:
         _grow_chains(spec, state, particles, bonds)
-    return CausalWorldState(state.tick, tuple(particles.values()), state.heat, tuple(bonds),
-                            state.port_limits, state.chains_may_move)
+    return replace(state, particles=tuple(particles.values()), bonds=tuple(bonds))
 
 
 def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
@@ -610,8 +616,7 @@ def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState) -> CausalW
     result = _break_existing(spec, state)
     result = _stream_free(spec, result)
     result = _resolve_collisions(spec, result)
-    result = CausalWorldState(state.tick + 1, result.particles, result.heat, result.bonds,
-                              state.port_limits, state.chains_may_move)
+    result = replace(result, tick=state.tick + 1)
     if result.material_counts() != counts: raise AssertionError("causal tick changed material counts")
     if result.total_energy() != energy: raise AssertionError("causal tick changed total energy")
     if result.momentum(spec) != momentum: raise AssertionError("causal tick changed momentum")
