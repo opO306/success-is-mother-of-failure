@@ -70,19 +70,8 @@ def _codes(run_dir: Path) -> set[str]:
 # --- independence -----------------------------------------------------------
 
 def test_audit_package_imports_nothing_from_engine() -> None:
-    """Every audit subpackage except `ground_truth` must never import `engine`.
-
-    `ground_truth` is a different kind of checker by design: it drives the A0
-    causal kernel directly to build an answer key from interventions on A
-    itself (see `audit/ground_truth/README.md`), rather than independently
-    re-reading a record the engine already produced. Its own, narrower
-    boundary -- nothing from B0.3 upward -- is enforced by
-    `tests/test_audit_ground_truth.py::test_no_ground_truth_module_imports_b_code`.
-    """
     offenders = []
     for path in sorted(AUDIT.rglob("*.py")):
-        if "ground_truth" in path.relative_to(AUDIT).parts:
-            continue
         tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):

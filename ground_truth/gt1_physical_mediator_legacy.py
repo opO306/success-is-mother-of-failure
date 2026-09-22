@@ -1,4 +1,11 @@
-"""GT-1: does A0's own bond physics really run heat -> bond -> particle?
+"""GT-1 (legacy physical sanity test): does A0's own bond physics really run heat -> bond -> particle?
+
+Status: **not the canonical mediator benchmark.** That role belongs to
+GT-M1 (see `gt_m1_mediator.py`), a purpose-built synthetic world with a
+public control on the mediator itself. GT-1 is kept as a *reference*
+sanity check against the real physics engine, not the answer key B0.7 is
+graded against -- see the caveat below on what its third intervention
+actually shows.
 
 This is the world `tests/test_deterministic_missing_link_investigator.py`
 calls "the hidden mediator scenario" and grades B0.7 against. That test only
@@ -7,6 +14,15 @@ confirms, from A alone, that heat actually mediates through the bond rather
 than (say) heat happening to correlate with particle motion for some other
 reason. This module is that independent confirmation, built without
 importing anything B0.7 touches.
+
+Caveat (why this is not the canonical benchmark): A0 exposes no public
+control that flips the bond independently of heat. Intervention 3 below
+blocks the bond by placing the two particles far enough apart that they can
+never collide -- but that changes the *initial world*, not just B, so
+strictly this shows "in a world where no bond can ever form, heat has no
+route to the particle" rather than "blocking B severs A's effect on C" in
+the narrower, single-world sense GT-M1 tests. Still useful evidence, just
+not a clean mediator proof on its own.
 
 The candidate structure, named in A0's own vocabulary:
 
@@ -52,7 +68,7 @@ from engine.deterministic.causal_spec import CausalWorldSpec
 
 from .report import GroundTruthReport
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 BASE_WORLD = ROOT / "worlds" / "deterministic_bond_cycle_v1.json"
 
 TARGET_PARTICLE_ID = 1  # particle_a in the base spec: starts at (9, 10) heading E

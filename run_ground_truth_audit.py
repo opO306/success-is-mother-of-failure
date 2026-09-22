@@ -1,19 +1,30 @@
 """Independent ground-truth audit: seal the answer key B0.7 will be graded against.
 
 Usage:
-    python run_ground_truth_audit.py                 # run all three, print verdicts
+    python run_ground_truth_audit.py                 # run all four, print verdicts
     python run_ground_truth_audit.py --json           # machine-readable
     python run_ground_truth_audit.py --seal           # write sealed/*.json (refuses to overwrite)
     python run_ground_truth_audit.py --seal --force   # re-seal after a deliberate, recorded change
 
 This audit does not import anything from `engine.deterministic` newer than
-the A0 causal kernel (world 1) or nothing from `engine` at all (worlds 2/3)
--- see `audit/ground_truth/__init__.py`. It exists to answer, independently
-of B0.4-B0.7's own code, whether three small worlds' intended causal
-structure (a hidden mediator, a direct relation, a gated relation) is
+the A0 causal kernel (GT-1 only) or nothing from `engine` at all (GT-M1,
+GT-2, GT-3) -- see `ground_truth/__init__.py`. It exists to answer,
+independently of B0.4-B0.7's own code, whether each small world's intended
+causal structure (a mediator, a direct relation, a gated relation) is
 actually true of A.
 
-`--seal` writes one JSON file per world under `audit/ground_truth/sealed/`,
+Four worlds, not three: GT-1 is a reference sanity check against the real
+A0 bond/heat physics, kept for its own sake, but GT-M1 -- a synthetic world
+with a public control on the mediator itself -- is the canonical mediator
+benchmark. See `gt1_physical_mediator_legacy.py` and `gt_m1_mediator.py`.
+
+`ground_truth/` lives at the repo root, not under `audit/`: it is the
+independent answer-key layer, not audit tooling itself. `audit/` keeps its
+original, unweakened invariant (nothing under it may import `engine`);
+`ground_truth/` has its own, narrower one (nothing from B0.3 upward -- see
+`tests/test_ground_truth.py`).
+
+`--seal` writes one JSON file per world under `ground_truth/sealed/`,
 each carrying its own `ground_truth_digest`. Once sealed, a file is not
 silently overwritten: rerunning `--seal` without `--force` on an unchanged
 answer is a no-op, and on a *changed* answer it refuses and tells you the
@@ -28,16 +39,20 @@ import json
 import sys
 from pathlib import Path
 
-from audit.ground_truth import (
+from ground_truth import (
     GroundTruthReport,
     audit_world1_mediator,
     audit_world2_direct,
     audit_world3_conditional,
+    audit_world_m1_mediator,
 )
 
-SEALED_DIR = Path(__file__).resolve().parent / "audit" / "ground_truth" / "sealed"
+SEALED_DIR = Path(__file__).resolve().parent / "ground_truth" / "sealed"
 
-AUDITS = (audit_world1_mediator, audit_world2_direct, audit_world3_conditional)
+# GT-1 is kept as a reference sanity check against the real A0 physics, not
+# the canonical mediator benchmark -- see gt1_physical_mediator_legacy.py
+# and gt_m1_mediator.py for why GT-M1 replaced it in that role.
+AUDITS = (audit_world1_mediator, audit_world_m1_mediator, audit_world2_direct, audit_world3_conditional)
 
 
 def describe(report: GroundTruthReport) -> str:

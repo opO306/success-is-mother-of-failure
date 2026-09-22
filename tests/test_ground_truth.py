@@ -1,12 +1,17 @@
-"""Pins down the independent ground-truth audit's own behavior.
+"""Pins down the independent ground-truth answer key's own behavior.
 
-Two things must be true for `audit/ground_truth` to be trustworthy:
+Two things must be true for `ground_truth/` to be trustworthy:
 
 1. It never imports anything from B0.3 upward (the whole point is to build
    an answer key B0.7 is graded against without B0.7's code shaping the
    answer).
 2. It actually distinguishes a valid world from an invalid one -- a report
    that always says VALID would be worthless as an answer key.
+
+`ground_truth/` lives at the repo root, not under `audit/` -- see
+`ground_truth/__init__.py` for why. `audit/`'s own, unrelated invariant
+(nothing under it may import `engine` at all) is pinned separately by
+`test_audit_independent_trace.py::test_audit_package_imports_nothing_from_engine`.
 """
 from __future__ import annotations
 
@@ -16,13 +21,21 @@ from pathlib import Path
 
 import pytest
 
-from audit.ground_truth import audit_world1_mediator, audit_world2_direct, audit_world3_conditional
-from audit.ground_truth.report import GroundTruthReport
-from audit.ground_truth.world2_direct import DirectState, step as direct_step
-from audit.ground_truth.world3_conditional import ConditionalState, step as conditional_step
+from ground_truth import (
+    audit_world1_mediator,
+    audit_world2_direct,
+    audit_world3_conditional,
+    audit_world_m1_mediator,
+)
+from ground_truth.gt_m1_mediator import MediatorState
+from ground_truth.gt_m1_mediator import step as m1_step
+from ground_truth.gt_m1_mediator import step_with_mediator_override
+from ground_truth.report import GroundTruthReport
+from ground_truth.world2_direct import DirectState, step as direct_step
+from ground_truth.world3_conditional import ConditionalState, step as conditional_step
 
 ROOT = Path(__file__).resolve().parents[1]
-GROUND_TRUTH_DIR = ROOT / "audit" / "ground_truth"
+GROUND_TRUTH_DIR = ROOT / "ground_truth"
 
 # Anything from B0.3 upward -- the modules a circular "grade B by B" audit would reach for.
 FORBIDDEN_MODULE_PREFIXES = (
@@ -75,6 +88,54 @@ def test_world1_mediator_seals_valid_with_all_three_interventions_passing() -> N
             "B_changes_C_bond_state_changes_final_kinetic_energy",
             "blocking_B_severs_A_to_C_effect"} <= names
     assert all(c.passed for c in report.checks)
+
+
+def test_world_m1_mediator_seals_valid_with_all_three_interventions_passing() -> None:
+    """GT-M1 is the canonical mediator benchmark (see gt_m1_mediator.py):
+    unlike GT-1, it has a real public control on the mediator, so
+    interventions 2 and 3 hold A fixed and vary only B, in the same world."""
+    report = audit_world_m1_mediator()
+    assert report.verdict == "VALID"
+    assert report.exhaustive is True
+    assert report.exhaustive_cases_checked == 8
+    names = {c.name for c in report.checks}
+    assert {"A_changes_B_ordinary_evolution_source=False", "A_changes_B_ordinary_evolution_source=True",
+            "B_changes_C_with_A_held_fixed",
+            "blocking_B_at_False_severs_A_effect_on_C", "blocking_B_at_True_severs_A_effect_on_C"} <= names
+    assert all(c.passed for c in report.checks)
+
+
+def test_world_m1_mediator_step_matches_ordinary_evolution() -> None:
+    assert m1_step(MediatorState(False, False, False)) == MediatorState(False, False, False)
+    assert m1_step(MediatorState(True, False, False)) == MediatorState(True, True, True)
+
+
+def test_world_m1_mediator_override_pins_mediator_independent_of_source() -> None:
+    """The defining property GT-1 could not test in a single world: forcing
+    B overrides whatever A would otherwise have driven it to."""
+    forced_false_despite_source_true = step_with_mediator_override(MediatorState(True, False, False), False)
+    assert forced_false_despite_source_true.mediator_active is False
+    assert forced_false_despite_source_true.outcome_active is False
+
+    forced_true_despite_source_false = step_with_mediator_override(MediatorState(False, False, False), True)
+    assert forced_true_despite_source_false.mediator_active is True
+    assert forced_true_despite_source_false.outcome_active is True
+
+
+def test_world_m1_detects_a_world_where_C_bypasses_the_mediator() -> None:
+    """A broken world where outcome_active reads source_active directly,
+    ignoring the forced mediator override, must not seal VALID."""
+    def broken_override(state: MediatorState, forced_mediator: bool) -> MediatorState:
+        return replace(state, mediator_active=forced_mediator, outcome_active=state.source_active)
+
+    outcome_source_false = broken_override(MediatorState(False, False, False), True).outcome_active
+    outcome_source_true = broken_override(MediatorState(True, False, False), True).outcome_active
+    report = GroundTruthReport("GT-M1-broken", "deadbeef",
+                               (("source_active", "mediator_active"), ("mediator_active", "outcome_active")), (),
+                               exhaustive=True)
+    report.add("blocking_B_at_True_severs_A_effect_on_C", outcome_source_false == outcome_source_true,
+               "identical", (outcome_source_false, outcome_source_true))
+    assert report.verdict == "INVALID_WORLD"
 
 
 def test_world2_direct_seals_valid_and_is_exhaustive() -> None:
