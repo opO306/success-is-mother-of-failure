@@ -118,8 +118,24 @@ def test_no_module_anywhere_rebuilds_causal_state_positionally():
     `chains_may_move` means v2 chains did not work inside an environment world
     either. A caller that wraps the kernel has to preserve its state too, so the
     check covers every module rather than only the kernel.
+
+    Catches both call spellings -- `CausalWorldState(...)` (bare name, after an
+    `import X` or `from .causal_kernel import CausalWorldState`) and
+    `ck.CausalWorldState(...)` / `causal_kernel.CausalWorldState(...)`
+    (qualified, after `import ... as ck`). A check for only the bare name would
+    have a hole a differently-styled import walks straight through -- not a
+    hypothetical, since this file itself imports the module qualified as `ck`.
     """
     import ast
+
+    def is_constructor_call(node: ast.AST) -> bool:
+        if not isinstance(node, ast.Call):
+            return False
+        if isinstance(node.func, ast.Name):
+            return node.func.id == "CausalWorldState"
+        if isinstance(node.func, ast.Attribute):
+            return node.func.attr == "CausalWorldState"
+        return False
 
     root = Path(ck.__file__).parent
     offenders = []
@@ -131,8 +147,7 @@ def test_no_module_anywhere_rebuilds_causal_state_positionally():
                 for inner in ast.walk(node):
                     functions.setdefault(getattr(inner, "lineno", None), node.name)
         for node in ast.walk(tree):
-            if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
-                    and node.func.id == "CausalWorldState"):
+            if is_constructor_call(node):
                 where = (path.stem, functions.get(node.lineno, "<module>"))
                 if where not in ALLOWED_CONSTRUCTORS:
                     offenders.append(f"{path.name}:{node.lineno} in {where[1]}")

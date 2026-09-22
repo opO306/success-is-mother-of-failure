@@ -136,3 +136,30 @@ def test_v1_and_v2_specs_are_unchanged(tmp_path):
     assert spec.canonical()["materials"][0]["ports"] == 4
     assert spec.bond_rules[0].locality == "same_cell"
     assert spec.digest == "472958da5fd5cae928b4de0ce63a2e4d7db6b208852e3005d1852fb24210d549"
+
+
+def test_v3_falls_through_to_v1s_port_limits_and_chains_may_move(tmp_path):
+    """`port_limits` and `chains_may_move` gate `PhysicalBond` (v1/v2) only --
+    `PortBond` (v3) occupancy is checked per named port, never through these.
+
+    Both are decided by format equality: `port_limits()` special-cases
+    `FORMAT_V2`, and `initial_causal_state()` turns `chains_may_move` on only
+    for `FORMAT_V2`. v3 matches neither check, so it falls through to v1's
+    values -- not because v3 was designed to behave like v1, but because
+    nothing has taught these two functions about v3 yet.
+
+    `chains_may_move=False` is correct for the current stage regardless: v3
+    structures cannot move yet (`chains()` does not read `port_bonds`, nothing
+    builds a `PortBond` at runtime, and structure motion is stage 4+), so
+    turning this on now would pre-implement a motion meaning that has not been
+    designed. It gets redefined once `StructureState`/structure motion exists
+    -- see `STRUCTURE_STATE_V1.md` 9.1.
+    """
+    from engine.deterministic.causal_kernel import initial_causal_state, port_limits
+
+    spec = _load(tmp_path, _world())
+    assert port_limits(spec) == {0: 1}
+
+    state = initial_causal_state(spec)
+    assert state.chains_may_move is False
+    assert dict(state.port_limits) == {0: 1}

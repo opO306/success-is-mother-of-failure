@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-22
-**검증:** 전체 테스트 1040개 통과
+**검증:** 전체 테스트 1041개 통과
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -235,3 +235,4 @@ A records         = 0
 | 2026-09-22 | `StructureState` 설계 승인. Q2(에너지를 운동량에서 유도)가 측정으로 두 번 반박 — 별도 상태량으로 확정 |
 | 2026-09-22 | **v3 구조가 tick을 못 넘기던 문제 해결** (→1040). 상태를 위치 인수로 재구성해 `port_bonds`·`grid_size`·`named_ports`가 매 tick 증발하고 있었다. causal 4곳 + environment 4곳 + GPU 2곳 + counterfactual 1곳을 `replace()`로 전환. environment 경로는 `port_limits`·`chains_may_move`까지 잃고 있었다 — v2 사슬도 환경 세계 안에서는 작동하지 않았다는 뜻 |
 | 2026-09-22 | **새 결함 기록** — 고정 속도 격자 충돌 규칙(A0 상속)이 에너지가 다르면 운동량을 90도 회전시킨다. 교훈 유형 F 신설. 대각 도달 불가능성을 테스트로 고정 |
+| 2026-09-22 | **v3의 `port_limits`/`chains_may_move`가 실측과 다르게 문서화돼 있었음을 발견·정정** (→1041). 둘 다 format 동등성 비교(`== FORMAT_V2`)로만 판정해 v3가 v2가 아니라 v1 갈래로 빠진다 — `port_limits=1`, `chains_may_move=False`. 값 자체는 현재 단계에 맞으므로(구조 이동 미구현) 코드는 그대로 두고 문서를 정정, 테스트로 고정. AST 회귀 검사도 `ck.CausalWorldState(...)` 같은 qualified call을 놓치는 구멍을 발견해 하드닝 |

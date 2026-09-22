@@ -438,8 +438,8 @@ B가 A를 "읽을" 때 만나는 것들이기 때문이다.
 | `neighbour()` | ✅ `(x,y,direction) → 이웃 칸`. `_stream_free`가 입자를 옮길 때 쓰는 것과 **완전히 같은 공식**을 `PortBond` 인접 판정에도 그대로 재사용. 새 인접 규칙을 따로 만들지 않음 |
 | `chain` (사슬) | 결합으로 이어진 입자들의 연결 성분. `chains()` 함수가 union-find로 계산. **`port_bonds`는 아직 `chains()`가 못 읽는다** — union-find는 `bonds`(v1/v2)만 본다 |
 | `stored_energy` | 결합이 흡수해 저장한 운동 에너지. 끊어질 때 `break_heat`와 함께 방출. v3에서는 `total_energy()`가 `port_bonds`의 몫도 합산 |
-| `port_limits` | 이 세계에서 재료별로 몇 개까지 결합 가능한지. v1은 전부 1, v2/v3는 선언값. **`PortBond`의 포트 점유 검사는 이것과 별도로 포트 단위(`(particle_id, port_name)`)까지 본다** |
-| `chains_may_move` | 사슬이 운동을 가질 수 있는가. v1은 불가, v2/v3는 가능. v3 `PortBond`에는 아직 해당 없음(단계 3+) |
+| `port_limits` | 이 세계에서 재료별로 몇 개까지 결합 가능한지 — 단, `PhysicalBond`(v1/v2)에만 적용된다. **실측(2026-09-22): v1은 전부 1, v2는 선언값, v3도 1** — `port_limits()`가 `spec.format != FORMAT_V2`로 판정하므로 v3는 v2가 아니라 v1과 같은 갈래를 탄다. `PortBond`의 포트 점유는 이 숫자를 전혀 안 쓰고 **포트 단위**(`(particle_id, port_name)`)로 개별 검사한다 — 숫자형 한도와 이름 있는 포트 점유는 **서로 다른 메커니즘**이다 |
+| `chains_may_move` | 사슬이 운동을 가질 수 있는가 — 단, `PhysicalBond`(v1/v2)에만 적용된다. **실측(2026-09-22): v1은 불가, v2는 가능, v3도 불가** — `initial_causal_state()`가 `spec.format == FORMAT_V2`로만 켠다. v3에서 `False`인 것은 결함이 아니라 **현재 단계에 맞는 값**이다: `chains()`가 아직 `port_bonds`를 안 읽고, 런타임에 `PortBond`를 만드는 경로도 없고, 구조 이동도 미구현이므로 지금 `True`로 켜면 아직 설계하지 않은 이동 의미를 선구현하는 꼴이 된다. `StructureState`/구조 이동을 구현한 뒤 다시 정의한다 |
 
 ### v3 `PortBond`의 정확한 현재 상태 (2026-09-22)
 
