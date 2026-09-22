@@ -17,6 +17,10 @@
 9. [`WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md`](WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md) —
    **B가 A를 만들 때 쓰는 명세 언어 사전.** 세계 JSON을 쓰거나 읽을 때 이 문서를 본다.
    B-Language(`b_language.py`)와는 다른 언어이니 헷갈리지 말 것
+10. [`LANGUAGE_REVISION_GOVERNANCE_V1.md`](LANGUAGE_REVISION_GOVERNANCE_V1.md) —
+    **7·8번(causal v2→v3)을 실제 사례로 삼아, 앞으로 B가 언어 확장을 제안하고
+    인간이 승인하는 절차를 정의한다.** B에게는 제안권만 있고 최종 변경권은 없다.
+    설계 초안, `RULES.md` 승격 전
 
 **커널을 건드리기 전에 7번을 먼저 읽는다.** 현재 물리가 particle_id에 의존하고 있고,
 `tests/test_known_defects_causal_kernel.py`의 테스트들은 **깨지라고 만든 것**이다.

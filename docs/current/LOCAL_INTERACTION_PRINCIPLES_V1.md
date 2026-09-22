@@ -1,9 +1,12 @@
 # 국소 상호작용 원칙 v1 — 참가자 수는 법칙을 고르는 스위치가 아니다
 
-**상태:** 원칙 채택됨. 단계 1(경합 탐지) 완료, 단계 2~6 미착수
+**상태:** 원칙 채택됨. 경합 탐지 완료, 기하 구현은 `MINIMAL_LOCAL_GEOMETRY_V1.md`가
+이어받아 단계 2(`PortBond`)까지 완료 — 최신 진행 상황은 그 문서를 본다
 **날짜:** 2026-09-22
 **적용 대상:** `engine/deterministic/causal_kernel.py` 및 이후의 모든 국소 상호작용
 **선행 문서:** `PRECONDITION_CENSUS_2026-09-21.md` (이 원칙이 나오게 된 조사)
+**후속 문서:** `MINIMAL_LOCAL_GEOMETRY_V1.md`(기하 설계·구현),
+`LANGUAGE_REVISION_GOVERNANCE_V1.md`(이 발견을 언어 확장 절차의 첫 사례로 다룸)
 
 ---
 

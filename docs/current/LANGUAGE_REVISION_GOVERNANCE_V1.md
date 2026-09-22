@@ -5,6 +5,15 @@
 **날짜:** 2026-09-22  
 **적용 대상:** B, World Spec Language, B-Architect, 향후 LanguageRevisionProposal 구현  
 **관련 개념:** TheoryRevisionProposal, World Spec Language, B-Language, CapabilityManifest, EvidenceBridge, BoundaryEvaluation
+**함께 읽을 문서 (10절의 사례를 실제로 다룬 곳):**
+- [`LOCAL_INTERACTION_PRINCIPLES_V1.md`](LOCAL_INTERACTION_PRINCIPLES_V1.md) — 10절이 요약한 문제 발견·원인 분석의 원본. 결함 증거와 채택된 원칙 4종
+- [`MINIMAL_LOCAL_GEOMETRY_V1.md`](MINIMAL_LOCAL_GEOMETRY_V1.md) — 10절의 확장 제안(named ports, adjacent_cells)을 실제로 설계·구현한 문서. **2026-09-22 기준 단계 1(v3 명세)·단계 2(`PortBond`) 완료**
+- [`WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md`](WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md) — causal v3의 현재 문법과 구현 상태(✅/📜/🧭) 전체
+
+**10절을 읽을 때 주의:** 그 절은 "인간이 수동으로 수행한 첫 사례"로서 문제 발견부터
+확장 제안까지의 절차를 서술한다. 이 문서가 쓰인 시점 이후 그 제안은 위 두 문서를 통해
+**실제로 구현이 진행됐다** — 10절 자체는 사례 서술이라 갱신하지 않았지만, "지금 v3가
+어디까지 됐는가"는 이 세 문서가 정본이다.
 
 ---
 

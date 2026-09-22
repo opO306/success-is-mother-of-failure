@@ -4,6 +4,9 @@
 **날짜:** 2026-09-22
 **선행:** `LOCAL_INTERACTION_PRINCIPLES_V1.md` (원칙 4종), `PRECONDITION_CENSUS_2026-09-21.md`
 **단계:** 8단계 중 **단계 2**
+**관련:** `LANGUAGE_REVISION_GOVERNANCE_V1.md` 10절이 이 설계 전체를 "언어 확장 제안이
+실제로 절차를 거쳐 구현된 첫 사례"로 다룬다. `WORLD_SPEC_LANGUAGE_DICTIONARY_V1.md`가
+결과로 나온 v3 문법의 정본이다.
 
 ---
 
