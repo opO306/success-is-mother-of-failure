@@ -97,7 +97,7 @@ def seal_predictions(journal: ResearchJournal, seal: PredictionSeal) -> Predicti
 
 
 def execute_through_a(journal: ResearchJournal, executor: AExecutor,
-                      arm_id: str, submitted_spec: CausalWorldSpec) -> ExecutionResult:
+                      arm_id: str, submitted_spec: ResearchWorldSpec) -> ExecutionResult:
     """Run `submitted_spec` through `executor` and journal the outcome, success or failure."""
     result = executor.execute(submitted_spec)
     journal.append("execution_completed", arm_id, result.canonical())
