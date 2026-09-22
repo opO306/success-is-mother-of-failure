@@ -685,6 +685,31 @@ AFTER   port_bonds=0  grid=None     named_ports=0
 `dataclasses.replace`로 전환해 해결했다. 이 설계가 추가할 `structures` 필드도
 같은 방식으로 증발할 뻔했으므로, **`StructureState` 구현 전에 고친 것이 맞다.**
 
+**그리고 커널만 고친 것으로 끝나지 않았다.** 같은 패턴이 커널을 감싸는
+모듈들에 남아 있었다:
+
+```
+environment_kernel   4곳
+gpu_environment      2곳
+counterfactual       1곳
+```
+
+환경 쪽은 더 나빴다 — 인수를 **네 개**만 넘기고 있어서 `port_limits`와
+`chains_may_move`까지 잃었다. 측정값:
+
+```
+BEFORE  port_limits={0:4}  chains=True   grid=(16,16)  named=1
+AFTER   port_limits={}     chains=False  grid=None     named=0
+```
+
+즉 **v2 사슬도 환경 세계 안에서는 작동하지 않았다.** 이건 v3만의 문제가
+아니었고, 아무도 알아채지 못한 이유는 환경 세계가 입자를 거의 쓰지 않기
+때문이다.
+
+재발을 막기 위해 테스트를 **모듈 전체를 AST로 훑도록** 만들었다. 정당한
+생성자는 `initial_causal_state` 하나뿐이고(스펙에서 첫 상태를 만들므로
+`replace` 할 대상이 없다), 나머지가 직접 생성하면 빨간불이 된다.
+
 테스트: `tests/test_deterministic_v3_state_persistence.py`
 
 ### 9.2 자유 입자 충돌이 운동량을 회전시킨다 — **미해결, 기록됨**

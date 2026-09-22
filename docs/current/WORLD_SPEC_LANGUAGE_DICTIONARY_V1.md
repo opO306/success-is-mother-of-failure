@@ -434,12 +434,34 @@ B가 A를 "읽을" 때 만나는 것들이기 때문이다.
 |---|---|
 | `PhysicalBond` | ✅ v1/v2 결합 하나. `(left_id, right_id, rule_id, stored_energy, x, y)`. v3 도입 이후에도 **손대지 않음** |
 | `PortBond` | ✅ **v3 결합 하나 (2026-09-22 구현).** `(left_id, left_port, right_id, right_port, rule_id, stored_energy)` — `x,y` 없음, 위치는 참가 입자에서 유도. `canonical()`이 항상 낮은 id를 `left`로 정규화하므로 끝점을 뒤집어 지어도 같은 해시가 나온다 |
-| `port_bonds` | ✅ `CausalWorldState`의 별도 필드. v3 세계가 채우고 `bonds`는 비워둔다. **아직 커널이 이걸 tick마다 전진시키지 않는다** — 지금은 "이 결합 집합이 공간적으로 유효한가"만 판정 (단계 2). 전진은 단계 3+ |
+| `port_bonds` | ✅ `CausalWorldState`의 별도 필드. v3 세계가 채우고 `bonds`는 비워둔다. **합법성 판정(단계 2)과 tick 통과(2026-09-22) 완료.** 아래 상태 표 참조 — 커널은 `port_bonds`를 **보존**하지만 아직 **변경**하지 않는다 |
 | `neighbour()` | ✅ `(x,y,direction) → 이웃 칸`. `_stream_free`가 입자를 옮길 때 쓰는 것과 **완전히 같은 공식**을 `PortBond` 인접 판정에도 그대로 재사용. 새 인접 규칙을 따로 만들지 않음 |
 | `chain` (사슬) | 결합으로 이어진 입자들의 연결 성분. `chains()` 함수가 union-find로 계산. **`port_bonds`는 아직 `chains()`가 못 읽는다** — union-find는 `bonds`(v1/v2)만 본다 |
 | `stored_energy` | 결합이 흡수해 저장한 운동 에너지. 끊어질 때 `break_heat`와 함께 방출. v3에서는 `total_energy()`가 `port_bonds`의 몫도 합산 |
 | `port_limits` | 이 세계에서 재료별로 몇 개까지 결합 가능한지. v1은 전부 1, v2/v3는 선언값. **`PortBond`의 포트 점유 검사는 이것과 별도로 포트 단위(`(particle_id, port_name)`)까지 본다** |
 | `chains_may_move` | 사슬이 운동을 가질 수 있는가. v1은 불가, v2/v3는 가능. v3 `PortBond`에는 아직 해당 없음(단계 3+) |
+
+### v3 `PortBond`의 정확한 현재 상태 (2026-09-22)
+
+"v3가 되었다"와 "v3가 동작한다"는 다르므로 항목별로 적는다.
+
+| 항목 | 상태 |
+|---|---|
+| 합법성 판정 (인접·포트 마주봄·중복) | ✅ 단계 2 |
+| tick 통과 (상태가 살아남음) | ✅ 2026-09-22 |
+| `chains()` 통합 | ❌ union-find가 `bonds`만 본다 |
+| 런타임 결합 생성·갱신 | ❌ `_resolve_collisions`가 `PhysicalBond`만 만든다 |
+| 구조 이동 | ❌ 단계 4 |
+
+**"tick 통과"가 따로 있는 이유:** 2026-09-22까지 커널의 각 단계가
+`CausalWorldState`를 위치 인수로 재구성하고 있었다. `chains_may_move` 뒤에
+추가된 `grid_size`·`named_ports`·`port_bonds`는 전달되지 않아 **매 tick
+증발했다.** 즉 v3 구조는 움직이기는커녕 존재를 유지하지 못했다. 네 곳을
+`dataclasses.replace`로 바꿔 해결했고, 같은 문제가 environment(4곳)·GPU(2곳)·
+counterfactual(1곳)에도 있었다 — 그쪽은 `port_limits`와 `chains_may_move`까지
+잃고 있었으므로 **v2 사슬도 환경 세계 안에서는 작동하지 않았다.**
+
+지속성 게이트: `tests/test_deterministic_v3_state_persistence.py`
 
 **🧭 예정 (파서에도 커널에도 없음 — 설계 문서에만 있다):**
 

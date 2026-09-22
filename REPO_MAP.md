@@ -224,17 +224,24 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 936개 통과.
+`tests/` — 총 1040개 통과 (2026-09-22).
 
 ```
-test_deterministic_*.py   결정론 A/B (26개 파일)
+test_deterministic_*.py   결정론 A/B (32개 파일)
 test_audit_*.py           독립 감사 (trace 19 + 보존 17 + 준수 20 + 입자 25)
+test_known_defects_*.py   현재 코드가 틀렸음을 기록. 실패하면 좋은 소식 — 파일 머리 참조
+test_diagonal_*.py        대각 운동량 도달 불가능성. 다른 설계의 전제조건을 고정
 test_sequence_*.py        확률 세계 (동결)
 test_living_*.py          living 계통
 test_primal_*.py          레거시 원시인
 test_brain_*.py           레거시 뇌
 test_agent*.py            레거시 사회
 ```
+
+**`test_known_defects_causal_kernel.py`는 다른 파일과 규칙이 반대다.** 거기 있는
+테스트는 코드가 **틀렸음**을 단언한다. 빨간불이 되면 누군가 결함을 고쳤다는
+뜻이므로, 옛 동작을 되살려 초록불로 만들면 안 된다. 각 테스트의 `replace_with`가
+무엇으로 교체할지 적어두고 있다.
 
 ---
 
