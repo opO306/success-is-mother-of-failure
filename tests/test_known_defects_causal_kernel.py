@@ -185,10 +185,16 @@ def test_defect_unequal_energy_head_on_same_kind_breaks_momentum():
                   pair always summed to zero either way. causal added variable
                   energy and inherited the rule without narrowing its premise.
     replace_with: test_unequal_energy_head_on_collision_preserves_momentum --
-                  the scatter applies only where its premise holds (equal
-                  energy); an unequal pair is left alone and passes through,
-                  which is the kernel's existing default when no interaction
-                  rule applies.
+                  whatever the tick does with an unequal pair, momentum must
+                  come out unchanged.
+
+                  What it should do is NOT yet decided. Narrowing the scatter
+                  to equal energies and letting an unequal pair pass through is
+                  the smallest candidate -- it restores the rule's original
+                  premise rather than inventing physics -- but "pass through"
+                  is one answer among several (bounce, scatter by a
+                  momentum-preserving rule, bond, convert the difference to
+                  stored energy). Conservation is settled; the mechanism is not.
 
     The rule was sound in A0 because every particle had the same speed:
 
@@ -231,22 +237,7 @@ def test_defect_unequal_energy_head_on_same_kind_breaks_momentum():
         step_causal_world(spec, state)
 
 
-def test_defect_equal_energy_head_on_is_the_case_the_rule_was_built_for():
-    """Not a defect: the boundary of the one above, pinned so the fix is aimed.
-
-    Equal energies make the scatter conserve momentum exactly, because both
-    sides cancel before and after. A fix that narrows the rule to this case
-    must keep this behaviour; a fix that removes the scatter altogether would
-    change it, which is a different decision and should be made deliberately.
-    """
-    spec = _spec()
-    state = CausalWorldState(
-        0,
-        (CausalParticleSpec(1, 0, 10, 11, "N", "N", 2),
-         CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
-        (), (), {}, False)
-    assert state.momentum(spec) == (0, 0)
-    after = step_causal_world(spec, state)
-    assert after.momentum(spec) == (0, 0)
-    assert {p.direction for p in after.particles} == {"E", "W"}, (
-        "the equal-energy scatter still happens")
+    # The equal-energy boundary of this defect -- the case the rule was
+    # actually built for -- is a positive test and lives in the normal suite:
+    # test_deterministic_causal_kernel.py::
+    #   test_an_equal_energy_head_on_scatter_conserves_momentum

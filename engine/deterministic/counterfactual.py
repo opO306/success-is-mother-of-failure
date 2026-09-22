@@ -185,9 +185,9 @@ def _apply_action(spec: EnvironmentWorldSpec, state: EnvironmentState,
         x, y = action.parameters["point"]; amount = int(action.parameters["amount"])
         heat = {(item.x, item.y): item.energy for item in state.causal.heat}
         heat[(x, y)] = heat.get((x, y), 0) + amount
-        causal = CausalWorldState(state.tick, state.causal.particles,
-                                  tuple(HeatCellSpec(px, py, value) for (px, py), value in sorted(heat.items()) if value),
-                                  state.causal.bonds)
+        causal = replace(state.causal, tick=state.tick,
+                         heat=tuple(HeatCellSpec(px, py, value)
+                                    for (px, py), value in sorted(heat.items()) if value))
         return spec, EnvironmentState(causal, state.cells, state.energy_supplied + amount,
                                       state.energy_removed, state.format)
     if action.action_kind == "add_blocked_edge":

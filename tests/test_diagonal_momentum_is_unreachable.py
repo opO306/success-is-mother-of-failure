@@ -109,10 +109,16 @@ def _approaching(pid: int, direction: str, energy: int, steps: int) -> CausalPar
     Particles that *start* in one cell never bond -- `_resolve_collisions` runs
     after streaming, so they have already separated by the time it looks. A
     collision only happens when they converge, which is what this builds.
+
+    `steps` is cells, not energy-scaled cells: `_stream_free` applies
+    `VELOCITY[direction]` once per tick regardless of `kinetic_energy`, so a
+    particle with energy 3 still moves one cell per tick. Energy is momentum
+    here, not speed. An earlier version multiplied by energy and placed the
+    particles three times too far apart, which meant the energies were not
+    being compared under equal conditions.
     """
     dx, dy = VELOCITY[direction]
-    back = steps * energy
-    return _particle(pid, (6 - dx * back) % WIDTH, (6 - dy * back) % HEIGHT,
+    return _particle(pid, (6 - dx * steps) % WIDTH, (6 - dy * steps) % HEIGHT,
                      direction, energy)
 
 
@@ -172,7 +178,7 @@ def test_no_reachable_path_produces_diagonal_structure_momentum(d_a, d_b):
     rest, so the structures it builds are stationary. It therefore covers
     *bonding*, while the polymer-world test above covers *moving* structures.
     """
-    seen_a_bond = False
+    bonded_at = []
     for energy in (1, 2, 3):
         try:
             state = CausalWorldState(
@@ -182,7 +188,8 @@ def test_no_reachable_path_produces_diagonal_structure_momentum(d_a, d_b):
             continue        # not a legal starting state (same channel)
         for _ in range(5):
             state = step_causal_world(_Spec(), state)
-            seen_a_bond = seen_a_bond or bool(state.bonds)
+            if state.bonds:
+                bonded_at.append(energy)
             for px, py in _structure_momenta(state):
                 assert not (px and py), (
                     f"a structure reached diagonal momentum ({px},{py}) from "
@@ -191,12 +198,14 @@ def test_no_reachable_path_produces_diagonal_structure_momentum(d_a, d_b):
                     f"reopen DISSOLVE (3.5) and structure motion (4.2) before "
                     f"relaxing this test")
     if _OPPOSITE[d_a] == d_b:
-        # Without this the assertion above could pass vacuously: no bond means
+        # Without this the assertions above could pass vacuously: no bond means
         # no structure means nothing was measured. Only opposing pairs bond at
-        # all (see the test below), so only they are required to.
-        assert seen_a_bond, (
-            f"{d_a}+{d_b} oppose each other but never bonded, so this case "
-            f"measured nothing")
+        # all (see the test below), so only they are required to -- and *every*
+        # energy must, not just one of them, or a single bonding energy would
+        # cover for two that silently never met.
+        assert set(bonded_at) == {1, 2, 3}, (
+            f"{d_a}+{d_b} oppose each other but only bonded at energies "
+            f"{sorted(set(bonded_at))}; the others measured nothing")
 
 
 @pytest.mark.parametrize("d_a,d_b", list(product(DIRECTIONS, DIRECTIONS)))
@@ -214,7 +223,7 @@ def test_only_opposing_particles_bond_which_is_why_diagonals_never_form(d_a, d_b
 
     Equal energies only, for the reason given in the sweep above.
     """
-    formed = False
+    bonded_at = []
     for energy in (1, 2, 3):
         try:
             state = CausalWorldState(
@@ -225,20 +234,23 @@ def test_only_opposing_particles_bond_which_is_why_diagonals_never_form(d_a, d_b
         for _ in range(5):
             state = step_causal_world(_Spec(), state)
             if state.bonds:
-                formed = True
+                bonded_at.append(energy)
                 break
-        if formed:
-            break
 
     if _OPPOSITE[d_a] == d_b:
-        assert formed, f"{d_a}+{d_b} oppose and must be able to bond"
+        # Every energy, not just one: each is an independent measurement and a
+        # single bonding energy must not stand in for the rest.
+        assert set(bonded_at) == {1, 2, 3}, (
+            f"{d_a}+{d_b} oppose and must bond at every energy, but only "
+            f"{sorted(set(bonded_at))} did")
     else:
-        assert not formed, (
-            f"{d_a}+{d_b} do not oppose, yet they bonded. A non-opposing pair "
-            f"carries net momentum in two axes, so the structure it forms can "
-            f"hold a diagonal -- the precondition STRUCTURE_STATE_V1.md 3.2 "
-            f"leans on is broken. Reopen DISSOLVE (3.5) and structure motion "
-            f"(4.2) before relaxing this test")
+        assert not bonded_at, (
+            f"{d_a}+{d_b} do not oppose, yet they bonded at energies "
+            f"{sorted(set(bonded_at))}. A non-opposing pair carries net "
+            f"momentum in two axes, so the structure it forms can hold a "
+            f"diagonal -- the precondition STRUCTURE_STATE_V1.md 3.2 leans on "
+            f"is broken. Reopen DISSOLVE (3.5) and structure motion (4.2) "
+            f"before relaxing this test")
 
 
 def test_chain_growth_overwrites_direction_rather_than_summing_vectors():

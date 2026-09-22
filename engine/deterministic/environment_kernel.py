@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from .causal_kernel import CausalWorldState, initial_causal_state, step_causal_world
 from .causal_spec import HeatCellSpec
@@ -194,7 +194,7 @@ def _phase(spec: EnvironmentWorldSpec, state: EnvironmentState, phase: str) -> E
         cells_after[second] = EnvironmentCellSpec(*second, right.elevation, right.water + water_move,
                                                   right.mineral, right_solutes, right.vapor + vapor_move)
     heat = tuple(HeatCellSpec(x, y, value) for (x, y), value in sorted(heat_after.items()) if value)
-    causal = CausalWorldState(state.causal.tick, state.causal.particles, heat, state.causal.bonds)
+    causal = replace(state.causal, heat=heat)
     cells = tuple(x for x in cells_after.values()
                   if x.elevation or x.water or x.mineral or x.vapor or any(x.solutes))
     return EnvironmentState(causal, cells, state.energy_supplied, state.energy_removed, state.format)
@@ -233,7 +233,7 @@ def _convert_local_mineral(spec: EnvironmentWorldSpec, state: EnvironmentState) 
         heat[point] = local_heat
         cells[point] = cell
     heat_cells = tuple(HeatCellSpec(x, y, value) for (x, y), value in sorted(heat.items()) if value)
-    causal = CausalWorldState(state.causal.tick, state.causal.particles, heat_cells, state.causal.bonds)
+    causal = replace(state.causal, heat=heat_cells)
     return EnvironmentState(causal, tuple(cells.values()), state.energy_supplied, state.energy_removed, state.format)
 
 
@@ -252,7 +252,7 @@ def _exchange_external_energy(spec: EnvironmentWorldSpec, state: EnvironmentStat
             heat[point] = heat.get(point, 0) - amount
             removed += amount
     heat_cells = tuple(HeatCellSpec(x, y, value) for (x, y), value in sorted(heat.items()) if value)
-    causal = CausalWorldState(state.causal.tick, state.causal.particles, heat_cells, state.causal.bonds)
+    causal = replace(state.causal, heat=heat_cells)
     return EnvironmentState(causal, state.cells, supplied, removed, state.format)
 
 
@@ -280,7 +280,7 @@ def _change_water_phase(spec: EnvironmentWorldSpec, state: EnvironmentState) -> 
         cells[point] = EnvironmentCellSpec(cell.x, cell.y, cell.elevation, water,
                                            cell.mineral, cell.solutes, vapor)
     heat_cells = tuple(HeatCellSpec(x, y, value) for (x, y), value in sorted(heat.items()) if value)
-    causal = CausalWorldState(state.causal.tick, state.causal.particles, heat_cells, state.causal.bonds)
+    causal = replace(state.causal, heat=heat_cells)
     return EnvironmentState(causal, tuple(cells.values()), state.energy_supplied, state.energy_removed, state.format)
 
 

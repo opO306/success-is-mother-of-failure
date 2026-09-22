@@ -20,7 +20,8 @@ way, rather than waiting for a structure to vanish in a later stage.
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import fields
+from dataclasses import fields, replace
+from pathlib import Path
 
 import pytest
 
@@ -100,6 +101,48 @@ def test_no_tick_phase_rebuilds_state_positionally():
             f"fields cannot be dropped")
 
 
+# `initial_causal_state` is the one legitimate constructor: it builds the first
+# state from a spec, so it has no prior state to `replace` from.
+ALLOWED_CONSTRUCTORS = {("causal_kernel", "initial_causal_state")}
+
+
+def test_no_module_anywhere_rebuilds_causal_state_positionally():
+    """The wider net. The causal kernel was fixed first, but the same pattern
+    lived on in three other modules that wrap it:
+
+        environment_kernel  4 places   (also dropped port_limits, chains_may_move)
+        gpu_environment     2 places
+        counterfactual      1 place
+
+    The environment ones are worse than the v3 loss: dropping `port_limits` and
+    `chains_may_move` means v2 chains did not work inside an environment world
+    either. A caller that wraps the kernel has to preserve its state too, so the
+    check covers every module rather than only the kernel.
+    """
+    import ast
+
+    root = Path(ck.__file__).parent
+    offenders = []
+    for path in sorted(root.glob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        functions = {}          # lineno -> enclosing function name
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                for inner in ast.walk(node):
+                    functions.setdefault(getattr(inner, "lineno", None), node.name)
+        for node in ast.walk(tree):
+            if (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                    and node.func.id == "CausalWorldState"):
+                where = (path.stem, functions.get(node.lineno, "<module>"))
+                if where not in ALLOWED_CONSTRUCTORS:
+                    offenders.append(f"{path.name}:{node.lineno} in {where[1]}")
+
+    assert not offenders, (
+        "these build CausalWorldState directly instead of with replace(), so "
+        "any field added to the state will be silently dropped there:\n  "
+        + "\n  ".join(offenders))
+
+
 def test_every_state_field_is_carried_through_a_tick():
     """Enumerates the dataclass rather than naming fields, so a new field is
     covered the moment it exists."""
@@ -131,3 +174,37 @@ def test_a_v1_digest_is_unchanged_by_the_absence_of_port_bonds():
     did before the field existed."""
     state = CausalWorldState(0, (_particle(1, 5, 5, "E", 2),), (), ())
     assert "port_bonds" not in state.canonical()
+
+
+# --- the environment path, which wraps the causal kernel ---------------------
+
+def test_an_environment_tick_preserves_the_causal_states_rule_fields():
+    """Measured before the fix, on the shipped environment world:
+
+        BEFORE  port_limits={0: 4} chains=True grid=(16,16) named=1
+        AFTER   port_limits={}     chains=False grid=None   named=0
+
+    One environment tick erased all four. Note `port_limits` and
+    `chains_may_move` in that list: those are v2 fields, so v2 chains could not
+    work inside an environment world either -- this was never only a v3 problem.
+    """
+    from engine.deterministic.environment_kernel import (
+        initial_environment_state, step_environment_world)
+    from engine.deterministic.environment_spec import load_environment_world_spec
+
+    world = Path(__file__).resolve().parents[1] / "worlds" / "deterministic_environment_v1.json"
+    spec = load_environment_world_spec(world)
+    state = initial_environment_state(spec)
+    seeded = replace(state, causal=replace(
+        state.causal, port_limits={0: 4}, chains_may_move=True,
+        grid_size=(spec.causal_world.kernel.width, spec.causal_world.kernel.height),
+        named_ports={0: ("N", "E", "S", "W")}))
+
+    result = seeded
+    for _ in range(3):
+        result = step_environment_world(spec, result)
+
+    assert dict(result.causal.port_limits) == {0: 4}
+    assert result.causal.chains_may_move is True
+    assert result.causal.grid_size == seeded.causal.grid_size
+    assert dict(result.causal.named_ports) == {0: ("N", "E", "S", "W")}

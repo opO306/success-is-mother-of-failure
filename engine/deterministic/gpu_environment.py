@@ -6,7 +6,7 @@ No floating point, atomics, scatter reductions, or random operations are used.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import time
 
 try:
@@ -160,7 +160,7 @@ def _sparse_state(spec: EnvironmentWorldSpec, previous: EnvironmentState, tensor
             mineral_value = int(mineral[y, x]); vapor_value = int(vapor[y, x])
             if elevation_value or water_value or mineral_value or vapor_value or any(values):
                 cells.append(EnvironmentCellSpec(x, y, elevation_value, water_value, mineral_value, values, vapor_value))
-    causal = CausalWorldState(previous.tick, previous.causal.particles, tuple(heat_cells), previous.causal.bonds)
+    causal = replace(previous.causal, tick=previous.tick, heat=tuple(heat_cells))
     return EnvironmentState(causal, tuple(cells), previous.energy_supplied, previous.energy_removed, previous.format)
 
 
@@ -248,7 +248,7 @@ def _horizon(spec: EnvironmentWorldSpec, ticks: int | None) -> int:
 
 
 def _resident_snapshot(spec: EnvironmentWorldSpec, initial: EnvironmentState, tensors, tick: int) -> EnvironmentState:
-    causal = CausalWorldState(tick, initial.causal.particles, (), initial.causal.bonds)
+    causal = replace(initial.causal, tick=tick, heat=())
     metadata = EnvironmentState(causal, (), initial.energy_supplied, initial.energy_removed, initial.format)
     return _sparse_state(spec, metadata, tensors)
 

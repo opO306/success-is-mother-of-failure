@@ -108,3 +108,33 @@ def test_causal_kernel_has_no_random_interface() -> None:
     assert "choice_index" not in source
     assert "SeededEventSource" not in source
     assert "seed" not in inspect.signature(step_causal_world).parameters
+
+
+def test_an_equal_energy_head_on_scatter_conserves_momentum() -> None:
+    """The 90-degree scatter (`N/S -> E/W`) inherited from A0, in the case its
+    premise actually holds.
+
+    A0 had no `kinetic_energy`: every particle moved at speed 1, so swapping a
+    head-on pair's axis always summed to zero either way. With equal energies
+    that premise still holds here, and the scatter is correct.
+
+    It does NOT hold for unequal energies -- recorded as a defect in
+    `test_known_defects_causal_kernel.py::
+    test_defect_unequal_energy_head_on_same_kind_breaks_momentum`. This test is
+    the boundary: a fix that narrows the rule to equal energies must keep this
+    behaviour, while one that removes the scatter outright would change it, and
+    that is a separate decision to make deliberately.
+    """
+    spec = _spec()
+    state = causal_kernel.CausalWorldState(
+        0,
+        (causal_kernel.CausalParticleSpec(1, 0, 10, 11, "N", "N", 2),
+         causal_kernel.CausalParticleSpec(2, 0, 10, 9, "S", "S", 2)),
+        (), (), {}, False)
+    assert state.momentum(spec) == (0, 0)
+
+    after = step_causal_world(spec, state)
+
+    assert after.momentum(spec) == (0, 0)
+    assert after.total_energy() == state.total_energy()
+    assert {item.direction for item in after.particles} == {"E", "W"}
