@@ -32,6 +32,9 @@ EVENT_TYPES = frozenset({
     # B0.4 events -- deep investigation: divergence tracing and mechanism candidates.
     "investigation_target_sealed", "divergence_chain_recorded", "mechanism_candidates_proposed",
     "followup_experiment_proposed",
+    # B0.5 events -- mechanism testing: feasibility, executed interventions, evidence.
+    "mechanism_test_planned", "intervention_feasibility_checked", "mechanism_test_executed",
+    "mechanism_evidence_recorded",
 })
 
 
