@@ -40,6 +40,23 @@ Deliberately absent from every type below, by field, not by value:
 `real_world_id`, `real_world_revision`, `ground_truth_id`, `rule`,
 `fingerprint`, `source`. Adding any of those fields back defeats this
 type's purpose even if every instance happened to leave them `None`.
+
+G7.1 alias-model repair (same Gate, after the module-boundary repair):
+`BlindControlDescriptor`/`BlindObservableDescriptor` carry `alias_variable_id`,
+the alias of the underlying variable each names -- not a real name, but
+enough for B to know that the control it manipulates and an observable it
+reads are the *same* public variable, when that happens to be true. Without
+this, B has no way to notice "the thing I turned and the thing I'm reading
+are the same knob" and a mediator/gate structure spanning a variable that is
+both a control and an observable (as GT-M1/GT-3-shaped worlds need) becomes
+undiscoverable not because B reasoned poorly but because the harness never
+exposed that the two aliases name one variable. This is public interface
+structure, not an answer -- hiding it turns a blind causal-discovery test
+into a "guess the wiring diagram, not just the physics" test, which is a
+different and harder problem this project is not trying to pose. See
+`blind_evaluator.py`'s `make_blind_session` for how `alias_variable_id` is
+derived from the same canonical per-variable alias token a control and an
+observable naming the same real variable share.
 """
 from __future__ import annotations
 
@@ -71,17 +88,19 @@ class BlindWorldDescriptor:
 
 @dataclass(frozen=True)
 class BlindControlDescriptor:
-    """Names one control in alias terms only."""
+    """Names one control in alias terms, plus which alias variable it manipulates."""
     alias_control_id: str
+    alias_variable_id: str
 
     def canonical(self) -> dict[str, object]:
-        return {"alias_control_id": self.alias_control_id}
+        return {"alias_control_id": self.alias_control_id, "alias_variable_id": self.alias_variable_id}
 
 
 @dataclass(frozen=True)
 class BlindObservableDescriptor:
-    """Names one observable in alias terms only."""
+    """Names one observable in alias terms, plus which alias variable it reads."""
     alias_observable_id: str
+    alias_variable_id: str
 
     def canonical(self) -> dict[str, object]:
-        return {"alias_observable_id": self.alias_observable_id}
+        return {"alias_observable_id": self.alias_observable_id, "alias_variable_id": self.alias_variable_id}

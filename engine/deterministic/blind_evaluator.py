@@ -30,6 +30,21 @@ caller from handing that whole object to B. This module's job is narrower:
 translate between that real spec and the alias-only shapes in
 `blind_session.py`, and never let that translation surface be reachable
 from B-facing code.
+
+G7.1 alias-model repair: a control and an observable that name the same
+real variable must alias to the same `alias_variable_id`, so B can tell
+they refer to one public variable without ever learning its real name.
+This module used to mint the control alias and the observable alias for
+a variable independently (`_alias_token(..., "control", name)` and
+`_alias_token(..., "observable", name)` were unrelated hashes even when
+`name` was the same real variable) -- structurally impossible for B to
+recover, which silently removed public interface information a blind
+causal-discovery test is supposed to preserve (see `blind_session.py`'s
+docstring for why that distinction matters, especially for a
+mediator/gate structure where the same variable is both manipulated and
+read). Every control/observable alias is now derived from the single
+per-variable alias token in `variable_alias`, so a shared real variable
+always produces a shared `alias_variable_id`.
 """
 from __future__ import annotations
 
@@ -37,7 +52,7 @@ import hashlib
 from dataclasses import dataclass
 from typing import Mapping
 
-from .blind_session import BlindWorldDescriptor
+from .blind_session import BlindControlDescriptor, BlindObservableDescriptor, BlindWorldDescriptor
 from .synthetic_spec import SyntheticWorldSpec
 
 
@@ -98,7 +113,18 @@ class BlindTranslationManifest:
 def make_blind_session(spec: SyntheticWorldSpec, seed: int) -> tuple[BlindWorldDescriptor, BlindTranslationManifest]:
     """The only function that sees both a real spec and the manifest that
     can unmask it. Returns them as two independent values, never bundled
-    into one object a B-facing caller could hold."""
+    into one object a B-facing caller could hold.
+
+    Control and observable aliases stay distinct from each other (and from
+    the variable alias) even when they name the same real variable -- B
+    still needs separate handles to *apply* a control versus *read* an
+    observable. What is now shared is `alias_variable_id`:
+    `BlindControlDescriptor`/`BlindObservableDescriptor` (see
+    `blind_session.py`) both carry the same `variable_alias[real_name]`
+    token when their real control/observable name is the same real
+    variable, so B can tell the two aliases refer to one public variable
+    without either alias leaking the real name.
+    """
     if isinstance(seed, bool) or not isinstance(seed, int):
         raise ValueError("seed must be an integer")
 
@@ -110,13 +136,6 @@ def make_blind_session(spec: SyntheticWorldSpec, seed: int) -> tuple[BlindWorldD
                         for name in spec.public_observables}
     alias_world_id = _alias_token(spec.digest, seed, "world", spec.world_id)
 
-    descriptor = BlindWorldDescriptor(
-        alias_world_id=alias_world_id,
-        variables=tuple(sorted(variable_alias.values())),
-        public_controls=tuple(sorted(control_alias.values())),
-        public_observables=tuple(sorted(observable_alias.values())),
-        ticks=spec.ticks,
-    )
     manifest = BlindTranslationManifest(
         real_world_id=spec.world_id,
         real_world_revision=spec.world_revision,
@@ -126,7 +145,61 @@ def make_blind_session(spec: SyntheticWorldSpec, seed: int) -> tuple[BlindWorldD
         observable_alias=observable_alias,
         seed=seed,
     )
+    descriptor = BlindWorldDescriptor(
+        alias_world_id=alias_world_id,
+        variables=tuple(sorted(variable_alias.values())),
+        public_controls=tuple(item.alias_control_id for item in _control_descriptors_from_manifest(spec, manifest)),
+        public_observables=tuple(item.alias_observable_id
+                                 for item in _observable_descriptors_from_manifest(spec, manifest)),
+        ticks=spec.ticks,
+    )
     return descriptor, manifest
+
+
+def _control_descriptors_from_manifest(
+    spec: SyntheticWorldSpec, manifest: BlindTranslationManifest,
+) -> tuple[BlindControlDescriptor, ...]:
+    """Shared construction logic for `control_descriptors` and
+    `make_blind_session` -- kept as one function so the two never drift
+    apart (an earlier draft duplicated this inline in `make_blind_session`
+    and separately in `control_descriptors`, which is exactly the kind of
+    divergence a deliberate mutation in this Gate's own implementation
+    session caught: mutating one copy left the other, and the test that
+    exercised it, unaffected)."""
+    return tuple(sorted(
+        (BlindControlDescriptor(alias_control_id=manifest.control_alias[name],
+                                alias_variable_id=manifest.variable_alias[name])
+         for name in spec.public_controls),
+        key=lambda item: item.alias_control_id,
+    ))
+
+
+def _observable_descriptors_from_manifest(
+    spec: SyntheticWorldSpec, manifest: BlindTranslationManifest,
+) -> tuple[BlindObservableDescriptor, ...]:
+    """The observable-side counterpart to `_control_descriptors_from_manifest`."""
+    return tuple(sorted(
+        (BlindObservableDescriptor(alias_observable_id=manifest.observable_alias[name],
+                                   alias_variable_id=manifest.variable_alias[name])
+         for name in spec.public_observables),
+        key=lambda item: item.alias_observable_id,
+    ))
+
+
+def control_descriptors(spec: SyntheticWorldSpec, seed: int) -> tuple[BlindControlDescriptor, ...]:
+    """The full `BlindControlDescriptor` set for `spec`/`seed`, each carrying
+    its `alias_variable_id` link -- `make_blind_session`'s `BlindWorldDescriptor`
+    only exposes the bare `alias_control_id` strings (matching its existing
+    `public_controls: tuple[str, ...]` shape), so a caller that needs the
+    variable-identity link for every control calls this instead."""
+    _descriptor, manifest = make_blind_session(spec, seed)
+    return _control_descriptors_from_manifest(spec, manifest)
+
+
+def observable_descriptors(spec: SyntheticWorldSpec, seed: int) -> tuple[BlindObservableDescriptor, ...]:
+    """The observable-side counterpart to `control_descriptors`."""
+    _descriptor, manifest = make_blind_session(spec, seed)
+    return _observable_descriptors_from_manifest(spec, manifest)
 
 
 def translate_control(manifest: BlindTranslationManifest, alias_control_id: str) -> str:

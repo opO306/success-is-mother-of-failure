@@ -44,7 +44,9 @@ from engine.deterministic.blind_session import (
 from engine.deterministic.blind_evaluator import (
     BlindTranslationManifest,
     ForbiddenBlindAccess,
+    control_descriptors,
     make_blind_session,
+    observable_descriptors,
     translate_control,
     translate_observable,
 )
@@ -90,12 +92,43 @@ def test_blind_world_descriptor_has_no_real_identity_fields() -> None:
 
 def test_blind_control_descriptor_has_no_real_control_id() -> None:
     field_names = {f.name for f in dataclasses.fields(BlindControlDescriptor)}
-    assert field_names == {"alias_control_id"}
+    assert field_names == {"alias_control_id", "alias_variable_id"}
 
 
 def test_blind_observable_descriptor_has_no_real_observable_id() -> None:
     field_names = {f.name for f in dataclasses.fields(BlindObservableDescriptor)}
-    assert field_names == {"alias_observable_id"}
+    assert field_names == {"alias_observable_id", "alias_variable_id"}
+
+
+def test_control_and_observable_sharing_a_real_variable_share_alias_variable_id() -> None:
+    """The repair this section exists to lock in: WORLD-S02's x2 is both a
+    public control and a public observable (see _s02_spec) -- B must be able
+    to see that the control it flips and the observable it reads name the
+    same public variable, without ever learning the real name 'x2'."""
+    spec = _s02_spec()
+    control_items = control_descriptors(spec, seed=0)
+    observable_items = observable_descriptors(spec, seed=0)
+
+    control_variable_ids = {item.alias_variable_id for item in control_items}
+    observable_variable_ids = {item.alias_variable_id for item in observable_items}
+    shared_variable_ids = control_variable_ids & observable_variable_ids
+    assert shared_variable_ids, "expected at least one variable id shared between a control and an observable"
+
+    # x2 is a control and an observable in _s02_spec -- confirm by real name,
+    # via the evaluator-only manifest, that the shared alias really is x2's.
+    _descriptor, manifest = make_blind_session(spec, seed=0)
+    assert manifest.variable_alias["x2"] in shared_variable_ids
+
+
+def test_alias_variable_id_never_equals_the_control_or_observable_alias_itself() -> None:
+    """Control and observable aliases stay distinct handles from each other
+    and from the variable alias they point to -- only alias_variable_id is
+    shared, never the control/observable alias itself."""
+    spec = _s02_spec()
+    for item in control_descriptors(spec, seed=0):
+        assert item.alias_control_id != item.alias_variable_id
+    for item in observable_descriptors(spec, seed=0):
+        assert item.alias_observable_id != item.alias_variable_id
 
 
 def test_translation_manifest_contains_mapping_but_is_evaluator_only() -> None:
@@ -227,13 +260,13 @@ def test_blind_descriptor_canonical_contains_no_secret_field_names() -> None:
 
 
 def test_blind_control_and_observable_descriptors_contain_no_secret_values() -> None:
-    descriptor, manifest = make_blind_session(_s02_spec(), seed=0)
-    for alias_control_id in descriptor.public_controls:
-        serialized = _serialize(BlindControlDescriptor(alias_control_id).canonical())
+    spec = _s02_spec()
+    for item in control_descriptors(spec, seed=0):
+        serialized = _serialize(item.canonical())
         for secret in SECRET_VALUES:
             assert secret not in serialized
-    for alias_observable_id in descriptor.public_observables:
-        serialized = _serialize(BlindObservableDescriptor(alias_observable_id).canonical())
+    for item in observable_descriptors(spec, seed=0):
+        serialized = _serialize(item.canonical())
         for secret in SECRET_VALUES:
             assert secret not in serialized
 
@@ -267,16 +300,15 @@ def test_leakage_check_catches_a_value_smuggled_past_field_names() -> None:
 # ---------------------------------------------------------------------------
 
 def _run_minimal_blind_path(descriptor: BlindWorldDescriptor) -> None:
-    """The minimum a blind B-side session does: read the descriptor, list
-    its controls/observables, prepare a candidate control assignment. None
-    of this should ever reach for manifest translation."""
+    """The minimum a blind B-side session does: read the descriptor and list
+    its controls/observables. None of this should ever reach for manifest
+    translation. (Constructing BlindControlDescriptor/BlindObservableDescriptor
+    needs alias_variable_id, which a bare BlindWorldDescriptor's
+    public_controls/public_observables strings don't carry on their own --
+    see control_descriptors/observable_descriptors for the full objects.)"""
     _ = descriptor.canonical()
     _ = list(descriptor.public_controls)
     _ = list(descriptor.public_observables)
-    for alias_control_id in descriptor.public_controls:
-        _ = BlindControlDescriptor(alias_control_id).canonical()
-    for alias_observable_id in descriptor.public_observables:
-        _ = BlindObservableDescriptor(alias_observable_id).canonical()
 
 
 def test_runtime_blind_path_never_touches_translation_manifest(monkeypatch) -> None:
