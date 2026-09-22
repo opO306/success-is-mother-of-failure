@@ -35,6 +35,9 @@ EVENT_TYPES = frozenset({
     # B0.5 events -- mechanism testing: feasibility, executed interventions, evidence.
     "mechanism_test_planned", "intervention_feasibility_checked", "mechanism_test_executed",
     "mechanism_evidence_recorded",
+    # B0.6 events -- causal path building: edges, atomic co-occurring events, paths, missing links.
+    "atomic_event_recorded", "causal_edge_proposed", "causal_edge_rejected", "causal_edge_updated",
+    "missing_link_recorded", "causal_path_created", "causal_path_updated",
 })
 
 

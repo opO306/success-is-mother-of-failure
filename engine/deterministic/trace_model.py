@@ -171,25 +171,44 @@ def bind_trace_subject(subject: TraceSubject, spec: CausalWorldSpec) -> TraceBin
 
 @dataclass(frozen=True)
 class TraceSnapshot:
-    """One kernel phase's observed values for every subject in a `TraceSpec`.
+    """One kernel-observer call's observed values for every subject in a `TraceSpec`.
 
     `values` is `{role: {field: value}}`. A missing subject at a given tick
     (a heat cell with zero energy has no `HeatCellSpec` entry, an unbonded
     pair has no bond) reports `None` for every requested field rather than
     omitting the subject -- so "no bond" is a recorded fact, not a gap.
 
-    `phase` names which `KernelPhase` this snapshot was taken at (see
-    `causal_kernel.py`'s `KernelObserver`). Two snapshots can share a tick --
-    `AFTER_BOND_BREAK_PHASE` and `POST_TICK` both belong to tick 1 -- which is
-    exactly what lets a divergence be placed *within* a tick rather than only
-    between ticks.
+    Measurement showed `(tick, phase)` cannot serve as a time coordinate:
+    because the tick loop feeds one call's result state directly into the
+    next call, a tick N `POST_TICK` observation is reported *before* that
+    same tick N's `PRE_TICK` observation in actual call order, even though
+    the names suggest the reverse. `tick` and `phase` are therefore kept as
+    descriptive metadata only -- what the kernel was doing, not when it
+    happened. `observation_seq` is the actual time coordinate: a strictly
+    increasing counter assigned once per `KernelObserver.on_phase` call, in
+    real call order, and every ordering decision in `causal_timeline.py`
+    sorts by this field alone.
+
+    `state_digest` is the full `CausalWorldState.digest` at the moment this
+    snapshot was taken -- not just the traced fields. This is what lets
+    `causal_timeline.py` tell whether two adjacent observations are truly the
+    same physical instant (full state digests equal) rather than merely
+    agreeing on the fields this particular `TraceSpec` happened to watch.
+
+    Both `observation_seq` and `state_digest` default to `0`/`""` for
+    backward compatibility with callers built before these fields existed;
+    such snapshots are simply never treated as mergeable or safely orderable
+    by moment-normalization.
     """
     tick: int
     phase: KernelPhase
     values: Mapping[str, Mapping[str, Any]]
+    state_digest: str = ""
+    observation_seq: int = 0
 
     def canonical(self) -> dict[str, object]:
-        return {"phase": self.phase.value, "tick": self.tick,
+        return {"observation_seq": self.observation_seq, "phase": self.phase.value,
+                "state_digest": self.state_digest, "tick": self.tick,
                 "values": {role: dict(sorted(fields.items())) for role, fields in sorted(self.values.items())}}
 
 
@@ -223,8 +242,14 @@ def _read_bond(state: CausalWorldState, particle_id_a: int, particle_id_b: int, 
 
 
 def collect_snapshot(spec: CausalWorldSpec, state: CausalWorldState, trace_spec: TraceSpec,
-                     bindings: Mapping[str, TraceBinding], phase: KernelPhase) -> TraceSnapshot:
-    """Read `trace_spec`'s subjects off one `CausalWorldState`, using pre-resolved `bindings`."""
+                     bindings: Mapping[str, TraceBinding], phase: KernelPhase,
+                     observation_seq: int = 0) -> TraceSnapshot:
+    """Read `trace_spec`'s subjects off one `CausalWorldState`, using pre-resolved `bindings`.
+
+    `observation_seq` must be the caller's own strictly-increasing counter of
+    `KernelObserver` calls -- see `TraceSnapshot`'s docstring on why `tick`
+    and `phase` alone cannot serve as a time coordinate.
+    """
     values: dict[str, dict[str, Any]] = {}
     for subject in trace_spec.subjects:
         if isinstance(subject, ParticleTraceSubject):
@@ -238,7 +263,7 @@ def collect_snapshot(spec: CausalWorldSpec, state: CausalWorldState, trace_spec:
             particle_id_a = int(bindings[subject.particle_role_a].resolved_identity)
             particle_id_b = int(bindings[subject.particle_role_b].resolved_identity)
             values[subject.role] = _read_bond(state, particle_id_a, particle_id_b, subject.fields)
-    return TraceSnapshot(state.tick, phase, values)
+    return TraceSnapshot(state.tick, phase, values, state.digest, observation_seq)
 
 
 def bind_trace_spec(trace_spec: TraceSpec, spec: CausalWorldSpec) -> dict[str, TraceBinding]:
@@ -266,10 +291,16 @@ class _TraceCollectingObserver:
         self._trace_spec = trace_spec
         self._bindings = bindings
         self.snapshots: list[TraceSnapshot] = []
+        # Counts every observer call, including ones outside [start_tick,
+        # end_tick] -- observation_seq must reflect real call order across
+        # the whole run, not just the filtered subset this trace keeps.
+        self._next_seq = 0
 
     def on_phase(self, *, tick: int, phase: KernelPhase, state: CausalWorldState) -> None:
+        seq = self._next_seq
+        self._next_seq += 1
         if self._trace_spec.start_tick <= tick <= self._trace_spec.end_tick:
-            self.snapshots.append(collect_snapshot(self._spec, state, self._trace_spec, self._bindings, phase))
+            self.snapshots.append(collect_snapshot(self._spec, state, self._trace_spec, self._bindings, phase, seq))
 
 
 def run_traced(spec: CausalWorldSpec, trace_spec: TraceSpec) -> tuple[TraceSnapshot, ...]:
