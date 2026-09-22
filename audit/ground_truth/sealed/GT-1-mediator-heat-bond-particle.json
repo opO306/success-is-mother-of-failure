@@ -1,0 +1,58 @@
+{
+  "checks": [
+    {
+      "detail": "A0's own break_heat rule: heat=0 cannot pay the bond's break_heat cost, heat=2 can (base world declares break_heat=2)",
+      "expected": "bond survival differs between heat=0 and heat=2",
+      "name": "A_changes_B_heat_toggles_final_bond_state",
+      "observed": {
+        "bond_survives_final_tick_heat_0": true,
+        "bond_survives_final_tick_heat_2": false
+      },
+      "passed": true
+    },
+    {
+      "detail": "same collision geometry (heat=0 vs heat=2), differing only in whether the bond formed at tick 1 survives to the final tick",
+      "expected": "particle_a.kinetic_energy differs between bond-persists and bond-breaks",
+      "name": "B_changes_C_bond_state_changes_final_kinetic_energy",
+      "observed": {
+        "kinetic_energy_bond_breaks": 3,
+        "kinetic_energy_bond_persists": 0
+      },
+      "passed": true
+    },
+    {
+      "detail": "with B pinned at 'no bond, ever' by particle placement, heat's only declared route to the particle in A0 (via bond break_heat) is unavailable",
+      "expected": "particle_a.kinetic_energy identical across heat=0 and heat=2 once no bond can ever form",
+      "name": "blocking_B_severs_A_to_C_effect",
+      "observed": {
+        "kinetic_energy_blocked_heat_0": 0,
+        "kinetic_energy_blocked_heat_2": 0
+      },
+      "passed": true
+    }
+  ],
+  "exhaustive": false,
+  "exhaustive_cases_checked": 0,
+  "expected_edges": [
+    [
+      "heat_cell.energy",
+      "bond.exists"
+    ],
+    [
+      "bond.exists",
+      "particle.kinetic_energy"
+    ]
+  ],
+  "forbidden_edges": [
+    [
+      "heat_cell.energy",
+      "particle.kinetic_energy"
+    ]
+  ],
+  "format": "ground-truth-report-v1",
+  "ground_truth_digest": "8897d94c3d47402a4b944e851dfe04ef06dd19dfed2775131da6803851acc79d",
+  "notes": [],
+  "verdict": "VALID",
+  "world_id": "GT-1-mediator-heat-bond-particle",
+  "world_spec_digest": "39b3a7b27f7f2ea45b1d3f613eddf9ad9360005dfaec39c681588246bee18e31"
+}

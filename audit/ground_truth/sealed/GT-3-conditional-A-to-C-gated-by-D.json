@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "detail": "one of the 4 exhaustive (source_active, gate_enabled) combinations",
+      "expected": false,
+      "name": "truth_table_A=0_D=0",
+      "observed": false,
+      "passed": true
+    },
+    {
+      "detail": "one of the 4 exhaustive (source_active, gate_enabled) combinations",
+      "expected": false,
+      "name": "truth_table_A=1_D=0",
+      "observed": false,
+      "passed": true
+    },
+    {
+      "detail": "one of the 4 exhaustive (source_active, gate_enabled) combinations",
+      "expected": false,
+      "name": "truth_table_A=0_D=1",
+      "observed": false,
+      "passed": true
+    },
+    {
+      "detail": "one of the 4 exhaustive (source_active, gate_enabled) combinations",
+      "expected": true,
+      "name": "truth_table_A=1_D=1",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "outcome_active identical for A=0 and A=1 when gate_enabled=False",
+      "name": "D_false_blocks_A_effect_on_C",
+      "observed": {
+        "C_at_A0_D0": false,
+        "C_at_A1_D0": false
+      },
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "outcome_active differs between A=0 and A=1 when gate_enabled=True",
+      "name": "D_true_lets_A_affect_C",
+      "observed": {
+        "C_at_A0_D1": false,
+        "C_at_A1_D1": true
+      },
+      "passed": true
+    },
+    {
+      "detail": "rules out A -> D -> C being mistaken for the intended A -[if D]-> C",
+      "expected": true,
+      "name": "A_never_changes_D",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "detail": "",
+      "expected": "step()'s body references both source_active and gate_enabled",
+      "name": "step_function_reads_both_source_and_gate",
+      "observed": {
+        "source": "def step(state: ConditionalState) -> ConditionalState:\n    \"\"\"The entire A3 rule: C is A AND D. Nothing else is read or written.\"\"\"\n    return ConditionalState(source_active=state.source_active, gate_enabled=state.gate_enabled,\n                            outcome_active=state.source_active and state.gate_enabled)"
+      },
+      "passed": true
+    }
+  ],
+  "exhaustive": true,
+  "exhaustive_cases_checked": 4,
+  "expected_edges": [
+    [
+      "source_active",
+      "outcome_active"
+    ]
+  ],
+  "forbidden_edges": [
+    [
+      "source_active",
+      "gate_enabled"
+    ],
+    [
+      "gate_enabled",
+      "source_active"
+    ]
+  ],
+  "format": "ground-truth-report-v1",
+  "ground_truth_digest": "b027e3908dddf3a8f226a69578cb48ba9821961f2d538cb63dd1933dad17a6f8",
+  "notes": [],
+  "verdict": "VALID",
+  "world_id": "GT-3-conditional-A-to-C-gated-by-D",
+  "world_spec_digest": "fe471401d781e6b94ab5e6e7514a4f3768cb949c57a75c4063f85055afcde7f6"
+}

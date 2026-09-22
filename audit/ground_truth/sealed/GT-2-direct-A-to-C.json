@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "detail": "one exhaustive case out of the two possible source_active values",
+      "expected": false,
+      "name": "A_directly_sets_C_when_source_active=False",
+      "observed": false,
+      "passed": true
+    },
+    {
+      "detail": "one exhaustive case out of the two possible source_active values",
+      "expected": true,
+      "name": "A_directly_sets_C_when_source_active=True",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "detail": "rules out outcome_active acting as its own hidden mediator across steps",
+      "expected": "step() output identical regardless of incoming outcome_active",
+      "name": "no_hidden_state_outcome_prior_value_is_not_read",
+      "observed": {
+        "from_prior_false": {
+          "format": "ground-truth-direct-world-v1",
+          "outcome_active": false,
+          "source_active": false
+        },
+        "from_prior_true": {
+          "format": "ground-truth-direct-world-v1",
+          "outcome_active": false,
+          "source_active": false
+        }
+      },
+      "passed": true
+    },
+    {
+      "detail": "static confirmation there is no field this world could be smuggling a mediator relationship through",
+      "expected": "step()'s body does not reference state.outcome_active as an input",
+      "name": "step_function_reads_only_source_active",
+      "observed": {
+        "source": "def step(state: DirectState) -> DirectState:\n    \"\"\"The entire A2 rule: C copies A. No other field is read or written.\"\"\"\n    return DirectState(source_active=state.source_active, outcome_active=state.source_active)"
+      },
+      "passed": true
+    }
+  ],
+  "exhaustive": true,
+  "exhaustive_cases_checked": 2,
+  "expected_edges": [
+    [
+      "source_active",
+      "outcome_active"
+    ]
+  ],
+  "forbidden_edges": [],
+  "format": "ground-truth-report-v1",
+  "ground_truth_digest": "5e702a822e5fc1acaa1aea142322aef218a61e363c7d44e1d25b08fdfd4e88a3",
+  "notes": [],
+  "verdict": "VALID",
+  "world_id": "GT-2-direct-A-to-C",
+  "world_spec_digest": "1c0bba721eecf458ab9280068cea54bde4464447847076f2f6a0636966cafdce"
+}
