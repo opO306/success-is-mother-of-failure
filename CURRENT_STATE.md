@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-23
-**검증:** 전체 테스트 1285개 통과 (B0.7 완료 시점 실측 1228개 — 이 문서의 옛 "→1046" 표기는 B0.7 커밋이 갱신하지 않고 지나간 낡은 숫자였음, 2026-09-23 확인)
+**검증:** 전체 테스트 1290개 로컬 통과 (B0.7 완료 시점 실측 1228개 — 이 문서의 옛 "→1046" 표기는 B0.7 커밋이 갱신하지 않고 지나간 낡은 숫자였음, 2026-09-23 확인). GitHub Actions 독립 재실행 기록 없음 — 로컬 실행 결과임을 구분해 기록
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -310,10 +310,33 @@ Protocol, `ResearchWorldError`/`WorldCompatibilityError`/`UnknownControlError`/
 하드코딩된 기대값이 아니라 기존 함수 재호출과의 동등성만 assert. `engine/deterministic/__init__.py`
 에 신규 이름 export. 전체 테스트 1251→1285 (신규 34개), 전부 통과.
 
-**다음 세션 (G3~G5, 커밋 C+D):** `research_loop.py`/`broad_explorer.py`가 실제로 Adapter를
-거쳐 실행되도록 이주. `CandidatePredictionProvider`(Static/Functional) 도입. 이번 세션에서는
-건드리지 않음: `causal_experiment.py`/`causal_hypothesis.py`의 타입 일반화, synthetic
-kernel/spec/adapter, GT-2/3/M1의 실행 가능 버전.
+**G3~G5 완료** (같은 날, 1285→1290). `research_loop.py`: `observe()`/`compare_results()`가
+새 generic core `observe_world()`/`compare_results_with_adapter()`의 얇은 물리-A 호환
+wrapper가 됨 (`_PHYSICAL_ADAPTER = PhysicalCausalResearchAdapter()` 기본값 주입). 이 과정에서
+동작 차이 하나 발견·수정: 기존 `observe()`는 `state_digest`를 `observables` 딕셔너리 **안에**
+병합해 넣었는데, `WorldObservation`은 그걸 별도 필드로 분리해서 G2 설계 그대로 옮기면
+관측 payload가 달라졌음 — `observe_world`에서 `{**observables, "state_digest": ...}`로 명시
+병합해 정정. `broad_explorer.py`: `run_exploration()`이 새 generic core
+`run_research_exploration()`의 wrapper가 됨. `apply_control`+`CausalWorldSpec.from_mapping`
+→ `adapter.apply_control()`+`adapter.validate()`, `_compare` → `adapter.evaluate_prediction()`
+기반 `_compare_with_adapter`로 치환. 신규 `research_prediction.py`:
+`CandidatePredictionProvider` Protocol + `StaticPredictionProvider`(기존 동작 그대로: 모든
+후보가 같은 prediction 공유) + `FunctionalPredictionProvider`(후보의 compiled spec을 보고
+후보별로 다른 prediction 생성 — 아직 `CausalPrediction` 자체는 안 건드림, 후보별 "어디서
+prediction을 가져오는가"만 분리). 예외 처리: `WorldCompatibilityError`/`UnknownControlError`
+(설정 실수)는 컴파일 실패로 삼키지 않고 그대로 전파, `ValueError`/`TypeError`(후보 자신의
+불법 값 — 기존 `apply_control`/`from_mapping`이 실제로 던지는 타입)만 `CandidateCompilationFailure`로
+기록 — 이걸 테스트(`test_run_research_exploration_never_swallows_world_compatibility_error`)로
+고정. 완료 조건 그대로 충족: 기존 G0 characterization 출력·digest 전부 동일
+(`test_run_research_exploration_with_static_provider_matches_run_exploration_exactly` 등으로
+확인). `CandidatePredictionProvider`가 실제로 후보마다 다른 prediction을 줄 수 있음을
+`FunctionalPredictionProvider`로 검증(자기 자신의 실행 결과를 되읽어 예측하는 self-consistency
+테스트). 이번 세션에서 건드리지 않음: `causal_experiment.py`/`causal_hypothesis.py`의 타입
+일반화(`CausalPrediction`은 여전히 물리 필드 전용), synthetic kernel/spec/adapter,
+GT-2/3/M1의 실행 가능 버전 — 이건 G6+ (다음 세션들).
+
+**검증 수준 메모:** "1290개 전부 통과"는 이 세션에서 로컬로 직접 실행해 확인한 결과다.
+GitHub Actions의 독립 CI 재실행 기록은 없다 — 이 구분을 흐리지 않을 것.
 
 ---
 
@@ -341,4 +364,5 @@ kernel/spec/adapter, GT-2/3/M1의 실행 가능 버전.
 | 2026-09-22 | **v3의 `port_limits`/`chains_may_move`가 실측과 다르게 문서화돼 있었음을 발견·정정** (→1041). 둘 다 format 동등성 비교(`== FORMAT_V2`)로만 판정해 v3가 v2가 아니라 v1 갈래로 빠진다 — `port_limits=1`, `chains_may_move=False`. 값 자체는 현재 단계에 맞으므로(구조 이동 미구현) 코드는 그대로 두고 문서를 정정, 테스트로 고정. AST 회귀 검사도 `ck.CausalWorldState(...)` 같은 qualified call을 놓치는 구멍을 발견해 하드닝 |
 | 2026-09-22 | **causal v4 Stage A 구현 완료** (→1046). `FORMAT_V4` 추가, v3 named-port 문법 계승. `corrected_collision_semantics = spec.format == FORMAT_V4` 게이트로 orientation 암묵 회전 제거 + 90도 산란을 등에너지로 제한 — v4 경로만. v1/v2/v3 digest는 Stage A 적용 전후 동일함을 측정 확인. known-defect 테스트 1종을 legacy로 이동, v4 positive test 3종 신설. 부수 발견: 대각 불가능성·v3 상태 지속성 테스트의 `_Spec` fixture 두 곳에 `format` 속성이 없어 새 게이트가 `AttributeError`를 냄 — 각각 레거시 포맷 명시로 수정 |
 | 2026-09-23 | **독립 Ground-Truth 답안지 신설, 같은 날 세 차례 정정** (최종 `ground_truth/`, 저장소 최상위, 1228→1251). 최초 구현: `test_deterministic_missing_link_investigator.py`의 "hidden mediator" 시나리오가 B0.7 자신의 출력(`investigate_missing_link`)을 정답처럼 assert하는 순환논리였음을 사용자가 지적. B0.3 이상을 전혀 import하지 않는 답안지로 GT-1(Mediator, A0 `causal_kernel` 직접 조작)·GT-2(Direct)·GT-3(Conditional) 3-world를 `audit/ground_truth/`에 신설, 3/3 VALID로 봉인. 사용자가 같은 날 세 가지를 지적해 정정: (1) 테스트 개수 표기가 "1046→1246"으로 잘못됨(B0.7 완료 시점 실측은 1228) — "1228→1246"으로 수정. (2) `audit/`의 "engine import 절대 금지" 불변식에 `ground_truth`만 예외를 둔 게 그 불변식을 약화시킨다 — 예외를 없애고 `ground_truth/`를 저장소 최상위로 이동, `audit/`는 원래 불변식 복원. (3) GT-1의 intervention 3("B 차단")이 실제로는 입자 배치를 바꿔 다른 세계를 만든 것이라 순수 mediator 정답지로는 약하다 — GT-1은 "레거시 physical sanity test"로 격하하고, mediator(B)에 A와 독립된 public control(`step_with_mediator_override`)을 가진 전용 synthetic world **GT-M1**을 정답지 레벨에서 신설(4-world, 4/4 VALID, 신규 테스트 5개). GT-2/3(와 향후 GT-M1의 실행 가능 버전)가 B가 실제로 연구할 수 있는 A-compatible world가 아니라는 지적은 조사 결과 범위가 커서 별도 세션으로 분리: `CausalWorldSpec`이 `causal_hypothesis.py`(prediction 어휘가 물리 필드에 폐쇄)·`exploration_control.py`(control 필드 화이트리스트가 A0 물리 어휘 전용) 등 B0 20개 모듈에 구조적으로 얽혀 있어, "AExecutor만 얇게 Protocol화하면 된다"는 최초 가정이 조사로 반박됨 — `ResearchWorldAdapter` 공통 경계 설계가 선행돼야 함 |
-| 2026-09-23 | **Research World Abstraction G0~G2 완료** (1251→1285). 사용자가 `RESEARCH_WORLD_ABSTRACTION_V1` 구현 명세(Gate G0~G11, Phase 1~3)를 작성, 이번 세션은 G0~G2로 명시적 절단. G0: `ExecutionResult.canonical()`/`observe()`/`compare_results()`/`run_exploration()`/`CausalExperimentArm.canonical()`의 현재 동작을 characterization test 11개로 리터럴 고정 — 이 단계에서 명세 초안의 여러 가정(`total_energy` 계산에서 heat 누락, 존재하지 않는 `spec_digest` 필드명, `CausalExperimentArm`의 실제 생성자 인자 수)이 실제 코드와 다름을 발견·정정. G1: `research_world.py`(`ResearchWorldSpec`/`ResearchRun` Protocol + 4종 오류 타입), `research_adapter.py`(`ResearchControlDefinition` Protocol, `WorldObservation`, `PredictionEvaluation`, `ResearchWorldAdapter` Protocol — `execute()` 없음, 실행/해석 책임 분리) 신설. `CausalWorldSpec`/`CausalRun`/`ControlDefinition`이 **코드 수정 없이** 구조적으로 Protocol을 만족함을 확인. G2: `PhysicalCausalResearchAdapter`가 기존 물리 경로(`apply_control`/`from_mapping`/`initial_causal_state`/`_observed_value` kind-dispatch)를 그대로 감쌈 — 하드코딩 기대값이 아니라 "레거시 함수 재호출과의 동등성"만 assert하는 방식으로 13개 테스트가 "한 비트도 안 바뀜"을 증명. 다음 세션은 G3~G5(`research_loop`/`broad_explorer`를 실제로 Adapter 경유로 이주, `CandidatePredictionProvider` 도입) |
+| 2026-09-23 | **Research World Abstraction G0~G2 완료** (1251→1285). 사용자가 `RESEARCH_WORLD_ABSTRACTION_V1` 구현 명세(Gate G0~G11, Phase 1~3)를 작성, 이번 세션은 G0~G2로 명시적 절단. G0: `ExecutionResult.canonical()`/`observe()`/`compare_results()`/`run_exploration()`/`CausalExperimentArm.canonical()`의 현재 동작을 characterization test 11개로 리터럴 고정 — 이 단계에서 명세 초안의 여러 가정(`total_energy` 계산에서 heat 누락, 존재하지 않는 `spec_digest` 필드명, `CausalExperimentArm`의 실제 생성자 인자 수)이 실제 코드와 다름을 발견·정정. G1: `research_world.py`(`ResearchWorldSpec`/`ResearchRun` Protocol + 4종 오류 타입), `research_adapter.py`(`ResearchControlDefinition` Protocol, `WorldObservation`, `PredictionEvaluation`, `ResearchWorldAdapter` Protocol — `execute()` 없음, 실행/해석 책임 분리) 신설. `CausalWorldSpec`/`CausalRun`/`ControlDefinition`이 **코드 수정 없이** 구조적으로 Protocol을 만족함을 확인. G2: `PhysicalCausalResearchAdapter`가 기존 물리 경로(`apply_control`/`from_mapping`/`initial_causal_state`/`_observed_value` kind-dispatch)를 그대로 감쌈 — 하드코딩 기대값이 아니라 "레거시 함수 재호출과의 동등성"만 assert하는 방식으로 13개 테스트가 "한 비트도 안 바뀜"을 증명. 부수 발견: 이전 커밋(`1913829`)이 실제로는 `ModuleNotFoundError`로 깨진 상태였음을 이번 세션에서 발견해 별도 fix 커밋(`5771d60`)으로 수정 |
+| 2026-09-23 | **Research World Abstraction G3~G5 완료** (같은 날, 1285→1290). `research_loop.observe/compare_results`와 `broad_explorer.run_exploration`이 각각 새 generic core(`observe_world`/`compare_results_with_adapter`/`run_research_exploration`)의 물리-A 호환 wrapper가 됨. `apply_control`+`CausalWorldSpec.from_mapping` → `adapter.apply_control()`+`adapter.validate()`, prediction 비교 → `adapter.evaluate_prediction()` 기반으로 치환. 신규 `research_prediction.py`: `CandidatePredictionProvider`(`StaticPredictionProvider`/`FunctionalPredictionProvider`) — 후보별로 다른 prediction을 줄 수 있는 구조이지만 `CausalPrediction` 자체는 여전히 물리 필드 전용, 이번엔 "출처 분리"만. 마이그레이션 중 실동작 차이 하나 발견: 기존 `observe()`는 `state_digest`를 `observables` 딕셔너리 안에 병합했는데 `WorldObservation`은 별도 필드라 그대로 옮기면 payload가 달라짐 — 명시 병합으로 정정. 예외 정책: `WorldCompatibilityError`/`UnknownControlError`(설정 실수)는 전파, `ValueError`/`TypeError`(후보 자신의 불법 값)만 컴파일 실패로 기록 — 이 구분을 테스트로 고정. G0 characterization 출력·digest가 새 경로에서도 완전히 동일함을 확인(완료 조건 충족). GitHub Actions 독립 CI 재실행 기록은 없음 — "1290개 통과"는 로컬 실행 결과. 다음은 G6+(synthetic kernel/spec/adapter, GT-2/3/M1 실행 가능 버전) |

@@ -29,6 +29,8 @@ from .exploration_analysis import (
 )
 from .exploration_control import ControlDefinition, apply_control, bind_control
 from .exploration_space import ExplorationCandidate, ExplorationPlan, generate_candidates
+from .physical_research_adapter import PhysicalCausalResearchAdapter
+from .research_adapter import ResearchControlDefinition, ResearchWorldAdapter
 from .research_axis import AxisRegistry, CAUSAL_AXIS_REGISTRY
 from .research_domain import ExactConstraint, ResearchDomain
 from .research_journal import ResearchJournal
@@ -41,6 +43,15 @@ from .research_loop import (
     seal_predictions,
 )
 from .research_memory import DomainEvidence
+from .research_prediction import CandidatePredictionProvider, StaticPredictionProvider
+from .research_world import (
+    InvalidControlValueError,
+    ResearchWorldSpec,
+    UnknownControlError,
+    WorldCompatibilityError,
+)
+
+_PHYSICAL_ADAPTER = PhysicalCausalResearchAdapter()
 
 FORMAT = "broad-explorer-outcome-v1"
 
@@ -83,7 +94,7 @@ class ExplorationOutcome:
 
 
 def _point_domain(plan: ExplorationPlan, candidate: ExplorationCandidate,
-                  controls: Mapping[str, ControlDefinition]) -> ResearchDomain:
+                  controls: Mapping[str, ResearchControlDefinition]) -> ResearchDomain:
     """One exact-value domain per candidate, on the *research* axes its controls declare.
 
     Uses `controls[control_id].research_axis`, never the raw `control_id`:
@@ -97,18 +108,31 @@ def _point_domain(plan: ExplorationPlan, candidate: ExplorationCandidate,
                           f"single point from plan {plan.plan_id}")
 
 
-def run_exploration(
-    journal: ResearchJournal, executor: AExecutor, plan: ExplorationPlan,
-    base_spec: CausalWorldSpec, controls: Mapping[str, ControlDefinition],
-    predictions_for_hypothesis: Mapping[str, tuple[object, ...]],
+_EVALUATION_STATUS_TO_RELATION = {"match": "supports", "mismatch": "contradicts", "unavailable": "underspecified"}
+
+
+def run_research_exploration(
+    journal: ResearchJournal, executor: AExecutor, adapter: ResearchWorldAdapter,
+    prediction_provider: CandidatePredictionProvider, plan: ExplorationPlan,
+    base_spec: ResearchWorldSpec, controls: Mapping[str, ResearchControlDefinition],
     observation_id: str, axis_registry: AxisRegistry = CAUSAL_AXIS_REGISTRY,
 ) -> ExplorationOutcome:
-    """Run every candidate in `plan` through `executor`, recording a point domain and evidence for each.
+    """World-agnostic core of `run_exploration`: run every candidate in `plan`
+    through `executor`, via `adapter`, recording a point domain and evidence
+    for each.
 
-    `predictions_for_hypothesis` gives, per target hypothesis, the sealed
-    predictions to check against every candidate's tick-checkpoints (the same
-    shape `PredictionSeal.predictions_by_hypothesis` expects) -- callers
-    decide what a hypothesis predicts; this function only runs it many times.
+    `prediction_provider` gives, per candidate and its compiled spec, the
+    sealed predictions to check per target hypothesis -- generalizes the old
+    fixed `predictions_for_hypothesis` mapping (still available as
+    `StaticPredictionProvider` for callers whose predictions do not vary by
+    candidate, which is every existing caller).
+
+    A `WorldCompatibilityError` or `UnknownControlError` from `adapter` is a
+    configuration mistake (the caller wired the wrong adapter, or named a
+    control that was never defined) and is never caught here -- only a
+    candidate's own illegal *value* (an `InvalidControlValueError`, or
+    whatever `adapter.validate` raises for its world's legality rules)
+    becomes a `CandidateCompilationFailure`.
     """
     if base_spec.digest != plan.base_spec_digest:
         raise ValueError("base_spec does not match the plan's declared base_spec_digest")
@@ -127,30 +151,39 @@ def run_exploration(
         try:
             spec = base_spec
             for control_id, value in candidate.control_values:
-                spec = apply_control(spec, controls[control_id], value)
-            # `apply_control` mutates dataclasses directly and does not itself
-            # validate (that only happens in `CausalWorldSpec.from_mapping`),
-            # so round-trip through canonical form to catch an illegal
-            # combination -- negative energy, an unknown material kind, and
-            # so on -- before it ever reaches the executor.
-            spec = CausalWorldSpec.from_mapping(spec.canonical())
-        except Exception as exc:  # noqa: BLE001 -- an illegal candidate is B data, not a crash
+                spec = adapter.apply_control(spec, controls[control_id], value)
+            # `apply_control` mutates the spec and does not itself validate,
+            # so round-trip through the adapter's own validation to catch an
+            # illegal combination -- negative energy, an unknown material
+            # kind, and so on -- before it ever reaches the executor.
+            spec = adapter.validate(spec)
+        except (InvalidControlValueError, ValueError, TypeError) as exc:
+            # A candidate's own illegal control value or combination --
+            # research data about this candidate, not a wiring mistake.
+            # ValueError/TypeError (rather than only InvalidControlValueError)
+            # matches what CausalWorldSpec.from_mapping and
+            # exploration_control's ControlTarget.resolve() actually raise
+            # for the physical adapter today (see test_deterministic_broad_explorer.py's
+            # negative-heat compilation-failure test).
             compilation_failures.append(CandidateCompilationFailure(
                 candidate.candidate_id, candidate.control_values, f"{type(exc).__name__}: {exc}",
             ))
             continue
+        except (WorldCompatibilityError, UnknownControlError):
+            raise  # configuration mistakes, never a candidate's data
 
         domain = _point_domain(plan, candidate, controls)
         domain.validate_against(axis_registry)
         register_domain(journal, domain)
 
+        predictions_for_hypothesis = prediction_provider.predictions_for(candidate, spec)
         seal = PredictionSeal(f"PS-{candidate.candidate_id}", candidate.candidate_id, journal.next_sequence,
                               dict(predictions_for_hypothesis))
         seal_predictions(journal, seal)
         result = execute_through_a(journal, executor, candidate.candidate_id, spec)
 
         for hypothesis_id, predictions in predictions_for_hypothesis.items():
-            relation = _compare(result, predictions)
+            relation = _compare_with_adapter(adapter, result, predictions)
             item = DomainEvidence(
                 f"DE-{candidate.candidate_id}-{hypothesis_id}", hypothesis_id, domain.domain_id,
                 candidate.candidate_id, seal.seal_id, relation, (observation_id,),
@@ -182,21 +215,43 @@ def run_exploration(
                               tuple(boundary_candidates), isolated_cases)
 
 
-def _compare(result, predictions: tuple[object, ...]) -> str:
-    """Reuses `research_loop`'s own prediction/observation comparison, renamed to evidence relations."""
+def run_exploration(
+    journal: ResearchJournal, executor: AExecutor, plan: ExplorationPlan,
+    base_spec: CausalWorldSpec, controls: Mapping[str, ControlDefinition],
+    predictions_for_hypothesis: Mapping[str, tuple[object, ...]],
+    observation_id: str, axis_registry: AxisRegistry = CAUSAL_AXIS_REGISTRY,
+) -> ExplorationOutcome:
+    """Run every candidate in `plan` through `executor`, recording a point domain and evidence for each.
+
+    `predictions_for_hypothesis` gives, per target hypothesis, the sealed
+    predictions to check against every candidate's tick-checkpoints (the same
+    shape `PredictionSeal.predictions_by_hypothesis` expects) -- callers
+    decide what a hypothesis predicts; this function only runs it many times.
+
+    Physical-A compatibility wrapper around `run_research_exploration` --
+    unchanged signature and behavior for existing callers.
+    """
+    return run_research_exploration(
+        journal, executor, _PHYSICAL_ADAPTER, StaticPredictionProvider(predictions_for_hypothesis),
+        plan, base_spec, controls, observation_id, axis_registry,
+    )
+
+
+def _compare_with_adapter(adapter: ResearchWorldAdapter, result, predictions: tuple[object, ...]) -> str:
+    """Folds several predictions for one hypothesis into one evidence relation,
+    exactly as the old `_compare` did -- but asks `adapter.evaluate_prediction`
+    per prediction instead of hardcoding physical A's comparison."""
     if result.status == "failed":
         return "underspecified"
-    outcomes = []
-    for prediction in predictions:
-        observed = _observed_value(prediction, result)
-        if observed is None:
-            outcomes.append("underspecified")
-        elif observed == _predicted_value(prediction):
-            outcomes.append("supports")
-        else:
-            outcomes.append("contradicts")
+    outcomes = [_EVALUATION_STATUS_TO_RELATION[adapter.evaluate_prediction(prediction, result).status]
+               for prediction in predictions]
     if "contradicts" in outcomes:
         return "contradicts"
     if "underspecified" in outcomes:
         return "underspecified"
     return "supports"
+
+
+def _compare(result, predictions: tuple[object, ...]) -> str:
+    """Physical-A compatibility wrapper around `_compare_with_adapter`."""
+    return _compare_with_adapter(_PHYSICAL_ADAPTER, result, predictions)
