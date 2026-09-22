@@ -1,6 +1,6 @@
 # 구조 상태 v1 — 설계
 
-**상태:** **승인됨 (2026-09-22).** Q1~Q5 확정. 구현 미착수
+**상태:** **승인됨 (2026-09-22).** Q1~Q5 확정. 구현 미착수 — **선행 작업은 9절**
 **날짜:** 2026-09-22
 **단계:** `MINIMAL_LOCAL_GEOMETRY_V1.md` 7단계 중 **단계 3**
 **선행:** `PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md`(5문장 검사),
@@ -657,9 +657,67 @@ relabel(state) --step-->  relabelled_result
 
 ## 8. 이 문서의 지위
 
-**승인됨 (2026-09-22).** Q1~Q5 확정. 구현 진행 가능.
+**승인됨 (2026-09-22).** Q1~Q5 확정. **구현 미착수 — 선행 작업 두 건이 생겼다.**
 
 단, 다음 두 가지는 **구현 중 재검사 대상**이다:
 
 1. **Q2의 불일치 검사식** — 대각이 도달 가능해지면 다시 설계
 2. **Q4의 전환 부채** — MERGE/SPLIT/DISSOLVE 구현 전에 표현 변환 검사
+
+---
+
+## 9. 착수 전에 끼어든 것 (2026-09-22 추가)
+
+이 설계를 구현하려다 아래 둘을 먼저 발견했다. 둘 다 **이 설계보다 아래
+계층**이므로 순서를 바꿨다.
+
+### 9.1 v3 구조가 tick을 못 넘겼다 — **해결됨**
+
+```
+BEFORE  port_bonds=2  grid=(16,16)  named_ports=1
+AFTER   port_bonds=0  grid=None     named_ports=0
+```
+
+세 단계와 `step_causal_world`가 `CausalWorldState`를 위치 인수 여섯 개로
+재구성하고 있어, `chains_may_move` 뒤의 필드가 전부 버려졌다. **구조 이동을
+설계하기 전에 구조가 시간축에서 살아남는 것이 먼저다.**
+
+`dataclasses.replace`로 전환해 해결했다. 이 설계가 추가할 `structures` 필드도
+같은 방식으로 증발할 뻔했으므로, **`StructureState` 구현 전에 고친 것이 맞다.**
+
+테스트: `tests/test_deterministic_v3_state_persistence.py`
+
+### 9.2 자유 입자 충돌이 운동량을 회전시킨다 — **미해결, 기록됨**
+
+```
+N/1 + S/2  ->  E/1 + W/2        운동량 (0,1) -> (-1,0)
+```
+
+A0의 고정 속도 격자 충돌 규칙을 causal이 물려받았는데, causal은
+`kinetic_energy`를 추가했다. 규칙이 의존하던 "운동량 크기가 같다"는 전제만
+사라졌다.
+
+**이 설계에 직접 영향을 준다.** 3.2절이 CREATE의 에너지 회계를 실험 ①로
+측정했는데, 그 실험은 에너지가 같은 쌍이었다. 에너지가 다른 쌍은 **한 tick도
+돌지 않는다** — 커널 자신의 보존 검사가 raise 한다. 즉 3.5절 CREATE의
+보존 조건은 **등에너지 경우에만 측정된 것**이다.
+
+> **순서 판단:** 자유 입자 충돌이 운동량을 깨는 상태에서 그 위에 구조의
+> 운동량·에너지를 얹으면 원인 추적이 꼬인다. **9.2를 먼저 해결하고
+> `StructureState` 구현으로 간다.**
+
+기록: `tests/test_known_defects_causal_kernel.py::test_defect_unequal_energy_head_on_same_kind_breaks_momentum`
+교훈: `VERIFICATION_LIMITS_AND_LESSONS.md` 유형 F
+
+### 9.3 대각 도달 불가능성을 테스트로 고정 — **완료**
+
+3.2절과 4.2절, 3.5절이 전부 "대각은 도달 불가능"에 기대고 있다. 그러면
+그것은 설명이 아니라 **하중을 받는 전제조건**이므로 문서가 아니라 테스트에
+둔다.
+
+실제 세계 파일(`polymer_chain_v2`) 실행에서 움직이는 구조 4건, 운동량
+`(3,0)` — 전부 카디널임을 확인했다. 누군가 결합·성장 규칙을 바꿔 대각이
+처음 생기는 순간 빨간불이 되고, 그것은 회귀가 아니라 **DISSOLVE(3.5)와
+구조 이동(4.2)을 다시 열라는 신호**다.
+
+테스트: `tests/test_diagonal_momentum_is_unreachable.py`
