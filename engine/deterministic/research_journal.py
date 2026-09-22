@@ -21,9 +21,14 @@ FORMAT = "b0-research-journal-v1"
 GENESIS_DIGEST = "0" * 64
 
 EVENT_TYPES = frozenset({
+    # B0.1 events -- kept unchanged so old journals keep replaying identically.
     "observation_recorded", "hypothesis_set_created", "portfolio_designed",
     "prediction_sealed", "execution_completed", "result_compared",
     "hypothesis_status_changed", "anomaly_recorded", "accident_recorded",
+    # B0.2 events -- structured memory: domains, evidence, lineage, contradictions.
+    "domain_registered", "hypothesis_domain_linked", "domain_evidence_recorded",
+    "hypothesis_edge_added", "contradiction_detected", "contradiction_status_changed",
+    "anomaly_status_changed", "accident_status_changed",
 })
 
 

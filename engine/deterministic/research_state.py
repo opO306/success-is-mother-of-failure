@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Mapping
 
 FORMAT = "b0-research-state-v1"
@@ -18,6 +18,11 @@ HYPOTHESIS_STATUSES = frozenset({
     "untested", "supported", "conditional", "contradicted_in_domain",
     "underspecified", "superseded", "incompatible", "anomalous",
 })
+DOMAIN_STATUSES = frozenset({"untested", "tested"})
+LIFECYCLE_STATUSES = frozenset({"active", "superseded", "incompatible"})
+ANOMALY_STATUSES = frozenset({"unresolved", "persistent", "measurement_error", "explained"})
+ACCIDENT_STATUSES = frozenset({"unresolved", "explained_by_accident", "explained_by_hidden_variable",
+                               "explained_by_bug", "resolved"})
 
 
 def _digest(value: object) -> str:
@@ -150,7 +155,7 @@ class AnomalyRecord:
     def __post_init__(self) -> None:
         for field_name in ("anomaly_id", "hypothesis_id", "arm_id", "observation_id", "status"):
             _text(getattr(self, field_name), field_name)
-        if self.status not in ("unresolved", "persistent", "measurement_error", "explained"):
+        if self.status not in ANOMALY_STATUSES:
             raise ValueError("unsupported anomaly status")
         if not isinstance(self.predicted, Mapping) or not isinstance(self.observed, Mapping):
             raise ValueError("predicted and observed must be objects")
@@ -180,6 +185,13 @@ class ResearchState:
     This is never the authoritative record -- the journal is. ResearchState is
     a fold over it: given the same journal prefix, rebuilding this must always
     produce the same value.
+
+    `hypothesis_status` (B0.1) holds whatever `hypothesis_status_changed`
+    events wrote directly, kept for backward-compatible journal replay.
+    `hypothesis_evidence_status`/`hypothesis_lifecycle_status` (B0.2) are
+    instead *derived* from `DomainEvidence` and the hypothesis graph via
+    `hypothesis_assessment.py` -- see `research_loop.archive` for how the two
+    are kept from being conflated.
     """
     active_hypothesis_ids: tuple[str, ...]
     hypothesis_status: Mapping[str, str]
@@ -189,6 +201,11 @@ class ResearchState:
     unresolved_contradictions: tuple[tuple[str, str], ...]
     current_research_mode: str | None
     last_sequence: int
+    hypothesis_evidence_status: Mapping[str, str] = field(default_factory=dict)
+    hypothesis_lifecycle_status: Mapping[str, str] = field(default_factory=dict)
+    domain_status: Mapping[str, str] = field(default_factory=dict)
+    anomaly_status: Mapping[str, str] = field(default_factory=dict)
+    accident_status: Mapping[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if len(set(self.active_hypothesis_ids)) != len(self.active_hypothesis_ids):
@@ -196,6 +213,21 @@ class ResearchState:
         for hypothesis_id, status in self.hypothesis_status.items():
             if status not in HYPOTHESIS_STATUSES:
                 raise ValueError(f"unsupported hypothesis status {status!r} for {hypothesis_id!r}")
+        for hypothesis_id, status in self.hypothesis_evidence_status.items():
+            if status not in HYPOTHESIS_STATUSES:
+                raise ValueError(f"unsupported evidence status {status!r} for {hypothesis_id!r}")
+        for hypothesis_id, status in self.hypothesis_lifecycle_status.items():
+            if status not in LIFECYCLE_STATUSES:
+                raise ValueError(f"unsupported lifecycle status {status!r} for {hypothesis_id!r}")
+        for domain_id, status in self.domain_status.items():
+            if status not in DOMAIN_STATUSES:
+                raise ValueError(f"unsupported domain status {status!r} for {domain_id!r}")
+        for anomaly_id, status in self.anomaly_status.items():
+            if status not in ANOMALY_STATUSES:
+                raise ValueError(f"unsupported anomaly status {status!r} for {anomaly_id!r}")
+        for accident_id, status in self.accident_status.items():
+            if status not in ACCIDENT_STATUSES:
+                raise ValueError(f"unsupported accident status {status!r} for {accident_id!r}")
         if isinstance(self.last_sequence, bool) or not isinstance(self.last_sequence, int) or self.last_sequence < -1:
             raise ValueError("last_sequence must be an integer of at least -1")
 
@@ -205,8 +237,13 @@ class ResearchState:
 
     def canonical(self) -> dict[str, object]:
         return {
+            "accident_status": dict(sorted(self.accident_status.items())),
             "active_hypothesis_ids": list(self.active_hypothesis_ids),
-            "current_research_mode": self.current_research_mode, "format": FORMAT,
+            "anomaly_status": dict(sorted(self.anomaly_status.items())),
+            "current_research_mode": self.current_research_mode, "domain_status": dict(sorted(self.domain_status.items())),
+            "format": FORMAT,
+            "hypothesis_evidence_status": dict(sorted(self.hypothesis_evidence_status.items())),
+            "hypothesis_lifecycle_status": dict(sorted(self.hypothesis_lifecycle_status.items())),
             "hypothesis_status": dict(sorted(self.hypothesis_status.items())),
             "last_sequence": self.last_sequence,
             "open_accident_ids": list(self.open_accident_ids),

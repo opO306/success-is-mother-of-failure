@@ -19,7 +19,17 @@ from .causal_experiment import CausalExperimentPortfolio, PredictionSeal
 from .causal_hypothesis import CausalHypothesisSet
 from .causal_kernel import initial_causal_state
 from .causal_spec import CausalWorldSpec
+from .hypothesis_assessment import derive_hypothesis_assessment
+from .hypothesis_graph import (
+    ContradictionRecord,
+    HypothesisDomainLink,
+    HypothesisEdge,
+    HypothesisGraph,
+)
+from .research_axis import AxisRegistry, CAUSAL_AXIS_REGISTRY
+from .research_domain import ResearchDomain
 from .research_journal import ResearchJournal, read_journal
+from .research_memory import DomainEvidence, ResearchMemoryIndex
 from .research_state import (
     AccidentRecord,
     AnomalyRecord,
@@ -141,6 +151,86 @@ def compare_results(
     return verdicts
 
 
+def register_domain(journal: ResearchJournal, domain: ResearchDomain,
+                    registry: AxisRegistry = CAUSAL_AXIS_REGISTRY) -> ResearchDomain:
+    """Journal a `ResearchDomain` after checking every constraint names a registered axis."""
+    domain.validate_against(registry)
+    journal.append("domain_registered", domain.domain_id, domain.canonical())
+    return domain
+
+
+def link_hypothesis_domain(journal: ResearchJournal, link: HypothesisDomainLink) -> HypothesisDomainLink:
+    """Journal the machine-checkable domain a hypothesis's applicability targets.
+
+    Leaves `CausalHypothesis.applicability_conditions` (human text) untouched.
+    """
+    journal.append("hypothesis_domain_linked", link.hypothesis_id, link.canonical())
+    return link
+
+
+def record_domain_evidence(
+    journal: ResearchJournal, evidence: DomainEvidence,
+    existing_evidence: tuple[DomainEvidence, ...] = (),
+) -> tuple[DomainEvidence, ContradictionRecord | None]:
+    """Journal one arm's outcome as evidence for a hypothesis in a domain.
+
+    If `existing_evidence` (for the same hypothesis and domain) already
+    contains a valid opposite-relation entry, a `ContradictionRecord` is
+    created and journaled too -- causal A is deterministic, so support and
+    contradiction in the very same domain is never silently folded into
+    `conditional`.
+    """
+    journal.append("domain_evidence_recorded", evidence.evidence_id, evidence.canonical())
+    contradiction = None
+    if evidence.valid_for_hypothesis and evidence.relation in ("supports", "contradicts"):
+        opposite = "contradicts" if evidence.relation == "supports" else "supports"
+        clashing = tuple(
+            item for item in existing_evidence
+            if item.hypothesis_id == evidence.hypothesis_id and item.domain_id == evidence.domain_id
+            and item.valid_for_hypothesis and item.relation == opposite
+        )
+        if clashing:
+            supporting = (evidence,) if evidence.relation == "supports" else clashing
+            contradicting = (evidence,) if evidence.relation == "contradicts" else clashing
+            contradiction = ContradictionRecord(
+                f"CON-{evidence.hypothesis_id}-{evidence.domain_id}", evidence.hypothesis_id, evidence.domain_id,
+                tuple(sorted({item.evidence_id for item in supporting})),
+                tuple(sorted({item.evidence_id for item in contradicting})),
+            )
+            journal.append("contradiction_detected", contradiction.contradiction_id, contradiction.canonical())
+    return evidence, contradiction
+
+
+def add_hypothesis_edge(journal: ResearchJournal, edge: HypothesisEdge) -> HypothesisEdge:
+    """Journal a lineage relation. The authoritative source of graph structure from B0.2 on."""
+    journal.append("hypothesis_edge_added", edge.edge_id, edge.canonical())
+    return edge
+
+
+def update_contradiction_status(journal: ResearchJournal, contradiction_id: str,
+                                previous_status: str, new_status: str, reason: str) -> None:
+    journal.append("contradiction_status_changed", contradiction_id, {
+        "contradiction_id": contradiction_id, "new_status": new_status,
+        "previous_status": previous_status, "reason": reason,
+    })
+
+
+def update_anomaly_status(journal: ResearchJournal, anomaly_id: str,
+                          previous_status: str, new_status: str, reason: str) -> None:
+    journal.append("anomaly_status_changed", anomaly_id, {
+        "anomaly_id": anomaly_id, "new_status": new_status,
+        "previous_status": previous_status, "reason": reason,
+    })
+
+
+def update_accident_status(journal: ResearchJournal, accident_id: str,
+                           previous_status: str, new_status: str, reason: str) -> None:
+    journal.append("accident_status_changed", accident_id, {
+        "accident_id": accident_id, "new_status": new_status,
+        "previous_status": previous_status, "reason": reason,
+    })
+
+
 def update_hypothesis_status(journal: ResearchJournal, hypothesis_id: str,
                              previous_status: str, new_status: str, reason: str) -> None:
     journal.append("hypothesis_status_changed", hypothesis_id, {
@@ -186,12 +276,90 @@ def archive(journal: ResearchJournal) -> ResearchState:
     return rebuild_research_state(journal.path)
 
 
+def rebuild_hypothesis_graph(path: Path) -> HypothesisGraph:
+    """Replay the journal into a `HypothesisGraph`: edges, domain links, contradictions."""
+    edges: dict[str, HypothesisEdge] = {}
+    links: dict[tuple[str, str], HypothesisDomainLink] = {}
+    contradictions: dict[str, ContradictionRecord] = {}
+    for entry in read_journal(path):
+        if entry.event_type == "hypothesis_edge_added":
+            payload = entry.payload
+            edge = HypothesisEdge(payload["edge_id"], payload["source_hypothesis_id"],
+                                  payload["target_hypothesis_id"], payload["relation"],
+                                  tuple(payload["evidence_ids"]))
+            edges[edge.edge_id] = edge
+        elif entry.event_type == "hypothesis_domain_linked":
+            payload = entry.payload
+            link = HypothesisDomainLink(payload["hypothesis_id"], payload["domain_id"], payload["role"])
+            links[(link.hypothesis_id, link.domain_id)] = link
+        elif entry.event_type == "contradiction_detected":
+            payload = entry.payload
+            contradictions[payload["contradiction_id"]] = ContradictionRecord(
+                payload["contradiction_id"], payload["hypothesis_id"], payload["domain_id"],
+                tuple(payload["supporting_evidence_ids"]), tuple(payload["contradicting_evidence_ids"]),
+            )
+        elif entry.event_type == "contradiction_status_changed":
+            existing = contradictions[entry.payload["contradiction_id"]]
+            contradictions[existing.contradiction_id] = replace(existing, status=entry.payload["new_status"])
+    return HypothesisGraph(tuple(edges.values()), tuple(links.values()), tuple(contradictions.values()))
+
+
+def rebuild_memory_index(path: Path) -> ResearchMemoryIndex:
+    """Replay the journal into a `ResearchMemoryIndex`. Disposable, never authoritative."""
+    evidence: dict[str, DomainEvidence] = {}
+    domains: dict[str, ResearchDomain] = {}
+    open_anomalies: dict[str, str] = {}
+    open_accidents: dict[str, str] = {}
+    for entry in read_journal(path):
+        if entry.event_type == "domain_registered":
+            domains[entry.record_id] = _domain_from_canonical(entry.payload)
+        elif entry.event_type == "domain_evidence_recorded":
+            payload = entry.payload
+            evidence[payload["evidence_id"]] = DomainEvidence(
+                payload["evidence_id"], payload["hypothesis_id"], payload["domain_id"], payload["arm_id"],
+                payload["seal_id"], payload["relation"], tuple(payload["observation_ids"]),
+                payload["intended_spec_digest"], payload["executed_spec_digest"],
+                payload["valid_for_hypothesis"], payload["invalid_reason"],
+            )
+        elif entry.event_type == "anomaly_recorded":
+            open_anomalies[entry.payload["anomaly_id"]] = entry.payload["status"]
+        elif entry.event_type == "anomaly_status_changed":
+            open_anomalies[entry.payload["anomaly_id"]] = entry.payload["new_status"]
+        elif entry.event_type == "accident_recorded":
+            open_accidents[entry.payload["accident_id"]] = "unresolved"
+        elif entry.event_type == "accident_status_changed":
+            open_accidents[entry.payload["accident_id"]] = entry.payload["new_status"]
+    graph = rebuild_hypothesis_graph(path)
+    return ResearchMemoryIndex(
+        tuple(evidence.values()), tuple(domains.values()), graph.edges, graph.contradictions,
+        tuple(sorted(k for k, v in open_anomalies.items() if v not in ("explained",))),
+        tuple(sorted(k for k, v in open_accidents.items() if v not in ("resolved",))),
+    )
+
+
+def _domain_from_canonical(payload: Mapping[str, object]) -> ResearchDomain:
+    from .research_domain import ExactConstraint, IntegerRangeConstraint, SetConstraint
+    constraints = []
+    for raw in payload["constraints"]:
+        if raw["kind"] == "exact":
+            constraints.append(ExactConstraint(raw["axis"], raw["value"]))
+        elif raw["kind"] == "set":
+            constraints.append(SetConstraint(raw["axis"], tuple(raw["values"])))
+        elif raw["kind"] == "range":
+            constraints.append(IntegerRangeConstraint(raw["axis"], raw["minimum"], raw["maximum"]))
+        else:
+            raise ValueError(f"unsupported constraint kind {raw['kind']!r}")
+    return ResearchDomain(payload["domain_id"], tuple(constraints), payload["description"])
+
+
 def rebuild_research_state(path: Path) -> ResearchState:
     active: dict[str, str] = {}
-    open_anomalies: list[str] = []
-    open_accidents: list[str] = []
+    open_anomalies: dict[str, str] = {}
+    open_accidents: dict[str, str] = {}
     domains_seen: set[str] = set()
     last_sequence = -1
+    domain_registered: set[str] = set()
+    domain_tested: set[str] = set()
     for entry in read_journal(path):
         last_sequence = entry.sequence
         if entry.event_type == "hypothesis_set_created":
@@ -201,10 +369,42 @@ def rebuild_research_state(path: Path) -> ResearchState:
         elif entry.event_type == "hypothesis_status_changed":
             active[entry.payload["hypothesis_id"]] = entry.payload["new_status"]
         elif entry.event_type == "anomaly_recorded":
-            open_anomalies.append(entry.payload["anomaly_id"])
+            open_anomalies[entry.payload["anomaly_id"]] = entry.payload["status"]
+        elif entry.event_type == "anomaly_status_changed":
+            open_anomalies[entry.payload["anomaly_id"]] = entry.payload["new_status"]
         elif entry.event_type == "accident_recorded":
-            open_accidents.append(entry.payload["accident_id"])
+            open_accidents[entry.payload["accident_id"]] = "unresolved"
+        elif entry.event_type == "accident_status_changed":
+            open_accidents[entry.payload["accident_id"]] = entry.payload["new_status"]
+        elif entry.event_type == "domain_registered":
+            domain_registered.add(entry.record_id)
+        elif entry.event_type == "domain_evidence_recorded":
+            domain_tested.add(entry.payload["domain_id"])
+
+    graph = rebuild_hypothesis_graph(path)
+    memory = rebuild_memory_index(path)
+    evidence_status: dict[str, str] = {}
+    lifecycle_status: dict[str, str] = {}
+    unresolved_contradictions: list[tuple[str, str]] = []
+    for hypothesis_id in active:
+        assessment = derive_hypothesis_assessment(
+            hypothesis_id, memory.evidence_for_hypothesis(hypothesis_id), graph.edges, graph.contradictions,
+        )
+        evidence_status[hypothesis_id] = assessment.evidence_status
+        lifecycle_status[hypothesis_id] = assessment.lifecycle_status
+        for contradiction_id in assessment.contradiction_ids:
+            if graph.contradictions_for(hypothesis_id):
+                for contradiction in graph.contradictions_for(hypothesis_id):
+                    if contradiction.contradiction_id == contradiction_id and contradiction.status == "unresolved":
+                        unresolved_contradictions.append((hypothesis_id, contradiction_id))
+
+    domain_status = {domain_id: ("tested" if domain_id in domain_tested else "untested")
+                     for domain_id in domain_registered}
+    open_anomaly_ids = tuple(sorted(k for k, v in open_anomalies.items() if v not in ("explained",)))
+    open_accident_ids = tuple(sorted(k for k, v in open_accidents.items() if v not in ("resolved",)))
+
     return ResearchState(
-        tuple(sorted(active)), dict(active), tuple(open_anomalies), tuple(open_accidents),
-        tuple(sorted(domains_seen)), (), None, last_sequence,
+        tuple(sorted(active)), dict(active), open_anomaly_ids, open_accident_ids,
+        tuple(sorted(domains_seen)), tuple(sorted(unresolved_contradictions)), None, last_sequence,
+        evidence_status, lifecycle_status, domain_status, dict(open_anomalies), dict(open_accidents),
     )
