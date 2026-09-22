@@ -20,6 +20,7 @@ from dataclasses import dataclass, replace
 from typing import Union
 
 from .causal_spec import CausalWorldSpec
+from .role_resolver import resolve_bond_rule_role, resolve_heat_cell_role, resolve_particle_role
 
 FORMAT = "exploration-control-v1"
 
@@ -63,13 +64,7 @@ class ParticleRoleTarget:
                 "match_x": self.match_x, "match_y": self.match_y, "role": self.role}
 
     def resolve(self, spec: CausalWorldSpec) -> int:
-        matches = [p.particle_id for p in spec.particles
-                  if p.x == self.match_x and p.y == self.match_y and p.direction == self.match_direction]
-        if not matches:
-            raise ValueError(f"role {self.role!r} matched no particle in spec {spec.digest[:12]}")
-        if len(matches) > 1:
-            raise ValueError(f"role {self.role!r} matched {len(matches)} particles in spec {spec.digest[:12]}; ambiguous")
-        return matches[0]
+        return resolve_particle_role(spec, self.role, self.match_x, self.match_y, self.match_direction)
 
 
 @dataclass(frozen=True, order=True)
@@ -89,7 +84,7 @@ class HeatCellRoleTarget:
         return {"field": self.field, "kind": "heat_cell_role", "role": self.role, "x": self.x, "y": self.y}
 
     def resolve(self, spec: CausalWorldSpec) -> tuple[int, int]:
-        return (self.x, self.y)
+        return resolve_heat_cell_role(spec, self.role, self.x, self.y)
 
 
 @dataclass(frozen=True, order=True)
@@ -109,10 +104,7 @@ class BondRuleRoleTarget:
         return {"field": self.field, "kind": "bond_rule_role", "role": self.role, "rule_id": self.rule_id}
 
     def resolve(self, spec: CausalWorldSpec) -> str:
-        matches = [r.rule_id for r in spec.bond_rules if r.rule_id == self.rule_id]
-        if not matches:
-            raise ValueError(f"bond rule {self.rule_id!r} not found in spec {spec.digest[:12]}")
-        return matches[0]
+        return resolve_bond_rule_role(spec, self.role, self.rule_id)
 
 
 ControlTarget = Union[ParticleRoleTarget, HeatCellRoleTarget, BondRuleRoleTarget]

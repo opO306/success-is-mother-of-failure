@@ -5,7 +5,8 @@ import hashlib
 import json
 from collections import defaultdict
 from dataclasses import dataclass, field, replace
-from typing import Mapping
+from enum import Enum
+from typing import Mapping, Protocol, runtime_checkable
 
 from .causal_spec import (
     FORMAT_V2,
@@ -636,15 +637,50 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
     return replace(state, particles=tuple(particles.values()), bonds=tuple(bonds))
 
 
-def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldState:
+class KernelPhase(Enum):
+    """Semantic tick phases a `KernelObserver` may be notified about.
+
+    Names a *meaning* ("the bond-break phase has just committed"), not an
+    implementation detail: `_break_existing` is free to be split, renamed, or
+    merged with something else, and this contract does not have to change
+    with it. Only the phases B0.4's first scenario actually needs are
+    exposed; more can be added later without touching existing callers.
+    """
+    PRE_TICK = "pre_tick"
+    AFTER_BOND_BREAK_PHASE = "after_bond_break_phase"
+    POST_TICK = "post_tick"
+
+
+@runtime_checkable
+class KernelObserver(Protocol):
+    """A read-only hook into `step_causal_world`. Must never mutate `state`.
+
+    `on_phase` sees the state exactly as the kernel is about to use it for
+    the next phase (or, for `POST_TICK`, the finished tick's result) --
+    never a copy the observer is expected to reconstruct itself. Passing
+    `observer=None` (the default) is the entire fast path: no observer
+    object is even constructed, so ordinary execution pays no cost for this
+    hook's existence.
+    """
+    def on_phase(self, *, tick: int, phase: KernelPhase, state: CausalWorldState) -> None: ...
+
+
+def step_causal_world(spec: CausalWorldSpec, state: CausalWorldState,
+                      observer: KernelObserver | None = None) -> CausalWorldState:
     counts, energy, momentum = state.material_counts(), state.total_energy(), state.momentum(spec)
+    if observer is not None:
+        observer.on_phase(tick=state.tick, phase=KernelPhase.PRE_TICK, state=state)
     result = _break_existing(spec, state)
+    if observer is not None:
+        observer.on_phase(tick=state.tick, phase=KernelPhase.AFTER_BOND_BREAK_PHASE, state=result)
     result = _stream_free(spec, result)
     result = _resolve_collisions(spec, result)
     result = replace(result, tick=state.tick + 1)
     if result.material_counts() != counts: raise AssertionError("causal tick changed material counts")
     if result.total_energy() != energy: raise AssertionError("causal tick changed total energy")
     if result.momentum(spec) != momentum: raise AssertionError("causal tick changed momentum")
+    if observer is not None:
+        observer.on_phase(tick=result.tick, phase=KernelPhase.POST_TICK, state=result)
     return result
 
 
@@ -652,9 +688,9 @@ def _record(spec: CausalWorldSpec, state: CausalWorldState) -> CausalTickRecord:
     return CausalTickRecord(state.tick, state.digest, tuple(state.material_counts().items()), state.total_energy(), state.momentum(spec), len(state.bonds))
 
 
-def run_causal_world(spec: CausalWorldSpec) -> CausalRun:
+def run_causal_world(spec: CausalWorldSpec, observer: KernelObserver | None = None) -> CausalRun:
     state = initial_causal_state(spec); initial = state; checkpoints = [_record(spec, state)]
     for _ in range(spec.ticks):
-        state = step_causal_world(spec, state)
+        state = step_causal_world(spec, state, observer)
         if state.tick % spec.hash_interval == 0 or state.tick == spec.ticks: checkpoints.append(_record(spec, state))
     return CausalRun(spec.digest, initial, state, tuple(checkpoints))

@@ -29,6 +29,9 @@ EVENT_TYPES = frozenset({
     "domain_registered", "hypothesis_domain_linked", "domain_evidence_recorded",
     "hypothesis_edge_added", "contradiction_detected", "contradiction_status_changed",
     "anomaly_status_changed", "accident_status_changed",
+    # B0.4 events -- deep investigation: divergence tracing and mechanism candidates.
+    "investigation_target_sealed", "divergence_chain_recorded", "mechanism_candidates_proposed",
+    "followup_experiment_proposed",
 })
 
 
