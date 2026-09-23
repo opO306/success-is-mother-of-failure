@@ -46,6 +46,9 @@ EVENT_TYPES = frozenset({
     # G7.2 event -- blind protocol: B's terminal answer for one blind research
     # journal, sealed before any evaluator appears. See blind_protocol.py.
     "final_discovery_sealed",
+    # G7.4+ event -- B's own diagnosis of why a blind question ended where it
+    # did, computed from its own claims (blind_limitations.py).
+    "limitation_assessed",
 })
 
 

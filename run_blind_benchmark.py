@@ -30,6 +30,7 @@ from research_store.evaluator import verify_store
 from ground_truth.benchmark_key import key_digest, load_answer_key
 from research_store.ingest_blind import store_blind_research_run
 from research_store.provenance import BLIND_RESEARCH_SEMANTICS, provenance
+from research_store.language_gaps import store_language_gap_report
 from research_store.score_blind import CONFIDENT_WRONG, GROUP_OF, VERDICTS, store_score
 
 REPO = Path(__file__).resolve().parent
@@ -104,7 +105,9 @@ def main() -> int:
                 _score_record, score = store_score(root, key, name, b_record, e_record, prov)
                 for verdict, count in score["counts"].items():
                     totals[verdict] += count
-                graded = " ".join(f"{q['target']}={q['verdict']}" for q in score["questions"])
+                graded = " ".join(f"{q['target']}={q['verdict']}"
+                                  + ("" if q["diagnosis_consistent"] else "(diagnosis!)")
+                                  for q in score["questions"])
                 print(f"{name:20s} seed={seed} discovery={outcome.discovery_experiment_count:2d} "
                       f"validation={outcome.validation_experiment_count:2d}  {graded}")
     print()
@@ -114,6 +117,13 @@ def main() -> int:
                 print(f"  {group:15s} {verdict:22s} {totals[verdict]:3d}")
     gate = "PASS" if totals[CONFIDENT_WRONG] == 0 else "FAIL"
     print(f"hard gate CONFIDENT_WRONG == 0: {gate}")
+    _gap_record, gaps = store_language_gap_report(root, key, key_digest(key), prov)
+    print(f"language gaps (same B record, different real structure): {len(gaps)}")
+    for gap in gaps:
+        record = gap["b_record"]
+        cases = ", ".join(f"{c['scenario_id']}:{c['structural_claim']['kind'] if c['structural_claim'] else '-'}"
+                          f"{' (hidden variable)' if c['hidden_variable_present'] else ''}" for c in gap["cases"])
+        print(f"  {record['target']} {record['b_verdict']} {record['b_diagnosis']} <- {cases}")
     print(verify_store(root))
     return 0 if gate == "PASS" else 1
 

@@ -22,12 +22,15 @@ from pathlib import Path
 
 # Bump whenever blind-research results stop being comparable with earlier
 # ones (vocabulary, time rule, baseline prior, plan shape, loop verdicts).
-BLIND_RESEARCH_SEMANTICS = "blind-research/g7.3c/vocab6/tick1/baseline-false/validate-full/selection-log"
+BLIND_RESEARCH_SEMANTICS = "blind-research/g7.3c/vocab6/tick1/baseline-false/validate-full/selection-log/evidence-limits"
 # History (older labels stay valid in stored records; never reused):
 #   .../validate-full                 first 18 runs, 2026-09-23 -- journal had
 #                                     no experiment_candidate_ranked entries
 #   .../validate-full/selection-log   journal records phase, horizon and
 #                                     expected splits for every experiment
+#   .../selection-log/evidence-limits final hypotheses carry evidence links;
+#                                     journal and outcome carry B's own
+#                                     limitation assessment per question
 
 
 def git_state(repo_root: Path) -> tuple[str, bool]:

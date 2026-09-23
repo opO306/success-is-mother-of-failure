@@ -35,7 +35,8 @@
 | 라벨 | 기간 | 차이 |
 |---|---|---|
 | `blind-research/g7.3c/vocab6/tick1/baseline-false/validate-full` | 2026-09-23 첫 18회 | journal에 실험 선택 기록 없음, 허용 목록 검사 없음(schema v1) |
-| `.../validate-full/selection-log` | 2026-09-23~ | 실험마다 `experiment_candidate_ranked`(단계·horizon·예상 분리 쌍 수) 기록, 허용 목록 검사(schema v2) |
+| `.../validate-full/selection-log` | 2026-09-23 | 실험마다 `experiment_candidate_ranked`(단계·horizon·예상 분리 쌍 수) 기록, 허용 목록 검사(schema v2) |
+| `.../selection-log/evidence-limits` | 2026-09-23~ | 최종 가설마다 근거 연결(`evidence`: 실험별 supports/refutes → journal의 비교 기록 digest), 질문마다 B 자신의 한계 진단(`limitation_assessed`) |
 
 ## 지금 저장되는 것 (G7.3c blind 연구 실행 1회당)
 
@@ -44,7 +45,8 @@
 | b_visible | `blind_research_run` | B의 journal 전체(가설 집합, **실험 선택 이유**(단계·horizon·예상 분리 쌍 수), 봉인된 예측, **실제 관측 궤적**, 비교, 탈락, 최종 봉인), 결과, G7.2 감사 결과 |
 | evaluator | `blind_run_binding` | 실제 세계·revision·seed·spec, 별칭↔실제 대응표, b_visible 레코드 참조 |
 | ground_truth | `benchmark_answer_key` | 봉인된 기준표 전체(key digest당 1번) |
-| ground_truth | `blind_run_score` | 질문별 판정 7종 + 별도 축(구조 일치·관측 일치·한계 3종·과대주장·덜 좁힘·검증 완료), 기준표·evaluator·b_visible 참조 |
+| ground_truth | `blind_run_score` | 질문별 판정 7종 + 별도 축(구조 일치·관측 일치·한계 3종·과대주장·덜 좁힘·검증 완료·**B 진단과 기준표 일치 여부**), 기준표·evaluator·b_visible 참조 |
+| ground_truth | `language_gap_report` | 언어 공백: B의 기록(판정·생존 가설·자기 진단)은 같은데 실제 구조가 다른 경우 모음. 실제 구조를 담으므로 evaluator 쪽에만 |
 
 ## 한계 (정직하게)
 

@@ -28,6 +28,14 @@ Separate axes, never folded into the verdict:
     resolved_less_than_achievable   B kept more claims than the best answer needs
     overclaim               B declared SOLVED where the best answer is a tie
     validated_fully         from B's outcome
+    b_diagnosis             B's own account of why the question ended where it
+                            did (blind_limitations.py), copied from B's outcome
+    diagnosis_consistent    whether B's diagnosis agrees with the key: SOLVED
+                            -> "none"; INSEPARABLE -> "observation_horizon"
+                            exactly when the key declares an observation
+                            limit, at the key's minimum horizon; NO_SURVIVOR
+                            -> "vocabulary_exhausted" when the key declares a
+                            language limit. None when unscorable.
 
 The hard gate is CONFIDENT_WRONG == 0 -- but it is not a success criterion
 on its own: a B that always said "nothing fits" would pass it. Counts per
@@ -111,8 +119,29 @@ def _check_same_scenario(scenario: Mapping[str, Any], binding: Mapping[str, Any]
         raise ScoringError(f"run does not match scenario {scenario['scenario_id']}")
 
 
+def _diagnosis_consistent(entry: Mapping[str, Any], b_verdict: str,
+                          limitation: Mapping[str, Any] | None) -> bool | None:
+    if limitation is None:
+        return None
+    diagnosis = limitation["diagnosis"]
+    if b_verdict == "SOLVED":
+        return diagnosis == "none"
+    if b_verdict == "NO_SURVIVOR":
+        return diagnosis == "vocabulary_exhausted" and entry["limits"]["language_limit"]
+    if b_verdict == "INSEPARABLE":
+        says_time = diagnosis == "observation_horizon"
+        if says_time != entry["limits"]["observation_limit"]:
+            return False
+        if not says_time:
+            return True
+        needed = max(p["separable_at_horizon"] for p in limitation["pairs"])
+        return needed == entry["minimum_observation_horizon"]
+    return None
+
+
 def score_question(entry: Mapping[str, Any], b_verdict: str, survivors: set[tuple],
-                   unscorable_reason: str | None, validated_fully: bool) -> dict[str, Any]:
+                   unscorable_reason: str | None, validated_fully: bool,
+                   limitation: Mapping[str, Any] | None = None) -> dict[str, Any]:
     answer = entry["best_answer"]
     best = {claim_key(c) for c in answer.get("claims", [])}
     structural = claim_key(entry["structural_claim"]) if entry.get("structural_claim") else None
@@ -138,6 +167,8 @@ def score_question(entry: Mapping[str, Any], b_verdict: str, survivors: set[tupl
         "resolved_less_than_achievable": b_verdict == "INSEPARABLE" and bool(best) and best < survivors,
         "overclaim": b_verdict == "SOLVED" and answer["type"] == "tie",
         "validated_fully": validated_fully,
+        "b_diagnosis": limitation["diagnosis"] if limitation else None,
+        "diagnosis_consistent": None if verdict == UNSCORABLE else _diagnosis_consistent(entry, b_verdict, limitation),
         "survivors": sorted([list(map(_plain, s)) for s in survivors]),
         "best_answer": answer["type"],
     }
@@ -167,7 +198,7 @@ def score_run(scenario: Mapping[str, Any], b_payload: Mapping[str, Any],
         asked.add(target)
         survivors = {parse_statement(statements[hid], real_of) for hid in question["surviving_hypothesis_ids"]}
         result = score_question(scenario["targets"][target], question["verdict"], survivors, run_reason,
-                                outcome["validated_fully"])
+                                outcome["validated_fully"], question.get("limitation"))
         questions.append({"target": target, **result})
     counts = {verdict: sum(1 for q in questions if q["verdict"] == verdict) for verdict in VERDICTS}
     return {"scenario_id": scenario["scenario_id"], "questions": sorted(questions, key=lambda q: q["target"]),

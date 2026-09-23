@@ -11,6 +11,18 @@ choosing experiments in between:
     through the planned experiments discovery skipped (validation phase) ->
     seal the final answer (`FinalDiscoverySeal`).
 
+Every final hypothesis carries its evidence: one `EvidenceReference` per
+experiment it was tested in -- `supports` when its sealed prediction held
+(consistent, never "confirmed"), `refutes` when it failed -- each pointing
+by digest at the `result_compared` journal entry that recorded it. A
+rejected hypothesis's last evidence is the experiment that refuted it; a
+later reader can walk from any conclusion back to the observations behind it.
+
+Before the final seal, every question gets a `limitation_assessed` journal
+entry: B's own diagnosis of why it ended where it did
+(`blind_limitations.py`), computed from its own claims -- never from the
+answer key, which only grades that diagnosis afterwards.
+
 Every executed experiment is preceded in the journal by an
 `experiment_candidate_ranked` entry: which phase chose it (discovery or
 validation), its observation horizon, and how many live hypothesis pairs
@@ -84,6 +96,7 @@ from dataclasses import dataclass, replace
 
 from .blind_execution import BlindCandidateSpec
 from .blind_hypothesis_generator import BlindHypothesisGenerator
+from .blind_limitations import assess_limitation
 from .blind_prediction_materializer import (
     BlindExperimentPlan, BlindPredictionMaterializer, InterventionalPredictionProvider,
     check_prediction_at_horizon, observation_horizon,
@@ -94,6 +107,7 @@ from .causal_executor import AExecutor
 from .causal_experiment import PredictionSeal
 from .causal_hypothesis import CausalHypothesis, CausalHypothesisSet
 from .experiment_designer import DiscriminatingCandidate, rank_discriminating_candidates, select_next_experiment
+from .hypotheses import EvidenceReference
 from .research_journal import ResearchJournal
 from .research_loop import execute_through_a, seal_predictions
 
@@ -126,9 +140,11 @@ class QuestionOutcome:
     surviving_hypothesis_ids: tuple[str, ...]
     rejected_hypothesis_ids: tuple[str, ...]
     inseparable_pairs: tuple[tuple[str, str], ...]
+    limitation: dict[str, object]
 
     def canonical(self) -> dict[str, object]:
         return {"inseparable_pairs": [list(p) for p in self.inseparable_pairs],
+                "limitation": self.limitation,
                 "rejected_hypothesis_ids": list(self.rejected_hypothesis_ids),
                 "surviving_hypothesis_ids": list(self.surviving_hypothesis_ids),
                 "target_observable_id": self.target_observable_id, "verdict": self.verdict}
@@ -271,6 +287,7 @@ def run_blind_research(
     candidate_by_id = {c.candidate_id: c for c in plan.candidates}
     budget = len(plan.candidates) if max_experiments is None else max_experiments
     termination = COMPLETE
+    evidence: dict[str, list[EvidenceReference]] = {h.hypothesis_id: [] for s in sets for h in s.hypotheses}
 
     def run_one(candidate_id: str, phase: str) -> bool:
         """Log why, seal, execute, compare, reject. False if the harness failed."""
@@ -303,7 +320,11 @@ def run_blind_research(
         journal.append("observation_recorded", candidate_id, {"run": result.run.canonical()})
         comparisons = {hid: all(check_prediction_at_horizon(spec, p, result.run) for p in predictions)
                        for hid, predictions in sorted(sealed.items())}
-        journal.append("result_compared", candidate_id, {"held": comparisons})
+        compared = journal.append("result_compared", candidate_id, {"held": comparisons})
+        for hid, held in comparisons.items():
+            evidence[hid].append(EvidenceReference(
+                candidate_id, "supports" if held else "refutes", compared.record_digest,
+                "prediction_held" if held else "prediction_failed"))
         for index, alive in enumerate(live):
             rejected = sorted(hid for hid in alive if not comparisons[hid])
             for hid in rejected:
@@ -341,12 +362,12 @@ def run_blind_research(
                 validated_fully = False
                 break
 
-    return _finish(world, space.questions, sets, tuple(live), plan, tuple(executed), discovery_count,
-                   validated_fully, termination, journal)
+    return _finish(world, controls, space.questions, sets, tuple(live), plan, tuple(executed), discovery_count,
+                   validated_fully, termination, journal, evidence, materializer.baseline)
 
 
-def _finish(world, questions, sets, live, plan, executed, discovery_count, validated_fully, termination,
-            journal) -> BlindResearchOutcome:
+def _finish(world, controls, questions, sets, live, plan, executed, discovery_count, validated_fully, termination,
+            journal, evidence, baseline) -> BlindResearchOutcome:
     outcomes: list[QuestionOutcome] = []
     final_hypotheses: list[CausalHypothesis] = []
     unresolved: list[str] = []
@@ -354,10 +375,13 @@ def _finish(world, questions, sets, live, plan, executed, discovery_count, valid
         tied = _tied_pairs(hypothesis_set, alive, plan) if len(alive) >= 2 else ()
         verdict = _verdict(alive, tied)
         all_ids = [h.hypothesis_id for h in hypothesis_set.hypotheses]
+        limitation = assess_limitation(question, verdict, tied if verdict == INSEPARABLE else (), world,
+                                       controls, plan, baseline).canonical()
+        journal.append("limitation_assessed", question.target_observable_id, limitation)
         outcomes.append(QuestionOutcome(
             question.target_observable_id, verdict,
             tuple(sorted(alive)), tuple(sorted(set(all_ids) - alive)),
-            tied if verdict == INSEPARABLE else ()))
+            tied if verdict == INSEPARABLE else (), limitation))
         for hypothesis in hypothesis_set.hypotheses:
             if hypothesis.hypothesis_id not in alive:
                 status = _REJECTED
@@ -368,7 +392,8 @@ def _finish(world, questions, sets, live, plan, executed, discovery_count, valid
             else:
                 status = "underspecified"
                 unresolved.append(hypothesis.hypothesis_id)
-            final_hypotheses.append(replace(hypothesis, status=status))
+            final_hypotheses.append(replace(hypothesis, status=status,
+                                            evidence=tuple(evidence[hypothesis.hypothesis_id])))
     final_set = CausalHypothesisSet(
         _digest({"alias_world_id": world.alias_world_id, "format": FORMAT,
                  "questions": [s.subject_digest for s in sets]}),

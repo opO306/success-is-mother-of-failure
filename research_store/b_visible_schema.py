@@ -90,6 +90,13 @@ VOCABULARY = frozenset({
     "questions", "verdict", "surviving_hypothesis_ids", "rejected_hypothesis_ids", "inseparable_pairs",
     "executed_candidate_ids", "discovery_experiment_count", "plan_size", "final_seal",
     "blind-research-loop-v1", "COMPLETE", "LIMIT_REACHED", "HARNESS_FAILURE",
+    # evidence links (G7.4+)
+    "evidence_id", "relation", "source_digest", "description", "supports", "refutes",
+    "prediction_held", "prediction_failed",
+    # B's own limitation assessment (G7.4+, blind_limitations.py)
+    "limitation", "limitation_assessed", "diagnosis", "pairs", "hypothesis_ids", "separable_at_horizon",
+    "checked_up_to_horizon", "blind-limitations-v1", "observation_horizon", "not_diagnosable", "mixed",
+    "vocabulary_exhausted", "budget_exhausted", "none",
     # protocol audit violation codes (blind_protocol.VIOLATION_CODES)
     "EXECUTION_WITHOUT_PRIOR_SEAL", "SEAL_AFTER_EXECUTION", "DUPLICATE_ARM_EXECUTION",
     "FINAL_SEAL_MISSING", "FINAL_SEAL_NOT_TERMINAL", "FINAL_SEAL_SEQUENCE_MISMATCH",
