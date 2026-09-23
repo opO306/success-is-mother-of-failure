@@ -20,7 +20,9 @@ from engine.deterministic.blind_evaluator import control_descriptors, make_blind
 from engine.deterministic.blind_research_loop import run_blind_research
 from engine.deterministic.blind_synthetic_executor import SyntheticBlindAExecutor
 from engine.deterministic.research_journal import ResearchJournal
-from ground_truth.benchmark_key import AnswerKeyError, KEY_DIRECTORY, key_digest, load_answer_key, validate_scenario
+from ground_truth.benchmark_key import (
+    AnswerKeyError, KEY_DIRECTORY, KEY_DIRECTORY_V2, key_digest, load_answer_key, validate_scenario,
+)
 from research_store._core import B_VISIBLE, GROUND_TRUTH, TierStore
 from research_store.evaluator import EvaluatorStore, verify_store
 from research_store.ingest_blind import store_blind_research_run
@@ -32,7 +34,8 @@ from research_store.score_blind import (
 from run_blind_benchmark import spec_from_key
 
 ROOT = Path(__file__).resolve().parents[1]
-KEY = load_answer_key()
+KEY_V1 = load_answer_key()
+KEY = load_answer_key(KEY_DIRECTORY_V2)  # the key for the grammar B currently speaks
 PROV = {"commit": "0" * 40, "dirty": False, "producer": "run_blind_benchmark.py",
         "semantics": BLIND_RESEARCH_SEMANTICS}
 
@@ -64,7 +67,8 @@ def test_answer_key_digest_is_the_one_sealed_in_git() -> None:
     """Sealed in commit c29d29f, before the scorer existed. A change here
     means the key was edited: mint a new digest deliberately, never to make
     a run pass."""
-    assert key_digest(KEY) == "b6ed824d404797b3091ef1ee272de48d40f95b6a44bb87c767c3cf731b474c05"
+    assert key_digest(KEY_V1) == "b6ed824d404797b3091ef1ee272de48d40f95b6a44bb87c767c3cf731b474c05"
+    assert key_digest(KEY) == "9a691ad1fa8ef1272f1eff6c009518cf4e4a8009b3ea81ef4214e5af3773c738"  # v2, c. 54abda4
 
 
 @pytest.mark.parametrize("mutate", [
@@ -91,7 +95,7 @@ def test_structural_and_best_answer_are_separate_fields_everywhere() -> None:
 
 
 def test_answer_key_never_mentions_b_side_identifiers() -> None:
-    text = "".join(p.read_text(encoding="utf-8") for p in KEY_DIRECTORY.glob("*.json"))
+    text = "".join(p.read_text(encoding="utf-8") for d in (KEY_DIRECTORY, KEY_DIRECTORY_V2) for p in d.glob("*.json"))
     for b_marker in ("ALIAS-", "BH-", "BCAND-", "SEAL-", "CAND-"):
         assert b_marker not in text
 
@@ -156,8 +160,10 @@ EXPECTED = {
     "S01": {"x3": CORRECT_SOLVED},
     "S02-t1": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
     "S02-t2": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
-    "S02-x2-starts-true": {"x1": CORRECT_SOLVED, "x2": HONEST_UNEXPRESSIBLE, "x3": HONEST_UNEXPRESSIBLE},
-    "S03-hidden-t2": {"x3": HONEST_UNEXPRESSIBLE},
+    "S02-x2-starts-true": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
+    # B noticed the best answer ("x1 -> x3 after 2 ticks") but only after the
+    # plan's last experiment -- nothing left to test it with. See the test below.
+    "S03-hidden-t2": {"x3": MISSED_TRUTH},
     "S03-t1": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_INSEPARABLE},
     "S03-t2": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
 }
@@ -170,12 +176,19 @@ def test_every_scenario_scores_as_expected_and_nothing_is_confidently_wrong(tmp_
     assert score["counts"][CONFIDENT_WRONG] == 0
 
 
-def test_hidden_mediator_is_honest_but_never_a_structural_match(tmp_path) -> None:
+def test_hidden_mediator_best_answer_noticed_but_untestable(tmp_path) -> None:
+    """Grammar v2 on S03-hidden: B is surprised by the plan's last experiment,
+    notices exactly the key's best answer, and has no experiment left to test
+    it. The verdict stays MISSED_TRUTH (a proposal is not an answer); the
+    axes say what happened; and it is never a structural match."""
     _root, _record, by_target, score = _run_and_score(tmp_path, "S03-hidden-t2")
     x3 = by_target["x3"]
-    assert x3["verdict"] == HONEST_UNEXPRESSIBLE
+    assert x3["verdict"] == MISSED_TRUTH
+    assert x3["b_diagnosis"] == "proposal_untested"
+    assert x3["proposal_matches_best_answer"] is True and x3["diagnosis_consistent"] is True
+    assert x3["proposals"] == [["DELAYED", ["x1"], None, "x3", 2]]
     assert x3["structural_match"] is False
-    assert x3["hidden_variable_present"] and x3["language_limit"] and x3["intervention_limit"]
+    assert x3["hidden_variable_present"] and x3["intervention_limit"]
     assert score["unasked_targets"] == ["x1"]
 
 
@@ -186,11 +199,15 @@ def test_one_tick_chain_tie_is_attributed_to_the_scenario_not_to_b(tmp_path) -> 
     assert x3["observation_limit"] and x3["observational_match"] and not x3["resolved_less_than_achievable"]
 
 
-def test_out_of_vocabulary_world_separates_structure_from_what_b_could_say(tmp_path) -> None:
-    _root, _record, by_target, _score = _run_and_score(tmp_path, "S02-x2-starts-true")
-    scenario = KEY["S02-x2-starts-true"]["targets"]["x3"]
-    assert scenario["expressible_structurally"] and not scenario["expressible_observationally"]
-    assert by_target["x3"]["verdict"] == HONEST_UNEXPRESSIBLE and by_target["x3"]["language_limit"]
+def test_keys_differ_only_where_the_grammar_changed() -> None:
+    """v1 and v2 describe the same worlds; best answers move only where
+    grammar v2 can now say more (observed initial values; DELAYED)."""
+    changed = {(sid, t) for sid in KEY for t in KEY[sid]["targets"]
+               if KEY[sid]["targets"][t]["best_answer"] != KEY_V1[sid]["targets"][t]["best_answer"]}
+    assert changed == {("S02-x2-starts-true", "x2"), ("S02-x2-starts-true", "x3"), ("S03-hidden-t2", "x3")}
+    for sid in KEY:
+        for t in KEY[sid]["targets"]:
+            assert KEY[sid]["targets"][t]["structural_claim"] == KEY_V1[sid]["targets"][t]["structural_claim"]
 
 
 # ---------------------------------------------------------------------------
@@ -198,12 +215,12 @@ def test_out_of_vocabulary_world_separates_structure_from_what_b_could_say(tmp_p
 # ---------------------------------------------------------------------------
 
 def test_discovery_without_validation_is_scored_confidently_wrong(tmp_path) -> None:
-    """G7.3c measured this: without validation, x2 in the out-of-vocabulary
-    world is declared SOLVED as "x1 -> x2". The scorer must call that what
-    it is -- and the hard gate must fail."""
-    _root, _record, by_target, score = _run_and_score(tmp_path, "S02-x2-starts-true", max_validation_experiments=0)
-    assert by_target["x2"]["verdict"] == CONFIDENT_WRONG
-    assert by_target["x2"]["validated_fully"] is False
+    """Without validation, the hidden-mediator world's x3 is declared SOLVED
+    as "nothing affects x3" after 1-tick experiments only. The scorer must
+    call that what it is -- and the hard gate must fail."""
+    _root, _record, by_target, score = _run_and_score(tmp_path, "S03-hidden-t2", max_validation_experiments=0)
+    assert by_target["x3"]["verdict"] == CONFIDENT_WRONG
+    assert by_target["x3"]["validated_fully"] is False
     assert score["counts"][CONFIDENT_WRONG] >= 1
 
 
@@ -278,3 +295,15 @@ def test_run_with_a_broken_protocol_is_unscorable_end_to_end(tmp_path) -> None:
     _record, score = store_score(root, KEY, "S01", b_record, e_record, PROV)
     assert [q["verdict"] for q in score["questions"]] == [UNSCORABLE]
     assert score["questions"][0]["unscorable_reason"] == "protocol_invalid"
+
+
+def test_a_proposal_that_is_not_the_best_answer_earns_nothing() -> None:
+    entry = {**_entry("single", [A]), "minimum_observation_horizon": 1}
+    wrong_idea = {("DELAYED", ("x2",), None, "x3", 2)}
+    limitation = {"diagnosis": "proposal_untested", "pairs": []}
+    result = score_question(entry, "NO_SURVIVOR", set(), None, True, limitation, wrong_idea)
+    assert result["verdict"] == MISSED_TRUTH
+    assert result["proposal_matches_best_answer"] is False
+    assert result["diagnosis_consistent"] is False
+    no_idea = score_question(entry, "NO_SURVIVOR", set(), None, True, {"diagnosis": "vocabulary_exhausted", "pairs": []})
+    assert no_idea["proposal_matches_best_answer"] is None

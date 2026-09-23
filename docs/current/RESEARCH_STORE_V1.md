@@ -36,7 +36,8 @@
 |---|---|---|
 | `blind-research/g7.3c/vocab6/tick1/baseline-false/validate-full` | 2026-09-23 첫 18회 | journal에 실험 선택 기록 없음, 허용 목록 검사 없음(schema v1) |
 | `.../validate-full/selection-log` | 2026-09-23 | 실험마다 `experiment_candidate_ranked`(단계·horizon·예상 분리 쌍 수) 기록, 허용 목록 검사(schema v2) |
-| `.../selection-log/evidence-limits` | 2026-09-23~ | 최종 가설마다 근거 연결(`evidence`: 실험별 supports/refutes → journal의 비교 기록 digest), 질문마다 B 자신의 한계 진단(`limitation_assessed`) |
+| `.../selection-log/evidence-limits` | 2026-09-23 | 최종 가설마다 근거 연결(`evidence`: 실험별 supports/refutes → journal의 비교 기록 digest), 질문마다 B 자신의 한계 진단(`limitation_assessed`) |
+| `blind-research/g8/grammar-v2/observe-first/notice-delayed` | 2026-09-24~ | G8: 관찰 전용 첫 실행으로 초기값 관측, 놀람(`anomaly_recorded`) → 알아챈 가설(`hypothesis_noticed`, DELAYED), 미검증 제안은 `proposed_hypothesis_ids`. 채점은 기준표 v2 |
 
 ## 지금 저장되는 것 (G7.3c blind 연구 실행 1회당)
 

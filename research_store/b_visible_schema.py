@@ -43,16 +43,18 @@ _ALIAS = r"ALIAS-[0-9A-F]{8}"
 _ID_PATTERNS = tuple(re.compile(p) for p in (
     rf"^{_ALIAS}$",
     r"^BCAND-[0-9a-f]{16}$", r"^BPLAN-[0-9a-f]{16}$", r"^BH-[0-9a-f]{16}$",
-    r"^SEAL-BCAND-[0-9a-f]{16}$", r"^FDS-\d+$",
+    r"^SEAL-BCAND-[0-9a-f]{16}$", r"^FDS-\d+$", r"^BOBS-[0-9a-f]{16}$",
     r"^[0-9a-f]{64}$",            # sha256 digests
     r"^[0-9a-f]{40}$",            # git commit
     rf"^alias_world:{_ALIAS}$", r"^baseline:(true|false)$", r"^time:one_tick_per_edge$",
+    r"^initial:observed$", r"^origin:noticed$",
     r"^[A-Z][A-Za-z]*(Error|Exception)$",   # exception class name only
 ))
 
 _STATEMENT = re.compile(
     rf"^(no controllable variable affects {_ALIAS}"
     rf"|(NOT )?{_ALIAS}( (AND|OR) {_ALIAS})? -> {_ALIAS}"
+    rf"|{_ALIAS} -> {_ALIAS} after \d+ ticks"
     rf"|{_ALIAS} -> {_ALIAS} -> {_ALIAS})$")
 
 VERDICT_WORDS = frozenset({"SOLVED", "INSEPARABLE", "NO_SURVIVOR", "OPEN"})
@@ -97,6 +99,11 @@ VOCABULARY = frozenset({
     "limitation", "limitation_assessed", "diagnosis", "pairs", "hypothesis_ids", "separable_at_horizon",
     "checked_up_to_horizon", "blind-limitations-v1", "observation_horizon", "not_diagnosable", "mixed",
     "vocabulary_exhausted", "budget_exhausted", "none",
+    # G8: look first, surprise, notice
+    "observation_only_declared", "reason", "initial_values", "observation_arm_ids", "anomaly_recorded",
+    "all_hypotheses_refuted", "hypothesis_noticed", "derived_from", "hypothesis", "trigger_arm",
+    "proposed_hypothesis_ids", "proposal_untested", "blind-research-loop-v2", "lag",
+    "OBSERVATION_ONLY_SCORED", "OBSERVATION_DECLARED_AFTER_EXECUTION",
     # protocol audit violation codes (blind_protocol.VIOLATION_CODES)
     "EXECUTION_WITHOUT_PRIOR_SEAL", "SEAL_AFTER_EXECUTION", "DUPLICATE_ARM_EXECUTION",
     "FINAL_SEAL_MISSING", "FINAL_SEAL_NOT_TERMINAL", "FINAL_SEAL_SEQUENCE_MISMATCH",

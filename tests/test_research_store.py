@@ -212,7 +212,7 @@ def test_stored_journal_holds_every_observed_run_not_just_its_digest(tmp_path) -
     journal = BVisibleReader(root).get(b_record.payload)["journal"]
     executed = [e["record_id"] for e in journal if e["event_type"] == "execution_completed"]
     observed = {e["record_id"]: e["payload"]["run"] for e in journal if e["event_type"] == "observation_recorded"}
-    assert executed == list(outcome.executed_candidate_ids)
+    assert executed == list(outcome.observation_arm_ids + outcome.executed_candidate_ids)
     assert sorted(observed) == sorted(executed)
     assert all(run["checkpoints"] for run in observed.values())
 

@@ -49,6 +49,9 @@ EVENT_TYPES = frozenset({
     # G7.4+ event -- B's own diagnosis of why a blind question ended where it
     # did, computed from its own claims (blind_limitations.py).
     "limitation_assessed",
+    # G8 events -- observation-only arms (blind_protocol.py), and hypotheses B
+    # proposed from its own observations after a surprise (blind_noticing.py).
+    "observation_only_declared", "hypothesis_noticed",
 })
 
 

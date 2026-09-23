@@ -22,7 +22,7 @@ from pathlib import Path
 
 # Bump whenever blind-research results stop being comparable with earlier
 # ones (vocabulary, time rule, baseline prior, plan shape, loop verdicts).
-BLIND_RESEARCH_SEMANTICS = "blind-research/g7.3c/vocab6/tick1/baseline-false/validate-full/selection-log/evidence-limits"
+BLIND_RESEARCH_SEMANTICS = "blind-research/g8/grammar-v2/observe-first/notice-delayed"
 # History (older labels stay valid in stored records; never reused):
 #   .../validate-full                 first 18 runs, 2026-09-23 -- journal had
 #                                     no experiment_candidate_ranked entries
@@ -31,6 +31,9 @@ BLIND_RESEARCH_SEMANTICS = "blind-research/g7.3c/vocab6/tick1/baseline-false/val
 #   .../selection-log/evidence-limits final hypotheses carry evidence links;
 #                                     journal and outcome carry B's own
 #                                     limitation assessment per question
+#   blind-research/g8/grammar-v2/...  G8: observation-only first run sets
+#                                     observed initial values; surprise ->
+#                                     noticed DELAYED hypotheses (grammar v2)
 
 
 def git_state(repo_root: Path) -> tuple[str, bool]:

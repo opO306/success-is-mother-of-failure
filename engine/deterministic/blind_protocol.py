@@ -55,6 +55,10 @@ from .research_journal import GENESIS_DIGEST, JournalEntry, ResearchJournal, rea
 FORMAT = "blind-protocol-v1"
 
 EVENT_FINAL_DISCOVERY_SEALED = "final_discovery_sealed"
+# G8: an arm declared, before it runs, to be observation-only -- executed
+# without sealed predictions because it tests nothing; its result may set
+# B's observed initial values but must never score a hypothesis.
+EVENT_OBSERVATION_ONLY_DECLARED = "observation_only_declared"
 
 VIOLATION_EXECUTION_WITHOUT_PRIOR_SEAL = "EXECUTION_WITHOUT_PRIOR_SEAL"
 VIOLATION_SEAL_AFTER_EXECUTION = "SEAL_AFTER_EXECUTION"
@@ -65,13 +69,16 @@ VIOLATION_FINAL_SEAL_SEQUENCE_MISMATCH = "FINAL_SEAL_SEQUENCE_MISMATCH"
 VIOLATION_FINAL_SEAL_JOURNAL_DIGEST_MISMATCH = "FINAL_SEAL_JOURNAL_DIGEST_MISMATCH"
 VIOLATION_FINAL_HYPOTHESIS_DIGEST_MISMATCH = "FINAL_HYPOTHESIS_DIGEST_MISMATCH"
 VIOLATION_EXECUTED_ARM_SET_MISMATCH = "EXECUTED_ARM_SET_MISMATCH"
+VIOLATION_OBSERVATION_ONLY_SCORED = "OBSERVATION_ONLY_SCORED"
+VIOLATION_OBSERVATION_DECLARED_AFTER_EXECUTION = "OBSERVATION_DECLARED_AFTER_EXECUTION"
 
 VIOLATION_CODES = frozenset({
     VIOLATION_EXECUTION_WITHOUT_PRIOR_SEAL, VIOLATION_SEAL_AFTER_EXECUTION,
     VIOLATION_DUPLICATE_ARM_EXECUTION, VIOLATION_FINAL_SEAL_MISSING,
     VIOLATION_FINAL_SEAL_NOT_TERMINAL, VIOLATION_FINAL_SEAL_SEQUENCE_MISMATCH,
     VIOLATION_FINAL_SEAL_JOURNAL_DIGEST_MISMATCH, VIOLATION_FINAL_HYPOTHESIS_DIGEST_MISMATCH,
-    VIOLATION_EXECUTED_ARM_SET_MISMATCH,
+    VIOLATION_EXECUTED_ARM_SET_MISMATCH, VIOLATION_OBSERVATION_ONLY_SCORED,
+    VIOLATION_OBSERVATION_DECLARED_AFTER_EXECUTION,
 })
 
 
@@ -220,7 +227,9 @@ def audit_protocol(path: Path) -> BlindProtocolAudit:
 
     Checks, in the order violations are discovered during replay:
       - every `execution_completed` has a strictly-earlier `prediction_sealed`
-        for the same `arm_id` (read from that entry's own payload, not its
+        for the same `arm_id` -- or a strictly-earlier
+        `observation_only_declared` for it (G8), in which case that arm must
+        never be sealed or compared against any hypothesis (read from that entry's own payload, not its
         `record_id` -- `prediction_sealed`'s `record_id` is `seal_id`, not
         `arm_id`; see this function's own payload reads below)
       - no `arm_id` has more than one `execution_completed`
@@ -241,6 +250,7 @@ def audit_protocol(path: Path) -> BlindProtocolAudit:
 
     sealed_arm_seq: dict[str, int] = {}
     executed_arm_seq: dict[str, int] = {}
+    observation_only: set[str] = set()
     final_seal_entry: JournalEntry | None = None
     final_seal_index: int | None = None
 
@@ -248,9 +258,20 @@ def audit_protocol(path: Path) -> BlindProtocolAudit:
         if final_seal_entry is not None:
             violations.append(VIOLATION_FINAL_SEAL_NOT_TERMINAL)
             break
-        if entry.event_type == "prediction_sealed":
+        if entry.event_type == EVENT_OBSERVATION_ONLY_DECLARED:
+            arm_id = entry.record_id
+            if arm_id in executed_arm_seq:
+                violations.append(VIOLATION_OBSERVATION_DECLARED_AFTER_EXECUTION)
+            if arm_id in sealed_arm_seq:
+                violations.append(VIOLATION_OBSERVATION_ONLY_SCORED)
+            observation_only.add(arm_id)
+        elif entry.event_type == "result_compared" and entry.record_id in observation_only:
+            violations.append(VIOLATION_OBSERVATION_ONLY_SCORED)
+        elif entry.event_type == "prediction_sealed":
             arm_id = entry.payload.get("arm_id")
             if isinstance(arm_id, str):
+                if arm_id in observation_only:
+                    violations.append(VIOLATION_OBSERVATION_ONLY_SCORED)
                 if arm_id in executed_arm_seq:
                     # A seal arriving after that arm's execution was already
                     # journaled -- "predicted after seeing the result".
@@ -262,7 +283,7 @@ def audit_protocol(path: Path) -> BlindProtocolAudit:
             if arm_id in executed_arm_seq:
                 violations.append(VIOLATION_DUPLICATE_ARM_EXECUTION)
             executed_arm_seq[arm_id] = entry.sequence
-            if arm_id not in sealed_arm_seq:
+            if arm_id not in sealed_arm_seq and arm_id not in observation_only:
                 violations.append(VIOLATION_EXECUTION_WITHOUT_PRIOR_SEAL)
         elif entry.event_type == EVENT_FINAL_DISCOVERY_SEALED:
             final_seal_entry = entry

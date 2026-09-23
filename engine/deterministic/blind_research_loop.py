@@ -84,6 +84,24 @@ missing observable) is a harness defect: `check_prediction_at_horizon`
 raises and the loop stops rather than scoring it. A failed execution ends
 the run as HARNESS_FAILURE.
 
+G8 (grammar v2) adds three things, in this order within a run:
+
+  1. Look first. Before any hypothesis is materialized, B runs one
+     observation-only arm -- nothing pinned, declared as observation-only in
+     the journal before it runs, never sealed or scored -- and takes each
+     visible variable's tick-0 value as its initial value. Unforced visible
+     variables then start where B *saw* them, not at an assumed False.
+  2. Surprise. When an experiment leaves a question with no live hypothesis,
+     B journals an `anomaly_recorded` entry naming the experiment.
+  3. Notice. Right then, B scans every run it has observed for a DELAYED
+     pattern about that target (`blind_noticing.py`). Each pattern found
+     joins the question's live hypotheses (`hypothesis_noticed`, with the
+     arms it was derived from) and is tested only by experiments run after
+     it -- the data it was fitted to never counts as its evidence. A noticed
+     hypothesis that no later experiment tested is a *proposal*: it never
+     makes a question SOLVED, and the question's diagnosis says so
+     (`proposal_untested`).
+
 B-facing: never imports `blind_evaluator`, `blind_synthetic_executor`,
 `synthetic_runtime`, or `ground_truth` (checked transitively by
 `tests/test_deterministic_blind_research_loop.py`).
@@ -94,14 +112,15 @@ import hashlib
 import json
 from dataclasses import dataclass, replace
 
-from .blind_execution import BlindCandidateSpec
-from .blind_hypothesis_generator import BlindHypothesisGenerator
+from .blind_execution import BlindCandidateSpec, BlindRun
+from .blind_hypothesis_generator import BlindHypothesisGenerator, BlindQuestion
 from .blind_limitations import assess_limitation
+from .blind_noticing import notice_delayed_relations
 from .blind_prediction_materializer import (
     BlindExperimentPlan, BlindPredictionMaterializer, InterventionalPredictionProvider,
     check_prediction_at_horizon, observation_horizon,
 )
-from .blind_protocol import FinalDiscoverySeal, seal_final_discovery
+from .blind_protocol import EVENT_OBSERVATION_ONLY_DECLARED, FinalDiscoverySeal, seal_final_discovery
 from .blind_session import BlindControlDescriptor, BlindObservableDescriptor, BlindWorldDescriptor
 from .causal_executor import AExecutor
 from .causal_experiment import PredictionSeal
@@ -111,7 +130,7 @@ from .hypotheses import EvidenceReference
 from .research_journal import ResearchJournal
 from .research_loop import execute_through_a, seal_predictions
 
-FORMAT = "blind-research-loop-v1"
+FORMAT = "blind-research-loop-v2"
 
 SOLVED = "SOLVED"
 INSEPARABLE = "INSEPARABLE"
@@ -141,10 +160,12 @@ class QuestionOutcome:
     rejected_hypothesis_ids: tuple[str, ...]
     inseparable_pairs: tuple[tuple[str, str], ...]
     limitation: dict[str, object]
+    proposed_hypothesis_ids: tuple[str, ...] = ()
 
     def canonical(self) -> dict[str, object]:
         return {"inseparable_pairs": [list(p) for p in self.inseparable_pairs],
                 "limitation": self.limitation,
+                "proposed_hypothesis_ids": list(self.proposed_hypothesis_ids),
                 "rejected_hypothesis_ids": list(self.rejected_hypothesis_ids),
                 "surviving_hypothesis_ids": list(self.surviving_hypothesis_ids),
                 "target_observable_id": self.target_observable_id, "verdict": self.verdict}
@@ -163,6 +184,8 @@ class BlindResearchOutcome:
     plan_size: int
     final_hypothesis_set: CausalHypothesisSet
     final_seal: FinalDiscoverySeal
+    observation_arm_ids: tuple[str, ...] = ()
+    initial_values: tuple[tuple[str, bool], ...] = ()
     format: str = FORMAT
 
     @property
@@ -179,6 +202,8 @@ class BlindResearchOutcome:
                 "executed_candidate_ids": list(self.executed_candidate_ids),
                 "final_hypothesis_set_digest": self.final_hypothesis_set.digest,
                 "final_seal": self.final_seal.canonical(), "format": self.format,
+                "initial_values": [list(pair) for pair in self.initial_values],
+                "observation_arm_ids": list(self.observation_arm_ids),
                 "plan_size": self.plan_size, "questions": [q.canonical() for q in self.questions],
                 "termination": self.termination, "validated_fully": self.validated_fully}
 
@@ -262,6 +287,8 @@ def run_blind_research(
     max_validation_experiments: int | None = None,
     generator: BlindHypothesisGenerator = BlindHypothesisGenerator(),
     materializer: BlindPredictionMaterializer = BlindPredictionMaterializer(),
+    observe_first: bool = True,
+    notice: bool = True,
 ) -> BlindResearchOutcome:
     """Run the loop to a stop and seal the final answer into `journal`.
 
@@ -269,6 +296,8 @@ def run_blind_research(
     and handed in -- this function never sees what is behind it.
     `max_experiments` bounds discovery; `max_validation_experiments` bounds
     validation (None = every planned experiment discovery did not run).
+    `observe_first` / `notice` switch off the two G8 behaviours, for
+    comparison against the grammar-v1 loop.
     """
     for name, value in (("max_experiments", max_experiments),
                         ("max_validation_experiments", max_validation_experiments)):
@@ -276,25 +305,76 @@ def run_blind_research(
             raise ValueError(f"{name} must be a nonnegative integer or None")
     space = generator.generate(world, controls, observables)
     plan = materializer.plan(world, controls, observables)
-    sets = tuple(materializer.materialize(q, world, controls, observables, plan) for q in space.questions)
-    for question, hypothesis_set in zip(space.questions, sets):
+    questions = list(space.questions)
+    variable_of = {c.alias_control_id: c.alias_variable_id for c in controls}
+    variable_of_observable = {o.alias_observable_id: o.alias_variable_id for o in observables}
+    observed: list[tuple[str, dict[str, bool], BlindRun]] = []
+    observation_arms: list[str] = []
+    initial: dict[str, bool] | None = None
+    termination = COMPLETE
+
+    if observe_first:
+        arm_id = "BOBS-" + _digest({"alias_world_id": world.alias_world_id, "plan_id": plan.plan_id})[:16]
+        spec = BlindCandidateSpec(world.alias_world_id, arm_id, (), ticks=1)
+        journal.append(EVENT_OBSERVATION_ONLY_DECLARED, arm_id,
+                       {"reason": "initial_values", "horizon": spec.ticks})
+        result = execute_through_a(journal, executor, arm_id, spec)
+        observation_arms.append(arm_id)
+        if result.status != "success":
+            termination = HARNESS_FAILURE
+        else:
+            journal.append("observation_recorded", arm_id, {"run": result.run.canonical()})
+            observed.append((arm_id, {}, result.run))
+            tick0 = result.run.checkpoint_at(0)
+            initial = {variable_of_observable[oid]: value for oid, value in tick0.observables
+                       if oid in variable_of_observable}
+
+    sets = [materializer.materialize(q, world, controls, observables, plan, initial) for q in questions]
+    for question, hypothesis_set in zip(questions, sets):
         journal.append("hypothesis_set_created", hypothesis_set.subject_digest,
                        {"hypothesis_set": hypothesis_set.canonical(),
                         "target_observable_id": question.target_observable_id})
 
     live = [frozenset(h.hypothesis_id for h in s.hypotheses) for s in sets]
+    noticed: set[str] = set()
     executed: list[str] = []
     candidate_by_id = {c.candidate_id: c for c in plan.candidates}
     budget = len(plan.candidates) if max_experiments is None else max_experiments
-    termination = COMPLETE
     evidence: dict[str, list[EvidenceReference]] = {h.hypothesis_id: [] for s in sets for h in s.hypotheses}
 
+    def surprise_and_notice(index: int, candidate_id: str) -> None:
+        question = questions[index]
+        journal.append("anomaly_recorded", question.target_observable_id,
+                       {"arm_id": candidate_id, "kind": "all_hypotheses_refuted",
+                        "target_observable_id": question.target_observable_id})
+        if not notice:
+            return
+        claims = notice_delayed_relations(question, world, controls, observables,
+                                          [(pinned, run) for _arm, pinned, run in observed])
+        if not claims:
+            return
+        derived_from = [arm for arm, _pinned, _run in observed]
+        new_hypotheses = []
+        for claim in claims:
+            hypothesis = materializer.materialize_claim(claim, question.target_observable_id, world, controls,
+                                                        plan, initial, origin="noticed")
+            journal.append("hypothesis_noticed", hypothesis.hypothesis_id,
+                           {"derived_from": derived_from, "hypothesis": hypothesis.canonical(),
+                            "target_observable_id": question.target_observable_id, "trigger_arm": candidate_id})
+            new_hypotheses.append(hypothesis)
+            evidence[hypothesis.hypothesis_id] = []
+            noticed.add(hypothesis.hypothesis_id)
+        questions[index] = BlindQuestion(question.target_observable_id, question.target_variable_id,
+                                         question.claims + claims)
+        sets[index] = CausalHypothesisSet(sets[index].subject_digest, sets[index].hypotheses + tuple(new_hypotheses))
+        live[index] = live[index] | frozenset(h.hypothesis_id for h in new_hypotheses)
+
     def run_one(candidate_id: str, phase: str) -> bool:
-        """Log why, seal, execute, compare, reject. False if the harness failed."""
+        """Log why, seal, execute, compare, reject, react to surprise. False if the harness failed."""
         candidate = candidate_by_id[candidate_id]
         spec = plan.compiled_specs[candidate_id]
         assert isinstance(spec, BlindCandidateSpec)
-        expected = _expected_splits(space.questions, sets, live, plan, candidate_id)
+        expected = _expected_splits(questions, sets, live, plan, candidate_id)
         journal.append("experiment_candidate_ranked", candidate_id, {
             "phase": phase, "horizon": observation_horizon(spec),
             "expected_split_pairs": sum(expected.values()),
@@ -318,6 +398,8 @@ def run_blind_research(
         # (a data store, a later learned B) can recover what was actually
         # seen. Alias-only by construction (`BlindRun`).
         journal.append("observation_recorded", candidate_id, {"run": result.run.canonical()})
+        observed.append((candidate_id, {variable_of[cid]: bool(v) for cid, v in candidate.control_values},
+                         result.run))
         comparisons = {hid: all(check_prediction_at_horizon(spec, p, result.run) for p in predictions)
                        for hid, predictions in sorted(sealed.items())}
         compared = journal.append("result_compared", candidate_id, {"held": comparisons})
@@ -330,11 +412,13 @@ def run_blind_research(
             for hid in rejected:
                 journal.append("hypothesis_status_changed", hid, {"arm_id": candidate_id, "status": _REJECTED})
             live[index] = alive - frozenset(rejected)
+            if alive and not live[index]:
+                surprise_and_notice(index, candidate_id)
         return True
 
     # Discovery: G6d picks whatever splits the most live pairs.
-    while True:
-        chosen = _select(sets, tuple(live), plan, frozenset(executed))
+    while termination == COMPLETE:
+        chosen = _select(tuple(sets), tuple(live), plan, frozenset(executed))
         if chosen is None:
             break
         if len(executed) >= budget:
@@ -362,42 +446,51 @@ def run_blind_research(
                 validated_fully = False
                 break
 
-    return _finish(world, controls, space.questions, sets, tuple(live), plan, tuple(executed), discovery_count,
-                   validated_fully, termination, journal, evidence, materializer.baseline)
+    return _finish(world, controls, tuple(questions), tuple(sets), tuple(live), plan, tuple(executed),
+                   discovery_count, validated_fully, termination, journal, evidence, materializer.baseline,
+                   frozenset(noticed), tuple(observation_arms), initial)
 
 
 def _finish(world, controls, questions, sets, live, plan, executed, discovery_count, validated_fully, termination,
-            journal, evidence, baseline) -> BlindResearchOutcome:
+            journal, evidence, baseline, noticed, observation_arms, initial) -> BlindResearchOutcome:
     outcomes: list[QuestionOutcome] = []
     final_hypotheses: list[CausalHypothesis] = []
     unresolved: list[str] = []
     for question, hypothesis_set, alive in zip(questions, sets, live):
-        tied = _tied_pairs(hypothesis_set, alive, plan) if len(alive) >= 2 else ()
-        verdict = _verdict(alive, tied)
+        # A noticed hypothesis no later experiment tested is a proposal, not
+        # an answer: it cannot make a question SOLVED or INSEPARABLE.
+        proposals = frozenset(h for h in alive if h in noticed and not evidence[h])
+        tested = alive - proposals
+        tied = _tied_pairs(hypothesis_set, tested, plan) if len(tested) >= 2 else ()
+        verdict = _verdict(tested, tied)
         all_ids = [h.hypothesis_id for h in hypothesis_set.hypotheses]
         limitation = assess_limitation(question, verdict, tied if verdict == INSEPARABLE else (), world,
                                        controls, plan, baseline).canonical()
+        if proposals and verdict == NO_SURVIVOR:
+            limitation = {**limitation, "diagnosis": "proposal_untested"}
         journal.append("limitation_assessed", question.target_observable_id, limitation)
         outcomes.append(QuestionOutcome(
             question.target_observable_id, verdict,
-            tuple(sorted(alive)), tuple(sorted(set(all_ids) - alive)),
-            tied if verdict == INSEPARABLE else (), limitation))
+            tuple(sorted(tested)), tuple(sorted(set(all_ids) - alive)),
+            tied if verdict == INSEPARABLE else (), limitation, tuple(sorted(proposals))))
         for hypothesis in hypothesis_set.hypotheses:
-            if hypothesis.hypothesis_id not in alive:
+            hid = hypothesis.hypothesis_id
+            if hid not in alive:
                 status = _REJECTED
-            elif not executed:
+            elif hid in proposals or not executed:
                 status = "untested"
+                unresolved.append(hid)
             elif verdict == SOLVED:
                 status = "supported"
             else:
                 status = "underspecified"
-                unresolved.append(hypothesis.hypothesis_id)
-            final_hypotheses.append(replace(hypothesis, status=status,
-                                            evidence=tuple(evidence[hypothesis.hypothesis_id])))
+                unresolved.append(hid)
+            final_hypotheses.append(replace(hypothesis, status=status, evidence=tuple(evidence[hid])))
     final_set = CausalHypothesisSet(
         _digest({"alias_world_id": world.alias_world_id, "format": FORMAT,
                  "questions": [s.subject_digest for s in sets]}),
         tuple(final_hypotheses))
     seal = seal_final_discovery(journal, world.alias_world_id, final_set, tuple(unresolved))
     return BlindResearchOutcome(world.alias_world_id, termination, tuple(outcomes), executed, discovery_count,
-                                validated_fully, len(plan.candidates), final_set, seal)
+                                validated_fully, len(plan.candidates), final_set, seal, observation_arms,
+                                tuple(sorted((initial or {}).items())))

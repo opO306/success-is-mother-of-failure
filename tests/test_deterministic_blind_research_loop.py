@@ -63,9 +63,17 @@ def _s03(ticks=2):
 
 
 def _outside_vocabulary():
-    """RULE_S02 with x2 starting True: an unforced x2 sits at True, against
-    the vocabulary's baseline=False prior. No claim describes this world."""
-    return _spec("WORLD-S02", "R-A18D40", V, ("x1", "x2"), V, 1, {"x2": True})
+    """Outside grammar v2: RULE_S03 with x2 hidden (neither pinnable nor
+    observable) *and* starting True. x3 at tick 1 is x2's hidden initial
+    value, which B cannot see and so assumes False -- no claim, enumerated
+    or noticed, fits. (Grammar v1's out-of-vocabulary world, S02 with an
+    observable x2 starting True, is solved by v2's observed initial values.)"""
+    return _spec("WORLD-S03", "R-51E8B7", V, ("x1",), ("x1", "x3"), 2, {"x2": True})
+
+
+def _hidden_mediator():
+    """RULE_S03 with x2 hidden, 2 ticks: x1 reaches x3 after 2 ticks."""
+    return _spec("WORLD-S03", "R-51E8B7", V, ("x1",), ("x1", "x3"), 2)
 
 
 def _normalized(statement: str) -> str:
@@ -157,22 +165,20 @@ def test_one_tick_chain_ends_inseparable_not_picked(tmp_path) -> None:
 
 def test_world_outside_the_vocabulary_ends_no_survivor(tmp_path) -> None:
     run = _run(tmp_path, _outside_vocabulary())
-    assert run.verdict("x2") == NO_SURVIVOR
     assert run.verdict("x3") == NO_SURVIVOR
-    assert run.verdict("x1") == SOLVED  # x1 really is untouched by x2 -- that part is describable
     assert run.outcome.validated_fully
 
 
 def test_without_validation_the_same_world_gives_a_confident_wrong_answer(tmp_path) -> None:
     """Why the validation phase exists. Discovery alone stops once one
-    claim is left: here x2 is declared SOLVED as "x1 -> x2" (wrong: x2 is
-    simply stuck at True) after a single experiment where that claim
-    happened to predict right. Pinned so the danger stays documented; the
+    claim is left: here x3 is declared SOLVED as "nothing affects x3"
+    (wrong: x1 reaches it two ticks later) after 1-tick experiments where
+    that claim happened to predict right. Pinned so the danger stays documented; the
     outcome says `validated_fully=False`, which is the flag a reader must
     check before trusting a SOLVED."""
-    run = _run(tmp_path, _outside_vocabulary(), max_validation_experiments=0)
-    assert run.verdict("x2") == SOLVED
-    assert run.survivors("x2") == ["x1 -> x2"]
+    run = _run(tmp_path, _hidden_mediator(), max_validation_experiments=0)
+    assert run.verdict("x3") == SOLVED
+    assert run.survivors("x3") == ["no controllable variable affects x3"]
     assert not run.outcome.validated_fully
     assert run.outcome.validation_experiment_count == 0
 
@@ -249,7 +255,8 @@ class _FailingExecutor:
 def test_failed_execution_ends_as_harness_failure(tmp_path) -> None:
     run = _run(tmp_path, _s02(), executor=_FailingExecutor())
     assert run.outcome.termination == HARNESS_FAILURE
-    assert run.outcome.experiment_count == 1
+    assert run.outcome.experiment_count == 0              # the observation-only run already failed
+    assert len(run.outcome.observation_arm_ids) == 1
     assert SOLVED not in {q.verdict for q in run.outcome.questions}
     assert audit_protocol(run.journal_path).valid
 
@@ -287,14 +294,17 @@ def test_journal_passes_the_g72_protocol_audit(tmp_path, make_spec) -> None:
     assert audit_final_hypothesis_digest(run.journal_path, run.outcome.final_hypothesis_set).valid
     entries = read_journal(run.journal_path)
     assert entries[-1].event_type == "final_discovery_sealed"
-    assert run.outcome.final_seal.experiment_count == run.outcome.experiment_count
+    assert run.outcome.final_seal.experiment_count == \
+        run.outcome.experiment_count + len(run.outcome.observation_arm_ids)
 
 
 def test_every_execution_is_preceded_by_a_seal_holding_every_live_hypothesis(tmp_path) -> None:
     run = _run(tmp_path, _s03())
     entries = read_journal(run.journal_path)
     for index, entry in enumerate(entries):
-        if entry.event_type == "execution_completed":
+        if entry.event_type == "execution_completed" and entry.record_id in run.outcome.observation_arm_ids:
+            assert entries[index - 1].event_type == "observation_only_declared"
+        elif entry.event_type == "execution_completed":
             seal = entries[index - 1]
             assert seal.event_type == "prediction_sealed" and seal.payload["arm_id"] == entry.record_id
             compared = next(e for e in entries[index:] if e.event_type == "result_compared")
@@ -326,8 +336,9 @@ def test_same_world_same_outcome(tmp_path) -> None:
 def test_alias_permutation_does_not_change_the_findings(tmp_path, make_spec) -> None:
     def findings(seed):
         run = _run(tmp_path, make_spec(), seed=seed, name=f"j{seed}.jsonl")
-        return (sorted((t, run.verdict(t), tuple(run.survivors(t)))
-                       for t in ("x1", "x2", "x3") if t in run.manifest.observable_alias),
+        real = {alias: name for name, alias in run.manifest.observable_alias.items()}
+        asked = [real[q.target_observable_id] for q in run.outcome.questions]
+        return (sorted((t, run.verdict(t), tuple(run.survivors(t))) for t in asked),
                 run.outcome.discovery_experiment_count)
     assert findings(0) == findings(1) == findings(2)
 

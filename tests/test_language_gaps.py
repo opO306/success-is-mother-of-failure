@@ -85,8 +85,8 @@ def test_survivors_are_supported_never_confirmed(tmp_path) -> None:
 @pytest.mark.parametrize("scenario_id,target,expected", [
     ("S03-t1", "x3", OBSERVATION_HORIZON),
     ("S03-t1", "x2", NONE),
-    ("S02-x2-starts-true", "x3", VOCABULARY_EXHAUSTED),
-    ("S03-hidden-t2", "x3", VOCABULARY_EXHAUSTED),
+    ("S02-x2-starts-true", "x3", NONE),                  # grammar v2: solved via observed initial value
+    ("S03-hidden-t2", "x3", "proposal_untested"),
 ])
 def test_b_diagnoses_its_own_stopping_point(tmp_path, scenario_id, target, expected) -> None:
     _spec, manifest, outcome, entries = _loop(tmp_path, scenario_id)
@@ -167,9 +167,10 @@ def test_journaled_observations_translate_back_to_a_s_real_run_exactly(tmp_path,
     plan = BlindPredictionMaterializer().plan(world, control_descriptors(spec, 0), observable_descriptors(spec, 0))
     real_of = {alias: real for real, alias in manifest.observable_alias.items()}
     observed = {e.record_id: e.payload["run"] for e in entries if e.event_type == "observation_recorded"}
-    assert sorted(observed) == sorted(outcome.executed_candidate_ids)
+    assert sorted(observed) == sorted(outcome.executed_candidate_ids + outcome.observation_arm_ids)
     for candidate_id, run in observed.items():
-        blind_spec = plan.compiled_specs[candidate_id]
+        blind_spec = plan.compiled_specs.get(candidate_id) or \
+            BlindCandidateSpec(world.alias_world_id, candidate_id, (), 1)  # the observation-only arm
         real_run = SyntheticAExecutor().execute(_resolve_real_spec(spec, manifest, blind_spec)).run
         translated = [(c["tick"], sorted((real_of[k], v) for k, v in c["observables"])) for c in run["checkpoints"]]
         real = [(c.tick, sorted(c.values)) for c in real_run.checkpoints]
@@ -184,15 +185,22 @@ def _all_scores(tmp_path: Path):
     return [_run_and_score(tmp_path / sid, sid)[3] for sid in sorted(KEY)]
 
 
-def test_benchmark_has_exactly_one_language_gap_and_it_is_the_expected_one(tmp_path) -> None:
-    gaps = find_language_gaps(_all_scores(tmp_path), KEY)
-    assert len(gaps) == 1
-    [gap] = gaps
-    assert gap["b_record"] == {"target": "x3", "b_verdict": "NO_SURVIVOR", "survivors": [],
-                               "b_diagnosis": "vocabulary_exhausted"}
-    assert [(c["scenario_id"], c["structural_claim"]["kind"]) for c in gap["cases"]] == [
-        ("S02-x2-starts-true", "CONDITIONAL"), ("S03-hidden-t2", "MEDIATED")]
-    assert [c["hidden_variable_present"] for c in gap["cases"]] == [False, True]
+def test_grammar_v2_closes_the_gap_grammar_v1_left(tmp_path) -> None:
+    """Grammar v1's one gap (S02-x2 x3 and S03-hidden x3 both "nothing fits,
+    vocabulary exhausted") is gone: v2 solves the first and notices the
+    second, so their records differ."""
+    assert find_language_gaps(_all_scores(tmp_path), KEY) == []
+
+
+def test_gap_detection_on_hand_built_records() -> None:
+    """Two different real structures, one identical B record -> one gap."""
+    same = {"target": "x3", "b_verdict": "NO_SURVIVOR", "survivors": [], "b_diagnosis": "vocabulary_exhausted",
+            "verdict": "HONEST_UNEXPRESSIBLE"}
+    scores = [{"scenario_id": "S02-x2-starts-true", "questions": [dict(same)]},
+              {"scenario_id": "S03-hidden-t2", "questions": [dict(same)]}]
+    [gap] = find_language_gaps(scores, KEY)
+    assert gap["distinct_structures"] == 2
+    assert [c["scenario_id"] for c in gap["cases"]] == ["S02-x2-starts-true", "S03-hidden-t2"]
 
 
 def test_same_structure_recorded_the_same_way_is_not_a_gap(tmp_path) -> None:
@@ -224,7 +232,8 @@ def test_gap_report_is_stored_on_the_evaluator_side_only(tmp_path) -> None:
                                                       outcome=outcome, journal_path=path, provenance=PROV)
         store_score(root, KEY, sid, b_record, e_record, PROV)
     record, gaps = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics=PROV["semantics"])
-    assert record.tier == GROUND_TRUTH and record.tags["gap_count"] == "1" and len(gaps) == 1
+    assert record.tier == GROUND_TRUTH and record.tags["gap_count"] == str(len(gaps))
+    assert record.tags["scores_considered"] == str(len(KEY))
     verify_store(root)
     b_text = "".join(p.read_text(encoding="utf-8") for p in (root / B_VISIBLE).rglob("*") if p.is_file())
     assert "language_gap" not in b_text
@@ -264,7 +273,7 @@ def test_gap_report_never_mixes_runs_from_different_b_semantics(tmp_path) -> Non
                                                               outcome=outcome, journal_path=path, provenance=prov)
             store_score(root, KEY, sid, b_record, e_record, PROV)
     record, gaps = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics=PROV["semantics"])
-    assert len(gaps) == 1 and record.tags["scores_considered"] == "2"
+    assert record.tags["scores_considered"] == "2"
     older, _ = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics="blind-research/older-rules")
     assert older.tags["scores_considered"] == "2"
 

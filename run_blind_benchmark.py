@@ -27,7 +27,7 @@ from engine.deterministic.blind_synthetic_executor import SyntheticBlindAExecuto
 from engine.deterministic.research_journal import ResearchJournal
 from engine.deterministic.synthetic_spec import SyntheticWorldSpec
 from research_store.evaluator import verify_store
-from ground_truth.benchmark_key import key_digest, load_answer_key
+from ground_truth.benchmark_key import KEY_DIRECTORY_V2, key_digest, load_answer_key
 from research_store.ingest_blind import store_blind_research_run
 from research_store.provenance import BLIND_RESEARCH_SEMANTICS, provenance
 from research_store.language_gaps import store_language_gap_report
@@ -85,7 +85,7 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     (root / "README.txt").write_text(README, encoding="utf-8")  # documentation, not store data
 
-    key = load_answer_key()
+    key = load_answer_key(KEY_DIRECTORY_V2)  # the key for grammar v2, the language B now speaks
     print(f"answer key {key_digest(key)} ({len(key)} scenarios)")
     totals = {verdict: 0 for verdict in VERDICTS}
     with tempfile.TemporaryDirectory() as scratch:
@@ -107,6 +107,7 @@ def main() -> int:
                     totals[verdict] += count
                 graded = " ".join(f"{q['target']}={q['verdict']}"
                                   + ("" if q["diagnosis_consistent"] else "(diagnosis!)")
+                                  + ("(found-but-untested)" if q.get("proposal_matches_best_answer") else "")
                                   for q in score["questions"])
                 print(f"{name:20s} seed={seed} discovery={outcome.discovery_experiment_count:2d} "
                       f"validation={outcome.validation_experiment_count:2d}  {graded}")

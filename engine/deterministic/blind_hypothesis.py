@@ -89,10 +89,40 @@ INVERTED = "INVERTED"
 CONDITIONAL = "CONDITIONAL"
 DISJUNCTIVE = "DISJUNCTIVE"
 MEDIATED = "MEDIATED"
+DELAYED = "DELAYED"
 
-BLIND_HYPOTHESIS_KINDS = (NO_EFFECT, DIRECT, INVERTED, CONDITIONAL, DISJUNCTIVE, MEDIATED)
+BLIND_HYPOTHESIS_KINDS = (NO_EFFECT, DIRECT, INVERTED, CONDITIONAL, DISJUNCTIVE, MEDIATED, DELAYED)
+# Kinds the generator enumerates up front. DELAYED is statable but never
+# enumerated: B only ever holds one because it *noticed* the pattern in its
+# own observations after being surprised (blind_noticing.py).
+ENUMERATED_KINDS = (NO_EFFECT, DIRECT, INVERTED, CONDITIONAL, DISJUNCTIVE, MEDIATED)
 
-_CAUSE_COUNT = {NO_EFFECT: 0, DIRECT: 1, INVERTED: 1, CONDITIONAL: 2, DISJUNCTIVE: 2, MEDIATED: 1}
+_CAUSE_COUNT = {NO_EFFECT: 0, DIRECT: 1, INVERTED: 1, CONDITIONAL: 2, DISJUNCTIVE: 2, MEDIATED: 1, DELAYED: 1}
+
+
+# Grammar v2, frozen. Its digest is pinned by a test: any change to what a
+# claim can say, or to how claims are simulated, must mint a new grammar
+# version deliberately -- never drift. A holdout world is designed only after
+# this is frozen, so the grammar cannot have been fitted to it.
+GRAMMAR = {
+    "version": "blind-grammar-v2",
+    "kinds": {
+        NO_EFFECT: "t keeps its initial value",
+        DIRECT: "t(k+1) = c(k)",
+        INVERTED: "t(k+1) = NOT c(k)",
+        CONDITIONAL: "t(k+1) = c(k) AND g(k)",
+        DISJUNCTIVE: "t(k+1) = c(k) OR g(k)",
+        MEDIATED: "m(k+1) = c(k); t(k+1) = m(k); m pinnable",
+        DELAYED: "t(k) = c(k - lag) for k >= lag, else t keeps its initial value; lag >= 2; "
+                 "mechanism unidentified (direct delay or an unobserved intermediate)",
+    },
+    "enumerated": list(ENUMERATED_KINDS),
+    "noticed_only": [DELAYED],
+    "time": "all modeled variables update simultaneously from the previous tick; pinned variables re-pinned",
+    "initial_values": "pinned: the pin; observable: the value observed at tick 0 of an observation-only run; "
+                      "unobservable: assumed False",
+    "causes": "pinnable variables only",
+}
 
 
 def _digest(value: object) -> str:
@@ -118,6 +148,7 @@ class BlindCausalClaim:
     target_variable_id: str
     cause_variable_ids: tuple[str, ...] = ()
     mediator_variable_id: str | None = None
+    lag: int = 1
     format: str = FORMAT
 
     def __post_init__(self) -> None:
@@ -143,6 +174,10 @@ class BlindCausalClaim:
             if self.mediator_variable_id == self.target_variable_id or \
                     self.mediator_variable_id in self.cause_variable_ids:
                 raise ValueError("mediator must differ from target and cause")
+        if isinstance(self.lag, bool) or not isinstance(self.lag, int):
+            raise ValueError("lag must be an integer")
+        if (self.kind == DELAYED) != (self.lag >= 2) or self.lag < 1:
+            raise ValueError("lag >= 2 is required for DELAYED; every other kind has lag 1")
 
     def variable_ids(self) -> tuple[str, ...]:
         """Every alias variable id this claim names."""
@@ -158,13 +193,18 @@ class BlindCausalClaim:
         return f"BH-{self.digest[:16]}"
 
     def canonical(self) -> dict[str, object]:
-        return {
+        result: dict[str, object] = {
             "cause_variable_ids": list(self.cause_variable_ids),
             "format": self.format,
             "kind": self.kind,
             "mediator_variable_id": self.mediator_variable_id,
             "target_variable_id": self.target_variable_id,
         }
+        # Only DELAYED carries a lag, so every grammar-v1 claim keeps the
+        # exact canonical form -- and claim id -- it had before v2.
+        if self.kind == DELAYED:
+            result["lag"] = self.lag
+        return result
 
     def statement(self) -> str:
         t, causes, m = self.target_variable_id, self.cause_variable_ids, self.mediator_variable_id
@@ -178,6 +218,8 @@ class BlindCausalClaim:
             return f"{causes[0]} AND {causes[1]} -> {t}"
         if self.kind == DISJUNCTIVE:
             return f"{causes[0]} OR {causes[1]} -> {t}"
+        if self.kind == DELAYED:
+            return f"{causes[0]} -> {t} after {self.lag} ticks"
         return f"{causes[0]} -> {m} -> {t}"
 
 
@@ -188,12 +230,18 @@ def _check_horizon(horizon: object) -> int:
 
 
 def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
-                   baseline: bool = False) -> tuple[Mapping[str, bool], ...]:
+                   baseline: bool = False, initial: Mapping[str, bool] | None = None
+                   ) -> tuple[Mapping[str, bool], ...]:
     """The state of `claim`'s variables at ticks 0..horizon, under `pinned`
     (alias variable id -> forced value), by B's own reading of its own claim
-    -- never by running A. See the module docstring's time rules."""
+    -- never by running A. See the module docstring's time rules.
+
+    `initial` (grammar v2) is B's observed tick-0 value of each unforced
+    variable it can see; `baseline` is only the assumption for variables it
+    cannot see."""
     _check_horizon(horizon)
-    state = {v: pinned.get(v, baseline) for v in claim.variable_ids()}
+    initial = initial or {}
+    state = {v: pinned.get(v, initial.get(v, baseline)) for v in claim.variable_ids()}
     trajectory = [dict(state)]
     target, causes = claim.target_variable_id, claim.cause_variable_ids
     for _ in range(horizon):
@@ -210,6 +258,10 @@ def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon:
         elif claim.kind == MEDIATED:
             state[claim.mediator_variable_id] = previous[causes[0]]
             state[target] = previous[claim.mediator_variable_id]
+        elif claim.kind == DELAYED:
+            tick = len(trajectory)
+            if tick >= claim.lag:
+                state[target] = trajectory[tick - claim.lag][causes[0]]
         for variable_id in state:
             if variable_id in pinned:
                 state[variable_id] = pinned[variable_id]
@@ -218,6 +270,9 @@ def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon:
 
 
 def predict_target(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
-                   baseline: bool = False) -> bool:
+                   baseline: bool = False, initial: Mapping[str, bool] | None = None) -> bool:
     """The target's value at exactly tick `horizon`, according to `claim` alone."""
-    return simulate_claim(claim, pinned, horizon, baseline)[horizon][claim.target_variable_id]
+    return simulate_claim(claim, pinned, horizon, baseline, initial)[horizon][claim.target_variable_id]
+
+
+GRAMMAR_DIGEST = _digest(GRAMMAR)

@@ -30,6 +30,12 @@ Separate axes, never folded into the verdict:
     validated_fully         from B's outcome
     b_diagnosis             B's own account of why the question ended where it
                             did (blind_limitations.py), copied from B's outcome
+    proposal_matches_best_answer   G8: B noticed hypotheses it could not test
+                            (no experiment left after noticing). True when
+                            those proposals contain every best-answer claim --
+                            "B found it but could not test it" -- which the
+                            verdict alone (MISSED_TRUTH) cannot say. None
+                            when B made no proposal.
     diagnosis_consistent    whether B's diagnosis agrees with the key: SOLVED
                             -> "none"; INSEPARABLE -> "observation_horizon"
                             exactly when the key declares an observation
@@ -77,6 +83,7 @@ _PATTERNS = (
     ("INVERTED", re.compile(rf"^NOT (?P<c>{_ALIAS}) -> (?P<t>{_ALIAS})$")),
     ("CONDITIONAL", re.compile(rf"^(?P<c>{_ALIAS}) AND (?P<g>{_ALIAS}) -> (?P<t>{_ALIAS})$")),
     ("DISJUNCTIVE", re.compile(rf"^(?P<c>{_ALIAS}) OR (?P<g>{_ALIAS}) -> (?P<t>{_ALIAS})$")),
+    ("DELAYED", re.compile(rf"^(?P<c>{_ALIAS}) -> (?P<t>{_ALIAS}) after (?P<lag>\d+) ticks$")),
     ("MEDIATED", re.compile(rf"^(?P<c>{_ALIAS}) -> (?P<m>{_ALIAS}) -> (?P<t>{_ALIAS})$")),
     ("DIRECT", re.compile(rf"^(?P<c>{_ALIAS}) -> (?P<t>{_ALIAS})$")),
 )
@@ -88,8 +95,8 @@ class ScoringError(ValueError):
 
 
 def claim_key(claim: Mapping[str, Any]) -> tuple:
-    """Order-free identity of a claim in real-name terms."""
-    return (claim["kind"], tuple(sorted(claim["causes"])), claim.get("mediator"), claim["target"])
+    """Order-free identity of a claim in real-name terms (lag only for DELAYED)."""
+    return (claim["kind"], tuple(sorted(claim["causes"])), claim.get("mediator"), claim["target"], claim.get("lag"))
 
 
 def parse_statement(statement: str, real_of: Mapping[str, str]) -> tuple:
@@ -100,7 +107,8 @@ def parse_statement(statement: str, real_of: Mapping[str, str]) -> tuple:
             groups = match.groupdict()
             causes = [real_of[groups[g]] for g in ("c", "g") if groups.get(g)]
             mediator = real_of[groups["m"]] if groups.get("m") else None
-            return (kind, tuple(sorted(causes)), mediator, real_of[groups["t"]])
+            lag = int(groups["lag"]) if groups.get("lag") else None
+            return (kind, tuple(sorted(causes)), mediator, real_of[groups["t"]], lag)
     raise ScoringError("unreadable hypothesis statement")
 
 
@@ -120,13 +128,15 @@ def _check_same_scenario(scenario: Mapping[str, Any], binding: Mapping[str, Any]
 
 
 def _diagnosis_consistent(entry: Mapping[str, Any], b_verdict: str,
-                          limitation: Mapping[str, Any] | None) -> bool | None:
+                          limitation: Mapping[str, Any] | None, proposal_match: bool | None = None) -> bool | None:
     if limitation is None:
         return None
     diagnosis = limitation["diagnosis"]
     if b_verdict == "SOLVED":
         return diagnosis == "none"
     if b_verdict == "NO_SURVIVOR":
+        if diagnosis == "proposal_untested":
+            return proposal_match is True
         return diagnosis == "vocabulary_exhausted" and entry["limits"]["language_limit"]
     if b_verdict == "INSEPARABLE":
         says_time = diagnosis == "observation_horizon"
@@ -141,7 +151,8 @@ def _diagnosis_consistent(entry: Mapping[str, Any], b_verdict: str,
 
 def score_question(entry: Mapping[str, Any], b_verdict: str, survivors: set[tuple],
                    unscorable_reason: str | None, validated_fully: bool,
-                   limitation: Mapping[str, Any] | None = None) -> dict[str, Any]:
+                   limitation: Mapping[str, Any] | None = None,
+                   proposals: set[tuple] | None = None) -> dict[str, Any]:
     answer = entry["best_answer"]
     best = {claim_key(c) for c in answer.get("claims", [])}
     structural = claim_key(entry["structural_claim"]) if entry.get("structural_claim") else None
@@ -157,6 +168,7 @@ def score_question(entry: Mapping[str, Any], b_verdict: str, survivors: set[tupl
     else:
         raise ScoringError("unknown B verdict")
 
+    proposal_match = (answer["type"] == "single" and best <= proposals) if proposals else None
     return {
         "verdict": verdict, "group": GROUP_OF[verdict], "b_verdict": b_verdict,
         "unscorable_reason": unscorable_reason if verdict == UNSCORABLE else None,
@@ -168,7 +180,10 @@ def score_question(entry: Mapping[str, Any], b_verdict: str, survivors: set[tupl
         "overclaim": b_verdict == "SOLVED" and answer["type"] == "tie",
         "validated_fully": validated_fully,
         "b_diagnosis": limitation["diagnosis"] if limitation else None,
-        "diagnosis_consistent": None if verdict == UNSCORABLE else _diagnosis_consistent(entry, b_verdict, limitation),
+        "diagnosis_consistent": (None if verdict == UNSCORABLE
+                                 else _diagnosis_consistent(entry, b_verdict, limitation, proposal_match)),
+        "proposal_matches_best_answer": proposal_match,
+        "proposals": sorted([list(map(_plain, p)) for p in (proposals or set())]),
         "survivors": sorted([list(map(_plain, s)) for s in survivors]),
         "best_answer": answer["type"],
     }
@@ -197,8 +212,9 @@ def score_run(scenario: Mapping[str, Any], b_payload: Mapping[str, Any],
         target = real_observable[question["target_observable_id"]]
         asked.add(target)
         survivors = {parse_statement(statements[hid], real_of) for hid in question["surviving_hypothesis_ids"]}
+        proposals = {parse_statement(statements[hid], real_of) for hid in question.get("proposed_hypothesis_ids", [])}
         result = score_question(scenario["targets"][target], question["verdict"], survivors, run_reason,
-                                outcome["validated_fully"], question.get("limitation"))
+                                outcome["validated_fully"], question.get("limitation"), proposals)
         questions.append({"target": target, **result})
     counts = {verdict: sum(1 for q in questions if q["verdict"] == verdict) for verdict in VERDICTS}
     return {"scenario_id": scenario["scenario_id"], "questions": sorted(questions, key=lambda q: q["target"]),

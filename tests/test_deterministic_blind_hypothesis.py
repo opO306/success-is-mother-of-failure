@@ -38,7 +38,8 @@ import pytest
 from engine.deterministic.blind_evaluator import control_descriptors, make_blind_session, observable_descriptors
 from engine.deterministic.blind_execution import BlindCandidateSpec
 from engine.deterministic.blind_hypothesis import (
-    BLIND_HYPOTHESIS_KINDS, CONDITIONAL, DIRECT, DISJUNCTIVE, INVERTED, MEDIATED, NO_EFFECT,
+    BLIND_HYPOTHESIS_KINDS, CONDITIONAL, DELAYED, DIRECT, DISJUNCTIVE, ENUMERATED_KINDS, GRAMMAR_DIGEST, INVERTED,
+    MEDIATED, NO_EFFECT,
     BlindCausalClaim, predict_target, simulate_claim,
 )
 from engine.deterministic.blind_hypothesis_generator import (
@@ -106,8 +107,51 @@ def _materialized(interface):
 # 1. Vocabulary (G7.3b-1).
 # ---------------------------------------------------------------------------
 
-def test_vocabulary_is_exactly_the_six_declared_kinds() -> None:
-    assert BLIND_HYPOTHESIS_KINDS == (NO_EFFECT, DIRECT, INVERTED, CONDITIONAL, DISJUNCTIVE, MEDIATED)
+def test_vocabulary_is_exactly_the_declared_kinds() -> None:
+    """Grammar v2: six enumerated kinds, plus DELAYED -- statable, but only
+    ever reached by noticing (blind_noticing.py), never enumerated."""
+    assert ENUMERATED_KINDS == (NO_EFFECT, DIRECT, INVERTED, CONDITIONAL, DISJUNCTIVE, MEDIATED)
+    assert BLIND_HYPOTHESIS_KINDS == ENUMERATED_KINDS + (DELAYED,)
+
+
+def test_grammar_v2_is_frozen() -> None:
+    """Frozen before any holdout world exists. A change here means the
+    grammar changed: mint a new version deliberately."""
+    assert GRAMMAR_DIGEST == "dedc4e8aceb17f33eff525fc9966a95d36417112a75302984e9bfbc22c2af356"
+
+
+def test_generator_never_enumerates_delayed_claims() -> None:
+    interface, _m = _interface(_s03())
+    space = BlindHypothesisGenerator().generate(*interface)
+    assert all(claim.kind != DELAYED for q in space.questions for claim in q.claims)
+
+
+def test_grammar_v1_claim_ids_are_unchanged_by_v2() -> None:
+    """Only DELAYED carries a lag, so every v1 claim keeps its id."""
+    assert BlindCausalClaim(DIRECT, "T", ("A",)).claim_id == "BH-e474138464470504"
+
+
+@pytest.mark.parametrize("kwargs", [
+    dict(kind=DELAYED, target_variable_id="T", cause_variable_ids=("A",)),           # lag 1 is DIRECT
+    dict(kind=DELAYED, target_variable_id="T", cause_variable_ids=("A",), lag=0),
+    dict(kind=DIRECT, target_variable_id="T", cause_variable_ids=("A",), lag=2),     # only DELAYED has a lag
+])
+def test_delayed_claim_lag_rules(kwargs) -> None:
+    with pytest.raises(ValueError):
+        BlindCausalClaim(**kwargs)
+
+
+def test_delayed_claim_keeps_initial_value_until_its_lag() -> None:
+    claim = BlindCausalClaim(DELAYED, "T", ("A",), lag=2)
+    assert [s["T"] for s in simulate_claim(claim, {"A": True}, 3)] == [False, False, True, True]
+    assert [s["T"] for s in simulate_claim(claim, {"A": False}, 3, initial={"T": True})] == [True, True, False, False]
+
+
+def test_observed_initial_value_replaces_the_baseline_assumption() -> None:
+    assert predict_target(BlindCausalClaim(NO_EFFECT, "T"), {}, 1, initial={"T": True}) is True
+    both = BlindCausalClaim(CONDITIONAL, "T", ("A", "B"))
+    assert predict_target(both, {"A": True}, 1) is False                      # B assumed False
+    assert predict_target(both, {"A": True}, 1, initial={"B": True}) is True  # B seen True
 
 
 @pytest.mark.parametrize("kwargs", [
@@ -164,7 +208,8 @@ def test_blind_hypothesis_types_have_no_real_identity_fields(cls) -> None:
 
 def test_generator_and_materializer_signatures_name_only_blind_types() -> None:
     allowed = {"BlindWorldDescriptor", "tuple[BlindControlDescriptor, ...]",
-               "tuple[BlindObservableDescriptor, ...]", "BlindQuestion", "BlindExperimentPlan"}
+               "tuple[BlindObservableDescriptor, ...]", "BlindQuestion", "BlindExperimentPlan",
+               "Mapping[str, bool] | None"}  # G8: B's observed tick-0 values, alias ids only
     for function in (BlindHypothesisGenerator.generate, BlindPredictionMaterializer.plan,
                      BlindPredictionMaterializer.materialize):
         for name, parameter in inspect.signature(function).parameters.items():

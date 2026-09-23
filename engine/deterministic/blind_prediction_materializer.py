@@ -48,7 +48,7 @@ from itertools import product
 from typing import Mapping
 
 from .blind_execution import BlindCandidateSpec, BlindRun
-from .blind_hypothesis import predict_target
+from .blind_hypothesis import BlindCausalClaim, predict_target
 from .blind_hypothesis_generator import BlindQuestion, validate_blind_interface
 from .blind_session import BlindControlDescriptor, BlindObservableDescriptor, BlindWorldDescriptor
 from .causal_hypothesis import CausalHypothesis, CausalHypothesisSet
@@ -190,30 +190,43 @@ class BlindPredictionMaterializer:
     def materialize(self, question: BlindQuestion, world: BlindWorldDescriptor,
                     controls: tuple[BlindControlDescriptor, ...],
                     observables: tuple[BlindObservableDescriptor, ...],
-                    plan: BlindExperimentPlan) -> CausalHypothesisSet:
+                    plan: BlindExperimentPlan, initial: Mapping[str, bool] | None = None) -> CausalHypothesisSet:
+        """`initial` (grammar v2): B's observed tick-0 value of each visible
+        unforced variable. Without it every unforced variable is assumed to
+        start at `baseline` -- the grammar-v1 behaviour."""
         validate_blind_interface(world, controls, observables)
         if not isinstance(question, BlindQuestion):
             raise TypeError(f"question must be a BlindQuestion, got {type(question).__name__}")
         target = [o for o in observables if o.alias_observable_id == question.target_observable_id]
         if len(target) != 1 or target[0].alias_variable_id != question.target_variable_id:
             raise ValueError("question does not name one of this world's observables")
-        variable_of = {c.alias_control_id: c.alias_variable_id for c in controls}
-        conditions = (f"alias_world:{world.alias_world_id}", f"baseline:{str(self.baseline).lower()}",
-                      "time:one_tick_per_edge")
-        hypotheses = []
-        for claim in question.claims:
-            predictions = []
-            for candidate in plan.candidates:
-                horizon = observation_horizon(plan.compiled_specs[candidate.candidate_id])
-                pinned = {variable_of[cid]: bool(value) for cid, value in candidate.control_values}
-                expected = predict_target(claim, pinned, horizon, self.baseline)
-                predictions.append(InterventionalPrediction(
-                    candidate.control_values,
-                    ObservablePrediction(horizon, question.target_observable_id, expected)))
-            hypotheses.append(CausalHypothesis(
-                hypothesis_id=claim.claim_id, statement=claim.statement(),
-                applicability_conditions=conditions, predictions=tuple(predictions),
-                evidence=(), status="untested"))
+        hypotheses = tuple(self.materialize_claim(claim, question.target_observable_id, world, controls, plan, initial)
+                           for claim in question.claims)
         subject = _digest({"alias_world_id": world.alias_world_id, "format": FORMAT,
                            "target_observable_id": question.target_observable_id})
-        return CausalHypothesisSet(subject, tuple(hypotheses))
+        return CausalHypothesisSet(subject, hypotheses)
+
+    def materialize_claim(self, claim: BlindCausalClaim, target_observable_id: str, world: BlindWorldDescriptor,
+                          controls: tuple[BlindControlDescriptor, ...], plan: BlindExperimentPlan,
+                          initial: Mapping[str, bool] | None = None, origin: str = "enumerated") -> CausalHypothesis:
+        """One claim -> one `CausalHypothesis` over every planned experiment.
+        `origin` is "enumerated" (the generator's up-front menu) or "noticed"
+        (proposed by B from its own observations after a surprise)."""
+        variable_of = {c.alias_control_id: c.alias_variable_id for c in controls}
+        conditions = [f"alias_world:{world.alias_world_id}", f"baseline:{str(self.baseline).lower()}",
+                      "time:one_tick_per_edge"]
+        if initial is not None:
+            conditions.append("initial:observed")
+        if origin == "noticed":
+            conditions.append("origin:noticed")
+        predictions = []
+        for candidate in plan.candidates:
+            horizon = observation_horizon(plan.compiled_specs[candidate.candidate_id])
+            pinned = {variable_of[cid]: bool(value) for cid, value in candidate.control_values}
+            expected = predict_target(claim, pinned, horizon, self.baseline, initial)
+            predictions.append(InterventionalPrediction(
+                candidate.control_values, ObservablePrediction(horizon, target_observable_id, expected)))
+        return CausalHypothesis(
+            hypothesis_id=claim.claim_id, statement=claim.statement(),
+            applicability_conditions=tuple(conditions), predictions=tuple(predictions),
+            evidence=(), status="untested")
