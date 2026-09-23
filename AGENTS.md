@@ -46,7 +46,7 @@ B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된
 python -m pytest tests -q
 ```
 
-**기준선: 1573개 통과** (2026-09-23 기준). 이보다 줄면 회귀다.
+**기준선: 1596개 통과** (2026-09-23 기준). 이보다 줄면 회귀다.
 
 특정 계통만 빠르게 볼 때:
 
@@ -65,6 +65,7 @@ python -m pytest tests/test_sequence_*.py -q         # 동결된 확률 세계
 | 결정론 A 물리 | `engine/deterministic/` + `worlds/` + 해당 테스트 |
 | 모델 중립 B | `engine/deterministic/` (b_language, *_adapter, cognitive_map, change_graph 등) + `schemas/` |
 | 독립 감사 | `audit/` — **`engine` import 금지** (테스트가 강제) |
+| 연구 데이터 저장소 | `research_store/` + `docs/current/RESEARCH_STORE_V1.md`. 데이터는 D: (Git 밖). **학습형 B는 `research_store.b_visible`만 import** |
 | 확률 세계 (동결) | `engine/sequence/`, `engine/living/` — **수정 금지, 읽기만** |
 | 레거시 | `engine/primal|brain|agentworld/` — 현재 작업 대상 아님 |
 

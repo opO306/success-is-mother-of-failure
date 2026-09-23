@@ -261,6 +261,11 @@ def run_blind_research(
         executed.append(candidate_id)
         if result.status != "success":
             return False
+        # `execution_completed` holds only the run's digest; the observed
+        # values themselves must be journaled too, or nothing downstream
+        # (a data store, a later learned B) can recover what was actually
+        # seen. Alias-only by construction (`BlindRun`).
+        journal.append("observation_recorded", candidate_id, {"run": result.run.canonical()})
         comparisons = {hid: all(check_prediction_at_horizon(spec, p, result.run) for p in predictions)
                        for hid, predictions in sorted(sealed.items())}
         journal.append("result_compared", candidate_id, {"held": comparisons})
