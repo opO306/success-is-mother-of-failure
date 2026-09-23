@@ -1,6 +1,6 @@
 # 구조 상태 v1 — 설계
 
-**상태:** **승인됨 (2026-09-22).** Q1~Q5 확정. 구현 미착수 — **선행 작업은 9절**
+**상태:** **구현됨 (2026-09-24, v4 Stage B).** Q1~Q5 확정. 구현 기록은 10절
 **구현 단계:** causal **v4 Stage B**. Stage A(수정된 충돌 의미)가 선행 —
 `CAUSAL_COLLISION_SEMANTICS_V4.md`
 **날짜:** 2026-09-22
@@ -765,3 +765,33 @@ causal 도입 시점부터 v1에 있었다. `LANGUAGE_REVISION_GOVERNANCE_V1.md`
 구조 이동(4.2)을 다시 열라는 신호**다.
 
 테스트: `tests/test_diagonal_momentum_is_unreachable.py`
+
+---
+
+## 10. 구현 기록 (2026-09-24)
+
+`causal_kernel.py`, v4 경로에서만(`structure_owned_motion = spec.format == FORMAT_V4`):
+
+- `StructureState(members, momentum, motion_energy)` + `CausalWorldState.structures`(마지막 필드,
+  비어 있으면 canonical에 안 나옴 → 기존 digest 불변). 세계 규칙 필드 `structure_owned_motion`,
+  `material_masses`(digest·동등성 밖).
+- 상태 검사: 구조 집합 = `port_bonds`의 연결 성분과 정확히 일치, 한 입자는 한 구조에만, 빈 구조 거부,
+  멤버 `kinetic_energy = 0`, `|px|+|py| == motion_energy × 질량`(Q2 — 대각이 도달 가능해지면 재설계).
+- `momentum()`/`total_energy()`가 구조에서 읽음. `min(members)` 조회 없음.
+- 이동: 카디널 운동량이면 구조 전체가 한 칸(상대 기하·포트 인접 유지, wrap 포함). 대각이면 이동하지
+  않고 `unresolved_motions(state)`가 `UnresolvedMotion(reason="insufficient_physical_state")`로 보고(Q3).
+- 충돌: 구조 멤버는 자유 입자 충돌에서 제외. 구조–자유 입자 접촉은 **정의되지 않음** —
+  `structure_contacts(state)`로 셀 수 있게만 함(접촉 그래프 = 기하 단계 5).
+- **재명명 불변성(Q5 강화 기준)**: id 치환 3종 × 입자·결합 배열 순서 × 결합 끝점 순서 × 규칙 선언 순서,
+  6 tick, 구조 이동·대각 보고·결합 형성·산란·접촉이 모두 일어나는 세계에서 `relabel(step(s)) == step(relabel(s))`.
+- 결함 주입 11종(설계안 5종 + 6종) 전부 검출. 1종(구조 멤버가 자유 충돌에 참여)은 처음에 놓쳤다 —
+  기존 접촉 테스트가 어떤 충돌 규칙에도 안 걸리는 배치였다. 정면 대치 배치를 추가해 검출.
+
+**v1/v2/v3는 그대로.** v2의 "최저 번호 멤버" 불변조건은 레거시 의미로 `test_legacy_causal_semantics.py`로 이동.
+
+**아직 없는 것(정직하게):** v4 안에서 구조가 **생기거나 자라는** 경로가 없다. v4 충돌은 여전히 v1식
+같은 칸 `PhysicalBond`를 만들고, 성장(`_grow_chains`)은 v2 전용이다. 즉 지금 v4 구조는 손으로 만든
+초기 상태에만 존재한다. 구조 생성(CREATE/GROW)을 v4에서 `PortBond`로 일으키는 것은 접촉 그래프(기하 단계 5)
+몫이며, 그때 `_grow_chains`의 결함 2종(id 순서·1 tick 1 결합)을 v4에 옮기지 않는 것이 성공 기준이다.
+MERGE/SPLIT/DISSOLVE는 여전히 미정의(3.5절).
+

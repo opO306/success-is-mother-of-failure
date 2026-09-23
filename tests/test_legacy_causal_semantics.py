@@ -112,3 +112,39 @@ def test_v1_v2_v3_break_keeps_legacy_orientation_rotation():
             "intentional, it must be gated behind FORMAT_V4 instead of "
             "changed for every format")
         assert by_id[2].orientation == by_id[2].direction
+
+
+def test_v2_chain_motion_stays_on_the_lowest_numbered_member():
+    """LEGACY (v2): an id decides where a chain's motion is kept.
+
+    Fixed on v4 (Stage B, StructureState); kept here for v2 reproducibility.
+    Moved from test_known_defects_causal_kernel.py on 2026-09-24.
+
+    measured:     2026-09-22
+    principle:    3 -- no arbitrary collision ordering
+    cause:        `CausalWorldState.__post_init__` enforces
+                  "a chain carries its motion on its lowest-numbered member".
+    replace_with: test_chain_motion_belongs_to_the_structure -- momentum and
+                  mass live on the connected component, not on a member
+                  chosen by name.
+
+    A chain's momentum is a property of the structure. Here it is parked on
+    one member picked by number, so a pure renaming can make a previously
+    valid state raise. That the invariant is enforced consistently does not
+    make it physical -- it makes the name load-bearing.
+    """
+    particles = (
+        CausalParticleSpec(5, 0, 10, 10, "E", "E", 1),   # holds the motion
+        CausalParticleSpec(9, 0, 10, 10, "W", "W", 0),
+    )
+    bonds = (PhysicalBond(5, 9, "ew", 4, 10, 10),)
+    CausalWorldState(0, particles, (), bonds, {0: 4}, True)   # lowest id holds it: accepted
+
+    # Same structure, same motion, same everything physical -- the motion is
+    # simply held by the other member. Rejected purely on the numbering.
+    swapped = (
+        CausalParticleSpec(5, 0, 10, 10, "E", "E", 0),
+        CausalParticleSpec(9, 0, 10, 10, "W", "W", 1),   # higher id holds it
+    )
+    with pytest.raises(ValueError, match="lowest-numbered member"):
+        CausalWorldState(0, swapped, (), bonds, {0: 4}, True)

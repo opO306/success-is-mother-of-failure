@@ -104,6 +104,70 @@ class PortBond:
 
 
 @dataclass(frozen=True)
+class StructureState:
+    """A structure's own motion (causal v4 Stage B, docs/current/STRUCTURE_STATE_V1.md).
+
+    Before this, a chain's motion was parked on its lowest-numbered member,
+    so a name decided where momentum lived (a recorded defect). Here the
+    structure -- the connected component of `port_bonds` -- owns it, and every
+    member's own `kinetic_energy` is 0.
+
+    `momentum` is a vector (Q1): members' momenta add, so east 3 and north 3
+    make (3, -3) rather than one of them being dropped. `motion_energy` is
+    stored separately (Q2) because it cannot be recovered from momentum:
+    +3/-1 and +2/0 both total 2 but carried 4 and 2. Mass, geometry, topology
+    and direction are derived (from members, positions, bonds, momentum) and
+    deliberately not stored twice.
+    """
+    members: frozenset[int]
+    momentum: tuple[int, int] = (0, 0)
+    motion_energy: int = 0
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "members", frozenset(self.members))
+        object.__setattr__(self, "momentum", tuple(self.momentum))
+        if not self.members:
+            raise ValueError("a structure has at least one member")
+        if self.motion_energy < 0:
+            raise ValueError("motion energy cannot be negative")
+
+    @property
+    def order_key(self) -> tuple[int, ...]:
+        return tuple(sorted(self.members))
+
+    def canonical(self) -> dict[str, object]:
+        return {"members": sorted(self.members), "momentum": list(self.momentum),
+                "motion_energy": self.motion_energy}
+
+
+@dataclass(frozen=True)
+class UnresolvedMotion:
+    """A structure whose motion the declared physics does not determine.
+
+    Recorded, not raised (Q3): a structure may *hold* diagonal momentum, but
+    how it would move on a grid with only cardinal steps is undefined, so it
+    does not move and this record says why. Derived from the state by
+    `unresolved_motions()`, so a census can count how often it happens.
+    """
+    members: tuple[int, ...]
+    momentum: tuple[int, int]
+    reason: str = "insufficient_physical_state"
+
+
+def _structure_step(structure: StructureState) -> tuple[int, int] | None:
+    """The one-cell step of a structure with cardinal momentum; None if it
+    is at rest or its momentum is diagonal (see `UnresolvedMotion`)."""
+    px, py = structure.momentum
+    if px and py:
+        return None
+    if px:
+        return (1 if px > 0 else -1, 0)
+    if py:
+        return (0, 1 if py > 0 else -1)
+    return None
+
+
+@dataclass(frozen=True)
 class CausalWorldState:
     tick: int
     particles: tuple[CausalParticleSpec, ...]
@@ -147,6 +211,15 @@ class CausalWorldState:
     # constructor contract otherwise) keep meaning exactly what they meant
     # before this field existed.
     port_bonds: tuple[PortBond, ...] = ()
+    # causal v4 Stage B: every connected component of `port_bonds` owns its
+    # motion as a `StructureState`. A rule the world runs under (like
+    # `chains_may_move`), so outside the digest and equality; `structures`
+    # itself is state. `material_masses` lets the state check a structure's
+    # momentum against its motion energy without a spec. All placed last so
+    # every earlier construction keeps its meaning.
+    structure_owned_motion: bool = field(default=False, compare=False, repr=False)
+    material_masses: Mapping[int, int] = field(default_factory=dict, compare=False, repr=False)
+    structures: tuple[StructureState, ...] = ()
 
     def __post_init__(self) -> None:
         particles, heat, bonds = tuple(sorted(self.particles)), tuple(sorted(self.heat)), tuple(sorted(self.bonds))
@@ -260,8 +333,30 @@ class CausalWorldState:
                     # Momentum belongs to the connected component, not to a
                     # member picked by number.
                     raise ValueError("a chain carries its motion on its lowest-numbered member")
+        structures = tuple(sorted(self.structures, key=lambda item: item.order_key))
+        if structures and not self.structure_owned_motion:
+            raise ValueError("structures own motion only under structure-owned motion (causal v4)")
+        if self.structure_owned_motion:
+            # Every component of the port bonds is exactly one structure and
+            # nothing else is: no member claimed twice, none missing, no
+            # structure its bonds do not hold together.
+            declared = [item.members for item in structures]
+            if sum(len(members) for members in declared) != len(frozenset().union(*declared)):
+                raise ValueError("a particle belongs to at most one structure")
+            if set(declared) != set(chains(port_bonds).values()):
+                raise ValueError("structures must be exactly the connected components of the port bonds")
+            for structure in structures:
+                if any(by_id[item].kinetic_energy for item in structure.members):
+                    raise ValueError("a structure's members hold no motion of their own; the structure does")
+                mass = sum(self.material_masses[by_id[item].kind] for item in structure.members)
+                # Consistency (Q2). Exact for cardinal motion, the only kind
+                # reachable today; diagonal momentum makes this a formula to
+                # redesign, not a law (STRUCTURE_STATE_V1 3.2).
+                if abs(structure.momentum[0]) + abs(structure.momentum[1]) != structure.motion_energy * mass:
+                    raise ValueError("a structure's momentum and motion energy disagree")
         object.__setattr__(self, "particles", particles); object.__setattr__(self, "heat", heat); object.__setattr__(self, "bonds", bonds)
         object.__setattr__(self, "port_bonds", port_bonds)
+        object.__setattr__(self, "structures", structures)
 
     @property
     def digest(self) -> str:
@@ -276,13 +371,16 @@ class CausalWorldState:
         }
         if self.port_bonds:
             result["port_bonds"] = [item.canonical() for item in self.port_bonds]
+        if self.structures:
+            result["structures"] = [item.canonical() for item in self.structures]
         return result
 
     def total_energy(self) -> int:
         return (sum(item.kinetic_energy for item in self.particles)
                 + sum(item.energy for item in self.heat)
                 + sum(item.stored_energy for item in self.bonds)
-                + sum(item.stored_energy for item in self.port_bonds))
+                + sum(item.stored_energy for item in self.port_bonds)
+                + sum(item.motion_energy for item in self.structures))
 
     def material_counts(self) -> dict[int, int]:
         result: dict[int, int] = {}
@@ -306,6 +404,9 @@ class CausalWorldState:
             dx, dy = VELOCITY[item.direction]
             x += masses[item.kind] * item.kinetic_energy * dx
             y += masses[item.kind] * item.kinetic_energy * dy
+        for structure in self.structures:       # its members carry 0 themselves
+            x += structure.momentum[0]
+            y += structure.momentum[1]
         if not self.chains_may_move:
             return x, y
 
@@ -401,10 +502,34 @@ def initial_causal_state(spec: CausalWorldSpec) -> CausalWorldState:
     # them the state cannot tell a legal bond from an illegal one, so v3 worlds
     # have to start with them rather than acquire them later.
     named = {item.kind: item.port_names for item in spec.materials if item.port_names}
+    structure_owned_motion = spec.format == FORMAT_V4      # STRUCTURE_STATE_V1, v4 Stage B
     return CausalWorldState(0, spec.particles, spec.heat, (), port_limits(spec),
                             spec.format == FORMAT_V2,
                             (spec.kernel.width, spec.kernel.height) if named else None,
-                            named)
+                            named, (), structure_owned_motion,
+                            {item.kind: item.mass for item in spec.materials} if structure_owned_motion else {})
+
+
+def unresolved_motions(state: CausalWorldState) -> tuple[UnresolvedMotion, ...]:
+    """Structures the declared physics cannot move this tick (diagonal momentum)."""
+    return tuple(UnresolvedMotion(item.order_key, item.momentum) for item in state.structures
+                 if item.momentum[0] and item.momentum[1])
+
+
+def structure_contacts(state: CausalWorldState) -> tuple[tuple[tuple[int, ...], int], ...]:
+    """(structure, free particle) pairs sharing a cell -- an interaction v4
+    Stage B does not define (structure-particle contact is contact-graph work,
+    MINIMAL_LOCAL_GEOMETRY_V1 step 5). The kernel leaves both untouched; this
+    makes that visible and countable instead of silent."""
+    owned = {member: item.order_key for item in state.structures for member in item.members}
+    bonded = {value for bond in state.bonds for value in (bond.left_id, bond.right_id)}
+    cells: dict[tuple[int, int], set[tuple[int, ...]]] = defaultdict(set)
+    for item in state.particles:
+        if item.particle_id in owned:
+            cells[(item.x, item.y)].add(owned[item.particle_id])
+    return tuple(sorted((key, item.particle_id) for item in state.particles
+                        if item.particle_id not in owned and item.particle_id not in bonded
+                        for key in cells.get((item.x, item.y), ())))
 
 
 def _heat_map(state: CausalWorldState) -> dict[tuple[int, int], int]:
@@ -480,6 +605,20 @@ def _stream_free(spec: CausalWorldSpec, state: CausalWorldState) -> CausalWorldS
             dx, dy = VELOCITY[item.direction]
         particles.append(replace(item, x=(item.x + dx) % spec.kernel.width,
                                  y=(item.y + dy) % spec.kernel.height))
+
+    if state.structure_owned_motion and state.structures:
+        # A structure steps as one body in the direction of its own momentum
+        # (v4 Stage B). Every member shifts by the same step, so the relative
+        # geometry -- and with it every port bond's adjacency -- is kept.
+        # Diagonal momentum has no declared step: it stays (UnresolvedMotion).
+        shift = {}
+        for structure in state.structures:
+            step = _structure_step(structure)
+            if step is not None:
+                shift.update({member: step for member in structure.members})
+        particles = [replace(item, x=(item.x + shift[item.particle_id][0]) % spec.kernel.width,
+                             y=(item.y + shift[item.particle_id][1]) % spec.kernel.height)
+                     if item.particle_id in shift else item for item in particles]
 
     moved = tuple(particles)
     # Bonds record where their particles are, so a chain that stepped carries
@@ -600,6 +739,9 @@ def _resolve_collisions(spec: CausalWorldSpec, state: CausalWorldState) -> Causa
     # tests/test_legacy_causal_semantics.py).
     corrected_collision_semantics = spec.format == FORMAT_V4
     bonded = {value for bond in state.bonds for value in (bond.left_id, bond.right_id)}
+    # v4 Stage B: a structure's members are not free bodies; how a structure
+    # meets a free particle is not defined yet (`structure_contacts`).
+    bonded |= {member for item in state.structures for member in item.members}
     groups: dict[tuple[int, int], list[CausalParticleSpec]] = defaultdict(list)
     for item in state.particles:
         if item.particle_id not in bonded: groups[(item.x, item.y)].append(item)

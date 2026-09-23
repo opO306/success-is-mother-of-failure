@@ -105,37 +105,23 @@ def test_defect_kernel_is_not_relabelling_invariant():
     assert attaches_to(4, 7, 9) != attaches_to(7, 4, 9)
 
 
-def test_defect_chain_motion_is_stored_on_the_lowest_numbered_member():
-    """DEFECT: an id decides where a chain's motion is kept.
-
-    measured:     2026-09-22
-    principle:    3 -- no arbitrary collision ordering
-    cause:        `CausalWorldState.__post_init__` enforces
-                  "a chain carries its motion on its lowest-numbered member".
-    replace_with: test_chain_motion_belongs_to_the_structure -- momentum and
-                  mass live on the connected component, not on a member
-                  chosen by name.
-
-    A chain's momentum is a property of the structure. Here it is parked on
-    one member picked by number, so a pure renaming can make a previously
-    valid state raise. That the invariant is enforced consistently does not
-    make it physical -- it makes the name load-bearing.
-    """
-    particles = (
-        CausalParticleSpec(5, 0, 10, 10, "E", "E", 1),   # holds the motion
-        CausalParticleSpec(9, 0, 10, 10, "W", "W", 0),
-    )
-    bonds = (PhysicalBond(5, 9, "ew", 4, 10, 10),)
-    CausalWorldState(0, particles, (), bonds, {0: 4}, True)   # lowest id holds it: accepted
-
-    # Same structure, same motion, same everything physical -- the motion is
-    # simply held by the other member. Rejected purely on the numbering.
-    swapped = (
-        CausalParticleSpec(5, 0, 10, 10, "E", "E", 0),
-        CausalParticleSpec(9, 0, 10, 10, "W", "W", 1),   # higher id holds it
-    )
-    with pytest.raises(ValueError, match="lowest-numbered member"):
-        CausalWorldState(0, swapped, (), bonds, {0: 4}, True)
+# test_defect_chain_motion_is_stored_on_the_lowest_numbered_member was here.
+#
+# FIXED on the v4 code path (2026-09-24, causal v4 Stage B --
+# docs/current/STRUCTURE_STATE_V1.md): a v4 structure owns its motion as a
+# `StructureState`; no member holds it. v2 keeps the old invariant on purpose
+# (frozen legacy semantics). See:
+#   tests/test_legacy_causal_semantics.py::
+#     test_v2_chain_motion_stays_on_the_lowest_numbered_member  (v2)
+#   tests/test_v4_structure_state.py::
+#     test_chain_motion_belongs_to_the_structure                (v4, new)
+#     test_relabelling_preserves_physical_outcome               (v4, new)
+#
+# The two tests below remain real defects: they live in `_grow_chains`, the
+# v2 growth path, and v4 has NO growth path yet (a v4 structure cannot form
+# or grow inside a run until the contact graph exists --
+# MINIMAL_LOCAL_GEOMETRY_V1.md step 5). When v4 growth is built without them,
+# they move to the legacy file the same way.
 
 
 def test_defect_a_chain_takes_at_most_one_arrival_per_tick():

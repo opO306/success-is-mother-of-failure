@@ -357,7 +357,7 @@ ConnectedComponentState
 | 테스트 | 결함 |
 |---|---|
 | `test_defect_kernel_is_not_relabelling_invariant` | 재명명이 결합 상대를 바꾼다 |
-| `test_defect_chain_motion_is_stored_on_the_lowest_numbered_member` | ID가 운동량 저장 위치를 정한다 |
+| ~~`test_defect_chain_motion_is_stored_on_the_lowest_numbered_member`~~ | ID가 운동량 저장 위치를 정한다 — **v4에서 해결 (2026-09-24, Stage B)**, v2는 레거시 파일로 이동 |
 | `test_defect_a_chain_takes_at_most_one_arrival_per_tick` | 선언되지 않은 1 tick 1 결합 천장 |
 
 커널 코드에도 같은 지점에 `KNOWN DEFECT` / `DEFECT` 주석을 달았다.
