@@ -19,7 +19,7 @@ from dataclasses import dataclass
 from typing import Mapping
 
 from .blind_probe import BlindProbeCheckpoint, BlindProbeDescriptor, BlindProbeProgram, BlindProbeRun
-from .causal_executor import ExecutionResult
+from .execution import ExecutionResult
 from .probe_world import ACTIONS, DIRECTIONS, MalformedProbeAction, ProbeWorldSpec, run_probe_world
 from .research_world import ResearchWorldSpec, WorldCompatibilityError
 

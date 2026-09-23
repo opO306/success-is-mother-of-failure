@@ -497,7 +497,8 @@ def test_one_tick_tie_is_visible_to_b_without_the_answer() -> None:
 
 FORBIDDEN_MODULES = {"blind_evaluator", "blind_synthetic_executor", "synthetic_runtime", "synthetic_executor",
                      "environment_kernel", "environment_spec", "probe_world", "blind_probe_evaluator",
-                     "synthetic_kernel", "ground_truth_signature"}
+                     "synthetic_kernel", "ground_truth_signature",
+                     "causal_kernel", "kernel", "physical_research_adapter"}
 B_ENTRYPOINTS = ("blind_hypothesis", "blind_hypothesis_generator", "blind_prediction_materializer",
                  "experiment_designer", "blind_execution")
 

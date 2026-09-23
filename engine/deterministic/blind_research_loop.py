@@ -132,7 +132,7 @@ from .blind_prediction_materializer import (
 )
 from .blind_protocol import EVENT_OBSERVATION_ONLY_DECLARED, FinalDiscoverySeal, seal_final_discovery
 from .blind_session import BlindControlDescriptor, BlindObservableDescriptor, BlindWorldDescriptor
-from .causal_executor import AExecutor
+from .execution import AExecutor
 from .causal_experiment import PredictionSeal
 from .blind_hypothesis import predict_target
 from .causal_hypothesis import CausalHypothesis, CausalHypothesisSet
@@ -140,7 +140,7 @@ from .experiment_designer import DiscriminatingCandidate, rank_discriminating_ca
 from .evidence import EvidenceReference
 from .research_journal import ResearchJournal
 from .research_observable_prediction import ObservablePrediction
-from .research_loop import execute_through_a, seal_predictions
+from .sealed_execution import execute_through_a, seal_predictions
 
 FORMAT = "blind-research-loop-v3"
 

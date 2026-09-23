@@ -362,7 +362,8 @@ def test_loop_transitive_closure_never_reaches_evaluator_or_answer_modules() -> 
     closure = _closure("blind_research_loop")
     assert not closure & FORBIDDEN_MODULES, sorted(closure & FORBIDDEN_MODULES)
     assert "ground_truth" not in closure and "*" not in closure
-    assert "research_loop" in closure  # the walker really followed the reused seal/execute helpers
+    assert "sealed_execution" in closure  # the walker really followed the reused seal/execute helpers
+    assert "research_loop" not in closure  # G11 follow-up: the physical loop (and its particle adapter) is out
 
 
 

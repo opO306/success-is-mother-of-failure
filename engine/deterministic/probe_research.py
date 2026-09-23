@@ -48,13 +48,13 @@ from dataclasses import dataclass
 
 from .blind_probe import BlindProbeDescriptor, BlindProbeProgram, BlindProbeRun
 from .blind_protocol import EVENT_OBSERVATION_ONLY_DECLARED, seal_final_discovery
-from .causal_executor import AExecutor
+from .execution import AExecutor
 from .causal_experiment import PredictionSeal
 from .probe_grammar import EffectClaim, Geometry, SealedClaim, Transition, claim_fits
 from .probe_induction import atoms_for, propose, refine, subjects_for
 from .probe_planning import design_severe_test, reachable
 from .research_journal import ResearchJournal
-from .research_loop import execute_through_a, seal_predictions
+from .sealed_execution import execute_through_a, seal_predictions
 
 FORMAT = "probe-research-v1"
 DEFAULT_ROUND = 24

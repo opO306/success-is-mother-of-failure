@@ -14,7 +14,7 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Mapping
 
-from .causal_executor import AExecutor, ExecutionResult
+from .execution import AExecutor, ExecutionResult
 from .causal_experiment import CausalExperimentPortfolio, PredictionSeal
 from .causal_hypothesis import CausalHypothesisSet
 from .causal_spec import CausalWorldSpec
@@ -38,6 +38,9 @@ from .research_state import (
     ResearchState,
 )
 from .research_world import ResearchWorldSpec
+# seal_predictions / execute_through_a live in `sealed_execution.py` (no
+# physical-world imports) and are re-exported so existing imports keep working.
+from .sealed_execution import execute_through_a, seal_predictions  # noqa: F401
 
 _PHYSICAL_ADAPTER = PhysicalCausalResearchAdapter()
 
@@ -80,28 +83,6 @@ def design_experiments(journal: ResearchJournal, portfolio: CausalExperimentPort
     """Journal a caller-supplied portfolio of arms spanning several physical dimensions."""
     journal.append("portfolio_designed", portfolio.portfolio_id, portfolio.canonical())
     return portfolio
-
-
-def seal_predictions(journal: ResearchJournal, seal: PredictionSeal) -> PredictionSeal:
-    """Journal predictions before execution. `seal.sealed_at_seq` must match this append's sequence.
-
-    Enforcing that match here is what makes the seal-before-execution ordering
-    a checkable fact rather than a convention callers might violate.
-    """
-    if seal.sealed_at_seq != journal.next_sequence:
-        raise ValueError(
-            f"seal claims sequence {seal.sealed_at_seq} but the journal's next "
-            f"sequence is {journal.next_sequence}; seal immediately before appending")
-    journal.append("prediction_sealed", seal.seal_id, seal.canonical())
-    return seal
-
-
-def execute_through_a(journal: ResearchJournal, executor: AExecutor,
-                      arm_id: str, submitted_spec: ResearchWorldSpec) -> ExecutionResult:
-    """Run `submitted_spec` through `executor` and journal the outcome, success or failure."""
-    result = executor.execute(submitted_spec)
-    journal.append("execution_completed", arm_id, result.canonical())
-    return result
 
 
 def _predicted_value(prediction: object) -> object:
