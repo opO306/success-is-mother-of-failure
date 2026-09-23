@@ -72,14 +72,24 @@ def find_language_gaps(scores: Iterable[Mapping[str, Any]], key: Mapping[str, An
 
 
 def store_language_gap_report(root: Path, key: Mapping[str, Any], key_digest: str,
-                              provenance: Mapping[str, Any]) -> tuple[StoreRecord, list[dict[str, Any]]]:
-    """Recompute gaps over every stored score for `key_digest` and record them."""
+                              provenance: Mapping[str, Any], *, b_semantics: str
+                              ) -> tuple[StoreRecord, list[dict[str, Any]]]:
+    """Recompute gaps over the stored scores for `key_digest` whose runs were
+    produced under exactly `b_semantics`, and record them.
+
+    `b_semantics` is required: the first version of this function read every
+    score under the key, and on the real store that mixed runs from before
+    and after B started recording its own diagnosis -- the same record then
+    appeared twice (diagnosis None vs "vocabulary_exhausted") as two gaps.
+    Scores stored before the `b_semantics` tag existed are never included."""
     store = EvaluatorStore(root)
     scores = [store.get(r.payload) for r in store.records(GROUND_TRUTH, "blind_run_score", semantics=SCORE_SEMANTICS)
-              if r.tags.get("key_digest") == key_digest]
+              if r.tags.get("key_digest") == key_digest and r.tags.get("b_semantics") == b_semantics]
     gaps = find_language_gaps(scores, key)
-    ref = store.put(GROUND_TRUTH, {"gaps": gaps, "key_digest": key_digest, "scores_considered": len(scores)})
+    ref = store.put(GROUND_TRUTH, {"b_semantics": b_semantics, "gaps": gaps, "key_digest": key_digest,
+                                   "scores_considered": len(scores)})
     record = store.record(GROUND_TRUTH, "language_gap_report", SCHEMA_VERSION,
                           {**provenance, "semantics": SCORE_SEMANTICS},
-                          {"key_digest": key_digest, "gap_count": str(len(gaps))}, ref)
+                          {"key_digest": key_digest, "b_semantics": b_semantics, "gap_count": str(len(gaps)),
+                           "scores_considered": str(len(scores))}, ref)
     return record, gaps

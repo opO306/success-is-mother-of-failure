@@ -233,7 +233,10 @@ def store_score(root: Path, key: Mapping[str, Any], scenario_id: str, b_record: 
     score = {**score, "key_digest": key_digest(key), "b_visible_record_digest": b_record.record_digest,
              "evaluator_record_digest": e_record.record_digest}
     ref = store.put(GROUND_TRUTH, score)
-    tags = {"scenario_id": scenario_id, "key_digest": key_digest(key),
+    # Which B semantics produced the scored run: a score inherits the meaning
+    # of the run it grades, and anything aggregating scores (language gaps,
+    # totals) must not mix runs produced under different B rules.
+    tags = {"scenario_id": scenario_id, "key_digest": key_digest(key), "b_semantics": b_record.semantics,
             "verdicts": ",".join(q["verdict"] for q in score["questions"])}
     record = store.record(GROUND_TRUTH, "blind_run_score", SCHEMA_VERSION,
                           {**provenance, "semantics": SCORE_SEMANTICS}, tags, ref,

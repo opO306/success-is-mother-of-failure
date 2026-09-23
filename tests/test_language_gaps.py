@@ -223,8 +223,52 @@ def test_gap_report_is_stored_on_the_evaluator_side_only(tmp_path) -> None:
         b_record, e_record = store_blind_research_run(root, real_spec=spec, seed=0, manifest=manifest,
                                                       outcome=outcome, journal_path=path, provenance=PROV)
         store_score(root, KEY, sid, b_record, e_record, PROV)
-    record, gaps = store_language_gap_report(root, KEY, key_digest(KEY), PROV)
+    record, gaps = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics=PROV["semantics"])
     assert record.tier == GROUND_TRUTH and record.tags["gap_count"] == "1" and len(gaps) == 1
     verify_store(root)
     b_text = "".join(p.read_text(encoding="utf-8") for p in (root / B_VISIBLE).rglob("*") if p.is_file())
     assert "language_gap" not in b_text
+
+
+def test_gap_report_never_mixes_runs_from_different_b_semantics(tmp_path) -> None:
+    """Regression: on the real store the first gap report mixed scores of runs
+    made before and after B recorded its own diagnosis, and reported the one
+    real gap twice. Scores of an older B semantics must be left out."""
+    from research_store.ingest_blind import store_blind_research_run
+    from research_store.score_blind import store_score
+    root = tmp_path / "store"
+    for semantics in ("blind-research/older-rules", PROV["semantics"]):
+        prov = {**PROV, "semantics": semantics}
+        for sid in ("S02-x2-starts-true", "S03-hidden-t2"):
+            spec = spec_from_key(KEY[sid])
+            world, manifest = make_blind_session(spec, 0)
+            path = tmp_path / f"{semantics.replace('/', '_')}-{sid}.jsonl"
+            journal = ResearchJournal.create(path)
+            outcome = run_blind_research(world, control_descriptors(spec, 0), observable_descriptors(spec, 0),
+                                         SyntheticBlindAExecutor(spec, manifest), journal)
+            journal.close()
+            if semantics != PROV["semantics"]:
+                # an older B that recorded no diagnosis
+                import research_store.ingest_blind as ingest
+                from research_store.b_visible import StringPolicy
+                old_policy = ingest.POLICY
+                ingest.POLICY = StringPolicy(semantics=frozenset({semantics}))
+                try:
+                    b_record, e_record = store_blind_research_run(root, real_spec=spec, seed=0, manifest=manifest,
+                                                                  outcome=outcome, journal_path=path,
+                                                                  provenance=prov)
+                finally:
+                    ingest.POLICY = old_policy
+            else:
+                b_record, e_record = store_blind_research_run(root, real_spec=spec, seed=0, manifest=manifest,
+                                                              outcome=outcome, journal_path=path, provenance=prov)
+            store_score(root, KEY, sid, b_record, e_record, PROV)
+    record, gaps = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics=PROV["semantics"])
+    assert len(gaps) == 1 and record.tags["scores_considered"] == "2"
+    older, _ = store_language_gap_report(root, KEY, key_digest(KEY), PROV, b_semantics="blind-research/older-rules")
+    assert older.tags["scores_considered"] == "2"
+
+
+def test_gap_report_requires_a_named_b_semantics(tmp_path) -> None:
+    with pytest.raises(TypeError):
+        store_language_gap_report(tmp_path, KEY, key_digest(KEY), PROV)

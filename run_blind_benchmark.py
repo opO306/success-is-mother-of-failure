@@ -117,7 +117,8 @@ def main() -> int:
                 print(f"  {group:15s} {verdict:22s} {totals[verdict]:3d}")
     gate = "PASS" if totals[CONFIDENT_WRONG] == 0 else "FAIL"
     print(f"hard gate CONFIDENT_WRONG == 0: {gate}")
-    _gap_record, gaps = store_language_gap_report(root, key, key_digest(key), prov)
+    _gap_record, gaps = store_language_gap_report(root, key, key_digest(key), prov,
+                                                  b_semantics=BLIND_RESEARCH_SEMANTICS)
     print(f"language gaps (same B record, different real structure): {len(gaps)}")
     for gap in gaps:
         record = gap["b_record"]
