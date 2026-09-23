@@ -43,7 +43,8 @@
 |---|---|---|
 | b_visible | `blind_research_run` | B의 journal 전체(가설 집합, **실험 선택 이유**(단계·horizon·예상 분리 쌍 수), 봉인된 예측, **실제 관측 궤적**, 비교, 탈락, 최종 봉인), 결과, G7.2 감사 결과 |
 | evaluator | `blind_run_binding` | 실제 세계·revision·seed·spec, 별칭↔실제 대응표, b_visible 레코드 참조 |
-| ground_truth | (G7.4부터) | 정답 대비 채점 |
+| ground_truth | `benchmark_answer_key` | 봉인된 기준표 전체(key digest당 1번) |
+| ground_truth | `blind_run_score` | 질문별 판정 7종 + 별도 축(구조 일치·관측 일치·한계 3종·과대주장·덜 좁힘·검증 완료), 기준표·evaluator·b_visible 참조 |
 
 ## 한계 (정직하게)
 

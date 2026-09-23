@@ -1,5 +1,9 @@
-"""Run the G7.3c blind research loop on the benchmark worlds and store every
-run in the research store (default: D: vault).
+"""Run the G7.3c blind research loop on every benchmark scenario, store each
+run in the research store (default: D: vault), and score it (G7.4) against
+the sealed answer key in `ground_truth/benchmark/`.
+
+Scenarios are built *from* the answer-key files, so the world B runs on and
+the world the key describes cannot drift apart.
 
     python run_blind_benchmark.py                 # store to the D: vault
     python run_blind_benchmark.py --root PATH     # store somewhere else
@@ -23,12 +27,13 @@ from engine.deterministic.blind_synthetic_executor import SyntheticBlindAExecuto
 from engine.deterministic.research_journal import ResearchJournal
 from engine.deterministic.synthetic_spec import SyntheticWorldSpec
 from research_store.evaluator import verify_store
+from ground_truth.benchmark_key import key_digest, load_answer_key
 from research_store.ingest_blind import store_blind_research_run
 from research_store.provenance import BLIND_RESEARCH_SEMANTICS, provenance
+from research_store.score_blind import CONFIDENT_WRONG, GROUP_OF, VERDICTS, store_score
 
 REPO = Path(__file__).resolve().parent
 DEFAULT_ROOT = Path(r"D:\KiroCrewTraceVault\success-is-mother-of-failure\research_store")
-V = ("x1", "x2", "x3")
 
 README = """research_store -- 성공은 실패의 어머니 연구 데이터 저장소
 
@@ -47,21 +52,16 @@ b_visible 쓰기: 금지 목록 + 허용 목록 이중 검사.
 """
 
 
-def _spec(world_id, revision, variables, controls, ticks, initial=None) -> SyntheticWorldSpec:
-    initial = initial or {}
-    return SyntheticWorldSpec(world_id=world_id, world_revision=revision, variables=variables,
-                              initial_values=tuple((v, initial.get(v, False)) for v in variables), clamps=(),
-                              public_controls=controls, public_observables=variables, ticks=ticks)
+def spec_from_key(scenario: dict) -> SyntheticWorldSpec:
+    world = scenario["world"]
+    return SyntheticWorldSpec(
+        world_id=world["world_id"], world_revision=world["world_revision"],
+        variables=tuple(world["variables"]),
+        initial_values=tuple((v, world["initial_values"][v]) for v in world["variables"]), clamps=(),
+        public_controls=tuple(world["public_controls"]), public_observables=tuple(world["public_observables"]),
+        ticks=world["ticks"])
 
 
-BENCHMARK = {
-    "S01": _spec("WORLD-S01", "R-7F93C2", ("x1", "x3"), ("x1",), 1),
-    "S02-t1": _spec("WORLD-S02", "R-A18D40", V, ("x1", "x2"), 1),
-    "S02-t2": _spec("WORLD-S02", "R-A18D40", V, ("x1", "x2"), 2),
-    "S03-t1": _spec("WORLD-S03", "R-51E8B7", V, ("x1", "x2"), 1),
-    "S03-t2": _spec("WORLD-S03", "R-51E8B7", V, ("x1", "x2"), 2),
-    "S02-x2-starts-true": _spec("WORLD-S02", "R-A18D40", V, ("x1", "x2"), 1, {"x2": True}),
-}
 SEEDS = (0, 1, 2)
 
 
@@ -84,8 +84,12 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     (root / "README.txt").write_text(README, encoding="utf-8")  # documentation, not store data
 
+    key = load_answer_key()
+    print(f"answer key {key_digest(key)} ({len(key)} scenarios)")
+    totals = {verdict: 0 for verdict in VERDICTS}
     with tempfile.TemporaryDirectory() as scratch:
-        for name, spec in BENCHMARK.items():
+        for name, scenario in key.items():
+            spec = spec_from_key(scenario)
             for seed in SEEDS:
                 world, manifest = make_blind_session(spec, seed)
                 journal_path = Path(scratch) / f"{name}-{seed}.jsonl"
@@ -94,14 +98,24 @@ def main() -> int:
                                              observable_descriptors(spec, seed),
                                              SyntheticBlindAExecutor(spec, manifest), journal)
                 journal.close()
-                b_record, _ = store_blind_research_run(root, real_spec=spec, seed=seed, manifest=manifest,
-                                                       outcome=outcome, journal_path=journal_path, provenance=prov)
-                print(f"{name:20s} seed={seed} {outcome.termination:9s} "
-                      f"discovery={outcome.discovery_experiment_count:2d} "
-                      f"validation={outcome.validation_experiment_count:2d} "
-                      f"verdicts={b_record.tags['verdicts']} protocol_valid={b_record.tags['protocol_valid']}")
+                b_record, e_record = store_blind_research_run(root, real_spec=spec, seed=seed, manifest=manifest,
+                                                              outcome=outcome, journal_path=journal_path,
+                                                              provenance=prov)
+                _score_record, score = store_score(root, key, name, b_record, e_record, prov)
+                for verdict, count in score["counts"].items():
+                    totals[verdict] += count
+                graded = " ".join(f"{q['target']}={q['verdict']}" for q in score["questions"])
+                print(f"{name:20s} seed={seed} discovery={outcome.discovery_experiment_count:2d} "
+                      f"validation={outcome.validation_experiment_count:2d}  {graded}")
+    print()
+    for group in ("SOLVED_SUCCESS", "HONEST_SUCCESS", "FAILURE", "UNSCORED"):
+        for verdict in VERDICTS:
+            if GROUP_OF[verdict] == group:
+                print(f"  {group:15s} {verdict:22s} {totals[verdict]:3d}")
+    gate = "PASS" if totals[CONFIDENT_WRONG] == 0 else "FAIL"
+    print(f"hard gate CONFIDENT_WRONG == 0: {gate}")
     print(verify_store(root))
-    return 0
+    return 0 if gate == "PASS" else 1
 
 
 if __name__ == "__main__":
