@@ -62,7 +62,8 @@ Run 객체 (TickRecord 목록 + 최종 digest)
 
 **causal v5 (A-MICRO, 연속 시간·정확한 분수·정사각형 몸):** `v5_number.py`(정확 분수 창구) → `v5_spec.py`(세계 명세 / 실행 요청) →
 `v5_state.py`(상태·불변식) → `v5_reference.py`(**기준 실행기** — 영구 유지, 모든 최적화의 비교 기준) → `v5_meter.py`(분모 측정).
-독립 감사 `audit/independent_v5/`. 설계 문서: `docs/current/A_MICRO_V5_*.md`, `A_EXECUTION_ARCHITECTURE_V1.md`.
+독립 감사 `audit/independent_v5/`. 측정 세계 `v5_benchmark_worlds.py` + `run_v5_benchmarks.py`(A 분모 스트레스 / B 멈춤 조사, 결과는 `runs/v5_benchmarks/`).
+설계 문서: `docs/current/A_MICRO_V5_*.md`, `A_EXECUTION_ARCHITECTURE_V1.md`.
 
 **causal 형식:** v1/v2/v3 = 동결 레거시(`tests/test_legacy_causal_semantics.py`가 보존 강제), v4 = experimental.
 v4만 수정된 충돌 의미(A-V4.A)와 구조가 소유하는 운동 `StructureState`(A-V4.B)를 가진다.
