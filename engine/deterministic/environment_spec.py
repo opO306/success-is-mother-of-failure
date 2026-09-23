@@ -101,6 +101,13 @@ class EnvironmentLawSpec:
     condensation_heat_at_most: int = 0
     max_water_phase_change: int = 0
     vaporization_energy: int = 0
+    # G10 (2026-09-24, RULES "laws at the most fundamental level"): solid
+    # matter occupies space -- water's surface in a cell sits on top of the
+    # ground *and* the solid matter there. A general property of matter, not a
+    # purpose: nothing here mentions dams or channels. Off by default, and
+    # absent from `canonical()` when off, so every existing world keeps its
+    # exact digest. Not implemented on the GPU path, which refuses it.
+    solids_occupy_space: bool = False
 
     def canonical(self, format_name: str = FORMAT_V1) -> dict[str, object]:
         result: dict[str, object] = {
@@ -120,6 +127,8 @@ class EnvironmentLawSpec:
                 "mineral_solute_kind": self.mineral_solute_kind,
                 "precipitate_heat_at_most": self.precipitate_heat_at_most,
             })
+        if self.solids_occupy_space:
+            result["solids_occupy_space"] = True
         if format_name in (FORMAT_V3, FORMAT_V4):
             result.update({
                 "condensation_heat_at_most": self.condensation_heat_at_most,

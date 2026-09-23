@@ -157,6 +157,8 @@ def _phase(spec: EnvironmentWorldSpec, state: EnvironmentState, phase: str) -> E
             heat_after[first] = heat_after.get(first, 0) - heat_move
             heat_after[second] = heat_after.get(second, 0) + heat_move
         surface_left, surface_right = left.elevation + left.water, right.elevation + right.water
+        if spec.law.solids_occupy_space:  # G10: solid matter occupies space too
+            surface_left, surface_right = surface_left + left.mineral, surface_right + right.mineral
         water_move = _field_transfer(spec, surface_left, surface_right,
                                      spec.law.max_water_transfer, "water_surface")
         if water_move > 0: water_move = min(water_move, left.water)

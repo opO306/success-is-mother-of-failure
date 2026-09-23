@@ -34,6 +34,8 @@ def cuda_available() -> bool:
 
 def _require_cuda(spec: EnvironmentWorldSpec) -> None:
     if spec.format != FORMAT_V4: raise ValueError("CUDA transport baseline supports environment v4 only")
+    if spec.law.solids_occupy_space:
+        raise ValueError("solids_occupy_space is not implemented on the CUDA path yet -- refusing rather than diverging")
     if spec.physical_scale is None: raise ValueError("environment v4 needs a physical scale")
     if not cuda_available(): raise RuntimeError("CUDA is not available")
 
