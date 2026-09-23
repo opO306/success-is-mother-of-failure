@@ -137,7 +137,7 @@ from .causal_experiment import PredictionSeal
 from .blind_hypothesis import predict_target
 from .causal_hypothesis import CausalHypothesis, CausalHypothesisSet
 from .experiment_designer import DiscriminatingCandidate, rank_discriminating_candidates, select_next_experiment
-from .hypotheses import EvidenceReference
+from .evidence import EvidenceReference
 from .research_journal import ResearchJournal
 from .research_observable_prediction import ObservablePrediction
 from .research_loop import execute_through_a, seal_predictions

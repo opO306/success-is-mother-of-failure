@@ -43,11 +43,15 @@ class BlindProbeDescriptor:
     directions: tuple[str, ...]
     channels: tuple[str, ...]
     format: str = FORMAT
+    # G11 (designer decision): the coordinate contract publishes that the grid
+    # wraps -- B's measuring tape, not a law to discover.
+    wraps: bool = True
 
     def canonical(self) -> dict[str, object]:
         return {"actions": [list(a) for a in sorted(self.actions)], "alias_world_id": self.alias_world_id,
                 "channels": sorted(self.channels), "directions": sorted(self.directions), "format": self.format,
-                "height": self.height, "max_program_length": self.max_program_length, "width": self.width}
+                "height": self.height, "max_program_length": self.max_program_length, "width": self.width,
+                "wraps": self.wraps}
 
 
 @dataclass(frozen=True)

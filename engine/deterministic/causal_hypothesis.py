@@ -17,7 +17,7 @@ import json
 from dataclasses import dataclass
 from typing import Union
 
-from .hypotheses import EvidenceReference, RationalWeight
+from .evidence import EvidenceReference, RationalWeight
 from .interventional_prediction import InterventionalPrediction
 from .research_observable_prediction import ObservablePrediction
 from .research_state import HYPOTHESIS_STATUSES

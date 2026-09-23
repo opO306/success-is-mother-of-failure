@@ -17,6 +17,9 @@ from .b_language import (
     ObservationContract,
 )
 from .environment_spec import EnvironmentWorldSpec
+# RationalWeight / EvidenceReference live in `evidence.py` (pure, no world
+# imports) and are re-exported here so every existing import keeps working.
+from .evidence import EvidenceReference, RationalWeight  # noqa: F401
 from .impact_scope import actual_rule_classes, enabled_rule_scope
 from .provenance import verify_trace
 from .trace_view_broker import ApprovedChangeView
@@ -25,44 +28,6 @@ from .trace_view_broker import ApprovedChangeView
 def _digest(value: object) -> str:
     raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
-
-@dataclass(frozen=True)
-class RationalWeight:
-    numerator: int
-    denominator: int
-    evidence_ids: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        if isinstance(self.numerator, bool) or not isinstance(self.numerator, int) or self.numerator < 0:
-            raise ValueError("weight numerator must be a nonnegative integer")
-        if isinstance(self.denominator, bool) or not isinstance(self.denominator, int) or self.denominator <= 0:
-            raise ValueError("weight denominator must be a positive integer")
-        if self.numerator > self.denominator: raise ValueError("weight cannot exceed one")
-        if not self.evidence_ids: raise ValueError("a numerical weight needs evidence provenance")
-
-    def canonical(self) -> dict[str, object]:
-        return {"denominator": self.denominator, "evidence_ids": list(self.evidence_ids),
-                "numerator": self.numerator}
-
-
-@dataclass(frozen=True)
-class EvidenceReference:
-    evidence_id: str
-    relation: str
-    source_digest: str
-    description: str
-
-    def __post_init__(self) -> None:
-        if self.relation not in ("supports", "refutes", "leaves_open"):
-            raise ValueError("unsupported evidence relation")
-        if not all(isinstance(value, str) and value for value in
-                   (self.evidence_id, self.source_digest, self.description)):
-            raise ValueError("evidence fields must be non-empty text")
-
-    def canonical(self) -> dict[str, str]:
-        return {"description": self.description, "evidence_id": self.evidence_id,
-                "relation": self.relation, "source_digest": self.source_digest}
 
 
 @dataclass(frozen=True)

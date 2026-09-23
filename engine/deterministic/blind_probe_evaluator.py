@@ -64,6 +64,7 @@ def make_probe_session(spec: ProbeWorldSpec, seed: int) -> tuple[BlindProbeDescr
         actions=tuple(sorted((manifest.action_symbol[a], takes) for a, takes in ACTIONS.items())),
         directions=tuple(sorted(manifest.direction_symbol.values())),
         channels=tuple(sorted(manifest.channel_symbol.values())),
+        wraps=kernel.boundary == "wrap",
     )
     return descriptor, manifest
 

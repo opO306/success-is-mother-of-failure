@@ -54,6 +54,10 @@ EVENT_TYPES = frozenset({
     "observation_only_declared", "hypothesis_noticed",
     # G9 events -- tools B composed from primitive presses (blind_tools.py).
     "tool_designed", "tool_reused", "tool_search_failed",
+    # G11 events -- effect claims about B's own probe (probe_research.py).
+    "probe_claim_proposed", "probe_claim_refined", "probe_claim_unexplained",
+    # G11d: B designs a severe test for one of its own conditional claims.
+    "probe_test_designed",
 })
 
 
