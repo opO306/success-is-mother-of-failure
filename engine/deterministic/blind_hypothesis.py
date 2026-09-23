@@ -230,7 +230,8 @@ def _check_horizon(horizon: object) -> int:
 
 
 def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
-                   baseline: bool = False, initial: Mapping[str, bool] | None = None
+                   baseline: bool = False, initial: Mapping[str, bool] | None = None,
+                   schedule: Mapping[int, Mapping[str, bool]] | None = None
                    ) -> tuple[Mapping[str, bool], ...]:
     """The state of `claim`'s variables at ticks 0..horizon, under `pinned`
     (alias variable id -> forced value), by B's own reading of its own claim
@@ -238,10 +239,19 @@ def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon:
 
     `initial` (grammar v2) is B's observed tick-0 value of each unforced
     variable it can see; `baseline` is only the assumption for variables it
-    cannot see."""
+    cannot see.
+
+    `schedule` (G9): tick -> {variable: forced value} for presses/releases
+    at single ticks, applied after the standing `pinned` values. This is an
+    experiment shape, not a grammar change: the claim's own rule is the same."""
     _check_horizon(horizon)
     initial = initial or {}
-    state = {v: pinned.get(v, initial.get(v, baseline)) for v in claim.variable_ids()}
+    schedule = schedule or {}
+
+    def pins(tick: int) -> Mapping[str, bool]:
+        return {**pinned, **schedule.get(tick, {})}
+
+    state = {v: pins(0).get(v, initial.get(v, baseline)) for v in claim.variable_ids()}
     trajectory = [dict(state)]
     target, causes = claim.target_variable_id, claim.cause_variable_ids
     for _ in range(horizon):
@@ -262,17 +272,19 @@ def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon:
             tick = len(trajectory)
             if tick >= claim.lag:
                 state[target] = trajectory[tick - claim.lag][causes[0]]
+        forced = pins(len(trajectory))
         for variable_id in state:
-            if variable_id in pinned:
-                state[variable_id] = pinned[variable_id]
+            if variable_id in forced:
+                state[variable_id] = forced[variable_id]
         trajectory.append(dict(state))
     return tuple(trajectory)
 
 
 def predict_target(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
-                   baseline: bool = False, initial: Mapping[str, bool] | None = None) -> bool:
+                   baseline: bool = False, initial: Mapping[str, bool] | None = None,
+                   schedule: Mapping[int, Mapping[str, bool]] | None = None) -> bool:
     """The target's value at exactly tick `horizon`, according to `claim` alone."""
-    return simulate_claim(claim, pinned, horizon, baseline, initial)[horizon][claim.target_variable_id]
+    return simulate_claim(claim, pinned, horizon, baseline, initial, schedule)[horizon][claim.target_variable_id]
 
 
 GRAMMAR_DIGEST = _digest(GRAMMAR)

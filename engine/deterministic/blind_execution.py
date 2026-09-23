@@ -74,10 +74,26 @@ class BlindCandidateSpec:
     control_values: tuple[tuple[str, object], ...]
     ticks: int
     format: str = FORMAT
+    # G9: (tick, alias control id, 1|0) -- press or release a control at one
+    # tick. Empty for every pre-G9 candidate, whose digest is unchanged.
+    schedule: tuple[tuple[int, str, int], ...] = ()
 
     def __post_init__(self) -> None:
         _text(self.world_id, "world_id")
         _text(self.candidate_id, "candidate_id")
+        keys = []
+        for entry in self.schedule:
+            if not isinstance(entry, tuple) or len(entry) != 3:
+                raise ValueError("schedule entries are (tick, control, value)")
+            tick, control, value = entry
+            if isinstance(tick, bool) or not isinstance(tick, int) or tick < 0 or tick > self.ticks:
+                raise ValueError("scheduled tick must fall within the run")
+            _text(control, "scheduled control")
+            if value not in (0, 1) or isinstance(value, bool):
+                raise ValueError("scheduled value must be 0 or 1")
+            keys.append((tick, control))
+        if len(set(keys)) != len(keys):
+            raise ValueError("schedule names each (tick, control) at most once")
         if not isinstance(self.control_values, tuple):
             raise ValueError("control_values must be a tuple")
         names = [name for name, _ in self.control_values]
@@ -93,13 +109,16 @@ class BlindCandidateSpec:
         return _digest(self.canonical())
 
     def canonical(self) -> dict[str, object]:
-        return {
+        result = {
             "candidate_id": self.candidate_id,
             "control_values": [[name, value] for name, value in sorted(self.control_values)],
             "format": self.format,
             "ticks": self.ticks,
             "world_id": self.world_id,
         }
+        if self.schedule:
+            result["schedule"] = [list(entry) for entry in sorted(self.schedule)]
+        return result
 
 
 @dataclass(frozen=True)

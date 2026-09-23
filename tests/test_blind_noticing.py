@@ -190,7 +190,9 @@ def test_noticing_needs_a_change_the_pattern_explains() -> None:
 # ---------------------------------------------------------------------------
 
 def test_noticed_idea_with_no_experiment_left_is_a_proposal_not_an_answer(tmp_path) -> None:
-    outcome, _entries, _path, _m, statements = _run(tmp_path, HIDDEN_T2())
+    """With tool-making switched off (G9 would compose a new experiment),
+    a noticed idea nothing tested stays a proposal."""
+    outcome, _entries, _path, _m, statements = _run(tmp_path, HIDDEN_T2(), max_tool_experiments=0)
     [question] = outcome.questions
     assert question.verdict == NO_SURVIVOR
     assert [statements[h] for h in question.proposed_hypothesis_ids] == ["x1 -> x3 after 2 ticks"]

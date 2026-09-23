@@ -94,6 +94,32 @@ class SyntheticClamp:
         return {"mode": self.mode, "variable_id": self.variable_id}
 
 
+@dataclass(frozen=True, order=True)
+class SyntheticScheduledClamp:
+    """G9: pin one public control to ON/OFF at exactly one tick.
+
+    A standing `SyntheticClamp` holds a control for the whole run; a
+    schedule lets an experimenter press and release it -- on at tick 0, off
+    from tick 1, say. The world's rule is untouched: only *when* a control is
+    held changes. At a tick the schedule names, it overrides any standing
+    clamp for that variable; at ticks it does not name, the variable follows
+    its standing clamp or, if none, the world.
+    """
+    tick: int
+    variable_id: str
+    mode: str
+
+    def __post_init__(self) -> None:
+        if isinstance(self.tick, bool) or not isinstance(self.tick, int) or self.tick < 0:
+            raise ValueError("scheduled tick must be a nonnegative integer")
+        _text(self.variable_id, "variable_id")
+        if self.mode not in ("ON", "OFF"):
+            raise ValueError("a scheduled clamp is ON or OFF")
+
+    def canonical(self) -> dict[str, object]:
+        return {"mode": self.mode, "tick": self.tick, "variable_id": self.variable_id}
+
+
 @dataclass(frozen=True)
 class SyntheticWorldSpec:
     """An A-compatible world: named boolean variables, an initial value for
@@ -119,6 +145,7 @@ class SyntheticWorldSpec:
     public_observables: tuple[str, ...]
     ticks: int
     format: str = FORMAT
+    schedule: tuple[SyntheticScheduledClamp, ...] = ()
 
     def __post_init__(self) -> None:
         _text(self.world_id, "world_id")
@@ -155,6 +182,14 @@ class SyntheticWorldSpec:
             raise ValueError("ticks must be a positive integer")
         if self.format != FORMAT:
             raise ValueError("unsupported synthetic world format")
+        keys = [(item.tick, item.variable_id) for item in self.schedule]
+        if len(set(keys)) != len(keys):
+            raise ValueError("a schedule names each (tick, variable) at most once")
+        for item in self.schedule:
+            if item.variable_id not in self.public_controls:
+                raise ValueError("only a public control may be scheduled")
+            if item.tick > self.ticks:
+                raise ValueError("a scheduled tick must fall within the run")
 
     @property
     def digest(self) -> str:
@@ -171,7 +206,7 @@ class SyntheticWorldSpec:
             "variables": sorted(self.variables),
             "world_id": self.world_id,
             "world_revision": self.world_revision,
-        }
+        } | ({"schedule": [s.canonical() for s in sorted(self.schedule)]} if self.schedule else {})
 
     def clamp_for(self, variable_id: str) -> str:
         for clamp in self.clamps:

@@ -52,6 +52,8 @@ EVENT_TYPES = frozenset({
     # G8 events -- observation-only arms (blind_protocol.py), and hypotheses B
     # proposed from its own observations after a surprise (blind_noticing.py).
     "observation_only_declared", "hypothesis_noticed",
+    # G9 events -- tools B composed from primitive presses (blind_tools.py).
+    "tool_designed", "tool_reused", "tool_search_failed",
 })
 
 

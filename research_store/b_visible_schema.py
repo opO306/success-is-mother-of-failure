@@ -43,7 +43,7 @@ _ALIAS = r"ALIAS-[0-9A-F]{8}"
 _ID_PATTERNS = tuple(re.compile(p) for p in (
     rf"^{_ALIAS}$",
     r"^BCAND-[0-9a-f]{16}$", r"^BPLAN-[0-9a-f]{16}$", r"^BH-[0-9a-f]{16}$",
-    r"^SEAL-BCAND-[0-9a-f]{16}$", r"^FDS-\d+$", r"^BOBS-[0-9a-f]{16}$",
+    r"^SEAL-(BCAND|BTOOL)-[0-9a-f]{16}$", r"^BTOOL-[0-9a-f]{16}$", r"^BTOOLDEF-[0-9a-f]{16}$", r"^FDS-\d+$", r"^BOBS-[0-9a-f]{16}$",
     r"^[0-9a-f]{64}$",            # sha256 digests
     r"^[0-9a-f]{40}$",            # git commit
     rf"^alias_world:{_ALIAS}$", r"^baseline:(true|false)$", r"^time:one_tick_per_edge$",
@@ -104,6 +104,10 @@ VOCABULARY = frozenset({
     "all_hypotheses_refuted", "hypothesis_noticed", "derived_from", "hypothesis", "trigger_arm",
     "proposed_hypothesis_ids", "proposal_untested", "blind-research-loop-v2", "lag",
     "OBSERVATION_ONLY_SCORED", "OBSERVATION_DECLARED_AFTER_EXECUTION",
+    # G9: tools composed from primitive presses
+    "tool_designed", "tool_reused", "tool_search_failed", "tool", "pattern", "control_id",
+    "risky_for_proposals", "severity_against_refuted", "tool_arm_ids", "tools_used", "tool_id", "reused",
+    "no_informative_press_pattern", "blind-tool-v1", "blind-research-loop-v3",
     # protocol audit violation codes (blind_protocol.VIOLATION_CODES)
     "EXECUTION_WITHOUT_PRIOR_SEAL", "SEAL_AFTER_EXECUTION", "DUPLICATE_ARM_EXECUTION",
     "FINAL_SEAL_MISSING", "FINAL_SEAL_NOT_TERMINAL", "FINAL_SEAL_SEQUENCE_MISMATCH",

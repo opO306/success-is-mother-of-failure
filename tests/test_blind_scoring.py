@@ -161,9 +161,9 @@ EXPECTED = {
     "S02-t1": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
     "S02-t2": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
     "S02-x2-starts-true": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
-    # B noticed the best answer ("x1 -> x3 after 2 ticks") but only after the
-    # plan's last experiment -- nothing left to test it with. See the test below.
-    "S03-hidden-t2": {"x3": MISSED_TRUTH},
+    # B notices "x1 -> x3 after 2 ticks" after the plan's last experiment,
+    # then composes its own press experiment to test it (G9). See below.
+    "S03-hidden-t2": {"x3": CORRECT_SOLVED},
     "S03-t1": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_INSEPARABLE},
     "S03-t2": {"x1": CORRECT_SOLVED, "x2": CORRECT_SOLVED, "x3": CORRECT_SOLVED},
 }
@@ -176,12 +176,21 @@ def test_every_scenario_scores_as_expected_and_nothing_is_confidently_wrong(tmp_
     assert score["counts"][CONFIDENT_WRONG] == 0
 
 
-def test_hidden_mediator_best_answer_noticed_but_untestable(tmp_path) -> None:
-    """Grammar v2 on S03-hidden: B is surprised by the plan's last experiment,
-    notices exactly the key's best answer, and has no experiment left to test
-    it. The verdict stays MISSED_TRUTH (a proposal is not an answer); the
-    axes say what happened; and it is never a structural match."""
+def test_hidden_mediator_solved_by_b_s_own_tool_but_never_a_structural_match(tmp_path) -> None:
     _root, _record, by_target, score = _run_and_score(tmp_path, "S03-hidden-t2")
+    x3 = by_target["x3"]
+    assert x3["verdict"] == CORRECT_SOLVED
+    assert x3["observational_match"] is True and x3["structural_match"] is False
+    assert x3["hidden_variable_present"]
+
+
+def test_hidden_mediator_best_answer_noticed_but_untestable(tmp_path) -> None:
+    """Grammar v2 on S03-hidden without tools (G8 behaviour): B is surprised
+    by the plan's last experiment, notices exactly the key's best answer,
+    and has no experiment left to test it. The verdict stays MISSED_TRUTH (a
+    proposal is not an answer); the axes say what happened; and it is never
+    a structural match."""
+    _root, _record, by_target, score = _run_and_score(tmp_path, "S03-hidden-t2", max_tool_experiments=0)
     x3 = by_target["x3"]
     assert x3["verdict"] == MISSED_TRUTH
     assert x3["b_diagnosis"] == "proposal_untested"

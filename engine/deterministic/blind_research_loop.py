@@ -102,6 +102,15 @@ G8 (grammar v2) adds three things, in this order within a run:
      makes a question SOLVED, and the question's diagnosis says so
      (`proposal_untested`).
 
+G9 adds a tool phase after validation. If a question still holds an
+untested noticed idea, or a tie, B composes a press/release experiment from
+the primitive "hold this control at 1/0 at tick t" (`blind_tools.py`),
+trying tools it already has before searching for a new one. Tool
+experiments are sealed, executed, compared and journaled exactly like
+planned ones; a search that finds nothing is journaled as
+`tool_search_failed`. Tools that were used are reported in the outcome
+(`tools_used`) so a later run can be handed them as its toolbox.
+
 B-facing: never imports `blind_evaluator`, `blind_synthetic_executor`,
 `synthetic_runtime`, or `ground_truth` (checked transitively by
 `tests/test_deterministic_blind_research_loop.py`).
@@ -116,6 +125,7 @@ from .blind_execution import BlindCandidateSpec, BlindRun
 from .blind_hypothesis_generator import BlindHypothesisGenerator, BlindQuestion
 from .blind_limitations import assess_limitation
 from .blind_noticing import notice_delayed_relations
+from .blind_tools import DEFAULT_MAX_TOOL_EXPERIMENTS, Tool, design_tool_experiment
 from .blind_prediction_materializer import (
     BlindExperimentPlan, BlindPredictionMaterializer, InterventionalPredictionProvider,
     check_prediction_at_horizon, observation_horizon,
@@ -124,13 +134,15 @@ from .blind_protocol import EVENT_OBSERVATION_ONLY_DECLARED, FinalDiscoverySeal,
 from .blind_session import BlindControlDescriptor, BlindObservableDescriptor, BlindWorldDescriptor
 from .causal_executor import AExecutor
 from .causal_experiment import PredictionSeal
+from .blind_hypothesis import predict_target
 from .causal_hypothesis import CausalHypothesis, CausalHypothesisSet
 from .experiment_designer import DiscriminatingCandidate, rank_discriminating_candidates, select_next_experiment
 from .hypotheses import EvidenceReference
 from .research_journal import ResearchJournal
+from .research_observable_prediction import ObservablePrediction
 from .research_loop import execute_through_a, seal_predictions
 
-FORMAT = "blind-research-loop-v2"
+FORMAT = "blind-research-loop-v3"
 
 SOLVED = "SOLVED"
 INSEPARABLE = "INSEPARABLE"
@@ -186,6 +198,8 @@ class BlindResearchOutcome:
     final_seal: FinalDiscoverySeal
     observation_arm_ids: tuple[str, ...] = ()
     initial_values: tuple[tuple[str, bool], ...] = ()
+    tool_arm_ids: tuple[str, ...] = ()
+    tools_used: tuple[dict, ...] = ()
     format: str = FORMAT
 
     @property
@@ -204,6 +218,7 @@ class BlindResearchOutcome:
                 "final_seal": self.final_seal.canonical(), "format": self.format,
                 "initial_values": [list(pair) for pair in self.initial_values],
                 "observation_arm_ids": list(self.observation_arm_ids),
+                "tool_arm_ids": list(self.tool_arm_ids), "tools_used": [dict(t) for t in self.tools_used],
                 "plan_size": self.plan_size, "questions": [q.canonical() for q in self.questions],
                 "termination": self.termination, "validated_fully": self.validated_fully}
 
@@ -289,6 +304,8 @@ def run_blind_research(
     materializer: BlindPredictionMaterializer = BlindPredictionMaterializer(),
     observe_first: bool = True,
     notice: bool = True,
+    toolbox: tuple[Tool, ...] = (),
+    max_tool_experiments: int = DEFAULT_MAX_TOOL_EXPERIMENTS,
 ) -> BlindResearchOutcome:
     """Run the loop to a stop and seal the final answer into `journal`.
 
@@ -369,8 +386,39 @@ def run_blind_research(
         sets[index] = CausalHypothesisSet(sets[index].subject_digest, sets[index].hypotheses + tuple(new_hypotheses))
         live[index] = live[index] | frozenset(h.hypothesis_id for h in new_hypotheses)
 
+    def seal_execute_compare(arm_id: str, spec: BlindCandidateSpec, sealed: dict[str, tuple[object, ...]],
+                             pinned_for_noticing: dict[str, bool]) -> bool:
+        """The protocol every executed experiment follows, planned or tool:
+        seal -> execute -> record observation -> compare -> reject -> react
+        to surprise. False if the harness failed."""
+        seal_predictions(journal, PredictionSeal(f"SEAL-{arm_id}", arm_id, journal.next_sequence, sealed))
+        result = execute_through_a(journal, executor, arm_id, spec)
+        if result.status != "success":
+            return False
+        # `execution_completed` holds only the run's digest; the observed
+        # values themselves must be journaled too, or nothing downstream
+        # (a data store, a later learned B) can recover what was actually
+        # seen. Alias-only by construction (`BlindRun`).
+        journal.append("observation_recorded", arm_id, {"run": result.run.canonical()})
+        observed.append((arm_id, pinned_for_noticing, result.run))
+        comparisons = {hid: all(check_prediction_at_horizon(spec, p, result.run) for p in predictions)
+                       for hid, predictions in sorted(sealed.items())}
+        compared = journal.append("result_compared", arm_id, {"held": comparisons})
+        for hid, held in comparisons.items():
+            evidence[hid].append(EvidenceReference(
+                arm_id, "supports" if held else "refutes", compared.record_digest,
+                "prediction_held" if held else "prediction_failed"))
+        for index, alive in enumerate(live):
+            rejected = sorted(hid for hid in alive if not comparisons[hid])
+            for hid in rejected:
+                journal.append("hypothesis_status_changed", hid, {"arm_id": arm_id, "status": _REJECTED})
+            live[index] = alive - frozenset(rejected)
+            if alive and not live[index]:
+                surprise_and_notice(index, arm_id)
+        return True
+
     def run_one(candidate_id: str, phase: str) -> bool:
-        """Log why, seal, execute, compare, reject, react to surprise. False if the harness failed."""
+        """Log why, then run one planned experiment. False if the harness failed."""
         candidate = candidate_by_id[candidate_id]
         spec = plan.compiled_specs[candidate_id]
         assert isinstance(spec, BlindCandidateSpec)
@@ -387,34 +435,9 @@ def run_blind_research(
             if alive:
                 sealed.update(InterventionalPredictionProvider(_restricted(hypothesis_set, alive))
                               .predictions_for(candidate, spec))
-        seal_predictions(journal, PredictionSeal(f"SEAL-{candidate_id}", candidate_id,
-                                                 journal.next_sequence, sealed))
-        result = execute_through_a(journal, executor, candidate_id, spec)
         executed.append(candidate_id)
-        if result.status != "success":
-            return False
-        # `execution_completed` holds only the run's digest; the observed
-        # values themselves must be journaled too, or nothing downstream
-        # (a data store, a later learned B) can recover what was actually
-        # seen. Alias-only by construction (`BlindRun`).
-        journal.append("observation_recorded", candidate_id, {"run": result.run.canonical()})
-        observed.append((candidate_id, {variable_of[cid]: bool(v) for cid, v in candidate.control_values},
-                         result.run))
-        comparisons = {hid: all(check_prediction_at_horizon(spec, p, result.run) for p in predictions)
-                       for hid, predictions in sorted(sealed.items())}
-        compared = journal.append("result_compared", candidate_id, {"held": comparisons})
-        for hid, held in comparisons.items():
-            evidence[hid].append(EvidenceReference(
-                candidate_id, "supports" if held else "refutes", compared.record_digest,
-                "prediction_held" if held else "prediction_failed"))
-        for index, alive in enumerate(live):
-            rejected = sorted(hid for hid in alive if not comparisons[hid])
-            for hid in rejected:
-                journal.append("hypothesis_status_changed", hid, {"arm_id": candidate_id, "status": _REJECTED})
-            live[index] = alive - frozenset(rejected)
-            if alive and not live[index]:
-                surprise_and_notice(index, candidate_id)
-        return True
+        return seal_execute_compare(candidate_id, spec, sealed,
+                                    {variable_of[cid]: bool(v) for cid, v in candidate.control_values})
 
     # Discovery: G6d picks whatever splits the most live pairs.
     while termination == COMPLETE:
@@ -446,13 +469,76 @@ def run_blind_research(
                 validated_fully = False
                 break
 
+    # Tools: when planned experiments are used up and a question still holds
+    # an untested idea or a tie, compose a press experiment (G9).
+    tool_arms: list[str] = []
+    tools_used: list[dict] = []
+    known_tools: list[Tool] = list(toolbox)
+    already_run: set[tuple[str, str]] = set()
+    for _attempt in range(max_tool_experiments if termination == COMPLETE else 0):
+        needing, experiment = [], None
+        for index, question in enumerate(questions):
+            proposals = sorted(h for h in live[index] if h in noticed and not evidence[h])
+            tested = sorted(h for h in live[index] if h not in proposals)
+            if not proposals and len(tested) < 2:
+                continue
+            needing.append(index)
+            claims = {claim.claim_id: claim for claim in question.claims}
+            # Rank each untested idea's rivals (claims already refuted here)
+            # by how many planned experiments they agreed with it on.
+            by_id = {h.hypothesis_id: h for h in sets[index].hypotheses}
+            refuted = sorted(set(claims) - live[index])
+            rivals = {}
+            for hid in proposals:
+                agreement = {r: sum(1 for a, b in zip(by_id[hid].predictions, by_id[r].predictions) if a == b)
+                             for r in refuted}
+                rivals[hid] = sorted(refuted, key=lambda r: (-agreement[r], r))
+            experiment = design_tool_experiment(index, question.target_variable_id, tested, proposals, claims,
+                                                world, controls, initial, materializer.baseline,
+                                                tuple(known_tools), frozenset(already_run), rivals)
+            if experiment is not None:
+                break
+        if not needing:
+            break
+        if experiment is None:
+            for index in needing:
+                journal.append("tool_search_failed", questions[index].target_observable_id,
+                               {"reason": "no_informative_press_pattern",
+                                "target_observable_id": questions[index].target_observable_id})
+            break
+        tool = experiment.tool
+        journal.append("tool_reused" if experiment.reused else "tool_designed", tool.tool_id, {
+            "arm_id": experiment.arm_id, "control_id": experiment.control_id,
+            "expected_split_pairs": experiment.expected_split_pairs,
+            "risky_for_proposals": experiment.risky_for_proposals,
+            "severity_against_refuted": experiment.severity_against_refuted,
+            "target_observable_id": questions[experiment.question_index].target_observable_id,
+            "tool": tool.canonical()})
+        claims_by_id = {claim.claim_id: claim for question in questions for claim in question.claims}
+        sealed = {}
+        for index, alive in enumerate(live):
+            for hid in sorted(alive):
+                value = predict_target(claims_by_id[hid], {}, tool.horizon, materializer.baseline, initial,
+                                       experiment.schedule)
+                sealed[hid] = (ObservablePrediction(tool.horizon, questions[index].target_observable_id, value),)
+        tool_arms.append(experiment.arm_id)
+        already_run.add((tool.tool_id, experiment.control_id))
+        if not seal_execute_compare(experiment.arm_id, experiment.spec, sealed, {}):
+            termination = HARNESS_FAILURE
+            break
+        if tool not in known_tools:
+            known_tools.append(tool)
+        tools_used.append({"arm_id": experiment.arm_id, "control_id": experiment.control_id,
+                           "reused": experiment.reused, "tool": tool.canonical(), "tool_id": tool.tool_id})
+
     return _finish(world, controls, tuple(questions), tuple(sets), tuple(live), plan, tuple(executed),
                    discovery_count, validated_fully, termination, journal, evidence, materializer.baseline,
-                   frozenset(noticed), tuple(observation_arms), initial)
+                   frozenset(noticed), tuple(observation_arms), initial, tuple(tool_arms), tuple(tools_used))
 
 
 def _finish(world, controls, questions, sets, live, plan, executed, discovery_count, validated_fully, termination,
-            journal, evidence, baseline, noticed, observation_arms, initial) -> BlindResearchOutcome:
+            journal, evidence, baseline, noticed, observation_arms, initial, tool_arms=(), tools_used=()
+            ) -> BlindResearchOutcome:
     outcomes: list[QuestionOutcome] = []
     final_hypotheses: list[CausalHypothesis] = []
     unresolved: list[str] = []
@@ -493,4 +579,4 @@ def _finish(world, controls, questions, sets, live, plan, executed, discovery_co
     seal = seal_final_discovery(journal, world.alias_world_id, final_set, tuple(unresolved))
     return BlindResearchOutcome(world.alias_world_id, termination, tuple(outcomes), executed, discovery_count,
                                 validated_fully, len(plan.candidates), final_set, seal, observation_arms,
-                                tuple(sorted((initial or {}).items())))
+                                tuple(sorted((initial or {}).items())), tool_arms, tools_used)

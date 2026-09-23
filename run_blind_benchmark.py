@@ -24,6 +24,8 @@ from pathlib import Path
 from engine.deterministic.blind_evaluator import control_descriptors, make_blind_session, observable_descriptors
 from engine.deterministic.blind_research_loop import run_blind_research
 from engine.deterministic.blind_synthetic_executor import SyntheticBlindAExecutor
+from engine.deterministic.blind_tools import Tool
+from research_store.b_visible import BVisibleReader
 from engine.deterministic.research_journal import ResearchJournal
 from engine.deterministic.synthetic_spec import SyntheticWorldSpec
 from research_store.evaluator import verify_store
@@ -88,6 +90,10 @@ def main() -> int:
     key = load_answer_key(KEY_DIRECTORY_V2)  # the key for grammar v2, the language B now speaks
     print(f"answer key {key_digest(key)} ({len(key)} scenarios)")
     totals = {verdict: 0 for verdict in VERDICTS}
+    # B's toolbox: tools it composed in earlier runs (b_visible memory only),
+    # growing as this invocation adds more.
+    toolbox = tuple(Tool.from_canonical(t) for t in BVisibleReader(root).toolbox(semantics=BLIND_RESEARCH_SEMANTICS))
+    print(f"toolbox at start: {len(toolbox)} tool(s)")
     with tempfile.TemporaryDirectory() as scratch:
         for name, scenario in key.items():
             spec = spec_from_key(scenario)
@@ -97,12 +103,13 @@ def main() -> int:
                 journal = ResearchJournal.create(journal_path)
                 outcome = run_blind_research(world, control_descriptors(spec, seed),
                                              observable_descriptors(spec, seed),
-                                             SyntheticBlindAExecutor(spec, manifest), journal)
+                                             SyntheticBlindAExecutor(spec, manifest), journal, toolbox=toolbox)
                 journal.close()
                 b_record, e_record = store_blind_research_run(root, real_spec=spec, seed=seed, manifest=manifest,
                                                               outcome=outcome, journal_path=journal_path,
                                                               provenance=prov)
                 _score_record, score = store_score(root, key, name, b_record, e_record, prov)
+                toolbox += tuple(Tool.from_canonical(u["tool"]) for u in outcome.tools_used if not u["reused"])
                 for verdict, count in score["counts"].items():
                     totals[verdict] += count
                 graded = " ".join(f"{q['target']}={q['verdict']}"
@@ -110,7 +117,9 @@ def main() -> int:
                                   + ("(found-but-untested)" if q.get("proposal_matches_best_answer") else "")
                                   for q in score["questions"])
                 print(f"{name:20s} seed={seed} discovery={outcome.discovery_experiment_count:2d} "
-                      f"validation={outcome.validation_experiment_count:2d}  {graded}")
+                      f"validation={outcome.validation_experiment_count:2d} "
+                      f"tools={[(u['tool']['pattern'], 'reused' if u['reused'] else 'new') for u in outcome.tools_used]}"
+                      f"  {graded}")
     print()
     for group in ("SOLVED_SUCCESS", "HONEST_SUCCESS", "FAILURE", "UNSCORED"):
         for verdict in VERDICTS:

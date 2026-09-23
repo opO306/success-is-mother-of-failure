@@ -88,6 +88,19 @@ class BVisibleReader:
     def verify(self) -> dict[str, int]:
         return verify_tier(self._store.root, B_VISIBLE)
 
+    def toolbox(self, *, semantics: str) -> list[dict]:
+        """Tools B composed in earlier runs of this semantics, oldest first,
+        each once (plain canonical dicts -- this module never imports the
+        engine). B's own memory: b_visible only, like everything it reads."""
+        seen, tools = set(), []
+        for record in self.records("blind_research_run", semantics=semantics):
+            for used in self.get(record.payload)["outcome"].get("tools_used", []):
+                key = repr(used["tool"])
+                if not used["reused"] and key not in seen:
+                    seen.add(key)
+                    tools.append(dict(used["tool"]))
+        return tools
+
 
 __all__ = ["BVisibleReader", "BVisibleWriter", "LeakageError", "SchemaViolation", "StringPolicy",
            "require_single_semantics"]

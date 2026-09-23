@@ -56,7 +56,7 @@ def RULE_S03(values: Mapping[str, bool]) -> Mapping[str, bool]:
     return {"x1": values["x1"], "x2": values["x1"], "x3": values["x2"]}
 
 
-def _apply_clamps(spec: SyntheticWorldSpec, values: Mapping[str, bool]) -> dict[str, bool]:
+def _apply_clamps(spec: SyntheticWorldSpec, values: Mapping[str, bool], tick: int = 0) -> dict[str, bool]:
     result = dict(values)
     for control in spec.public_controls:
         mode = spec.clamp_for(control)
@@ -64,6 +64,9 @@ def _apply_clamps(spec: SyntheticWorldSpec, values: Mapping[str, bool]) -> dict[
             result[control] = True
         elif mode == "OFF":
             result[control] = False
+    for item in spec.schedule:  # G9: a scheduled press/release overrides at its tick
+        if item.tick == tick:
+            result[item.variable_id] = item.mode == "ON"
     return result
 
 
@@ -94,10 +97,10 @@ def run_synthetic_world(spec: SyntheticWorldSpec, rule: SyntheticRule) -> Synthe
     docstring), the same way `PortBond`/heat interventions in the physical
     A0 world persist across ticks rather than being consumed once.
     """
-    values = _apply_clamps(spec, dict(spec.initial_values))
+    values = _apply_clamps(spec, dict(spec.initial_values), 0)
     checkpoints = [_public_checkpoint(spec, 0, values)]
     for tick in range(1, spec.ticks + 1):
-        values = _apply_clamps(spec, dict(rule(values)))
+        values = _apply_clamps(spec, dict(rule(values)), tick)
         checkpoints.append(_public_checkpoint(spec, tick, values))
 
     return SyntheticRun(spec.world_id, spec.digest, tuple(checkpoints))

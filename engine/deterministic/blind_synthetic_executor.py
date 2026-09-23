@@ -44,7 +44,7 @@ from .causal_executor import AExecutor, ExecutionResult
 from .research_world import ResearchWorldSpec, WorldCompatibilityError
 from .synthetic_adapter import SyntheticControlDefinition
 from .synthetic_executor import SyntheticAExecutor
-from .synthetic_spec import SyntheticClamp, SyntheticWorldSpec
+from .synthetic_spec import SyntheticClamp, SyntheticScheduledClamp, SyntheticWorldSpec
 
 _BLIND_EXECUTION_FAILURE_MESSAGE = "execution failed (details withheld -- blind boundary)"
 
@@ -77,7 +77,15 @@ def _resolve_real_spec(real_spec: SyntheticWorldSpec, manifest: BlindTranslation
     if candidate.ticks > real_spec.ticks:
         raise WorldCompatibilityError(
             f"candidate asks for {candidate.ticks} ticks, over this world's limit of {real_spec.ticks}")
-    return replace(real_spec, clamps=tuple(sorted(clamps)), ticks=candidate.ticks)
+    schedule = []
+    for tick, alias_control_id, value in candidate.schedule:  # G9: press/release at one tick
+        try:
+            real_variable = manifest.real_control[alias_control_id]
+        except KeyError:
+            raise WorldCompatibilityError(
+                f"candidate schedules alias control {alias_control_id!r}, which this manifest does not bind") from None
+        schedule.append(SyntheticScheduledClamp(tick, real_variable, "ON" if value == 1 else "OFF"))
+    return replace(real_spec, clamps=tuple(sorted(clamps)), ticks=candidate.ticks, schedule=tuple(sorted(schedule)))
 
 
 def _blind_run_from_real(real_result: ExecutionResult, manifest: BlindTranslationManifest,

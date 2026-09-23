@@ -22,7 +22,7 @@ from pathlib import Path
 
 # Bump whenever blind-research results stop being comparable with earlier
 # ones (vocabulary, time rule, baseline prior, plan shape, loop verdicts).
-BLIND_RESEARCH_SEMANTICS = "blind-research/g8/grammar-v2/observe-first/notice-delayed"
+BLIND_RESEARCH_SEMANTICS = "blind-research/g9/grammar-v2/observe-first/notice-delayed/press-tools"
 # History (older labels stay valid in stored records; never reused):
 #   .../validate-full                 first 18 runs, 2026-09-23 -- journal had
 #                                     no experiment_candidate_ranked entries
@@ -34,6 +34,9 @@ BLIND_RESEARCH_SEMANTICS = "blind-research/g8/grammar-v2/observe-first/notice-de
 #   blind-research/g8/grammar-v2/...  G8: observation-only first run sets
 #                                     observed initial values; surprise ->
 #                                     noticed DELAYED hypotheses (grammar v2)
+#   .../press-tools                   G9: after validation, B composes press/
+#                                     release experiments (tools) for untested
+#                                     ideas and ties; tools reused via toolbox
 
 
 def git_state(repo_root: Path) -> tuple[str, bool]:

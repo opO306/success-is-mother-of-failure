@@ -86,7 +86,7 @@ def test_survivors_are_supported_never_confirmed(tmp_path) -> None:
     ("S03-t1", "x3", OBSERVATION_HORIZON),
     ("S03-t1", "x2", NONE),
     ("S02-x2-starts-true", "x3", NONE),                  # grammar v2: solved via observed initial value
-    ("S03-hidden-t2", "x3", "proposal_untested"),
+    ("S03-hidden-t2", "x3", NONE),                        # G9: solved with B's own press tool
 ])
 def test_b_diagnoses_its_own_stopping_point(tmp_path, scenario_id, target, expected) -> None:
     _spec, manifest, outcome, entries = _loop(tmp_path, scenario_id)
@@ -167,10 +167,19 @@ def test_journaled_observations_translate_back_to_a_s_real_run_exactly(tmp_path,
     plan = BlindPredictionMaterializer().plan(world, control_descriptors(spec, 0), observable_descriptors(spec, 0))
     real_of = {alias: real for real, alias in manifest.observable_alias.items()}
     observed = {e.record_id: e.payload["run"] for e in entries if e.event_type == "observation_recorded"}
-    assert sorted(observed) == sorted(outcome.executed_candidate_ids + outcome.observation_arm_ids)
+    assert sorted(observed) == sorted(outcome.executed_candidate_ids + outcome.observation_arm_ids
+                                      + outcome.tool_arm_ids)
     for candidate_id, run in observed.items():
-        blind_spec = plan.compiled_specs.get(candidate_id) or \
-            BlindCandidateSpec(world.alias_world_id, candidate_id, (), 1)  # the observation-only arm
+        tools = {u["arm_id"]: u for u in outcome.tools_used}
+        if candidate_id in plan.compiled_specs:
+            blind_spec = plan.compiled_specs[candidate_id]
+        elif candidate_id in tools:  # a press experiment B composed itself (G9)
+            used = tools[candidate_id]
+            blind_spec = BlindCandidateSpec(world.alias_world_id, candidate_id, (), used["tool"]["horizon"],
+                                            schedule=tuple((t, used["control_id"], v)
+                                                           for t, v in enumerate(used["tool"]["pattern"])))
+        else:
+            blind_spec = BlindCandidateSpec(world.alias_world_id, candidate_id, (), 1)  # the observation-only arm
         real_run = SyntheticAExecutor().execute(_resolve_real_spec(spec, manifest, blind_spec)).run
         translated = [(c["tick"], sorted((real_of[k], v) for k, v in c["observables"])) for c in run["checkpoints"]]
         real = [(c.tick, sorted(c.values)) for c in real_run.checkpoints]
