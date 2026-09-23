@@ -1,0 +1,40 @@
+{
+  "format": "benchmark-ground-truth-v1",
+  "scenario_id": "S02-x2-starts-true",
+  "authored_from": "synthetic_kernel.RULE_S02 (x3 := x1 AND x2; x1, x2 persist), x2 initially True, and the G7.3b vocabulary's declared baseline=False prior",
+  "world": {
+    "world_id": "WORLD-S02", "world_revision": "R-A18D40",
+    "variables": ["x1", "x2", "x3"], "initial_values": {"x1": false, "x2": true, "x3": false},
+    "public_controls": ["x1", "x2"], "public_observables": ["x1", "x2", "x3"], "ticks": 1
+  },
+  "structural_truth": {"edges": [["x1", "x3"], ["x2", "x3"]], "hidden_variables": []},
+  "targets": {
+    "x3": {
+      "structural_claim": {"kind": "CONDITIONAL", "causes": ["x1", "x2"], "target": "x3"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": false,
+      "hidden_variable_present": false,
+      "limits": {"language_limit": true, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "unexpressible"},
+      "note": "The structure is statable (CONDITIONAL), but every claim assumes an unforced variable sits at False; an unforced x2 here sits at True. Checked claim by claim by hand: each of the 9 statable claims about x3 mispredicts at least one planned intervention (e.g. CONDITIONAL predicts x3=False for x1=1 with x2 free; reality is True)."
+    },
+    "x2": {
+      "structural_claim": {"kind": "NO_EFFECT", "causes": [], "target": "x2"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": false,
+      "hidden_variable_present": false,
+      "limits": {"language_limit": true, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "unexpressible"},
+      "note": "x2 is untouched by x1 and stays True when free; NO_EFFECT predicts False, DIRECT/INVERTED x1 each mispredict one setting of x1."
+    },
+    "x1": {
+      "structural_claim": {"kind": "NO_EFFECT", "causes": [], "target": "x1"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true, "expressible_observationally": true, "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "NO_EFFECT", "causes": [], "target": "x1"}]}
+    }
+  }
+}

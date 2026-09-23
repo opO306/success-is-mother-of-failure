@@ -1,0 +1,40 @@
+{
+  "format": "benchmark-ground-truth-v1",
+  "scenario_id": "S03-t1",
+  "authored_from": "synthetic_kernel.RULE_S03 (x2 := x1, x3 := x2 each tick; x1 persists) and this scenario's interface only",
+  "world": {
+    "world_id": "WORLD-S03", "world_revision": "R-51E8B7",
+    "variables": ["x1", "x2", "x3"], "initial_values": {"x1": false, "x2": false, "x3": false},
+    "public_controls": ["x1", "x2"], "public_observables": ["x1", "x2", "x3"], "ticks": 1
+  },
+  "structural_truth": {"edges": [["x1", "x2"], ["x2", "x3"]], "hidden_variables": []},
+  "targets": {
+    "x3": {
+      "structural_claim": {"kind": "MEDIATED", "causes": ["x1"], "mediator": "x2", "target": "x3"},
+      "minimum_observation_horizon": 2,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": true, "intervention_limit": false},
+      "best_answer": {"type": "tie", "claims": [
+        {"kind": "MEDIATED", "causes": ["x1"], "mediator": "x2", "target": "x3"},
+        {"kind": "DIRECT", "causes": ["x2"], "target": "x3"}
+      ]},
+      "note": "Only 1 tick is allowed but x1 needs 2 to reach x3. At tick 1 x3 is x2's previous value in both the chain and the edge x2 -> x3 (pinned x2: its pin; free x2: its initial False), under every intervention -- the tie is the scenario's, not B's."
+    },
+    "x2": {
+      "structural_claim": {"kind": "DIRECT", "causes": ["x1"], "target": "x2"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true, "expressible_observationally": true, "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "DIRECT", "causes": ["x1"], "target": "x2"}]}
+    },
+    "x1": {
+      "structural_claim": {"kind": "NO_EFFECT", "causes": [], "target": "x1"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true, "expressible_observationally": true, "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "NO_EFFECT", "causes": [], "target": "x1"}]}
+    }
+  }
+}

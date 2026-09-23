@@ -1,0 +1,32 @@
+{
+  "format": "benchmark-ground-truth-v1",
+  "scenario_id": "S03-hidden-t2",
+  "authored_from": "synthetic_kernel.RULE_S03 (x2 := x1, x3 := x2 each tick) with x2 neither controllable nor observable, and the G7.3b vocabulary definition. Written before this scenario was ever run.",
+  "world": {
+    "world_id": "WORLD-S03", "world_revision": "R-51E8B7",
+    "variables": ["x1", "x2", "x3"], "initial_values": {"x1": false, "x2": false, "x3": false},
+    "public_controls": ["x1"], "public_observables": ["x1", "x3"], "ticks": 2
+  },
+  "structural_truth": {"edges": [["x1", "x2"], ["x2", "x3"]], "hidden_variables": ["x2"]},
+  "targets": {
+    "x3": {
+      "structural_claim": {"kind": "MEDIATED", "causes": ["x1"], "mediator": "x2", "target": "x3"},
+      "minimum_observation_horizon": 2,
+      "expressible_structurally": false,
+      "expressible_observationally": false,
+      "hidden_variable_present": true,
+      "observable_truth": [{"intervention": "x1", "observed_effect": "x3", "delay_ticks": 2}],
+      "limits": {"language_limit": true, "observation_limit": false, "intervention_limit": true},
+      "best_answer": {"type": "unexpressible"},
+      "note": "B can only state claims whose causes it can pin, and every edge takes exactly one tick. x3 follows x1 with a 2-tick delay through an invisible x2: DIRECT x1 predicts the effect at tick 1 (reality: none yet), NO_EFFECT misses it at tick 2, INVERTED x1 predicts x3=True at tick 1 for x1=0 (reality: False). No statable claim fits; a MEDIATED claim through x2 cannot be stated because x2 is not pinnable. The observational fact (x1 moves x3 after 2 ticks) is real but the vocabulary has no word for a delay longer than one tick."
+    },
+    "x1": {
+      "structural_claim": {"kind": "NO_EFFECT", "causes": [], "target": "x1"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true, "expressible_observationally": true, "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "NO_EFFECT", "causes": [], "target": "x1"}]},
+      "note": "x1 is the only control; B asks no question about it"
+    }
+  }
+}

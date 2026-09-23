@@ -1,0 +1,32 @@
+{
+  "format": "benchmark-ground-truth-v1",
+  "scenario_id": "S01",
+  "authored_from": "synthetic_kernel.RULE_S01 (x3 := x1 each tick; x1 persists) and this scenario's interface only",
+  "world": {
+    "world_id": "WORLD-S01", "world_revision": "R-7F93C2",
+    "variables": ["x1", "x3"], "initial_values": {"x1": false, "x3": false},
+    "public_controls": ["x1"], "public_observables": ["x1", "x3"], "ticks": 1
+  },
+  "structural_truth": {"edges": [["x1", "x3"]], "hidden_variables": []},
+  "targets": {
+    "x3": {
+      "structural_claim": {"kind": "DIRECT", "causes": ["x1"], "target": "x3"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "DIRECT", "causes": ["x1"], "target": "x3"}]}
+    },
+    "x1": {
+      "structural_claim": {"kind": "NO_EFFECT", "causes": [], "target": "x1"},
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {"language_limit": false, "observation_limit": false, "intervention_limit": false},
+      "best_answer": {"type": "single", "claims": [{"kind": "NO_EFFECT", "causes": [], "target": "x1"}]},
+      "note": "x1 is the only control, so no pinnable cause of x1 exists; B asks no question about it"
+    }
+  }
+}
