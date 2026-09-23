@@ -60,6 +60,10 @@ Run 객체 (TickRecord 목록 + 최종 digest)
 | `probe_world.py` | 환경 세계 안의 **탐침**(B-G10). 원시 동작 5개. 동결 파일 |
 | `contested_census.py` / `precondition_census.py` | "물리가 결과를 못 정하는 순간"·전제조건 계수 |
 
+**causal v5 (A-MICRO, 연속 시간·정확한 분수·정사각형 몸):** `v5_number.py`(정확 분수 창구) → `v5_spec.py`(세계 명세 / 실행 요청) →
+`v5_state.py`(상태·불변식) → `v5_reference.py`(**기준 실행기** — 영구 유지, 모든 최적화의 비교 기준) → `v5_meter.py`(분모 측정).
+독립 감사 `audit/independent_v5/`. 설계 문서: `docs/current/A_MICRO_V5_*.md`, `A_EXECUTION_ARCHITECTURE_V1.md`.
+
 **causal 형식:** v1/v2/v3 = 동결 레거시(`tests/test_legacy_causal_semantics.py`가 보존 강제), v4 = experimental.
 v4만 수정된 충돌 의미(A-V4.A)와 구조가 소유하는 운동 `StructureState`(A-V4.B)를 가진다.
 **v4에는 아직 구조가 생기거나 자라는 경로가 없다** — 다음 작업 A-V4.GEO.
