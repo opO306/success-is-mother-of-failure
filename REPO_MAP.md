@@ -278,7 +278,7 @@ docs/
 
 | 문서 | 내용 |
 |---|---|
-| `PROJECT_CONSTITUTION.md` | 헌법 24조 |
+| `PROJECT_CONSTITUTION.md` | 헌법 25조 |
 | `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 (58KB) |
 | `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서·완료 판정 (32KB) |
 | `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 |
