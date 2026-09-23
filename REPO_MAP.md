@@ -6,14 +6,26 @@
 
 ---
 
-## 계통 4개
+## 프로젝트 구조 — A / B / L
 
-이 저장소에는 **서로 다른 시기의 4개 계통**이 공존한다. 섞어서 읽으면 혼란스럽다.
+```
+A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생길 생명 계통
+주 개발 대상            B-classic, B-G12 뒤 PARK    코드 없음. A에서 생기면 관찰
+```
+
+번호는 트랙 접두사로 읽는다: `A-V4.x`, `A-V4.GEO`, `B-Gx`, `L-Px` — `CURRENT_STATE.md` "번호 체계와 현재 판".
+
+## 계통
+
+이 저장소에는 **서로 다른 시기의 계통**이 공존한다. 섞어서 읽으면 혼란스럽다.
 
 | 계통 | 위치 | 상태 | 수정 |
 |---|---|---|---|
 | **결정론 A** | `engine/deterministic/` (물리 부분) | 현재 주 개발 | 가능 |
-| **모델 중립 B** | `engine/deterministic/` (관찰 부분) | 현재 주 개발 | 가능 |
+| **B-classic 연구선** | `engine/deterministic/` (blind_*, probe_*, research_* 등) | B-G12 뒤 PARK 예정 | 가능. 단 동결 파일 7개는 새 버전으로만 (`tests/test_probe_v3_freeze.py`) |
+| **초기 B 관찰 도구** | `engine/deterministic/` (b_language, cognitive_map 등) | B0 시기 도구 | 가능 |
+| **연구 데이터 저장소** | `research_store/` (코드) + D: (데이터) | 현재 | 가능 |
+| **정답표** | `ground_truth/` | 봉인된 기준표 | **B 쪽 import 금지** |
 | **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
@@ -45,6 +57,12 @@ Run 객체 (TickRecord 목록 + 최종 digest)
 | `physical_environment_scaling.py` | 해상도 수렴 감사 |
 | `scaling.py` | 격자 크기 독립성 감사 |
 | `gpu_environment.py` | CUDA int64 field transport. **CPU와 매 tick 동일해야 함** |
+| `probe_world.py` | 환경 세계 안의 **탐침**(B-G10). 원시 동작 5개. 동결 파일 |
+| `contested_census.py` / `precondition_census.py` | "물리가 결과를 못 정하는 순간"·전제조건 계수 |
+
+**causal 형식:** v1/v2/v3 = 동결 레거시(`tests/test_legacy_causal_semantics.py`가 보존 강제), v4 = experimental.
+v4만 수정된 충돌 의미(A-V4.A)와 구조가 소유하는 운동 `StructureState`(A-V4.B)를 가진다.
+**v4에는 아직 구조가 생기거나 자라는 경로가 없다** — 다음 작업 A-V4.GEO.
 
 **커널 내부 단계** (`environment_kernel.py`의 `step_environment_world`):
 
@@ -109,6 +127,34 @@ low     ChangeGraph 영향 범위만        전 분기
 medium  Cognitive Map 구성             전 분기
 exact   실제 A 실행                    예산 제한 (보류분은 deferred_budget으로 보존)
 ```
+
+---
+
+### B-classic 연구선 (B-G0 ~ B-G11)
+
+B는 정답을 모른 채 연구한다. 실제 이름은 평가자 쪽 번역기만 안다(별칭 `ALIAS-`/`ACT-`/`DIR-`/`CH-`).
+
+```
+세계 설명(별칭) ──> B: 가설 → 실험 설계 → 예측 봉인 → 실행 창구(AExecutor) → 관측 → 갱신 → 최종 봉인
+                                                     │
+                                평가자 쪽 번역기(blind_evaluator / blind_probe_evaluator)만 실제 세계를 앎
+```
+
+| 묶음 | 파일 |
+|---|---|
+| 봉인·실행 규약 | `blind_protocol.py`(감사), `sealed_execution.py`, `execution.py`(창구 모양), `research_journal.py` |
+| 합성 세계 연구 (B-G7~G9) | `blind_research_loop.py`, `blind_hypothesis*.py`, `blind_noticing.py`, `blind_tools.py`, `blind_limitations.py`, `experiment_designer.py` |
+| 탐침 연구 (B-G10~G11, **동결**) | `blind_probe.py`, `probe_grammar.py`, `probe_induction.py`, `probe_planning.py`, `probe_research.py` |
+| 평가자 쪽 (B 금지) | `blind_evaluator.py`, `blind_probe_evaluator.py`, `blind_synthetic_executor.py`, `synthetic_*.py` |
+| 공통 타입 | `evidence.py`, `causal_hypothesis.py`, `causal_experiment.py` |
+
+**경계는 테스트가 강제한다:** B 쪽 모듈의 import 사슬 전체가 평가자·정답·세계 커널에 닿지 않는지
+(`tests/test_deterministic_blind_hypothesis.py`의 `FORBIDDEN_MODULES`). 남은 것: 세계 기술 형식 `causal_spec`.
+
+### 연구 데이터 저장소 — `research_store/`
+
+데이터는 D:(Git 밖). 계층 b_visible / evaluator / ground_truth. **학습형 B는 `research_store.b_visible`만 import.**
+설명: `docs/current/RESEARCH_STORE_V1.md`.
 
 ---
 
@@ -224,12 +270,17 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 1041개 통과 (2026-09-22).
+`tests/` — 총 1827개 통과 (2026-09-24). 기준선은 `AGENTS.md`가 정본.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)
 test_audit_*.py           독립 감사 (trace 19 + 보존 17 + 준수 20 + 입자 25)
 test_known_defects_*.py   현재 코드가 틀렸음을 기록. 실패하면 좋은 소식 — 파일 머리 참조
+test_legacy_causal_*.py   v1/v2/v3가 일부러 보존하는 옛 동작. 실패하면 나쁜 소식(과거가 바뀜)
+test_v4_structure_*.py    A-V4.B 구조 상태 + 재명명 불변성
+test_blind_*.py / test_deterministic_blind_*.py   B-classic 연구선
+test_probe*.py            탐침 세계·탐침 연구
+test_probe_v3_freeze.py   동결 지문. 깨지면 지문을 고치지 말고 새 버전을 만든다
 test_diagonal_*.py        대각 운동량 도달 불가능성. 다른 설계의 전제조건을 고정
 test_sequence_*.py        확률 세계 (동결)
 test_living_*.py          living 계통
