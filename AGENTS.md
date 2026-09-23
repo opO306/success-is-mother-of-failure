@@ -47,7 +47,7 @@ B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된
 python -m pytest tests -q
 ```
 
-**기준선: 1827개 통과** (2026-09-24 기준). 이보다 줄면 회귀다.
+**기준선: 1830개 통과** (2026-09-24 기준). 이보다 줄면 회귀다.
 
 특정 계통만 빠르게 볼 때:
 
@@ -111,7 +111,7 @@ python -m pytest tests/test_sequence_*.py -q         # 동결된 확률 세계
 
 | 문서 | 내용 | 크기 |
 |---|---|---|
-| `PROJECT_CONSTITUTION.md` | 헌법 25조. 모든 설계 판단의 최종 기준 | 8KB |
+| `PROJECT_CONSTITUTION.md` | 헌법 26조. 모든 설계 판단의 최종 기준 | 9KB |
 | `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 + 장기 후보 | 58KB |
 | `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서와 완료 판정 | 32KB |
 | `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검. 한계가 솔직히 적혀 있음 | 5KB |
