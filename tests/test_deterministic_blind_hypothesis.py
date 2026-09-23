@@ -16,6 +16,7 @@ Sections:
   7. evaluator-side expressibility (harness only -- uses the manifest)
   8. transitive dependency boundary
   9. budgets and provider coverage
+ 10. G7.3b-4 temporal observation semantics (horizon is part of the experiment)
 
 Not tested here, on purpose: updating hypotheses from results, repeating
 the loop, FinalDiscoverySeal wiring (G7.3c); scoring against ground truth
@@ -38,14 +39,18 @@ from engine.deterministic.blind_evaluator import control_descriptors, make_blind
 from engine.deterministic.blind_execution import BlindCandidateSpec
 from engine.deterministic.blind_hypothesis import (
     BLIND_HYPOTHESIS_KINDS, CONDITIONAL, DIRECT, DISJUNCTIVE, INVERTED, MEDIATED, NO_EFFECT,
-    BlindCausalClaim, predict_target,
+    BlindCausalClaim, predict_target, simulate_claim,
 )
 from engine.deterministic.blind_hypothesis_generator import (
     BlindHypothesisGenerator, BlindHypothesisSpace, BlindQuestion, HypothesisSpaceBudgetExceeded,
 )
+from engine.deterministic.blind_execution import BlindCheckpoint, BlindRun
 from engine.deterministic.blind_prediction_materializer import (
-    BlindPredictionMaterializer, InterventionalPredictionProvider,
+    BlindPredictionMaterializer, InterventionalPredictionProvider, check_prediction_at_horizon,
+    inseparable_pairs, observation_horizon,
 )
+from engine.deterministic.research_observable_prediction import ObservablePrediction
+from engine.deterministic.research_world import WorldCompatibilityError
 from engine.deterministic.blind_synthetic_executor import SyntheticBlindAExecutor
 from engine.deterministic.causal_hypothesis import CausalHypothesisSet
 from engine.deterministic.experiment_designer import rank_discriminating_candidates, select_next_experiment
@@ -70,8 +75,8 @@ def _s01() -> SyntheticWorldSpec:
     return _spec("WORLD-S01", "R-7F93C2", ("x1", "x3"), ("x1",), ("x1", "x3"), 1)
 
 
-def _s02() -> SyntheticWorldSpec:
-    return _spec("WORLD-S02", "R-A18D40", ("x1", "x2", "x3"), ("x1", "x2"), ("x1", "x2", "x3"), 1)
+def _s02(ticks: int = 1) -> SyntheticWorldSpec:
+    return _spec("WORLD-S02", "R-A18D40", ("x1", "x2", "x3"), ("x1", "x2"), ("x1", "x2", "x3"), ticks)
 
 
 def _s03(ticks: int = 2) -> SyntheticWorldSpec:
@@ -134,11 +139,14 @@ def test_claim_rejects_malformed_statements(kwargs) -> None:
     (BlindCausalClaim(DIRECT, "T", ("A",)), {"A": True, "T": False}, False),  # pinned target wins
 ])
 def test_predict_target_semantics(claim, pinned, expected) -> None:
-    assert predict_target(claim, pinned) is expected
+    """Every case above is one step, except the free-mediator case, which is
+    checked at horizon 2 (it needs two ticks -- see section 10)."""
+    horizon = 2 if claim.kind == MEDIATED and "M" not in pinned else 1
+    assert predict_target(claim, pinned, horizon) is expected
 
 
 def test_baseline_is_a_parameter_not_a_hidden_constant() -> None:
-    assert predict_target(BlindCausalClaim(NO_EFFECT, "T"), {}, baseline=True) is True
+    assert predict_target(BlindCausalClaim(NO_EFFECT, "T"), {}, 1, baseline=True) is True
 
 
 # ---------------------------------------------------------------------------
@@ -270,23 +278,44 @@ def test_alias_permutation_changes_names_but_not_structure() -> None:
 # 5. Competition (Test 4).
 # ---------------------------------------------------------------------------
 
-@pytest.mark.parametrize("make_spec", ALL_WORLDS)
-def test_every_pair_of_competing_hypotheses_is_separable_by_some_planned_experiment(make_spec) -> None:
-    """Each question holds >= 2 claims, and no two of them predict the same
-    thing on every candidate -- otherwise G6d would carry a tie it can
-    never break, whatever it runs."""
+def _s02_two_ticks() -> SyntheticWorldSpec:
+    return _s02(ticks=2)
+
+
+def _s03_one_tick() -> SyntheticWorldSpec:
+    return _s03(ticks=1)
+
+
+@pytest.mark.parametrize("make_spec", [_s01, _s02_two_ticks, _s03])
+def test_with_two_tick_horizons_every_competing_pair_is_separable(make_spec) -> None:
+    """Each question holds >= 2 claims, and once the harness allows a
+    2-tick observation no two of them predict the same thing on every
+    planned experiment -- G6d never carries a tie it cannot break."""
     interface, _m = _interface(make_spec())
     space, plan, sets = _materialized(interface)
     assert space.questions
     for hypothesis_set in sets:
-        provider = InterventionalPredictionProvider(hypothesis_set)
-        table = {c.candidate_id: provider.predictions_for(c, plan.compiled_specs[c.candidate_id])
-                 for c in plan.candidates}
-        ids = [h.hypothesis_id for h in hypothesis_set.hypotheses]
-        assert len(ids) >= 2
-        for i, a in enumerate(ids):
-            for b in ids[i + 1:]:
-                assert any(row[a] != row[b] for row in table.values()), (a, b)
+        assert len(hypothesis_set.hypotheses) >= 2
+        assert inseparable_pairs(hypothesis_set, plan) == ()
+
+
+@pytest.mark.parametrize("make_spec", [_s02, _s03_one_tick])
+def test_with_only_one_tick_the_only_ties_are_chains_vs_their_last_edge(make_spec) -> None:
+    """A 2-step chain c -> m -> t and the single edge m -> t predict the same
+    at tick 1 under every intervention; nothing else does. B reports these
+    ties from its own predictions -- it does not need the answer to know an
+    experiment it cannot run would be required."""
+    interface, _m = _interface(make_spec())
+    _space, plan, sets = _materialized(interface)
+    found = 0
+    for hypothesis_set in sets:
+        claims = {h.hypothesis_id: h for h in hypothesis_set.hypotheses}
+        for a, b in inseparable_pairs(hypothesis_set, plan):
+            found += 1
+            edge, chain = sorted((claims[a].statement, claims[b].statement), key=lambda st: st.count("->"))
+            assert chain.count("->") == 2 and edge.count("->") == 1
+            assert chain.split(" -> ")[1:] == edge.split(" -> ")  # same last edge m -> t
+    assert found > 0
 
 
 def test_s02_target_question_holds_every_structural_alternative() -> None:
@@ -330,19 +359,21 @@ def test_generated_predictions_drive_g6d_to_a_runnable_blind_experiment(make_spe
 
         result = executor.execute(plan.compiled_specs[selected.candidate_id])
         assert result.status == "success"
-        final = result.run.checkpoint_at(interface[0].ticks)
+        final = result.run.checkpoint_at(observation_horizon(plan.compiled_specs[selected.candidate_id]))
         assert final is not None
         assert isinstance(final.value_of(question.target_observable_id), bool)
 
 
-def test_every_hypothesis_predicts_every_planned_candidate() -> None:
+def test_every_hypothesis_predicts_every_planned_candidate_at_its_horizon() -> None:
     interface, _m = _interface(_s03())
     _space, plan, sets = _materialized(interface)
-    planned = sorted(tuple(sorted(c.control_values)) for c in plan.candidates)
+    planned = sorted((tuple(sorted(c.control_values)), plan.compiled_specs[c.candidate_id].ticks)
+                     for c in plan.candidates)
     for hypothesis_set in sets:
         for hypothesis in hypothesis_set.hypotheses:
             assert all(isinstance(p, InterventionalPrediction) for p in hypothesis.predictions)
-            assert sorted(tuple(sorted(p.control_values)) for p in hypothesis.predictions) == planned
+            assert sorted((tuple(sorted(p.control_values)), p.prediction.tick)
+                          for p in hypothesis.predictions) == planned
 
 
 def test_plan_leaves_controls_free_and_skips_the_all_free_baseline() -> None:
@@ -351,6 +382,15 @@ def test_plan_leaves_controls_free_and_skips_the_all_free_baseline() -> None:
     sizes = sorted(len(c.control_values) for c in plan.candidates)
     assert len(plan.candidates) == 3 ** 2 - 1
     assert sizes.count(1) == 4 and sizes.count(2) == 4 and 0 not in sizes
+
+
+def test_plan_crosses_every_intervention_with_every_allowed_horizon() -> None:
+    interface, _m = _interface(_s03(ticks=2))
+    plan = BlindPredictionMaterializer().plan(*interface)
+    horizons = [plan.compiled_specs[c.candidate_id].ticks for c in plan.candidates]
+    assert len(plan.candidates) == (3 ** 2 - 1) * 2
+    assert horizons.count(1) == 8 and horizons.count(2) == 8
+    assert len({c.candidate_id for c in plan.candidates}) == len(plan.candidates)
 
 
 # ---------------------------------------------------------------------------
@@ -371,8 +411,8 @@ def _surviving_statements(spec: SyntheticWorldSpec, real_target: str) -> list[st
     real_name = {alias: real for real, alias in manifest.variable_alias.items()}
     survivors = []
     for hypothesis in sets[index].hypotheses:
-        if all(runs[c.candidate_id].checkpoint_at(p.prediction.tick).value_of(p.prediction.observable_id)
-               == p.prediction.expected_value for c, p in zip(plan.candidates, hypothesis.predictions)):
+        if all(check_prediction_at_horizon(plan.compiled_specs[c.candidate_id], p.prediction, runs[c.candidate_id])
+               for c, p in zip(plan.candidates, hypothesis.predictions)):
             survivors.append(" ".join(real_name.get(token, token) for token in hypothesis.statement.split()))
     return survivors
 
@@ -386,14 +426,24 @@ def test_exactly_the_real_structure_survives_the_full_plan(make_spec, expected) 
     assert _surviving_statements(make_spec(), "x3") == expected
 
 
-def test_known_limit_lag_makes_a_wrong_claim_survive_alone() -> None:
-    """KNOWN LIMIT, not a regression target. The vocabulary is steady-state;
-    WORLD-S03's chain needs 2 ticks. Observed at tick 1, an unpinned x2 has
-    not yet picked up x1, so the *wrong* claim "x2 -> x3" explains every
-    candidate and survives alone -- a confident wrong answer, not a visible
-    failure. If this test starts failing because the right claim survives,
-    the vocabulary learned lag: update the docstring in blind_hypothesis.py."""
-    assert _surviving_statements(_s03(ticks=1), "x3") == ["x2 -> x3"]
+def test_one_tick_observation_of_a_chain_never_yields_a_wrong_singleton() -> None:
+    """Regression (G7.3b-4). This was pinned as a KNOWN LIMIT under the old
+    steady-state semantics: WORLD-S03 (x1 -> x2 -> x3) observed only at
+    tick 1 left the *wrong* claim "x2 -> x3" surviving alone. Under tick
+    semantics both claims predict the same at tick 1, so both must survive
+    -- and B must itself report them as a tie no allowed experiment breaks.
+    A lone survivor here is a failure again."""
+    assert _surviving_statements(_s03(ticks=1), "x3") == ["x2 -> x3", "x1 -> x2 -> x3"]
+
+
+def test_one_tick_tie_is_visible_to_b_without_the_answer() -> None:
+    interface, manifest = _interface(_s03(ticks=1))
+    space, plan, sets = _materialized(interface)
+    [index] = [i for i, q in enumerate(space.questions) if q.target_variable_id == manifest.variable_alias["x3"]]
+    claims = {h.hypothesis_id: h.statement for h in sets[index].hypotheses}
+    x1, x2, x3 = (manifest.variable_alias[n] for n in ("x1", "x2", "x3"))
+    tied = {frozenset((claims[a], claims[b])) for a, b in inseparable_pairs(sets[index], plan)}
+    assert frozenset((f"{x2} -> {x3}", f"{x1} -> {x2} -> {x3}")) in tied
 
 
 # ---------------------------------------------------------------------------
@@ -495,3 +545,115 @@ def test_materialized_sets_are_ordinary_causal_hypothesis_sets() -> None:
     for hypothesis_set in sets:
         assert isinstance(hypothesis_set, CausalHypothesisSet)
         assert all(h.status == "untested" and h.evidence == () for h in hypothesis_set.hypotheses)
+
+
+# ---------------------------------------------------------------------------
+# 10. G7.3b-4 temporal observation semantics.
+# ---------------------------------------------------------------------------
+
+def _x3_question(spec: SyntheticWorldSpec):
+    interface, manifest = _interface(spec)
+    space, plan, sets = _materialized(interface)
+    [index] = [i for i, q in enumerate(space.questions) if q.target_variable_id == manifest.variable_alias["x3"]]
+    return manifest, plan, sets[index]
+
+
+def test_a_change_never_chains_through_two_variables_within_one_tick() -> None:
+    chain = BlindCausalClaim(MEDIATED, "T", ("A",), "M")
+    trajectory = simulate_claim(chain, {"A": True}, 2)
+    assert [(state["M"], state["T"]) for state in trajectory] == [(False, False), (True, False), (True, True)]
+
+
+def test_tick_zero_is_the_pinned_initial_state() -> None:
+    assert predict_target(BlindCausalClaim(INVERTED, "T", ("A",)), {"A": False}, 0) is False
+    assert predict_target(BlindCausalClaim(INVERTED, "T", ("A",)), {"A": False}, 1) is True
+    assert predict_target(BlindCausalClaim(DIRECT, "T", ("A",)), {"T": True}, 0) is True
+
+
+def test_predictor_tick_rule_matches_a_out_to_three_ticks() -> None:
+    """Off-by-one guard: B's own tick rule and A's tick rule agree, horizon
+    by horizon, for S03's real structure (checked evaluator side)."""
+    assert _surviving_statements(_s03(ticks=3), "x3") == ["x1 -> x2 -> x3"]
+
+
+def test_provider_serves_the_prediction_for_the_candidates_own_horizon() -> None:
+    manifest, plan, hypothesis_set = _x3_question(_s03(ticks=2))
+    x1, x2, x3 = (manifest.variable_alias[n] for n in ("x1", "x2", "x3"))
+    [chain] = [h for h in hypothesis_set.hypotheses if h.statement == f"{x1} -> {x2} -> {x3}"]
+    x1_only = ((manifest.control_alias["x1"], 1),)
+    provider = InterventionalPredictionProvider(hypothesis_set)
+    served = {}
+    for candidate in plan.candidates:
+        if candidate.control_values == x1_only:
+            spec = plan.compiled_specs[candidate.candidate_id]
+            served[spec.ticks] = provider.predictions_for(candidate, spec)[chain.hypothesis_id]
+    assert [(p.tick, p.expected_value) for p in served[1]] == [(1, False)]
+    assert [(p.tick, p.expected_value) for p in served[2]] == [(2, True)]
+
+
+def test_executor_runs_exactly_the_candidates_horizon() -> None:
+    spec = _s03(ticks=2)
+    interface, manifest = _interface(spec)
+    plan = BlindPredictionMaterializer().plan(*interface)
+    executor = SyntheticBlindAExecutor(spec, manifest)
+    for candidate in plan.candidates:
+        candidate_spec = plan.compiled_specs[candidate.candidate_id]
+        assert executor.execute(candidate_spec).run.checkpoints[-1].tick == candidate_spec.ticks
+
+
+def test_executor_refuses_a_horizon_beyond_the_worlds_limit() -> None:
+    spec = _s03(ticks=2)
+    (world, _c, _o), manifest = _interface(spec)
+    too_long = BlindCandidateSpec(world.alias_world_id, "BCAND-long", ((manifest.control_alias["x1"], 1),), ticks=3)
+    with pytest.raises(WorldCompatibilityError):
+        SyntheticBlindAExecutor(spec, manifest).execute(too_long)
+
+
+def test_prediction_is_never_compared_across_horizons() -> None:
+    spec = BlindCandidateSpec("ALIAS-W", "BCAND-1", (("ALIAS-C", 1),), ticks=1)
+    run = BlindRun("ALIAS-W", (BlindCheckpoint(0, (("ALIAS-O", False),)), BlindCheckpoint(1, (("ALIAS-O", True),))))
+    assert check_prediction_at_horizon(spec, ObservablePrediction(1, "ALIAS-O", True), run) is True
+    with pytest.raises(ValueError):
+        check_prediction_at_horizon(spec, ObservablePrediction(2, "ALIAS-O", True), run)
+    with pytest.raises(ValueError):
+        check_prediction_at_horizon(spec, ObservablePrediction(1, "ALIAS-MISSING", True), run)
+
+
+def test_a_run_that_ignored_its_horizon_is_refused_not_scored() -> None:
+    spec = BlindCandidateSpec("ALIAS-W", "BCAND-1", (("ALIAS-C", 1),), ticks=1)
+    overlong = BlindRun("ALIAS-W", tuple(BlindCheckpoint(t, (("ALIAS-O", True),)) for t in range(3)))
+    with pytest.raises(ValueError):
+        check_prediction_at_horizon(spec, ObservablePrediction(1, "ALIAS-O", True), overlong)
+
+
+def test_g6d_prefers_the_shorter_horizon_at_equal_discriminating_power() -> None:
+    interface, _m = _interface(_s03(ticks=2))
+    _space, plan, sets = _materialized(interface)
+    for hypothesis_set in sets:
+        ranked = rank_discriminating_candidates(plan.candidates, plan.compiled_specs,
+                                                InterventionalPredictionProvider(hypothesis_set),
+                                                cost=observation_horizon)
+        best = ranked[0].disagreement_pair_count
+        horizons = [plan.compiled_specs[r.candidate_id].ticks for r in ranked if r.disagreement_pair_count == best]
+        assert horizons == sorted(horizons)
+        assert 1 in horizons and 2 in horizons  # a real tie existed to be broken
+
+
+def test_only_the_two_tick_observation_separates_a_chain_from_its_last_edge() -> None:
+    """With x1 pinned and x2 free, "x1 -> x2 -> x3" and "x2 -> x3" agree at
+    tick 1 and disagree at tick 2 -- so the 2-tick candidates are what makes
+    the full plan separable (see the separability test above), even though
+    the *total* pair count at each horizon happens to be equal here."""
+    manifest, plan, hypothesis_set = _x3_question(_s03(ticks=2))
+    x1, x2, x3 = (manifest.variable_alias[n] for n in ("x1", "x2", "x3"))
+    ids = {h.statement: h.hypothesis_id for h in hypothesis_set.hypotheses}
+    chain, edge = ids[f"{x1} -> {x2} -> {x3}"], ids[f"{x2} -> {x3}"]
+    provider = InterventionalPredictionProvider(hypothesis_set)
+    x1_only = ((manifest.control_alias["x1"], 1),)
+    agrees = {}
+    for candidate in plan.candidates:
+        if candidate.control_values == x1_only:
+            spec = plan.compiled_specs[candidate.candidate_id]
+            row = provider.predictions_for(candidate, spec)
+            agrees[spec.ticks] = row[chain] == row[edge]
+    assert agrees == {1: True, 2: False}

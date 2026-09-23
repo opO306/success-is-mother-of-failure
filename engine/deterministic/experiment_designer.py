@@ -19,7 +19,7 @@ runs. See `tests/test_deterministic_experiment_designer.py`'s leakage check.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Mapping
+from typing import Callable, Mapping
 
 from .exploration_space import ExplorationCandidate
 from .research_prediction import CandidatePredictionProvider
@@ -79,10 +79,18 @@ def rank_discriminating_candidates(
     candidates: tuple[ExplorationCandidate, ...],
     compiled_specs: Mapping[str, ResearchWorldSpec],
     prediction_provider: CandidatePredictionProvider,
+    cost: Callable[[ResearchWorldSpec], int] | None = None,
 ) -> tuple[DiscriminatingCandidate, ...]:
     """Score every candidate that has a compiled spec, sorted by
-    `disagreement_pair_count` descending (ties broken by `candidate_id`
-    ascending, for a deterministic order independent of dict/set iteration).
+    `disagreement_pair_count` descending, then by `cost(spec)` ascending
+    when a `cost` is given, then by `candidate_id` ascending (a
+    deterministic order independent of dict/set iteration).
+
+    `cost` exists for G7.3b-4: blind candidates carry an observation horizon,
+    and at equal discriminating power the shorter observation should win --
+    otherwise B would drift toward always running the longest experiment
+    available for no evidential gain. Without `cost` the order is exactly
+    what it was before, for every existing caller.
 
     A candidate absent from `compiled_specs` (its control values failed to
     compile -- a `CandidateCompilationFailure` at the caller's level) is
@@ -96,18 +104,19 @@ def rank_discriminating_candidates(
     caller (or `select_next_experiment`) may need to see explicitly rather
     than infer from an empty list that could otherwise mean anything.
     """
-    scored: list[DiscriminatingCandidate] = []
+    scored: list[tuple[DiscriminatingCandidate, int]] = []
     for candidate in candidates:
         spec = compiled_specs.get(candidate.candidate_id)
         if spec is None:
             continue
         predictions_by_hypothesis = prediction_provider.predictions_for(candidate, spec)
-        scored.append(DiscriminatingCandidate(
+        scored.append((DiscriminatingCandidate(
             candidate.candidate_id,
             _disagreement_pair_count(predictions_by_hypothesis),
             predictions_by_hypothesis,
-        ))
-    return tuple(sorted(scored, key=lambda item: (-item.disagreement_pair_count, item.candidate_id)))
+        ), cost(spec) if cost is not None else 0))
+    ordered = sorted(scored, key=lambda pair: (-pair[0].disagreement_pair_count, pair[1], pair[0].candidate_id))
+    return tuple(item for item, _cost in ordered)
 
 
 def select_next_experiment(

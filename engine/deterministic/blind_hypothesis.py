@@ -15,19 +15,21 @@ structural statement ("V1 -> V3") that exists *before* any experiment plan;
 the materializer turns one claim into one `CausalHypothesis` once the plan
 is known.
 
-Every claim is a *complete* structural equation for one target variable,
-not a bare edge. "V1 does not affect V3" on its own says what V3 does *not*
+Every claim is a *complete* update rule for one target variable, not a
+bare edge. "V1 does not affect V3" on its own says what V3 does *not*
 depend on, but not what value V3 takes -- and G6d's
 `rank_discriminating_candidates` compares per-candidate predicted values,
-not contrasts between two runs. So each kind below commits to a value for
-the target under every intervention:
+not contrasts between two runs. So each kind commits to the target's value
+at tick k+1 from the state at tick k (G7.3b-4 temporal semantics):
 
-    NO_EFFECT      t := baseline                     (nothing B controls moves t)
-    DIRECT         t := c
-    INVERTED       t := NOT c
-    CONDITIONAL    t := c AND g                      (c moves t only while g holds)
-    DISJUNCTIVE    t := c OR g
-    MEDIATED       t := m,  m := c  (m controllable) (c moves t only through m)
+    NO_EFFECT      t' := t                            (nothing B controls moves t)
+    DIRECT         t' := c
+    INVERTED       t' := NOT c
+    CONDITIONAL    t' := c AND g                      (c moves t only while g holds)
+    DISJUNCTIVE    t' := c OR g
+    MEDIATED       t' := m,  m' := c  (m controllable) (c moves t only through m)
+
+(primed = next tick). Variables a claim does not model keep their value.
 
 INVERTED and DISJUNCTIVE are deliberate additions beyond the four kinds
 first sketched for G7.3b (DIRECT/NO_EFFECT/CONDITIONAL/MEDIATED). Those four
@@ -49,15 +51,23 @@ Declared modeling assumptions (B's prior, not facts about any world):
     determines takes `baseline` (default False). Real worlds whose unforced
     variables sit at True contradict every claim at once -- that is a model
     class failure G7.3c must report, not something to tune away.
-  * Steady state: claims are timeless equations evaluated at the final tick.
-    A world whose causal chain is longer than its tick count shows lag this
-    vocabulary cannot express -- and it does not fail loudly. Measured on
-    WORLD-S03 (x1 -> x2 -> x3) observed at tick 1: every candidate is
-    explained by the *wrong* claim "x2 -> x3", which survives alone, because
-    an unpinned x2 has not yet picked up x1 by tick 1 and so looks like a
-    baseline-False root. Pinned by a test in
-    `tests/test_deterministic_blind_hypothesis.py` so the limitation cannot
-    be forgotten.
+  * Time (G7.3b-4, replacing the earlier steady-state assumption):
+      - tick 0 is the initial state: pinned variables at their pinned value,
+        every other variable at `baseline`;
+      - every tick, all modeled variables update *simultaneously* from the
+        previous tick's state -- a change never chains through two
+        variables within one tick (x1 -> x2 -> x3 needs 2 ticks to reach
+        x3), then pinned variables are re-pinned;
+      - a prediction is a value at one exact tick (the experiment's
+        observation horizon) and may only be compared with an observation
+        at that same tick.
+    This is the public tick rule of the A world B studies, not a per-edge
+    delay: every edge takes exactly one tick. Per-edge delays, stochastic
+    delay, and continuous time are out of scope. The steady-state version
+    this replaces made WORLD-S03 (a 2-step chain) observed at tick 1 leave
+    the *wrong* claim "x2 -> x3" surviving alone; under tick semantics the
+    right claim and "x2 -> x3" predict identically at tick 1 and both
+    survive -- an honest tie that only a 2-tick observation can break.
   * Only controllable causes and controllable mediators appear. A cause B
     cannot pin can never be separated from NO_EFFECT by any experiment, and
     a mediator B cannot pin makes MEDIATED observationally identical to
@@ -171,26 +181,43 @@ class BlindCausalClaim:
         return f"{causes[0]} -> {m} -> {t}"
 
 
-def predict_target(claim: BlindCausalClaim, pinned: Mapping[str, bool], baseline: bool = False) -> bool:
-    """The target's value under `pinned` (alias variable id -> forced value),
-    according to `claim` alone. See the module docstring for the baseline
-    and steady-state assumptions this encodes."""
-    if claim.target_variable_id in pinned:
-        return pinned[claim.target_variable_id]
+def _check_horizon(horizon: object) -> int:
+    if isinstance(horizon, bool) or not isinstance(horizon, int) or horizon < 0:
+        raise ValueError("horizon must be a nonnegative integer")
+    return horizon
 
-    def value(variable_id: str) -> bool:
-        return pinned.get(variable_id, baseline)
 
-    causes = claim.cause_variable_ids
-    if claim.kind == NO_EFFECT:
-        return baseline
-    if claim.kind == DIRECT:
-        return value(causes[0])
-    if claim.kind == INVERTED:
-        return not value(causes[0])
-    if claim.kind == CONDITIONAL:
-        return value(causes[0]) and value(causes[1])
-    if claim.kind == DISJUNCTIVE:
-        return value(causes[0]) or value(causes[1])
-    mediator = claim.mediator_variable_id
-    return pinned[mediator] if mediator in pinned else value(causes[0])
+def simulate_claim(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
+                   baseline: bool = False) -> tuple[Mapping[str, bool], ...]:
+    """The state of `claim`'s variables at ticks 0..horizon, under `pinned`
+    (alias variable id -> forced value), by B's own reading of its own claim
+    -- never by running A. See the module docstring's time rules."""
+    _check_horizon(horizon)
+    state = {v: pinned.get(v, baseline) for v in claim.variable_ids()}
+    trajectory = [dict(state)]
+    target, causes = claim.target_variable_id, claim.cause_variable_ids
+    for _ in range(horizon):
+        previous = state
+        state = dict(previous)
+        if claim.kind == DIRECT:
+            state[target] = previous[causes[0]]
+        elif claim.kind == INVERTED:
+            state[target] = not previous[causes[0]]
+        elif claim.kind == CONDITIONAL:
+            state[target] = previous[causes[0]] and previous[causes[1]]
+        elif claim.kind == DISJUNCTIVE:
+            state[target] = previous[causes[0]] or previous[causes[1]]
+        elif claim.kind == MEDIATED:
+            state[claim.mediator_variable_id] = previous[causes[0]]
+            state[target] = previous[claim.mediator_variable_id]
+        for variable_id in state:
+            if variable_id in pinned:
+                state[variable_id] = pinned[variable_id]
+        trajectory.append(dict(state))
+    return tuple(trajectory)
+
+
+def predict_target(claim: BlindCausalClaim, pinned: Mapping[str, bool], horizon: int,
+                   baseline: bool = False) -> bool:
+    """The target's value at exactly tick `horizon`, according to `claim` alone."""
+    return simulate_claim(claim, pinned, horizon, baseline)[horizon][claim.target_variable_id]

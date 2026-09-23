@@ -69,7 +69,15 @@ def _resolve_real_spec(real_spec: SyntheticWorldSpec, manifest: BlindTranslation
         clamps = [c for c in clamps if c.variable_id != real_variable]
         if mode != "FREE":
             clamps.append(SyntheticClamp(real_variable, mode))
-    return replace(real_spec, clamps=tuple(sorted(clamps)))
+    # G7.3b-4: `candidate.ticks` is the experiment's observation horizon.
+    # Before this, it was accepted and then ignored -- every candidate ran
+    # `real_spec.ticks` -- so "observe after 1 tick" and "after 2 ticks"
+    # silently executed the same run. `real_spec.ticks` is now the longest
+    # run the harness allows, not the length every run is forced to have.
+    if candidate.ticks > real_spec.ticks:
+        raise WorldCompatibilityError(
+            f"candidate asks for {candidate.ticks} ticks, over this world's limit of {real_spec.ticks}")
+    return replace(real_spec, clamps=tuple(sorted(clamps)), ticks=candidate.ticks)
 
 
 def _blind_run_from_real(real_result: ExecutionResult, manifest: BlindTranslationManifest,
