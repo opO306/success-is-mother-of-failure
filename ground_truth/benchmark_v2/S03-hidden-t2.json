@@ -1,0 +1,112 @@
+{
+  "format": "benchmark-ground-truth-v2",
+  "scenario_id": "S03-hidden-t2",
+  "authored_from": "synthetic_kernel.RULE_S03 (x2 := x1, x3 := x2 each tick) with x2 neither controllable nor observable, and grammar v2 (DELAYED claims: target follows a pinnable cause k>=2 ticks later, reachable only by noticing)",
+  "world": {
+    "world_id": "WORLD-S03",
+    "world_revision": "R-51E8B7",
+    "variables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "initial_values": {
+      "x1": false,
+      "x2": false,
+      "x3": false
+    },
+    "public_controls": [
+      "x1"
+    ],
+    "public_observables": [
+      "x1",
+      "x3"
+    ],
+    "ticks": 2
+  },
+  "structural_truth": {
+    "edges": [
+      [
+        "x1",
+        "x2"
+      ],
+      [
+        "x2",
+        "x3"
+      ]
+    ],
+    "hidden_variables": [
+      "x2"
+    ]
+  },
+  "targets": {
+    "x3": {
+      "structural_claim": {
+        "kind": "MEDIATED",
+        "causes": [
+          "x1"
+        ],
+        "mediator": "x2",
+        "target": "x3"
+      },
+      "minimum_observation_horizon": 2,
+      "expressible_structurally": false,
+      "expressible_observationally": true,
+      "hidden_variable_present": true,
+      "observable_truth": [
+        {
+          "intervention": "x1",
+          "observed_effect": "x3",
+          "delay_ticks": 2
+        }
+      ],
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": true
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "DELAYED",
+            "causes": [
+              "x1"
+            ],
+            "lag": 2,
+            "target": "x3"
+          }
+        ]
+      },
+      "note": "v2: 'x1 -> x3 after 2 ticks' predicts every planned intervention (x3 keeps its initial False until tick 2, then equals x1). It is an observational answer only: the real mechanism runs through the hidden x2, which B cannot name. A B answer of DELAYED must score observational_match=true, structural_match=false."
+    },
+    "x1": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x1"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x1"
+          }
+        ]
+      },
+      "note": "x1 is the only control; B asks no question about it"
+    }
+  },
+  "vocabulary": "blind-grammar-v2"
+}

@@ -30,9 +30,14 @@ from pathlib import Path
 from typing import Any, Mapping
 
 FORMAT = "benchmark-ground-truth-v1"
+FORMATS = frozenset({"benchmark-ground-truth-v1", "benchmark-ground-truth-v2"})
 KEY_DIRECTORY = Path(__file__).resolve().parent / "benchmark"
+# v2: the same scenarios re-graded for grammar v2 (observed initial values,
+# DELAYED claims reachable by noticing). v1 stays sealed and unchanged -- a
+# key is only meaningful relative to the language B could answer in.
+KEY_DIRECTORY_V2 = Path(__file__).resolve().parent / "benchmark_v2"
 
-KINDS = frozenset({"NO_EFFECT", "DIRECT", "INVERTED", "CONDITIONAL", "DISJUNCTIVE", "MEDIATED"})
+KINDS = frozenset({"NO_EFFECT", "DIRECT", "INVERTED", "CONDITIONAL", "DISJUNCTIVE", "MEDIATED", "DELAYED"})
 ANSWER_TYPES = frozenset({"single", "tie", "unexpressible"})
 LIMITS = ("language_limit", "observation_limit", "intervention_limit")
 
@@ -50,11 +55,16 @@ def _check_claim(claim: Any, target: str, where: str) -> None:
         raise AnswerKeyError(f"{where}: causes must be a list")
     if (claim["kind"] == "MEDIATED") != ("mediator" in claim):
         raise AnswerKeyError(f"{where}: mediator required for MEDIATED only")
+    if (claim["kind"] == "DELAYED") != ("lag" in claim):
+        raise AnswerKeyError(f"{where}: lag required for DELAYED only")
+    if claim["kind"] == "DELAYED" and (isinstance(claim["lag"], bool) or not isinstance(claim["lag"], int)
+                                       or claim["lag"] < 2):
+        raise AnswerKeyError(f"{where}: DELAYED lag must be an integer >= 2")
 
 
 def validate_scenario(key: Mapping[str, Any]) -> None:
     sid = key.get("scenario_id")
-    if key.get("format") != FORMAT or not isinstance(sid, str):
+    if key.get("format") not in FORMATS or not isinstance(sid, str):
         raise AnswerKeyError(f"{sid}: wrong format or missing scenario_id")
     world = key.get("world", {})
     for field in ("world_id", "world_revision", "variables", "initial_values", "public_controls",

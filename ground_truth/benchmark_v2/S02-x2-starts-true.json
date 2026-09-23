@@ -1,0 +1,131 @@
+{
+  "format": "benchmark-ground-truth-v2",
+  "scenario_id": "S02-x2-starts-true",
+  "authored_from": "synthetic_kernel.RULE_S02 (x3 := x1 AND x2; x1, x2 persist), x2 initially True, and grammar v2: unforced observable variables start at their observed tick-0 value (x2 is observable, so True)",
+  "world": {
+    "world_id": "WORLD-S02",
+    "world_revision": "R-A18D40",
+    "variables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "initial_values": {
+      "x1": false,
+      "x2": true,
+      "x3": false
+    },
+    "public_controls": [
+      "x1",
+      "x2"
+    ],
+    "public_observables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "ticks": 1
+  },
+  "structural_truth": {
+    "edges": [
+      [
+        "x1",
+        "x3"
+      ],
+      [
+        "x2",
+        "x3"
+      ]
+    ],
+    "hidden_variables": []
+  },
+  "targets": {
+    "x3": {
+      "structural_claim": {
+        "kind": "CONDITIONAL",
+        "causes": [
+          "x1",
+          "x2"
+        ],
+        "target": "x3"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "CONDITIONAL",
+            "causes": [
+              "x1",
+              "x2"
+            ],
+            "target": "x3"
+          }
+        ]
+      },
+      "note": "v2: with x2's observed initial True, CONDITIONAL predicts every intervention (x1=1, x2 free -> True)."
+    },
+    "x2": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x2"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x2"
+          }
+        ]
+      },
+      "note": "v2: NO_EFFECT now means 'keeps its observed initial value' -- True here, which is what x2 does."
+    },
+    "x1": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x1"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x1"
+          }
+        ]
+      }
+    }
+  },
+  "vocabulary": "blind-grammar-v2"
+}

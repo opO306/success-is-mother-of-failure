@@ -1,0 +1,130 @@
+{
+  "format": "benchmark-ground-truth-v2",
+  "scenario_id": "S02-t1",
+  "authored_from": "synthetic_kernel.RULE_S02 (x3 := x1 AND x2 each tick; x1, x2 persist) and this scenario's interface only; v2: re-checked against grammar v2 (observed initial values, DELAYED claims via noticing) -- best answer unchanged",
+  "world": {
+    "world_id": "WORLD-S02",
+    "world_revision": "R-A18D40",
+    "variables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "initial_values": {
+      "x1": false,
+      "x2": false,
+      "x3": false
+    },
+    "public_controls": [
+      "x1",
+      "x2"
+    ],
+    "public_observables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "ticks": 1
+  },
+  "structural_truth": {
+    "edges": [
+      [
+        "x1",
+        "x3"
+      ],
+      [
+        "x2",
+        "x3"
+      ]
+    ],
+    "hidden_variables": []
+  },
+  "targets": {
+    "x3": {
+      "structural_claim": {
+        "kind": "CONDITIONAL",
+        "causes": [
+          "x1",
+          "x2"
+        ],
+        "target": "x3"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "CONDITIONAL",
+            "causes": [
+              "x1",
+              "x2"
+            ],
+            "target": "x3"
+          }
+        ]
+      },
+      "note": "one-step AND: separable from every other claim within one tick (unlike a 2-step chain)"
+    },
+    "x1": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x1"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x1"
+          }
+        ]
+      }
+    },
+    "x2": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x2"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x2"
+          }
+        ]
+      }
+    }
+  },
+  "vocabulary": "blind-grammar-v2"
+}

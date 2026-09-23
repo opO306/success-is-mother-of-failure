@@ -1,0 +1,134 @@
+{
+  "format": "benchmark-ground-truth-v2",
+  "scenario_id": "S03-t2",
+  "authored_from": "synthetic_kernel.RULE_S03 (x2 := x1, x3 := x2 each tick; x1 persists) and this scenario's interface only; v2: re-checked against grammar v2 (observed initial values, DELAYED claims via noticing) -- best answer unchanged",
+  "world": {
+    "world_id": "WORLD-S03",
+    "world_revision": "R-51E8B7",
+    "variables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "initial_values": {
+      "x1": false,
+      "x2": false,
+      "x3": false
+    },
+    "public_controls": [
+      "x1",
+      "x2"
+    ],
+    "public_observables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "ticks": 2
+  },
+  "structural_truth": {
+    "edges": [
+      [
+        "x1",
+        "x2"
+      ],
+      [
+        "x2",
+        "x3"
+      ]
+    ],
+    "hidden_variables": []
+  },
+  "targets": {
+    "x3": {
+      "structural_claim": {
+        "kind": "MEDIATED",
+        "causes": [
+          "x1"
+        ],
+        "mediator": "x2",
+        "target": "x3"
+      },
+      "minimum_observation_horizon": 2,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "MEDIATED",
+            "causes": [
+              "x1"
+            ],
+            "mediator": "x2",
+            "target": "x3"
+          }
+        ]
+      },
+      "note": "x1's effect reaches x3 after 2 ticks; this scenario allows 2, so the chain is separable from its last edge x2 -> x3"
+    },
+    "x2": {
+      "structural_claim": {
+        "kind": "DIRECT",
+        "causes": [
+          "x1"
+        ],
+        "target": "x2"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "DIRECT",
+            "causes": [
+              "x1"
+            ],
+            "target": "x2"
+          }
+        ]
+      }
+    },
+    "x1": {
+      "structural_claim": {
+        "kind": "NO_EFFECT",
+        "causes": [],
+        "target": "x1"
+      },
+      "minimum_observation_horizon": 1,
+      "expressible_structurally": true,
+      "expressible_observationally": true,
+      "hidden_variable_present": false,
+      "limits": {
+        "language_limit": false,
+        "observation_limit": false,
+        "intervention_limit": false
+      },
+      "best_answer": {
+        "type": "single",
+        "claims": [
+          {
+            "kind": "NO_EFFECT",
+            "causes": [],
+            "target": "x1"
+          }
+        ]
+      }
+    }
+  },
+  "vocabulary": "blind-grammar-v2"
+}
