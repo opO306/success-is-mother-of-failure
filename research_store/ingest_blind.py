@@ -26,10 +26,15 @@ from engine.deterministic.research_journal import read_journal
 from engine.deterministic.synthetic_spec import SyntheticWorldSpec
 
 from ._core import EVALUATOR, StoreRecord
-from .b_visible import BVisibleWriter
+from .b_visible import BVisibleWriter, StringPolicy
+from .provenance import BLIND_RESEARCH_SEMANTICS
 from .evaluator import EvaluatorStore
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2  # v2: journal carries experiment_candidate_ranked; allowlist-checked
+
+# Only records produced under the current blind-research semantics may be
+# written; the allowlist rejects any other semantics label in provenance.
+POLICY = StringPolicy(semantics=frozenset({BLIND_RESEARCH_SEMANTICS}))
 
 # Benchmark-level identifiers that must never reach b_visible either,
 # whichever world a run came from.
@@ -57,13 +62,13 @@ def store_blind_research_run(root: Path, *, real_spec: SyntheticWorldSpec, seed:
     b_writer = BVisibleWriter(root)
     b_payload = b_writer.put({"journal": journal, "outcome": outcome.canonical(),
                               "final_hypothesis_set": outcome.final_hypothesis_set.canonical(),
-                              "protocol_audit": audit.canonical()}, forbidden_values=secrets)
+                              "protocol_audit": audit.canonical()}, forbidden_values=secrets, policy=POLICY)
     b_tags = {"alias_world_id": outcome.alias_world_id, "termination": outcome.termination,
               "protocol_valid": str(audit.valid).lower(),
               "validated_fully": str(outcome.validated_fully).lower(),
               "verdicts": ",".join(sorted(q.verdict for q in outcome.questions))}
     b_record = b_writer.record("blind_research_run", SCHEMA_VERSION, provenance, b_tags, b_payload,
-                               forbidden_values=secrets)
+                               forbidden_values=secrets, policy=POLICY)
 
     evaluator = EvaluatorStore(root)
     e_payload = evaluator.put(EVALUATOR, {

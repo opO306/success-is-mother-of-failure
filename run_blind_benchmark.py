@@ -38,8 +38,10 @@ ground_truth/  정답·채점 (G7.4부터).
 
 각 tier: objects/ (내용 해시가 파일 이름, 수정 불가), index.jsonl (해시 체인, 추가만 가능).
 모든 레코드에 commit / dirty / producer / semantics 가 붙는다. semantics 가 다른 결과는 합산 금지.
+dirty 판정: 추적 파일 중 .claude/ 밖의 것이 커밋과 다르면 dirty (.claude/ 는 도구 상태라 제외, 그 외 예외 없음).
+b_visible 쓰기: 금지 목록 + 허용 목록 이중 검사.
 무결성 검사: python run_blind_benchmark.py --verify-only
-저장소 계약: 저장소의 docs/current/RESEARCH_STORE_V1.md
+저장소 계약·semantics 이력: 저장소의 docs/current/RESEARCH_STORE_V1.md
 
 이 저장소 도입 이전의 runs/ 데이터는 출처 정보(commit, semantics)가 없어 들어 있지 않다.
 """
@@ -80,8 +82,7 @@ def main() -> int:
         print("working tree has uncommitted changes -- commit first, or pass --allow-dirty", file=sys.stderr)
         return 2
     root.mkdir(parents=True, exist_ok=True)
-    if not (root / "README.txt").exists():
-        (root / "README.txt").write_text(README, encoding="utf-8")
+    (root / "README.txt").write_text(README, encoding="utf-8")  # documentation, not store data
 
     with tempfile.TemporaryDirectory() as scratch:
         for name, spec in BENCHMARK.items():

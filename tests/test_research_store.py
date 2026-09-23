@@ -19,13 +19,23 @@ from research_store._core import (
     B_VISIBLE, EVALUATOR, GROUND_TRUTH, SemanticsMismatchError, StoreIntegrityError, TierStore,
     require_single_semantics,
 )
-from research_store.b_visible import BVisibleReader, BVisibleWriter, LeakageError
+from research_store.b_visible import BVisibleReader, BVisibleWriter, LeakageError, SchemaViolation, StringPolicy
+from research_store.b_visible_schema import VOCABULARY
+from research_store.provenance import BLIND_RESEARCH_SEMANTICS
 from research_store.evaluator import EvaluatorStore, verify_store
 from research_store.ingest_blind import secrets_of, store_blind_research_run
 
 ROOT = Path(__file__).resolve().parents[1]
 PROV = {"commit": "test", "dirty": False, "producer": "tests", "semantics": "sem-A"}
 SECRETS = ("REAL-SECRET",)
+# Generic mechanics tests store toy values; their words are allowlisted here
+# explicitly rather than by loosening the real blind-research policy.
+TEST_POLICY = StringPolicy(semantics=frozenset({"sem-A", "sem-B"}),
+                           vocabulary=VOCABULARY | {"a", "b", "ok", "s", "i", "t", "tests", "test", "x", "real",
+                                                    "stuff", "orphan", "deep", "note", "world", "0", "1", "2",
+                                                    "forged", "9"})
+INGEST_PROV = {"commit": "0" * 40, "dirty": False, "producer": "run_blind_benchmark.py",
+               "semantics": BLIND_RESEARCH_SEMANTICS}
 
 
 def _s03(ticks=2, initial=None) -> SyntheticWorldSpec:
@@ -46,7 +56,7 @@ def _ingested_run(tmp_path: Path, spec: SyntheticWorldSpec | None = None, seed: 
     journal.close()
     root = tmp_path / "store"
     records = store_blind_research_run(root, real_spec=spec, seed=seed, manifest=manifest, outcome=outcome,
-                                       journal_path=journal_path, provenance=PROV)
+                                       journal_path=journal_path, provenance=INGEST_PROV)
     return root, spec, manifest, outcome, records
 
 
@@ -122,13 +132,13 @@ def test_corruption_of_an_unreferenced_object_is_detected(tmp_path) -> None:
 def test_b_visible_record_may_not_reference_a_secret_tier(tmp_path) -> None:
     secret = EvaluatorStore(tmp_path).put(EVALUATOR, {"real": "stuff"})
     writer = BVisibleWriter(tmp_path)
-    own = writer.put({"ok": 1}, forbidden_values=SECRETS)
+    own = writer.put({"ok": 1}, forbidden_values=SECRETS, policy=TEST_POLICY)
     with pytest.raises(ValueError):
-        writer.record("t", 1, PROV, {}, own, refs=(secret,), forbidden_values=SECRETS)
+        writer.record("t", 1, PROV, {}, own, refs=(secret,), forbidden_values=SECRETS, policy=TEST_POLICY)
 
 
 def test_evaluator_record_may_reference_b_visible(tmp_path) -> None:
-    b_ref = BVisibleWriter(tmp_path).put({"ok": 1}, forbidden_values=SECRETS)
+    b_ref = BVisibleWriter(tmp_path).put({"ok": 1}, forbidden_values=SECRETS, policy=TEST_POLICY)
     evaluator = EvaluatorStore(tmp_path)
     evaluator.record(EVALUATOR, "t", 1, PROV, {}, evaluator.put(EVALUATOR, {"x": 1}), refs=(b_ref,))
     assert verify_store(tmp_path)[EVALUATOR]["records"] == 1
@@ -147,29 +157,31 @@ def test_record_requires_semantics_in_provenance(tmp_path) -> None:
 def test_b_visible_write_refuses_a_secret_anywhere_in_the_value(tmp_path) -> None:
     writer = BVisibleWriter(tmp_path)
     with pytest.raises(LeakageError):
-        writer.put({"deep": [{"note": "from REAL-SECRET"}]}, forbidden_values=SECRETS)
+        writer.put({"deep": [{"note": "from REAL-SECRET"}]}, forbidden_values=SECRETS, policy=TEST_POLICY)
     assert not (tmp_path / B_VISIBLE).exists()
 
 
 def test_b_visible_write_refuses_a_secret_in_tags(tmp_path) -> None:
     writer = BVisibleWriter(tmp_path)
-    ref = writer.put({"ok": 1}, forbidden_values=SECRETS)
+    ref = writer.put({"ok": 1}, forbidden_values=SECRETS, policy=TEST_POLICY)
     with pytest.raises(LeakageError):
-        writer.record("t", 1, PROV, {"world": "REAL-SECRET"}, ref, forbidden_values=SECRETS)
+        writer.record("t", 1, PROV, {"world": "REAL-SECRET"}, ref, forbidden_values=SECRETS, policy=TEST_POLICY)
 
 
 def test_b_visible_write_cannot_skip_the_scan(tmp_path) -> None:
     with pytest.raises(ValueError):
-        BVisibleWriter(tmp_path).put({"ok": 1}, forbidden_values=())
+        BVisibleWriter(tmp_path).put({"ok": 1}, forbidden_values=(), policy=TEST_POLICY)
     with pytest.raises(TypeError):
-        BVisibleWriter(tmp_path).put({"ok": 1})
+        BVisibleWriter(tmp_path).put({"ok": 1}, policy=TEST_POLICY)
+    with pytest.raises(TypeError):
+        BVisibleWriter(tmp_path).put({"ok": 1}, forbidden_values=SECRETS)
 
 
 def test_reader_requires_an_explicit_semantics_and_never_mixes(tmp_path) -> None:
     writer = BVisibleWriter(tmp_path)
     for semantics in ("sem-A", "sem-B"):
         writer.record("t", 1, {**PROV, "semantics": semantics}, {}, writer.put({"s": semantics},
-                      forbidden_values=SECRETS), forbidden_values=SECRETS)
+                      forbidden_values=SECRETS, policy=TEST_POLICY), forbidden_values=SECRETS, policy=TEST_POLICY)
     reader = BVisibleReader(tmp_path)
     with pytest.raises(TypeError):
         reader.records("t")
@@ -221,10 +233,13 @@ def test_a_run_with_a_broken_protocol_is_kept_and_flagged(tmp_path) -> None:
     journal = ResearchJournal.create(journal_path)
     outcome = run_blind_research(world, control_descriptors(spec, 0), observable_descriptors(spec, 0),
                                  SyntheticBlindAExecutor(spec, manifest), journal)
-    journal.append("anomaly_recorded", "AFTER-FINAL", {"note": "written after the final seal"})
+    # A status change written after the final seal: allowlisted words only,
+    # so the run is stored -- and flagged by the protocol audit.
+    some_hypothesis = outcome.final_hypothesis_set.hypotheses[0].hypothesis_id
+    journal.append("hypothesis_status_changed", some_hypothesis, {"status": "untested"})
     journal.close()
     b_record, _ = store_blind_research_run(tmp_path / "store", real_spec=spec, seed=0, manifest=manifest,
-                                           outcome=outcome, journal_path=journal_path, provenance=PROV)
+                                           outcome=outcome, journal_path=journal_path, provenance=INGEST_PROV)
     assert b_record.tags["protocol_valid"] == "false"
 
 
@@ -244,7 +259,7 @@ def test_secret_in_a_run_blocks_ingest_before_anything_is_written(tmp_path, monk
     before = verify_store(root)
     with pytest.raises(LeakageError):
         ingest.store_blind_research_run(root, real_spec=spec, seed=1, manifest=manifest, outcome=outcome,
-                                        journal_path=journal_path, provenance=PROV)
+                                        journal_path=journal_path, provenance=INGEST_PROV)
     assert verify_store(root) == before
 
 
@@ -302,3 +317,63 @@ def test_no_engine_module_imports_research_store() -> None:
     for path in (ROOT / "engine").rglob("*.py"):
         text = path.read_text(encoding="utf-8")
         assert "research_store" not in text, path
+
+
+# ---------------------------------------------------------------------------
+# Allowlist (second wall).
+# ---------------------------------------------------------------------------
+
+BLIND_POLICY = StringPolicy(semantics=frozenset({BLIND_RESEARCH_SEMANTICS}))
+
+
+@pytest.mark.parametrize("value", [
+    {"note": "the gate variable"},          # free text nobody put on a forbidden list
+    {"status": "x1"},                       # a real-name-shaped word as a value
+    {"x1": True},                           # ...as a key
+    ["ALIAS-0000000G"],                     # not a real alias shape (G is not hex)
+    ["ALIAS-00000000 -> x3"],               # statement with a non-alias token
+    [1.5],                                  # non-JSON-integer number
+])
+def test_allowlist_refuses_what_no_forbidden_list_names(tmp_path, value) -> None:
+    with pytest.raises(SchemaViolation):
+        BVisibleWriter(tmp_path).put(value, forbidden_values=SECRETS, policy=BLIND_POLICY)
+    assert not (tmp_path / B_VISIBLE).exists()
+
+
+@pytest.mark.parametrize("value", [
+    {"statement": "ALIAS-0A1B2C3D AND ALIAS-11111111 -> ALIAS-22222222"},
+    {"statement": "no controllable variable affects ALIAS-0A1B2C3D"},
+    {"applicability_conditions": ["alias_world:ALIAS-0A1B2C3D", "baseline:false", "time:one_tick_per_edge"]},
+    {"verdicts": "INSEPARABLE,SOLVED"},
+    {"hypothesis_id": "BH-0123456789abcdef", "observables": [["ALIAS-0A1B2C3D", True]]},
+])
+def test_allowlist_admits_the_blind_vocabulary(tmp_path, value) -> None:
+    BVisibleWriter(tmp_path).put(value, forbidden_values=SECRETS, policy=BLIND_POLICY)
+
+
+@pytest.mark.parametrize("value", [
+    {"status": "SECRET-LOOKING-TEXT"},   # rejected value under an allowed key
+    {"SECRET-LOOKING-TEXT": 1},          # rejected key
+])
+def test_allowlist_error_never_echoes_the_rejected_string(value) -> None:
+    with pytest.raises(SchemaViolation) as caught:
+        BLIND_POLICY.check(value)
+    assert "SECRET-LOOKING-TEXT" not in str(caught.value)
+
+
+def test_ingest_refuses_provenance_under_an_unlisted_semantics(tmp_path) -> None:
+    spec = _s03()
+    world, manifest = make_blind_session(spec, 0)
+    journal_path = tmp_path / "j.jsonl"
+    journal = ResearchJournal.create(journal_path)
+    outcome = run_blind_research(world, control_descriptors(spec, 0), observable_descriptors(spec, 0),
+                                 SyntheticBlindAExecutor(spec, manifest), journal)
+    journal.close()
+    with pytest.raises(SchemaViolation):
+        store_blind_research_run(tmp_path / "store", real_spec=spec, seed=0, manifest=manifest, outcome=outcome,
+                                 journal_path=journal_path, provenance={**INGEST_PROV, "semantics": "some-old-rule"})
+
+
+def test_b_visible_schema_module_is_pure() -> None:
+    assert not any(n.startswith(("engine", "ground_truth")) or n in {"evaluator", "ingest_blind"}
+                   for n in _store_imports("b_visible_schema"))

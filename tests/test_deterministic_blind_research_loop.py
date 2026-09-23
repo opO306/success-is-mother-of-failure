@@ -352,3 +352,53 @@ def test_loop_transitive_closure_never_reaches_evaluator_or_answer_modules() -> 
     assert not closure & FORBIDDEN_MODULES, sorted(closure & FORBIDDEN_MODULES)
     assert "ground_truth" not in closure and "*" not in closure
     assert "research_loop" in closure  # the walker really followed the reused seal/execute helpers
+
+
+
+# ---------------------------------------------------------------------------
+# 8. Selection record: why each experiment was run.
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize("make_spec", [_s02, _s03, lambda: _s03(ticks=1), _outside_vocabulary])
+def test_every_experiment_is_preceded_by_its_selection_record(tmp_path, make_spec) -> None:
+    run = _run(tmp_path, make_spec())
+    entries = read_journal(run.journal_path)
+    selections = {}
+    for index, entry in enumerate(entries):
+        if entry.event_type == "prediction_sealed":
+            selection = entries[index - 1]
+            assert selection.event_type == "experiment_candidate_ranked"
+            assert selection.record_id == entry.payload["arm_id"]
+            selections[selection.record_id] = selection.payload
+    assert list(selections) == list(run.outcome.executed_candidate_ids)
+    phases = [p["phase"] for p in selections.values()]
+    assert phases == (["discovery"] * run.outcome.discovery_experiment_count
+                      + ["validation"] * run.outcome.validation_experiment_count)
+    for payload in selections.values():
+        assert payload["expected_split_pairs"] == sum(payload["expected_split_pairs_by_question"].values())
+        if payload["phase"] == "discovery":
+            assert payload["expected_split_pairs"] > 0     # G6d never runs a non-splitting experiment
+        else:
+            assert payload["expected_split_pairs"] == 0    # validation tests survivors against A, not each other
+
+
+def test_first_pick_expected_the_most_splits_of_any_planned_experiment(tmp_path) -> None:
+    """The first discovery experiment's recorded expectation is the maximum
+    over the whole plan, computed independently here from B's initial
+    hypothesis sets -- the record reflects what G6d actually optimized."""
+    from engine.deterministic.blind_hypothesis_generator import BlindHypothesisGenerator
+    from engine.deterministic.blind_prediction_materializer import BlindPredictionMaterializer
+    spec = _s03()
+    run = _run(tmp_path, spec)
+    world, _manifest = make_blind_session(spec, 0)
+    controls, observables = control_descriptors(spec, 0), observable_descriptors(spec, 0)
+    space = BlindHypothesisGenerator().generate(world, controls, observables)
+    materializer = BlindPredictionMaterializer()
+    plan = materializer.plan(world, controls, observables)
+    sets = tuple(materializer.materialize(q, world, controls, observables, plan) for q in space.questions)
+    live = tuple(frozenset(h.hypothesis_id for h in s.hypotheses) for s in sets)
+    best = max(sum(loop_module._expected_splits(space.questions, sets, live, plan, c.candidate_id).values())
+               for c in plan.candidates)
+    first = next(e for e in read_journal(run.journal_path) if e.event_type == "experiment_candidate_ranked")
+    assert first.payload["phase"] == "discovery"
+    assert first.payload["expected_split_pairs"] == best > 0

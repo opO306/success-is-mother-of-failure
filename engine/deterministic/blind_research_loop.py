@@ -11,6 +11,14 @@ choosing experiments in between:
     through the planned experiments discovery skipped (validation phase) ->
     seal the final answer (`FinalDiscoverySeal`).
 
+Every executed experiment is preceded in the journal by an
+`experiment_candidate_ranked` entry: which phase chose it (discovery or
+validation), its observation horizon, and how many live hypothesis pairs
+B expected it to split, per question. Without this, a later reader could
+see what B did but not what B expected, and "did that experiment inform as
+much as B thought it would" -- the first question a metacognitive B asks of
+its own history -- would be unanswerable.
+
 Why a validation phase exists (measured while building this Gate, not
 assumed): elimination stops the moment one hypothesis is left, so the
 survivor may have been checked in a single experiment. In a world the
@@ -102,6 +110,9 @@ HARNESS_FAILURE = "HARNESS_FAILURE"
 
 _REJECTED = "contradicted_in_domain"
 
+PHASE_DISCOVERY = "discovery"
+PHASE_VALIDATION = "validation"
+
 
 def _digest(value: object) -> str:
     raw = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
@@ -183,6 +194,25 @@ def _verdict(live: frozenset[str], tied: tuple[tuple[str, str], ...]) -> str:
     return INSEPARABLE if len(tied) == n * (n - 1) // 2 else OPEN
 
 
+def _expected_splits(questions, sets, live, plan: BlindExperimentPlan, candidate_id: str) -> dict[str, int]:
+    """How many live hypothesis pairs, per question, this experiment is
+    predicted to split -- from B's own sealed predictions, before the
+    result exists. Journaled with every selection so a later reader (or a
+    metacognitive B) can compare "expected to split N" with what the result
+    actually removed."""
+    candidate = next(c for c in plan.candidates if c.candidate_id == candidate_id)
+    spec = plan.compiled_specs[candidate_id]
+    counts: dict[str, int] = {}
+    for question, hypothesis_set, alive in zip(questions, sets, live):
+        if len(alive) < 2:
+            continue
+        row = InterventionalPredictionProvider(_restricted(hypothesis_set, alive)).predictions_for(candidate, spec)
+        ids = sorted(row)
+        counts[question.target_observable_id] = sum(
+            1 for i, a in enumerate(ids) for b in ids[i + 1:] if row[a] != row[b])
+    return counts
+
+
 def _select(sets: tuple[CausalHypothesisSet, ...], live: tuple[frozenset[str], ...],
             plan: BlindExperimentPlan, executed: frozenset[str]) -> DiscriminatingCandidate | None:
     """G6d over every still-open question at once: a candidate's score is
@@ -242,11 +272,16 @@ def run_blind_research(
     budget = len(plan.candidates) if max_experiments is None else max_experiments
     termination = COMPLETE
 
-    def run_one(candidate_id: str) -> bool:
-        """Seal, execute, compare, reject. False if the harness failed."""
+    def run_one(candidate_id: str, phase: str) -> bool:
+        """Log why, seal, execute, compare, reject. False if the harness failed."""
         candidate = candidate_by_id[candidate_id]
         spec = plan.compiled_specs[candidate_id]
         assert isinstance(spec, BlindCandidateSpec)
+        expected = _expected_splits(space.questions, sets, live, plan, candidate_id)
+        journal.append("experiment_candidate_ranked", candidate_id, {
+            "phase": phase, "horizon": observation_horizon(spec),
+            "expected_split_pairs": sum(expected.values()),
+            "expected_split_pairs_by_question": expected})
         # Seal every live hypothesis of every question -- one run observes
         # all targets, so all of them are tested by it, and all of them must
         # be on record before the result exists.
@@ -284,7 +319,7 @@ def run_blind_research(
         if len(executed) >= budget:
             termination = LIMIT_REACHED
             break
-        if not run_one(chosen.candidate_id):
+        if not run_one(chosen.candidate_id, PHASE_DISCOVERY):
             termination = HARNESS_FAILURE
             break
     discovery_count = len(executed)
@@ -301,7 +336,7 @@ def run_blind_research(
         for candidate in remaining[:validation_budget]:
             if not any(live):
                 break
-            if not run_one(candidate.candidate_id):
+            if not run_one(candidate.candidate_id, PHASE_VALIDATION):
                 termination = HARNESS_FAILURE
                 validated_fully = False
                 break
