@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from fractions import Fraction
 from typing import Any, Mapping
 
-from .v5_number import Vec, q, ser, ser_vec, vec
+from .v5_number import Vec, q, require_fraction, ser, ser_vec, vec
 
 FORMAT = "deterministic-causal-world-spec-v5"
 PORTS = ("E", "N", "S", "W")
@@ -53,6 +53,10 @@ class Unit:
     name: str
     si: Fraction                       # how many SI base units one unit is
 
+    def __post_init__(self) -> None:
+        if require_fraction(self.si, "unit si") <= 0:
+            raise ValueError("a unit's SI value must be > 0")
+
     def canonical(self) -> dict[str, object]:
         return {"name": self.name, "si": ser(self.si)}
 
@@ -75,6 +79,10 @@ class Material:
     contact_half_width: Fraction       # reach of contact, not an excluded volume (S2 as amended)
     ports: frozenset[str]
 
+    def __post_init__(self) -> None:
+        require_fraction(self.mass, "material mass")
+        require_fraction(self.contact_half_width, "contact_half_width")
+
     def canonical(self) -> dict[str, object]:
         return {"contact_half_width": ser(self.contact_half_width), "kind": self.kind,
                 "mass": ser(self.mass), "ports": sorted(self.ports)}
@@ -86,6 +94,9 @@ class BondRule:
     a: tuple[int, str]                 # (kind, port)
     b: tuple[int, str]
     threshold: Fraction                # compared with the pair's relative KE, 1/2 mu |dv|^2 (E5)
+
+    def __post_init__(self) -> None:
+        require_fraction(self.threshold, "rule threshold")
 
     @property
     def key(self) -> frozenset:
@@ -133,6 +144,10 @@ class ElementSpec:
     kind: int
     position: Vec
 
+    def __post_init__(self) -> None:
+        require_fraction(self.position[0], "position x")
+        require_fraction(self.position[1], "position y")
+
     def canonical(self) -> dict[str, object]:
         return {"kind": self.kind, "label": self.label, "position": ser_vec(self.position)}
 
@@ -143,6 +158,11 @@ class StructureSpec:
     bonds: frozenset[BondSpec] = frozenset()
     momentum: Vec = (Fraction(0), Fraction(0))
     internal_energy: Fraction = Fraction(0)
+
+    def __post_init__(self) -> None:
+        require_fraction(self.momentum[0], "momentum x")
+        require_fraction(self.momentum[1], "momentum y")
+        require_fraction(self.internal_energy, "internal energy")
 
     def canonical(self) -> dict[str, object]:
         return {"bonds": [b.canonical() for b in sorted(self.bonds)], "internal_energy": ser(self.internal_energy),

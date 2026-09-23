@@ -32,7 +32,32 @@ def _grow_with_energy():
                  [{"members": ["a", "b"], "bonds": [["a", "E", "b", "W"]], "internal_energy": 5}, free("c", (-2, 0))])
 
 
-@pytest.mark.parametrize("make", [_chain, _mixed, _grow_with_energy])
+def _off_axis():
+    """A face contact off the line of centres: angular-momentum residual 1/2."""
+    return world([("a", 0, 0, 0), ("b", 0, 3, "1/2")], [free("a", (1, 0)), free("b", (-1, 0))])
+
+
+def test_off_axis_merge_has_a_nonzero_residual() -> None:
+    from fractions import Fraction
+    assert run(_off_axis()).events[0].angular_momentum_residual == Fraction(1, 2)
+
+
+def test_a_wrong_angular_momentum_residual_is_caught() -> None:
+    spec = _off_axis()
+    document = copy.deepcopy(run(spec).canonical())
+    document["events"][0]["angular_momentum_residual"] = [0, 1]
+    assert any("angular-momentum residual" in p for p in audit_run(spec.canonical(), document))
+
+
+def test_the_audit_refuses_bool_numbers() -> None:
+    spec = _chain()
+    document = copy.deepcopy(run(spec).canonical())
+    document["events"][0]["kinetic_energy_absorbed"] = [1, True]
+    with pytest.raises(ValueError):
+        audit_run(spec.canonical(), document)
+
+
+@pytest.mark.parametrize("make", [_chain, _mixed, _grow_with_energy, _off_axis])
 def test_honest_runs_pass(make) -> None:
     spec = make()
     assert audit_run(spec.canonical(), run(spec).canonical()) == []

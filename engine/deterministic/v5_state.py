@@ -12,7 +12,8 @@ Invariants checked on every construction:
     along the face (a bond at a bare corner is not a face contact);
   * a port holds at most one bond;
   * no two elements' interiors overlap (touching is allowed);
-  * internal energy >= 0.
+  * internal energy >= 0, and 0 for a free particle (S4);
+  * every stored physical value is a Fraction (constructor guards).
 """
 from __future__ import annotations
 
@@ -20,7 +21,7 @@ from dataclasses import dataclass
 from fractions import Fraction
 from typing import Iterable, Mapping
 
-from .v5_number import Vec, add, cross, scale, ser, ser_vec
+from .v5_number import Vec, add, cross, require_fraction, scale, ser, ser_vec
 from .v5_spec import OPPOSITE, BondSpec, WorldSpecV5
 
 
@@ -30,6 +31,10 @@ class Element:
     kind: int
     position: Vec
 
+    def __post_init__(self) -> None:
+        require_fraction(self.position[0], "position x")
+        require_fraction(self.position[1], "position y")
+
 
 @dataclass(frozen=True)
 class Structure:
@@ -37,6 +42,11 @@ class Structure:
     bonds: frozenset[BondSpec]
     momentum: Vec
     internal_energy: Fraction
+
+    def __post_init__(self) -> None:
+        require_fraction(self.momentum[0], "momentum x")
+        require_fraction(self.momentum[1], "momentum y")
+        require_fraction(self.internal_energy, "internal energy")
 
     @property
     def key(self) -> tuple[str, ...]:
@@ -48,6 +58,9 @@ class StateV5:
     time: Fraction
     elements: tuple[Element, ...]
     structures: tuple[Structure, ...]
+
+    def __post_init__(self) -> None:
+        require_fraction(self.time, "time")
 
     # -- derived quantities --------------------------------------------------
     def element(self, label: str) -> Element:
@@ -156,6 +169,10 @@ def validate(spec: WorldSpecV5, state: StateV5) -> None:
         seen |= s.members
         if s.internal_energy < 0:
             raise ValueError("internal energy is >= 0")
+        if len(s.members) == 1 and s.internal_energy != 0:
+            # S4: a free particle starts with U = 0. v5-v1 has no heat input, no
+            # internal degree of freedom and no break, so nothing could explain it.
+            raise ValueError("a free particle has no internal energy in v5-v1")
         for bond in s.bonds:
             for label, port in bond.ends():
                 if label not in s.members:

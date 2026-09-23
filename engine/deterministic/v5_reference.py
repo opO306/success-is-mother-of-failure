@@ -18,9 +18,10 @@ elements in different structures is checked, every time.
 
 Contact (K3: axis-aligned squares, closed condition): per axis the times
 with |d + s*dv| <= w form one closed interval; the first common time is the
-contact. At that instant the touching axes (|d| == w) must all be
-approaching or the pair only slides, rests or separates -- not an event.
-One touching axis -> a face; both -> a corner (undefined, halt). With
+contact. At that instant at least one touching axis (|d| == w) must be
+closing; if none is, the pair only slides, rests or separates -- not an event.
+One touching axis -> a face; both -> a corner (undefined, halt), including a
+corner merely grazed for one instant. With
 straight-line motion the touching set of a pair is one interval, so each
 pair has at most one candidate event until some velocity changes.
 """
@@ -185,8 +186,11 @@ def _contact(spec: WorldSpecV5, state: StateV5, velocity: Mapping[str, Vec], a: 
     touching = [axis for axis in (0, 1) if abs(at[axis]) == w]
     if not touching:
         raise InternalError(f"{a.label} and {b.label} overlap without an event")
-    if not all(at[axis] * dv[axis] < 0 for axis in touching):
-        return None                               # resting, sliding or separating: not an event (P4)
+    if not any(at[axis] * dv[axis] < 0 for axis in touching):
+        return None                               # resting, sliding or separating on every touching axis (P4)
+    # `any`, not `all`: a body sweeping past a corner -- one axis closing, the other
+    # opening -- touches for exactly one instant. That is a real corner contact
+    # (K6: record + halt), not "no contact". Found by review, 2026-09-24.
     if len(touching) == 2:
         return Contact(s, True, frozenset({(a.label, "corner"), (b.label, "corner")}))
     axis = touching[0]

@@ -13,6 +13,7 @@ positions), recomputes each mass from the spec's materials, and checks:
     P'              == sum P_i                           (momentum)
     U'              == sum U_i + sum K_i - K'            (merge conservation law, E3)
     claimed absorption == sum K_i - K'                   (the claim is checked, not used)
+    residual        == sum (R_cm x P)_i - (R'_cm x P')   (E7 angular-momentum residual, recounted)
 
 and over the whole run: element counts per kind, total momentum and total
 K + U are the same at the start (spec) and the end (final state).
@@ -25,7 +26,7 @@ from typing import Any, Mapping
 
 def _num(pair: Any) -> Fraction:
     numerator, denominator = pair
-    if isinstance(numerator, bool) or not isinstance(numerator, int) or not isinstance(denominator, int):
+    if type(numerator) is not int or type(denominator) is not int:        # bool is an int subclass: refused
         raise ValueError("a number is two ints")
     if denominator <= 0:
         raise ValueError("a denominator is positive")
@@ -47,6 +48,19 @@ class _World:
     def kinetic(self, members, momentum) -> Fraction:
         px, py = momentum
         return (px * px + py * py) / (2 * self.mass(members))
+
+    def angular_momentum(self, snapshot) -> Fraction:
+        """z component about the origin of a rigid, non-rotating body: R_cm x P,
+        R_cm recomputed from the recorded member positions and the spec's masses."""
+        total_mass = self.mass(snapshot["members"])
+        cx = cy = Fraction(0)
+        for label, position in snapshot["positions"]:
+            x, y = _vec(position)
+            m = self.mass_of_kind[self.kind_of[label]]
+            cx, cy = cx + m * x, cy + m * y
+        cx, cy = cx / total_mass, cy / total_mass
+        px, py = _vec(snapshot["momentum"])
+        return cx * py - cy * px
 
 
 def _totals(world: _World, structures) -> tuple[tuple[Fraction, Fraction], Fraction]:
@@ -86,6 +100,9 @@ def audit_run(spec: Mapping[str, Any], run: Mapping[str, Any]) -> list[str]:
             problems.append(f"{where}: claimed absorption disagrees with the recount")
         if kinetic_before - kinetic_after < 0:
             problems.append(f"{where}: a bond created energy")
+        residual = sum((world.angular_momentum(s) for s in pre), Fraction(0)) - world.angular_momentum(post)
+        if _num(event["angular_momentum_residual"]) != residual:
+            problems.append(f"{where}: recorded angular-momentum residual disagrees with the recount (E7)")
     start = [{"members": s["members"], "momentum": s["momentum"], "internal_energy": s["internal_energy"]}
              for s in spec["structures"]]
     end = run["final_state"]["structures"]

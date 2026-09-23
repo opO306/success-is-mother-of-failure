@@ -87,6 +87,39 @@ def _as_mapping(canonical):
 # 2. Spec validation.
 # ---------------------------------------------------------------------------
 
+def test_direct_constructor_cannot_inject_float() -> None:
+    """Guarding only `from_mapping` left a bypass; every stored value is checked."""
+    from engine.deterministic.v5_spec import ElementSpec, Material, StructureSpec, Unit
+    from engine.deterministic.v5_state import StateV5
+    half = Fraction(1, 2)
+    for build in (lambda: Material(0, 1.0, half, frozenset()),
+                  lambda: Material(0, Fraction(1), 0.5, frozenset()),
+                  lambda: ElementSpec("a", 0, (0.0, half)),
+                  lambda: StructureSpec(frozenset({"a"}), frozenset(), (Fraction(0), 1.5)),
+                  lambda: StructureSpec(frozenset({"a"}), internal_energy=1),
+                  lambda: Unit("m", 1.0),
+                  lambda: StateV5(0.0, (), ())):
+        with pytest.raises(TypeError):
+            build()
+
+
+def test_unit_si_values_are_positive() -> None:
+    from engine.deterministic.v5_spec import Unit
+    with pytest.raises(ValueError):
+        Unit("m", Fraction(0))
+
+
+def test_serialised_numbers_refuse_bool_denominators() -> None:
+    with pytest.raises(TypeError):
+        deser([1, True])
+
+
+def test_a_free_particle_cannot_start_with_internal_energy() -> None:
+    """S4: a free particle starts with U = 0 -- nothing in v5-v1 could explain it."""
+    with pytest.raises(ValueError, match="free particle"):
+        initial_state(world([("a", 0, 0, 0)], [{"members": ["a"], "internal_energy": 5}]))
+
+
 def test_units_are_required() -> None:
     raw = _as_mapping(None)
     raw.pop("units")
@@ -165,6 +198,16 @@ def test_grow_carries_existing_internal_energy() -> None:
 # ---------------------------------------------------------------------------
 # 4. Halts are results.
 # ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize("b_start, b_velocity", [
+    ((2, 0), (-1, 1)),      # grazing: x closing, y opening -- touches the corner for one instant (review counterexample)
+    ((2, 1), (-1, 0)),      # corner first, then it would slide along the face
+])
+def test_grazing_corner_contact_halts(b_start, b_velocity) -> None:
+    result = run(world([("a", 0, 0, 0), ("b", 0, *b_start)], [free("a"), free("b", b_velocity)]))
+    assert result.outcome == "halted" and result.unresolved[0].kind == "corner_contact"
+    assert result.final_state.time == 1
+
 
 def test_corner_contact_halts_with_a_record() -> None:
     result = run(world([("a", 0, 0, 0), ("b", 0, 3, 3)], [free("a", (1, 1)), free("b", (-1, -1))]))
@@ -328,7 +371,16 @@ def test_threshold_ignores_how_fast_the_pair_travels_together() -> None:
 def test_the_meter_changes_nothing() -> None:
     plain = run(_mixed())
     metered = run(_mixed(), meter=DenominatorMeter())
-    assert metered.physics() == plain.physics() and metered.meter_summary["events"] == len(plain.events)
+    assert metered.physics() == plain.physics() and metered.meter_summary["merge_events"] == len(plain.events)
+
+
+def test_the_meter_counts_rounds_and_merges_apart() -> None:
+    """Two independent merges at one instant: one causal round, two merge events."""
+    spec = world([("a", 0, 0, 0), ("b", 0, 3, 0), ("c", 0, 0, 10), ("d", 0, 3, 10)],
+                 [free("a", (1, 0)), free("b", (-1, 0)), free("c", (1, 0)), free("d", (-1, 0))])
+    result = run(spec, meter=DenominatorMeter())
+    assert len(result.events) == 2
+    assert result.meter_summary["causal_rounds"] == 1 and result.meter_summary["merge_events"] == 2
 
 
 # ---------------------------------------------------------------------------

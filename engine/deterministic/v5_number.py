@@ -51,7 +51,7 @@ def ser(value: Fraction) -> list[int]:
 
 def deser(pair: list[int]) -> Fraction:
     numerator, denominator = pair
-    if not isinstance(numerator, int) or not isinstance(denominator, int) or isinstance(numerator, bool):
+    if type(numerator) is not int or type(denominator) is not int:          # bool is an int subclass: refused
         raise TypeError("a serialised number is two ints")
     if denominator <= 0:
         raise ValueError("denominator must be positive")
@@ -84,6 +84,15 @@ def dot(a: Vec, b: Vec) -> Fraction:
 def cross(a: Vec, b: Vec) -> Fraction:
     """z component of a x b."""
     return a[0] * b[1] - a[1] * b[0]
+
+
+def require_fraction(value: object, what: str) -> Fraction:
+    """Constructor guard: a stored physical value must already BE a Fraction.
+    Checking only at `from_mapping` left a bypass -- building the dataclasses
+    directly could store a float that later turned `1 / mass` into a float."""
+    if type(value) is not Fraction:
+        raise TypeError(f"{what} must be a Fraction, got {type(value).__name__}")
+    return value
 
 
 def exact(value: object) -> Fraction:
