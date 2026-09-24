@@ -27,7 +27,7 @@ A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생�
 | **연구 데이터 저장소** | `research_store/` (코드) + D: (데이터) | 현재 | 가능 |
 | **정답표** | `ground_truth/` | 봉인된 기준표 | **B 쪽 import 금지** |
 | **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
-| **A-Numeric VM** | `a_numeric/` | A 계산 의미의 기준(0단계: FX·IEEE64-strict·EXACT, 정수만 사용) — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` | 가능. 세계 실행기 아님, 실행기들이 이것에 맞춰 판정받음 |
+| **A-Numeric VM** | `a_numeric/` | A 계산 의미의 기준(VM 0.1: FX·A-Binary64-Finite·EXACT, 정수만 사용, SUM·DOT은 정확 누적 후 1회 반올림) — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` | 가능. 세계 실행기 아님, 실행기들이 이것에 맞춰 판정받음 |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
 

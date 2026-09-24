@@ -23,6 +23,15 @@ class VMHalt(Exception):
         self.reason = reason
 
 
+class VMRejected(Exception):
+    """The one canonical rejection: a program or input is refused BEFORE running,
+    so no host-language error (KeyError, assert, ...) can ever stand in for A's meaning."""
+
+    def __init__(self, code: str, detail: str = "") -> None:
+        super().__init__(f"{code}: {detail}" if detail else code)
+        self.code = code
+
+
 def _as_exact(value) -> Fraction:
     if type(value) is bool or isinstance(value, float):
         raise TypeError("literals must be int, Fraction or 'n/d' strings -- never float or bool")
@@ -115,19 +124,29 @@ class FixedPoint:
             r += 1
         return self._check(r)
 
+    def sum(self, values) -> int:
+        """Exact integer sum, range-checked once: no intermediate can overflow, so
+        the order of the terms cannot matter."""
+        return self._check(sum(values))
+
+    def dot(self, xs, ys) -> int:
+        """Exact products, exact sum, ONE rounding by 2**F, range-checked once."""
+        return self._check(_round_shift(sum(a * b for a, b in zip(xs, ys)), self.frac_bits))
+
     def cmp(self, a: int, b: int) -> int:
         return (a > b) - (a < b)
 
-    def sort_key(self, a: int):
-        return a
+    def valid_raw(self, v) -> bool:
+        return type(v) is int and self.lo <= v <= self.hi
 
     def encode(self, v: int) -> str:
         return str(v)
 
 
 # ---------------------------------------------------------------------------
-# IEEE64-strict: binary64, one correct rounding (nearest-even) per operation,
-# no fused operations, subnormals kept, NaN/infinity never produced (halt).
+# A-Binary64-Finite: the finite binary64 values, one correct rounding
+# (nearest-even) per operation, no fused operations, subnormals kept. Unlike
+# IEEE 754 it never produces NaN or infinity -- it halts instead.
 # Values are the raw 64-bit patterns as Python ints.
 # ---------------------------------------------------------------------------
 
@@ -189,9 +208,19 @@ def _signed_zero(sign: int) -> int:
     return sign << 63
 
 
-class IEEE64Strict:
+def _exact_sum_terms(terms):
+    """terms: (sign, m, e). Exact sum, one rounding. Zero-sign rule (order-free):
+    an exactly-zero result is -0 only if every term is -0, otherwise +0."""
+    emin = min(e for _, _, e in terms)
+    s = sum((-1) ** sg * (m << (e - emin)) for sg, m, e in terms)
+    if s == 0:
+        return _signed_zero(int(all(sg == 1 and m == 0 for sg, m, _ in terms)))
+    return _round(int(s < 0), abs(s), 1, emin)
+
+
+class Binary64Finite:
     capabilities = frozenset({"ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP"})
-    name = "IEEE64-strict"
+    name = "A-Binary64-Finite"
 
     def from_exact(self, value) -> int:
         x = _as_exact(value)
@@ -258,13 +287,23 @@ class IEEE64Strict:
         # 2 guard bits the sticky bit decides real cases (tested against hardware).
         return _round(0, 2 * r + sticky, 2, ea // 2 - p)
 
+    def sum(self, values) -> int:
+        return _exact_sum_terms([_decode(v) for v in values])
+
+    def dot(self, xs, ys) -> int:
+        terms = []
+        for a, b in zip(xs, ys):
+            sa, ma, ea = _decode(a)
+            sb, mb, eb = _decode(b)
+            terms.append((sa ^ sb, ma * mb, ea + eb))
+        return _exact_sum_terms(terms)
+
     def cmp(self, a: int, b: int) -> int:
         x, y = self.to_exact(a), self.to_exact(b)
         return (x > y) - (x < y)
 
-    def sort_key(self, a: int):
-        # value first; the only equal values with different patterns are -0 and +0
-        return (self.to_exact(a), 0 if a == 1 << 63 else 1)
+    def valid_raw(self, v) -> bool:
+        return type(v) is int and 0 <= v < 1 << 64 and (v >> 52) & 0x7FF != 0x7FF
 
     def encode(self, bits: int) -> str:
         return f"{bits:016x}"
@@ -304,11 +343,17 @@ class Exact:
             raise VMHalt("division_by_zero")
         return a / b
 
+    def sum(self, values):
+        return sum(values, Fraction(0))
+
+    def dot(self, xs, ys):
+        return sum((a * b for a, b in zip(xs, ys)), Fraction(0))
+
     def cmp(self, a, b):
         return (a > b) - (a < b)
 
-    def sort_key(self, a):
-        return a
+    def valid_raw(self, v) -> bool:
+        return type(v) is Fraction
 
     def encode(self, v: Fraction) -> str:
         return f"{v.numerator}/{v.denominator}"

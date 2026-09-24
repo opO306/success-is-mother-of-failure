@@ -1,4 +1,4 @@
-"""A-Numeric VM stage 0 (docs/current/A_NUMERIC_EXECUTION_STACK_V1.md, section 3).
+"""A-Numeric VM 0.1 (docs/current/A_NUMERIC_EXECUTION_STACK_V1.md, section 3).
 
 Three independent checks of the arithmetic meaning:
   * against hardware IEEE binary64 (Python floats: + - * / and math.sqrt are
@@ -20,10 +20,10 @@ from fractions import Fraction
 
 import pytest
 
-from a_numeric import (OPCODES, Exact, FixedPoint, IEEE64Strict, Instr, VMUnsupported, canonical_sum,
-                       run)
+from a_numeric import (ANVM_VERSION, OPCODES, SPEC_HASH, Binary64Finite, Exact, FixedPoint, Instr, VMRejected,
+                       program_digest, run)
 
-F64 = IEEE64Strict()
+F64 = Binary64Finite()
 
 
 def bits(x: float) -> int:
@@ -217,14 +217,15 @@ def test_fixed_point_never_wraps(call, reason) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Canonical sum: order and names cannot matter.
+# SUM and DOT: exact accumulation, ONE rounding -- order of terms and of axes
+# cannot matter (VM 0.1; 0 had pairwise rounding and an axis-order-dependent DOT).
 # ---------------------------------------------------------------------------
 
 NON_ASSOC = [bits(1e16), bits(1.0), bits(-1e16), bits(1.0), bits(3.0), bits(-2.5)]
 
 
 def test_naive_float_sum_depends_on_order() -> None:
-    """Why canonical_sum exists: the same six numbers, folded left in two orders."""
+    """Why SUM must be exact: the same six numbers, folded left in different orders."""
     # functools.reduce, not sum(): since 3.12 sum() compensates float rounding
     results = {bits(functools.reduce(operator.add, (flt(x) for x in perm))) for perm in itertools.permutations(NON_ASSOC)}
     assert len(results) > 1
@@ -235,9 +236,77 @@ def test_naive_float_sum_depends_on_order() -> None:
     (FX, [FX.from_exact(x) for x in ("1/3", "-7/5", "100", "1/65536", "-100")]),
     (Exact(), [Fraction(1, 3), Fraction(-7, 5), Fraction(2)]),
 ])
-def test_canonical_sum_is_independent_of_order(profile, values) -> None:
-    results = {canonical_sum(profile, list(p)) for p in itertools.permutations(values)}
-    assert len(results) == 1
+def test_sum_is_independent_of_order(profile, values) -> None:
+    assert len({profile.sum(list(p)) for p in itertools.permutations(values)}) == 1
+
+
+def test_binary64_sum_is_the_correctly_rounded_exact_sum() -> None:
+    """Independent check: math.fsum returns the correctly rounded exact sum of floats."""
+    groups = [A[i:i + 7] for i in range(0, 700, 7)] + [NON_ASSOC]
+    checked = 0
+    for g in groups:
+        try:
+            want = math.fsum(flt(x) for x in g)
+        except OverflowError:                               # fsum's own limit, not A's
+            continue
+        if math.isinf(want):
+            continue
+        checked += 1
+        try:
+            got = F64.sum(g)
+        except Exception as e:                              # noqa: BLE001
+            assert e.reason == "overflow"
+            continue
+        assert got == bits(want), [hex(x) for x in g]
+    assert checked > 50                                     # not vacuous
+    assert F64.sum(NON_ASSOC) == bits(2.5)                  # exact: 1 + 1 + 3 - 2.5
+
+
+def test_fixed_point_sum_checks_range_once() -> None:
+    """The exact total is in range, so no order can make it halt."""
+    for p in itertools.permutations([FX.hi, FX.from_exact(1), FX.from_exact(-1)]):
+        assert FX.sum(list(p)) == FX.hi
+
+
+def test_binary64_sum_zero_sign_is_order_free() -> None:
+    neg0 = 1 << 63
+    assert F64.sum([neg0, neg0, neg0]) == neg0
+    for p in itertools.permutations([neg0, 0, neg0]):
+        assert F64.sum(list(p)) == 0
+    assert F64.sum([bits(1.0), bits(-1.0)]) == 0
+
+
+def test_dot_is_exact_and_independent_of_axis_order() -> None:
+    """VM 0 pinned a left fold that gave 0 one way and 2 the other; the exact DOT gives 2
+    (= 2**53 + 1 + 1 - 2**53) whatever the axis order."""
+    big = float(2 ** 53)
+    xs = [bits(big), bits(1.0), bits(1.0), bits(-big)]
+    ones = [bits(1.0)] * 4
+    assert {F64.dot([xs[i] for i in p], ones) for p in itertools.permutations(range(4))} == {bits(2.0)}
+    fx_x = [FX.from_exact(v) for v in ("1/3", "-5/7", "9/2")]
+    fx_y = [FX.from_exact(v) for v in ("7/3", "1/65536", "-2")]
+    assert len({FX.dot([fx_x[i] for i in p], [fx_y[i] for i in p]) for p in itertools.permutations(range(3))}) == 1
+
+
+def test_dot_rounds_once() -> None:
+    """Independent: the exact dot of represented values, rounded by a DIFFERENT method."""
+    for i in range(0, 600, 3):
+        xs, ys = A[i:i + 3], B[i:i + 3]
+        exact = sum((F64.to_exact(x) * F64.to_exact(y) for x, y in zip(xs, ys)), Fraction(0))
+        try:
+            got = F64.dot(xs, ys)
+        except Exception:                                   # noqa: BLE001
+            continue
+        if exact != 0:
+            assert _is_nearest_even(got, exact)
+    scale = 1 << FX.frac_bits
+    for a, b in zip(_fx_values("da", 300), _fx_values("db", 300)):
+        xs, ys = [a, b >> 3], [b >> 5, a >> 7]
+        want = round(Fraction(sum(x * y for x, y in zip(xs, ys)), scale))
+        try:
+            assert FX.dot(xs, ys) == want
+        except Exception as e:                              # noqa: BLE001
+            assert e.reason == "overflow" and not FX.lo <= want <= FX.hi
 
 
 def test_register_names_cannot_change_results() -> None:
@@ -259,17 +328,51 @@ def test_opcode_set_is_frozen_and_has_no_forbidden_primitives() -> None:
     assert OPCODES == {"CONST", "ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP", "SUM", "DOT"}
 
 
-def test_unsupported_operations_are_rejected_before_running() -> None:
-    program = [Instr("CONST", "x", (2,)), Instr("SQRT", "y", ("x",))]
-    with pytest.raises(VMUnsupported):
-        run(program, Exact())
-    with pytest.raises(VMUnsupported):
-        run([Instr("RANDOM", "x", ())], F64)
+def test_spec_version_and_hash_are_frozen() -> None:
+    """Changing the meaning must be a conscious act: update this hash AND the version."""
+    assert ANVM_VERSION == "0.1"
+    assert SPEC_HASH == "aaf88d9f5d641c0935436f884b00f7e823be5c0280b4126817377f98237a0b97"
 
 
-def test_float_literals_are_refused() -> None:
-    with pytest.raises(TypeError):
-        run([Instr("CONST", "x", (0.1,))], F64)
+def test_results_carry_provenance() -> None:
+    program = [Instr("CONST", "a", ("1/7",))]
+    doc = run(program, FX).canonical()
+    assert doc["vm_version"] == "0.1" and doc["spec_hash"] == SPEC_HASH and doc["profile"] == "FX(32,16)"
+    assert doc["program_digest"] == program_digest(program)
+    assert run(program, FixedPoint(64, 32)).canonical()["profile"] == "FX(64,32)"
+
+
+C1 = Instr("CONST", "one", (1,))
+
+
+@pytest.mark.parametrize("program, profile, inputs, code", [
+    ([C1, Instr("SQRT", "y", ("one",))], Exact(), None, "unsupported_operation"),
+    ([Instr("RANDOM", "x", ())], F64, None, "unknown_instruction"),
+    (["ADD one one"], F64, None, "unknown_instruction"),
+    ([C1, Instr("ADD", "x", ("one",))], F64, None, "bad_arity"),
+    ([C1, Instr("ADD", "x", ["one", "one"])], F64, None, "unknown_instruction"),
+    ([C1, Instr("ADD", "x", ("one", "ghost"))], F64, None, "undefined_register"),
+    ([Instr("ADD", "x", ("x", "x"))], F64, None, "undefined_register"),
+    ([C1, Instr("CMP", "flag", ("one", "one"))], F64, None, "bad_destination"),
+    ([C1, Instr("NEG", None, ("one",))], F64, None, "bad_destination"),
+    ([C1, Instr("SUM", "s", ())], F64, None, "bad_arity"),
+    ([C1, Instr("DOT", "d", (("one",), ("one", "one")))], F64, None, "bad_arity"),
+    ([C1, Instr("DOT", "d", ("one", "one"))], F64, None, "bad_arity"),
+    ([Instr("CONST", "x", (0.1,))], F64, None, "bad_literal"),
+    ([Instr("CONST", "x", (True,))], F64, None, "bad_literal"),
+    ([Instr("CONST", "x", ("1/0",))], F64, None, "bad_literal"),
+    ([], F64, {"x": bits(math.inf)}, "bad_input_value"),
+    ([], F64, {"x": bits(math.nan)}, "bad_input_value"),
+    ([], F64, {"x": 1 << 64}, "bad_input_value"),
+    ([], FX, {"x": FX.hi + 1}, "bad_input_value"),
+    ([], FX, {"x": True}, "bad_input_value"),
+    ([], Exact(), {"x": 0.5}, "bad_input_value"),
+    ([], F64, {3: 0}, "bad_register"),
+])
+def test_bad_programs_and_inputs_end_in_one_canonical_rejection(program, profile, inputs, code) -> None:
+    with pytest.raises(VMRejected) as info:
+        run(program, profile, inputs)
+    assert info.value.code == code
 
 
 def test_halt_is_a_recorded_result() -> None:
@@ -279,21 +382,22 @@ def test_halt_is_a_recorded_result() -> None:
     assert result.halt == (2, "overflow") and "never" not in result.registers
 
 
-def test_branch_margin_is_recorded_exactly() -> None:
-    program = [Instr("CONST", "r2", ("1/3",)), Instr("CONST", "rc2", ("1/3",)), Instr("CMP", None, ("r2", "rc2"))]
+def test_branch_records_the_represented_margin() -> None:
+    """The margin is between REPRESENTED values: 1/3 and 1/3 + 1e-30 round to the same
+    double, so the represented margin is 0 while the mathematical one is not."""
+    program = [Instr("CONST", "a", ("1/3",)), Instr("CONST", "b", (Fraction(1, 3) + Fraction(1, 10 ** 30),)),
+               Instr("CMP", None, ("a", "b"))]
     (b,) = run(program, F64).branches
-    assert b.result == 0 and b.margin == 0                   # both round to the same double
+    assert b.result == 0 and b.represented_margin == 0
     (e,) = run(program, Exact()).branches
-    assert e.result == 0 and e.margin == 0
+    assert e.result == -1 and e.represented_margin == Fraction(1, 10 ** 30)
 
 
-def test_dot_and_distance_squared() -> None:
-    program = [Instr("CONST", n, (v,)) for n, v in [("x0", 3), ("x1", 4), ("y0", 3), ("y1", 4)]]
-    program.append(Instr("DOT", "r2", (("x0", "x1"), ("y0", "y1"))))
+def test_distance_squared() -> None:
+    program = [Instr("CONST", n, (v,)) for n, v in [("x0", 3), ("x1", 4)]]
+    program.append(Instr("DOT", "r2", (("x0", "x1"), ("x0", "x1"))))
     for profile in (F64, FX, Exact()):
-        result = run(program, profile)
-        assert profile.to_exact(profile.from_exact(25)) == Fraction(25)
-        assert result.registers["r2"] == profile.encode(profile.from_exact(25))
+        assert run(program, profile).registers["r2"] == profile.encode(profile.from_exact(25))
 
 
 def test_same_program_same_digest() -> None:
@@ -301,14 +405,3 @@ def test_same_program_same_digest() -> None:
                Instr("SQRT", "d", ("c",))]
     assert run(program, F64).digest() == run(program, F64).digest()
     assert run(program, F64).digest() != run(program, FX).digest()
-
-
-def test_dot_order_is_the_fixed_axis_fold() -> None:
-    """DOT is (((x0*y0 + x1*y1) + x2*y2) + x3*y3): pinned with values where the order shows
-    (left to right gives 0, right to left gives 2)."""
-    big = float(2 ** 53)
-    xs = [big, 1.0, 1.0, -big]
-    inputs = {f"x{i}": bits(x) for i, x in enumerate(xs)} | {f"y{i}": bits(1.0) for i in range(4)}
-    result = run([Instr("DOT", "d", (("x0", "x1", "x2", "x3"), ("y0", "y1", "y2", "y3")))], F64, inputs=inputs)
-    assert result.registers["d"] == f"{bits(((big + 1.0) + 1.0) + -big):016x}" == f"{bits(0.0):016x}"
-    assert ((-big + 1.0) + 1.0) + big == 2.0
