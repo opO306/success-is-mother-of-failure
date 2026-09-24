@@ -2,6 +2,7 @@
 
     python run_v5_benchmarks.py stress   # A: denominator growth along ONE lineage, 10..500 merges, corner-free
     python run_v5_benchmarks.py census   # B: how often undefined physics stops an ordinary world
+    python run_v5_benchmarks.py growth   # GEO v1B 1.4: structure-size census, two families kept apart
 
 A reads the meter row of every merge in a single depth-500 run, so the numbers at
 depth 10, 25, ... are the same lineage caught at that depth. The arithmetic share is
@@ -102,15 +103,58 @@ def census(n: int, seeds: int) -> dict:
     return report
 
 
+def _shape_stats(state) -> dict:
+    sizes = sorted((len(s.members) for s in state.structures), reverse=True)
+    degree: dict[str, int] = {}
+    cycles = 0
+    for s in state.structures:
+        for b in s.bonds:
+            degree[b.a_label] = degree.get(b.a_label, 0) + 1
+            degree[b.b_label] = degree.get(b.b_label, 0) + 1
+        cycles += len(s.bonds) - len(s.members) + 1            # independent cycles of a connected graph
+    return {"sizes": sizes, "max_size": sizes[0], "branch_points": sum(1 for d in degree.values() if d >= 3),
+            "cycles": cycles}
+
+
+def growth(n: int, seeds: int, end: int) -> dict:
+    """Observation only (GEO v1B 1.4): no pass/fail, families never pooled."""
+    report = {}
+    for family, build in (("row", worlds.row_world), ("offset", worlds.offset_world)):
+        runs, reasons = [], {}
+        for seed in range(seeds):
+            result = run_v5(build(n, seed), RunRequest(end, end))
+            key = f"{result.unresolved[0].kind}/{result.unresolved[0].reason}" if result.unresolved else "completed"
+            reasons[key] = reasons.get(key, 0) + 1
+            runs.append({"seed": seed, "end": key, "end_time": str(result.final_state.time),
+                         "merge_events": len(result.events)} | _shape_stats(result.final_state))
+        max_sizes = [r["max_size"] for r in runs]
+        report[family] = {"parameters": {"n": n, "seeds": seeds, "end_time": end,
+                                         "generator": f"v5_benchmark_worlds.{build.__name__}"},
+                          "reasons": reasons, "max_size_distribution": {k: max_sizes.count(k) for k in sorted(set(max_sizes))},
+                          "branch_points_total": sum(r["branch_points"] for r in runs),
+                          "cycles_total": sum(r["cycles"] for r in runs), "runs": runs}
+        print(f"\n[{family}] n={n} seeds={seeds} end={end}")
+        print(f"  end reasons: {reasons}")
+        print(f"  largest structure per world: {report[family]['max_size_distribution']}")
+        print(f"  branch points (members with 3+ bonds): {report[family]['branch_points_total']}, "
+              f"cycles: {report[family]['cycles_total']}")
+    return report
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("what", choices=("stress", "census"))
+    parser.add_argument("what", choices=("stress", "census", "growth"))
     parser.add_argument("--depth", type=int, default=500)
     parser.add_argument("--variants", nargs="+", default=["rest", "drift", "primes"])
     parser.add_argument("--n", type=int, default=30)
     parser.add_argument("--seeds", type=int, default=32)
     args = parser.parse_args()
-    report = stress(args.depth, args.variants) if args.what == "stress" else census(args.n, args.seeds)
+    if args.what == "stress":
+        report = stress(args.depth, args.variants)
+    elif args.what == "census":
+        report = census(args.n, args.seeds)
+    else:
+        report = growth(args.n, args.seeds, 200)
     OUT.mkdir(parents=True, exist_ok=True)
     path = OUT / f"{args.what}-{datetime.now():%Y%m%d-%H%M%S}.json"
     path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")

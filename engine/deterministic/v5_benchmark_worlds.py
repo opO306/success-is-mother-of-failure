@@ -65,6 +65,7 @@ def merge_chain_world(depth: int, drift: Fraction = Fraction(0)) -> WorldSpecV5:
         elements.append({"label": label, "kind": kind, "position": [str(x), "0"]})
         structures.append({"members": [label], "momentum": [str(-drift * mass), "0"]})
     return WorldSpecV5.from_mapping({"format": FORMAT, "world_id": f"merge-chain-{depth}-drift-{drift}",
+                                     "world_class": "NON_CANONICAL_TEST_WORLD",
                                      "units": UNITS, "materials": materials,
                                      "bond_rules": _pair_rules(kinds, (("E", "W"),)),
                                      "elements": elements, "structures": structures})
@@ -88,6 +89,63 @@ def random_world(n: int, seed: int, box: int = 40, masses: tuple[str, ...] = ("1
         elements.append({"label": label, "kind": kind, "position": [str(x), str(y)]})
         structures.append({"members": [label], "momentum": [str(vx * mass), str(vy * mass)]})
     return WorldSpecV5.from_mapping({"format": FORMAT, "world_id": f"census-{n}-{seed}-{len(masses)}",
+                                     "world_class": "NON_CANONICAL_TEST_WORLD",
+                                     "units": UNITS, "materials": materials,
+                                     "bond_rules": _pair_rules(kinds, (("E", "W"), ("N", "S"))),
+                                     "elements": elements, "structures": structures})
+
+
+def row_world(n: int, seed: int, masses: tuple[str, ...] = ("1", "2", "3/2")) -> WorldSpecV5:
+    """GEO v1B growth census, family 1: everything on one row (y = 0), random
+    spacing (> 1, so nothing touches at the start), random fractional
+    velocities and masses. Only E/W faces meet, so no corner is possible;
+    with threshold 0 every contact bonds. Structures grow, meet and merge."""
+    rng = random.Random(seed)
+    kinds = list(range(len(masses)))
+    materials = [{"kind": k, "mass": m, "contact_half_width": "1/2", "ports": ["E", "W"]}
+                 for k, m in enumerate(masses)]
+    elements, structures = [], []
+    x = Fraction(0)
+    for index in range(n):
+        x += 1 + Fraction(rng.randint(1, 9), rng.randint(2, 5))
+        kind = rng.randrange(len(masses))
+        mass = Fraction(masses[kind])
+        label = f"r{index:03d}"
+        velocity = Fraction(rng.randint(-4, 4), rng.randint(1, 5))
+        elements.append({"label": label, "kind": kind, "position": [str(x), "0"]})
+        structures.append({"members": [label], "momentum": [str(velocity * mass), "0"]})
+    return WorldSpecV5.from_mapping({"format": FORMAT, "world_id": f"row-{n}-{seed}",
+                                     "world_class": "NON_CANONICAL_TEST_WORLD",
+                                     "units": UNITS, "materials": materials,
+                                     "bond_rules": _pair_rules(kinds, (("E", "W"),)),
+                                     "elements": elements, "structures": structures})
+
+
+def offset_world(n: int, seed: int, spacing: int = 3, masses: tuple[str, ...] = ("1", "2")) -> WorldSpecV5:
+    """GEO v1B growth census, family 2: 2-D, but each start is shifted off the
+    integer grid by a random fraction (sevenths in x, elevenths in y), so exact
+    corner coincidences are rarer -- not impossible. All four faces bondable."""
+    rng = random.Random(seed)
+    side = 1
+    while side * side < n:
+        side += 1
+    cells = rng.sample([(i, j) for i in range(side + 2) for j in range(side + 2)], n)
+    kinds = list(range(len(masses)))
+    materials = [{"kind": k, "mass": m, "contact_half_width": "1/2", "ports": ["E", "N", "S", "W"]}
+                 for k, m in enumerate(masses)]
+    elements, structures = [], []
+    for index, (i, j) in enumerate(cells):
+        x = spacing * i + Fraction(rng.randint(0, 6), 7)
+        y = spacing * j + Fraction(rng.randint(0, 10), 11)
+        kind = rng.randrange(len(masses))
+        mass = Fraction(masses[kind])
+        label = f"o{index:03d}"
+        vx = Fraction(rng.randint(-3, 3), rng.randint(1, 4))
+        vy = Fraction(rng.randint(-3, 3), rng.randint(1, 4))
+        elements.append({"label": label, "kind": kind, "position": [str(x), str(y)]})
+        structures.append({"members": [label], "momentum": [str(vx * mass), str(vy * mass)]})
+    return WorldSpecV5.from_mapping({"format": FORMAT, "world_id": f"offset-{n}-{seed}",
+                                     "world_class": "NON_CANONICAL_TEST_WORLD",
                                      "units": UNITS, "materials": materials,
                                      "bond_rules": _pair_rules(kinds, (("E", "W"), ("N", "S"))),
                                      "elements": elements, "structures": structures})

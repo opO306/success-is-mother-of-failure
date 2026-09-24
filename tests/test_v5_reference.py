@@ -33,7 +33,7 @@ ALL_PORTS = ["E", "N", "S", "W"]
 def world(elements, structures, *, rules=None, materials=None) -> WorldSpecV5:
     """elements: (label, kind, x, y); structures: dict(members, momentum, internal_energy, bonds)."""
     return WorldSpecV5.from_mapping({
-        "format": FORMAT, "world_id": "test", "units": UNITS,
+        "format": FORMAT, "world_id": "test", "world_class": "NON_CANONICAL_TEST_WORLD", "units": UNITS,
         "materials": materials or [{"kind": 0, "mass": "1", "contact_half_width": "1/2", "ports": ALL_PORTS},
                                    {"kind": 1, "mass": "2", "contact_half_width": "1/2", "ports": ALL_PORTS}],
         "bond_rules": rules if rules is not None else [
@@ -78,7 +78,7 @@ def test_a_float_anywhere_in_a_spec_is_refused() -> None:
 
 
 def _as_mapping(canonical):
-    return {"format": FORMAT, "world_id": "t", "units": UNITS, "bond_rules": [],
+    return {"format": FORMAT, "world_id": "t", "world_class": "NON_CANONICAL_TEST_WORLD", "units": UNITS, "bond_rules": [],
             "elements": [{"label": "a", "kind": 0, "position": ["0", "0"]}],
             "structures": [{"members": ["a"]}]}
 
@@ -313,7 +313,7 @@ def test_input_order_does_not_matter() -> None:
     spec = _mixed()
     shuffled = WorldSpecV5(spec.world_id, spec.units, tuple(reversed(spec.materials)),
                            tuple(reversed(spec.bond_rules)), tuple(random.Random(3).sample(spec.elements, 6)),
-                           tuple(reversed(spec.structures)))
+                           tuple(reversed(spec.structures)), spec.world_class)
     assert shuffled.digest == spec.digest
     assert run(shuffled).physics() == run(spec).physics()
 
@@ -334,7 +334,7 @@ def test_galilean_boost_changes_no_event() -> None:
     boosted = WorldSpecV5(spec.world_id, spec.units, spec.materials, spec.bond_rules, spec.elements,
                           tuple(type(s)(s.members, s.bonds,
                                         (s.momentum[0] + u[0] * _mass(spec, s), s.momentum[1] + u[1] * _mass(spec, s)),
-                                        s.internal_energy) for s in spec.structures))
+                                        s.internal_energy) for s in spec.structures), spec.world_class)
     plain, moved = run(spec), run(boosted)
     assert [(e.time, e.round, e.bonds, e.post.internal_energy, e.kinetic_energy_absorbed) for e in plain.events] == \
            [(e.time, e.round, e.bonds, e.post.internal_energy, e.kinetic_energy_absorbed) for e in moved.events]

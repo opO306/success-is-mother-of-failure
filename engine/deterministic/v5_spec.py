@@ -27,6 +27,13 @@ from typing import Any, Mapping
 from .v5_number import Vec, q, require_fraction, ser, ser_vec, vec
 
 FORMAT = "deterministic-causal-world-spec-v5"
+# Required, non-causal metadata (GEO v1B D2; docs/current/A_REALITY_GROUNDING_V1.md 1.1).
+# It says how a world's results may be interpreted -- never what happens in it:
+# the executor must not read it (`tests/test_v5_geo_v1b.py`). Every v5 world so far
+# is a test world; CANONICAL_A is not used until a canonical A passes its own
+# provenance gate. Adding this field changed earlier v5 digests: v5 before it was
+# a pre-freeze research format with no digest-stability promise.
+WORLD_CLASSES = ("NON_CANONICAL_TEST_WORLD", "CANONICAL_A")
 PORTS = ("E", "N", "S", "W")
 OPPOSITE = {"E": "W", "W": "E", "N": "S", "S": "N"}
 OUTWARD = {"E": (1, 0), "W": (-1, 0), "S": (0, 1), "N": (0, -1)}
@@ -177,9 +184,12 @@ class WorldSpecV5:
     bond_rules: tuple[BondRule, ...]
     elements: tuple[ElementSpec, ...]
     structures: tuple[StructureSpec, ...]
+    world_class: str
     format: str = FORMAT
 
     def __post_init__(self) -> None:
+        if self.world_class not in WORLD_CLASSES:
+            raise ValueError(f"world_class must be one of {WORLD_CLASSES}")
         kinds = [m.kind for m in self.materials]
         if len(set(kinds)) != len(kinds):
             raise ValueError("material kinds must be unique")
@@ -225,7 +235,7 @@ class WorldSpecV5:
                 "format": self.format,
                 "materials": sorted((m.canonical() for m in self.materials), key=lambda m: m["kind"]),
                 "structures": sorted((s.canonical() for s in self.structures), key=lambda s: s["members"]),
-                "units": self.units.canonical(), "world_id": self.world_id}
+                "units": self.units.canonical(), "world_class": self.world_class, "world_id": self.world_id}
 
     @property
     def digest(self) -> str:
@@ -237,7 +247,7 @@ class WorldSpecV5:
             tuple(ElementSpec(mapping[e.label], e.kind, e.position) for e in self.elements),
             tuple(StructureSpec(frozenset(mapping[m] for m in s.members),
                                 frozenset(b.relabeled(mapping) for b in s.bonds), s.momentum, s.internal_energy)
-                  for s in self.structures), self.format)
+                  for s in self.structures), self.world_class, self.format)
 
     @classmethod
     def from_mapping(cls, raw: Mapping[str, Any]) -> "WorldSpecV5":
@@ -246,6 +256,8 @@ class WorldSpecV5:
             raise ValueError(f"format must be {FORMAT}")
         if "units" not in raw:
             raise ValueError("units are required (E8)")
+        if "world_class" not in raw:
+            raise ValueError(f"world_class is required (one of {WORLD_CLASSES})")
         u = raw["units"]
         units = Units(*(Unit(str(u[k]["name"]), q(u[k]["si"])) for k in ("mass", "length", "time")))
         materials = tuple(Material(int(m["kind"]), q(m["mass"]), q(m["contact_half_width"]), frozenset(m["ports"]))
@@ -258,7 +270,7 @@ class WorldSpecV5:
                                          frozenset(BondSpec(*map(str, b)) for b in s.get("bonds", ())),
                                          vec(s.get("momentum", ("0", "0"))), q(s.get("internal_energy", "0")))
                            for s in raw["structures"])
-        return cls(str(raw["world_id"]), units, materials, rules, elements, structures)
+        return cls(str(raw["world_id"]), units, materials, rules, elements, structures, str(raw["world_class"]))
 
 
 @dataclass(frozen=True)

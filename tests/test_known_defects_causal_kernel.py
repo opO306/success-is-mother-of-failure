@@ -46,65 +46,6 @@ from engine.deterministic.causal_spec import (
     CausalWorldSpec,
 )
 
-RULE = BondRuleSpec("ew", 0, 0, "E", "W", 3, 2, "W", "E")
-
-
-def _spec() -> CausalWorldSpec:
-    return CausalWorldSpec(
-        "known-defect-fixture",
-        CausalKernelSpec(16, 16, "wrap", "integer", True,
-                         ("break_existing_bonds", "stream_free_particles",
-                          "resolve_local_collisions")),
-        (CausalMaterialSpec(0, 1, 4),), (), (), (RULE,), 4, 1,
-        "deterministic-causal-world-spec-v2")
-
-
-def _twin_member_state(first: int, second: int, arrival: int) -> CausalWorldState:
-    """A bonded pair whose two members are physically indistinguishable.
-
-    Same cell, same kind, same orientation, same energy, same free ports. The
-    arrival matches the bond rule against either one, so nothing in the
-    declared physics says which should take it.
-    """
-    particles = (
-        CausalParticleSpec(first, 0, 10, 10, "W", "W", 0),
-        CausalParticleSpec(second, 0, 10, 10, "W", "W", 0),
-        CausalParticleSpec(arrival, 0, 10, 10, "E", "E", 3),
-    )
-    bonds = (PhysicalBond(min(first, second), max(first, second), "ew", 4, 10, 10),)
-    return CausalWorldState(0, particles, (), bonds, {0: 4}, True)
-
-
-def test_defect_kernel_is_not_relabelling_invariant():
-    """DEFECT: renaming identical particles changes which one bonds.
-
-    measured:     2026-09-22
-    principle:    3 -- no arbitrary collision ordering
-    cause:        `_grow_chains` walks `sorted(members)` and takes the first
-                  member whose port accepts the arrival, then breaks.
-    replace_with: test_relabelling_preserves_physical_outcome -- assert that
-                  the same physical configuration yields the same outcome
-                  under any consistent renaming.
-
-    Renaming is not a physical change, so a sound kernel's outcome cannot
-    depend on it. This one's does: the arrival always goes to whichever
-    member holds the lower number.
-    """
-    def attaches_to(first: int, second: int, arrival: int) -> str:
-        after = _resolve_collisions(_spec(), _twin_member_state(first, second, arrival))
-        for bond in after.bonds:
-            if {bond.left_id, bond.right_id} != {first, second}:
-                partner = bond.left_id if bond.right_id == arrival else bond.right_id
-                return "first" if partner == first else "second"
-        return "none"
-
-    # The two calls describe the SAME physical situation, listed in a
-    # different order. A sound kernel would answer identically.
-    assert attaches_to(1, 2, 3) == "first"
-    assert attaches_to(2, 1, 3) == "second"
-    assert attaches_to(4, 7, 9) != attaches_to(7, 4, 9)
-
-
 # test_defect_chain_motion_is_stored_on_the_lowest_numbered_member was here.
 #
 # FIXED on the v4 code path (2026-09-24, causal v4 Stage B --
@@ -124,38 +65,21 @@ def test_defect_kernel_is_not_relabelling_invariant():
 # they move to the legacy file the same way.
 
 
-def test_defect_a_chain_takes_at_most_one_arrival_per_tick():
-    """DEFECT: a structural ceiling with no physical cause.
-
-    measured:     2026-09-22
-    principle:    2 and 4 -- no forced pairwise decomposition, no artificial
-                  structural ceiling
-    cause:        `_grow_chains` ends each chain's turn with an unconditional
-                  `break  # one arrival per chain per tick`.
-    replace_with: test_compatible_bonds_commit_together -- two arrivals that
-                  need different ports, different energy and conflict in no
-                  way should be able to bond in the same local update.
-
-    Nothing in any world specification limits a structure to one new bond per
-    tick. Two arrivals reaching opposite free ports do not compete for
-    anything, yet the second is made to wait.
-    """
-    # Two arrivals, both able to bond, at a standing pair with free ports.
-    # They differ in heading because two free particles of one kind cannot
-    # share a cell travelling the same way; both carry orientation E, which
-    # is what the bond rule actually matches on.
-    particles = (
-        CausalParticleSpec(1, 0, 10, 10, "W", "W", 0),
-        CausalParticleSpec(2, 0, 10, 10, "W", "W", 0),
-        CausalParticleSpec(3, 0, 10, 10, "E", "E", 3),
-        CausalParticleSpec(4, 0, 10, 10, "N", "E", 3),
-    )
-    bonds = (PhysicalBond(1, 2, "ew", 4, 10, 10),)
-    state = CausalWorldState(0, particles, (), bonds, {0: 4}, True)
-
-    after = _resolve_collisions(_spec(), state)
-    added = [b for b in after.bonds if {b.left_id, b.right_id} != {1, 2}]
-    assert len(added) == 1, "the ceiling is gone -- see replace_with in this docstring"
+# test_defect_kernel_is_not_relabelling_invariant and
+# test_defect_a_chain_takes_at_most_one_arrival_per_tick were here.
+#
+# FIXED on the v5 path (2026-09-24, GEO v1B -- docs/current/A_MICRO_V5_GEO_V1B_PLAN.md):
+# v5 judges every contact against the frozen pre-event state, bonds all
+# compatible contacts in one instant, and halts (choosing nobody) when one face
+# is claimed twice -- all invariant under renaming. v2 keeps both defects,
+# still physically wrong, for reproducibility. See:
+#   tests/test_legacy_causal_semantics.py::
+#     test_v2_legacy_defect_kernel_is_not_relabelling_invariant
+#     test_v2_legacy_defect_a_chain_takes_at_most_one_arrival_per_tick
+#   tests/test_v5_geo_v1b.py (7a, 7b, one-instant multi-bond, moving growth)
+#
+# This file now holds no live defect. It stays as the place for the next one
+# found that is fixed nowhere.
 
 
 # test_defect_unequal_energy_head_on_same_kind_breaks_momentum was here.
