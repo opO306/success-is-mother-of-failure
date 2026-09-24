@@ -185,6 +185,7 @@ B는 정답을 모른 채 연구한다. 실제 이름은 평가자 쪽 번역기
 | `independent_compliance/checker.py` | 단계별 규칙 준수 검사 (막힌 벽·짝 균형·한도·온도 조건) |
 | `independent_compliance/particles.py` | 입자 물리 준수 (결합 규칙·최소 에너지·포트·한 칸 이동·사슬) |
 | `independent_compliance/README.md` | 총량이 맞아도 경로가 틀릴 수 있다 |
+| `independent_numeric/` | R1-0: A-Numeric VM을 **어려운 입력**(동점·경계 옆·넘침/비정규 경계)으로 판정. 반올림을 계산하지 않고 "정확값이 결과의 반올림 구간 안에 있나"만 본다. `a_numeric` import 금지 |
 
 **세 검증기가 보는 층이 다르다:**
 
