@@ -220,19 +220,21 @@ def test_corner_contact_halts_with_a_record() -> None:
     ([{"rule_id": "ew", "a": {"kind": 0, "port": "E"}, "b": {"kind": 0, "port": "W"}, "threshold": "100"}],
      "below_threshold"),
 ])
-def test_a_contact_that_cannot_bond_halts(rules, reason) -> None:
+def test_a_contact_that_cannot_bond_bounces(rules, reason) -> None:
+    """Before C1 these halted. No process claims the contact, it is centred and
+    face-to-face: a C1 collision (equal masses swap velocities), no bond."""
     result = run(world([("a", 0, 0, 0), ("b", 0, 3, 0)], [free("a", (1, 0)), free("b", (-1, 0))], rules=rules))
-    assert result.outcome == "halted"
-    (u,) = result.unresolved
-    assert u.kind == "non_binding_collision_unresolved" and u.reason == reason
+    assert result.outcome == "completed" and result.events == () and len(result.collisions) == 1
+    momenta = {s.key: s.momentum for s in result.final_state.structures}
+    assert momenta == {("a",): (-1, 0), ("b",): (1, 0)}
 
 
-def test_a_face_without_a_port_halts() -> None:
+def test_a_face_without_a_port_bounces() -> None:
     materials = [{"kind": 0, "mass": "1", "contact_half_width": "1/2", "ports": ["N", "S"]}]
     rules = [{"rule_id": "ns", "a": {"kind": 0, "port": "N"}, "b": {"kind": 0, "port": "S"}, "threshold": "0"}]
     result = run(world([("a", 0, 0, 0), ("b", 0, 3, 0)], [free("a", (1, 0)), free("b", (-1, 0))],
                        materials=materials, rules=rules))
-    assert result.unresolved[0].reason == "no_port"
+    assert result.outcome == "completed" and result.events == () and len(result.collisions) == 1
 
 
 def test_two_contacts_claiming_one_port_halt_as_contested() -> None:
@@ -246,8 +248,10 @@ def test_two_contacts_claiming_one_port_halt_as_contested() -> None:
 
 
 def test_a_halt_applies_nothing_at_that_instant() -> None:
-    result = run(world([("a", 0, 0, 0), ("b", 0, 3, 0)], [free("a", (1, 0)), free("b", (-1, 0))], rules=[]))
-    assert len(result.final_state.structures) == 2 and result.final_state.time == 1
+    result = run(world([("a", 0, 0, 0), ("b", 0, 3, 3)], [free("a", (1, 1)), free("b", (-1, -1))]))
+    assert result.outcome == "halted" and result.final_state.time == 1
+    momenta = {s.key: s.momentum for s in result.final_state.structures}
+    assert momenta == {("a",): (1, 1), ("b",): (-1, -1)}                   # nothing applied at the halt
 
 
 # ---------------------------------------------------------------------------
@@ -362,10 +366,11 @@ def test_threshold_is_total_relative_energy_not_normal_impact(tangential, bonds)
 
 def test_threshold_ignores_how_fast_the_pair_travels_together() -> None:
     """E5/E6: a pair flying east at speed 9-10 but closing at only 1 has relative KE
-    1/4 -- below a threshold of 1 -- even though their total KE is 90.5."""
+    1/4 -- below a threshold of 1 -- even though their total KE is 90.5. It does not
+    bond; with C1 it bounces instead of halting."""
     rules = [{"rule_id": "ew", "a": {"kind": 0, "port": "E"}, "b": {"kind": 0, "port": "W"}, "threshold": "1"}]
     result = run(world([("a", 0, 0, 0), ("b", 0, 3, 0)], [free("a", (10, 0)), free("b", (9, 0))], rules=rules))
-    assert result.outcome == "halted" and result.unresolved[0].reason == "below_threshold"
+    assert result.events == () and len(result.collisions) == 1
 
 
 def test_the_meter_changes_nothing() -> None:

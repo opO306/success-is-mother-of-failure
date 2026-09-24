@@ -13,7 +13,8 @@ elements in different structures is checked, every time.
       4. collect ALL contact events at t
       5. freeze the pre-event state; judge every event against it only
       6. any undefined event -> record and halt (a normal result, not an error)
-         otherwise merge each connected component of bindable events at once
+         otherwise merge each connected component of bindable events at once, and
+         resolve each face contact that no process claims as a C1 collision
       7. repeat (a new event at the same t is a causal round, never a deferred one)
 
 Contact (K3: axis-aligned squares, closed condition): per axis the times
@@ -24,6 +25,15 @@ One touching axis -> a face; both -> a corner (undefined, halt), including a
 corner merely grazed for one instant. With
 straight-line motion the touching set of a pair is one interval, so each
 pair has at most one candidate event until some velocity changes.
+
+C1 collisions (docs/current/A_MICRO_V5_COLLISION_ROTATION_PLAN_V1.md, approved):
+contact first, then whatever process the world's laws allow (today: a bond);
+only when no process claims a face contact is it a collision. C1 resolves just
+the case it can resolve with no invented physics: frictionless (tangential
+momentum untouched), perfectly elastic (e = 1, nothing to share out), rigid,
+torque-free -- the impulse line runs through both centres of mass and lies
+within the contact. Off-centre contacts (R3), mixed normals, and any body in
+two events at one instant (R6, Newton's cradle) halt with a record instead.
 """
 from __future__ import annotations
 
@@ -94,6 +104,30 @@ class MergeEvent:
 
 
 @dataclass(frozen=True)
+class CollisionEvent:
+    """A C1 collision: two structures stay separate and exchange momentum along the
+    contact normal only. Recorded with full pre/post state for the audit."""
+    time: Fraction
+    round: int
+    axis: str                                   # "x" or "y" -- the contact normal
+    faces: frozenset[tuple[str, str]]           # every (label, face) in the contact
+    pre: frozenset[StructureSnapshot]
+    post: frozenset[StructureSnapshot]
+
+    def relabeled(self, mapping: Mapping[str, str]) -> "CollisionEvent":
+        return CollisionEvent(self.time, self.round, self.axis,
+                              frozenset((mapping[label], face) for label, face in self.faces),
+                              frozenset(p.relabeled(mapping) for p in self.pre),
+                              frozenset(p.relabeled(mapping) for p in self.post))
+
+    def canonical(self) -> dict[str, object]:
+        return {"axis": self.axis, "faces": sorted([list(f) for f in self.faces]), "kind": "collision",
+                "post": sorted((p.canonical() for p in self.post), key=lambda c: c["members"]),
+                "pre": sorted((p.canonical() for p in self.pre), key=lambda c: c["members"]),
+                "round": self.round, "time": ser(self.time)}
+
+
+@dataclass(frozen=True)
 class Unresolved:
     """The world reached physics v5 does not define. Recorded, then the run halts."""
     time: Fraction
@@ -125,17 +159,20 @@ class RunResultV5:
     events: tuple[MergeEvent, ...]
     unresolved: tuple[Unresolved, ...]
     observations: tuple[StateV5, ...]
+    collisions: tuple[CollisionEvent, ...] = ()
     meter_summary: dict | None = field(default=None, compare=False)   # never in canonical()
 
     def relabeled(self, mapping: Mapping[str, str]) -> "RunResultV5":
         return RunResultV5(self.spec_digest, self.request, self.outcome, self.final_state.relabeled(mapping),
                            tuple(e.relabeled(mapping) for e in self.events),
                            tuple(u.relabeled(mapping) for u in self.unresolved),
-                           tuple(o.relabeled(mapping) for o in self.observations))
+                           tuple(o.relabeled(mapping) for o in self.observations),
+                           tuple(c.relabeled(mapping) for c in self.collisions))
 
     def physics(self) -> dict[str, object]:
         """Everything the world did -- without the spec digest or how it was looked at."""
-        return {"events": _sorted_by_canonical(self.events), "final_state": self.final_state.canonical(),
+        return {"collisions": _sorted_by_canonical(self.collisions),
+                "events": _sorted_by_canonical(self.events), "final_state": self.final_state.canonical(),
                 "outcome": self.outcome, "unresolved": _sorted_by_canonical(self.unresolved)}
 
     def canonical(self) -> dict[str, object]:
@@ -236,7 +273,7 @@ def _all_contacts(spec: WorldSpecV5, state: StateV5) -> list[Contact]:
 def _judge(spec: WorldSpecV5, frozen: StateV5, batch: list[Contact], t: Fraction, round_no: int):
     """Every event against the frozen pre-event state only (plan section 5)."""
     used_ports = {end for s in frozen.structures for b in s.bonds for end in b.ends()}
-    bindable, unresolved = [], []
+    bindable, nonbinding, unresolved = [], [], []
     for contact in batch:
         if contact.corner:
             unresolved.append(Unresolved(t, round_no, "corner_contact", "face undefined at a corner",
@@ -263,7 +300,7 @@ def _judge(spec: WorldSpecV5, frozen: StateV5, batch: list[Contact], t: Fraction
         if reason is None:
             bindable.append(contact)
         else:
-            unresolved.append(Unresolved(t, round_no, "non_binding_collision_unresolved", reason, contact.faces))
+            nonbinding.append((contact, reason))            # no process claims it: a collision candidate (C1)
     port_count: dict[tuple[str, str], int] = {}
     for contact in bindable:
         for end in contact.faces:
@@ -272,7 +309,7 @@ def _judge(spec: WorldSpecV5, frozen: StateV5, batch: list[Contact], t: Fraction
     for contact in contested:
         unresolved.append(Unresolved(t, round_no, "contested_contact", "one port claimed by several contacts",
                                      contact.faces))
-    return [c for c in bindable if c not in contested], unresolved
+    return [c for c in bindable if c not in contested], nonbinding, unresolved
 
 
 def _merge(spec: WorldSpecV5, frozen: StateV5, bindable: list[Contact], t: Fraction, round_no: int):
@@ -322,6 +359,109 @@ def _merge(spec: WorldSpecV5, frozen: StateV5, bindable: list[Contact], t: Fract
     return StateV5(frozen.time, frozen.elements, tuple(structures)), events
 
 
+AXIS = {"E": 0, "W": 0, "N": 1, "S": 1}
+
+
+def _merge_components(frozen: StateV5, bindable: list[Contact]) -> dict[tuple, tuple]:
+    """structure key -> key of the merge component it joins this instant (itself if none)."""
+    owner = {m: s.key for s in frozen.structures for m in s.members}
+    parent = {s.key: s.key for s in frozen.structures}
+
+    def find(k):
+        while parent[k] != k:
+            parent[k] = parent[parent[k]]
+            k = parent[k]
+        return k
+    for contact in bindable:
+        a, b = sorted(contact.pair)
+        parent[find(owner[a])] = find(owner[b])
+    return {s.key: find(s.key) for s in frozen.structures}
+
+
+def _plan_collisions(spec: WorldSpecV5, frozen: StateV5, bindable: list[Contact], nonbinding, t: Fraction,
+                     round_no: int, collided_labels: set[str], touched_labels: set[str]):
+    """Which non-binding face contacts C1 can resolve, judged on the frozen state."""
+    owner = {m: s for s in frozen.structures for m in s.members}
+    component = _merge_components(frozen, bindable)
+    groups: dict[frozenset, list[Contact]] = {}
+    for contact, _reason in nonbinding:
+        a, b = sorted(contact.pair)
+        sa, sb = owner[a], owner[b]
+        if component[sa.key] == component[sb.key]:
+            continue                        # the two become one rigid body this instant: an internal touch
+        groups.setdefault(frozenset({sa.key, sb.key}), []).append(contact)
+
+    unresolved, plans = [], []
+    merge_parts: dict[tuple, list[tuple]] = {}
+    for key, root in component.items():
+        merge_parts.setdefault(root, []).append(key)
+    in_events: dict[tuple, int] = {}
+    for parts in merge_parts.values():
+        if len(parts) > 1:
+            for key in parts:
+                in_events[key] = in_events.get(key, 0) + 1
+    for pair in groups:
+        for key in pair:
+            in_events[key] = in_events.get(key, 0) + 1
+
+    def halt(reason: str, contacts) -> None:
+        faces = frozenset(f for c in contacts for f in c.faces)
+        unresolved.append(Unresolved(t, round_no, "non_binding_collision_unresolved", reason, faces))
+
+    for root, parts in merge_parts.items():
+        if len(parts) > 1 and any(set(key) & collided_labels for key in parts):
+            halt("shared_body", [c for c in bindable if component[owner[sorted(c.pair)[0]].key] == root])
+    for pair, contacts in groups.items():
+        sa, sb = (owner[key[0]] for key in sorted(pair))
+        axes = {AXIS[face] for c in contacts for _, face in c.faces}
+        if len(axes) != 1:
+            halt("mixed_normals", contacts)
+            continue
+        if any(in_events[key] > 1 for key in pair) or any(set(key) & touched_labels for key in pair):
+            halt("shared_body", contacts)           # R6: one body in two events at one instant (Newton's cradle)
+            continue
+        axis = axes.pop()
+        across = 1 - axis
+        ca, cb = frozen.center_of_mass(spec, sa), frozen.center_of_mass(spec, sb)
+        if ca[across] != cb[across]:
+            halt("off_center_torque", contacts)     # R3: the impulse line misses a centre of mass
+            continue
+        low = high = None
+        for contact in contacts:
+            e1, e2 = (frozen.element(label) for label in sorted(contact.pair))
+            h1, h2 = (spec.material(e.kind).contact_half_width for e in (e1, e2))
+            lo = max(e1.position[across] - h1, e2.position[across] - h2)
+            hi = min(e1.position[across] + h1, e2.position[across] + h2)
+            low = lo if low is None else min(low, lo)
+            high = hi if high is None else max(high, hi)
+        if not low <= ca[across] <= high:
+            halt("off_center_torque", contacts)     # the line through both centres misses the contact
+            continue
+        plans.append((sa, sb, axis, contacts))
+    return plans, unresolved
+
+
+def _collide(spec: WorldSpecV5, state: StateV5, plans, t: Fraction, round_no: int):
+    """C1: frictionless, e = 1, torque-free. Only the normal component changes."""
+    replaced: dict[tuple, Structure] = {}
+    events = []
+    for sa, sb, axis, contacts in plans:
+        ma, mb = state.mass(spec, sa), state.mass(spec, sb)
+        va, vb = state.velocity(spec, sa), state.velocity(spec, sb)
+        impulse = exact(2 * ma * mb / (ma + mb) * (va[axis] - vb[axis]))
+        pa, pb = list(sa.momentum), list(sb.momentum)
+        pa[axis] -= impulse
+        pb[axis] += impulse
+        na = Structure(sa.members, sa.bonds, (exact(pa[0]), exact(pa[1])), sa.internal_energy)
+        nb = Structure(sb.members, sb.bonds, (exact(pb[0]), exact(pb[1])), sb.internal_energy)
+        replaced[sa.key], replaced[sb.key] = na, nb
+        events.append(CollisionEvent(t, round_no, "xy"[axis], frozenset(f for c in contacts for f in c.faces),
+                                     frozenset({StructureSnapshot.of(state, sa), StructureSnapshot.of(state, sb)}),
+                                     frozenset({StructureSnapshot.of(state, na), StructureSnapshot.of(state, nb)})))
+    structures = tuple(replaced.get(s.key, s) for s in state.structures)
+    return StateV5(state.time, state.elements, structures), events
+
+
 # ---------------------------------------------------------------------------
 # The run.
 # ---------------------------------------------------------------------------
@@ -329,6 +469,9 @@ def _merge(spec: WorldSpecV5, frozen: StateV5, bindable: list[Contact], t: Fract
 def run_v5(spec: WorldSpecV5, request: RunRequest, meter=None) -> RunResultV5:
     state = initial_state(spec)
     events: list[MergeEvent] = []
+    collisions: list[CollisionEvent] = []
+    collided_labels: set[str] = set()                # bodies that bounced earlier at this instant
+    touched_labels: set[str] = set()                 # bodies in any event earlier at this instant
     observations: list[StateV5] = []
     next_observation = Fraction(0)
     last_time: Fraction | None = None
@@ -346,7 +489,8 @@ def run_v5(spec: WorldSpecV5, request: RunRequest, meter=None) -> RunResultV5:
         if not contacts or state.time + min(c.after for c in contacts) > request.end_time:
             observe_before(request.end_time, inclusive=True)
             state = _advance(spec, state, request.end_time - state.time)
-            result = RunResultV5(spec.digest, request, "completed", state, tuple(events), (), tuple(observations))
+            result = RunResultV5(spec.digest, request, "completed", state, tuple(events), (), tuple(observations),
+                                 tuple(collisions))
             break
         step = min(c.after for c in contacts)
         t = exact(state.time + step)
@@ -356,23 +500,35 @@ def run_v5(spec: WorldSpecV5, request: RunRequest, meter=None) -> RunResultV5:
             round_no += 1                         # a causal round: caused by the previous round at this instant
         else:
             round_no, seen_this_instant = 0, set()
+            collided_labels, touched_labels = set(), set()
         batch = [c for c in contacts if c.after == step]
         pairs = {c.pair for c in batch}
         if pairs & seen_this_instant:
             raise InternalError("an event already present in an earlier round reappeared (K4: never defer)")
-        bindable, unresolved = _judge(spec, state, batch, t, round_no)
+        bindable, nonbinding, unresolved = _judge(spec, state, batch, t, round_no)
+        plans, blocked = _plan_collisions(spec, state, bindable, nonbinding, t, round_no, collided_labels,
+                                          touched_labels)
+        unresolved += blocked
         if unresolved:
             result = RunResultV5(spec.digest, request, "halted", state, tuple(events), tuple(unresolved),
-                                 tuple(observations))
+                                 tuple(observations), tuple(collisions))
             break
         state, new_events = _merge(spec, state, bindable, t, round_no)
+        state, new_collisions = _collide(spec, state, plans, t, round_no)
         validate(spec, state)
         events.extend(new_events)
+        collisions.extend(new_collisions)
+        for event in new_events:
+            touched_labels |= event.post.members
+        for event in new_collisions:
+            labels = {m for snap in event.post for m in snap.members}
+            touched_labels |= labels
+            collided_labels |= labels
         if meter is not None:
             meter.record(spec, state, new_events)
         seen_this_instant |= pairs
         last_time = t
     if meter is not None:
         result = RunResultV5(result.spec_digest, result.request, result.outcome, result.final_state, result.events,
-                             result.unresolved, result.observations, meter.summary())
+                             result.unresolved, result.observations, result.collisions, meter.summary())
     return result

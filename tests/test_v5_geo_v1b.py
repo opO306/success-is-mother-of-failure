@@ -198,13 +198,15 @@ def test_one_face_claimed_twice_chooses_nobody() -> None:
 
 def test_a_contact_on_an_already_bonded_face_halts() -> None:
     """y2 sits a quarter off y1's east face, so part of that face is still exposed;
-    t reaches it -- but the port is taken."""
+    t reaches it -- but the port is taken, so no bond. Under C1 that makes it a
+    collision candidate, and an off-centre one (the pair's centre of mass is not on
+    t's line): R3 halts it until rotation exists."""
     spec = world([("y1", 0, 0, 0), ("y2", 0, 1, "1/4"), ("t", 0, 3, "-4/5")],
                  [bonded(["y1", "y2"], [["y1", "E", "y2", "W"]], momentum=(2, 0)), free("t")])
     result = run(spec)
     assert result.outcome == "halted"
     (u,) = result.unresolved
-    assert u.kind == "non_binding_collision_unresolved" and u.reason == "port_occupied"
+    assert u.kind == "non_binding_collision_unresolved" and u.reason == "off_center_torque"
 
 
 # ---------------------------------------------------------------------------
