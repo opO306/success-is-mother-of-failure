@@ -32,10 +32,21 @@ def cases():
     return progs, {name: H.vm_expected(p) for name, p in progs.items()}
 
 
+# (block, grid blocks, launch chunk); 0 = default. One block for everything, grids that do not divide
+# the program count, tiny chunks, a chunk that leaves a last partial launch, one program per launch.
+LAYOUTS = [(64, 0, 0), (64, 1, 0), (64, 7, 0), (32, 3, 1000), (128, 5, 7), (256, 64, 333), (64, 1, 1), (32, 0, 997)]
+# defects that depend on the launch layout -- each is invisible in at least one layout
+GRID_MUTANTS = {
+    208: "one program per block assumed (programs past gridDim.x never run)",
+    209: "a last partial launch skipped",
+    210: "result depends on blockIdx.x (block 1 drops a term)",
+}
+
+
 @pytest.fixture(scope="module")
 def exes(tmp_path_factory):
     out = tmp_path_factory.mktemp("b2")
-    ids = (0, 202, *MUTANTS)
+    ids = (0, 202, 211, *MUTANTS, *GRID_MUTANTS)
     with ThreadPoolExecutor(4) as pool:
         return dict(zip(ids, pool.map(lambda i: H.build_b2(out, i), ids)))
 
@@ -68,3 +79,75 @@ def test_one_warp_assumption_only_shows_with_larger_blocks(cases, exes) -> None:
         assert not H.mismatches(expected["long_reduction"], H.run_native(exes[202], progs["long_reduction"], (block,)))
     for block in (64, 256):
         assert H.mismatches(expected["long_reduction"], H.run_native(exes[202], progs["long_reduction"], (block,)))
+
+
+# --- E9: grid / launch layout and program order -------------------------------
+
+@pytest.mark.parametrize("layout", LAYOUTS, ids=lambda l: "B{}_G{}_C{}".format(*l))
+def test_b2_matches_vm_in_every_launch_layout(layout, cases, exes) -> None:
+    progs, expected = cases
+    for family in H.FAMILIES:
+        assert not H.mismatches(expected[family], H.run_native(exes[0], progs[family], layout)), (family, layout)
+
+
+def test_b2_is_independent_of_program_order(cases, exes) -> None:
+    progs, expected = cases
+    for family in H.FAMILIES:
+        for tag in ("order-a", "order-b"):
+            got = H.run_native_permuted(exes[0], progs[family], (64, 5, 101), tag)
+            assert not H.mismatches(expected[family], got), (family, tag)
+
+
+@pytest.mark.parametrize("mutant", sorted(GRID_MUTANTS))
+def test_layout_dependent_defects_are_caught_and_need_layout_variation(mutant, cases, exes) -> None:
+    progs, expected = cases
+    families = ("b64_stream", "b64_sum_dot", "long_reduction")   # every one of these defects shows in them
+    caught = {lay for lay in LAYOUTS
+              if any(H.mismatches(expected[f], H.run_native(exes[mutant], progs[f], lay)) for f in families)}
+    assert caught, GRID_MUTANTS[mutant]
+    assert caught != set(LAYOUTS), "each of these defects hides in some layout -- that is why E9 varies the layout"
+
+
+# --- width contract: NATIVE_MAX_REDUCTION_TERMS ---------------------------------
+
+def test_declared_limit_matches_the_source() -> None:
+    src = (H.HERE / "b2_cuda.cu").read_text(encoding="utf-8")
+    assert f"#define NATIVE_MAX_REDUCTION_TERMS {H.NATIVE_MAX_REDUCTION_TERMS}" in src
+    # the proof in the source: 4196 bits per DOT term + ceil(log2 N) + 1 sign bit <= 4480
+    assert 4196 + (H.NATIVE_MAX_REDUCTION_TERMS - 1).bit_length() + 1 <= 140 * 32
+
+
+@pytest.fixture(scope="module")
+def width():
+    n = H.NATIVE_MAX_REDUCTION_TERMS
+    at, over = H.width_programs(n), H.width_programs(n + 1)
+    return at, H.vm_expected(at), over, H.vm_expected(over)
+
+
+def test_reductions_of_exactly_the_limit_match_the_vm(width, exes) -> None:
+    at, expected, _, _ = width
+    assert {tuple(e["halt"]) if e["halt"] else None for e in expected} == {None, (0, "overflow")}
+    for layout in ((64,), (256, 3, 0), (1,)):
+        assert not H.mismatches(expected, H.run_native(exes[0], at, layout)), layout
+
+
+def test_one_term_more_is_refused_before_running(width, exes) -> None:
+    _, _, over, _ = width
+    for prog in over:
+        with pytest.raises(H.NativeRejected, match="native_reduction_too_long"):
+            H.run_native(exes[0], [prog], (64,))
+
+
+def test_b0_b1_have_no_such_limit(width, tmp_path_factory) -> None:
+    _, _, over, expected = width
+    out = tmp_path_factory.mktemp("b01w")
+    assert not H.mismatches(expected, H.run_native(H.build_native("b0", out), over))
+    assert not H.mismatches(expected, H.run_native(H.build_native("b1", out), over, (8,)))
+
+
+def test_too_narrow_accumulator_is_caught_by_the_wrap_probe(width, exes) -> None:
+    """INJECT 211: 4192 bits. Wraparound is modular, so only a sum that is huge but small modulo
+    2^4192 exposes it -- the wrap probe (last program)."""
+    at, expected, _, _ = width
+    bad = H.mismatches(expected, H.run_native(exes[211], at, (64,)))
+    assert bad == [len(at) - 1]

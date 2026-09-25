@@ -1,6 +1,8 @@
 // B2: CUDA executor of A-Numeric VM 0.1 programs.
-// docs/current/A_NUMERIC_EXECUTION_STACK_V1.md section 4 (E9: the block size must
-// not change any result). One program per block. Thread 0 interprets the
+// docs/current/A_NUMERIC_EXECUTION_STACK_V1.md section 4 (E9: neither the block
+// size nor the grid / launch layout may change any result). Programs are sent in
+// launches of C programs; each launch has G blocks and block b runs programs
+// b, b + G, b + 2G, ... of that launch (grid-stride). Thread 0 interprets the
 // program; for SUM and DOT every thread of the block takes a strided share of
 // the terms and accumulates it EXACTLY into a 4480-bit two's-complement integer,
 // thread 0 adds the exact partials and rounds ONCE. Integer addition is
@@ -12,7 +14,7 @@
 //   * FX(W, F), W <= 64: exact 128-bit integer arithmetic.
 // CONST literals are materialised on the HOST by anvm_core (shared with B0/B1 --
 // disclosed in the design doc); a CONST that halts still halts at its own pc.
-// Usage: b2 <block_size> <programs.txt> <results.txt>
+// Usage: b2 <block_size> [<grid_blocks> <launch_chunk>] <programs.txt> <results.txt>   (0 = default)
 #include <cuda_runtime.h>
 
 #include "anvm_core.hpp"
@@ -23,8 +25,29 @@ static Int accumulate(const std::vector<Int>& xs) {  // host side, used only by 
     return s;
 }
 
-#define LIMBS 140   // 4480 bits: every exact binary64 DOT fits (products span 2^-2148 .. 2^2048)
-#define MLIMBS 68   // exact CMP margins: binary64 |a - b| / 2^-1074 < 2^2100
+// Width contract (A_NUMERIC_EXECUTION_STACK_V1.md 4.2). The VM's SUM/DOT are exact for ANY number of
+// terms; this fixed-width accumulator is exact only up to NATIVE_MAX_REDUCTION_TERMS, and longer
+// reductions are refused before anything runs.
+//   binary64 DOT term: m_a m_b 2^(e_a + e_b), m < 2^53, e in [-1074, 971]. In units of 2^-2148:
+//     shift = e_a + e_b + 2148 in [0, 4090], m_a m_b < 2^106  =>  |term| < 2^4196 (DOT_TERM_BITS).
+//   N terms: |sum| < N 2^4196 <= 2^(4196 + ceil(log2 N)); two's complement needs one more bit.
+//   binary64 SUM terms (< 2^2098 in units of 2^-1074) and FX(W <= 64) products (<= 2^126) need less.
+//   CMP margin: |a - b| <= 2 MAX < 2^2099 in units of 2^-1074.
+#if INJECT == 211
+#define LIMBS 131   // defect: 4192 bits -- one worst-case DOT term no longer fits
+#else
+#define LIMBS 140   // 4480 bits
+#endif
+#define MLIMBS 68   // 2176 bits
+#define DOT_TERM_BITS 4196
+#define NATIVE_MAX_REDUCTION_TERMS 65536
+#define LOG2_MAX_REDUCTION_TERMS 16
+#if INJECT != 211
+static_assert(DOT_TERM_BITS + LOG2_MAX_REDUCTION_TERMS + 1 <= LIMBS * 32, "accumulator too narrow for the contract");
+static_assert((4090 + 128) / 32 + 1 < LIMBS, "shifted term must stay inside the accumulator");
+#endif
+static_assert(2099 <= MLIMBS * 32, "CMP margin buffer too narrow");
+static_assert((1 << LOG2_MAX_REDUCTION_TERMS) >= NATIVE_MAX_REDUCTION_TERMS, "log2 bound");
 
 enum { OP_LOADK, OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_NEG, OP_ABS, OP_SQRT, OP_CMP, OP_SUM, OP_DOT };
 enum { H_NONE, H_OVERFLOW, H_DIVZERO, H_SQRTNEG };
@@ -298,18 +321,15 @@ __device__ __noinline__ int fx_sqrt(int64_t a, int W, int F, uint64_t* out) {
 // ---------------------------------------------------------------------------
 // The kernel: one program per block
 // ---------------------------------------------------------------------------
-__global__ void run_programs(const DProgram* progs, int nprog, int base, const DInstr* instrs, const int* args,
-                             const DImm* imm, uint64_t* regs, uint8_t* defined, DBranch* branches, int* nbranch,
-                             int* halt_pc, int* halt_reason, uint32_t* scratch) {
-    int pid = base + blockIdx.x;
-    if (pid >= nprog) return;  // uniform for the whole block
+__device__ __noinline__ void run_one(int pid, const DProgram* progs, const DInstr* instrs, const int* args,
+                                     const DImm* imm, uint64_t* regs, uint8_t* defined, DBranch* branches, int* nbranch,
+                                     int* halt_pc, int* halt_reason, uint32_t* scratch, int& halted) {
     const DProgram P = progs[pid];
     uint64_t* R = regs + P.reg0;
     uint8_t* Def = defined + P.reg0;
     const int tid = threadIdx.x, B = blockDim.x;
     uint32_t* part = scratch + ((size_t)blockIdx.x * B + tid) * LIMBS;
     uint32_t* parts = scratch + (size_t)blockIdx.x * B * LIMBS;
-    __shared__ int halted;
     if (tid == 0) { halted = 0; nbranch[pid] = 0; halt_pc[pid] = -1; halt_reason[pid] = H_NONE; }
     __syncthreads();
     for (int pc = 0; pc < P.ninstr; pc++) {
@@ -323,7 +343,11 @@ __global__ void run_programs(const DProgram* progs, int nprog, int base, const D
             double fpart = 0.0;  // defect: each thread sums its share in hardware floats
             bool started = false;
 #endif
-            for (int i = tid; i < k; i += B) {
+            int start = tid;
+#if INJECT == 210
+            if (blockIdx.x == 1) start++;  // defect: the result depends on which block runs the program
+#endif
+            for (int i = start; i < k; i += B) {
                 if (P.fx) {
                     int64_t x = (int64_t)R[A[i]];
                     if (I.op == OP_SUM) {
@@ -491,6 +515,24 @@ __global__ void run_programs(const DProgram* progs, int nprog, int base, const D
     }
 }
 
+__global__ void run_programs(int base, int count, const DProgram* progs, const DInstr* instrs, const int* args,
+                             const DImm* imm, uint64_t* regs, uint8_t* defined, DBranch* branches, int* nbranch,
+                             int* halt_pc, int* halt_reason, uint32_t* scratch) {
+    __shared__ int halted;
+#if INJECT == 208
+    // defect: one program per block assumed -- programs past gridDim.x in a launch are never run
+    if ((int)blockIdx.x < count)
+        run_one(base + blockIdx.x, progs, instrs, args, imm, regs, defined, branches, nbranch, halt_pc, halt_reason,
+                scratch, halted);
+#else
+    for (int local = blockIdx.x; local < count; local += gridDim.x) {  // uniform for the whole block
+        run_one(base + local, progs, instrs, args, imm, regs, defined, branches, nbranch, halt_pc, halt_reason,
+                scratch, halted);
+        __syncthreads();
+    }
+#endif
+}
+
 // ---------------------------------------------------------------------------
 // Host
 // ---------------------------------------------------------------------------
@@ -512,12 +554,25 @@ static T* upload(const std::vector<T>& v) {
 }
 
 int main(int argc, char** argv) {
-    if (argc != 4 || atoi(argv[1]) < 1 || atoi(argv[1]) > 1024) {
-        fprintf(stderr, "usage: b2 <block_size 1..1024> <programs.txt> <results.txt>\n");
+    if ((argc != 4 && argc != 6) || atoi(argv[1]) < 1 || atoi(argv[1]) > 1024) {
+        fprintf(stderr, "usage: b2 <block_size 1..1024> [<grid_blocks> <launch_chunk>] <programs.txt> <results.txt>\n");
         return 2;
     }
     const int B = atoi(argv[1]);
-    std::vector<Program> progs = parse_programs(argv[2]);
+    const int want_grid = argc == 6 ? atoi(argv[2]) : 0, want_chunk = argc == 6 ? atoi(argv[3]) : 0;
+    const char* in_path = argv[argc - 2];
+    const char* out_path = argv[argc - 1];
+    std::vector<Program> progs = parse_programs(in_path);
+    // refuse, before anything runs, every reduction the accumulator is not proven to hold
+    for (size_t pi = 0; pi < progs.size(); pi++)
+        for (size_t pc = 0; pc < progs[pi].prog.size(); pc++) {
+            const Instr& in = progs[pi].prog[pc];
+            if ((in.op == "SUM" || in.op == "DOT") && atoll(in.args[0].c_str()) > NATIVE_MAX_REDUCTION_TERMS) {
+                fprintf(stderr, "REJECTED native_reduction_too_long: program %zu pc %zu has %s terms > %d\n", pi, pc,
+                        in.args[0].c_str(), NATIVE_MAX_REDUCTION_TERMS);
+                return 6;
+            }
+        }
     static const std::map<std::string, int> OPS = {{"ADD", OP_ADD}, {"SUB", OP_SUB}, {"MUL", OP_MUL}, {"DIV", OP_DIV},
                                                    {"NEG", OP_NEG}, {"ABS", OP_ABS}, {"SQRT", OP_SQRT}, {"CMP", OP_CMP},
                                                    {"SUM", OP_SUM}, {"DOT", OP_DOT}};
@@ -601,14 +656,24 @@ int main(int argc, char** argv) {
     CK(cudaMalloc(&g_nbr, std::max(1, n) * sizeof(int)));
     CK(cudaMalloc(&g_hpc, std::max(1, n) * sizeof(int)));
     CK(cudaMalloc(&g_hr, std::max(1, n) * sizeof(int)));
+    // a program that is never run must read back as "no registers written, no halt" (never garbage)
+    CK(cudaMemset(g_nbr, 0, std::max(1, n) * sizeof(int)));
+    CK(cudaMemset(g_hpc, 0xFF, std::max(1, n) * sizeof(int)));
+    CK(cudaMemset(g_hr, 0, std::max(1, n) * sizeof(int)));
     const size_t per_block = (size_t)B * LIMBS * sizeof(uint32_t);
-    const int chunk = (int)std::max<size_t>(1, ((size_t)256 << 20) / per_block);
+    const int max_blocks = (int)std::max<size_t>(1, ((size_t)256 << 20) / per_block);  // scratch <= 256 MB
+    const int chunk = want_chunk > 0 ? want_chunk : std::max(1, std::min(n, max_blocks));
+    const int grid = std::min({want_grid > 0 ? want_grid : chunk, chunk, max_blocks});
     uint32_t* g_scratch = nullptr;
-    CK(cudaMalloc(&g_scratch, (size_t)chunk * per_block));
+    CK(cudaMalloc(&g_scratch, (size_t)grid * per_block));
+#if INJECT == 209
+    for (int base = 0; base + chunk <= n; base += chunk) {  // defect: a last partial launch is skipped
+#else
     for (int base = 0; base < n; base += chunk) {
-        int grid = std::min(chunk, n - base);
-        run_programs<<<grid, B>>>(g_prog, n, base, g_instr, g_args, g_imm, g_regs, g_def, g_br, g_nbr, g_hpc, g_hr,
-                                  g_scratch);
+#endif
+        int count = std::min(chunk, n - base);
+        run_programs<<<std::min(grid, count), B>>>(base, count, g_prog, g_instr, g_args, g_imm, g_regs, g_def, g_br,
+                                                  g_nbr, g_hpc, g_hr, g_scratch);
         CK(cudaGetLastError());
         CK(cudaDeviceSynchronize());
     }
@@ -645,6 +710,6 @@ int main(int argc, char** argv) {
         else out += "H -\n";
         out += "E\n";
     }
-    write_file(argv[3], out);
+    write_file(out_path, out);
     return 0;
 }

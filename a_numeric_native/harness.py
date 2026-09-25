@@ -157,14 +157,37 @@ def decode(text: str) -> list[dict]:
     return results
 
 
+class NativeRejected(Exception):
+    """The executor refused the whole batch before running anything (a capability limit, e.g. B2's
+    NATIVE_MAX_REDUCTION_TERMS). Not an A meaning: the VM would run the program."""
+
+
 def run_native(exe, programs, args=()) -> list[dict]:
     with tempfile.TemporaryDirectory() as d:
         src, dst = pathlib.Path(d) / "programs.txt", pathlib.Path(d) / "results.txt"
         src.write_text(encode(programs), encoding="ascii")
         r = subprocess.run([str(exe), *map(str, args), str(src), str(dst)], capture_output=True, text=True)
+        if r.returncode == 6:
+            assert not dst.exists(), "a refused batch must not produce results"
+            raise NativeRejected(r.stderr.strip())
         if r.returncode != 0:
             raise RuntimeError(f"{exe} exited {r.returncode}: {r.stderr}")
         return decode(dst.read_text(encoding="ascii"))
+
+
+def permutation(n: int, tag: str) -> list[int]:
+    """A fixed, label-free shuffle of n positions (sha256 keys)."""
+    return sorted(range(n), key=lambda i: hashlib.sha256(f"{tag}:{i}".encode()).digest())
+
+
+def run_native_permuted(exe, programs, args=(), tag="order") -> list[dict]:
+    """Send the programs in a shuffled order, return the results in the original order."""
+    perm = permutation(len(programs), tag)
+    got = run_native(exe, [programs[i] for i in perm], args)
+    out = [None] * len(programs)
+    for pos, i in enumerate(perm):
+        out[i] = got[pos]
+    return out
 
 
 def vm_expected(programs) -> list[dict]:
@@ -416,6 +439,37 @@ def family_long_reduction():
         out.append(_sum(FX64, fx[:n]))
         out.append(_dot(FX64, fx[:n], fx[n:]))
     return out
+
+
+# B2's declared limit (b2_cuda.cu, width contract). B0/B1 have no limit.
+NATIVE_MAX_REDUCTION_TERMS = 65536
+MAXF = 0x7FEFFFFFFFFFFFFF
+
+
+def width_programs(n: int):
+    """Reductions of exactly n terms that need the accumulator's full width:
+    ordinary values; n worst-case products MAX*MAX (must halt with overflow); +MAX*MAX / -MAX*MAX
+    cancelling down to the smallest subnormal; the same for SUM; and a WRAP PROBE.
+
+    Two's-complement wraparound is modular, so a too-narrow accumulator still gives the right answer
+    whenever the final exact sum fits -- cancelling and overflowing cases cannot expose it. The wrap
+    probe's exact sum is 2^15 * 2^2046 + 2^-1074 = 2^4209 + 1 in units of 2^-2148: a W-bit accumulator
+    with W <= 4209 sees only the "+1" and answers the smallest subnormal instead of halting."""
+    one, sign = F64.from_exact(1), 1 << 63
+    mod = moderate_patterns("width", 2 * n)
+    m = n - 2 if n % 2 == 0 else n - 3             # an even number of cancelling terms
+    alt = [MAXF if i % 2 == 0 else MAXF | sign for i in range(m)]
+    pad = [0] * (n - m - 1)
+    p1023, copies = F64.from_exact(2 ** 1023), min(1 << 15, n - 1)
+    wrap_pad = [0] * (n - copies - 1)
+    return [
+        _dot(F64, mod[:n], mod[n:]),
+        _dot(F64, [MAXF] * n, [MAXF] * n),
+        _dot(F64, alt + [1] + pad, [MAXF] * m + [one] + [one] * len(pad)),
+        _sum(F64, [MAXF] * n),
+        _sum(F64, alt + [1] + pad),
+        _dot(F64, [p1023] * copies + [1] + wrap_pad, [p1023] * copies + [one] + [one] * len(wrap_pad)),
+    ]
 
 
 FAMILIES = {
