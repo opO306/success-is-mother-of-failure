@@ -74,7 +74,7 @@ class FixedPoint:
     exact result to nearest, ties to even. Leaving the range halts.
     """
 
-    capabilities = frozenset({"ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP"})
+    capabilities = frozenset({"ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "EXP", "CMP"})
 
     def __init__(self, width: int, frac_bits: int) -> None:
         if not (2 <= width and 0 <= frac_bits < width):
@@ -123,6 +123,11 @@ class FixedPoint:
         if n - r * r > r:                # n > (r + 1/2)**2 - 1/4; no exact ties exist
             r += 1
         return self._check(r)
+
+    def exp(self, a: int) -> int:
+        """deterministic_exp_v1: exact e^x rounded once (a_numeric/exp.py)."""
+        from .exp import exp_exact_rounded
+        return exp_exact_rounded(self, self.to_exact(a))
 
     def sum(self, values) -> int:
         """Exact integer sum, range-checked once: no intermediate can overflow, so
@@ -219,7 +224,7 @@ def _exact_sum_terms(terms):
 
 
 class Binary64Finite:
-    capabilities = frozenset({"ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP"})
+    capabilities = frozenset({"ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "EXP", "CMP"})
     name = "A-Binary64-Finite"
 
     def from_exact(self, value) -> int:
@@ -286,6 +291,11 @@ class Binary64Finite:
         # every rounding boundary sits at least 2 bits above r's last bit. With only
         # 2 guard bits the sticky bit decides real cases (tested against hardware).
         return _round(0, 2 * r + sticky, 2, ea // 2 - p)
+
+    def exp(self, a: int) -> int:
+        """deterministic_exp_v1: exact e^x rounded once (a_numeric/exp.py)."""
+        from .exp import exp_exact_rounded
+        return exp_exact_rounded(self, self.to_exact(a))
 
     def sum(self, values) -> int:
         return _exact_sum_terms([_decode(v) for v in values])

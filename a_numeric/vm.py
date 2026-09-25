@@ -1,4 +1,4 @@
-"""A-Numeric VM 0.1 (docs/current/A_NUMERIC_EXECUTION_STACK_V1.md, section 3).
+"""A-Numeric VM 0.2 (docs/current/A_NUMERIC_EXECUTION_STACK_V1.md, section 3; 0.2 adds EXP, 3.9).
 
 A small, slow, executable definition of what A's arithmetic means. It runs
 straight-line programs over named registers under one number profile.
@@ -21,7 +21,7 @@ from fractions import Fraction
 
 from .profiles import VMHalt, VMRejected, _as_exact
 
-ANVM_VERSION = "0.1"
+ANVM_VERSION = "0.2"
 
 # The meaning of each instruction, as frozen text. SPEC_HASH goes into every
 # result so results of different meanings are never compared as if equal.
@@ -34,6 +34,8 @@ SPEC = {
     "ADD SUB MUL DIV": "exact binary result rounded once; DIV by zero halts",
     "NEG ABS": "exact; FX may halt at the negative end of the range",
     "SQRT": "exact square root rounded once; negative halts; sqrt(-0) = -0",
+    "EXP": "deterministic_exp_v1: the exact mathematical e^x of the represented input, rounded once; overflow halts; "
+           "a result below half the smallest step rounds to +0; exp(+-0) = 1. A value, not an algorithm. EXACT lacks it",
     "SUM": "exact sum of all represented terms, rounded once; order of terms cannot matter; "
            "binary64 zero sign: -0 only if every term is -0",
     "DOT": "exact products, exact sum, rounded once; order of axes cannot matter; "
@@ -48,16 +50,16 @@ SPEC_HASH = hashlib.sha256(json.dumps(SPEC, sort_keys=True).encode()).hexdigest(
 def _implementation_digest() -> str:
     here = pathlib.Path(__file__).parent
     h = hashlib.sha256()
-    for name in ("profiles.py", "vm.py"):
+    for name in ("profiles.py", "vm.py", "exp.py"):
         h.update((here / name).read_bytes().replace(b"\r\n", b"\n"))
     return h.hexdigest()
 
 
 IMPLEMENTATION_DIGEST = _implementation_digest()
 
-OPCODES = frozenset({"CONST", "ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP", "SUM", "DOT"})
+OPCODES = frozenset({"CONST", "ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "EXP", "CMP", "SUM", "DOT"})
 _BINARY = {"ADD": "add", "SUB": "sub", "MUL": "mul", "DIV": "div"}
-_UNARY = {"NEG": "neg", "ABS": "abs", "SQRT": "sqrt"}
+_UNARY = {"NEG": "neg", "ABS": "abs", "SQRT": "sqrt", "EXP": "exp"}
 # capability each opcode needs from the profile (SUM and DOT are exact accumulations)
 _NEEDS = {"CONST": set(), "SUM": {"ADD"}, "DOT": {"ADD", "MUL"}}
 

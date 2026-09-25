@@ -325,19 +325,19 @@ def test_register_names_cannot_change_results() -> None:
 
 def test_opcode_set_is_frozen_and_has_no_forbidden_primitives() -> None:
     """Forbid by absence: nothing reads labels, randomness, clocks or threads."""
-    assert OPCODES == {"CONST", "ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "CMP", "SUM", "DOT"}
+    assert OPCODES == {"CONST", "ADD", "SUB", "MUL", "DIV", "NEG", "ABS", "SQRT", "EXP", "CMP", "SUM", "DOT"}
 
 
 def test_spec_version_and_hash_are_frozen() -> None:
     """Changing the meaning must be a conscious act: update this hash AND the version."""
-    assert ANVM_VERSION == "0.1"
-    assert SPEC_HASH == "aaf88d9f5d641c0935436f884b00f7e823be5c0280b4126817377f98237a0b97"
+    assert ANVM_VERSION == "0.2"
+    assert SPEC_HASH == "e842676359ca8713c7e88cdd59c891da3e4b8f69afe60538ec695bfbc8049379"
 
 
 def test_results_carry_provenance() -> None:
     program = [Instr("CONST", "a", ("1/7",))]
     doc = run(program, FX).canonical()
-    assert doc["vm_version"] == "0.1" and doc["spec_hash"] == SPEC_HASH and doc["profile"] == "FX(32,16)"
+    assert doc["vm_version"] == "0.2" and doc["spec_hash"] == SPEC_HASH and doc["profile"] == "FX(32,16)"
     assert doc["program_digest"] == program_digest(program)
     assert run(program, FixedPoint(64, 32)).canonical()["profile"] == "FX(64,32)"
 
