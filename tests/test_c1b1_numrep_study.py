@@ -113,3 +113,23 @@ def test_sensitive_cases_converge_to_their_own_references() -> None:
                if r["task"] == "sens" and (r["e"], r["b"], r["db"]) == key}
         assert 3.9 < err[20] / err[10] < 4.1 and 3.9 < err[40] / err[20] < 4.1, key
         assert abs(err[40]) / abs(ref) < 1e-5                                        # within the C1-B1 criterion
+
+
+def test_typed_profile_pair_reproduces_fx64_48_and_meets_the_criteria() -> None:
+    """Study 3: position FX(96,48) + momentum FX(64,48) gives exactly the FX(64,48) observables (same fraction
+    bits, no position outside +-32768 bohr) and meets the 12th-ed. criteria at dt = 40."""
+    t = json.loads((FIX / "c1b1_typed_study_v1.json").read_text(encoding="utf-8"))
+    assert t["provenance"]["uncommitted_changes_in_a_reference_or_audit"] is False
+    cand = {(r["case"], r["dt"]): r for r in RES if r["task"] == "cand" and r["profile"] == "FX64_48"}
+    assert len(t["runs"]) == 120
+    for r in t["runs"]:
+        c = cand[(r["case"], r["dt"])]
+        assert r["status"] == c["status"] == "ok" and r["steps"] == c["steps"] and r["dLz"] == c["dLz"]
+        for k in ("sweep", "time", "two_periods"):
+            assert r.get(k) == c.get(k)
+        if r["dt"] == 40:
+            assert r["max_abs_dE_over_De"] <= 1e-3
+            for k in _obs(CASES[r["case"]]):
+                v = mpmath.mpf(REF80[r["case"]]["represented"][k])
+                if v:
+                    assert abs(mpmath.mpf(r[k]) - v) / abs(v) <= (1e-4 if k == "two_periods" else 1e-5)

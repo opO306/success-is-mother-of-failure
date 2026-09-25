@@ -345,3 +345,71 @@ def test_stress_state_energy_is_what_the_stress_asks_for() -> None:
         lo, hi = C.relative_energy_enclosure(run, 256)
         target = f * C.potential_high(C.R_MIN2)
         assert abs((lo + hi) / 2 / target - 1) < Q(1, 10 ** 6)
+
+
+# --- typed profiles (13th ed. items 7-8) ---------------------------------------------------------------------------
+
+POS96, MOM64 = FixedPoint(96, 48), FixedPoint(64, 48)
+
+
+def _typed_relative(shift, n=60):
+    tr = lambda v: tuple(x + shift for x in v)
+    run = C.new_run(POS96, 40, tr(RI), PI, tr(RJ), PJ, momentum_profile=MOM64)
+    out = []
+    for _ in range(n):
+        C.step(run)
+        out.append((C.relative(POS96, *run.atoms), run.atoms[0].p, run.atoms[1].p))
+    return run, out
+
+
+def test_typed_run_keeps_position_and_momentum_apart() -> None:
+    run, _ = _typed_relative(Q(0), 5)
+    with pytest.raises(AttributeError):
+        run.profile                                              # a typed run has no single profile
+    assert run.pos is POS96 and run.mom is MOM64
+    assert all(-(1 << 63) <= v < (1 << 63) for a in run.atoms for v in a.p)
+
+
+def test_typed_positions_reach_far_beyond_the_fx64_48_range() -> None:
+    """A representation-preserving shift of 10^6 bohr: impossible in FX(64,48) (range +-32768 bohr), and in
+    FX(96,48) the relative trajectory is bit-identical to the unshifted one (D10-A)."""
+    from a_numeric.profiles import VMHalt
+    with pytest.raises(VMHalt):
+        C.new_run(MOM64, 40, tuple(x + 10 ** 6 for x in RI), PI, tuple(x + 10 ** 6 for x in RJ), PJ)
+    assert _typed_relative(Q(0))[1] == _typed_relative(Q(10 ** 6) + Q(5, 1 << 48))[1]
+
+
+# --- exact drift ties (found 2026-09-26, reported to the designer) ------------------------------------------------
+
+P_TIE = Q(4995297890462500, 1 << 48)     # dt = 40, 48 fraction bits: p dt / m is exactly half a raw unit
+
+
+def test_drift_ties_are_reachable_inside_the_validated_range() -> None:
+    """p = 4995297890462500 * 2^-48 ~ 17.747 a.u. (inside |p| <= ~18 a.u. of E <= 10 De) makes p dt / m land exactly
+    halfway between two FX(., 48) positions; round-half-even of r + p dt / m then follows the PARITY of r."""
+    assert (P_TIE * 40 / C.AR40_MASS_ME * (1 << 48)).denominator == 2
+    disp = []
+    for shift in range(4):
+        r = Q(3) + Q(5 + shift, 1 << 48)
+        a = C.Atom("Ar40", (POS96.from_exact(r), 0, 0), (MOM64.from_exact(P_TIE), 0, 0))
+        disp.append(C._drift(POS96, MOM64, a, Q(40))[0].r[0] - POS96.from_exact(r))
+    assert disp[0] == disp[2] and disp[1] == disp[3] and disp[0] != disp[1]
+
+
+@pytest.mark.xfail(strict=True, reason="KNOWN D10-A VIOLATION AT EXACT TIES (reported, designer decision pending): "
+                   "the contract rounds r + p dt/m once with ties-to-even, so on an exact tie the result depends on "
+                   "the parity of the absolute raw position -- a grid-aligned shift by an odd raw unit changes the "
+                   "relative trajectory. r + round(p dt/m) (quantize the displacement) would not")
+def test_translation_invariance_survives_exact_drift_ties() -> None:
+    ri, rj = (Q(-4), Q(0), Q(0)), (Q(4), Q(1), Q(0))
+    # the first half kick adds J before the drift: start at P_TIE - J so atom j drifts with exactly P_TIE
+    J = C.impulse(tuple(b - a for a, b in zip(ri, rj)), Q(20), MOM64)
+    pj = tuple(t - MOM64.to_exact(j) for t, j in zip((-P_TIE, Q(0), Q(0)), J))
+    pi = (Q(0), Q(0), Q(0))
+
+    def rel(shift):
+        tr = lambda v: tuple(x + shift for x in v)
+        run = C.new_run(POS96, 40, tr(ri), pi, tr(rj), pj, momentum_profile=MOM64, validated_only=False)
+        C.step(run)
+        return C.relative(POS96, *run.atoms)
+    assert rel(Q(0)) == rel(Q(1, 1 << 48))

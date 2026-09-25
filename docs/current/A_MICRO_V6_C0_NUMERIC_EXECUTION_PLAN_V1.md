@@ -430,3 +430,10 @@ Dₑ 기준 시험 격자, 세 오차 분리, 교환·90° 회전·표현 보존
 Δt = 40 a.u.(C1-B1, E ≤ 10Dₑ; 합격 기준 산란 10⁻⁵·주기 10⁻⁴·에너지 10⁻³Dₑ·2차 수렴), **binary64 절대 위치 탈락**(binary64 전체 금지 아님),
 FX(64,32) 주 후보 제외, 더 넓은 FX 측정(가장 작은 충분한 형식), 물리량별 profile은 허용 후보, r_min stress, 민감 사례 유지, 감사 끝점 해석적 극한.
 세부·결과: `A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` 6·7절. **위치/운동량 수 표현 판정 대기.**
+
+### 11.11 설계자 판정 13판 (2026-09-26) — 적분 유효범위, 세 가지 거부, typed profile
+
+Δt = 40은 E ≤ 10Dₑ 두 원자 동역학에서만 주장; `physics_domain_exceeded` / `integrator_domain_exceeded` / `executor_limit_exceeded` 분리;
+검증 범위 밖 초기 상태는 실행 전 거부; binary64 절대 위치·FX(64,32) 탈락 유지; FX(64,48) 위치 동결 보류(±1.7 µm); 새 후보 위치 FX(96,48) +
+운동량 FX(64,48); 동결 전 폭별 비용 실측; FX(96,48)은 의미 계약(저장 구조는 실행기 선택); 운동에너지 회귀시험. 결과·판정 요청:
+`A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` 8·9절(새 발견: drift 동점에서 평행이동 위반).
