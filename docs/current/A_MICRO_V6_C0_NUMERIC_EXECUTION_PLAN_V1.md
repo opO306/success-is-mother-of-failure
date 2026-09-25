@@ -415,3 +415,12 @@ N3-B 조사(`A_MICRO_V6_N3B_BORN_MAYER_SURVEY_V1.md`)에서 "Born–Mayer 값을
 
 **수행:** 동결 → `C1A_AR2_FREEZE_V1.md`, `tests/test_c1a_freeze.py`. 재생성 fixture의 비트는 이전과 완전히 동일. C1-B1 설계 초안 →
 `A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` (구현 전 판정 대기).
+
+### 11.9 설계자 판정 11판 (2026-09-26) — C1-B1 두 원자 동역학 계약
+
+D1~D11 수정 조건부 승인, 구현 전 계약으로 기록 → `A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` 4절(⁴⁰Ar NIST·CODATA 2022 출처 고정 질량,
+정확 Δr·R², √R² 입력 확장은 새 모듈, 충격량 J 한 번 반올림·이중 반올림 금지, KDK·Δt/m 미리 반올림 금지, drift 선분 r_min 감시, cutoff 없음,
+Dₑ 기준 시험 격자, 세 오차 분리, 교환·90° 회전·표현 보존 평행이동 비트 동일, 실행기 동일). 순서: 기준 → 감사 → Δt 측정 → 보고 → Δt 판정 → B0 → B1 → B2.
+
+**수행(1~4단계):** 기준 계층·감사·측정 600회 완료, 보고 = 같은 문서 5절. 핵심: 이산화 오차 정확히 Δt², r_min 침범 0건, binary64 반올림은
+이산화의 0.1% 미만, **FX(64,32) 반올림은 Δt ≤ 40에서 이산화보다 큼**, **binary64가 표현 보존 평행이동(D10-A)을 동역학 단계에서 위반**. Δt 판정 대기.
