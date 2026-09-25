@@ -1,0 +1,15 @@
+# a_numeric_native — 네이티브 실행기 (B0 직렬, B1 병렬, B2 CUDA 예정)
+
+A-Numeric VM(`a_numeric/`) 프로그램을 네이티브 코드로 실행한다. **VM이 판정자다** — 네이티브 코드는 VM을 부르지 않고,
+같은 프로그램·같은 입력을 받아 결과(레지스터·분기 기록·멈춤)를 내고, `harness.py`가 VM 결과와 비트 단위로 비교한다.
+설명과 결과: `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` 4.1절.
+
+| 파일 | 역할 |
+|---|---|
+| `anvm_core.hpp` | 공통 산술 핵심 — binary64 사칙·제곱근은 하드웨어(`/fp:strict`), SUM·DOT·CONST는 **정확 정수 누적 후 1회 반올림**, FX는 전부 정확 정수 |
+| `b0_serial.cpp` | B0: 직렬, 스레드 없음 |
+| `b1_parallel.cpp` | B1: 프로그램 단위 병렬 + SUM·DOT 항을 T개 스레드로 나눠 정확 부분합 → 합침 → 1회 반올림 |
+| `harness.py` | 빌드(MSVC), 프로그램 직렬화, 결과 파싱, VM과 비교, 사례 모음 9개 |
+
+시험: `tests/test_a_numeric_native_b0.py`, `tests/test_a_numeric_native_b1.py` (MSVC가 없으면 건너뜀).
+`INJECT=n`으로 결함을 넣어 컴파일해 차등 시험이 잡는지 확인한다(B0 12종, B1 2종).

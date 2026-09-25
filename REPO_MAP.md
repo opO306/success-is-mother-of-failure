@@ -28,6 +28,7 @@ A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생�
 | **정답표** | `ground_truth/` | 봉인된 기준표 | **B 쪽 import 금지** |
 | **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
 | **A-Numeric VM** | `a_numeric/` | A 계산 의미의 기준(VM 0.1: FX·A-Binary64-Finite·EXACT, 정수만 사용, SUM·DOT은 정확 누적 후 1회 반올림) — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` | 가능. 세계 실행기 아님, 실행기들이 이것에 맞춰 판정받음 |
+| **네이티브 실행기** | `a_numeric_native/` | VM 프로그램의 C++ 실행기: B0 직렬, B1 병렬(스레드 수 E9). VM이 판정자, 네이티브는 VM을 부르지 않음 — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` 4.1 | 가능. MSVC 필요(없으면 시험 건너뜀) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
 
