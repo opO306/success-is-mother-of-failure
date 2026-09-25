@@ -35,6 +35,9 @@ from a_numeric.profiles import VMHalt
 
 # the contract: formula + exact published parameters + r_min + "round once" (+ this source-versioned a0)
 CONTRACT_VERSION = "c1a-ar2-lang2024-v1"
+# the A world's physics uses retardation ON (frozen, designer 10th ed.); retardation=False is kept only for
+# audits and comparison and is not a physics choice of A
+WORLD_RETARDATION = True
 BOHR_ANGSTROM = Q("0.529177210903")          # CODATA 2018, the paper's ref. [39] -- this contract only, not A's
 BOHR_ANGSTROM_SOURCE = "CODATA 2018 (Lang 2024 ref. [39]); source-versioned for c1a-ar2-lang2024-v1 only"
 R_MIN_ANGSTROM = Q("1.2")

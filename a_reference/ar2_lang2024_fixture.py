@@ -357,12 +357,35 @@ def build_cases(log=print) -> list[tuple[str, int, list[str]]]:
 # --- generation (needs D:\reference) and loading ----------------------------------------------------
 
 def _sha256(path: Path) -> str:
+    """Raw bytes (the published Lang files, kept outside Git)."""
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def code_sha256(path: Path) -> str:
+    """Code files: CRLF normalised to LF, i.e. the Git blob content, so a Windows checkout gives the same hash."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _git_head() -> str:
     r = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT)
     return r.stdout.strip()
+
+
+# every code file that decides a stored bit or its verdict; the fixture is generated only when all of them are
+# committed unchanged at HEAD, so git_head_at_generation contains exactly the code that produced it
+REFERENCE_FILES = ("a_reference/ar2_lang2024.py", "a_numeric/exp.py", "a_numeric/profiles.py")
+GENERATOR_FILE = "a_reference/ar2_lang2024_fixture.py"
+
+
+def code_files() -> tuple[str, ...]:
+    from audit.independent_physics.ar2_lang2024 import AUDIT_FILES
+    return REFERENCE_FILES + (GENERATOR_FILE,) + tuple(AUDIT_FILES)
+
+
+def dirty_code_files() -> list[str]:
+    r = subprocess.run(["git", "status", "--porcelain", "--", *code_files()], capture_output=True, text=True,
+                       cwd=ROOT)
+    return [l for l in r.stdout.splitlines() if l.strip()]
 
 
 def verify_with_audit(profile: str, raw: int, name: str, stored: dict, model) -> str | None:
@@ -393,6 +416,9 @@ def _b64_contains(x: Q, result: int) -> bool:
 
 def generate(path: Path = FIXTURE, log=print) -> dict:
     from audit.independent_physics.ar2_lang2024 import AUDIT_FILES, Model, parse_fortran
+    dirty = dirty_code_files()
+    if dirty:
+        raise RuntimeError(f"commit these first -- the fixture must name the commit that generated it: {dirty}")
     model = Model(parse_fortran())
     cases = build_cases(log)
     log(f"{len(cases)} cases; evaluating and auditing")
@@ -426,10 +452,13 @@ def generate(path: Path = FIXTURE, log=print) -> dict:
         },
         "provenance": {
             "lang2024_files_sha256": {f: _sha256(DATA / f) for f in SOURCE_FILES},
-            "audit_code_sha256": {f: _sha256(ROOT / f) for f in AUDIT_FILES},
-            "reference_code_sha256": _sha256(ROOT / "a_reference" / "ar2_lang2024.py"),
-            "generator_code_sha256": _sha256(Path(__file__)),
+            "code_hash_rule": "SHA-256 of the file with CRLF normalised to LF (= the Git blob)",
+            "audit_code_sha256": {f: code_sha256(ROOT / f) for f in AUDIT_FILES},
+            "reference_code_sha256": code_sha256(ROOT / "a_reference" / "ar2_lang2024.py"),
+            "reference_dependencies_sha256": {f: code_sha256(ROOT / f) for f in REFERENCE_FILES[1:]},
+            "generator_code_sha256": code_sha256(Path(__file__)),
             "git_head_at_generation": _git_head(),
+            "code_files_committed_at_head": True,
             "audit_checks": "V, V_ret_off, sigma, V+-sigma: mpmath interval enclosure strictly inside the rounding "
                             "interval; F, F_ret_off: 80-digit numerical derivative inside the rounding interval "
                             "(strong independent check, not a proof); domain: the audit's own 1.2 A / a0",
