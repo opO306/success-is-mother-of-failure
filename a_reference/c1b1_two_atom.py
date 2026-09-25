@@ -214,6 +214,11 @@ def _model(R2: Q, M: int, ret: bool):
     return V, dV, inv[1]
 
 
+@dataclass(frozen=True)
+class _Halt:
+    reason: str
+
+
 def _decide(profile, value_at):
     """Round the quantity once: refine the enclosure until both ends round alike."""
     M = START_PRECISION_BITS
@@ -222,14 +227,14 @@ def _decide(profile, value_at):
         try:
             a = profile.from_exact(lo)
         except VMHalt as h:
-            a = ("halt", h.reason)
+            a = _Halt(h.reason)
         try:
             b = profile.from_exact(hi)
         except VMHalt as h:
-            b = ("halt", h.reason)
+            b = _Halt(h.reason)
         if a == b:
-            if isinstance(a, tuple):
-                raise VMHalt(a[1])
+            if isinstance(a, _Halt):
+                raise VMHalt(a.reason)
             return a
         M *= 2
     raise ReferenceUndecided(f"not decided within {MAX_PRECISION_BITS} bits")
@@ -338,17 +343,23 @@ def _limit(fn, *args):
         raise ExecutorLimitExceeded(f"{h.reason} in {getattr(fn, '__name__', fn)}") from h
 
 
+def drift_momentum(mom, raws) -> tuple:
+    """The momentum the drift moves with: the stored value, except for a carry profile (its coarse part only)."""
+    f = getattr(mom, "drift_exact", None)
+    return tuple(f(v) for v in raws) if f else exact(mom, raws)
+
+
 def displacement(pos, mom, a: Atom, dt: Q) -> tuple:
     """delta r = round_pos(p dt / m) per component (raw values of the position profile)."""
     m = SPECIES_MASS[a.species]
-    return tuple(_limit(pos.from_exact, p * dt / m) for p in exact(mom, a.p))
+    return tuple(_limit(pos.from_exact, p * dt / m) for p in drift_momentum(mom, a.p))
 
 
 def _drift(pos, mom, a: Atom, dt: Q, rule: str = "v2"):
     """(new atom, exact unrounded end point r + p dt / m). The end point feeds only the r_min segment guard.
     rule "v1" is the retired round(r + p dt / m), kept only for the drift comparison (designer 14th ed.)."""
     m = SPECIES_MASS[a.species]
-    exact_new = tuple(r + p * dt / m for r, p in zip(exact(pos, a.r), exact(mom, a.p)))
+    exact_new = tuple(r + p * dt / m for r, p in zip(exact(pos, a.r), drift_momentum(mom, a.p)))
     if rule == "v1":
         r_new = tuple(_limit(pos.from_exact, x) for x in exact_new)
     elif rule == "v2":
@@ -356,6 +367,49 @@ def _drift(pos, mom, a: Atom, dt: Q, rule: str = "v2"):
     else:
         raise ValueError(f"unknown drift rule {rule!r}")
     return Atom(a.species, r_new, a.p), exact_new
+
+
+def _half_even(num: int, den: int) -> int:
+    """round(num / den) to nearest, ties to even (den > 0); odd-symmetric: round(-x) = -round(x)."""
+    q, r = divmod(num, den)
+    if 2 * r > den or (2 * r == den and q & 1):
+        q += 1
+    return q
+
+
+class CarryMomentum:
+    """Momentum-comparison candidate (designer 15th ed.): a COARSE momentum on the 2^-48 grid (int64, what the drift
+    moves with) plus a RESIDUAL on a fine 2^-FINE grid that keeps every sub-grid impulse. Raw value = (c, r),
+    exact value c 2^-48 + r 2^-FINE, |r| <= half a coarse unit (2^(FINE-49)). Every kick lands exactly on the fine
+    grid, then the total is split again (c = round-half-even of the total on the coarse grid) -- so impulses too
+    small for the coarse grid accumulate instead of vanishing, and a whole coarse unit is carried when they add up.
+    The split is odd-symmetric (+-J give exactly opposite states) and done once per kick on an exact integer total
+    (order-independent when several pair impulses are summed first). Not a VM profile, not a contract."""
+    COARSE = 48
+
+    def __init__(self, fine: int = 111, width: int = 64) -> None:
+        self.fine, self.width = fine, width
+        self.unit = 1 << (fine - self.COARSE)                     # one coarse unit in fine raws
+        self.name = f"CARRY(FX({width},{self.COARSE})+2^-{fine})"
+
+    def _split(self, v: int) -> tuple:
+        c = _half_even(v, self.unit)
+        if not -(1 << (self.width - 1)) <= c < (1 << (self.width - 1)):
+            raise VMHalt("overflow")
+        return c, v - c * self.unit
+
+    def from_exact(self, value) -> tuple:
+        x = Q(value)
+        return self._split(_half_even(x.numerator << self.fine, x.denominator))
+
+    def to_exact(self, v) -> Q:
+        return Q(v[0] * self.unit + v[1], 1 << self.fine)
+
+    def drift_exact(self, v) -> Q:
+        return Q(v[0], 1 << self.COARSE)
+
+    def neg(self, v) -> tuple:
+        return -v[0], -v[1]
 
 
 class ExactPosition:

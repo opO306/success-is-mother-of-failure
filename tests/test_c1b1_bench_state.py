@@ -43,3 +43,17 @@ def test_cpu_kernels_are_exact(rule, limbs, cpu_exe) -> None:
 @pytest.mark.parametrize("rule,limbs", CASES)
 def test_cuda_kernels_are_exact(rule, limbs, cuda_exe) -> None:
     assert S.check(cuda_exe, limbs, 400, rule)
+
+
+MOM_KINDS = ["fx64_48", "fx80_64", "fx96_80", "fx128_112", "carry"]
+
+
+@pytest.mark.parametrize("kind", MOM_KINDS)
+def test_cpu_momentum_kernels_are_exact(kind, cpu_exe) -> None:
+    """Momentum comparison (15th ed.): position FX(96,48) + drift v2 with each momentum representation."""
+    assert S.check_mom(cpu_exe, kind, 400)
+
+
+@pytest.mark.parametrize("kind", MOM_KINDS)
+def test_cuda_momentum_kernels_are_exact(kind, cuda_exe) -> None:
+    assert S.check_mom(cuda_exe, kind, 400)

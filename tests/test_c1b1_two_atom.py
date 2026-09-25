@@ -548,3 +548,28 @@ def test_exact_positions_never_round_the_drift() -> None:
         C.step(run)
     for n, a in enumerate(run.atoms):
         assert tuple(s + d for s, d in zip(start[n], moved[n])) == a.r
+
+
+def test_carry_momentum_keeps_impulses_below_the_coarse_grid() -> None:
+    """Designer 15th ed. candidate: at 1000 bohr J rounds to 0 on FX(64,48) -- with the carry profile the same
+    impulses accumulate on the 2^-111 grid, and the pair starts moving once they add up to a coarse unit."""
+    K = C.CarryMomentum()
+    rest = ((Q(-500), Q(0), Q(0)), (Q(0),) * 3, (Q(500), Q(0), Q(0)), (Q(0),) * 3)
+    plain = C.new_run(POS96, 40, *rest, momentum_profile=MOM64)
+    carry = C.new_run(POS96, 40, *rest, momentum_profile=K)
+    for _ in range(50):
+        C.step(plain)
+        C.step(carry)
+    assert plain.atoms[1].p == (0, 0, 0)                                   # the implicit cutoff: nothing, ever
+    J = C.impulse((Q(1000), Q(0), Q(0)), Q(20), K)
+    assert J[0][0] == 0 and J[0][1] != 0                                    # below the coarse grid, kept in fine
+    assert C.exact(K, carry.atoms[1].p)[0] < 0 and C.total_momentum(carry) == (0, 0, 0)
+    assert carry.atoms[0].p == tuple(K.neg(v) for v in carry.atoms[1].p)  # action = reaction, exactly
+
+
+def test_carry_split_is_odd_symmetric_and_bounded() -> None:
+    K = C.CarryMomentum()
+    for x in (Q(1, 2 ** 49), Q(3, 2 ** 49), Q(-5, 2 ** 49), Q(12345, 2 ** 70), P_TIE, -P_TIE + Q(7, 2 ** 111)):
+        v = K.from_exact(x)
+        assert K.to_exact(v) == x and K.from_exact(-x) == K.neg(v)
+        assert abs(v[1]) <= K.unit // 2 and K.drift_exact(v) == MOM64.to_exact(MOM64.from_exact(x))

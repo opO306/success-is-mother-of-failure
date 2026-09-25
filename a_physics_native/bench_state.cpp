@@ -3,8 +3,10 @@
 //        bench_state time  <rule> <limbs> <npairs> <iters>   -> ns per pair for drift, dr, R2, kick, bundle
 //        bench_state e2e   <rule> <limbs> <npairs>           -> us per pair: bundle + one C1-A F(R) evaluation (B0)
 // limbs 2|3|4 for v1 / v2 (FX(64|96|128,48)), 5 for exact (160-bit positions in units 2^-48 / B bohr)
+// Momentum comparison (15th ed.): bench_state mcheck|mtime|me2e <kind> <npairs> [out|iters], position FX(96,48)
+//   drift v2, kind = fx64_48 | fx80_64 | fx96_80 | fx128_112 | carry
 #include "ar2_core.hpp"
-#include "bench_state_io.hpp"
+#include "bench_mom_io.hpp"
 
 static Int accumulate(const std::vector<Int>& xs) {
     Int s;
@@ -89,9 +91,93 @@ static int e2e(size_t n) {
     return 0;
 }
 
+template <class M>
+static int mcheck(size_t n, const char* out) {
+    std::vector<MPair<M>> ps;
+    std::vector<typename MJ<M>::T> Js;
+    make_mpairs<M>(ps, Js, n);
+    std::string text;
+    for (size_t i = 0; i < n; i++) {
+        Out<3> o;
+        bool ok = mop_drift(ps[i], K_DRIFT);
+        ok &= mop_kick(ps[i], &Js[3 * i]);
+        op_dr(ps[i].pos, o);
+        op_R2(o);
+        text += mcheck_line(ps[i], o, ok) + "\n";
+    }
+    std::ofstream(out) << text;
+    return 0;
+}
+
+template <class M>
+static int mtime(size_t n, int iters) {
+    std::vector<MPair<M>> ps;
+    std::vector<typename MJ<M>::T> Js;
+    make_mpairs<M>(ps, Js, n);
+    std::vector<Out<3>> os(n);
+    volatile uint32_t sink = 0;
+    auto run = [&](int which) {
+        double t0 = now_s();
+        uint32_t acc = 0;
+        for (int it = 0; it < iters; it++)
+            for (size_t i = 0; i < n; i++) {
+                if (which == 0 || which == 2) acc += mop_drift(ps[i], K_DRIFT);
+                if (which == 2) { op_dr(ps[i].pos, os[i]); op_R2(os[i]); }
+                if (which == 1 || which == 2) acc += mop_kick(ps[i], &Js[3 * i]);
+                acc += os[i].R2.w[0];
+            }
+        sink = sink + acc;
+        return (now_s() - t0) / ((double)n * iters) * 1e9;
+    };
+    const char* names[] = {"drift", "kick", "bundle"};
+    for (int w = 0; w < 3; w++) printf("%s %.2f\n", names[w], run(w));
+    return 0;
+}
+
+template <class M>
+static int me2e(size_t n) {
+    std::vector<MPair<M>> ps;
+    std::vector<typename MJ<M>::T> Js;
+    make_mpairs<M>(ps, Js, n);
+    Rng g;
+    for (auto& p : ps)
+        for (int k = 0; k < 3; k++) p.pos.rj[k] = add(p.pos.ri[k], from_i64<3>(g.range(6ll << 48)));
+    ar2::Cache cache;
+    ar2::Profile b64{false, 64, 0};
+    double t0 = now_s();
+    size_t done = 0;
+    for (size_t i = 0; i < n; i++) {
+        Out<3> o;
+        mop_drift(ps[i], K_DRIFT);
+        op_dr(ps[i].pos, o);
+        op_R2(o);
+        double Rb = std::sqrt(to_double(o.R2)) / 281474976710656.0;   // timing-proxy input
+        if (Rb < 2.3) continue;
+        char buf[32];
+        snprintf(buf, sizeof buf, "%016llx", (unsigned long long)bits_of(Rb));
+        std::string a = ar2::answer('F', true, b64, buf, cache);
+        mop_kick(ps[i], &Js[3 * i]);
+        done++;
+    }
+    double dt = now_s() - t0;
+    printf("e2e_us %.2f pairs %zu\n", dt / done * 1e6, done);
+    return 0;
+}
+
 int main(int argc, char** argv) {
     if (argc < 5) return 2;
     std::string mode = argv[1], rule = argv[2];
+    if (mode[0] == 'm') {
+        size_t nm = (size_t)atoll(argv[3]);
+#define BENCH_MOM_RUN(name, T)                                                   \
+        if (rule == name) {                                                      \
+            if (mode == "mcheck") return mcheck<T>(nm, argv[4]);                 \
+            if (mode == "mtime") return mtime<T>(nm, atoi(argv[4]));             \
+            if (mode == "me2e") return me2e<T>(nm);                              \
+        }
+        BENCH_MOM_KINDS(BENCH_MOM_RUN)
+        return 2;
+    }
     int L = atoi(argv[3]);
     size_t n = (size_t)atoll(argv[4]);
     auto go = [&](auto r, auto l) -> int {

@@ -20,7 +20,7 @@ def build(kind: str, out_dir) -> pathlib.Path:
     vcvars = find_vcvars()
     out = pathlib.Path(out_dir) / f"bench_{kind}"
     out.mkdir(parents=True, exist_ok=True)
-    files = ["bench_state.hpp", "bench_state_io.hpp", "ar2_core.hpp"]
+    files = ["bench_state.hpp", "bench_state_io.hpp", "bench_mom.hpp", "bench_mom_io.hpp", "ar2_core.hpp"]
     files += ["bench_state.cu", "ar2_b2.cu"] if kind == "cuda" else ["bench_state.cpp"]
     for f in files:
         (out / f).write_bytes((HERE / f).read_bytes())
@@ -111,3 +111,90 @@ def check(exe, limbs: int, n: int, rule: str = "v2") -> bool:
         out = pathlib.Path(d) / "c.txt"
         subprocess.run([str(exe), "check", rule, str(limbs), str(n), str(out)], check=True)
         return out.read_text().split("\n")[:n] == expected(limbs, n, rule)
+
+
+# --- momentum-representation comparison (designer 15th ed.) -------------------------------------------------------
+
+MOM_KINDS = {"fx64_48": (64, 48), "fx80_64": (96, 64), "fx96_80": (96, 80), "fx128_112": (128, 112), "carry": None}
+HALF_COARSE = 1 << 62
+
+
+def _rng_range(x: int, lim: int) -> int:
+    return x % (2 * lim + 1) - lim
+
+
+def _wrap(v: int, bits: int) -> int:
+    v &= (1 << bits) - 1
+    return v - (1 << bits) if v >> (bits - 1) else v
+
+
+def _carry_split(total: int):
+    c = _round_half_even(Q(total, 1 << 63))
+    return c, total - (c << 63)
+
+
+def expected_mom(kind: str, n: int) -> list[str]:
+    """Position FX(96,48), drift v2, momentum `kind`: drift, kick, dr, R^2 in exact integers (native storage widths)."""
+    g = Rng()
+    RR, P, Jr = 1000 << 48, 50 << 48, (1 << 48) // 100
+    spec = MOM_KINDS[kind]
+    lines = []
+    for i in range(n):
+        ri, rj, pi, pj, J = [], [], [], [], []
+        for k in range(3):
+            ri.append(g.range(RR)); rj.append(g.range(RR))
+            bi, bj, bJ = g.range(P), g.range(P), g.range(Jr)
+            xi, xj, xJ = g.next(), g.next(), g.next()
+            ti, tj = i % 8 == 0 and k == 0, i % 8 == 0 and k == 1
+            if ti:
+                bi = (1 if i % 16 == 0 else -1) * TIE_P
+            if tj:
+                bj = TIE_P
+            if spec is None:
+                pi.append((bi, 0 if ti else _rng_range(xi, HALF_COARSE)))
+                pj.append((bj, 0 if tj else _rng_range(xj, HALF_COARSE)))
+                J.append((bJ << 63) + _rng_range(xJ, HALF_COARSE))
+            else:
+                bits, F = spec
+                S = F - 48
+                ext = lambda x: 0 if S == 0 else x if S >= 64 else x & ((1 << S) - 1)
+                pi.append(_wrap((bi << S) + (0 if ti else ext(xi)), bits))
+                pj.append(_wrap((bj << S) + (0 if tj else ext(xj)), bits))
+                J.append(_wrap((bJ << S) + ext(xJ), bits))
+        ok = True
+        if spec is None:
+            dq = lambda p: _round_half_even(Q(p[0] * DT * A, B))
+        else:
+            dq = lambda p, S=spec[1] - 48: _round_half_even(Q(p * DT * A, B << S))
+        ri = [r + dq(p) for r, p in zip(ri, pi)]
+        rj = [r + dq(p) for r, p in zip(rj, pj)]
+        ok &= all(-(1 << 95) <= x < (1 << 95) for x in ri + rj)
+        if spec is None:
+            tot_j = [(c << 63) + r + j for (c, r), j in zip(pj, J)]
+            tot_i = [(c << 63) + r - j for (c, r), j in zip(pi, J)]
+            pj, pi = [_carry_split(t) for t in tot_j], [_carry_split(t) for t in tot_i]
+            ok &= all(-(1 << 63) <= c < (1 << 63) for c, _ in pi + pj)
+            mhex = lambda v: format(v[0] & ((1 << 64) - 1), "016x") + ":" + format(v[1] & ((1 << 64) - 1), "016x")
+        else:
+            bits = spec[0]
+            nj = [p + j for p, j in zip(pj, J)]
+            ni = [p - j for p, j in zip(pi, J)]
+            ok &= all(-(1 << (bits - 1)) <= x < (1 << (bits - 1)) for x in ni + nj)
+            pj, pi = [_wrap(x, bits) for x in nj], [_wrap(x, bits) for x in ni]
+            mhex = lambda v: format(v & ((1 << bits) - 1), f"0{bits // 4}x")
+        dr = [b - a for a, b in zip(ri, rj)]
+        R2 = sum(x * x for x in dr)
+
+        def hx(v, bits):
+            return format(v & ((1 << bits) - 1), f"0{bits // 4}x")
+        parts = ["ok" if ok else "ovf"] + [hx(x, 96) for x in ri + rj] + [mhex(x) for x in pi + pj]
+        parts += [hx(x, 128) for x in dr] + [hx(R2, 32 * 9)]
+        lines.append(" ".join(parts))
+    return lines
+
+
+def check_mom(exe, kind: str, n: int) -> bool:
+    with tempfile.TemporaryDirectory() as d:
+        out = pathlib.Path(d) / "c.txt"
+        subprocess.run([str(exe), "mcheck", kind, str(n), str(out)], check=True)
+        return out.read_text().split("\n")[:n] == expected_mom(kind, n)
