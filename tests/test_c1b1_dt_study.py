@@ -1,7 +1,7 @@
 """C1-B1 Delta t study data (designer 11th ed., steps 3-4): the recorded measurement stays consistent.
 
 a_reference/fixtures/c1b1_dt_study_v1.json is a MEASUREMENT (it chooses nothing). These checks read it only:
-its provenance names the current code, every run finished, the three error sources were measured separately,
+its provenance names the code at the recorded commit, every run finished, the three error sources were measured separately,
 and the facts reported to the designer still hold in the data. Delta t itself is not frozen here.
 """
 from __future__ import annotations
@@ -9,7 +9,11 @@ from __future__ import annotations
 import collections
 import hashlib
 import json
+import shutil
+import subprocess
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / "a_reference" / "fixtures" / "c1b1_dt_study_v1.json").read_text(encoding="utf-8"))
@@ -25,11 +29,18 @@ def _observables(case):
     return ["time"] if case["b"] == "0" else ["sweep", "time"]
 
 
-def test_provenance_names_the_current_code() -> None:
+def test_provenance_names_the_code_that_produced_it() -> None:
+    """The recorded hashes are those of the files AT the recorded commit (the audit has since been corrected --
+    designer 12th ed. item 8 -- and study 2 showed the references moved by < 3e-15, so study 1 stays valid)."""
     p = DATA["provenance"]
     assert p["uncommitted_changes_in_a_reference_or_audit"] is False
+    if shutil.which("git") is None:
+        pytest.skip("git not available")
     for f, h in p["code_sha256"].items():
-        assert hashlib.sha256((ROOT / f).read_bytes().replace(b"\r\n", b"\n")).hexdigest() == h, f
+        blob = subprocess.run(["git", "show", f"{p['git_head']}:{f}"], capture_output=True, cwd=ROOT)
+        if blob.returncode != 0:
+            pytest.skip("recorded commit not in this clone")
+        assert hashlib.sha256(blob.stdout).hexdigest() == h, f
     assert DATA["dts"] == [10, 20, 40, 80, 160] and DATA["contract"] == "c1b1-two-atom-v1"
 
 

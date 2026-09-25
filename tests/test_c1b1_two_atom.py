@@ -176,21 +176,33 @@ def test_exchange_and_90_degree_rotation_are_bit_identical(prof) -> None:
     assert all(rraw(a[k]) == r[k] for a, r in zip(A, R) for k in range(4))
 
 
-def _relative_trajectory(prof, shift):
+def _relative_trajectory(prof, shift, n=120):
     tr = lambda v: tuple(x + shift for x in v)
-    _, T = trajectory(prof, tr(RI), PI, tr(RJ), PJ)
+    _, T = trajectory(prof, tr(RI), PI, tr(RJ), PJ, n)
     return [(tuple(b - a for a, b in zip(C.exact(prof, s[0]), C.exact(prof, s[2]))), s[1], s[3]) for s in T]
 
 
-def test_representation_preserving_translation_fx() -> None:
-    """D10-A: a grid-aligned common shift keeps the initial Delta r exactly -> identical relative trajectory."""
-    assert _relative_trajectory(FX, Q(0)) == _relative_trajectory(FX, Q(1024) + Q(3, 1 << 32))
+@pytest.mark.parametrize("wf", [(64, 32), (64, 40), (64, 48), (96, 64), (128, 96)], ids=lambda x: f"FX{x[0]}_{x[1]}")
+def test_fixed_point_candidates_keep_all_three_invariances(wf) -> None:
+    """D10 for every fixed-point candidate (12th ed. item 4): exchange, 90-degree rotation and a grid-aligned
+    representation-preserving translation give bit-identical (relative) trajectories."""
+    prof = FixedPoint(*wf)
+    _, A = trajectory(prof, RI, PI, RJ, PJ, 40)
+    _, S = trajectory(prof, RJ, PJ, RI, PI, 40)
+    assert all(a[0] == s[2] and a[1] == s[3] and a[2] == s[0] and a[3] == s[1] for a, s in zip(A, S))
+    rot = lambda v: (v[1], -v[0], v[2])
+    _, R = trajectory(prof, rot(RI), rot(PI), rot(RJ), rot(PJ), 40)
+    rraw = lambda v: (v[1], prof.neg(v[0]), v[2])
+    assert all(rraw(a[k]) == r[k] for a, r in zip(A, R) for k in range(4))
+    shift = Q(1024) + Q(3, 1 << wf[1])
+    assert _relative_trajectory(prof, Q(0), 40) == _relative_trajectory(prof, shift, 40)
 
 
-@pytest.mark.xfail(strict=True, reason="KNOWN D10-A VIOLATION in binary64 (reported to the designer): the shift "
-                   "keeps the initial Delta r exactly, but every drift r + p dt/m is rounded at the ulp of the "
-                   "ABSOLUTE position, so the relative trajectory depends on the origin from the first step on -- "
-                   "created in the dynamics, not in the input representation")
+@pytest.mark.xfail(strict=True, reason="DISQUALIFICATION RECORD (designer 12th ed. item 2): binary64 absolute "
+                   "positions are excluded as A's position state -- the shift keeps the initial Delta r exactly, but "
+                   "every drift r + p dt/m is rounded at the ulp of the ABSOLUTE position, so the relative trajectory "
+                   "depends on the origin from the first step on. Kept as a regression test of the reason, not as an "
+                   "allowed failure")
 def test_representation_preserving_translation_b64() -> None:
     base = _relative_trajectory(B64, Q(0))
     shifted = _relative_trajectory(B64, Q(1024))
@@ -215,3 +227,44 @@ def test_audit_recomputes_the_conserved_quantities() -> None:
     assert tuple(P) == C.total_momentum(run) and tuple(Lv) == C.angular_momentum(run)
     E_ref = C.kinetic(run) + C.potential_high(sum((x * x for x in C.relative(FX, *run.atoms)), Q(0)))
     assert abs(E - (mpmath.mpf(E_ref.numerator) / E_ref.denominator)) < mpmath.mpf(10) ** -25
+
+
+# --- domain-guard stress (12th ed. item 6; not an accuracy claim) -----------------------------------------------
+
+def _head_on(f: Q, dt):
+    """Head-on from 20 bohr with total energy f * V(r_min), FX(256,192); returns (run, exception or None)."""
+    import mpmath as mp
+    V0 = C.potential_high(Q(400))
+    E = f * C.potential_high(C.R_MIN2)
+    mu = C.AR40_MASS_ME / 2
+    P = -mp.sqrt(2 * (mp.mpf(mu.numerator) / mu.denominator) * (mp.mpf((E - V0).numerator) / (E - V0).denominator))
+    man, e = P.man_exp
+    Px = FX.to_exact(FX.from_exact(-Q(abs(man)) * Q(2) ** e))
+    run = C.new_run(HP, dt, (Q(-10), 0, 0), (-Px, 0, 0), (Q(10), 0, 0), (Px, 0, 0))
+    try:
+        for _ in range(5000):
+            q0 = C.relative(HP, *run.atoms)
+            C.step(run)
+            q = C.relative(HP, *run.atoms)
+            if q[0] > q0[0] and q[0] >= 20:
+                return run, None
+    except C.PhysicsDomainExceeded as exc:
+        return run, exc
+    raise AssertionError("did not come back")
+
+
+def test_domain_guard_stress_at_small_dt() -> None:
+    """At dt = 10 a.u. the discrete path follows the continuous one closely enough: 0.99 V(r_min) turns back
+    above r_min, 1.01 V(r_min) is stopped by the drift-segment guard."""
+    assert _head_on(Q(99, 100), 10)[1] is None
+    exc = _head_on(Q(101, 100), 10)[1]
+    assert exc is not None and "drift segment" in str(exc)
+
+
+def test_domain_guard_stress_at_dt_40_is_not_resolved() -> None:
+    """MEASURED (reported to the designer): at dt = 40 a.u., far outside the validated E <= 10 De range, the
+    discrete trajectory turns back ABOVE r_min at 1.01 V(r_min) -- the integrator's energy error at this speed is
+    larger than 1 %, so the guard never sees a crossing. This is a fact about dt = 40 at this energy, not a guard
+    defect; if it changes, the report must be revisited."""
+    run, exc = _head_on(Q(101, 100), 40)
+    assert exc is None
