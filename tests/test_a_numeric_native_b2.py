@@ -23,6 +23,8 @@ MUTANTS = {
     205: ("FX range check skipped", {"fx_exhaustive", "fx_wide"}),
     206: ("high word of the 106-bit DOT product dropped", {"b64_sum_dot", "distance"}),
     207: ("FX SQRT floor instead of nearest", {"fx_exhaustive", "fx_wide"}),
+    212: ("EXP through CUDA's exp()", {"exp"}),
+    213: ("EXP at one modest precision, no refinement", {"exp"}),
 }
 
 
@@ -46,7 +48,7 @@ GRID_MUTANTS = {
 @pytest.fixture(scope="module")
 def exes(tmp_path_factory):
     out = tmp_path_factory.mktemp("b2")
-    ids = (0, 202, 211, *MUTANTS, *GRID_MUTANTS)
+    ids = (0, 202, 211, 214, *MUTANTS, *GRID_MUTANTS)
     with ThreadPoolExecutor(4) as pool:
         return dict(zip(ids, pool.map(lambda i: H.build_b2(out, i), ids)))
 
@@ -151,3 +153,15 @@ def test_too_narrow_accumulator_is_caught_by_the_wrap_probe(width, exes) -> None
     at, expected, _, _ = width
     bad = H.mismatches(expected, H.run_native(exes[211], at, (64,)))
     assert bad == [len(at) - 1]
+
+
+# --- EXP precision contract ------------------------------------------------------
+
+def test_exp_precision_cap_refuses_instead_of_answering(cases, exes) -> None:
+    """INJECT 214 never lets the two ends of the enclosure agree: B2 must refuse the batch after
+    NATIVE_EXP_MAX_ATTEMPTS -- a capability limit, never a wrong result."""
+    progs, _ = cases
+    with pytest.raises(H.NativeRejected, match="native_exp_precision_exhausted"):
+        H.run_native(exes[214], progs["exp"][:50], (64,))
+    src = (H.HERE / "b2_cuda.cu").read_text(encoding="utf-8")
+    assert "#define NATIVE_EXP_MAX_ATTEMPTS 4" in src

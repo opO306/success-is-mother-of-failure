@@ -14,4 +14,4 @@ A-Numeric VM(`a_numeric/`) 프로그램을 네이티브 코드로 실행한다. 
 | `l2.py` | L2 구조: 시험 충격량 +J/−J, 입자별 SUM 한 번, 재명명·쌍 순서·방향 변형 |
 
 시험: `tests/test_a_numeric_native_b0.py`, `_b1.py`, `_b2.py`, `_l2.py` (MSVC·nvcc·GPU가 없으면 건너뜀).
-`INJECT=n`으로 결함을 넣어 컴파일해 차등 시험이 잡는지 확인한다(B0 12종, B1 2종, B2 11종). B2는 SUM·DOT 항 수 65,536까지만 계약(`NATIVE_MAX_REDUCTION_TERMS`), 넘으면 실행 전 거부.
+`INJECT=n`으로 결함을 넣어 컴파일해 차등 시험이 잡는지 확인한다(B0 14종, B1 2종, B2 14종). B2는 SUM·DOT 항 수 65,536까지만 계약(`NATIVE_MAX_REDUCTION_TERMS`), 넘으면 실행 전 거부. EXP(정확한 e^x를 한 번 반올림)는 세 실행기 모두 구현 — B2는 정밀도 시도 4회 상한(`NATIVE_EXP_MAX_ATTEMPTS`), 넘으면 배치 거부(종료 코드 7).

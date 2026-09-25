@@ -49,7 +49,7 @@ static_assert((4090 + 128) / 32 + 1 < LIMBS, "shifted term must stay inside the 
 static_assert(2099 <= MLIMBS * 32, "CMP margin buffer too narrow");
 static_assert((1 << LOG2_MAX_REDUCTION_TERMS) >= NATIVE_MAX_REDUCTION_TERMS, "log2 bound");
 
-enum { OP_LOADK, OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_NEG, OP_ABS, OP_SQRT, OP_CMP, OP_SUM, OP_DOT };
+enum { OP_LOADK, OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_NEG, OP_ABS, OP_SQRT, OP_CMP, OP_SUM, OP_DOT, OP_EXP };
 enum { H_NONE, H_OVERFLOW, H_DIVZERO, H_SQRTNEG };
 
 struct DInstr {
@@ -318,12 +318,278 @@ __device__ __noinline__ int fx_sqrt(int64_t a, int W, int F, uint64_t* out) {
     return fx_out(I128{r, 0}, W, out);
 }
 
+
+// ---------------------------------------------------------------------------
+// EXP = deterministic_exp_v1 on the device: the exact e^x rounded once. Written
+// separately from the VM and from anvm_core.hpp. Enclosure [lo, hi] / 2^M from an
+// outward-rounded Taylor sum of y = x / 2^k and k squarings; M grows until both
+// ends round alike. Fixed width, so a declared cap: NATIVE_EXP_MAX_ATTEMPTS
+// (extra precision 64, 128, 256, 512 bits); beyond it the batch is refused
+// (exit 7), never answered.
+// ---------------------------------------------------------------------------
+#define BNL 176                     // 5632 bits: (M + 1025) * 2 with M <= 1150 + 36 + 512
+#define NATIVE_EXP_MAX_ATTEMPTS 4
+#define EXP_SCRATCH_BNS 10
+struct BN {
+    int n;
+    uint32_t w[BNL];
+};
+__device__ __noinline__ void bn_set(BN& r, uint64_t v) {
+    r.n = 0;
+    while (v) { r.w[r.n++] = (uint32_t)v; v >>= 32; }
+}
+__device__ __noinline__ void bn_copy(BN& r, const BN& a) {
+    r.n = a.n;
+    #pragma unroll 1
+    for (int i = 0; i < a.n; i++) r.w[i] = a.w[i];
+}
+__device__ __noinline__ void bn_trim(BN& r) {
+    while (r.n && r.w[r.n - 1] == 0) r.n--;
+}
+__device__ __noinline__ int bn_cmp(const BN& a, const BN& b) {
+    if (a.n != b.n) return a.n < b.n ? -1 : 1;
+    #pragma unroll 1
+    for (int i = a.n - 1; i >= 0; i--)
+        if (a.w[i] != b.w[i]) return a.w[i] < b.w[i] ? -1 : 1;
+    return 0;
+}
+__device__ __noinline__ int bn_bitlen(const BN& a) { return a.n ? (a.n - 1) * 32 + 32 - __clz(a.w[a.n - 1]) : 0; }
+__device__ __noinline__ bool bn_bit(const BN& a, int i) { return i >= 0 && (i >> 5) < a.n && ((a.w[i >> 5] >> (i & 31)) & 1); }
+__device__ __noinline__ bool bn_any_below(const BN& a, int s) {
+    #pragma unroll 1
+    for (int i = 0; i < s && (i >> 5) < a.n; i++)
+        if (bn_bit(a, i)) return true;
+    return false;
+}
+__device__ __noinline__ void bn_add(BN& r, const BN& a, const BN& b) {  // r may alias a
+    int n = a.n > b.n ? a.n : b.n;
+    uint64_t c = 0;
+    #pragma unroll 1
+    for (int i = 0; i < n; i++) {
+        uint64_t t = (uint64_t)(i < a.n ? a.w[i] : 0) + (i < b.n ? b.w[i] : 0) + c;
+        r.w[i] = (uint32_t)t;
+        c = t >> 32;
+    }
+    r.n = n;
+    if (c) r.w[r.n++] = (uint32_t)c;
+}
+__device__ __noinline__ void bn_add_small(BN& r, uint32_t v) {
+    BN t;
+    bn_set(t, v);
+    bn_add(r, r, t);
+}
+__device__ __noinline__ void bn_sub(BN& r, const BN& a, const BN& b) {  // a >= b; r may alias a
+    int64_t br = 0;
+    #pragma unroll 1
+    for (int i = 0; i < a.n; i++) {
+        int64_t t = (int64_t)a.w[i] - (i < b.n ? (int64_t)b.w[i] : 0) - br;
+        br = t < 0;
+        r.w[i] = (uint32_t)(t + (br ? ((int64_t)1 << 32) : 0));
+    }
+    r.n = a.n;
+    bn_trim(r);
+}
+__device__ __noinline__ void bn_mul(BN& r, const BN& a, const BN& b) {  // r must not alias
+    r.n = a.n + b.n;
+    #pragma unroll 1
+    for (int i = 0; i < r.n; i++) r.w[i] = 0;
+    #pragma unroll 1
+    for (int i = 0; i < a.n; i++) {
+        uint64_t c = 0;
+        #pragma unroll 1
+        for (int j = 0; j < b.n; j++) {
+            uint64_t t = (uint64_t)a.w[i] * b.w[j] + r.w[i + j] + c;
+            r.w[i + j] = (uint32_t)t;
+            c = t >> 32;
+        }
+        r.w[i + b.n] = (uint32_t)c;
+    }
+    bn_trim(r);
+}
+__device__ __noinline__ void bn_shl(BN& r, const BN& a, int s) {  // r must not alias
+    int w = s >> 5, b = s & 31;
+    #pragma unroll 1
+    for (int i = 0; i < a.n + w + 1; i++) r.w[i] = 0;
+    #pragma unroll 1
+    for (int i = 0; i < a.n; i++) {
+        r.w[i + w] |= a.w[i] << b;
+        if (b) r.w[i + w + 1] |= a.w[i] >> (32 - b);
+    }
+    r.n = a.n ? a.n + w + 1 : 0;
+    bn_trim(r);
+}
+// r = floor(a / 2^s) (ceil if up); r may alias a
+__device__ __noinline__ void bn_shr(BN& r, const BN& a, int s, bool up) {
+    bool inexact = up && bn_any_below(a, s);
+    int w = s >> 5, b = s & 31;
+    int n = a.n - w;
+    if (n <= 0) {
+        r.n = 0;
+    } else {
+        #pragma unroll 1
+        for (int i = 0; i < n; i++)
+            r.w[i] = (a.w[i + w] >> b) | (b && i + w + 1 < a.n ? a.w[i + w + 1] << (32 - b) : 0);
+        r.n = n;
+        bn_trim(r);
+    }
+    if (inexact) bn_add_small(r, 1);
+}
+// r = floor(a / d) (ceil if up); r may alias a
+__device__ __noinline__ void bn_div_small(BN& r, const BN& a, uint32_t d, bool up) {
+    uint64_t rem = 0;
+    int n = a.n;
+    #pragma unroll 1
+    for (int i = n - 1; i >= 0; i--) {
+        uint64_t cur = (rem << 32) | a.w[i];
+        r.w[i] = (uint32_t)(cur / d);
+        rem = cur % d;
+    }
+    r.n = n;
+    bn_trim(r);
+    if (up && rem) bn_add_small(r, 1);
+}
+__device__ __noinline__ uint64_t bn_bits(const BN& a, int s, int n) {
+    uint64_t v = 0;
+    #pragma unroll 1
+    for (int i = n - 1; i >= 0; i--) v = (v << 1) | (bn_bit(a, s + i) ? 1 : 0);
+    return v;
+}
+
+// [lo, hi] containing e^x * 2^M, x = (-1)^neg * X / 2^S, with |x| / 2^k <= 2^-8. T: 8 scratch numbers.
+__device__ __noinline__ void exp_enclose(bool neg, const BN& X, int S, int M, int k, BN* T, BN& lo, BN& hi) {
+    BN &a = T[0], &t_lo = T[1], &t_hi = T[2], &s_lo = T[3], &s_hi = T[4], &prod = T[5], &r = T[6];
+    bn_shl(a, X, M - S - k);                       // exact: M - S - k >= 0 by the choice of M
+    bn_set(r, 1);
+    bn_shl(t_lo, r, M);
+    bn_copy(t_hi, t_lo);
+    bn_copy(s_lo, t_lo);
+    bn_copy(s_hi, t_lo);
+    #pragma unroll 1
+    for (uint32_t i = 1;; i++) {
+        bn_mul(prod, t_lo, a);
+        bn_shr(prod, prod, M, false);
+        bn_div_small(t_lo, prod, i, false);
+        bn_mul(prod, t_hi, a);
+        bn_shr(prod, prod, M, true);
+        bn_div_small(t_hi, prod, i, true);
+        if (neg && (i & 1)) {
+            bn_sub(s_lo, s_lo, t_hi);
+            bn_sub(s_hi, s_hi, t_lo);
+        } else {
+            bn_add(s_lo, s_lo, t_lo);
+            bn_add(s_hi, s_hi, t_hi);
+        }
+        if (t_hi.n == 0 || (t_hi.n == 1 && t_hi.w[0] <= 1)) break;
+    }
+    bn_add(r, t_hi, t_hi);                        // remainder <= t_hi (|y| <= 2^-8); margin 2 t_hi + 2
+    bn_add_small(r, 2);
+    bn_sub(lo, s_lo, r);                          // s_lo > r always: e^y > 0.99 at scale 2^M
+    bn_add(hi, s_hi, r);
+    #pragma unroll 1
+    for (int j = 0; j < k; j++) {
+        bn_mul(prod, lo, lo);
+        bn_shr(lo, prod, M, false);
+        bn_mul(prod, hi, hi);
+        bn_shr(hi, prod, M, true);
+    }
+}
+// v / 2^M rounded to binary64 (nearest-even); H_OVERFLOW if it leaves the finite range
+__device__ __noinline__ int exp_round_b64(const BN& v, int M, uint64_t* out) {
+    if (v.n == 0) { *out = 0; return H_NONE; }
+    int k = bn_bitlen(v) - 1;
+    int e = max(k - M - 52, -1074);
+    int s = e + M;                                 // > 0 since M > 1074
+    uint64_t q = bn_bits(v, s, 54);
+    bool rb = bn_bit(v, s - 1), sticky = bn_any_below(v, s - 1);
+    if (rb && (sticky || (q & 1))) q++;
+    if (q == 1ull << 53) { q = 1ull << 52; e++; }
+    if (q >= 1ull << 52) {
+        int field = e + 1075;
+        if (field >= 0x7FF) return H_OVERFLOW;
+        *out = ((uint64_t)field << 52) | (q - (1ull << 52));
+    } else {
+        *out = q;
+    }
+    return H_NONE;
+}
+// v / 2^M rounded to the FX(W, F) grid (nearest-even)
+__device__ __noinline__ int exp_round_fx(const BN& v, int M, int W, int F, uint64_t* out) {
+    int s = M - F;
+    int bl = bn_bitlen(v);
+    if (bl - s > W) return H_OVERFLOW;             // quotient >= 2^(W-1) certainly
+    uint64_t q = bn_bits(v, s, 64);
+    bool rb = bn_bit(v, s - 1), sticky = bn_any_below(v, s - 1);
+    if (rb && (sticky || (q & 1))) q++;
+    if (q > (W == 64 ? 0x7FFFFFFFFFFFFFFFull : (1ull << (W - 1)) - 1)) return H_OVERFLOW;
+    *out = q;
+    return H_NONE;
+}
+// returns a halt code, or -1 if the precision cap was reached (the batch will be refused)
+__device__ __noinline__ int exp_eval(bool fx, int W, int F, uint64_t xr, BN* T, uint64_t* out) {
+#if INJECT == 212
+    if (!fx) return hw(exp(__longlong_as_double((long long)xr)), out);  // defect: CUDA's exp
+#endif
+    BN &X = T[7], &lo = T[8], &hi = T[9];
+    bool neg;
+    int S;
+    if (fx) {
+        int64_t v = (int64_t)xr;
+        if (v == 0) {
+            if (F >= W - 1) return H_OVERFLOW;         // 1 is not representable
+            *out = 1ull << F;
+            return H_NONE;
+        }
+        neg = v < 0;
+        uint64_t mag = neg ? 0 - (uint64_t)v : (uint64_t)v;
+        if (!neg && (mag >> F) >= (uint64_t)W) return H_OVERFLOW;          // e^W > 2^W
+        if (neg && (mag >> F) >= (uint64_t)F + 2) { *out = 0; return H_NONE; }  // e^-(F+2) < 2^-(F+2)
+        bn_set(X, mag);
+        S = F;
+    } else {
+        if ((xr & ~(1ull << 63)) == 0) { *out = 0x3FF0000000000000ull; return H_NONE; }
+        double xd = __longlong_as_double((long long)xr);
+        if (xd >= 710.0) return H_OVERFLOW;           // e^710 > 2^1024
+        if (xd <= -746.0) { *out = 0; return H_NONE; }  // e^-746 < 2^-1076
+        int sg, e;
+        uint64_t m;
+        b64_decode(xr, &sg, &m, &e);                   // |x| < 746: e < 0
+        neg = sg;
+        bn_set(X, m);
+        S = -e;
+    }
+    int k = max(0, bn_bitlen(X) - S) + 8;
+    int base = fx ? F + 16 : 1150;
+    #pragma unroll 1
+    for (int attempt = 0, extra = 64; attempt < NATIVE_EXP_MAX_ATTEMPTS; attempt++, extra *= 2) {
+        int M = base + 2 * k + extra;
+#if INJECT == 213
+        M = S + k + 8;                               // defect: ~8 bits beyond the input's scale, no refinement
+#endif
+        exp_enclose(neg, X, S, M, k, T, lo, hi);
+        uint64_t a = 0, b = 0;
+        int ha = fx ? exp_round_fx(lo, M, W, F, &a) : exp_round_b64(lo, M, &a);
+        int hb = fx ? exp_round_fx(hi, M, W, F, &b) : exp_round_b64(hi, M, &b);
+#if INJECT == 213
+        hb = ha; b = a;
+#endif
+#if INJECT == 214
+        b = a + 1;                                    // defect: never agrees (exercises the refusal)
+#endif
+        if (ha == hb && a == b) {
+            *out = a;
+            return ha;
+        }
+    }
+    return -1;
+}
+
 // ---------------------------------------------------------------------------
 // The kernel: one program per block
 // ---------------------------------------------------------------------------
 __device__ __noinline__ void run_one(int pid, const DProgram* progs, const DInstr* instrs, const int* args,
                                      const DImm* imm, uint64_t* regs, uint8_t* defined, DBranch* branches, int* nbranch,
-                                     int* halt_pc, int* halt_reason, uint32_t* scratch, int& halted) {
+                                     int* halt_pc, int* halt_reason, uint32_t* scratch, int& halted,
+                                     BN* exp_scratch, int* exp_exhausted) {
     const DProgram P = progs[pid];
     uint64_t* R = regs + P.reg0;
     uint8_t* Def = defined + P.reg0;
@@ -481,6 +747,10 @@ __device__ __noinline__ void run_one(int pid, const DProgram* progs, const DInst
                     case OP_NEG: h = fx_out(neg128(i128(x)), P.W, &out); break;
                     case OP_ABS: h = fx_out(x < 0 ? neg128(i128(x)) : i128(x), P.W, &out); break;
                     case OP_SQRT: h = fx_sqrt(x, P.W, P.F, &out); break;
+                    case OP_EXP:
+                        h = exp_eval(true, P.W, P.F, (uint64_t)x, exp_scratch + (size_t)blockIdx.x * EXP_SCRATCH_BNS, &out);
+                        if (h < 0) { *exp_exhausted = 1; h = H_OVERFLOW; }
+                        break;
                 }
             } else {
                 uint64_t a = R[A[0]], b = I.nargs > 1 ? R[A[1]] : 0;
@@ -503,6 +773,10 @@ __device__ __noinline__ void run_one(int pid, const DProgram* progs, const DInst
                         if ((a >> 63) && (a & ~(1ull << 63))) h = H_SQRTNEG;
                         else h = hw(__dsqrt_rn(x), &out);
                         break;
+                    case OP_EXP:
+                        h = exp_eval(false, 0, 0, a, exp_scratch + (size_t)blockIdx.x * EXP_SCRATCH_BNS, &out);
+                        if (h < 0) { *exp_exhausted = 1; h = H_OVERFLOW; }
+                        break;
                 }
             }
             if (I.op != OP_CMP) {
@@ -517,17 +791,18 @@ __device__ __noinline__ void run_one(int pid, const DProgram* progs, const DInst
 
 __global__ void run_programs(int base, int count, const DProgram* progs, const DInstr* instrs, const int* args,
                              const DImm* imm, uint64_t* regs, uint8_t* defined, DBranch* branches, int* nbranch,
-                             int* halt_pc, int* halt_reason, uint32_t* scratch) {
+                             int* halt_pc, int* halt_reason, uint32_t* scratch, BN* exp_scratch,
+                             int* exp_exhausted) {
     __shared__ int halted;
 #if INJECT == 208
     // defect: one program per block assumed -- programs past gridDim.x in a launch are never run
     if ((int)blockIdx.x < count)
         run_one(base + blockIdx.x, progs, instrs, args, imm, regs, defined, branches, nbranch, halt_pc, halt_reason,
-                scratch, halted);
+                scratch, halted, exp_scratch, exp_exhausted);
 #else
     for (int local = blockIdx.x; local < count; local += gridDim.x) {  // uniform for the whole block
         run_one(base + local, progs, instrs, args, imm, regs, defined, branches, nbranch, halt_pc, halt_reason,
-                scratch, halted);
+                scratch, halted, exp_scratch, exp_exhausted);
         __syncthreads();
     }
 #endif
@@ -575,7 +850,7 @@ int main(int argc, char** argv) {
         }
     static const std::map<std::string, int> OPS = {{"ADD", OP_ADD}, {"SUB", OP_SUB}, {"MUL", OP_MUL}, {"DIV", OP_DIV},
                                                    {"NEG", OP_NEG}, {"ABS", OP_ABS}, {"SQRT", OP_SQRT}, {"CMP", OP_CMP},
-                                                   {"SUM", OP_SUM}, {"DOT", OP_DOT}};
+                                                   {"SUM", OP_SUM}, {"DOT", OP_DOT}, {"EXP", OP_EXP}};
     std::vector<DProgram> dp;
     std::vector<DInstr> di;
     std::vector<int> da;
@@ -666,6 +941,11 @@ int main(int argc, char** argv) {
     const int grid = std::min({want_grid > 0 ? want_grid : chunk, chunk, max_blocks});
     uint32_t* g_scratch = nullptr;
     CK(cudaMalloc(&g_scratch, (size_t)grid * per_block));
+    BN* g_exp_scratch = nullptr;
+    CK(cudaMalloc(&g_exp_scratch, (size_t)grid * EXP_SCRATCH_BNS * sizeof(BN)));
+    int* g_exhausted = nullptr;
+    CK(cudaMalloc(&g_exhausted, sizeof(int)));
+    CK(cudaMemset(g_exhausted, 0, sizeof(int)));
 #if INJECT == 209
     for (int base = 0; base + chunk <= n; base += chunk) {  // defect: a last partial launch is skipped
 #else
@@ -673,9 +953,17 @@ int main(int argc, char** argv) {
 #endif
         int count = std::min(chunk, n - base);
         run_programs<<<std::min(grid, count), B>>>(base, count, g_prog, g_instr, g_args, g_imm, g_regs, g_def, g_br,
-                                                  g_nbr, g_hpc, g_hr, g_scratch);
+                                                  g_nbr, g_hpc, g_hr, g_scratch, g_exp_scratch,
+                                                  g_exhausted);
         CK(cudaGetLastError());
         CK(cudaDeviceSynchronize());
+    }
+    int exhausted = 0;
+    CK(cudaMemcpy(&exhausted, g_exhausted, sizeof(int), cudaMemcpyDeviceToHost));
+    if (exhausted) {
+        fprintf(stderr, "REJECTED native_exp_precision_exhausted: EXP not resolved within %d attempts\n",
+                NATIVE_EXP_MAX_ATTEMPTS);
+        return 7;
     }
     std::vector<DBranch> br(nbr_total);
     std::vector<int> nbr(n), hpc(n), hr(n);

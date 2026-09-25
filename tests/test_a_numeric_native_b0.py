@@ -30,6 +30,8 @@ MUTANTS = {
     10: ("CMP margin through a rounded subtraction", {"b64_stream"}),
     11: ("FX SQRT floor instead of nearest", {"fx_exhaustive", "fx_wide"}),
     12: ("binary64 CONST via double(num) / double(den)", {"b64_const"}),
+    13: ("EXP through the platform exp()", {"exp"}),
+    14: ("EXP at one modest precision, no refinement", {"exp"}),
 }
 
 

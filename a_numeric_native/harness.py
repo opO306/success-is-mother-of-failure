@@ -167,7 +167,7 @@ def run_native(exe, programs, args=()) -> list[dict]:
         src, dst = pathlib.Path(d) / "programs.txt", pathlib.Path(d) / "results.txt"
         src.write_text(encode(programs), encoding="ascii")
         r = subprocess.run([str(exe), *map(str, args), str(src), str(dst)], capture_output=True, text=True)
-        if r.returncode == 6:
+        if r.returncode in (6, 7):   # 6: refused before running, 7: a runtime capability limit (B2 EXP precision)
             assert not dst.exists(), "a refused batch must not produce results"
             raise NativeRejected(r.stderr.strip())
         if r.returncode != 0:
@@ -402,13 +402,14 @@ def p_b_program():
 
 
 def p_c_program():
-    """P-c: Born-Mayer A exp(-r / rho). VM 0.1 has SQRT but NO EXP -- only the part up to
-    the exponent's argument is expressible. EXP needs a defined deterministic_exp first."""
-    return [Instr("CONST", "rho", ("3/10",)), Instr("SQRT", "r", ("r2",)), Instr("DIV", "x", ("r", "rho")),
-            Instr("NEG", "arg", ("x",))]
+    """P-c: Born-Mayer U = A exp(-r / rho) and the force factor U / (rho r). DUMMY A = 1, rho = 3/10:
+    a capability probe of the operations (SQRT, DIV, EXP since VM 0.2), NOT C0 physics (N3-B undecided)."""
+    return [Instr("CONST", "rho", ("3/10",)), Instr("CONST", "A", (1,)), Instr("SQRT", "r", ("r2",)),
+            Instr("DIV", "x", ("r", "rho")), Instr("NEG", "arg", ("x",)), Instr("EXP", "e", ("arg",)),
+            Instr("MUL", "U", ("A", "e")), Instr("MUL", "rr", ("rho", "r")), Instr("DIV", "f", ("U", "rr"))]
 
 
-POTENTIALS = {"P-a": p_a_program, "P-b": p_b_program, "P-c(no exp)": p_c_program}
+POTENTIALS = {"P-a": p_a_program, "P-b": p_b_program, "P-c": p_c_program}
 
 
 def family_potentials():
@@ -472,6 +473,18 @@ def width_programs(n: int):
     ]
 
 
+def family_exp():
+    """EXP (VM 0.2): the R1 hard inputs (near-midpoints, edges, broad) and fixed point."""
+    from audit.independent_numeric.exp_cases import exp_cases
+    out = [_unary(F64, "EXP", b) for bs in exp_cases().values() for b in bs]
+    for W, F in ((8, 3), (12, 6), (6, 0)):
+        p = FixedPoint(W, F)
+        out += [_unary(p, "EXP", a) for a in range(-(1 << (W - 1)), 1 << (W - 1))]
+    out += [_unary(FX64, "EXP", FX64.from_exact(Fraction(k, 7))) for k in range(-170, 160)]
+    out += [_unary(FX64, "EXP", a) for a in (0, 1, -1, FX64.hi, FX64.lo)]
+    return out
+
+
 FAMILIES = {
     "b64_hard": family_b64_hard,
     "b64_stream": family_b64_stream,
@@ -482,4 +495,5 @@ FAMILIES = {
     "distance": family_distance,
     "potentials": family_potentials,
     "long_reduction": family_long_reduction,
+    "exp": family_exp,
 }

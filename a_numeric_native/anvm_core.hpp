@@ -481,6 +481,135 @@ static int b64_cmp(uint64_t a, uint64_t b, Mag& M, int& e) {
 }
 
 // ---------------------------------------------------------------------------
+// EXP = deterministic_exp_v1: the exact e^x rounded once (VM 0.2, doc 3.9). Written
+// separately from the VM. Any correct method gives the same bits, because the
+// correctly rounded value is unique; this one: enclose e^x in [lo, hi] / 2^M
+// (outward-rounded Taylor sum for y = x / 2^k, then k squarings) and raise M
+// until both ends round alike -- e^x (x != 0) is never on a rounding boundary.
+// Whole ranges are decided with thresholds of its own (not the VM's):
+// e^710 > 2^1024, e^-746 < 2^-1076; FX: e^W > 2^W, e^-(F+2) < 2^-(F+2).
+// ---------------------------------------------------------------------------
+static Mag div_small(const Mag& a, uint32_t d, bool* exact) {
+    Mag q(a.size(), 0);
+    uint64_t rem = 0;
+    for (size_t i = a.size(); i-- > 0;) {
+        uint64_t cur = (rem << 32) | a[i];
+        q[i] = (uint32_t)(cur / d);
+        rem = cur % d;
+    }
+    trim(q);
+    if (exact) *exact = rem == 0;
+    return q;
+}
+static Mag div_small_ceil(const Mag& a, uint32_t d) {
+    bool ex;
+    Mag q = div_small(a, d, &ex);
+    return ex ? q : add(q, ONE);
+}
+static Mag shr_ceil(const Mag& a, int n) {
+    Mag q = shr(a, n);
+    return is_zero(low_bits(a, n)) ? q : add(q, ONE);
+}
+// [lo, hi] containing e^(-1^neg * a / 2^M) * 2^M, for a <= 2^(M-8)
+static void exp_taylor(const Mag& a, bool neg, int M, Mag& lo, Mag& hi) {
+    Mag one = shl(ONE, M), t_lo = one, t_hi = one;
+    Int s_lo = mk(false, one), s_hi = mk(false, one);
+    for (uint32_t i = 1;; i++) {
+        t_lo = div_small(shr(mul(t_lo, a), M), i, nullptr);
+        t_hi = div_small_ceil(shr_ceil(mul(t_hi, a), M), i);
+        if (neg && (i & 1)) {
+            s_lo = isub(s_lo, mk(false, t_hi));
+            s_hi = isub(s_hi, mk(false, t_lo));
+        } else {
+            s_lo = iadd(s_lo, mk(false, t_lo));
+            s_hi = iadd(s_hi, mk(false, t_hi));
+        }
+        if (cmp(t_hi, ONE) <= 0) break;
+    }
+    Mag r = add(shl(t_hi, 1), from_u64(2));  // remainder <= t_hi (|y| <= 2^-8), generous margin
+    Int L = isub(s_lo, mk(false, r)), Hh = iadd(s_hi, mk(false, r));
+    lo = L.neg ? Mag() : L.m;
+    hi = Hh.m;
+}
+// x = (-1)^neg * X / 2^S; [lo, hi] containing e^x * 2^M
+static void exp_enclosure(bool neg, const Mag& X, int S, int M, int k, Mag& lo, Mag& hi) {
+    int shift = M - S - k;
+    Mag a_floor = shift >= 0 ? shl(X, shift) : shr(X, -shift);
+    Mag a_ceil = shift >= 0 ? a_floor : shr_ceil(X, -shift);
+    Mag unused;
+    // e^y is increasing: the lower end uses the smaller y, the upper end the larger
+    exp_taylor(neg ? a_ceil : a_floor, neg, M, lo, unused);
+    exp_taylor(neg ? a_floor : a_ceil, neg, M, unused, hi);
+    for (int i = 0; i < k; i++) {
+        lo = shr(mul(lo, lo), M);
+        hi = shr_ceil(mul(hi, hi), M);
+    }
+}
+struct ExpOutcome {
+    bool halt;
+    uint64_t b64;
+    Int fx;
+};
+static ExpOutcome exp_round_b64(const Mag& v, int M) {
+    if (is_zero(v)) return ExpOutcome{false, 0, Int()};
+    try {
+        return ExpOutcome{false, b64_round(0, v, ONE, -M), Int()};
+    } catch (const Halt&) {
+        return ExpOutcome{true, 0, Int()};
+    }
+}
+static uint64_t b64_exp(uint64_t xb) {
+#if INJECT == 13
+    return hw(std::exp(dbl(xb)));  // defect: the platform's exp
+#endif
+    if ((xb & ~SIGN) == 0) return bits_of(1.0);
+    double xd = dbl(xb);
+    if (xd >= 710.0) throw Halt{"overflow"};
+    if (xd <= -746.0) return 0;
+    Term t = decode(xb);  // |x| < 710, so the exponent is negative
+    Mag X = t.m;
+    int S = -t.e;
+    int k = std::max(0, bitlen(X) - S) + 8;  // |y| = |x| / 2^k < 2^-8
+    for (int extra = 64;; extra *= 2) {
+        int M = 1150 + 2 * k + extra;
+#if INJECT == 14
+        M = 2 * k + 40;  // defect: one modest precision, no refinement
+#endif
+        Mag lo, hi;
+        exp_enclosure(t.sign == 1, X, S, M, k, lo, hi);
+        ExpOutcome a = exp_round_b64(lo, M), b = exp_round_b64(hi, M);
+#if INJECT == 14
+        b = a;
+#endif
+        if (a.halt == b.halt && a.b64 == b.b64) {
+            if (a.halt) throw Halt{"overflow"};
+            return a.b64;
+        }
+    }
+}
+static ExpOutcome exp_round_fx(const FX& p, const Mag& v, int M) {
+    Int q = round_shift(mk(false, v), M - p.F);
+    if (!fx_in_range(p, q)) return ExpOutcome{true, 0, Int()};
+    return ExpOutcome{false, 0, q};
+}
+static Int fx_exp(const FX& p, const Int& a) {
+    if (is_zero(a.m)) return fx_check(p, mk(false, shl(ONE, p.F)));
+    if (!a.neg && cmp(a.m, shl(from_u64((uint64_t)p.W), p.F)) >= 0) throw Halt{"overflow"};
+    if (a.neg && cmp(a.m, shl(from_u64((uint64_t)p.F + 2), p.F)) >= 0) return Int();
+    int k = std::max(0, bitlen(a.m) - p.F) + 8;
+    for (int extra = 64;; extra *= 2) {
+        int M = p.F + 16 + 2 * k + extra;
+        Mag lo, hi;
+        exp_enclosure(a.neg, a.m, p.F, M, k, lo, hi);
+        ExpOutcome x = exp_round_fx(p, lo, M), y = exp_round_fx(p, hi, M);
+        if (x.halt == y.halt && icmp(x.fx, y.fx) == 0) {
+            if (x.halt) throw Halt{"overflow"};
+            return x.fx;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Programs
 // ---------------------------------------------------------------------------
 struct Instr {
@@ -590,6 +719,7 @@ static std::string run_program(const Program& P) {
                 else if (in.op == "NEG") R[in.dst] = fx_check(p, ineg(x));
                 else if (in.op == "ABS") R[in.dst] = fx_check(p, mk(false, x.m));
                 else if (in.op == "SQRT") R[in.dst] = fx_sqrt(p, x);
+                else if (in.op == "EXP") R[in.dst] = fx_exp(p, x);
                 else { fprintf(stderr, "unknown op %s\n", in.op.c_str()); exit(3); }
             } else {
                 uint64_t x = D.at(a[0]);
@@ -605,6 +735,8 @@ static std::string run_program(const Program& P) {
                 else if (in.op == "SQRT") {
                     if ((x & SIGN) && (x & ~SIGN)) throw Halt{"sqrt_of_negative"};
                     D[in.dst] = hw(std::sqrt(dbl(x)));  // sqrt(-0) = -0
+                } else if (in.op == "EXP") {
+                    D[in.dst] = b64_exp(x);
                 } else { fprintf(stderr, "unknown op %s\n", in.op.c_str()); exit(3); }
             }
         } catch (const Halt& h) {
