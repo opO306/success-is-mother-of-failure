@@ -320,12 +320,16 @@ static void fill_cache(Cache& c, int M) {
     }
 }
 
-// value (deriv = false) or dV/dR (deriv = true) at scale 2^M
-static IV evaluate_iv(const Dyadic& R, bool ret, bool deriv, int M, Cache& cache) {
+// value (deriv = false) or dV/dR (deriv = true) at scale 2^M, summed over the components in `mask`
+// (bit c = component c: BO, REL, QED). Each component is an exact-integer interval, so any split of the
+// components and any order of adding them gives the same interval.
+static IV evaluate_iv(const Dyadic& R, bool ret, bool deriv, int M, Cache& cache, int mask = 7) {
     fill_cache(cache, M);
     IV total{};
     const int S = M + 8;  // exponent arguments carried 8 bits finer
-    for (const Component& comp : model()) {
+    for (size_t ci = 0; ci < model().size(); ci++) {
+        if (!(mask >> ci & 1)) continue;
+        const Component& comp = model()[ci];
         for (const ShortTerm& st : comp.shorts) {
             Dec alpha = dec(st.alpha);
             IV x = term(alpha, R, 1, S);
@@ -468,7 +472,13 @@ static Rounded round_end(const Profile& p, const Int& x, int M) {
 
 static std::string plain_binary64(const Dyadic& R, bool ret, bool deriv);
 
-static std::string answer(char qty, bool ret, const Profile& p, const std::string& raw, Cache& cache) {
+typedef IV (*Evaluator)(const Dyadic& R, bool ret, bool deriv, int M, Cache& cache);
+static IV evaluate_all(const Dyadic& R, bool ret, bool deriv, int M, Cache& cache) {
+    return evaluate_iv(R, ret, deriv, M, cache);
+}
+
+static std::string answer(char qty, bool ret, const Profile& p, const std::string& raw, Cache& cache,
+                          Evaluator eval = evaluate_all) {
     Dyadic R;
     if (p.fx) {
         Int v = parse_int(raw);
@@ -494,7 +504,7 @@ static std::string answer(char qty, bool ret, const Profile& p, const std::strin
 #if INJECT == 2
         M = 64;  // defect: one modest precision, first answer taken
 #endif
-        IV v = evaluate_iv(R, ret, qty == 'F', M, cache);
+        IV v = eval(R, ret, qty == 'F', M, cache);
         if (qty == 'F') v = iv_neg(v);
         Rounded a = round_end(p, v.lo, M), b = round_end(p, v.hi, M);
 #if INJECT == 2 || INJECT == 3
