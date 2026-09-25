@@ -25,9 +25,11 @@ AR40_MASS_ME = Fraction("39.9623831237") / Fraction("5.485799090441e-4")   # NIS
 DPS = 30
 
 
-def _bisect(f, lo, hi, iters=120):
+def _bisect(f, lo, hi, iters=None):
     """Root of f in [lo, hi], f(lo) and f(hi) of opposite sign (plain bisection: slow, always converges).
-    Returns the bracket end where f > 0 -- the allowed side, so integrands never see a negative radicand."""
+    Iterations follow the working precision (the bracket shrinks below 10^-dps). Returns the bracket end
+    where f > 0 -- the allowed side."""
+    iters = iters or int(3.33 * mpmath.mp.dps) + 40
     flo = f(lo)
     for _ in range(iters):
         mid = (lo + hi) / 2
@@ -38,10 +40,16 @@ def _bisect(f, lo, hi, iters=120):
     return lo if flo > 0 else hi
 
 
-def _rsqrt(x):
-    """1 / sqrt(x) for the integrands; at an endpoint where rounding makes x <= 0 the (finite, measure-zero)
-    point contributes 0 instead of an imaginary part."""
-    return 1 / mpmath.sqrt(x) if x > 0 else mpmath.mpf(0)
+def _endpoint_root(h, u, d1, d2, near):
+    """sqrt(h(u^2)) / u for a radicand h that vanishes at u = 0 with h'(0) = d1 > 0 (h ~ d1 u^2 + d2 u^4 / 2).
+    For u^2 below `near` the Taylor form is used -- at u = 0 exactly it is the analytic limit sqrt(d1);
+    elsewhere the radicand is evaluated directly."""
+    if u * u < near:
+        return mpmath.sqrt(d1 + d2 * u * u / 2)
+    x = h(u * u)
+    if x <= 0:
+        raise ArithmeticError(f"radicand {x} <= 0 at u = {u} above the Taylor threshold")
+    return mpmath.sqrt(x) / u
 
 
 class Reference:
@@ -56,6 +64,12 @@ class Reference:
 
     def V(self, r):
         return self.model.V(mpmath.mp, r, True)
+
+    def _dV(self, r, n):
+        return mpmath.diff(self.V, r, n)
+
+    def _near(self):
+        return mpmath.mpf(10) ** (-(mpmath.mp.dps // 2) - 5)
 
     # --- scattering -------------------------------------------------------------------------------------
     def _Q(self, r, E, L, mu):
@@ -76,24 +90,23 @@ class Reference:
         return _bisect(lambda r: self._Q(r, E, L, mu), lo, hi)
 
     def sweep_and_time(self, E, L, R_start, to_infinity=False):
-        """(swept polar angle, sojourn time) between R_start (or infinity) and the turning point, in and out."""
+        """(swept polar angle, sojourn time) between R_start (or infinity) and the turning point, in and out.
+        r = r0 + u^2; 2u / sqrt(Q) = 2 / (sqrt(Q)/u), whose u -> 0 limit 2 / sqrt(Q'(r0)) is used at the end."""
         with mpmath.workdps(self.dps):
             E, L, R_start = self._mp(E), self._mp(L), self._mp(R_start)
             mu = self._mp(AR40_MASS_ME) / 2
             r0 = self.turning_point(E, L, R_start)
-
-            def f_angle(u):
-                r = r0 + u * u
-                return 2 * u * (L / (r * r)) * _rsqrt(self._Q(r, E, L, mu))
-
-            def f_time(u):
-                r = r0 + u * u
-                return 2 * u * mu * _rsqrt(self._Q(r, E, L, mu))
+            d1 = -2 * mu * self._dV(r0, 1) + 2 * L * L / r0 ** 3            # Q'(r0)
+            d2 = -2 * mu * self._dV(r0, 2) - 6 * L * L / r0 ** 4            # Q''(r0)
+            near = self._near()
+            root = lambda u: _endpoint_root(lambda h: self._Q(r0 + h, E, L, mu), u, d1, d2, near)
+            f_angle = lambda u: 2 * (L / (r0 + u * u) ** 2) / root(u)
+            f_time = lambda u: 2 * mu / root(u)
             umax = mpmath.sqrt(R_start - r0)
             ang = 2 * mpmath.quad(f_angle, [0, umax / 4, umax])
             tim = 2 * mpmath.quad(f_time, [0, umax / 4, umax])
             if to_infinity:
-                ang += 2 * mpmath.quad(lambda r: (L / (r * r)) * _rsqrt(self._Q(r, E, L, mu)),
+                ang += 2 * mpmath.quad(lambda r: (L / (r * r)) / mpmath.sqrt(self._Q(r, E, L, mu)),
                                        [R_start, 4 * R_start, mpmath.inf])
             return ang, tim, r0
 
@@ -104,13 +117,13 @@ class Reference:
 
     # --- bound radial motion, L = 0 --------------------------------------------------------------------
     def radial_period(self, E, r_inner):
-        """T(E) for L = 0; r_inner = the inner turning point (V(r_inner) = E)."""
+        """T(E) for L = 0; r_inner = a point inside the well (V(r_inner) < E). Both endpoint limits analytic."""
         with mpmath.workdps(self.dps):
             E = self._mp(E)
             mu = self._mp(AR40_MASS_ME) / 2
             g = lambda r: E - self.V(r)
             lo, hi = self._mp(r_inner), self._mp(r_inner)
-            while g(lo) > 0:                    # E > V at r_inner (inside the well): walk inward to V > E
+            while g(lo) > 0:                    # walk inward to V > E
                 lo -= mpmath.mpf("0.05")
             r_minus = _bisect(g, lo, hi)
             hi = hi + mpmath.mpf("0.05")
@@ -118,10 +131,15 @@ class Reference:
                 hi += mpmath.mpf("0.05")
             r_plus = _bisect(g, hi - mpmath.mpf("0.05"), hi)
             mid = (r_minus + r_plus) / 2
-            a = mpmath.sqrt(mid - r_minus)
-            b = mpmath.sqrt(r_plus - mid)
-            inner = mpmath.quad(lambda u: 2 * u * mu * _rsqrt(2 * mu * g(r_minus + u * u)), [0, a])
-            outer = mpmath.quad(lambda u: 2 * u * mu * _rsqrt(2 * mu * g(r_plus - u * u)), [0, b])
+            a, b = mpmath.sqrt(mid - r_minus), mpmath.sqrt(r_plus - mid)
+            near = self._near()
+            # inner: 2 mu g(r- + h) ~ -2 mu V'(r-) h - mu V''(r-) h^2;  outer: 2 mu g(r+ - h) ~ 2 mu V'(r+) h - mu V''(r+) h^2
+            d1i, d2i = -2 * mu * self._dV(r_minus, 1), -2 * mu * self._dV(r_minus, 2)
+            d1o, d2o = 2 * mu * self._dV(r_plus, 1), -2 * mu * self._dV(r_plus, 2)
+            inner = mpmath.quad(lambda u: 2 * mu / _endpoint_root(lambda h: 2 * mu * g(r_minus + h), u, d1i, d2i,
+                                                                   near), [0, a])
+            outer = mpmath.quad(lambda u: 2 * mu / _endpoint_root(lambda h: 2 * mu * g(r_plus - h), u, d1o, d2o,
+                                                                   near), [0, b])
             return 2 * (inner + outer), r_minus, r_plus
 
     # --- conserved quantities from exact states ---------------------------------------------------------
