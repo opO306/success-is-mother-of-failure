@@ -48,13 +48,19 @@
    "S1_abinitio.txt": "b29c002ad7004214d2e7e93c5e4217ba603e5804cca4a4f5fab78a3450a02371",
    "lang2024_v2.pdf": "893c6db03e5f92a6b983a97a7719604a24e4abd376f7b5e58312b25e1d1d85bf"
   },
+  "code_hash_rule": "SHA-256 of the file with CRLF normalised to LF (= the Git blob)",
   "audit_code_sha256": {
    "audit/independent_physics/ar2_lang2024.py": "37a9c40612ec17302f5d9f3d8c7803721e38d373297c4f859e529a188be9813b",
    "audit/independent_numeric/oracle.py": "aee48b452afd0cd115be97b318543d52fbf946ed5b4bcf907ce2e0fff9223ec9"
   },
-  "reference_code_sha256": "4ddf64ff1b6ae622a54b7eda9b84979d28a767ae2773474c61f57cdb2d94dca1",
-  "generator_code_sha256": "c1dfa726892c6fbbaaf60b64ec478648e921440d97840473034c76084d79aff0",
-  "git_head_at_generation": "e3ee63628a445e3efc0f64890566ebc8b5ec4f73",
+  "reference_code_sha256": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+  "reference_dependencies_sha256": {
+   "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b",
+   "a_numeric/profiles.py": "ef15c24330cec5b2ca8db28b072d12dcc46d35c15afcbb2d3f89977140bd9aec"
+  },
+  "generator_code_sha256": "013e351434ff5aec27fd3384d3dcfc8eca8b1110564eca6498fe250578d44929",
+  "git_head_at_generation": "868e865625c9b464dbd0e474e2d55945537a0b96",
+  "code_files_committed_at_head": true,
   "audit_checks": "V, V_ret_off, sigma, V+-sigma: mpmath interval enclosure strictly inside the rounding interval; F, F_ret_off: 80-digit numerical derivative inside the rounding interval (strong independent check, not a proof); domain: the audit's own 1.2 A / a0"
  },
  "cases": [

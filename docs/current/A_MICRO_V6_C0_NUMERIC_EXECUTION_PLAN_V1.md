@@ -401,3 +401,17 @@ N3-B 조사(`A_MICRO_V6_N3B_BORN_MAYER_SURVEY_V1.md`)에서 "Born–Mayer 값을
 
 **구현 결과:** `A_MICRO_V6_ARAR_POTENTIAL_SURVEY_V1.md` 11절 — 1~6 모두 수행, 동결 판정 대기. 성능: B0 450~830 µs, B2 약 3.7 µs,
 평범한 binary64 약 0.1 µs(단, 계약과 다른 비트 79~99%).
+
+### 11.8 설계자 판정 10판 (2026-09-25) — C1-A 동결 승인, 다음은 C1-B1(두 원자)
+
+1. 동결 전 provenance 정리: 최종 코드 커밋에서 fixture 재생성, 계약·지문·원자료·코드 해시·생성 커밋·모든 비트 일치 확인. 비트가 다르면 동결하지 말고 조사.
+2. **동결:** Lang 2024 모델·정확 십진 매개변수·V_BO+V_rel+V_QED·A 세계 retardation ON·r_min 1.2 Å·CODATA 2018 a₀는 이 계약의 출처 고정 변환에만·
+   bohr/hartree/hartree per bohr·V와 F 한 번 반올림·불확도와 수치 오차 분리·ultracold 분리·fixture 비트·결정 못 하면 거부. retardation OFF는 감사용.
+3. **동결 안 함:** B0 범위·최대 정밀도, B1 스레드·분할, B2 limb·시도 횟수, CUDA 배치, 실행 시간, 최적화 — 개선 시 같은 계약·fixture 재통과.
+4. 세계 최종 수 체계는 아직 고르지 않는다(FX 꼬리 소실은 C1-B cutoff·오차 계약 뒤 판정).
+5. fast profile은 아직 만들지 않는다 — C1-B 기준 실험으로 비용이 실제 병목일 때만, 정확 profile로 가장하지 않고 별도 오차 상한·수렴 검증과 함께.
+6. 다음 = **C1-B1 두 원자 동역학**(Δr·R의 수치 규칙, 힘 벡터, ±F, 적분기, Δt, cutoff 정의·연속 처리, 산란 기준 해, Δt·정밀도 수렴,
+   에너지·운동량·각운동량 잔차). 다입자·액체·고체·thermostat·3체·Cencek 제외.
+
+**수행:** 동결 → `C1A_AR2_FREEZE_V1.md`, `tests/test_c1a_freeze.py`. 재생성 fixture의 비트는 이전과 완전히 동일. C1-B1 설계 초안 →
+`A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` (구현 전 판정 대기).
