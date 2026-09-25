@@ -133,3 +133,15 @@ def test_typed_profile_pair_reproduces_fx64_48_and_meets_the_criteria() -> None:
                 v = mpmath.mpf(REF80[r["case"]]["represented"][k])
                 if v:
                     assert abs(mpmath.mpf(r[k]) - v) / abs(v) <= (1e-4 if k == "two_periods" else 1e-5)
+
+
+def test_typed_study_v2_reproduces_v1_bit_for_bit() -> None:
+    """Designer 14th ed.: the 120 typed runs re-run under contract v2 (drift r + round(p dt/m)) give exactly the v1
+    observables, step counts and angular-momentum changes -- no study case meets an exact drift tie."""
+    v1 = json.loads((FIX / "c1b1_typed_study_v1.json").read_text(encoding="utf-8"))
+    v2 = json.loads((FIX / "c1b1_typed_study_v2.json").read_text(encoding="utf-8"))
+    assert v2["contract"] == "c1b1-two-atom-v2" and v2["provenance"]["uncommitted_changes_in_a_reference_or_audit"] is False
+    strip = lambda r: {k: v for k, v in r.items() if k != "seconds"}
+    a = {(r["case"], r["dt"]): strip(r) for r in v1["runs"]}
+    b = {(r["case"], r["dt"]): strip(r) for r in v2["runs"]}
+    assert len(a) == len(b) == 120 and a == b
