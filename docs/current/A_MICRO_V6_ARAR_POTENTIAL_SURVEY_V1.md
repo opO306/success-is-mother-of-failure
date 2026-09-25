@@ -1,84 +1,175 @@
-# Ar–Ar 현실 퍼텐셜 비교 조사 v1 — C1 첫 현실 검증 종
+# Ar–Ar 현실 퍼텐셜 조사 — v2: Lang 2024 계약 추출
 
-**상태:** 조사 초안 (2026-09-25). **결정 없음.** 설계자 판정 대기.
-**상위:** `A_MICRO_V6_C0_NUMERIC_EXECUTION_PLAN_V1.md` 11.4 (6판: C1 = 첫 실제 물질, Ar = 첫 현실 검증 종, 표현 방식 미정, 3체 항 조사).
-**원칙:** 자료가 요구하는 표현을 먼저 보고 VM 연산이 따라간다. 구현 편의로 고르지 않는다.
-
-**읽은 범위 (공개):** 아래 문헌은 전부 **초록·요약·검색 결과**로만 확인했다. 식의 정확한 형태, 매개변수 표, 맞춤에 쓴 거리 범위는 **원문을
-읽어야** 확정된다 — 이 문서는 "무엇을 읽고 비교해야 하는가"를 좁히는 1차 조사다.
+**상태:** v2 (2026-09-25). v1(초록 수준 조사) → **설계자 7판 판정** 반영 → **Lang·Przybytek·Lesiuk 2024 원문·공개 Fortran·데이터 계약 추출 완료.**
+**퍼텐셜은 아직 코드에 넣지 않았다**(설계자 지시). 다음: 이 계약으로 설계 판정.
+**상위:** `A_MICRO_V6_C0_NUMERIC_EXECUTION_PLAN_V1.md` 11.4·11.5.
 
 ---
 
-## 1. 후보 — 쌍(2체) 퍼텐셜
+## 0. 설계자 7판 판정 (2026-09-25)
 
-| 후보 | 표현 | 이론 수준 / 출처 | 검증 (초록 기준) | 비고 |
-|---|---|---|---|---|
-| **Aziz 1993 (HFDID1)** | **해석적**: Hartree–Fock형 반발 + 항마다 따로 감쇠한 분산 급수 | 실험 맞춤 — Ar₂ 자외선 진동-회전 스펙트럼(Herman·LaRocque·Stoicheff)을 실험 오차 안에서 재현 | 여러 물성 예측, 당시 "가장 정확한 Ar 상호작용" | 실험 기반 기준선. 30년 전 |
-| **Tang–Toennies 2003** | **해석적**: Born–Mayer 두 매개변수 + 감쇠된 분산 3항(C₆, C₈, C₁₀), 결합 규칙 | 모형 + 문헌 계수 | 희가스 21쌍 전부(He~Rn, 이종 포함) 한 틀로 | **모든 희가스로 일반화**되는 유일한 후보(He, Ne, Ar … 확장 계획과 맞음). 최신 양자 계산보다 덜 정확할 것 — 차이 크기 미확인 |
-| **Jäger·Hellmann·Bich·Vogel 2009/2010** | 양자 계산 점 + 해석적 맞춤(형태 미확인) | CCSDT(Q)까지, 큰 기저, **상대론 보정** | 진동-회전 스펙트럼; 2부에서 2차 비리얼·음향·유전 비리얼·점성·열전도(83~10,000 K) — "표준값으로 쓸 만큼 정확" | 저밀도 기체 열물성의 사실상 기준 |
-| **Patkowski–Szalewicz 2010** | 양자 계산 점 + 해석적 맞춤 | 기저·들뜸 **한계까지 수렴한 BO 에너지** — 비상대론 계산 중 가장 정확 | 비리얼 계수 등에 쓰임 | 순수 BO(상대론·QED 미포함) |
-| **개선판 2023 (arXiv 2304.14719)** | 위 BO 퍼텐셜 + 보정(형태 미확인) | 2전자 Darwin·궤도-궤도 상대론, 장거리 지연, 선도 QED 보정 | 이량체 스펙트럼(진동 준위·결합 해리 에너지·회전 상수), 압력·음향 비리얼, 점성·열전도 | 가장 최신·가장 많은 보정. 초록: 열물성은 최신 실험보다 약간 덜 정확, 수송은 측정보다 불확도가 작음 |
-| (참고) **Born–Mayer 단일 지수** | `A·e^{−r/ρ}` | — | Ar₂ 반발 벽 **과대평가** 보고(Van Vleet 2016) | 6판에서 기본 방향 철회. 비교군 |
-| (참고) **표 PES + 보간** | 양자 계산 점을 그대로 | 위 계산들의 원자료 | — | 해석적 맞춤이 있으면 굳이 필요 없음. 원자료 공개 여부 미확인 |
-
-**잘 알려진 값(대략, 원문 확인 필요):** 우물 깊이 ε/k ≈ 143 K(≈ 12 meV), 최소 위치 r ≈ 3.76 Å — Aziz 계열 값.
-
----
-
-## 2. 3체 항 — 언제 필요한가
-
-- **Cencek·Szalewicz·Garberoglio·Harvey·McLinden 2013:** 300개 배치에서 CCSDT(Q) + 핵심 상관·상대론 효과로 3체 비가산 에너지를 계산하고
-  기하마다 불확도 추정, 해석적 함수로 맞춤 — "현재 가장 정확한 Ar 3체 퍼텐셜". 3차 비리얼 계수(80~10,000 K, 양자 효과 포함 경로적분)로 검증.
-- **크기(검색 결과, 원문 확인 필요):** 고체 Ar 응집 에너지의 **최대 약 9%**가 3체(Axilrod–Teller–Muto 삼중 쌍극자), 액체 Ar에서 압력·내부
-  에너지가 **약 10%** 달라짐.
-- **판단 기준(구현자 정리):**
-  - **희박 기체**(2차 비리얼, 점성, 열전도, 두 원자 충돌): **쌍 퍼텐셜만으로** 검증 가능.
-  - **액체·고체**(밀도, 응집 에너지, 체적 탄성률, 상전이): 쌍만 쓰면 **약 10% 수준 차이가 예상**됨 → 3체를 넣거나, 그 차이를 **선언된 한계**로
-    두고 비교해야 한다. "쌍만으로 고체 Ar이 맞다"는 주장은 금지.
+1. **선택 기준:** 희가스 전체를 한 식으로 통일하는 편의가 아니라 **그 원자종에 대해 현재 가장 잘 검증된 실제 상호작용**.
+   Ar 1차 기준 후보 = **Lang·Przybytek·Lesiuk 2024** ab initio 퍼텐셜. 무조건적 정답으로 선언하지 않는다 — **Aziz 등 실험 기반 퍼텐셜과 실제
+   관측값은 독립 교차검증 기준**으로 유지. Tang–Toennies 2003은 He·Ne·Kr·Xe로 넓힐 때 공통 표현 **후보·비교 기준**(Ar 정확도를 희생하지 않음).
+   순서: **종별 최선의 현실 자료 → 실험과 교차검증 → 여러 종에서 공통 구조가 실제로 성립하는지 확인.**
+2. **C1을 단계로 닫는다:**
+   - **C1-A** Ar–Ar PES 자체 — 공개 기준 구현과 같은 거리에서 에너지 재현, 힘 `F = −dV/dr`, 최소 위치·깊이, 짧은 거리 반발·긴 거리 인력, 공개
+     불확도와 비교. 다체·온도 없음.
+   - **C1-B** 쌍 상호작용 동역학 — 두 원자 산란, 희박 Ar, 쌍 퍼텐셜로 정의되는 물성. **A는 고전 역학이므로 양자 결과와 섞어 판정하지 않는다**;
+     가능하면 같은 PES로 한 **고전 기준 계산**과 먼저 비교.
+   - **C1-C** 응집 Ar — 액체·고체. 3체 비가산 상호작용 명시 검토, **3체 없이 실제 액체·고체 Ar이라 주장하지 않음**, Cencek 2013 등 3체 구현·검증 후 판정.
+   - C1 전체 폐쇄 = C1-C까지. 진행은 C1-A → C1-B → C1-C.
+3. **원문 확보:** 유료 원문부터 억지로 확보하지 않는다. 공개 자료(arXiv 원문·보충 코드·데이터, SI) 먼저, 공개 자료에 없을 때만 다시 올린다.
+4. **단위계:** C1 PES 기준 단위는 **원자 단위계(bohr, hartree)** 방향으로 조사. A-MICRO 전체(질량·시간·힘)를 원자 단위로 둘지는 수치 범위 검증 후
+   최종 승인. Å·K·eV·meV는 **표시·비교용**으로만 — 내부 법칙의 기준 단위와 섞지 않는다.
 
 ---
 
-## 3. 거리·에너지 범위와 A의 다른 계약
+## 1. Lang·Przybytek·Lesiuk 2024 — 확보한 자료
 
-| 영역 | 거리(대략) | 무엇이 맞나 |
+| 항목 | 내용 |
+|---|---|
+| 논문 | J. Lang, M. Przybytek, M. Lesiuk, *Thermophysical properties of argon gas from improved two-body interaction potential*, **Phys. Rev. A 109, 052803 (2024)**. arXiv:2304.14719 — v1 2023-04-28, **v2 2024-04-09** |
+| 보충 자료 (arXiv 부속 파일 10개) | `S1_abinitio.txt`(상대론·QED 보정 ab initio 값과 불확도, R = 1.2~20 Å, 37점) · **`S2_ar2_pot.f90`(퍼텐셜 Fortran 2008)** · `S3_SE.txt` · `S4_cross_sections*.txt`(±σ 판 포함) · `S5_Evl*.txt`(진동·회전 준위, ±σ 판) · `S6_thermo.txt`(50 K부터 비리얼·수송 물성과 불확도) |
+| 보관 | `D:\reference\ar2_lang2024\` — **Git 밖**(재배포 권리 확인 안 함). 원문 PDF·텍스트 추출본 포함, `SHA256SUMS.txt`에 해시 |
+| 해시 | `S2_ar2_pot.f90` a598057183121b9c928b3a9804c8e2e99afa553bad570a471aa4130f20e6b049 · `S1_abinitio.txt` b29c002ad7004214d2e7e93c5e4217ba603e5804cca4a4f5fab78a3450a02371 · PDF v2 893c6db03e5f92a6b983a97a7719604a24e4abd376f7b5e58312b25e1d1d85bf |
+
+---
+
+## 2. 계약 — 식 (원문 Eq. 17·18·20·28·37과 Fortran에서 확정)
+
+단위: **R = bohr, V = hartree**(원문은 전부 원자 단위, α = 1/137.035999084).
+
+```
+V(R) = V_BO(R) + V_rel(R) + V_QED(R)          (지연 효과 포함이 기본)
+
+V_Y(R) = Σ_j e^{−α_j R} Σ_i a_ij R^i  −  Σ_k C_2k f_n(k)(η_Y R) / R^{2k}
+
+  BO : j = 1,2   i = −1..2   k = 3..8   n(k) = 2k+1   (R⁻ⁿ을 f_{n+1}로 더 강하게 감쇠 — 맞춤 제약 때문, 원문 설명)
+  rel: j = 1,2   i =  0..2   k = 2..4   n(k) = 2k
+  QED: j = 1,2   i =  0..2   k = 3..4   n(k) = 2k
+
+f_n(x) = 1 − e^{−x} Σ_{i=0}^{n} xⁱ/i!                 (Tang–Toennies 감쇠)
+
+지연(retardation) 켬:
+  BO 의 C6 항:  −f_7(η R)·C6/R⁶   →  −(g(R) + f_7(η R) − 1)·C6/R⁶
+  rel 의 C4 항: −f_4(η R)·C4/R⁴   →  −(f_4(η R) − 1)·C4/R⁴
+  g(R) = (1 + Σ_{m=1}^{5} A_m R^m) / (1 + Σ_{m=1}^{6} B_m R^m)     (카시미르–폴더 지연 인자의 유리 함수 맞춤, 0 ≤ R ≤ 250 bohr)
+```
+
+매개변수는 Fortran 모듈의 상수 그대로(α·a·η·C·A·B — 50여 개). **옮겨 적기 확인:** 이 식을 60자리 정밀도(mpmath)로 계산해 원문 표 V와 대조 —
+**R_e = 3.76399 Å**(원문 3.7640(14)), **D_e = −99.2016 cm⁻¹**(원문 −99.20(37)). 스크립트는 작업 공간의 일회용이며 **프로젝트 코드에 넣지 않았다.**
+
+**짧은 거리 점근:** V_BO는 맞춤 때 `V_BO(R) → 18²/R + (E_Kr − 2E_Ar) + O(R²)`(핵 반발 + 합쳐진 원자 극한, E_Kr − 2E_Ar = −1698.4211 hartree)를
+만족하도록 **제약**되었다. 즉 식의 R → 0 모양은 물리적으로 맞춰져 있다 — **다만 그 아래로는 자료가 없다**(아래 3절).
+
+---
+
+## 3. 입력 유효 범위 — 실제 자료 범위
+
+| 성분 | ab initio 자료 | 범위 |
 |---|---|---|
-| 상온 기체·액체의 충돌 | 약 3 Å 이상 | 위 쌍 퍼텐셜들의 주된 검증 범위 |
-| 강한 충돌 | 약 2~3 Å | 양자 계산 점이 있는 범위 안인지 원문 확인 필요 |
-| 고에너지(≫ 10 eV) | 약 1 Å 이하 | Nordlund·Lehtola·Hobler 2025 / ZBL 영역 → 지금은 `physics_domain_exceeded` |
+| V_BO | Patkowski 외 2010의 41점 재사용 | **0.25 Å(0.47 bohr) ~ …** — 2 Å 미만(Patkowski 외 [18])은 원 논문이 불확도를 주지 않아 **Lang 등이 2%로 가정**(외삽·비외삽 차 < 1.7% 근거), 2 Å 이상은 원 논문 불확도 |
+| V_rel, V_QED | 이 논문에서 새로 계산(S1) | **1.2 Å(2.27 bohr) ~ 20 Å(37.8 bohr)**, 37점 |
+| 20 Å 너머 | 점근 계수 C_n(이론) + 지연 인자 맞춤(0~250 bohr) | 이론적 장거리 형태 |
+| 0.25 Å 아래 | 자료 없음 | 점근 제약만 |
 
-**A가 새로 떠안는 것 (공개):**
-- **양자 효과.** 문헌의 비리얼 계수는 경로적분(양자) 계산으로 비교한다. A는 **고전 역학**이다 → 낮은 온도(수십 K)에서는 고전 A가 실제 Ar과
-  다를 수 있다. 비교할 때 "고전 근사의 차이"를 따로 적어야 한다. C1 물성 비교 온도 범위를 정할 때 필요.
-- **VM 연산.** 해석적 후보들(Aziz, Tang–Toennies, 양자 계산 맞춤)은 대개 지수·다항/역거듭제곱·감쇠 함수의 조합이고, 이는 VM 0.2의
-  EXP·MUL·DIV·SUM으로 **표현 가능할 것으로 보인다**(원문 식 확인 전 추정). 표 보간은 새 연산이 필요. **이것은 선택 근거가 아니라 결과로만 기록한다.**
-- **단위계.** A-MICRO가 쓸 단위(Å, K 또는 meV, 원자질량 단위 …)가 정해지지 않았다. 매개변수를 옮기기 전에 정해야 한다.
+**에너지 눈금(위 식 계산, 참고):** 1.2 Å에서 V ≈ 1.80 hartree ≈ 5.7×10⁵ K(≈ 49 eV), 2.0 Å에서 ≈ 0.163 hartree ≈ 5.1×10⁴ K(≈ 4.4 eV),
+3.0 Å에서 ≈ 910 K. **상온~수천 K 세계에서 두 원자는 2 Å 근처에도 거의 오지 않는다.**
+
+**`r_min`(물리 범위 밖 중단) 후보 — 설계자 결정:** (a) **1.2 Å** — 세 성분 모두 ab initio 자료 안 / (b) 0.25 Å — BO 자료 안, rel·QED는 외삽.
 
 ---
 
-## 4. 다음 — 원문을 읽고 비교표를 채운다 (설계자 확인 후)
+## 4. 불확도
 
-원문에서 옮길 것(후보마다): **식 전체와 매개변수 표 · 맞춤에 쓴 거리 범위(최소 거리 포함) · 불확도 · 검증한 물성과 온도 범위 · 데이터 공개 여부 ·
-라이선스.**
+- `σ(R) = √(σ_BO² + σ_rel²)`, `σ_Y(R) = s₀e^{−α₀R} + Σ_{i=1}^{3} s_i e^{−α_i R²}`. **k = 2 포함 확률**(대략 95%).
+- σ 함수는 ab initio 불확도를 정확히 맞춘 것이 아니라 **추세를 따르며 위로 덮는** 맞춤(평균 비율 1.08·1.17, 중앙값 1.16).
+- **QED 불확도는 σ에 포함 안 됨**(원문: BO·rel보다 훨씬 작아 무시).
+- BO 맞춤 평균 절대 오차 = 0.49 σ_BO.
+- 원문은 **U ± σ**로 물성 불확도를 낸다(S4·S5의 `_minus`·`_plus` 파일).
 
-우선 읽을 원문(구현자 제안): **Jäger 외 2009(1부)**, **개선판 2023**, **Aziz 1993**, **Tang–Toennies 2003**, **Cencek 외 2013**(3체).
+---
 
-**설계자에게 묻는 것:**
-1. 비교 기준의 우선순위 — (a) 가장 정확한 현재 양자 계산(개선판 2023 등) / (b) 실험 스펙트럼 맞춤(Aziz) / (c) 희가스 전체로 일반화되는 틀(Tang–Toennies).
-   세 가지가 서로 다른 목적을 가진다.
-2. C1에서 처음 검증할 물성 범위 — 희박 기체만(쌍으로 충분) / 액체·고체까지(3체 필요 또는 차이 선언).
-3. 원문 확보 방법 — 대부분 유료 학술지다. arXiv·저자 공개본으로 되는 것부터 읽을지.
+## 5. 필요한 VM 연산 — 식과 코드에서 추출 (추정이 아님)
+
+| 필요 | VM 0.2 |
+|---|---|
+| R = √(r²) | SQRT ✓ |
+| e^{−αR}, e^{−x} | EXP ✓ (+ NEG, MUL) |
+| 다항식(Horner), Σ xⁱ/i! | MUL · ADD / SUM ✓, 1/i!는 CONST(정확 유리수) ✓ |
+| R⁻¹, R⁻²ᵏ, 유리 함수 g(R) | DIV ✓ |
+| σ(R)의 e^{−αR²}, √(σ_BO²+σ_rel²) | EXP · MUL · SQRT ✓ |
+
+**수학적으로는 새 연산이 필요 없다.** 그러나 **수치적으로 결정해야 할 것이 셋** 있다:
+
+1. **Fortran은 부동소수점 분기를 쓴다** — `dampTT`는 x가 작으면 `e^{−x}·Σ_{i>n} xⁱ/i!`(급수), 중간이면 `1 − e^{−x}Σ_{i≤n}`, 크면 1; 지수가
+   밑넘칠 곳은 건너뜀. 이 분기들은 **소거 오차(1 − 거의 1)를 피하려는 구현 기법**이지 물리가 아니다. **VM 0.x에는 분기·선택 명령이 없다** →
+   한 가지 식으로 모든 R을 계산하면 작은 x에서 `1 − e^{−x}S`의 상대 정밀도가 무너진다(절대 오차는 작지만 C₁₆/R¹⁶ 같은 큰 계수와 곱해진다).
+2. 그래서 **A에서 "V(R)의 값"이 무엇인지** 정해야 한다:
+   - **(가) VM 프로그램(IR-N 커널)으로 정의** — 명령마다 반올림이 A의 정의에 들어간다(모든 실행기가 같은 프로그램이면 결정론은 지켜짐).
+     소거를 피하려면 선택(SELECT) 명령이나 분기가 필요 → 새 명령 → E7.
+   - **(나) "정확한 V(R)를 한 번 반올림"한 하나의 정의된 함수로** — EXP와 같은 원칙. 반올림 오차가 물리 정의에 섞이지 않지만, 네이티브 실행기가
+     V 전체를 정확 반올림해야 한다(구간 감싸기로 가능, 무겁다).
+3. **힘:** 기준 구현은 **V만 주고 dV/dR를 주지 않는다.** 힘은 식을 해석적으로 미분해 새로 만들어야 한다 —
+   `d/dR[e^{−αR}P(R)] = e^{−αR}(P′ − αP)`, `d/dR[C f_n(ηR)/R^{2k}] = C[η f_n′(ηR)/R^{2k} − 2k f_n(ηR)/R^{2k+1}]`, `f_n′(x) = e^{−x}xⁿ/n!`, g′(R)는
+   유리 함수 미분. **새로 만든 식이므로 C1-A에서 독립 검증**(고정밀 수치 미분과 대조) 필요. 힘 벡터는 `F = −(dV/dR)·d/R`.
+
+---
+
+## 6. 원자 단위계 — 예비 수치 범위 (최종 승인 전)
+
+| 양 | 값 (원자 단위) |
+|---|---|
+| Ar 질량 | 39.948 u ≈ **72,821 mₑ** |
+| 우물 깊이 | 99.2 cm⁻¹ ≈ **4.52×10⁻⁴ hartree** |
+| k_B·300 K | ≈ 9.50×10⁻⁴ hartree |
+| 300 K 열속도 | ≈ 432 m/s ≈ **1.97×10⁻⁴ a.u.** → 운동량 ≈ 14 a.u. |
+| 1 fs | ≈ **41.3 a.u.(시간)** |
+| 거리 | 우물 7.11 bohr, 상자 10²~10⁴ bohr |
+
+값의 폭(10⁻¹¹ ~ 10⁵)이 넓다 — FX 후보의 동적 범위(N9)에 그대로 들어간다. 최종 승인은 N9 수치 범위 검증 뒤.
+
+---
+
+## 7. 한계 장부
+
+| 한계 | 내용 |
+|---|---|
+| **아홉 번째 진동 상태 · 산란 길이 미해결** | 원문 표 V: U(R)은 v = 8 상태를 **지지하지 않고**, U − σ로만 나타남. 후속 연구("On the elusive ninth vibrational state of the argon dimer")가 고정밀 퍼텐셜들이 **서로 다른 수의 속박 상태와 크게 다른 산란 길이**를 준다는 미해결 불일치를 다룸 — **본문은 접근 불가(403)**, 검색 요약만 확인. 매우 약하게 묶인 상태·극저온 산란이 걸린 물성은 이 퍼텐셜로 확정 주장 금지 |
+| 2 Å 미만 BO 불확도 | 원 자료에 없어 **2%로 가정**된 값 |
+| 1.2 Å 미만 rel·QED | 외삽(자료 없음) |
+| QED 불확도 | σ에 미포함 |
+| 쌍 근사 | C1-C(응집)에서는 3체 필요 |
+| 양자 vs 고전 | 원문 물성(비리얼·수송·준위)은 **양자** 계산. A는 고전 → C1-B는 같은 PES의 고전 계산과 먼저 비교 |
+| 힘 | 기준 구현에 없음 — 해석적 미분을 새로 만들고 검증해야 함 |
+| 분기 | 기준 구현의 소거 회피 분기를 VM이 표현 못 함(5절) |
+
+---
+
+## 8. 다른 자료의 상태
+
+| 자료 | 상태 |
+|---|---|
+| **Cencek 외 2013 (3체)** | **공개 SI(Fortran + 매개변수 파일)를 자동으로 받지 못했다** — ACS가 자동 접근을 막음(403). 우회는 하지 않는다. **설계자가 브라우저로 SI를 받아 `D:\reference\ar3_cencek2013\`에 두면** 같은 방식으로 계약을 추출한다. NIST 공개 페이지에는 원문 링크(DOI)만 있음 |
+| Aziz 1993, Jäger 2009/10, Tang–Toennies 2003 | 초록 수준(v1). 교차검증에 **필요한 부분만** 공개본·저자본·SI에서 찾을 예정. Lang 원문 표 V가 Patkowski 2010·Song 2019·실험값을 이미 나란히 둔다 |
+
+---
+
+## 9. 설계자에게 묻는 것
+
+1. **`r_min`**: 1.2 Å(모든 성분이 자료 안) / 0.25 Å(BO만 자료 안).
+2. **A에서 V(R)의 값의 정의**: (가) VM 프로그램 + 선택 명령 신설 / (나) "정확한 V를 한 번 반올림"하는 정의된 함수.
+3. **Cencek 2013 SI**: 브라우저로 받아 주실 수 있는지.
 
 ---
 
 ## 출처
 
-- R. A. Aziz, A highly accurate interatomic potential for argon, J. Chem. Phys. 99, 4518 (1993) — [AIP](https://pubs.aip.org/aip/jcp/article-abstract/99/6/4518/93952/A-highly-accurate-interatomic-potential-for-argon?redirectedFrom=fulltext)
-- K. T. Tang, J. P. Toennies, The van der Waals potentials between all the rare gas atoms from He to Rn, J. Chem. Phys. 118, 4976 (2003) — [AIP](https://pubs.aip.org/aip/jcp/article-abstract/118/11/4976/535963/The-van-der-Waals-potentials-between-all-the-rare?redirectedFrom=fulltext)
-- B. Jäger, R. Hellmann, E. Bich, E. Vogel, Ab initio pair potential energy curve for the argon atom pair … I, Mol. Phys. 107 (2009) — [T&F](https://www.tandfonline.com/doi/abs/10.1080/00268970903213305); II (2010) — [T&F](https://www.tandfonline.com/doi/abs/10.1080/00268976.2010.507557)
-- K. Patkowski, K. Szalewicz, Argon pair potential at basis set and excitation limits, J. Chem. Phys. 133, 094304 (2010) — [AIP](https://pubs.aip.org/aip/jcp/article/133/9/094304/189065/Argon-pair-potential-at-basis-set-and-excitation)
-- Thermophysical properties of argon gas from improved two-body interaction potential (2023) — [arXiv:2304.14719](https://arxiv.org/abs/2304.14719)
-- W. Cencek et al., Three-body nonadditive potential for argon with estimated uncertainties and third virial coefficient, J. Phys. Chem. A 117, 7542 (2013) — [ACS](https://pubs.acs.org/doi/10.1021/jp4018579), [NIST](https://www.nist.gov/publications/three-body-nonadditive-potential-argon-estimated-uncertainties-and-third-virial)
-- Three-body contribution to binding energy of solid argon, Phys. Rev. Lett. 79, 1301 (1997) — [APS](https://link.aps.org/doi/10.1103/PhysRevLett.79.1301)
-- Pair-HNC closure for three-body potentials: argon with the Axilrod–Teller potential, Phys. Rev. A 45, 3659 — [APS](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.45.3659)
-- M. J. Van Vleet et al., Beyond Born–Mayer (2016) — [ACS](https://pubs.acs.org/doi/10.1021/acs.jctc.6b00209)
-- K. Nordlund, S. Lehtola, G. Hobler, Repulsive interatomic potentials calculated at three levels of theory (2025) — [Zenodo](https://zenodo.org/records/22092149)
+- J. Lang, M. Przybytek, M. Lesiuk, Phys. Rev. A 109, 052803 (2024) — [DOI](https://doi.org/10.1103/PhysRevA.109.052803), [arXiv:2304.14719](https://arxiv.org/abs/2304.14719) (부속 파일 포함)
+- On the elusive ninth vibrational state of the argon dimer — [Authorea](https://www.authorea.com/users/962151/articles/1331052-on-the-elusive-ninth-vibrational-state-of-the-argon-dimer) (본문 접근 불가, 검색 요약)
+- W. Cencek et al., J. Phys. Chem. A 117, 7542 (2013) — [ACS](https://pubs.acs.org/doi/10.1021/jp4018579), [NIST](https://www.nist.gov/publications/three-body-nonadditive-potential-argon-estimated-uncertainties-and-third-virial)
+- R. A. Aziz, J. Chem. Phys. 99, 4518 (1993) — [AIP](https://pubs.aip.org/aip/jcp/article-abstract/99/6/4518/93952/A-highly-accurate-interatomic-potential-for-argon?redirectedFrom=fulltext)
+- K. T. Tang, J. P. Toennies, J. Chem. Phys. 118, 4976 (2003) — [AIP](https://pubs.aip.org/aip/jcp/article-abstract/118/11/4976/535963/The-van-der-Waals-potentials-between-all-the-rare?redirectedFrom=fulltext)
+- B. Jäger et al., Mol. Phys. 107 (2009) — [T&F](https://www.tandfonline.com/doi/abs/10.1080/00268970903213305); 108 (2010) — [T&F](https://www.tandfonline.com/doi/abs/10.1080/00268976.2010.507557)
+- K. Patkowski, K. Szalewicz, J. Chem. Phys. 133, 094304 (2010) — [AIP](https://pubs.aip.org/aip/jcp/article/133/9/094304/189065/Argon-pair-potential-at-basis-set-and-excitation)
