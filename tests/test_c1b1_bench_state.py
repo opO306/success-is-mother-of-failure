@@ -2,7 +2,7 @@
 
 Timings are reported in the design doc, not asserted. What is asserted: for position FX(64,48), FX(96,48),
 FX(128,48) with momentum FX(64,48), the CPU and CUDA kernels give exactly the bits of an exact Python model
-(drift round-half-even of r + p dt / m, exact Delta r and R^2, +-J). Skipped without MSVC / nvcc / GPU.
+(drift r + round-half-even(p dt / m) -- contract v2, exact Delta r and R^2, +-J). Skipped without MSVC / nvcc / GPU.
 """
 from __future__ import annotations
 

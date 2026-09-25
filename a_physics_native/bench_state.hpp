@@ -9,8 +9,9 @@
 // a hand-tuned native-int64 path for FX(64,48) could be faster -- not measured).
 //
 // Operations (per pair of atoms i, j; 3 components):
-//   drift : r <- round_half_even(r + p * dt / m)  (dt / m = dt * A / B exactly, A = 5485799090441,
-//           B = 399623831237000000 -- NIST 40Ar / CODATA 2022 m_e; the exact quotient never pre-rounded)
+//   drift : r <- r + round_half_even(p * dt / m)  (contract c1b1-two-atom-v2: the DISPLACEMENT is rounded, then
+//           added exactly; dt / m = dt * A / B exactly, A = 5485799090441, B = 399623831237000000 -- NIST 40Ar /
+//           CODATA 2022 m_e; the exact quotient never pre-rounded)
 //   dr    : Delta r = r_j - r_i, exact (one limb wider)
 //   R2    : Delta x^2 + Delta y^2 + Delta z^2, exact (2 NL + 3 limbs)
 //   kick  : p_j <- p_j + J, p_i <- p_i - J  (int64, overflow flagged)
@@ -131,7 +132,7 @@ HD void mul64(uint64_t a, uint64_t b, uint64_t* hi, uint64_t* lo) {
     *hi = p11 + (p01 >> 32) + (p10 >> 32) + (mid >> 32);
 }
 
-// r <- round_half_even(r + p * K / B), K = dt * A; returns false on overflow of the position range
+// r <- r + round_half_even(p * K / B), K = dt * A; returns false on overflow of the position range
 template <int N>
 HD bool drift(W<N>& r, int64_t p, uint64_t K) {
     bool neg_p = p < 0;
@@ -139,19 +140,14 @@ HD bool drift(W<N>& r, int64_t p, uint64_t K) {
     uint64_t hi, lo, rem;
     mul64(mag, K, &hi, &lo);
     uint64_t t = divlu(hi, lo, DRIFT_B, &rem);   // |p| K = t B + rem
-    // exact value r + sign * (t + rem / B); floor it first
+    // exact displacement sign * (t + rem / B); floor it first
     int64_t fl = neg_p ? -(int64_t)t - (rem ? 1 : 0) : (int64_t)t;
     uint64_t frac_num = neg_p ? (rem ? DRIFT_B - rem : 0) : rem;   // (value - floor) * B
+    // round half even ON THE DISPLACEMENT: > 1/2 up; == 1/2 up iff its floor is odd (never the parity of r)
+    if (2 * frac_num > DRIFT_B || (2 * frac_num == DRIFT_B && (fl & 1))) fl += 1;
     W<N> inc = from_i64<N>(fl);
     W<N> s = add(r, inc);
     bool ovf = add_overflows(r, inc, s);
-    // round half even: > 1/2 up; == 1/2 up iff the floor is odd
-    if (2 * frac_num > DRIFT_B || (2 * frac_num == DRIFT_B && (s.w[0] & 1))) {
-        W<N> one = from_i64<N>(1);
-        W<N> s2 = add(s, one);
-        ovf = ovf || add_overflows(s, one, s2);
-        s = s2;
-    }
     r = s;
     return !ovf;
 }

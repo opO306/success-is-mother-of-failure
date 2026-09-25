@@ -3,6 +3,10 @@ momentum = FX(64,48) on all 40 study cases at dt = 10, 20, 40 -- compared bit fo
 single-profile FX(64,48) runs of study 2 (same fraction bits, so they must agree while no position leaves the
 FX(64,48) range), and against the 80-digit references. Measurement only.
 
+v1 (fixtures/c1b1_typed_study_v1.json) ran contract c1b1-two-atom-v1 (drift round(r + p dt/m)); v2 re-runs the same
+120 cases under c1b1-two-atom-v2 (drift r + round(p dt/m), designer 14th ed.) -- they must agree bit for bit,
+because no study case meets an exact drift tie.
+
 Run: python -m a_reference.c1b1_typed_study
 """
 from __future__ import annotations
@@ -16,10 +20,11 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import a_reference.c1b1_dt_study as S
+import a_reference.c1b1_two_atom as C
 from a_numeric import FixedPoint
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_typed_study_v1.json"
+OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_typed_study_v2.json"
 TYPED = "POS96_48+MOM64_48"
 DTS = [10, 20, 40]
 
@@ -50,7 +55,7 @@ def main(procs: int = 11):
     head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     dirty = subprocess.run(["git", "status", "--porcelain", "--", "a_reference", "audit"], capture_output=True,
                            text=True, cwd=ROOT).stdout.strip()
-    doc = {"format": "c1b1-typed-study-v1", "typed": {"position": "FX(96,48)", "momentum": "FX(64,48)"},
+    doc = {"format": "c1b1-typed-study-v2", "contract": C.CONTRACT_VERSION, "typed": {"position": "FX(96,48)", "momentum": "FX(64,48)"},
            "dts": DTS, "provenance": {"git_head": head, "uncommitted_changes_in_a_reference_or_audit": bool(dirty),
                                       "code_sha256": {f: _sha(ROOT / f) for f in (
                                           "a_reference/c1b1_two_atom.py", "a_reference/c1b1_dt_study.py",

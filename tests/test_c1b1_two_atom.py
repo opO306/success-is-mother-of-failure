@@ -43,7 +43,7 @@ def trajectory(prof, ri, pi, rj, pj, n=120, dt=40):
 # --- contract ------------------------------------------------------------------------------------------------
 
 def test_species_and_contract_constants() -> None:
-    assert C.CONTRACT_VERSION == "c1b1-two-atom-v1"
+    assert C.CONTRACT_VERSION == "c1b1-two-atom-v2"
     assert C.AR40_MASS_U == Q("39.9623831237") and C.ELECTRON_MASS_U == Q("5.485799090441e-4")
     assert C.AR40_MASS_ME == Q("39.9623831237") / Q("5.485799090441e-4")          # nominal values only
     assert "(24)" in C.AR40_MASS_U_UNCERTAINTY and "(97)" in C.ELECTRON_MASS_U_UNCERTAINTY
@@ -379,37 +379,148 @@ def test_typed_positions_reach_far_beyond_the_fx64_48_range() -> None:
     assert _typed_relative(Q(0))[1] == _typed_relative(Q(10 ** 6) + Q(5, 1 << 48))[1]
 
 
-# --- exact drift ties (found 2026-09-26, reported to the designer) ------------------------------------------------
+# --- exact drift ties (found 2026-09-26; designer 14th ed.: the drift rounds the displacement) --------------------
 
 P_TIE = Q(4995297890462500, 1 << 48)     # dt = 40, 48 fraction bits: p dt / m is exactly half a raw unit
+RAW = Q(1, 1 << 48)
 
 
-def test_drift_ties_are_reachable_inside_the_validated_range() -> None:
-    """p = 4995297890462500 * 2^-48 ~ 17.747 a.u. (inside |p| <= ~18 a.u. of E <= 10 De) makes p dt / m land exactly
-    halfway between two FX(., 48) positions; round-half-even of r + p dt / m then follows the PARITY of r."""
-    assert (P_TIE * 40 / C.AR40_MASS_ME * (1 << 48)).denominator == 2
-    disp = []
-    for shift in range(4):
-        r = Q(3) + Q(5 + shift, 1 << 48)
-        a = C.Atom("Ar40", (POS96.from_exact(r), 0, 0), (MOM64.from_exact(P_TIE), 0, 0))
-        disp.append(C._drift(POS96, MOM64, a, Q(40))[0].r[0] - POS96.from_exact(r))
-    assert disp[0] == disp[2] and disp[1] == disp[3] and disp[0] != disp[1]
+def _legacy_drift(pos, mom, a, dt):
+    """The v1 drift round(r + p dt / m): kept here only to show what the contract tests catch."""
+    m = C.SPECIES_MASS[a.species]
+    exact_new = tuple(r + p * dt / m for r, p in zip(C.exact(pos, a.r), C.exact(mom, a.p)))
+    return C.Atom(a.species, tuple(pos.from_exact(x) for x in exact_new), a.p), exact_new
 
 
-@pytest.mark.xfail(strict=True, reason="KNOWN D10-A VIOLATION AT EXACT TIES (reported, designer decision pending): "
-                   "the contract rounds r + p dt/m once with ties-to-even, so on an exact tie the result depends on "
-                   "the parity of the absolute raw position -- a grid-aligned shift by an odd raw unit changes the "
-                   "relative trajectory. r + round(p dt/m) (quantize the displacement) would not")
-def test_translation_invariance_survives_exact_drift_ties() -> None:
+def _tie_run(shift=Q(0), rot=False):
+    """A VALIDATED state (E_rel <= 10 De checked by new_run) whose first drift is an exact tie for both atoms:
+    after the first half kick p_j = T and p_i = -T exactly (J is added exactly on the momentum grid)."""
     ri, rj = (Q(-4), Q(0), Q(0)), (Q(4), Q(1), Q(0))
-    # the first half kick adds J before the drift: start at P_TIE - J so atom j drifts with exactly P_TIE
-    J = C.impulse(tuple(b - a for a, b in zip(ri, rj)), Q(20), MOM64)
-    pj = tuple(t - MOM64.to_exact(j) for t, j in zip((-P_TIE, Q(0), Q(0)), J))
-    pi = (Q(0), Q(0), Q(0))
+    J = tuple(MOM64.to_exact(j) for j in C.impulse(tuple(b - a for a, b in zip(ri, rj)), Q(20), MOM64))
+    pj = tuple(t - j for t, j in zip((P_TIE, Q(0), Q(0)), J))
+    pi = tuple(-x for x in pj)
+    f = (lambda v: (v[1], -v[0], v[2])) if rot else (lambda v: v)
+    tr = lambda v: tuple(x + shift for x in f(v))
+    return C.new_run(POS96, 40, tr(ri), f(pi), tr(rj), f(pj), momentum_profile=MOM64)
 
-    def rel(shift):
-        tr = lambda v: tuple(x + shift for x in v)
-        run = C.new_run(POS96, 40, tr(ri), pi, tr(rj), pj, momentum_profile=MOM64, validated_only=False)
+
+def _rel_steps(run, n):
+    out = []
+    for _ in range(n):
         C.step(run)
-        return C.relative(POS96, *run.atoms)
-    assert rel(Q(0)) == rel(Q(1, 1 << 48))
+        out.append((C.relative(POS96, *run.atoms), run.atoms[0].p, run.atoms[1].p))
+    return out
+
+
+def test_drift_ties_are_reachable_and_no_longer_follow_the_parity_of_r() -> None:
+    """p = 4995297890462500 * 2^-48 ~ 17.747 a.u. (inside |p| <= ~18 a.u. of E <= 10 De) makes p dt / m land exactly
+    halfway between two FX(., 48) positions. The v2 displacement is the same for every r; the v1 one followed the
+    parity of r (the defect, shown with the legacy drift)."""
+    assert (P_TIE * 40 / C.AR40_MASS_ME * (1 << 48)).denominator == 2
+
+    def disp(drift):
+        out = []
+        for shift in range(4):
+            r = Q(3) + Q(5 + shift, 1 << 48)
+            a = C.Atom("Ar40", (POS96.from_exact(r), 0, 0), (MOM64.from_exact(P_TIE), 0, 0))
+            out.append(drift(POS96, MOM64, a, Q(40))[0].r[0] - POS96.from_exact(r))
+        return out
+    assert len(set(disp(C._drift))) == 1
+    old = disp(_legacy_drift)
+    assert old[0] == old[2] and old[1] == old[3] and old[0] != old[1]
+
+
+def test_tie_state_is_inside_the_validated_contract() -> None:
+    run = _tie_run()                                          # validated_only=True: new_run checked E_rel <= 10 De
+    assert run.validated_only
+    lo, hi = C.relative_energy_enclosure(run, 256)
+    assert hi <= C.INTEGRATOR_E_MAX and lo > 8 * C.DE_CONTRACT
+    J = C.impulse(C.relative(POS96, *run.atoms), Q(20), MOM64)
+    kicked = C._kick(MOM64, run.atoms, J)
+    assert C.exact(MOM64, kicked[1].p) == (P_TIE, 0, 0) and C.exact(MOM64, kicked[0].p) == (-P_TIE, 0, 0)
+    for a in kicked:                                          # the x drift of both atoms is an exact half-unit tie
+        assert (C.exact(MOM64, a.p)[0] * 40 / C.AR40_MASS_ME * (1 << 48)).denominator == 2
+
+
+@pytest.mark.parametrize("shift", [RAW, 3 * RAW, Q(10 ** 6) + RAW], ids=["1raw", "3raw", "1e6+1raw"])
+def test_translation_invariance_survives_exact_drift_ties(shift, monkeypatch) -> None:
+    """D10-A at a tie, on a validated state: an odd raw shift leaves the relative trajectory bit-identical."""
+    assert _rel_steps(_tie_run(), 20) == _rel_steps(_tie_run(shift), 20)
+    monkeypatch.setattr(C, "_drift", _legacy_drift)          # the v1 drift fails this very test
+    assert _rel_steps(_tie_run(), 1) != _rel_steps(_tie_run(shift), 1)
+
+
+def test_tie_drift_and_the_whole_kdk_step_are_exactly_reversible(monkeypatch) -> None:
+    """+dt then -dt returns a tie drift exactly (round(-x) = -round(x)); with it the whole KDK step is exactly
+    time-reversible: step, flip momenta, step, flip -> the starting state bit for bit."""
+    for k in range(4):
+        r = POS96.from_exact(Q(3) + Q(5 + k, 1 << 48))
+        a = C.Atom("Ar40", (r, 0, 0), (MOM64.from_exact(P_TIE), 0, 0))
+        fwd = C._drift(POS96, MOM64, a, Q(40))[0]
+        assert C._drift(POS96, MOM64, fwd, Q(-40))[0].r == a.r
+    flip = lambda atoms: tuple(C.Atom(x.species, x.r, tuple(MOM64.neg(v) for v in x.p)) for x in atoms)
+
+    def there_and_back(n, shift=Q(0)):
+        run = _tie_run(shift)
+        start = run.atoms
+        for _ in range(n):
+            C.step(run)
+        run.atoms = flip(run.atoms)                          # J_cache stays valid: the positions did not move
+        for _ in range(n):
+            C.step(run)
+        return flip(run.atoms) == start
+    assert all(there_and_back(n, sh) for n in (1, 15) for sh in (Q(0), RAW))
+    monkeypatch.setattr(C, "_drift", _legacy_drift)
+    assert there_and_back(1) and not there_and_back(1, RAW)  # v1: from an odd raw position the tie is not undone
+
+
+def test_exchange_and_rotation_hold_at_exact_ties() -> None:
+    A = _rel_steps(_tie_run(), 20)
+    ri, rj = (Q(-4), Q(0), Q(0)), (Q(4), Q(1), Q(0))
+    J = tuple(MOM64.to_exact(j) for j in C.impulse(tuple(b - a for a, b in zip(ri, rj)), Q(20), MOM64))
+    pj = tuple(t - j for t, j in zip((P_TIE, Q(0), Q(0)), J))
+    ex = C.new_run(POS96, 40, rj, pj, ri, tuple(-x for x in pj), momentum_profile=MOM64)
+    S = _rel_steps(ex, 20)
+    assert all(a[0] == tuple(-x for x in s[0]) and a[1] == s[2] and a[2] == s[1] for a, s in zip(A, S))
+    R = _rel_steps(_tie_run(rot=True), 20)
+    rr = lambda v: (v[1], -v[0], v[2])
+    rraw = lambda v: (v[1], MOM64.neg(v[0]), v[2])
+    assert all(rr(a[0]) == r[0] and rraw(a[1]) == r[1] and rraw(a[2]) == r[2] for a, r in zip(A, R))
+
+
+@pytest.mark.parametrize("pair", [(FixedPoint(64, 32), None), (FixedPoint(64, 48), None), (POS96, MOM64)],
+                         ids=["FX64_32", "FX64_48", "POS96+MOM64"])
+def test_v2_drift_is_bit_identical_to_v1_away_from_ties(pair, monkeypatch) -> None:
+    """Off ties round(r + x) = r + round(x) on an integer grid, so the change must not move a single bit."""
+    pos, mom = pair
+    mom = mom or pos
+    ties = []
+
+    def run(drift):
+        monkeypatch.setattr(C, "_drift", drift)
+        r = C.new_run(pos, 40, RI, PI, RJ, PJ, momentum_profile=mom)
+        out = []
+        for _ in range(120):
+            C.step(r)
+            out.append(r.atoms)
+        return out
+
+    def counting(p, m, a, dt):
+        ties.extend(x * dt / C.SPECIES_MASS[a.species] * (1 << p.frac_bits) for x in C.exact(m, a.p))
+        return _legacy_drift(p, m, a, dt)
+    new = run(C._drift)
+    assert new == run(counting)
+    assert len(ties) == 120 * 2 * 3 and all(t.denominator != 2 for t in ties)
+
+
+def test_position_overflow_is_an_executor_limit_never_a_wrap() -> None:
+    """FX(64,48) as the position profile (range +-32768 bohr): an atom drifting past the edge stops the step."""
+    edge = Q(32768) - Q(3, 1 << 48)
+    fx = FixedPoint(64, 48)
+    run = C.new_run(fx, 40, (edge - 8, Q(0), Q(0)), (Q(-2), Q(0), Q(0)), (edge, Q(0), Q(0)), (Q(2), Q(0), Q(0)))
+    before = run.atoms
+    with pytest.raises(C.ExecutorLimitExceeded) as info:
+        C.step(run)
+    assert info.value.reason == "executor_limit_exceeded" and "overflow" in str(info.value)
+    assert not isinstance(info.value, (C.PhysicsDomainExceeded, C.IntegratorDomainExceeded))
+    assert run.atoms == before and run.t_steps == 0            # nothing stored: no wrap, no saturation

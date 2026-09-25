@@ -71,8 +71,8 @@ def expected(limbs: int, n: int) -> list[str]:
             ri.append(g.range(Rr)); rj.append(g.range(Rr)); pi.append(g.range(Pr)); pj.append(g.range(Pr))
             J.append(g.range(Jr))
         ok = True
-        ri = [_round_half_even(Q(r) + Q(p * DT * A, B)) for r, p in zip(ri, pi)]
-        rj = [_round_half_even(Q(r) + Q(p * DT * A, B)) for r, p in zip(rj, pj)]
+        ri = [r + _round_half_even(Q(p * DT * A, B)) for r, p in zip(ri, pi)]      # v2: round the displacement
+        rj = [r + _round_half_even(Q(p * DT * A, B)) for r, p in zip(rj, pj)]
         ok &= all(-(1 << (width - 1)) <= x < (1 << (width - 1)) for x in ri + rj)
         pj = [p + j for p, j in zip(pj, J)]
         pi = [p - j for p, j in zip(pi, J)]

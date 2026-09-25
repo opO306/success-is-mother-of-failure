@@ -19,8 +19,12 @@ Kick: Delta r = r_j - r_i EXACTLY (no rounding), R^2 = Delta r . Delta r EXACTLY
       J_k = round( F_real(R) * Delta r_k / R * (Delta t / 2) )     -- rounded ONCE, R = sqrt(R^2) never rounded
       p_j <- round(p_j + J),  p_i <- round(p_i - J)                  -- the same J for both atoms
       (F_real = -dV_real/dR, the frozen C1-A model with retardation ON.)
-Drift: r <- round(r + p * Delta t / m) per component, the right side exact, rounded once (Delta t / m is
-      never pre-rounded).
+Drift: delta r = round_pos(p * Delta t / m) per component -- the DISPLACEMENT rounded once to the position grid
+      (Delta t / m is never pre-rounded) -- then r <- r + delta r, an exact integer move on the grid (designer
+      14th ed.). Rounding r + p dt/m as a whole made an exact half-unit tie follow the parity of the absolute
+      position, breaking translation invariance; the displacement alone has no origin. Away from ties both
+      definitions give the same bits. A position that leaves the profile's range is ExecutorLimitExceeded,
+      never wrapped or saturated. (Binary64 positions, disqualified in the 12th ed., round r + delta r again.)
 Guard: after every drift the exact minimum of |Delta r_old + s (Delta r_exact_new - Delta r_old)|^2 over
       s in [0, 1] -- the relative straight line the drift describes before the positions are rounded -- and the
       stored new R^2 must both be >= r_min^2; otherwise PhysicsDomainExceeded (no clamp, no reflection, no
@@ -40,7 +44,7 @@ import a_reference.ar2_lang2024 as L
 from a_numeric.exp import enclosure as _exp_enclosure
 from a_numeric.profiles import VMHalt
 
-CONTRACT_VERSION = "c1b1-two-atom-v1"
+CONTRACT_VERSION = "c1b1-two-atom-v2"          # v2: the drift rounds the displacement (14th ed.)
 FROZEN_C1A_FINGERPRINT = "ada6153be05af3e582139fdc81b5697fffaf18d12f9f2de6e8d5ac2fdfe0839e"
 if L.parameter_fingerprint() != FROZEN_C1A_FINGERPRINT or L.CONTRACT_VERSION != "c1a-ar2-lang2024-v1":
     raise ImportError("the frozen C1-A contract changed -- C1-B1 is defined on c1a-ar2-lang2024-v1 only")
@@ -320,15 +324,31 @@ def relative(profile, a: Atom, b: Atom) -> tuple:
 
 def _kick(mom, atoms, J):
     i, j = atoms
-    pi = tuple(mom.from_exact(p - q) for p, q in zip(exact(mom, i.p), exact(mom, J)))
-    pj = tuple(mom.from_exact(p + q) for p, q in zip(exact(mom, j.p), exact(mom, J)))
+    pi = tuple(_limit(mom.from_exact, p - q) for p, q in zip(exact(mom, i.p), exact(mom, J)))
+    pj = tuple(_limit(mom.from_exact, p + q) for p, q in zip(exact(mom, j.p), exact(mom, J)))
     return Atom(i.species, i.r, pi), Atom(j.species, j.r, pj)
 
 
+def _limit(fn, *args):
+    """Run a profile operation; a range halt is an implementation capability running out."""
+    try:
+        return fn(*args)
+    except VMHalt as h:
+        raise ExecutorLimitExceeded(f"{h.reason} in {getattr(fn, '__name__', fn)}") from h
+
+
+def displacement(pos, mom, a: Atom, dt: Q) -> tuple:
+    """delta r = round_pos(p dt / m) per component (raw values of the position profile)."""
+    m = SPECIES_MASS[a.species]
+    return tuple(_limit(pos.from_exact, p * dt / m) for p in exact(mom, a.p))
+
+
 def _drift(pos, mom, a: Atom, dt: Q):
+    """(new atom, exact unrounded end point r + p dt / m). The end point feeds only the r_min segment guard."""
     m = SPECIES_MASS[a.species]
     exact_new = tuple(r + p * dt / m for r, p in zip(exact(pos, a.r), exact(mom, a.p)))
-    return Atom(a.species, tuple(pos.from_exact(x) for x in exact_new), a.p), exact_new
+    r_new = tuple(_limit(pos.add, r, d) for r, d in zip(a.r, displacement(pos, mom, a, dt)))
+    return Atom(a.species, r_new, a.p), exact_new
 
 
 def segment_min_R2(a: tuple, d: tuple) -> Q:
