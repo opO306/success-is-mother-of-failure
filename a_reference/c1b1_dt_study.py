@@ -121,9 +121,8 @@ def _hermite(q0, q1, v0, v1, h, s):
 
 
 def _rel(run):
-    prof = run.profile
-    q = C.relative(prof, *run.atoms)
-    pi, pj = C.exact(prof, run.atoms[0].p), C.exact(prof, run.atoms[1].p)
+    q = C.relative(run.pos, *run.atoms)
+    pi, pj = C.exact(run.mom, run.atoms[0].p), C.exact(run.mom, run.atoms[1].p)
     v = tuple((b - a) / C.AR40_MASS_ME for a, b in zip(pi, pj))
     return q, v, pj
 
@@ -131,10 +130,12 @@ def _rel(run):
 def run_case(args):
     case, st, dt, pname, max_steps = args
     mpmath.mp.dps = 40
-    prof = PROFILES[pname]
+    prof = PROFILES[pname]                          # one profile, or (position, momentum) for a typed run
+    pos, mom = prof if isinstance(prof, tuple) else (prof, prof)
     t0 = time.time()
     # a measurement OF the integrator (it established the validated range), not A-world physics
-    run = C.new_run(prof, dt, st["r_i"], st["p_i"], st["r_j"], st["p_j"], validated_only=False)
+    run = C.new_run(pos, dt, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=mom,
+                    validated_only=False)
     q, v, pj = _rel(run)
     E0 = C.kinetic(run) + C.potential_high(sum((x * x for x in q), Q(0)))
     L0, P0 = C.angular_momentum(run), C.total_momentum(run)

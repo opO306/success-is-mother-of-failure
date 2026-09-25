@@ -851,15 +851,8 @@ static KConst kconst(const char* s) {  // "d.ddde+x" -> num * 10^p exactly (host
     return KConst{neg ? -num : num, exp10 - frac};
 }
 
-int main(int argc, char** argv) {
-    if (argc != 6) {
-        fprintf(stderr, "usage: ar2_b2 <block_size> <grid_blocks> <launch_chunk> <queries.txt> <answers.txt>\n");
-        return 2;
-    }
-    const int B = std::max(1, atoi(argv[1]));
-    const int want_grid = atoi(argv[2]), want_chunk = atoi(argv[3]);
-    std::vector<ar2::Query> qs = ar2::read_queries(argv[4]);
-    // model constants into constant memory (the same decimals as S2_ar2_pot.f90)
+// model constants into constant memory (the same decimals as S2_ar2_pot.f90); also used by bench_state.cu
+static void upload_model() {
     std::vector<KConst> k;
     auto add = [&k](const char* s) { k.push_back(kconst(s)); return (int)k.size() - 1; };
     KComp comps[3];
@@ -888,6 +881,18 @@ int main(int argc, char** argv) {
     CK(cudaMemcpyToSymbol(COMP, comps, sizeof comps));
     CK(cudaMemcpyToSymbol(RETA, ra, sizeof ra));
     CK(cudaMemcpyToSymbol(RETB, rb, sizeof rb));
+}
+
+#ifndef AR2_B2_NO_MAIN  // bench_state.cu includes this file for its device evaluator
+int main(int argc, char** argv) {
+    if (argc != 6) {
+        fprintf(stderr, "usage: ar2_b2 <block_size> <grid_blocks> <launch_chunk> <queries.txt> <answers.txt>\n");
+        return 2;
+    }
+    const int B = std::max(1, atoi(argv[1]));
+    const int want_grid = atoi(argv[2]), want_chunk = atoi(argv[3]);
+    std::vector<ar2::Query> qs = ar2::read_queries(argv[4]);
+    upload_model();
 
     std::vector<DQuery> dq;
     for (const ar2::Query& q : qs) {
@@ -941,3 +946,4 @@ int main(int argc, char** argv) {
     ar2::write_answers(argv[5], out);
     return 0;
 }
+#endif  // AR2_B2_NO_MAIN
