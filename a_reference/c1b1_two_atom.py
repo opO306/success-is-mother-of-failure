@@ -304,6 +304,7 @@ class Run:
     t_steps: int = 0
     J_cache: tuple | None = field(default=None, repr=False)
     validated_only: bool = True
+    drift: str = "v2"   # "v2" (interim default) or "v1" -- for the drift comparison (14th ed.) only
 
     @property
     def profile(self):
@@ -343,12 +344,44 @@ def displacement(pos, mom, a: Atom, dt: Q) -> tuple:
     return tuple(_limit(pos.from_exact, p * dt / m) for p in exact(mom, a.p))
 
 
-def _drift(pos, mom, a: Atom, dt: Q):
-    """(new atom, exact unrounded end point r + p dt / m). The end point feeds only the r_min segment guard."""
+def _drift(pos, mom, a: Atom, dt: Q, rule: str = "v2"):
+    """(new atom, exact unrounded end point r + p dt / m). The end point feeds only the r_min segment guard.
+    rule "v1" is the retired round(r + p dt / m), kept only for the drift comparison (designer 14th ed.)."""
     m = SPECIES_MASS[a.species]
     exact_new = tuple(r + p * dt / m for r, p in zip(exact(pos, a.r), exact(mom, a.p)))
-    r_new = tuple(_limit(pos.add, r, d) for r, d in zip(a.r, displacement(pos, mom, a, dt)))
+    if rule == "v1":
+        r_new = tuple(_limit(pos.from_exact, x) for x in exact_new)
+    elif rule == "v2":
+        r_new = tuple(_limit(pos.add, r, d) for r, d in zip(a.r, displacement(pos, mom, a, dt)))
+    else:
+        raise ValueError(f"unknown drift rule {rule!r}")
     return Atom(a.species, r_new, a.p), exact_new
+
+
+class ExactPosition:
+    """Drift-comparison candidate 3 (designer 14th ed.): positions stored EXACTLY (rational), so the drift keeps
+    every sub-grid remainder and never rounds -- equivalent to an integer position in units of the displacement
+    quantum (2^-48 dt / m) with the remainder kept. Same range as FX(96,48) (|r| < 2^47 bohr). Not a VM profile and
+    not a contract: a measurement device. v1 and v2 coincide on it (nothing is rounded)."""
+    name = "EXACT"
+    LIMIT = Q(1 << 47)
+
+    def _check(self, v: Q) -> Q:
+        if not -self.LIMIT <= v < self.LIMIT:
+            raise VMHalt("overflow")
+        return v
+
+    def from_exact(self, value) -> Q:
+        return self._check(Q(value))
+
+    def to_exact(self, v) -> Q:
+        return v
+
+    def add(self, a, b) -> Q:
+        return self._check(a + b)
+
+    def neg(self, a) -> Q:
+        return self._check(-a)
 
 
 def segment_min_R2(a: tuple, d: tuple) -> Q:
@@ -369,7 +402,7 @@ def step(run: Run) -> None:
     J = run.J_cache if run.J_cache is not None else impulse(relative(pos, *atoms), half, mom)
     atoms = _kick(mom, atoms, J)
     a_old = relative(pos, *atoms)
-    (ai, ei), (aj, ej) = _drift(pos, mom, atoms[0], dt), _drift(pos, mom, atoms[1], dt)
+    (ai, ei), (aj, ej) = (_drift(pos, mom, a, dt, rule=run.drift) for a in atoms)
     atoms = (ai, aj)
     d_exact = tuple(y - x - a for x, y, a in zip(ei, ej, a_old))
     if segment_min_R2(a_old, d_exact) < R_MIN2:
@@ -418,7 +451,7 @@ def check_integrator_domain(run: Run) -> None:
 
 
 def new_run(profile, dt: Q, r_i, p_i, r_j, p_j, species=("Ar40", "Ar40"), momentum_profile=None,
-            validated_only: bool = True) -> Run:
+            validated_only: bool = True, drift: str = "v2") -> Run:
     """Atoms from exact-rational vectors: positions rounded once to `profile`, momenta to `momentum_profile`
     (default: the same profile). validated_only=False skips the integrator-domain check -- ONLY for the
     domain-guard stress tests, whose results are not A-world physics."""
@@ -428,7 +461,7 @@ def new_run(profile, dt: Q, r_i, p_i, r_j, p_j, species=("Ar40", "Ar40"), moment
     R2 = sum((x * x for x in relative(profile, *atoms)), Q(0))
     if R2 < R_MIN2:
         raise PhysicsDomainExceeded("initial state at R < r_min")
-    run = Run(profile, mom, Q(dt), atoms, validated_only=validated_only)
+    run = Run(profile, mom, Q(dt), atoms, validated_only=validated_only, drift=drift)
     if validated_only:
         check_integrator_domain(run)
     return run

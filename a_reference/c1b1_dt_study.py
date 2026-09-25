@@ -130,12 +130,12 @@ def _rel(run):
 def run_case(args):
     case, st, dt, pname, max_steps = args
     mpmath.mp.dps = 40
-    prof = PROFILES[pname]                          # one profile, or (position, momentum) for a typed run
-    pos, mom = prof if isinstance(prof, tuple) else (prof, prof)
+    prof = PROFILES[pname]           # one profile, (position, momentum) for a typed run, or (pos, mom, drift rule)
+    pos, mom, rule = (prof + ("v2",))[:3] if isinstance(prof, tuple) else (prof, prof, "v2")
     t0 = time.time()
     # a measurement OF the integrator (it established the validated range), not A-world physics
     run = C.new_run(pos, dt, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=mom,
-                    validated_only=False)
+                    validated_only=False, drift=rule)
     q, v, pj = _rel(run)
     E0 = C.kinetic(run) + C.potential_high(sum((x * x for x in q), Q(0)))
     L0, P0 = C.angular_momentum(run), C.total_momentum(run)

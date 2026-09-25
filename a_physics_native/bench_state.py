@@ -13,6 +13,7 @@ from a_numeric_native.harness import NVCC_FLAGS, find_nvcc, find_vcvars
 HERE = pathlib.Path(__file__).resolve().parent
 A, B = 5485799090441, 399623831237000000         # 1/m = A/B (m in electron masses)
 DT = 40
+TIE_P = 4995297890462500                          # |p| raw: p dt / m exactly half a raw unit
 
 
 def build(kind: str, out_dir) -> pathlib.Path:
@@ -59,20 +60,34 @@ def _round_half_even(x: Q) -> int:
     return fl
 
 
-def expected(limbs: int, n: int) -> list[str]:
+def _drift(rule: str, r: int, p: int) -> int:
+    """The three drift rules in exact integers (r in the rule's storage units)."""
+    x = Q(p * DT * A, B)                                   # the displacement in raw 2^-48 units
+    if rule == "v1":
+        return _round_half_even(r + x)
+    if rule == "v2":
+        return r + _round_half_even(x)
+    return r + p * DT * A                                  # exact: units 2^-48 / B
+
+
+def expected(limbs: int, n: int, rule: str = "v2") -> list[str]:
     """The same operations in exact Python integers, formatted like the native check lines."""
     g = Rng()
     Rr, Pr, Jr = 1000 << 48, 50 << 48, (1 << 48) // 100
     width = 32 * limbs
     lines = []
-    for _ in range(n):
+    for i in range(n):
         ri, rj, pi, pj, J = [], [], [], [], []
         for k in range(3):
-            ri.append(g.range(Rr)); rj.append(g.range(Rr)); pi.append(g.range(Pr)); pj.append(g.range(Pr))
+            ri.append(g.range(Rr) * (B if rule == "exact" else 1)); rj.append(g.range(Rr) * (B if rule == "exact" else 1))
+            pi.append(g.range(Pr)); pj.append(g.range(Pr))
             J.append(g.range(Jr))
+        if i % 8 == 0:                                     # exact drift ties (same as make_pairs)
+            pi[0] = (1 if i % 16 == 0 else -1) * TIE_P
+            pj[1] = TIE_P
         ok = True
-        ri = [r + _round_half_even(Q(p * DT * A, B)) for r, p in zip(ri, pi)]      # v2: round the displacement
-        rj = [r + _round_half_even(Q(p * DT * A, B)) for r, p in zip(rj, pj)]
+        ri = [_drift(rule, r, p) for r, p in zip(ri, pi)]
+        rj = [_drift(rule, r, p) for r, p in zip(rj, pj)]
         ok &= all(-(1 << (width - 1)) <= x < (1 << (width - 1)) for x in ri + rj)
         pj = [p + j for p, j in zip(pj, J)]
         pi = [p - j for p, j in zip(pi, J)]
@@ -91,8 +106,8 @@ def run(exe, *args) -> str:
     return subprocess.run([str(exe), *map(str, args)], capture_output=True, text=True, check=True).stdout
 
 
-def check(exe, limbs: int, n: int) -> bool:
+def check(exe, limbs: int, n: int, rule: str = "v2") -> bool:
     with tempfile.TemporaryDirectory() as d:
         out = pathlib.Path(d) / "c.txt"
-        subprocess.run([str(exe), "check", str(limbs), str(n), str(out)], check=True)
-        return out.read_text().split("\n")[:n] == expected(limbs, n)
+        subprocess.run([str(exe), "check", rule, str(limbs), str(n), str(out)], check=True)
+        return out.read_text().split("\n")[:n] == expected(limbs, n, rule)

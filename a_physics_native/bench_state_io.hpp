@@ -15,7 +15,8 @@
 namespace bench {
 
 constexpr uint64_t DT = 40;                                   // a.u.
-constexpr uint64_t K_DRIFT = DT * DRIFT_A;                    // p * K / B = p * dt / m in raw FX(.,48) units
+constexpr uint64_t K_DRIFT = DT * DRIFT_A;
+constexpr int64_t TIE_P = 4995297890462500ll;                 // |p| raw giving an exact half-unit drift at dt = 40                    // p * K / B = p * dt / m in raw FX(.,48) units
 
 struct Rng {
     uint64_t z = 0x9E3779B97F4A7C15ull;
@@ -24,19 +25,23 @@ struct Rng {
 };
 
 // positions within +-1000 bohr (raw 2^48 units), momenta within +-50 a.u., J within +-0.01 a.u.
-template <int N>
+template <int R, int N>
 static void make_pairs(std::vector<Pair<N>>& ps, std::vector<int64_t>& Js, size_t n) {
     Rng g;
     ps.resize(n);
     Js.resize(3 * n);
-    const int64_t R = 1000ll << 48, P = 50ll << 48, J = (1ll << 48) / 100;
+    const int64_t RR = 1000ll << 48, P = 50ll << 48, J = (1ll << 48) / 100;
     for (size_t i = 0; i < n; i++) {
         for (int k = 0; k < 3; k++) {
-            ps[i].ri[k] = from_i64<N>(g.range(R));
-            ps[i].rj[k] = from_i64<N>(g.range(R));
+            ps[i].ri[k] = to_units<R>(from_i64<N>(g.range(RR)));
+            ps[i].rj[k] = to_units<R>(from_i64<N>(g.range(RR)));
             ps[i].pi[k] = g.range(P);
             ps[i].pj[k] = g.range(P);
             Js[3 * i + k] = g.range(J);
+        }
+        if (i % 8 == 0) {                            // exact drift ties: p dt / m is exactly half a raw unit
+            ps[i].pi[0] = (i % 16 == 0 ? 1 : -1) * TIE_P;
+            ps[i].pj[1] = TIE_P;
         }
     }
 }
@@ -51,6 +56,9 @@ static std::string hex(const W<N>& a) {
     }
     return s;
 }
+
+constexpr double UNITS_PER_BOHR[3] = {281474976710656.0, 281474976710656.0,
+                                     281474976710656.0 * 399623831237000000.0};
 
 // one line per pair after: drift (both atoms), kick +-J, dr, R2
 template <int N>

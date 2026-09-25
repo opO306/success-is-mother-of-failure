@@ -385,7 +385,7 @@ P_TIE = Q(4995297890462500, 1 << 48)     # dt = 40, 48 fraction bits: p dt / m i
 RAW = Q(1, 1 << 48)
 
 
-def _legacy_drift(pos, mom, a, dt):
+def _legacy_drift(pos, mom, a, dt, rule=None):
     """The v1 drift round(r + p dt / m): kept here only to show what the contract tests catch."""
     m = C.SPECIES_MASS[a.species]
     exact_new = tuple(r + p * dt / m for r, p in zip(C.exact(pos, a.r), C.exact(mom, a.p)))
@@ -505,7 +505,7 @@ def test_v2_drift_is_bit_identical_to_v1_away_from_ties(pair, monkeypatch) -> No
             out.append(r.atoms)
         return out
 
-    def counting(p, m, a, dt):
+    def counting(p, m, a, dt, rule=None):
         ties.extend(x * dt / C.SPECIES_MASS[a.species] * (1 << p.frac_bits) for x in C.exact(m, a.p))
         return _legacy_drift(p, m, a, dt)
     new = run(C._drift)
@@ -524,3 +524,27 @@ def test_position_overflow_is_an_executor_limit_never_a_wrap() -> None:
     assert info.value.reason == "executor_limit_exceeded" and "overflow" in str(info.value)
     assert not isinstance(info.value, (C.PhysicsDomainExceeded, C.IntegratorDomainExceeded))
     assert run.atoms == before and run.t_steps == 0            # nothing stored: no wrap, no saturation
+
+
+def test_the_built_in_v1_rule_is_the_legacy_drift() -> None:
+    """The comparison rule drift="v1" is exactly the retired round(r + p dt/m) (checked at a tie and off ties)."""
+    for k in range(4):
+        r = POS96.from_exact(Q(3) + Q(5 + k, 1 << 48))
+        for p in (P_TIE, Q(12345, 1 << 20)):
+            a = C.Atom("Ar40", (r, 0, 0), (MOM64.from_exact(p), 0, 0))
+            assert C._drift(POS96, MOM64, a, Q(40), rule="v1") == _legacy_drift(POS96, MOM64, a, Q(40))
+
+
+def test_exact_positions_never_round_the_drift() -> None:
+    E = C.ExactPosition()
+    run = C.new_run(E, 40, RI, PI, RJ, PJ, momentum_profile=MOM64)
+    start = [C.exact(E, a.r) for a in run.atoms]
+    moved = [[Q(0)] * 3, [Q(0)] * 3]
+    for _ in range(30):
+        J = run.J_cache if run.J_cache is not None else C.impulse(C.relative(E, *run.atoms), Q(20), MOM64)
+        kicked = C._kick(MOM64, run.atoms, J)
+        for n, a in enumerate(kicked):
+            moved[n] = [x + p * 40 / C.AR40_MASS_ME for x, p in zip(moved[n], C.exact(MOM64, a.p))]
+        C.step(run)
+    for n, a in enumerate(run.atoms):
+        assert tuple(s + d for s, d in zip(start[n], moved[n])) == a.r

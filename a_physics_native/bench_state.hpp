@@ -8,10 +8,12 @@
 // The SAME generic limb code serves every width (so the widths are compared under one implementation strategy;
 // a hand-tuned native-int64 path for FX(64,48) could be faster -- not measured).
 //
-// Operations (per pair of atoms i, j; 3 components):
-//   drift : r <- r + round_half_even(p * dt / m)  (contract c1b1-two-atom-v2: the DISPLACEMENT is rounded, then
-//           added exactly; dt / m = dt * A / B exactly, A = 5485799090441, B = 399623831237000000 -- NIST 40Ar /
-//           CODATA 2022 m_e; the exact quotient never pre-rounded)
+// Operations (per pair of atoms i, j; 3 components), drift RULE as a template parameter (drift comparison, 14th ed.):
+//   drift v1    : r <- round_half_even(r + p * dt / m)         (contract v1; a tie follows the parity of r + floor)
+//   drift v2    : r <- r + round_half_even(p * dt / m)         (contract v2, the interim default)
+//   drift exact : positions in units u = 2^-48 / B bohr, r <- r + p * (dt * A)  -- the displacement is an exact
+//                 integer in these units (p is a 2^-48 raw, 1/m = A / B), so there is no division and no rounding
+//   (dt / m = dt * A / B exactly, A = 5485799090441, B = 399623831237000000 -- NIST 40Ar / CODATA 2022 m_e)
 //   dr    : Delta r = r_j - r_i, exact (one limb wider)
 //   R2    : Delta x^2 + Delta y^2 + Delta z^2, exact (2 NL + 3 limbs)
 //   kick  : p_j <- p_j + J, p_i <- p_i - J  (int64, overflow flagged)
@@ -132,24 +134,68 @@ HD void mul64(uint64_t a, uint64_t b, uint64_t* hi, uint64_t* lo) {
     *hi = p11 + (p01 >> 32) + (p10 >> 32) + (mid >> 32);
 }
 
-// r <- r + round_half_even(p * K / B), K = dt * A; returns false on overflow of the position range
-template <int N>
+enum Rule { V1 = 0, V2 = 1, EXACT = 2 };
+
+// v1 / v2: r in raw 2^-48 units; EXACT: r in units 2^-48 / B. K = dt * A. Returns false on position overflow.
+template <int R, int N>
 HD bool drift(W<N>& r, int64_t p, uint64_t K) {
     bool neg_p = p < 0;
     uint64_t mag = neg_p ? (uint64_t)(-(p + 1)) + 1 : (uint64_t)p;
     uint64_t hi, lo, rem;
     mul64(mag, K, &hi, &lo);
+    if (R == EXACT) {                            // add the exact 128-bit product, nothing to round
+        W<N> inc;
+        for (int i = 0; i < N; i++)
+            inc.w[i] = i == 0 ? (uint32_t)lo : i == 1 ? (uint32_t)(lo >> 32) : i == 2 ? (uint32_t)hi
+                     : i == 3 ? (uint32_t)(hi >> 32) : 0u;
+        if (neg_p) inc = neg(inc);
+        W<N> s = add(r, inc);
+        bool ovf = add_overflows(r, inc, s);
+        r = s;
+        return !ovf;
+    }
     uint64_t t = divlu(hi, lo, DRIFT_B, &rem);   // |p| K = t B + rem
     // exact displacement sign * (t + rem / B); floor it first
     int64_t fl = neg_p ? -(int64_t)t - (rem ? 1 : 0) : (int64_t)t;
     uint64_t frac_num = neg_p ? (rem ? DRIFT_B - rem : 0) : rem;   // (value - floor) * B
-    // round half even ON THE DISPLACEMENT: > 1/2 up; == 1/2 up iff its floor is odd (never the parity of r)
-    if (2 * frac_num > DRIFT_B || (2 * frac_num == DRIFT_B && (fl & 1))) fl += 1;
-    W<N> inc = from_i64<N>(fl);
+    if (R == V2) {
+        // round half even ON THE DISPLACEMENT: > 1/2 up; == 1/2 up iff its floor is odd (never the parity of r)
+        if (2 * frac_num > DRIFT_B || (2 * frac_num == DRIFT_B && (fl & 1))) fl += 1;
+        W<N> inc = from_i64<N>(fl);
+        W<N> s = add(r, inc);
+        bool ovf = add_overflows(r, inc, s);
+        r = s;
+        return !ovf;
+    }
+    W<N> inc = from_i64<N>(fl);                  // V1: round r + displacement as a whole
     W<N> s = add(r, inc);
     bool ovf = add_overflows(r, inc, s);
+    if (2 * frac_num > DRIFT_B || (2 * frac_num == DRIFT_B && (s.w[0] & 1))) {
+        W<N> one = from_i64<N>(1);
+        W<N> s2 = add(s, one);
+        ovf = ovf || add_overflows(s, one, s2);
+        s = s2;
+    }
     r = s;
     return !ovf;
+}
+
+// a raw 2^-48 position -> the storage units of the rule (EXACT: times B)
+template <int R, int N>
+HD W<N> to_units(const W<N>& a) {
+    if (R != EXACT) return a;
+    W<N> m = negative(a) ? neg(a) : a, out;
+    const uint64_t b0 = DRIFT_B & 0xFFFFFFFFull, b1 = DRIFT_B >> 32;
+    for (int i = 0; i < N; i++) out.w[i] = 0;
+    for (int part = 0; part < 2; part++) {       // m * b0 + (m * b1) << 32
+        uint64_t b = part ? b1 : b0, c = 0;
+        for (int i = 0; i + part < N; i++) {
+            uint64_t t = (uint64_t)m.w[i] * b + out.w[i + part] + c;
+            out.w[i + part] = (uint32_t)t;
+            c = t >> 32;
+        }
+    }
+    return negative(a) ? neg(out) : out;
 }
 
 HD bool kick(int64_t& p, int64_t J) {
@@ -179,12 +225,12 @@ struct Out {
     W<2 * N + 3> R2;
 };
 
-template <int N>
+template <int R, int N>
 HD bool op_drift(Pair<N>& s, uint64_t K) {
     bool ok = true;
     for (int k = 0; k < 3; k++) {
-        ok &= drift(s.ri[k], s.pi[k], K);
-        ok &= drift(s.rj[k], s.pj[k], K);
+        ok &= drift<R>(s.ri[k], s.pi[k], K);
+        ok &= drift<R>(s.rj[k], s.pj[k], K);
     }
     return ok;
 }

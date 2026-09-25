@@ -1,14 +1,15 @@
 // CUDA benchmark of C1-B1 state operations by position width (designer 13th ed. item 10). One thread per pair.
-// Usage: bench_state_cuda check <limbs 2|3|4> <npairs> <out.txt>
-//        bench_state_cuda time  <limbs> <npairs> <iters>     -> ns per pair (GPU time) for drift, dr, R2, kick, bundle
-//        bench_state_cuda e2e   <limbs> <npairs>             -> ns per pair: bundle + one C1-A F(R) evaluation (B2 device)
+// Usage: bench_state_cuda check <rule v1|v2|exact> <limbs> <npairs> <out.txt>
+//        bench_state_cuda time  <rule> <limbs> <npairs> <iters> -> ns per pair (GPU time): drift, dr, R2, kick, bundle
+//        bench_state_cuda e2e   <rule> <limbs> <npairs>        -> ns per pair: bundle + one C1-A F(R) evaluation (B2)
+// limbs 2|3|4 for v1 / v2, 5 for exact
 #define AR2_B2_NO_MAIN
 #include "ar2_b2.cu"  // device evaluator of C1-A F(R) (B2) + upload_model()
 #include "bench_state_io.hpp"
 
 using namespace bench;
 
-template <int N>
+template <int R, int N>
 __global__ void k_op(Pair<N>* ps, Out<N>* os, const int64_t* Js, int n, int iters, int which, uint32_t* sink) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= n) return;
@@ -16,7 +17,7 @@ __global__ void k_op(Pair<N>* ps, Out<N>* os, const int64_t* Js, int n, int iter
     Out<N> o = os[i];
     uint32_t acc = 0;
     for (int it = 0; it < iters; it++) {
-        if (which == 0 || which == 4) acc += op_drift(s, K_DRIFT);
+        if (which == 0 || which == 4) acc += op_drift<R>(s, K_DRIFT);
         if (which == 1 || which == 2 || which == 4) op_dr(s, o);
         if (which == 2 || which == 4) op_R2(o);
         if (which == 3 || which == 4) acc += op_kick(s, &Js[3 * i]);
@@ -27,28 +28,28 @@ __global__ void k_op(Pair<N>* ps, Out<N>* os, const int64_t* Js, int n, int iter
     atomicAdd(sink, acc);
 }
 
-template <int N>
+template <int R, int N>
 __global__ void k_check(Pair<N>* ps, Out<N>* os, const int64_t* Js, int n, int* ok) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= n) return;
-    bool g = op_drift(ps[i], K_DRIFT);
+    bool g = op_drift<R>(ps[i], K_DRIFT);
     g &= op_kick(ps[i], &Js[3 * i]);
     op_dr(ps[i], os[i]);
     op_R2(os[i]);
     ok[i] = g;
 }
 
-template <int N>
+template <int R, int N>
 __global__ void k_e2e(Pair<N>* ps, Out<N>* os, const int64_t* Js, int n, DAns* ans) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i >= n) return;
     Pair<N> s = ps[i];
     Out<N> o;
-    op_drift(s, K_DRIFT);
+    op_drift<R>(s, K_DRIFT);
     op_dr(s, o);
     op_R2(o);
-    double R = sqrt(to_double(o.R2)) / 281474976710656.0;           // timing-proxy input
-    DQuery q{1, 1, 0, 64, 0, (uint64_t)__double_as_longlong(R < 2.3 ? 2.3 : R)};
+    double Rb = sqrt(to_double(o.R2)) / UNITS_PER_BOHR[R];           // timing-proxy input
+    DQuery q{1, 1, 0, 64, 0, (uint64_t)__double_as_longlong(Rb < 2.3 ? 2.3 : Rb)};
     answer(q, &ans[i], threadIdx.x);
     op_kick(s, &Js[3 * i]);
     ps[i] = s;
@@ -62,15 +63,15 @@ static T* up(const std::vector<T>& v) {
     return d;
 }
 
-template <int N>
+template <int R, int N>
 static int run(const std::string& mode, size_t n, int iters, const char* out) {
     std::vector<Pair<N>> ps;
     std::vector<int64_t> Js;
-    make_pairs<N>(ps, Js, n);
+    make_pairs<R, N>(ps, Js, n);
     if (mode == "e2e") {
         Rng g;
         for (auto& p : ps)
-            for (int k = 0; k < 3; k++) p.rj[k] = add(p.ri[k], from_i64<N>(g.range(6ll << 48)));
+            for (int k = 0; k < 3; k++) p.rj[k] = add(p.ri[k], to_units<R>(from_i64<N>(g.range(6ll << 48))));
     }
     std::vector<Out<N>> os(n);
     Pair<N>* dps = up(ps);
@@ -83,7 +84,7 @@ static int run(const std::string& mode, size_t n, int iters, const char* out) {
     if (mode == "check") {
         int* dok;
         CK(cudaMalloc(&dok, n * sizeof(int)));
-        k_check<N><<<G, B>>>(dps, dos, dJ, (int)n, dok);
+        k_check<R, N><<<G, B>>>(dps, dos, dJ, (int)n, dok);
         CK(cudaDeviceSynchronize());
         std::vector<int> ok(n);
         CK(cudaMemcpy(ps.data(), dps, n * sizeof(Pair<N>), cudaMemcpyDeviceToHost));
@@ -100,10 +101,10 @@ static int run(const std::string& mode, size_t n, int iters, const char* out) {
     if (mode == "time") {
         const char* names[] = {"drift", "dr", "dr+R2", "kick", "bundle"};
         for (int w = 0; w < 5; w++) {
-            k_op<N><<<G, B>>>(dps, dos, dJ, (int)n, 1, w, sink);   // warm-up
+            k_op<R, N><<<G, B>>>(dps, dos, dJ, (int)n, 1, w, sink);   // warm-up
             CK(cudaDeviceSynchronize());
             CK(cudaEventRecord(a));
-            k_op<N><<<G, B>>>(dps, dos, dJ, (int)n, iters, w, sink);
+            k_op<R, N><<<G, B>>>(dps, dos, dJ, (int)n, iters, w, sink);
             CK(cudaEventRecord(b));
             CK(cudaEventSynchronize(b));
             float ms;
@@ -117,10 +118,10 @@ static int run(const std::string& mode, size_t n, int iters, const char* out) {
         CK(cudaDeviceSetLimit(cudaLimitStackSize, 60 * 1024));
         DAns* dans;
         CK(cudaMalloc(&dans, n * sizeof(DAns)));
-        k_e2e<N><<<G, B>>>(dps, dos, dJ, (int)n, dans);                // warm-up
+        k_e2e<R, N><<<G, B>>>(dps, dos, dJ, (int)n, dans);                // warm-up
         CK(cudaDeviceSynchronize());
         CK(cudaEventRecord(a));
-        k_e2e<N><<<G, B>>>(dps, dos, dJ, (int)n, dans);
+        k_e2e<R, N><<<G, B>>>(dps, dos, dJ, (int)n, dans);
         CK(cudaEventRecord(b));
         CK(cudaEventSynchronize(b));
         CK(cudaGetLastError());
@@ -133,14 +134,19 @@ static int run(const std::string& mode, size_t n, int iters, const char* out) {
 }
 
 int main(int argc, char** argv) {
-    if (argc < 4) return 2;
-    std::string mode = argv[1];
-    int L = atoi(argv[2]);
-    size_t n = (size_t)atoll(argv[3]);
-    int iters = argc > 4 && mode == "time" ? atoi(argv[4]) : 1;
-    const char* out = argc > 4 ? argv[4] : "";
-    if (L == 2) return run<2>(mode, n, iters, out);
-    if (L == 3) return run<3>(mode, n, iters, out);
-    if (L == 4) return run<4>(mode, n, iters, out);
+    if (argc < 5) return 2;
+    std::string mode = argv[1], rule = argv[2];
+    int L = atoi(argv[3]);
+    size_t n = (size_t)atoll(argv[4]);
+    int iters = argc > 5 && mode == "time" ? atoi(argv[5]) : 1;
+    const char* out = argc > 5 ? argv[5] : "";
+    if (rule == "exact" && L == 5) return run<EXACT, 5>(mode, n, iters, out);
+    int r = rule == "v1" ? V1 : rule == "v2" ? V2 : -1;
+    if (r == V1 && L == 2) return run<V1, 2>(mode, n, iters, out);
+    if (r == V1 && L == 3) return run<V1, 3>(mode, n, iters, out);
+    if (r == V1 && L == 4) return run<V1, 4>(mode, n, iters, out);
+    if (r == V2 && L == 2) return run<V2, 2>(mode, n, iters, out);
+    if (r == V2 && L == 3) return run<V2, 3>(mode, n, iters, out);
+    if (r == V2 && L == 4) return run<V2, 4>(mode, n, iters, out);
     return 2;
 }
