@@ -10,8 +10,14 @@ docs/current/A_MICRO_V6_ARAR_POTENTIAL_SURVEY_V1.md (v2) and the C0 numeric plan
   domain     = R >= 1.2 A: every component has ab initio data there. Below it: physics_domain_exceeded
                -- no clamping, no substitute repulsion, no extrapolation claimed as real Ar.
 
-Units: R in bohr, energy in hartree, force in hartree/bohr (the paper's atomic units; CODATA 2018 a0
-converts the 1.2 A limit). Slow on purpose: this defines the answer, it is not a world executor.
+Units: R in bohr, energy in hartree, force in hartree/bohr (the paper's atomic units). Slow on purpose:
+this defines the answer, it is not a world executor.
+
+The bohr/angstrom factor BOHR_ANGSTROM (CODATA 2018, the paper's ref. [39]) is a SOURCE-VERSIONED conversion
+of this contract only (designer 9th ed.): it reproduces Lang 2024's data and converts the 1.2 A limit.
+It does NOT fix A's general angstrom<->bohr constant -- which CODATA edition A uses is decided separately.
+The physical meaning of r_min stays "the smallest distance at which all of Lang 2024's V_BO + V_rel + V_QED
+have direct ab initio data = 1.2 A".
 
 Method: every transcendental factor e^{-x} is enclosed by the VM's verified integer EXP enclosure;
 everything else is exact rational arithmetic. The enclosure of the whole value is tightened until
@@ -27,9 +33,13 @@ from math import factorial, isqrt
 from a_numeric.exp import enclosure as _exp_enclosure
 from a_numeric.profiles import VMHalt
 
-BOHR_ANGSTROM = Q("0.529177210903")          # CODATA 2018, the paper's ref. [39]
+# the contract: formula + exact published parameters + r_min + "round once" (+ this source-versioned a0)
+CONTRACT_VERSION = "c1a-ar2-lang2024-v1"
+BOHR_ANGSTROM = Q("0.529177210903")          # CODATA 2018, the paper's ref. [39] -- this contract only, not A's
+BOHR_ANGSTROM_SOURCE = "CODATA 2018 (Lang 2024 ref. [39]); source-versioned for c1a-ar2-lang2024-v1 only"
 R_MIN_ANGSTROM = Q("1.2")
 R_MIN_BOHR = R_MIN_ANGSTROM / BOHR_ANGSTROM
+START_PRECISION_BITS = 128
 MAX_PRECISION_BITS = 1 << 15
 
 
@@ -223,7 +233,7 @@ def evaluate(quantity: str, R, profile, retardation: bool = True):
     R = Q(R)
     check_domain(R)
     q, sign = ("dVdR", -1) if quantity == "F" else (quantity, 1)
-    M = 128
+    M = START_PRECISION_BITS
     while M <= MAX_PRECISION_BITS:
         iv = enclose(q, R, M, retardation)
         if sign < 0:
@@ -244,3 +254,21 @@ def potential(R, profile, retardation: bool = True):
 def force(R, profile, retardation: bool = True):
     """Radial force F(R) = -dV/dR; the force on atom j from atom i is F(R) (r_j - r_i) / R."""
     return evaluate("F", R, profile, retardation)
+
+
+def parameter_fingerprint() -> str:
+    """sha256 over every constant that defines the contract (exact decimals as reduced fractions)."""
+    import hashlib
+
+    parts = [CONTRACT_VERSION, str(BOHR_ANGSTROM), str(R_MIN_ANGSTROM)]
+    for name in ("BO", "REL", "QED"):
+        short, (eta, C, kadd) = COMPONENTS[name]
+        for j in sorted(short):
+            alpha, coefs = short[j]
+            parts.append(f"{name}.short.{j}:{alpha}:" + ",".join(f"{i}={c}" for i, c in sorted(coefs.items())))
+        parts.append(f"{name}.long:{eta}:{kadd}:" + ",".join(f"{k}={c}" for k, c in sorted(C.items())))
+    parts.append("RET_A:" + ",".join(map(str, RET_A)))
+    parts.append("RET_B:" + ",".join(map(str, RET_B)))
+    for name, params in (("SIGMA_BO", SIGMA_BO), ("SIGMA_REL", SIGMA_REL)):
+        parts.append(name + ":" + ",".join(f"{a}/{s}" for a, s in params))
+    return hashlib.sha256("\n".join(parts).encode()).hexdigest()

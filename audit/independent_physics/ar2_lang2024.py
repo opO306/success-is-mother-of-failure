@@ -151,3 +151,35 @@ def dVdR_numeric(model: Model, R: Fraction, dps: int = 80, retardation=True) -> 
     man, exp = mpmath.mpf(F).man_exp              # man_exp drops the sign: restore it explicitly
     v = Fraction(abs(man)) * Fraction(2) ** exp
     return -v if F < 0 else v
+
+
+# --- additions for the C1-A fixture and hard-input audit (designer 9th ed.) --------------------------
+
+# the contract's domain, stated here from the paper's numbers (not imported): R >= 1.2 A, a0 = CODATA 2018
+R_MIN_BOHR = Fraction("1.2") / Fraction("0.529177210903")
+AUDIT_FILES = ("audit/independent_physics/ar2_lang2024.py", "audit/independent_numeric/oracle.py")
+
+
+def in_domain(R: Fraction) -> bool:
+    return R >= R_MIN_BOHR
+
+
+def judge_fx(model: Model, quantity: str, R: Fraction, raw: int, frac_bits: int, retardation=True,
+             max_prec=2048):
+    """None if raw / 2^F is the nearest FX value to the quantity at R (the enclosure lies strictly inside
+    (raw -+ 1/2) 2^-F); else a reason. Width overflow is not judged here (no case comes near it)."""
+    half = Fraction(1, 2 << frac_bits)
+    lo_b, hi_b = Fraction(raw, 1 << frac_bits) - half, Fraction(raw, 1 << frac_bits) + half
+    prec = 160
+    while prec <= max_prec:
+        a, b = enclose(model, quantity, R, prec, retardation)
+        if lo_b < a and b < hi_b:
+            return None
+        if b <= lo_b or a >= hi_b:
+            return f"outside the FX rounding interval ({float(Fraction(raw, 1 << frac_bits)):.17g})"
+        prec *= 2
+    return "undecided at max precision"
+
+
+def force_in_fx_interval(x: Fraction, raw: int, frac_bits: int) -> bool:
+    return abs(x - Fraction(raw, 1 << frac_bits)) <= Fraction(1, 2 << frac_bits)
