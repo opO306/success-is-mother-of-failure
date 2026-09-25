@@ -38,6 +38,12 @@ def _bisect(f, lo, hi, iters=120):
     return lo if flo > 0 else hi
 
 
+def _rsqrt(x):
+    """1 / sqrt(x) for the integrands; at an endpoint where rounding makes x <= 0 the (finite, measure-zero)
+    point contributes 0 instead of an imaginary part."""
+    return 1 / mpmath.sqrt(x) if x > 0 else mpmath.mpf(0)
+
+
 class Reference:
     def __init__(self, model: Model | None = None, dps: int = DPS):
         self.model = model or Model(parse_fortran())
@@ -78,16 +84,16 @@ class Reference:
 
             def f_angle(u):
                 r = r0 + u * u
-                return 2 * u * (L / (r * r)) / mpmath.sqrt(self._Q(r, E, L, mu))
+                return 2 * u * (L / (r * r)) * _rsqrt(self._Q(r, E, L, mu))
 
             def f_time(u):
                 r = r0 + u * u
-                return 2 * u * mu / mpmath.sqrt(self._Q(r, E, L, mu))
+                return 2 * u * mu * _rsqrt(self._Q(r, E, L, mu))
             umax = mpmath.sqrt(R_start - r0)
             ang = 2 * mpmath.quad(f_angle, [0, umax / 4, umax])
             tim = 2 * mpmath.quad(f_time, [0, umax / 4, umax])
             if to_infinity:
-                ang += 2 * mpmath.quad(lambda r: (L / (r * r)) / mpmath.sqrt(self._Q(r, E, L, mu)),
+                ang += 2 * mpmath.quad(lambda r: (L / (r * r)) * _rsqrt(self._Q(r, E, L, mu)),
                                        [R_start, 4 * R_start, mpmath.inf])
             return ang, tim, r0
 
@@ -114,8 +120,8 @@ class Reference:
             mid = (r_minus + r_plus) / 2
             a = mpmath.sqrt(mid - r_minus)
             b = mpmath.sqrt(r_plus - mid)
-            inner = mpmath.quad(lambda u: 2 * u * mu / mpmath.sqrt(2 * mu * g(r_minus + u * u)), [0, a])
-            outer = mpmath.quad(lambda u: 2 * u * mu / mpmath.sqrt(2 * mu * g(r_plus - u * u)), [0, b])
+            inner = mpmath.quad(lambda u: 2 * u * mu * _rsqrt(2 * mu * g(r_minus + u * u)), [0, a])
+            outer = mpmath.quad(lambda u: 2 * u * mu * _rsqrt(2 * mu * g(r_plus - u * u)), [0, b])
             return 2 * (inner + outer), r_minus, r_plus
 
     # --- conserved quantities from exact states ---------------------------------------------------------
