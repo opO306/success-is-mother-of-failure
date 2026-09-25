@@ -1,4 +1,4 @@
-"""Build native executors and judge them against the A-Numeric VM.
+"""Build native executors (B0 serial, B1 parallel, B2 CUDA) and judge them against the A-Numeric VM.
 
 docs/current/A_NUMERIC_EXECUTION_STACK_V1.md section 4. The VM is the judge:
 this module sends the SAME straight-line programs to a native executor and to
@@ -62,6 +62,45 @@ def build_native(kind: str, out_dir, inject: int = 0) -> pathlib.Path:
 
 def build_b0(out_dir, inject: int = 0) -> pathlib.Path:
     return build_native("b0", out_dir, inject)
+
+
+def find_nvcc() -> pathlib.Path | None:
+    roots = [pathlib.Path(os.environ["CUDA_PATH"])] if os.environ.get("CUDA_PATH") else []
+    roots += sorted(pathlib.Path(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA").glob("v*"), reverse=True)
+    for r in roots:
+        if (r / "bin" / "nvcc.exe").exists():
+            return r / "bin" / "nvcc.exe"
+    return None
+
+
+def cuda_device_present() -> bool:
+    try:
+        return subprocess.run(["nvidia-smi", "-L"], capture_output=True, text=True).returncode == 0
+    except OSError:
+        return False
+
+
+# nvcc flags from section 4: no contraction, IEEE division and square root, no flush-to-zero
+NVCC_FLAGS = "-O2 -arch=sm_89 -std=c++17 -fmad=false --prec-div=true --prec-sqrt=true -ftz=false"
+
+
+def build_b2(out_dir, inject: int = 0) -> pathlib.Path:
+    vcvars, nvcc = find_vcvars(), find_nvcc()
+    if vcvars is None or nvcc is None:
+        raise RuntimeError("MSVC or nvcc not found")
+    out_dir = pathlib.Path(out_dir) / f"b2_inject{inject}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for f in (HERE / "b2_cuda.cu", HERE / "anvm_core.hpp"):
+        (out_dir / f.name).write_bytes(f.read_bytes())
+    bat = out_dir / "build.bat"
+    bat.write_text(f'@call "{vcvars}" >nul\r\n'
+                   f'@"{nvcc}" {NVCC_FLAGS} -Xcompiler "/fp:strict /EHsc /wd4702" -DINJECT={inject} '
+                   f'b2_cuda.cu -o b2.exe\r\n', encoding="mbcs")
+    r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out_dir)
+    exe = out_dir / "b2.exe"
+    if r.returncode != 0 or not exe.exists():
+        raise RuntimeError(f"b2 build failed:\n{r.stdout[-4000:]}\n{r.stderr[-4000:]}")
+    return exe
 
 
 # ---------------------------------------------------------------------------
