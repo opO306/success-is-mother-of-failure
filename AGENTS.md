@@ -48,7 +48,7 @@ B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된
 python -m pytest tests -q
 ```
 
-**기준선: 2196개 통과 + 2 xfailed** (2026-09-26 기준, 전체 약 14분. xfail 둘 다 strict: binary64 절대 위치 탈락 사유 고정 · FX drift 정확 동점에서의 평행이동 위반(판정 대기)). 이보다 줄면 회귀다.
+**기준선: 2229개 통과 + 1 xfailed** (2026-09-26 기준, 전체 약 13분. xfail은 strict: binary64 절대 위치 탈락 사유 고정. FX drift 동점 xfail은 drift v2로 통과 시험이 됨). 이보다 줄면 회귀다.
 
 특정 계통만 빠르게 볼 때:
 
