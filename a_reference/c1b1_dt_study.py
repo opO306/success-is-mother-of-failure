@@ -133,7 +133,8 @@ def run_case(args):
     mpmath.mp.dps = 40
     prof = PROFILES[pname]
     t0 = time.time()
-    run = C.new_run(prof, dt, st["r_i"], st["p_i"], st["r_j"], st["p_j"])
+    # a measurement OF the integrator (it established the validated range), not A-world physics
+    run = C.new_run(prof, dt, st["r_i"], st["p_i"], st["r_j"], st["p_j"], validated_only=False)
     q, v, pj = _rel(run)
     E0 = C.kinetic(run) + C.potential_high(sum((x * x for x in q), Q(0)))
     L0, P0 = C.angular_momentum(run), C.total_momentum(run)

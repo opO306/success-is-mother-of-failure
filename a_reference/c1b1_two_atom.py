@@ -7,7 +7,8 @@ evaluates the same V_real at an ALGEBRAIC input R = sqrt(R^2) (an input-represen
 potential).
 
 State per atom: position r (3 components), momentum p (3 components), species "Ar40" -- all position and
-momentum components are raw values of one number profile (A-Binary64-Finite or FX(W, F)). No velocity is
+momentum components are raw values of a POSITION profile and a MOMENTUM profile (typed, designer 13th ed.; the
+same profile when untyped: A-Binary64-Finite or FX(W, F)). No velocity is
 stored; the mass comes from the species contract.
 
 One step (Delta t, exact rational, atomic time units):
@@ -57,8 +58,31 @@ R_MIN2 = L.R_MIN_BOHR ** 2
 START_PRECISION_BITS = 128
 MAX_PRECISION_BITS = 1 << 14
 
-PhysicsDomainExceeded = L.PhysicsDomainExceeded
-ReferenceUndecided = L.ReferenceUndecided
+# --- three kinds of refusal, never merged (designer 13th ed. item 2) -----------------------------------------
+PhysicsDomainExceeded = L.PhysicsDomainExceeded      # the physics contract (Lang 2024, r >= 1.2 A) does not cover it
+
+
+class IntegratorDomainExceeded(Exception):
+    """The physics is defined, but the integrator contract (dt = 40 a.u., validated for E_rel <= 10 De) does not
+    vouch for it -- e.g. a 1.01 V(r_min) head-on collision that dt = 40 would silently reflect above r_min."""
+    reason = "integrator_domain_exceeded"
+
+
+class ExecutorLimitExceeded(Exception):
+    """An implementation capability ran out (precision cap, number width, native range)."""
+    reason = "executor_limit_exceeded"
+
+
+class ReferenceUndecided(ExecutorLimitExceeded, L.ReferenceUndecided):
+    """The enclosure never separated from a rounding boundary within MAX_PRECISION_BITS."""
+    reason = "executor_limit_exceeded"
+
+
+# --- integrator contract (designer 12th / 13th ed.) -------------------------------------------------------------
+DT_DEFAULT = Q(40)                                   # a.u.; 10 and 20 kept for convergence audits, 80 / 160 coarse
+DE_CONTRACT = Q("0.000451995775")                    # the frozen model's well depth, 12 digits (hartree)
+INTEGRATOR_E_MAX = 10 * DE_CONTRACT                  # validated: relative energy E_rel <= 10 De (inclusive)
+INTEGRATOR_DOMAIN = "c1b1-v1: two 40Ar atoms, E_rel = K_rel + V_real <= 10 De (De = 0.000451995775 hartree)"
 
 
 # --- fixed-point intervals at 2^-M: (lo, hi) ints, the real value in [lo, hi] / 2^M ---------------------------
@@ -263,17 +287,26 @@ def impulse(dr: tuple, dt_kick: Q, profile) -> tuple:
 @dataclass(frozen=True)
 class Atom:
     species: str
-    r: tuple            # 3 raw profile values
-    p: tuple            # 3 raw profile values
+    r: tuple            # 3 raw values of the POSITION profile
+    p: tuple            # 3 raw values of the MOMENTUM profile
 
 
 @dataclass
 class Run:
-    profile: object
+    pos: object         # position profile
+    mom: object         # momentum profile (J is a momentum quantity: rounded to this profile)
     dt: Q
     atoms: tuple        # (atom i, atom j)
     t_steps: int = 0
     J_cache: tuple | None = field(default=None, repr=False)
+    validated_only: bool = True
+
+    @property
+    def profile(self):
+        """The single profile of an untyped run (position and momentum alike). Typed runs must say which."""
+        if self.pos is not self.mom:
+            raise AttributeError("typed run: use run.pos or run.mom")
+        return self.pos
 
 
 def exact(profile, raws) -> tuple:
@@ -281,21 +314,21 @@ def exact(profile, raws) -> tuple:
 
 
 def relative(profile, a: Atom, b: Atom) -> tuple:
-    """Delta r = r_b - r_a, exact."""
+    """Delta r = r_b - r_a, exact (profile = the POSITION profile)."""
     return tuple(y - x for x, y in zip(exact(profile, a.r), exact(profile, b.r)))
 
 
-def _kick(profile, atoms, J):
+def _kick(mom, atoms, J):
     i, j = atoms
-    pi = tuple(profile.from_exact(p - q) for p, q in zip(exact(profile, i.p), exact(profile, J)))
-    pj = tuple(profile.from_exact(p + q) for p, q in zip(exact(profile, j.p), exact(profile, J)))
+    pi = tuple(mom.from_exact(p - q) for p, q in zip(exact(mom, i.p), exact(mom, J)))
+    pj = tuple(mom.from_exact(p + q) for p, q in zip(exact(mom, j.p), exact(mom, J)))
     return Atom(i.species, i.r, pi), Atom(j.species, j.r, pj)
 
 
-def _drift(profile, a: Atom, dt: Q):
+def _drift(pos, mom, a: Atom, dt: Q):
     m = SPECIES_MASS[a.species]
-    exact_new = tuple(r + p * dt / m for r, p in zip(exact(profile, a.r), exact(profile, a.p)))
-    return Atom(a.species, tuple(profile.from_exact(x) for x in exact_new), a.p), exact_new
+    exact_new = tuple(r + p * dt / m for r, p in zip(exact(pos, a.r), exact(mom, a.p)))
+    return Atom(a.species, tuple(pos.from_exact(x) for x in exact_new), a.p), exact_new
 
 
 def segment_min_R2(a: tuple, d: tuple) -> Q:
@@ -310,53 +343,95 @@ def segment_min_R2(a: tuple, d: tuple) -> Q:
 
 
 def step(run: Run) -> None:
-    prof, dt = run.profile, run.dt
+    pos, mom, dt = run.pos, run.mom, run.dt
     half = dt / 2
     atoms = run.atoms
-    J = run.J_cache if run.J_cache is not None else impulse(relative(prof, *atoms), half, prof)
-    atoms = _kick(prof, atoms, J)
-    a_old = relative(prof, *atoms)
-    (ai, ei), (aj, ej) = _drift(prof, atoms[0], dt), _drift(prof, atoms[1], dt)
+    J = run.J_cache if run.J_cache is not None else impulse(relative(pos, *atoms), half, mom)
+    atoms = _kick(mom, atoms, J)
+    a_old = relative(pos, *atoms)
+    (ai, ei), (aj, ej) = _drift(pos, mom, atoms[0], dt), _drift(pos, mom, atoms[1], dt)
     atoms = (ai, aj)
     d_exact = tuple(y - x - a for x, y, a in zip(ei, ej, a_old))
     if segment_min_R2(a_old, d_exact) < R_MIN2:
         raise PhysicsDomainExceeded(f"drift segment enters R < r_min at step {run.t_steps + 1}")
-    rel = relative(prof, *atoms)
+    rel = relative(pos, *atoms)
     if sum((x * x for x in rel), Q(0)) < R_MIN2:
         raise PhysicsDomainExceeded(f"stored positions at R < r_min at step {run.t_steps + 1}")
-    J = impulse(rel, half, prof)
-    run.atoms = _kick(prof, atoms, J)
+    J = impulse(rel, half, mom)
+    run.atoms = _kick(mom, atoms, J)
     run.J_cache = J
     run.t_steps += 1
 
 
-def new_run(profile, dt: Q, r_i, p_i, r_j, p_j, species=("Ar40", "Ar40")) -> Run:
-    """Atoms from exact-rational (or raw-convertible) vectors, each component rounded once to the profile."""
-    atoms = tuple(Atom(s, tuple(profile.from_exact(Q(x)) for x in r), tuple(profile.from_exact(Q(x)) for x in p))
+# --- relative energy and the integrator domain ----------------------------------------------------------------
+
+def relative_kinetic(p_i: tuple, p_j: tuple, m_i: Q, m_j: Q) -> Q:
+    """K_rel = |P|^2 / (2 mu), P = (m_i p_j - m_j p_i) / (m_i + m_j), mu = m_i m_j / (m_i + m_j). Exact.
+    (Equal masses with p_i = -p_j: P = p_j and K_rel = |p_j|^2 / (2 mu) = |p_j|^2 / m.)"""
+    M = m_i + m_j
+    P = tuple((m_i * b - m_j * a) / M for a, b in zip(p_i, p_j))
+    mu = m_i * m_j / M
+    return sum((x * x for x in P), Q(0)) / (2 * mu)
+
+
+def relative_energy_enclosure(run: Run, M: int) -> tuple:
+    """[lo, hi] of E_rel = K_rel + V_real(sqrt(R^2)) (retardation ON), exact rationals."""
+    i, j = run.atoms
+    K = relative_kinetic(exact(run.mom, i.p), exact(run.mom, j.p), SPECIES_MASS[i.species], SPECIES_MASS[j.species])
+    R2 = sum((x * x for x in relative(run.pos, i, j)), Q(0))
+    V = _model(R2, M, L.WORLD_RETARDATION)[0]
+    return K + Q(V[0], 1 << M), K + Q(V[1], 1 << M)
+
+
+def check_integrator_domain(run: Run) -> None:
+    """IntegratorDomainExceeded unless E_rel <= INTEGRATOR_E_MAX; decided on a refined enclosure, never guessed."""
+    M = START_PRECISION_BITS
+    while M <= MAX_PRECISION_BITS:
+        lo, hi = relative_energy_enclosure(run, M)
+        if hi <= INTEGRATOR_E_MAX:
+            return
+        if lo > INTEGRATOR_E_MAX:
+            raise IntegratorDomainExceeded(
+                f"E_rel = {float(lo):.6g} hartree = {float(lo / DE_CONTRACT):.10g} De > 10 De ({INTEGRATOR_DOMAIN})")
+        M *= 2
+    raise ReferenceUndecided("E_rel vs 10 De not decided")
+
+
+def new_run(profile, dt: Q, r_i, p_i, r_j, p_j, species=("Ar40", "Ar40"), momentum_profile=None,
+            validated_only: bool = True) -> Run:
+    """Atoms from exact-rational vectors: positions rounded once to `profile`, momenta to `momentum_profile`
+    (default: the same profile). validated_only=False skips the integrator-domain check -- ONLY for the
+    domain-guard stress tests, whose results are not A-world physics."""
+    mom = momentum_profile or profile
+    atoms = tuple(Atom(s, tuple(profile.from_exact(Q(x)) for x in r), tuple(mom.from_exact(Q(x)) for x in p))
                   for s, r, p in ((species[0], r_i, p_i), (species[1], r_j, p_j)))
     R2 = sum((x * x for x in relative(profile, *atoms)), Q(0))
     if R2 < R_MIN2:
         raise PhysicsDomainExceeded("initial state at R < r_min")
-    return Run(profile, Q(dt), atoms)
+    run = Run(profile, mom, Q(dt), atoms, validated_only=validated_only)
+    if validated_only:
+        check_integrator_domain(run)
+    return run
 
 
 # --- diagnostics (exact where possible; never used by the dynamics) -----------------------------------------
 
 def total_momentum(run: Run) -> tuple:
-    return tuple(a + b for a, b in zip(exact(run.profile, run.atoms[0].p), exact(run.profile, run.atoms[1].p)))
+    return tuple(a + b for a, b in zip(exact(run.mom, run.atoms[0].p), exact(run.mom, run.atoms[1].p)))
 
 
 def angular_momentum(run: Run) -> tuple:
     out = [Q(0)] * 3
     for a in run.atoms:
-        r, p = exact(run.profile, a.r), exact(run.profile, a.p)
+        r, p = exact(run.pos, a.r), exact(run.mom, a.p)
         c = (r[1] * p[2] - r[2] * p[1], r[2] * p[0] - r[0] * p[2], r[0] * p[1] - r[1] * p[0])
         out = [o + x for o, x in zip(out, c)]
     return tuple(out)
 
 
 def kinetic(run: Run) -> Q:
-    return sum((sum((x * x for x in exact(run.profile, a.p)), Q(0)) / (2 * SPECIES_MASS[a.species])
+    """Total kinetic energy sum |p|^2 / (2 m) (lab frame)."""
+    return sum((sum((x * x for x in exact(run.mom, a.p)), Q(0)) / (2 * SPECIES_MASS[a.species])
                 for a in run.atoms), Q(0))
 
 

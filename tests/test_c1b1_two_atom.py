@@ -146,7 +146,7 @@ def test_drift_segment_guard_stops_a_step_whose_endpoints_are_both_allowed() -> 
     skip over the forbidden core, but the drift segment does not -- physics_domain_exceeded."""
     ri, rj = (Q(0), Q(-1), Q(0)), (Q(-3), Q(1), Q(0))
     pj = (Q(6000), Q(0), Q(0))                           # relative speed 12000 / m ~ 0.16 bohr / a.u.
-    run = C.new_run(FX, 40, ri, tuple(-x for x in pj), rj, pj)
+    run = C.new_run(FX, 40, ri, tuple(-x for x in pj), rj, pj, validated_only=False)   # ~1000 De: guard test only
     q0 = C.relative(FX, *run.atoms)
     with pytest.raises(C.PhysicsDomainExceeded) as info:
         C.step(run)
@@ -240,7 +240,7 @@ def _head_on(f: Q, dt):
     P = -mp.sqrt(2 * (mp.mpf(mu.numerator) / mu.denominator) * (mp.mpf((E - V0).numerator) / (E - V0).denominator))
     man, e = P.man_exp
     Px = FX.to_exact(FX.from_exact(-Q(abs(man)) * Q(2) ** e))
-    run = C.new_run(HP, dt, (Q(-10), 0, 0), (-Px, 0, 0), (Q(10), 0, 0), (Px, 0, 0))
+    run = C.new_run(HP, dt, (Q(-10), 0, 0), (-Px, 0, 0), (Q(10), 0, 0), (Px, 0, 0), validated_only=False)
     try:
         for _ in range(5000):
             q0 = C.relative(HP, *run.atoms)
@@ -268,3 +268,80 @@ def test_domain_guard_stress_at_dt_40_is_not_resolved() -> None:
     defect; if it changes, the report must be revisited."""
     run, exc = _head_on(Q(101, 100), 40)
     assert exc is None
+
+
+# --- relative kinetic energy: hand-computable states (13th ed. item 12) -----------------------------------------
+
+def test_relative_kinetic_energy_by_hand() -> None:
+    """K_rel = |P|^2 / (2 mu). Guards against the factor-2 error found in the stress script (P^2 / mu)."""
+    m = C.AR40_MASS_ME
+    # equal masses, opposite momenta: P = p_j, mu = m/2 -> K_rel = 9/m, and all kinetic energy is relative
+    assert C.relative_kinetic((Q(-3), Q(0), Q(0)), (Q(3), Q(0), Q(0)), m, m) == Q(9) / m
+    # one atom at rest: P = (4/2, 0, 0) -> K_rel = 4/m; total 16/(2m) = 8/m = K_cm 4/m + K_rel 4/m
+    assert C.relative_kinetic((Q(0),) * 3, (Q(4), Q(0), Q(0)), m, m) == Q(4) / m
+    # unequal masses 1 and 3: P = (1*0 - 3*1)/4 = -3/4, mu = 3/4 -> K_rel = (9/16)/(3/2) = 3/8 (total 1/2 = 1/8 + 3/8)
+    assert C.relative_kinetic((Q(1), Q(0), Q(0)), (Q(0),) * 3, Q(1), Q(3)) == Q(3, 8)
+    # the run-level enclosure agrees with the hand value on an equal-mass state
+    run = C.new_run(FX, 40, (Q(-5), 0, 0), (Q(-3), 0, 0), (Q(5), 0, 0), (Q(3), 0, 0), validated_only=False)
+    lo, hi = C.relative_energy_enclosure(run, 256)
+    V = C.potential_high(Q(100))
+    assert lo <= Q(9) / m + V <= hi and hi - lo < Q(1, 2 ** 200)
+
+
+# --- three kinds of refusal (13th ed. items 2-3) ------------------------------------------------------------------
+
+def test_refusal_kinds_are_distinct() -> None:
+    kinds = {C.PhysicsDomainExceeded.reason, C.IntegratorDomainExceeded.reason, C.ExecutorLimitExceeded.reason}
+    assert kinds == {"physics_domain_exceeded", "integrator_domain_exceeded", "executor_limit_exceeded"}
+    assert issubclass(C.ReferenceUndecided, C.ExecutorLimitExceeded)
+    assert not issubclass(C.IntegratorDomainExceeded, C.PhysicsDomainExceeded)
+    assert not issubclass(C.PhysicsDomainExceeded, C.IntegratorDomainExceeded)
+
+
+def test_unvalidated_energies_are_refused_before_any_step() -> None:
+    """A world run never computes E_rel > 10 De: the 1.01 V(r_min) collision that dt = 40 would reflect is refused."""
+    for f in (Q(1, 4), Q(101, 100)):
+        with pytest.raises(C.IntegratorDomainExceeded) as info:
+            _head_on_state(f, validated_only=True)
+        assert info.value.reason == "integrator_domain_exceeded"
+
+
+def _grid_state_with_energy(E: Q):
+    """Head-on at 20 bohr, momentum on the FX(64,32) grid nearest to relative energy E (from above and below)."""
+    import mpmath as mp
+    mp.mp.dps = 50
+    V0 = C.potential_high(Q(400))
+    mu = C.AR40_MASS_ME / 2
+    P = mp.sqrt(2 * (mp.mpf(mu.numerator) / mu.denominator) * (mp.mpf((E - V0).numerator) / (E - V0).denominator))
+    raw = int(mp.floor(P * 2 ** 32))
+    return [Q(r, 1 << 32) for r in (raw - 1, raw + 2)]
+
+
+def test_integrator_domain_boundary_is_decided_exactly() -> None:
+    """Just below 10 De runs, just above is refused -- decided on exact enclosures, never by a float."""
+    below, above = _grid_state_with_energy(C.INTEGRATOR_E_MAX)
+    ok = C.new_run(FX, 40, (Q(-10), 0, 0), (below, 0, 0), (Q(10), 0, 0), (-below, 0, 0))
+    lo, hi = C.relative_energy_enclosure(ok, 256)
+    assert hi <= C.INTEGRATOR_E_MAX
+    with pytest.raises(C.IntegratorDomainExceeded):
+        C.new_run(FX, 40, (Q(-10), 0, 0), (above, 0, 0), (Q(10), 0, 0), (-above, 0, 0))
+
+
+def _head_on_state(f: Q, validated_only: bool):
+    import mpmath as mp
+    V0 = C.potential_high(Q(400))
+    E = f * C.potential_high(C.R_MIN2)
+    mu = C.AR40_MASS_ME / 2
+    P = mp.sqrt(2 * (mp.mpf(mu.numerator) / mu.denominator) * (mp.mpf((E - V0).numerator) / (E - V0).denominator))
+    man, e = P.man_exp
+    Px = FX.to_exact(FX.from_exact(Q(abs(man)) * Q(2) ** e))
+    return C.new_run(HP, 40, (Q(-10), 0, 0), (Px, 0, 0), (Q(10), 0, 0), (-Px, 0, 0), validated_only=validated_only)
+
+
+def test_stress_state_energy_is_what_the_stress_asks_for() -> None:
+    """The stress runs' relative energy really is f * V(r_min) (the script once had it doubled)."""
+    for f in (Q(1, 4), Q(99, 100)):
+        run = _head_on_state(f, validated_only=False)
+        lo, hi = C.relative_energy_enclosure(run, 256)
+        target = f * C.potential_high(C.R_MIN2)
+        assert abs((lo + hi) / 2 / target - 1) < Q(1, 10 ** 6)

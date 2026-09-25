@@ -101,8 +101,9 @@ def stress_run(f: Q, dt):
     P = -mpmath.sqrt(2 * S.mp(S.MU) * S.mp(E - V0))
     Px = S.g(S.mq(P))
     ri, rj = (-S.R_START / 2, Q(0), Q(0)), (S.R_START / 2, Q(0), Q(0))
-    run = C.new_run(prof, dt, ri, (-Px, Q(0), Q(0)), rj, (Px, Q(0), Q(0)))
-    E_rep = Px * Px / (2 * S.MU) + V0                 # two atoms, each |p| = Px: K = Px^2 / (2 mu)
+    run = C.new_run(prof, dt, ri, (-Px, Q(0), Q(0)), rj, (Px, Q(0), Q(0)), validated_only=False)  # stress only
+    lo, hi = C.relative_energy_enclosure(run, 256)    # the reference's K_rel + V (not an ad hoc formula)
+    E_rep = (lo + hi) / 2
     min_R2 = seg_min = Q(10 ** 6)
     status = "ok"
     try:
