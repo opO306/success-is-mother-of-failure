@@ -239,14 +239,22 @@ VM을 Python으로 쓰더라도 **Python 정수(정확한 임의 크기 정수)�
 
 ---
 
-## 6. 환경 — 현재 없는 것 (2026-09-24 확인)
+## 6. 환경 (2026-09-25 설치 완료)
 
-| 필요 | 현재 |
+| 필요 | 상태 |
 |---|---|
-| C++ 컴파일러 (Windows에서 CUDA의 호스트 컴파일러는 **MSVC 필수**) | **없음** — Visual Studio 설치 관리자 흔적만 있고 C++ 도구 없음 |
-| CUDA Toolkit (`nvcc`) | **없음** (드라이버는 CUDA 13.4까지 지원) |
-| CMake, Ninja | **없음** (VS Build Tools에 포함 가능) |
-| 디스크 | C: 여유 324GB, D: 713GB |
+| C++ 컴파일러 | **있음** — Visual Studio 2022 Build Tools, C++ 데스크톱 워크로드. `cl.exe` 19.44.35229 (MSVC 14.44.35207) |
+| CUDA Toolkit (`nvcc`) | **있음** — v13.4, `nvcc` 13.4.92. `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.4\` |
+| CMake, Ninja | 아직 없음 — 필요해지면 설치 |
+| 실사용 GPU | NVIDIA GeForce RTX 4060, 8GB |
+| 디스크 | C: 여유 ~309GB, D: ~710GB |
 
-설치 후보: **Visual Studio 2022 Build Tools**(C++ 데스크톱 워크로드, 대략 수 GB) + **CUDA Toolkit 12.x 또는 13.x**(대략 3GB 안팎),
-둘 다 제조사 공식 사이트에서. 정확한 크기는 설치 관리자가 보여 준다.
+**검증:** `vcvars64.bat` → `nvcc test.cu` → 실행 파일이 실제 GPU 커널(덧셈)을 돌려 정답을 반환하는 것까지 확인(2026-09-25).
+
+**설치 경위 (공개):** 이 세션(비대화형, 관리자 권한 없음)에서 `vs_installer.exe`/`vs_buildtools.exe`/CUDA 로컬·네트워크 인스톨러를
+`-Verb RunAs`로 무인 승격 실행하려는 시도가 **전부 조용히 실패**했다(UAC가 이 세션에서 승인될 수 없어 `ERROR_CANCELLED` 또는 부분
+설치로 끝남 — CUDA는 여러 차례 `extras`만 깔리고 `nvcc`·`include`가 빠지는 동일 패턴 반복). Build Tools는 설계자가 직접
+`vs_buildtools.exe`를 더블클릭해 UAC 승인 후 설치해 해결됐다. CUDA는 같은 방식의 공식 로컬/네트워크 인스톨러도 반복 실패했고,
+최종적으로 설계자가 다른 경로(수동 다운로드 페이지에서 진행)로 직접 설치해 해결됐다 — **정확한 실패 원인은 규명하지 못했다**
+(가설: 이 세션이 진짜 UAC 프롬프트를 화면에 띄우지 못하는 것과 관련 있을 가능성, 확인 안 됨). 앞으로 이 환경에서 관리자 권한이
+필요한 설치는 **자동화 시도 전에 설계자에게 직접 실행을 요청하는 것**이 낫다.
