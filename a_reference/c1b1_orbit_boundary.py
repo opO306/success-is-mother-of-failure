@@ -30,6 +30,11 @@ probe carries its SIGNED rho (exact rational) next to |rho|, so a +/- swap is re
 by the frozen hash; every probe also records the lattice state it actually ran -- the FX(96,80) raw momentum of atom j
 (atom i = -j, positions -+R_START/2 on x) and that state's realized relative energy -- the canonical state D_valid
 matches exactly (no energy tolerance). The measurement itself (ladder, bisection, target, probes) is unchanged from v2.
+
+Record format v4 (designer verdict on 7532788): every probe state comes from the ONE canonical generator
+(c1b1_canonical_state: Pt rounded first, Pr computed from the stored Pt), the same generator D_valid identifies new runs
+with -- "측정한 상태 = 인정하는 상태". All 14 sides are re-measured under it; the v1 (50cceaa) and v2 (30c14b7) records
+are historical only.
 """
 from __future__ import annotations
 
@@ -44,13 +49,14 @@ from pathlib import Path
 
 import mpmath
 
+import a_reference.c1b1_canonical_state as G
 import a_reference.c1b1_dt_study as S
 import a_reference.c1b1_inner_validation as I
 import a_reference.c1b1_two_atom as C
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_orbit_boundary_v2.json"   # v1 (50cceaa) is kept as recorded
-FORMAT = "c1b1-orbit-boundary-v3"
+OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_orbit_boundary_v3.json"   # v1, v2: historical records only
+FORMAT = "c1b1-orbit-boundary-v4"
 SIDE_NAMES = {-1: "negative", 1: "positive"}      # negative: b < b_orb (delta_minus); positive: b > b_orb (delta_plus)
 
 E_FRACS = [Q(15, 100), Q(2, 10), Q(3, 10), Q(1, 2), Q(7, 10), Q(9, 10), Q(99, 100)]
@@ -61,6 +67,7 @@ BISECT_RATIO = 1.05                    # stop when smallest_pass / largest_nonpa
 MAX_BISECT = 24
 B_MAX = 2 * I.S.RE_GRID
 CODE_FILES = ("a_reference/c1b1_two_atom.py", "a_reference/c1b1_dt_study.py", "a_reference/c1b1_inner_validation.py",
+              "a_reference/c1b1_canonical_state.py",
               "a_reference/c1b1_orbit_boundary.py", "audit/independent_physics/c1b1_two_atom.py")
 
 
@@ -72,7 +79,7 @@ def one_point(e: Q, bo: Q, rho: Q) -> dict:
     """dt = 40 (high precision) vs the audit quadrature at b = b_orb (1 + rho): {"status": "ok", "e40": ...} or
     {"status": "audit_fail" | "run_fail", "reason": ...}."""
     b = bo * (1 + rho)
-    st = I.state(e, b)
+    st = G.measurement_state(e, b)
     lattice = lattice_record(st)
     I._register()
     ref = I.reference_task(({"e": e, "b_bohr": b, "name": "probe"}, st))
@@ -187,7 +194,7 @@ def main(procs: int = 14) -> int:
                      "NUMERICALLY VALIDATED evidence (not certified)",
            "contract": C.CONTRACT_VERSION, "target_sweep_rad": TARGET, "scan_abs_rho": [str(a) for a in SCAN],
            "bisect_ratio": BISECT_RATIO, "b_max": str(B_MAX),
-           "canonical_state": I.CANONICAL_STATE_SPEC,
+           "canonical_state": G.SPEC,
            "energies": [{"e": e, **v} for e, v in sorted(results.items(), key=lambda kv: Q(kv[0]))],
            "provenance": {"git_head": head, "uncommitted_changes_in_a_reference_or_audit": bool(dirty), "code_sha256": code},
            "seconds": round(time.time() - t0)}
