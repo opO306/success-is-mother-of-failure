@@ -11,7 +11,7 @@
 ## 먼저 읽을 것
 
 - `PROJECT_CONSTITUTION.md`
-- `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md`
-- `docs/PROJECT_CLEANUP_AUDIT_V1.md`
+- [docs/history/MIDPOINT_A_B_AUDIT_2026-09-21.md](../../docs/history/MIDPOINT_A_B_AUDIT_2026-09-21.md)
+- [docs/history/PROJECT_CLEANUP_AUDIT_V1.md](../../docs/history/PROJECT_CLEANUP_AUDIT_V1.md)
 
 삭제·물리 이동·승격 권한과 증거 해석 원칙을 담는다.

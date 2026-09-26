@@ -10,4 +10,4 @@ A와 B 양쪽에 걸친 현재 설계·구현 순서
 
 ## 핵심
 
-A·B 전체 설계와 현재 구현 순서를 함께 읽는 계통이다. `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md`가 현재 완료·다음 단계의 기준이다.
+A·B 전체 설계와 현재 구현 순서를 함께 읽는 계통이다. [docs/history/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md](../../docs/history/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md)가 현재 완료·다음 단계의 기준이다.

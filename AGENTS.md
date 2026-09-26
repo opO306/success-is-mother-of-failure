@@ -32,7 +32,7 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 - A는 v2에서 다중 결합과 사슬 성장까지 왔다. 촉매·주형 복사는 아직 없음.
   단, **"사슬 성장 완료"를 "사슬이 자유롭게 자란다"로 읽으면 안 된다** — 실측 최장 길이는 3이고,
   움직이는 사슬은 자랄 수 없으며, 한 tick에 결합 하나만 생긴다. 전부 선언된 법칙이 아니라
-  구현에서 떨어져 나온 천장이다. `docs/current/LOCAL_INTERACTION_PRINCIPLES_V1.md` 참조.
+  구현에서 떨어져 나온 천장이다. [docs/history/LOCAL_INTERACTION_PRINCIPLES_V1.md](docs/history/LOCAL_INTERACTION_PRINCIPLES_V1.md) 참조.
 - **v2 성장 경로의 물리는 particle_id에 의존한다** — 구별 불가능한 후보 중 번호가 작은 쪽이 이긴다. v2는 동결 형식이라
   이 잘못된 동작을 재현성 때문에 보존한다(`tests/test_legacy_causal_semantics.py`의 `legacy_defect`).
   **causal v5에서는 해소됐다**(GEO v1B, 2026-09-24): 성장·병합이 이름·순서와 무관하며, v2의 길이 3 천장이 제거되어 31개 사슬까지 검증됐다.
@@ -58,7 +58,7 @@ python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — �
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
 
-**Codex 인수인계 재실측(2026-09-27, 당시 이력):** 2307 passed + 1 strict xfailed / skip 0, 445.58초, 컴파일러 출력 인코딩 경고 24건. 현재 기준선과 구별한다. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: `docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md`.
+**Codex 인수인계 재실측(2026-09-27, 당시 이력):** 2307 passed + 1 strict xfailed / skip 0, 445.58초, 컴파일러 출력 인코딩 경고 24건. 현재 기준선과 구별한다. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: [docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md](docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md).
 
 **병렬 채택 근거 (2026-09-26 측정, 설계자 승인 조건 충족):** 직렬 793초 / `-n 6` 369초 / `-n 8` 377초 / `-n 10` 389초 / `-n 12` 376초 —
 네 설정 모두 **시험 2248개의 결과가 직렬과 하나하나 동일**(junit 대조, 병렬에서만 깨지는 시험 0). 속도는 약 2.1배에서 멈춘다: GPU를 쓰는
@@ -84,7 +84,7 @@ python -m pytest tests/test_sequence_*.py -q         # 동결된 확률 세계
 | 결정론 A 물리 | `engine/deterministic/` + `worlds/` + 해당 테스트 |
 | 모델 중립 B | `engine/deterministic/` (b_language, *_adapter, cognitive_map, change_graph 등) + `schemas/` |
 | 독립 감사 | `audit/` — **`engine` import 금지** (테스트가 강제) |
-| 연구 데이터 저장소 | `research_store/` + `docs/current/RESEARCH_STORE_V1.md`. 데이터는 D: (Git 밖). **학습형 B는 `research_store.b_visible`만 import** |
+| 연구 데이터 저장소 | `research_store/` + [docs/deferred/RESEARCH_STORE_V1.md](docs/deferred/RESEARCH_STORE_V1.md). 데이터는 D: (Git 밖). **학습형 B는 `research_store.b_visible`만 import** |
 | 확률 세계 (동결) | `engine/sequence/`, `engine/living/` — **수정 금지, 읽기만** |
 | 레거시 | `engine/primal|brain|agentworld/` — 현재 작업 대상 아님 |
 
@@ -125,14 +125,16 @@ python -m pytest tests/test_sequence_*.py -q         # 동결된 확률 세계
 
 ## 참조 문서
 
+문서 상태·폴더·이동 경로는 [docs/README.md](docs/README.md)·[DOCUMENT_STATUS_INDEX.md](docs/DOCUMENT_STATUS_INDEX.md)를 먼저 본다. `docs/current/`는 옛 경로 호환 안내이며 활성 문서는 `docs/active/`에 있다. 동결 계약과 과거 설계는 구분한다.
+
 위 4개로 부족할 때만 본다. 크기가 커서 매번 읽지 않는다.
 
 | 문서 | 내용 | 크기 |
 |---|---|---|
 | `PROJECT_CONSTITUTION.md` | 헌법 26조. 모든 설계 판단의 최종 기준 | 9KB |
-| `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 + 장기 후보 | 58KB |
-| `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서와 완료 판정 | 32KB |
-| `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검. 한계가 솔직히 적혀 있음 | 5KB |
-| `docs/current/VERIFICATION_LIMITS_AND_LESSONS.md` | **검증이 무엇을 못 잡는가.** 오류 유형·결함 주입 기록·체크리스트 | 6KB |
-| `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 | 22KB |
+| [docs/deferred/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md](docs/deferred/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md) | B 전체 아키텍처 + 장기 후보 | 58KB |
+| [docs/history/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md](docs/history/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md) | 구현 순서와 완료 판정 | 32KB |
+| [docs/history/MIDPOINT_A_B_AUDIT_2026-09-21.md](docs/history/MIDPOINT_A_B_AUDIT_2026-09-21.md) | 당시 중간 점검 (역사). 한계가 솔직히 적혀 있음 | 5KB |
+| [docs/reference/VERIFICATION_LIMITS_AND_LESSONS.md](docs/reference/VERIFICATION_LIMITS_AND_LESSONS.md) | **검증이 무엇을 못 잡는가.** 오류 유형·결함 주입 기록·체크리스트 | 6KB |
+| [docs/history/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md](docs/history/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md) | A 물리 심화 설계 | 22KB |
 | `LLM_HANDOFF/README.md` | 계통별 파일 카탈로그 (외부 LLM 전달용) | 1KB |

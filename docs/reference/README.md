@@ -1,0 +1,17 @@
+# 공통 참조 — 원칙·실행 구조·검증 기준
+
+현재 활성 단계는 [CURRENT_STATE.md](../../CURRENT_STATE.md)와 [active](../active/README.md)를 따른다.
+이 폴더에는 지금도 참고하는 원칙과 검증 기준을 모았다. **모두 동결되거나 구현 완료됐다는 뜻은 아니다.** 각 본문의 승인·조건부 승인·초안·보류를 그대로 구분한다.
+실행 구조의 제안, 수치 VM의 실제 구현, 장기 IR/DSL 요구사항은 같은 완료 상태가 아니다.
+
+| 원문 | 이전 경로 |
+|---|---|
+| [A_EXECUTION_ARCHITECTURE_V1.md](A_EXECUTION_ARCHITECTURE_V1.md) | docs/current/A_EXECUTION_ARCHITECTURE_V1.md |
+| [A_MICRO_V6_PHYSICS_CLOSURE_V1.md](A_MICRO_V6_PHYSICS_CLOSURE_V1.md) | docs/current/A_MICRO_V6_PHYSICS_CLOSURE_V1.md |
+| [A_NUMERIC_EXECUTION_STACK_V1.md](A_NUMERIC_EXECUTION_STACK_V1.md) | docs/current/A_NUMERIC_EXECUTION_STACK_V1.md |
+| [A_REALITY_GROUNDING_V1.md](A_REALITY_GROUNDING_V1.md) | docs/current/A_REALITY_GROUNDING_V1.md |
+| [A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md](A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md) | docs/current/A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md |
+| [PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md](PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md) | docs/current/PREIMPLEMENTATION_POSSIBILITY_CHECK_V1.md |
+| [VERIFICATION_LIMITS_AND_LESSONS.md](VERIFICATION_LIMITS_AND_LESSONS.md) | docs/current/VERIFICATION_LIMITS_AND_LESSONS.md |
+
+새 법칙·동결 여부를 폴더 배치로 결정하지 않는다. 최상위 불변조건은 [RULES.md](../../RULES.md)·[PROJECT_CONSTITUTION.md](../../PROJECT_CONSTITUTION.md)다.

@@ -10,7 +10,7 @@
 
 ## 권장 읽기 순서
 
-1. `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md`
+1. [docs/history/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md](../../docs/history/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md)
 2. `engine/deterministic/spec.py`, `causal_spec.py`, `environment_spec.py`
 3. `engine/deterministic/kernel.py`, `causal_kernel.py`, `environment_kernel.py`
 4. `engine/deterministic/physical_scale.py`, `gpu_environment.py`

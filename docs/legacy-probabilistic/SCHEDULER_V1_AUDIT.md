@@ -13,14 +13,14 @@
 
 | 카운터 | 위치 | 증가 방식 | 용도 |
 |---|---|---|---|
-| `ordinary_events` | [nonliving_world.py:42](../engine/sequence/nonliving_world.py) | 사건 1개 실행마다 `+1` | 모든 `interval` 법칙의 기준 |
-| `sequence.time` | [substrate.py:159](../engine/sequence/substrate.py) | 상태 전이마다 `+1` | `WorldEvent` 타임스탬프 |
+| `ordinary_events` | [nonliving_world.py:42](../../engine/sequence/nonliving_world.py) | 사건 1개 실행마다 `+1` | 모든 `interval` 법칙의 기준 |
+| `sequence.time` | [substrate.py:159](../../engine/sequence/substrate.py) | 상태 전이마다 `+1` | `WorldEvent` 타임스탬프 |
 
 둘 다 **무엇이 선택됐든 상관없이 `+1`**이다. 후보 수가 몇 개였는지, 그 사건이 물리적으로 얼마나 드문 일이었는지가 시간에 반영되지 않는다.
 
 ### 1-2. 선택식에 서로 다른 단위가 섞여 있다
 
-[spatial_sequence.py:752-758](../engine/sequence/spatial_sequence.py):
+[spatial_sequence.py:752-758](../../engine/sequence/spatial_sequence.py):
 
 ```python
 moves = tuple((item.site, dx, dy) for item in state.locations for dx, dy in DIRECTIONS)
@@ -32,8 +32,8 @@ sample = chance.choice_index(len(moves) + len(rotations) + len(flexes) + reactio
 ```
 
 - `moves`, `rotations`, `flexes` → **가중치 필드가 아예 없음**. `len()`으로 세어져 각각 암묵적 가중치 `1`.
-  - 확인: `SpatialRotationCandidate`([:216](../engine/sequence/spatial_sequence.py))와 `SpatialFlexCandidate`([:227](../engine/sequence/spatial_sequence.py))에는 `weight` 필드가 정의되어 있지 않다.
-- `reactions` → `EventCandidate.weight`([substrate.py:257](../engine/sequence/substrate.py)) 합계. 이 값은 열에너지·결합결함에서 유도된 **큰 정수**가 될 수 있다.
+  - 확인: `SpatialRotationCandidate`([:216](../../engine/sequence/spatial_sequence.py))와 `SpatialFlexCandidate`([:227](../../engine/sequence/spatial_sequence.py))에는 `weight` 필드가 정의되어 있지 않다.
+- `reactions` → `EventCandidate.weight`([substrate.py:257](../../engine/sequence/substrate.py)) 합계. 이 값은 열에너지·결합결함에서 유도된 **큰 정수**가 될 수 있다.
 
 **결과: "이동 1칸"과 "결합 해제"가 같은 추첨 분모에서 경쟁하는데, 전자는 무조건 1, 후자는 물성 기반 수백~수천.** 두 사건의 상대 빈도는 물리가 아니라 이 단위 불일치가 정한다.
 
@@ -52,26 +52,26 @@ sample = chance.choice_index(len(moves) + len(rotations) + len(flexes) + reactio
 
 | 사건 | 정의 위치 | 가중치 | 출처 판정 | v2 처리 |
 |---|---|---|---|---|
-| `spatial_move` | [spatial_sequence.py:753](../engine/sequence/spatial_sequence.py) | 없음 (자리당 4방향, 각 1) | **사람이 정한 구조** — 확산계수·질량·점성 개념 없음 | 국소 이동률 λ 정의 필요 |
-| `spatial_rotate` | [:530](../engine/sequence/spatial_sequence.py) | 없음 (후보당 1) | **사람이 정한 구조** — `SPATIAL_ROTATION_COST` 문턱만 있고 율은 없음 | 활성화 장벽 기반 λ |
-| `spatial_flex` | [:622](../engine/sequence/spatial_sequence.py) | 없음 (후보당 1) | **사람이 정한 구조** — 동일 | 활성화 장벽 기반 λ |
-| `bind` / `fold` | [substrate.py](../engine/sequence/substrate.py) `_binding_candidates` | 결합에너지 기반 | **물성에서 부분 유도** | 활성화 장벽으로 통일 |
-| `unbind` / `unfold` | [substrate.py:386-396](../engine/sequence/substrate.py) | `thermal_factor * (1 << min(defect,20))` | **물성에서 비교적 강하게 유도** (열에너지 − 결합에너지, 결함 지수) | 같은 단위의 λ로 환산 |
+| `spatial_move` | [spatial_sequence.py:753](../../engine/sequence/spatial_sequence.py) | 없음 (자리당 4방향, 각 1) | **사람이 정한 구조** — 확산계수·질량·점성 개념 없음 | 국소 이동률 λ 정의 필요 |
+| `spatial_rotate` | [:530](../../engine/sequence/spatial_sequence.py) | 없음 (후보당 1) | **사람이 정한 구조** — `SPATIAL_ROTATION_COST` 문턱만 있고 율은 없음 | 활성화 장벽 기반 λ |
+| `spatial_flex` | [:622](../../engine/sequence/spatial_sequence.py) | 없음 (후보당 1) | **사람이 정한 구조** — 동일 | 활성화 장벽 기반 λ |
+| `bind` / `fold` | [substrate.py](../../engine/sequence/substrate.py) `_binding_candidates` | 결합에너지 기반 | **물성에서 부분 유도** | 활성화 장벽으로 통일 |
+| `unbind` / `unfold` | [substrate.py:386-396](../../engine/sequence/substrate.py) | `thermal_factor * (1 << min(defect,20))` | **물성에서 비교적 강하게 유도** (열에너지 − 결합에너지, 결함 지수) | 같은 단위의 λ로 환산 |
 | `backbone_cleave` / `ligate` / `cyclize` | substrate | `EventCandidate.weight` | 부분 유도 | 활성화 장벽 |
 
 **주의:** `unbind`의 `1 << defect`는 결함 1당 가중치 2배다. `defect`가 20이면 가중치가 **100만 배**가 된다. 이 지수 스케일이 `moves`의 가중치 1과 같은 분모에 들어간다.
 
 ### 2-2. interval 기반 환경 사건 (고정 주기 발동)
 
-[nonliving_world.py:259-316](../engine/sequence/nonliving_world.py)에서 전부 `state.ordinary_events % law.interval == 0`으로 판정.
+[nonliving_world.py:259-316](../../engine/sequence/nonliving_world.py)에서 전부 `state.ordinary_events % law.interval == 0`으로 판정.
 
 | 법칙 | GCP 실행값 | 정의 위치 | 내부 가중치 | 출처 판정 |
 |---|---:|---|---|---|
-| `energy_law` | interval **1000000** | [run_nonliving_world_probe.py:75](../run_nonliving_world_probe.py) | `diffusion_divisor=8`, `absorption_per_site=1` | 사람이 정한 주기 |
-| `face_law` (확산) | interval **20** | [:84](../run_nonliving_world_probe.py) | `diffusion_divisor=8` | 사람이 정한 주기 |
-| `chemistry_law` (촉매) | interval **3** | [:93](../run_nonliving_world_probe.py) | `spontaneous_weight=1`, `catalytic_weight=1` (둘 다 기본값) | **전부 사람이 정한 임시값** |
-| `material_law` (복사) | interval **2** | [:105](../run_nonliving_world_probe.py) | `activation_energy=1`, `spontaneous_weight=1`, `affinity_weight=1`, `dissolution_weight=1` | **전부 기본값 1** |
-| `boundary_law` (막 성장·수축) | interval **4** | [:107](../run_nonliving_world_probe.py) | `weight=1` (기본값) | **전부 사람이 정한 임시값** |
+| `energy_law` | interval **1000000** | [run_nonliving_world_probe.py:75](../../run_nonliving_world_probe.py) | `diffusion_divisor=8`, `absorption_per_site=1` | 사람이 정한 주기 |
+| `face_law` (확산) | interval **20** | [:84](../../run_nonliving_world_probe.py) | `diffusion_divisor=8` | 사람이 정한 주기 |
+| `chemistry_law` (촉매) | interval **3** | [:93](../../run_nonliving_world_probe.py) | `spontaneous_weight=1`, `catalytic_weight=1` (둘 다 기본값) | **전부 사람이 정한 임시값** |
+| `material_law` (복사) | interval **2** | [:105](../../run_nonliving_world_probe.py) | `activation_energy=1`, `spontaneous_weight=1`, `affinity_weight=1`, `dissolution_weight=1` | **전부 기본값 1** |
+| `boundary_law` (막 성장·수축) | interval **4** | [:107](../../run_nonliving_world_probe.py) | `weight=1` (기본값) | **전부 사람이 정한 임시값** |
 
 **이 표의 의미:** 복사·촉매·막 성장의 모든 가중치가 기본값 `1`이다. 즉 GCP 실험에서 관찰된 "복사 38,409회 vs 촉매 6,071만 회" 같은 비율은 물성이 만든 게 아니라 **interval 2 vs 3과 후보 개수 차이가 만든 것**이다.
 
@@ -79,10 +79,10 @@ sample = chance.choice_index(len(moves) + len(rotations) + len(flexes) + reactio
 
 | 항목 | 기본값 | 위치 |
 |---|---:|---|
-| `observer_census_events` | 10,000 | [run_nonliving_face_until.py:37](../run_nonliving_face_until.py) |
-| `observer_ring_events` | 20,000 | [:38](../run_nonliving_face_until.py) |
-| `observer_post_trigger_events` | 20,000 | [:39](../run_nonliving_face_until.py) |
-| `lineage_checkpoint_events` | 10,000 | [:34](../run_nonliving_face_until.py) |
+| `observer_census_events` | 10,000 | [run_nonliving_face_until.py:37](../../run_nonliving_face_until.py) |
+| `observer_ring_events` | 20,000 | [:38](../../run_nonliving_face_until.py) |
+| `observer_post_trigger_events` | 20,000 | [:39](../../run_nonliving_face_until.py) |
+| `lineage_checkpoint_events` | 10,000 | [:34](../../run_nonliving_face_until.py) |
 
 이들도 `ordinary_events` 기준이므로, v2에서 `physical_time` 도입 시 **관찰 해상도가 물리 시간에 대해 불균일해진다**는 점을 함께 처리해야 한다(세계가 복잡할 때 같은 10,000 이벤트가 더 짧은 물리 시간을 덮음).
 
@@ -116,7 +116,7 @@ sample = chance.choice_index(len(moves) + len(rotations) + len(flexes) + reactio
 
 ### 5-1. `pair_score`는 물성 유도가 맞다 — 판정 상향
 
-[substrate.py:19-24, 61-65](../engine/sequence/substrate.py):
+[substrate.py:19-24, 61-65](../../engine/sequence/substrate.py):
 
 ```python
 BASE_PROPERTIES = ((-1,-1), (-1,+1), (+1,-1), (+1,+1))   # 네 기호의 2D 물리 좌표
@@ -132,7 +132,7 @@ def pair_score(left, right):
 
 ### 5-2. `bind` 가중치 = 결합에너지 그 자체 — 판정 상향
 
-[substrate.py:339-346](../engine/sequence/substrate.py):
+[substrate.py:339-346](../../engine/sequence/substrate.py):
 
 ```python
 energy = sum(pair_score(...) for offset in range(length))
@@ -146,8 +146,8 @@ candidates.append(EventCandidate("bind", contact, energy))
 
 | 상수 | 값 | 위치 | 판정 |
 |---|---:|---|---|
-| `SPATIAL_ROTATION_COST` | **1** | [spatial_sequence.py:27](../engine/sequence/spatial_sequence.py) | 사람이 정한 문턱값. 회전의 *율*이 아니라 *가능 여부*만 결정 |
-| `BACKBONE_COST` | **2** | [substrate.py:26](../engine/sequence/substrate.py) | 사람이 정한 값. `pair_score` 최대치(+2)와 같은 크기 |
+| `SPATIAL_ROTATION_COST` | **1** | [spatial_sequence.py:27](../../engine/sequence/spatial_sequence.py) | 사람이 정한 문턱값. 회전의 *율*이 아니라 *가능 여부*만 결정 |
+| `BACKBONE_COST` | **2** | [substrate.py:26](../../engine/sequence/substrate.py) | 사람이 정한 값. `pair_score` 최대치(+2)와 같은 크기 |
 
 `BACKBONE_COST=2`가 `pair_score` 최대값과 같다는 점은 우연이 아닐 수 있으나, 코드에 근거 주석이 없다. 설계자 확인 필요.
 

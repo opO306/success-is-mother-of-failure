@@ -10,7 +10,7 @@ B-Language·adapter·world model·trace·가설·반사실·실험 제안
 
 ## 권장 읽기 순서
 
-1. `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md`
+1. [docs/deferred/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md](../../docs/deferred/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md)
 2. `schemas/b_language_boundary_v1.schema.json`
 3. `engine/deterministic/b_language.py`, `brain_adapter.py`
 4. `cognitive_map.py`, `change_graph.py`, `provenance.py`

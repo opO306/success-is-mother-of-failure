@@ -1,6 +1,6 @@
 # 현재 상태
 
-**최종 갱신:** 2026-09-27 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/current/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-09-27 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
 
@@ -84,7 +84,8 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
-| 이번 문서 정리 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 395.50초**, cp949 경고 25건 | `runs/documentation_cleanup_20260927_local_full.log`, `runs/documentation_cleanup_20260927_local_full.xml` |
+| 폴더 정리 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 454.67초**, cp949 경고 25건 | `runs/documentation_folder_cleanup_20260927/local_full.log`, `runs/documentation_folder_cleanup_20260927/local_full.xml` |
+| 내용 정리 당시 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 395.50초**, cp949 경고 25건 | `runs/documentation_cleanup_20260927_local_full.log`, `runs/documentation_cleanup_20260927_local_full.xml` |
 | ④-4 구현 당시 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 388.84초**, cp949 경고 25건 | `runs/c1b1_rounding_decision_local_full_v1.*` |
 | ④-1 당시 LOCAL FULL | 2335 passed + 1 strict xfailed, failure 0, skip 0, 447.41초, cp949 경고 25건 | `runs/c1b1_outer_bound_local_full.*` |
 | ④-2/④-3 당시 REMOTE PYTHON FULL | 2258 passed + 108 skipped + 1 strict xfailed, failure 0, 71.23초 | `runs/c1b1_outer_bootstrap_full_v1.*` |
@@ -95,11 +96,13 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 ## 현재 문서 진입점과 역사 기록
 
-- [C1-B1 설계·결정·검증 기록](docs/current/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md): **23절 D_valid 동결, 24절 ④-1, 25절 ④-2/④-3, 26절 rounding-decision 진행**을 함께 읽는다.
-- [④-4 rounding-decision 상태](docs/current/C1B1_ROUNDING_DECISION_V1.md): tail 증거와 미완 pre-tail cover의 상세. **23절만을 최신 결정으로 읽지 않는다.**
+문서는 [상태별 폴더 안내](docs/README.md)·[전체 분류/이동 경로표](docs/DOCUMENT_STATUS_INDEX.md)로 찾는다. `active`는 현재 C1-B1, `frozen`은 지켜야 할 계약, `history`는 과거 기록, `deferred`는 후기 B 자산이다. `docs/current`는 옛 경로 안내용이며 신체 계약 원문만 경로 고정 때문에 남아 있다.
+
+- [C1-B1 설계·결정·검증 기록](docs/active/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md): **23절 D_valid 동결, 24절 ④-1, 25절 ④-2/④-3, 26절 rounding-decision 진행**을 함께 읽는다.
+- [④-4 rounding-decision 상태](docs/active/C1B1_ROUNDING_DECISION_V1.md): tail 증거와 미완 pre-tail cover의 상세. **23절만을 최신 결정으로 읽지 않는다.**
 - [저장소 지도](REPO_MAP.md): 구현 위치와 계통 구분.
-- [인수인계 점검](docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md): 현재 보충 안내와 `0898ca3` 당시 점검·시험 이력을 구분.
-- [상태 역사](docs/current/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md): 문서 정리 전 대시보드 원문, 과거 번호 체계·진행 순서·갈림길·B 연구·실험·기술 부채·최근 이력 전체. 본문 속 “다음”은 당시 기록이다.
+- [인수인계 점검](docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md): 현재 보충 안내와 `0898ca3` 당시 점검·시험 이력을 구분.
+- [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md): 문서 정리 전 대시보드 원문, 과거 번호 체계·진행 순서·갈림길·B 연구·실험·기술 부채·최근 이력 전체. 본문 속 “다음”은 당시 기록이다.
 
 A/B/L 역할과 불변조건은 [RULES.md](RULES.md)·[PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md)를 따른다.
 Git은 2026-09-21 초기화했고 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\`에 봉인했다.

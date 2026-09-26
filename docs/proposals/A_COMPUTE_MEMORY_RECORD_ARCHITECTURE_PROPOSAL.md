@@ -5,7 +5,7 @@
 이 문서를 근거로 시작하지 않는다.
 
 관련 규칙: `RULES.md`(과정 보존, 세계와 실행기의 분리, 물리와 실행 기술의 분리, 기준 실행기 영구 유지, 손실 요약 금지),
-`docs/current/A_EXECUTION_ARCHITECTURE_V1.md`, `A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md` 9절(보존량 기반 축약·다중 해상도).
+[docs/reference/A_EXECUTION_ARCHITECTURE_V1.md](../reference/A_EXECUTION_ARCHITECTURE_V1.md), [A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md](../reference/A_V6_DEFORMABLE_MATERIAL_ARCHITECTURE_V1.md) 9절(보존량 기반 축약·다중 해상도).
 
 ---
 

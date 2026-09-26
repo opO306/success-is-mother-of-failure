@@ -1,5 +1,9 @@
 # LLM Handoff Index
 
+**현재 원문 위치 안내(2026-09-27):** [문서 상태별 안내](../docs/README.md)·[전체 분류/이동 경로표](../docs/DOCUMENT_STATUS_INDEX.md)를 먼저 본다.
+문서 58개를 active / frozen / reference / history / deferred로 실제 이동했다. 기존 코드·규칙의 일부 경로는 원문으로 연결하는 안내로 보존했다.
+이 폴더의 JSON manifest와 `physical_moves_performed`는 **카탈로그 생성 당시 스냅샷**이며 이번 폴더 정리에서 재생성하지 않았다. 현재 파일 위치·해시를 보증하는 목록으로 사용하지 않는다.
+
 이 폴더는 원본 파일을 옮기거나 복사하지 않는 논리 카탈로그다. 각 하위 폴더의 `manifest.json`은 프로젝트 루트 기준 상대경로·크기·SHA-256을 제공한다.
 
 ## 먼저 읽을 것
@@ -23,5 +27,5 @@
 ## 주의
 
 - 확률 세계와 결정론 세계의 결과를 합산하지 않는다.
-- manifest는 파일 수집 지도로, 원본의 source of truth 위치는 바뀌지 않았다.
+- manifest는 생성 당시 파일 수집 지도다. 현재 문서 원문 위치는 docs의 상태별 안내·분류표를 따른다.
 - 실제 이동·삭제는 별도 archive·SHA-256·시험 복원·사용자 승인 뒤에만 한다.

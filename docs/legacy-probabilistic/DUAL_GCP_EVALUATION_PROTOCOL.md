@@ -148,7 +148,7 @@ GCP 2를 회수한 뒤 12개 세계를 하나도 제외하지 않고 아래 표�
 
 **의문으로 남는 것(다음 조사 대상).** copy_steps>0인 strand가 죽는 시점이 무작위인지, 아니면 복사 직후 체계적으로 더 빨리 죽는지는 이번 도구로 구분되지 않는다 — 스냅샷은 죽은 strand의 사망 시점을 기록하지 않는다. 이걸 확인하려면 `strand_lineages`가 아니라 `events` 리스트에서 각 strand의 생성·복사·소멸 event_index를 직접 추적해야 한다. 지금 결론은 "복사한 strand 생존율 0%"까지이며, "복사가 죽음을 유발한다"는 인과 주장은 아직 근거가 없다.
 
-전체 리포트: [gcp2_lineage_analysis.json](../runs/dual_gcp_precommit_20260919_185150/collected/gcp2-depth/gcp2_lineage_analysis.json), [gcp1_lineage_survivorship.json](../runs/dual_gcp_precommit_20260919_185150/collected/gcp1-breadth/gcp1_lineage_survivorship.json)
+전체 리포트: [gcp2_lineage_analysis.json](../../runs/dual_gcp_precommit_20260919_185150/collected/gcp2-depth/gcp2_lineage_analysis.json), [gcp1_lineage_survivorship.json](../../runs/dual_gcp_precommit_20260919_185150/collected/gcp1-breadth/gcp1_lineage_survivorship.json)
 
 ## 5. 결과별 다음 판단
 
