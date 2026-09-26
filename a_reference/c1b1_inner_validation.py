@@ -41,6 +41,16 @@ E_FRACS = [Q(1, 10 ** k) for k in range(2, 14)]            # 1e-2 ... 1e-13 De
 B_FRACS = [Q(0), Q(1, 4), Q(1, 2), Q(1), Q(3, 2), Q(2)]      # x R_e (grid value), up to b_max(study) = 2 R_e
 R_START = Q(20)
 MU = C.AR40_MASS_ME / 2
+ORBIT_WORK_DPS = 60           # orbiting(): internal sqrt precision (local)
+ORBIT_CANONICAL_DPS = 40      # orbiting(): the precision b_orb is canonicalized to (the recorded fixture values)
+STATE_DPS = 60                # state(): local working precision
+CANONICAL_STATE_SPEC = {      # what state() builds -- recorded in the boundary fixture, matched exactly by D_valid
+    "constructor": "a_reference.c1b1_inner_validation.state", "R_start": str(R_START),
+    "positions": "atom i (-R_start/2, 0, 0), atom j (+R_start/2, 0, 0)",
+    "momenta": "p_j = (round(Pr), round(Pt), 0) on FX(96,80), round half-even per component; p_i = -p_j",
+    "Pt": "b sqrt(2 mu E) / R_start", "Pr": "-sqrt(2 mu (E - V0) - Pt^2)", "V0": "potential_high(R_start^2, 512)",
+    "state_dps": STATE_DPS, "b": "b_orb (1 + rho), b_orb = orbiting(e)[0]",
+    "b_orb_dps": [ORBIT_WORK_DPS, ORBIT_CANONICAL_DPS]}
 CODE_FILES = ("a_reference/c1b1_two_atom.py", "a_reference/c1b1_dt_study.py", "a_reference/c1b1_inner_validation.py",
               "audit/independent_physics/c1b1_two_atom.py")
 
@@ -82,11 +92,19 @@ def orbiting(e: Q):
             hi = mid
     R = (lo + hi) / 2
     L2 = MU * R ** 3 * barrier_energy(R)[1]
-    with mpmath.workdps(60):
+    with mpmath.workdps(ORBIT_WORK_DPS):          # internal: a fixed LOCAL precision (never the caller's global one)
         b = mpmath.sqrt(mp(L2) / mp(2 * MU * E))
-    with mpmath.workdps(40):     # the rational is b rounded to 40 digits, EXPLICITLY: it used to be rounded at the
-        bq = S.mq(b)             # caller's global precision (40 in every recorded study; 60 after a state() call),
-    return bq, R                 # a global-state dependence found by the D_valid fixture load check (2026-09-27)
+    return canonical_b_orb(b), R
+
+
+def canonical_b_orb(b) -> Q:
+    """The contract value of b_orb: the ORBIT_WORK_DPS result rounded, explicitly and once, to ORBIT_CANONICAL_DPS
+    digits (mpmath precision 40 dps = 136 bits, round to nearest) and stored as that binary value's exact rational.
+    Internal precision and canonical serialization are separate on purpose (designer verdict on 8ce0c0a): b used to be
+    rounded at the CALLER's global precision (40 in every recorded study, 60 after a state() call) -- a global-state
+    dependence found by the D_valid fixture load check."""
+    with mpmath.workdps(ORBIT_CANONICAL_DPS):
+        return S.mq(mpmath.mpf(b))
 
 
 def orbiting_b(e: Q, b_cap: Q | None = None):
@@ -100,22 +118,25 @@ def orbiting_b(e: Q, b_cap: Q | None = None):
 
 
 def state(e: Q, b: Q):
-    """Relative position (20, 0, 0) inbound, E = e De, L = b sqrt(2 mu E), momenta on the FX(96,80) grid."""
-    mpmath.mp.dps = 60
+    """Relative position (20, 0, 0) inbound, E = e De, L = b sqrt(2 mu E), momenta on the FX(96,80) grid.
+    Works at the LOCAL precision STATE_DPS; the caller's global mpmath precision is neither read nor changed (it used
+    to be set to 60 here and leaked to every later caller)."""
     E = e * S.DE_GRID
-    p_inf = mpmath.sqrt(2 * mp(MU) * mp(E))
-    L = mp(b) * p_inf
-    V0 = mp(C.potential_high(R_START ** 2, 512))
-    Pt = L / mp(R_START)
-    Pr = -mpmath.sqrt(2 * mp(MU) * (mp(E) - V0) - Pt * Pt)
-    g = lambda x: MOM.to_exact(MOM.from_exact(S.mq(x)))
-    P = (g(Pr), g(Pt), Q(0))
+    with mpmath.workdps(STATE_DPS):
+        p_inf = mpmath.sqrt(2 * mp(MU) * mp(E))
+        L = mp(b) * p_inf
+        V0 = mp(C.potential_high(R_START ** 2, 512))
+        Pt = L / mp(R_START)
+        Pr = -mpmath.sqrt(2 * mp(MU) * (mp(E) - V0) - Pt * Pt)
+        g = lambda x: MOM.to_exact(MOM.from_exact(S.mq(x)))
+        P = (g(Pr), g(Pt), Q(0))
+        L_nom = mpmath.nstr(L, 40)
     ri, rj = (-R_START / 2, Q(0), Q(0)), (R_START / 2, Q(0), Q(0))
     run = C.new_run(POS, 40, ri, tuple(-x for x in P), rj, P, momentum_profile=MOM, validated_only=False)
     lo, hi = C.relative_energy_enclosure(run, 512)
     assert lo > 0, "represented state is not a scattering state"
     E_rep = (lo + hi) / 2
-    return {"E_nom": E, "L_nom": mpmath.nstr(L, 40), "E_rep": E_rep, "E_rep_width": hi - lo, "L_rep": R_START * P[1],
+    return {"E_nom": E, "L_nom": L_nom, "E_rep": E_rep, "E_rep_width": hi - lo, "L_rep": R_START * P[1],
             "r_i": ri, "p_i": tuple(-x for x in P), "r_j": rj, "p_j": P}
 
 
@@ -136,14 +157,15 @@ def cases():
 
 def reference_task(args):
     case, st = args
-    mpmath.mp.dps = 40
     from audit.independent_physics.c1b1_two_atom import Reference
-    ref = Reference(dps=40)
-    try:
-        a, t, r0 = ref.sweep_and_time(ref._mp(st["E_rep"]), ref._mp(st["L_rep"]), R_START)
-        return {"case": case["name"], "sweep": mpmath.nstr(a, 30), "time": mpmath.nstr(t, 30), "r0": mpmath.nstr(r0, 15)}
-    except (ValueError, ArithmeticError) as exc:
-        return {"case": case["name"], "error": str(exc)}
+    with mpmath.workdps(40):                       # local (it used to set the global precision to 40 and leak it)
+        ref = Reference(dps=40)
+        try:
+            a, t, r0 = ref.sweep_and_time(ref._mp(st["E_rep"]), ref._mp(st["L_rep"]), R_START)
+            return {"case": case["name"], "sweep": mpmath.nstr(a, 30), "time": mpmath.nstr(t, 30),
+                    "r0": mpmath.nstr(r0, 15)}
+        except (ValueError, ArithmeticError) as exc:
+            return {"case": case["name"], "error": str(exc)}
 
 
 def run_task(args):

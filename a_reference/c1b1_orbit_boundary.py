@@ -24,6 +24,12 @@ every pass); if it breaks, status = "non_monotone", the simple band model -delta
 this energy, the fixture says so and the script exits with code 3 (a result file, but not a successful run).
 
 Run: python -m a_reference.c1b1_orbit_boundary [procs]     (needs D:\\reference for the audit)
+
+Record format v3 (designer verdict on 8ce0c0a): every side names itself ("side": "negative" | "positive") and every
+probe carries its SIGNED rho (exact rational) next to |rho|, so a +/- swap is refused by the contract itself, not only
+by the frozen hash; every probe also records the lattice state it actually ran -- the FX(96,80) raw momentum of atom j
+(atom i = -j, positions -+R_START/2 on x) and that state's realized relative energy -- the canonical state D_valid
+matches exactly (no energy tolerance). The measurement itself (ladder, bisection, target, probes) is unchanged from v2.
 """
 from __future__ import annotations
 
@@ -43,7 +49,9 @@ import a_reference.c1b1_inner_validation as I
 import a_reference.c1b1_two_atom as C
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_orbit_boundary_v1.json"
+OUT = Path(__file__).resolve().parent / "fixtures" / "c1b1_orbit_boundary_v2.json"   # v1 (50cceaa) is kept as recorded
+FORMAT = "c1b1-orbit-boundary-v3"
+SIDE_NAMES = {-1: "negative", 1: "positive"}      # negative: b < b_orb (delta_minus); positive: b > b_orb (delta_plus)
 
 E_FRACS = [Q(15, 100), Q(2, 10), Q(3, 10), Q(1, 2), Q(7, 10), Q(9, 10), Q(99, 100)]
 TARGET = 1e-5                          # sweep-angle target, rad (sections 20 / 22)
@@ -65,16 +73,26 @@ def one_point(e: Q, bo: Q, rho: Q) -> dict:
     {"status": "audit_fail" | "run_fail", "reason": ...}."""
     b = bo * (1 + rho)
     st = I.state(e, b)
+    lattice = lattice_record(st)
     I._register()
     ref = I.reference_task(({"e": e, "b_bohr": b, "name": "probe"}, st))
     if "error" in ref:
-        return {"status": "audit_fail", "reason": ref["error"]}
+        return {"status": "audit_fail", "reason": ref["error"], "state": lattice}
     cap = int(3 * float(ref.get("time", 2e6)) / 40) + 400
     r = S.run_case(({"kind": "scatter", "name": "probe"}, st, 40, "hp", cap))
     if r.get("status") != "ok":
-        return {"status": "run_fail", "reason": str(r.get("status"))}
+        return {"status": "run_fail", "reason": str(r.get("status")), "state": lattice}
     with mpmath.workdps(50):
-        return {"status": "ok", "e40": float(mpmath.mpf(r["sweep"]) - mpmath.mpf(ref["sweep"]))}
+        return {"status": "ok", "e40": float(mpmath.mpf(r["sweep"]) - mpmath.mpf(ref["sweep"])), "state": lattice}
+
+
+def lattice_record(st: dict) -> dict:
+    """The lattice state a probe ran: raw FX(96,80) momentum of atom j (exact integers, as strings) and its realized
+    relative energy E_rep (midpoint of a 2^-512 enclosure, 40 digits, in De) with E_rep / E_nom - 1."""
+    with mpmath.workdps(60):
+        return {"p_j_raw": [str(I.MOM.from_exact(x)) for x in st["p_j"]],
+                "E_rep_De": mpmath.nstr(I.mp(st["E_rep"] / I.S.DE_GRID), 40),
+                "E_rep_rel_dev": float(st["E_rep"] / st["E_nom"] - 1)}
 
 
 def side_limit(bo: Q, sign: int) -> Q:
@@ -89,13 +107,15 @@ def search_side(e: Q, bo: Q, sign: int, probe=one_point) -> dict:
 
     def run(a: Q):
         r = probe(e, bo, sign * a)
-        rec = {"abs_rho": float(a), "status": r["status"]}
+        rec = {"rho": str(sign * a), "abs_rho": float(a), "status": r["status"]}
         if r["status"] == "ok":
             rec["e40_sweep_rad"] = r["e40"]
             rec["pass"] = abs(r["e40"]) < TARGET
         else:
             rec["reason"] = r.get("reason", "")
             rec["pass"] = None                      # unknown: counted as non-pass
+        if "state" in r:
+            rec.update(r["state"])
         probes.append(rec)
         return rec["pass"]
 
@@ -115,19 +135,21 @@ def search_side(e: Q, bo: Q, sign: int, probe=one_point) -> dict:
         a = min(2 * a, limit)
         run(a)
     if not outer_passes():
-        return {"status": "no_pass_found", "side_limit": float(limit), "largest_fail": None, "largest_nonpass": None,
+        return {"side": SIDE_NAMES[sign], "status": "no_pass_found", "side_limit": float(limit), "largest_fail": None, "largest_nonpass": None,
                 "smallest_pass": None, "unknown_probes": sum(p["pass"] is None for p in probes), "probes": probes}
     for _ in range(MAX_BISECT):                    # 3. bisect (geometric mean) between the tightest pair
         sp, lo = min(outer_passes()), max(nonpass(), default=None)
         if lo is None or float(sp / lo) <= BISECT_RATIO:
             break
-        mid = mpmath.sqrt(mpmath.mpf(lo.numerator) / lo.denominator * mpmath.mpf(sp.numerator) / sp.denominator)
-        run(Q(mpmath.nstr(mid, 12)))
+        with mpmath.workdps(40):                   # local; the recorded v2 run had the global precision at 40 here
+            mid = mpmath.sqrt(mpmath.mpf(lo.numerator) / lo.denominator * mpmath.mpf(sp.numerator) / sp.denominator)
+            a_mid = Q(mpmath.nstr(mid, 12))
+        run(a_mid)
     sp, lo = min(outer_passes()), max(nonpass(), default=None)
     fails = [p["abs_rho"] for p in probes if p["pass"] is False]
     passes = [p["abs_rho"] for p in probes if p["pass"] is True]
     monotone = not fails or not passes or max(fails) < min(passes)   # no measured pass closer in than a measured fail
-    return {"status": "ok" if monotone else "non_monotone", "side_limit": float(limit),
+    return {"side": SIDE_NAMES[sign], "status": "ok" if monotone else "non_monotone", "side_limit": float(limit),
             "largest_fail": max(fails, default=None), "largest_nonpass": None if lo is None else float(lo),
             "smallest_pass": float(sp), "unknown_probes": sum(p["pass"] is None for p in probes), "probes": probes}
 
@@ -160,11 +182,12 @@ def main(procs: int = 14) -> int:
                 row["delta_minus" if sign < 0 else "delta_plus"] = s
     bad = sorted(f"{e} {k}" for e, row in results.items() for k in ("delta_minus", "delta_plus")
                  if row[k]["status"] == "non_monotone")
-    doc = {"format": "c1b1-orbit-boundary-v2",
+    doc = {"format": FORMAT,
            "status": ("FAILED: non-monotone pass/fail at " + ", ".join(bad)) if bad else
                      "NUMERICALLY VALIDATED evidence (not certified)",
            "contract": C.CONTRACT_VERSION, "target_sweep_rad": TARGET, "scan_abs_rho": [str(a) for a in SCAN],
            "bisect_ratio": BISECT_RATIO, "b_max": str(B_MAX),
+           "canonical_state": I.CANONICAL_STATE_SPEC,
            "energies": [{"e": e, **v} for e, v in sorted(results.items(), key=lambda kv: Q(kv[0]))],
            "provenance": {"git_head": head, "uncommitted_changes_in_a_reference_or_audit": bool(dirty), "code_sha256": code},
            "seconds": round(time.time() - t0)}
