@@ -17,16 +17,23 @@ D_valid = D_base - D_capture, judged on an enclosure of the initial E_rel and th
   capture    orbiting exists at E (E below the barrier-top maximum E_max ~ 0.9964 De) with b_orb(E) <= B_MAX.
              Energies within E_MAX_MARGIN above the grid estimate of E_max are unsupported (existence not decided).
   measured   ONLY the energies present in the frozen boundary fixture (7: 0.15 ... 0.99 De), identified EXACTLY, never
-             by an energy tolerance (v1's |E - E_nom| <= 2^-80 E_nom is gone): an initial state belongs to energy_id e
-             iff it IS a lattice state the measurement's own constructor (c1b1_inner_validation.state,
-             CANONICAL_STATE_SPEC) produces at E = e De for some real b -- same geometry (atoms at -+R_START/2 on x),
-             p_i = -p_j, p_j = (round(Pr), round(Pt), 0) on FX(96,80) -- decided in exact rational arithmetic
-             (canonical_member). The b it is judged at is the NOMINAL b of that constructor (an enclosure: every b
-             that yields this lattice state), the coordinate the fixture's probes are labelled in; the realized energy
-             of that exact state is recorded in the provenance. Every probe of the fixture records the lattice state it
-             ran, and the load check requires each one to be canonical for its own (e, rho). A state at a fixture energy
-             built any other way (translated, rotated, another start radius, momenta nudged by one grid unit) is not
-             identified: unsupported. The point API evaluate_domain(E, b) takes nominal coordinates and identifies an
+             by an energy tolerance (v1's |E - E_nom| <= 2^-80 E_nom is gone) and never by searching for SOME b that
+             could have produced the state (the first v2 draft, 30c14b7 -- rejected by the designer: a state could pass
+             because a different b happens to produce its momentum). The identity is
+                 execution profile + nominal energy e + b_current + side / rho + the exact quantized initial state,
+             where b_current is the b the state itself represents (|L| / sqrt(2 mu E_nominal), L = R_START Pt_q), and
+             the state must EQUAL state(E_nominal, b_current) (canonical_member, exact rationals): same geometry (atoms
+             at -+R_START/2 on x), p_i = -p_j, and the stored Pr_q equal to the Pr the generator produces at b_current.
+             A different b that collapses to the same quantized state is the same state (its b_current is the same).
+             A momentum one grid unit off is accepted only if it IS the generator's output at its own b_current.
+             Disclosed (test): the measurement's constructor rounds Pr from the UNROUNDED Pt, so 32 of the fixture's 181
+             probe states are not state(E, b_current) of their own b_current (Pr one grid unit off) -- a new_run started
+             from exactly such a state is unsupported, although the rho interval it lies in stays validated for the
+             identified states (canonical_initial_state builds them). The probes themselves are checked against their
+             RECORDED b (canonical_b_range contains b_orb (1 + rho)): the fixture's integrity, not new-run identity.
+             The realized energy of the identified state is recorded in the provenance, never used to match. A state
+             at a fixture energy built any other way (translated, rotated, another start radius) is not identified:
+             unsupported. The point API evaluate_domain(E, b) takes nominal coordinates and identifies an
              energy only on exact equality E == e De. No interpolation, no nearest energy, no extrapolation: any other
              energy inside the capture range is unsupported at every b.
   per side   rho = b / b_orb - 1, sides judged independently (negative: b < b_orb, positive: b > b_orb). With the
@@ -112,8 +119,9 @@ def _shell(e: str) -> Q:
 
 
 def canonical_b_range(e: str, pj: tuple) -> tuple[Q, Q] | None:
-    """The nominal b enclosure [b_lo, b_hi] of every real b >= 0 for which the constructor at E = e De rounds to exactly
-    this momentum p_j (exact rationals), or None when no b does (then p_j is not a canonical lattice state of e).
+    """FIXTURE INTEGRITY ONLY (never new-run identity): the b enclosure [b_lo, b_hi] of every real b >= 0 for which the
+    measurement's constructor at E = e De rounds to exactly this momentum p_j, or None when no b does. The load check
+    requires a probe's RECORDED b = b_orb (1 + rho) to lie in it, i.e. state(E, b_recorded) == the recorded state.
 
     Pt = b sqrt(2 mu E) / R_START >= 0 must round to pj[1]; Pr = -sqrt(S - Pt^2) < 0 to pj[0]; pj[2] must be 0. Round
     half-even to the 2^-80 grid: x rounds to q only if |x - q| <= ulp / 2. Pr is monotone in Pt, so the condition on Pr
@@ -138,8 +146,41 @@ def canonical_b_range(e: str, pj: tuple) -> tuple[Q, Q] | None:
     return _sqrt_bounds(lo2 * k)[0], _sqrt_bounds(hi2 * k)[1]
 
 
+def _round_half_even(x: Q) -> int:
+    q, r = divmod(x.numerator, x.denominator)
+    if 2 * r > x.denominator or (2 * r == x.denominator and q & 1):
+        q += 1
+    return q
+
+
+def _round_sqrt_ulps(x2: Q) -> int | None:
+    """round_half_even(sqrt(x2)) for x2 >= 0, decided exactly; None if an enclosure cannot separate it from a tie."""
+    lo, hi = _sqrt_bounds(x2)
+    if lo == hi:
+        return _round_half_even(lo)
+    a, b = _round_half_even(lo), _round_half_even(hi)
+    return a if a == b and lo * lo <= x2 <= hi * hi else None
+
+
+def regenerate_momentum(e: str, pt: Q) -> Q | None:
+    """Pr of state(E = e De, b) for the b whose Pt is EXACTLY pt (Pt then rounds to itself): round(-sqrt(S - pt^2))
+    on the 2^-80 grid, exact. None if S - pt^2 <= 0 or the rounding is undecided (fail-closed)."""
+    T = _shell(e) - pt * pt
+    if T <= 0:
+        return None
+    n = _round_sqrt_ulps(T / (MOM_ULP * MOM_ULP))
+    return None if n is None else -n * MOM_ULP
+
+
 def canonical_member(pos, mom, atoms) -> tuple[str, Q, Q] | None:
-    """(energy_id, b_lo, b_hi) when the state IS a canonical lattice state of a fixture energy, else None."""
+    """(energy_id, b_lo, b_hi) when the initial state IS state(E_nominal, b_current) -- b_current being the b THIS state
+    represents, not any b that could have produced it (designer verdict on 30c14b7) -- else None.
+
+    b_current = |L| / sqrt(2 mu E_nominal) with L = R_START Pt_q (the state's own angular momentum), so Pt(b_current) is
+    exactly the stored Pt_q and regenerating at b_current must give exactly the stored Pr_q. [b_lo, b_hi] is a
+    2^-256-tight enclosure of that one b (irrational in general). The energy is identified as the one fixture energy
+    whose regenerated state equals the stored one; two energies can never both match (their shells differ by far more
+    than a grid unit), and if they did the state would be refused."""
     i, j = atoms
     if i.species != "Ar40" or j.species != "Ar40":
         return None
@@ -149,11 +190,34 @@ def canonical_member(pos, mom, atoms) -> tuple[str, Q, Q] | None:
     pi, pj = C.exact(mom, i.p), C.exact(mom, j.p)
     if pi != tuple(-x for x in pj):
         return None
-    hits = [(e, r) for e in EXPECTED_ENERGIES if (r := canonical_b_range(e, pj)) is not None]
+    pr, pt, pz = pj
+    if pz != 0 or pt < 0:
+        return None
+    hits = [e for e in EXPECTED_ENERGIES if regenerate_momentum(e, pt) == pr]
     if len(hits) != 1:
-        return None                                  # none (or, impossible for these energies, ambiguous)
-    e, (b_lo, b_hi) = hits[0]
+        return None
+    e = hits[0]
+    b2 = I.R_START ** 2 * pt * pt / (2 * I.MU * Q(e) * DE)
+    b_lo, b_hi = _sqrt_bounds(b2)
     return e, b_lo, b_hi
+
+
+def canonical_initial_state(e: str, b: Q) -> dict:
+    """The state D_valid identifies at (E = e De, b): Pt_q = round(b sqrt(2 mu E) / R_START) and Pr_q regenerated from
+    Pt_q (regenerate_momentum), exact, positions -+R_START/2 on x. A fixed point of canonical_member: its own b_current
+    regenerates it. It can differ from c1b1_inner_validation.state(e, b) -- the measurement's constructor, which rounds
+    Pr from the UNROUNDED Pt -- by one grid unit in Pr (32 of the fixture's 181 probe states, test)."""
+    e, b = str(e), Q(b)
+    n = _round_sqrt_ulps(b * b * 2 * I.MU * Q(e) * DE / (I.R_START ** 2 * MOM_ULP * MOM_ULP))
+    if n is None:
+        raise ValueError("Pt rounding undecided")
+    pt = n * MOM_ULP
+    pr = regenerate_momentum(e, pt)
+    if pr is None:
+        raise ValueError("no inbound radial momentum at this b")
+    pj = (pr, pt, Q(0))
+    half = I.R_START / 2
+    return {"r_i": (-half, Q(0), Q(0)), "p_i": tuple(-x for x in pj), "r_j": (half, Q(0), Q(0)), "p_j": pj}
 
 
 # --- loading the evidence, fail-closed ---------------------------------------------------------------------------
@@ -381,8 +445,12 @@ def evaluate_run(run) -> dict:
             if member is not None:
                 key, b_lo, b_hi = member
                 e_nom = Q(key) * DE
-                canon = {"energy_id": key, "p_j_raw": [str(run.mom.from_exact(x)) for x in C.exact(run.mom, j.p)],
-                         "b_nominal_bohr": [str(b_lo), str(b_hi)],
+                bo = _orbiting(key)[0]
+                canon = {"energy_id": key, "nominal_energy_De": key,
+                         "rule": "initial state == state(E_nominal, b_current), b_current from the state's own L",
+                         "p_j_raw": [str(run.mom.from_exact(x)) for x in C.exact(run.mom, j.p)],
+                         "b_current_bohr": [str(b_lo), str(b_hi)],
+                         "rho_current": [str(b_lo / bo - 1), str(b_hi / bo - 1)],
                          "realized_energy_De": [str(e_lo / DE), str(e_hi / DE)],
                          "realized_minus_nominal_rel": [float(e_lo / e_nom - 1), float(e_hi / e_nom - 1)]}
                 v = classify(e_nom, e_nom, b_lo, b_hi, energy_id=key)

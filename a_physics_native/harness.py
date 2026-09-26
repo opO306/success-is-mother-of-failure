@@ -10,7 +10,7 @@ import pathlib
 import subprocess
 import tempfile
 
-from a_numeric_native.harness import NVCC_FLAGS, find_nvcc, find_vcvars
+from a_numeric_native.harness import NATIVE_TIMEOUT_S, NVCC_FLAGS, find_nvcc, find_vcvars, run_with_timeout
 
 HERE = pathlib.Path(__file__).resolve().parent
 CORE = [HERE / "ar2_core.hpp", HERE.parent / "a_numeric_native" / "anvm_core.hpp"]
@@ -69,11 +69,11 @@ def parse(line: str) -> dict:
     raise ValueError(line)
 
 
-def run(exe, queries, args=()) -> list[dict]:
+def run(exe, queries, args=(), timeout: float = NATIVE_TIMEOUT_S) -> list[dict]:
     with tempfile.TemporaryDirectory() as d:
         src, dst = pathlib.Path(d) / "q.txt", pathlib.Path(d) / "a.txt"
         src.write_text(encode(queries), encoding="ascii")
-        r = subprocess.run([str(exe), *map(str, args), str(src), str(dst)], capture_output=True, text=True)
+        r = run_with_timeout([exe, *args, src, dst], timeout, {q[2] for q in queries})
         if r.returncode != 0:
             raise RuntimeError(f"{exe} exited {r.returncode}: {r.stderr}")
         out = [parse(l) for l in dst.read_text(encoding="ascii").splitlines() if l.strip()]

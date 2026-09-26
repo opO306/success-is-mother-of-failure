@@ -12,6 +12,7 @@ import os
 import pathlib
 import subprocess
 import tempfile
+import time
 from fractions import Fraction
 
 from a_numeric import Binary64Finite, FixedPoint, Instr, run as vm_run
@@ -162,11 +163,58 @@ class NativeRejected(Exception):
     NATIVE_MAX_REDUCTION_TERMS). Not an A meaning: the VM would run the program."""
 
 
-def run_native(exe, programs, args=()) -> list[dict]:
+NATIVE_TIMEOUT_S = 600      # designer verdict (2026-09-27): one native execution may not run silently for an hour again
+
+
+class NativeTimeout(Exception):
+    """An EXECUTION-INFRASTRUCTURE failure, not a physics result: one native run exceeded its hard timeout. The process
+    and all its children were killed; the caller fails (never skip, xfail or retry)."""
+    reason = "execution_infrastructure_timeout"
+
+
+def _kill_tree(proc) -> None:
+    if os.name == "nt":
+        subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
+    else:
+        import signal
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    proc.kill()
+
+
+def _tail(text: str | None, n: int = 2000) -> str:
+    return (text or "")[-n:]
+
+
+def run_with_timeout(cmd, timeout: float = NATIVE_TIMEOUT_S, profiles=()) -> subprocess.CompletedProcess:
+    """Run one native execution under a hard timeout. Over the limit: kill the process AND its children, raise
+    NativeTimeout naming the command, elapsed time, stdout / stderr tails and the profiles. No retry."""
+    cmd = [str(c) for c in cmd]
+    group = {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == "nt" else {"start_new_session": True}
+    t0 = time.monotonic()
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, **group)
+    try:
+        out, err = proc.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        _kill_tree(proc)
+        try:
+            out, err = proc.communicate(timeout=30)
+        except subprocess.TimeoutExpired:           # a pipe still held open: report without the tails
+            out, err = "", "(output unavailable: pipes still open after the kill)"
+        raise NativeTimeout(
+            f"native execution exceeded the {timeout:g} s hard timeout after {time.monotonic() - t0:.1f} s "
+            f"(process tree killed; infrastructure failure, not physics)\n  command: {' '.join(cmd)}\n  profiles: "
+            f"{sorted(profiles)}\n  stdout tail: {_tail(out)!r}\n  stderr tail: {_tail(err)!r}") from None
+    return subprocess.CompletedProcess(cmd, proc.returncode, out, err)
+
+
+def run_native(exe, programs, args=(), timeout: float = NATIVE_TIMEOUT_S) -> list[dict]:
     with tempfile.TemporaryDirectory() as d:
         src, dst = pathlib.Path(d) / "programs.txt", pathlib.Path(d) / "results.txt"
         src.write_text(encode(programs), encoding="ascii")
-        r = subprocess.run([str(exe), *map(str, args), str(src), str(dst)], capture_output=True, text=True)
+        r = run_with_timeout([exe, *args, src, dst], timeout, {getattr(p, "name", repr(p)) for p, _, _ in programs})
         if r.returncode in (6, 7):   # 6: refused before running, 7: a runtime capability limit (B2 EXP precision)
             assert not dst.exists(), "a refused batch must not produce results"
             raise NativeRejected(r.stderr.strip())

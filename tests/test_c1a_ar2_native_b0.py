@@ -8,14 +8,13 @@ from __future__ import annotations
 
 import hashlib
 import math
-import subprocess
 from fractions import Fraction as Q
 
 import pytest
 
 import a_reference.ar2_lang2024 as L
 import a_reference.ar2_lang2024_fixture as X
-from a_numeric_native.harness import find_vcvars
+from a_numeric_native.harness import find_vcvars, run_with_timeout
 from a_physics_native import harness as H
 
 pytestmark = pytest.mark.skipif(find_vcvars() is None, reason="MSVC not installed")
@@ -63,7 +62,7 @@ def b0(tmp_path_factory):
 
 
 def test_knuth_division_selftest(b0) -> None:
-    r = subprocess.run([str(b0), "selftest"], capture_output=True, text=True)
+    r = run_with_timeout([b0, "selftest"])
     assert r.returncode == 0 and "selftest ok" in r.stdout
 
 

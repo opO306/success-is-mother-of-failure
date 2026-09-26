@@ -27,7 +27,7 @@ HALF = Q(1, 2)
 
 
 def _run(e, b, mom=None):
-    st = I.state(e, b)
+    st = D.canonical_initial_state(str(e), b)          # a state D_valid identifies: state(E, b_current) of its own b
     return C.new_run(I.POS, 40, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=mom or I.MOM)
 
 
@@ -63,7 +63,10 @@ def test_provenance_names_fixture_energy_side_interval_and_verdict(bo) -> None:
     assert s["largest_nonpass"] < s["smallest_pass"] <= 0.005 <= s["outermost_pass"]
     assert p["profile"] == {"position": "FX(96,48)", "momentum": "FX(96,80)", "dt": "40", "drift": "v2"}
     c = p["canonical_state"]
-    assert c["energy_id"] == "1/2" and Q(c["b_nominal_bohr"][0]) <= b <= Q(c["b_nominal_bohr"][1])
+    assert c["energy_id"] == c["nominal_energy_De"] == "1/2" and "b_current" in c["rule"]
+    b_lo, b_hi = Q(c["b_current_bohr"][0]), Q(c["b_current_bohr"][1])
+    assert b_hi - b_lo < Q(1, 2 ** 250) and abs(b_lo / b - 1) < Q(1, 2 ** 70)   # one b: the state's own, not a range
+    assert Q(c["rho_current"][0]) == b_lo / bo - 1
     assert all(abs(x) < 2.0 ** -70 for x in c["realized_minus_nominal_rel"])      # recorded, not used as a tolerance
     assert p["e_rel_De"] == ["1/2", "1/2"]                                         # judged at the nominal energy_id
 
@@ -90,11 +93,11 @@ def _atoms(ri, rj, pj):
 
 def test_energy_identity_is_the_exact_canonical_state_not_a_tolerance(bo) -> None:
     """v1 matched |E - E_nom| <= 2^-80 E_nom; v2 has no energy tolerance at all: a state is at a fixture energy only if
-    it IS a lattice state of the measurement's constructor. The same relative state translated was inside v1's
-    tolerance and is now unsupported; a momentum 4 grid units off the constructor is not identified."""
+    it IS state(E_nominal, b_current) of its own b. The same relative state translated was inside v1's tolerance and is
+    now unsupported; a momentum 4 grid units off the generator is not identified."""
     assert not hasattr(D, "E_MATCH_REL")
     b = bo * Q(995, 1000)
-    st = I.state(HALF, b)
+    st = D.canonical_initial_state("1/2", b)
     assert D.canonical_member(I.POS, I.MOM, _atoms(st["r_i"], st["r_j"], st["p_j"]))[0] == "1/2"
     shift = (Q(1), Q(0), Q(0))
     ri, rj = (tuple(x + y for x, y in zip(r, shift)) for r in (st["r_i"], st["r_j"]))
@@ -103,9 +106,58 @@ def test_energy_identity_is_the_exact_canonical_state_not_a_tolerance(bo) -> Non
     assert v["validation_status"] == "unsupported" and "not identified" in v["reason"]
     assert v["provenance"]["canonical_state"] is None
     nudged = (st["p_j"][0] - 4 * D.MOM_ULP,) + st["p_j"][1:]
-    assert D.canonical_b_range("1/2", nudged) is None
+    assert D.canonical_member(I.POS, I.MOM, _atoms(st["r_i"], st["r_j"], nudged)) is None
     assert D.evaluate_domain(HALF * DE, b).evidence == "numerical_validated"        # nominal point: exact energy_id
     assert D.evaluate_domain(HALF * DE * (1 + Q(1, 2 ** 100)), b).evidence == "unsupported"   # any other value: no
+
+
+def _state_atoms(pj):
+    half = I.R_START / 2
+    return _atoms((-half, Q(0), Q(0)), (half, Q(0), Q(0)), pj)
+
+
+def test_a_momentum_from_another_b_is_refused_even_though_the_generator_makes_it() -> None:
+    """Designer's fault test: a state whose momentum is state(E, b2) -- really produced by the generator at b2 -- but
+    which is not state(E, b_current) of the b it represents (b_current != b2) must be unsupported. The fixture's own
+    probes supply real cases: the measurement's constructor rounds Pr from the UNROUNDED Pt, so for 32 of 181 probes
+    regenerating at the state's own b_current moves Pr by one grid unit. The first v2 draft accepted every one of them."""
+    doc = json.loads(D.BOUNDARY_FIXTURE.read_text(encoding="utf-8"))
+    refused, identified = [], 0
+    for row in doc["energies"]:
+        bo_e = Q(row["b_orb"])
+        for name in ("delta_minus", "delta_plus"):
+            for p in row[name]["probes"]:
+                pj = tuple(Q(int(x)) * D.MOM_ULP for x in p["p_j_raw"])
+                b2 = bo_e * (1 + Q(p["rho"]))
+                rng = D.canonical_b_range(row["e"], pj)
+                assert rng[0] <= b2 <= rng[1]                     # the generator at b2 really makes this momentum
+                m = D.canonical_member(I.POS, I.MOM, _state_atoms(pj))
+                if m is None:
+                    refused.append((row["e"], name, p["rho"], row[name]["smallest_pass"] == p["abs_rho"]))
+                    assert D.regenerate_momentum(row["e"], pj[1]) != pj[0]   # b_current regenerates another Pr
+                else:
+                    identified += 1
+                    assert m[0] == row["e"]
+    assert (identified, len(refused)) == (149, 32)
+    assert ("3/20", "delta_minus", "-12207620611/50000000000000", True) in refused   # a smallest_pass probe among them
+    e, name, rho, _ = refused[0]
+    row = next(r for r in doc["energies"] if r["e"] == e)
+    pj = tuple(Q(int(x)) * D.MOM_ULP for x in next(p for p in row[name]["probes"] if p["rho"] == rho)["p_j_raw"])
+    v = C.new_run(I.POS, 40, (-10, 0, 0), tuple(-x for x in pj), (10, 0, 0), pj, momentum_profile=I.MOM).validation
+    assert v["validation_status"] == "unsupported" and "not identified" in v["reason"]
+
+
+def test_different_b_collapsing_to_one_quantized_state_is_one_state(bo) -> None:
+    """Two different input b that quantize to the SAME state are the same state: same verdict, same b_current / rho in
+    the provenance (the b recorded is the state's own, never the input that happened to build it)."""
+    b1 = bo * Q(995, 1000)
+    b2 = b1 * (1 + Q(1, 10 ** 26))                        # far below one grid unit of Pt
+    s1, s2 = D.canonical_initial_state("1/2", b1), D.canonical_initial_state("1/2", b2)
+    assert b1 != b2 and s1 == s2
+    v1, v2 = _v(HALF, b1), _v(HALF, b2)
+    assert v1["validation_status"] == v2["validation_status"] == "numerical_validated"
+    c1, c2 = v1["provenance"]["canonical_state"], v2["provenance"]["canonical_state"]
+    assert c1["b_current_bohr"] == c2["b_current_bohr"] and c1["rho_current"] == c2["rho_current"]
 
 
 def test_every_recorded_probe_state_is_the_constructor_output() -> None:
@@ -181,7 +233,7 @@ def test_validation_does_not_change_the_dynamics(bo, monkeypatch) -> None:
     """The same initial state run with run.validation read (before, and in the middle of, the run -- also with a
     fixture that fails to load) and never read: identical final state, impulse cache, step count and full run_case
     result (status, exit momentum, energy / angular momentum / momentum drift)."""
-    st = I.state(HALF, bo * Q(995, 1000))
+    st = D.canonical_initial_state("1/2", bo * Q(995, 1000))
 
     def fresh():
         return C.new_run(I.POS, 40, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=I.MOM)

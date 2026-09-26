@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 from fractions import Fraction as Q
 
-from a_numeric_native.harness import NVCC_FLAGS, find_nvcc, find_vcvars
+from a_numeric_native.harness import NATIVE_TIMEOUT_S, NVCC_FLAGS, find_nvcc, find_vcvars, run_with_timeout
 
 HERE = pathlib.Path(__file__).resolve().parent
 A, B = 5485799090441, 399623831237000000         # 1/m = A/B (m in electron masses)
@@ -102,14 +102,21 @@ def expected(limbs: int, n: int, rule: str = "v2") -> list[str]:
     return lines
 
 
-def run(exe, *args) -> str:
-    return subprocess.run([str(exe), *map(str, args)], capture_output=True, text=True, check=True).stdout
+def _checked(cmd, timeout: float) -> subprocess.CompletedProcess:
+    r = run_with_timeout(cmd, timeout)
+    if r.returncode != 0:
+        raise subprocess.CalledProcessError(r.returncode, r.args, r.stdout, r.stderr)
+    return r
+
+
+def run(exe, *args, timeout: float = NATIVE_TIMEOUT_S) -> str:
+    return _checked([exe, *args], timeout).stdout
 
 
 def check(exe, limbs: int, n: int, rule: str = "v2") -> bool:
     with tempfile.TemporaryDirectory() as d:
         out = pathlib.Path(d) / "c.txt"
-        subprocess.run([str(exe), "check", rule, str(limbs), str(n), str(out)], check=True)
+        _checked([exe, "check", rule, limbs, n, out], NATIVE_TIMEOUT_S)
         return out.read_text().split("\n")[:n] == expected(limbs, n, rule)
 
 
@@ -196,5 +203,5 @@ def expected_mom(kind: str, n: int) -> list[str]:
 def check_mom(exe, kind: str, n: int) -> bool:
     with tempfile.TemporaryDirectory() as d:
         out = pathlib.Path(d) / "c.txt"
-        subprocess.run([str(exe), "mcheck", kind, str(n), str(out)], check=True)
+        _checked([exe, "mcheck", kind, n, out], NATIVE_TIMEOUT_S)
         return out.read_text().split("\n")[:n] == expected_mom(kind, n)
