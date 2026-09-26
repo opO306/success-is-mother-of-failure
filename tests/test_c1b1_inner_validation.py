@@ -109,3 +109,50 @@ def test_orbiting_impact_parameter_regression() -> None:
     assert I.orbiting(Q(1)) is None and I.orbiting(Q(10)) is None               # above E_max: no orbiting
     assert I.orbiting_b(Q(1, 100)) is None and I.orbiting_b(Q(1, 10)) is None   # b_orb > 2 R_e
     assert I.orbiting_b(Q(1, 2)) is not None
+
+
+# --- near-orbiting (designer 20th ed., item 3): fixtures/c1b1_orbit_validation_v1.json, run on the Vast node --------
+
+O = json.loads((FIX / "c1b1_orbit_validation_v1.json").read_text(encoding="utf-8"))
+
+
+def _orbit_rows():
+    refs = {r["case"]: r for r in O["references"]}
+    runs = {(r["case"], r["dt"], r["profile"]): r for r in O["runs"]}
+    for c in O["cases"]:
+        n = c["name"]
+        yield c, runs[(n, 40, "cand")], runs[(n, 40, "hp")], runs[(n, 20, "hp")], refs[n]
+
+
+def test_orbit_provenance_and_rounding_stays_below_the_target_even_on_the_separatrix() -> None:
+    _prov(O["provenance"], "uncommitted_changes_in_a_reference_or_audit")
+    assert len(O["cases"]) == 59 and len(O["runs"]) == 177 and all(r["status"] == "ok" for r in O["runs"])
+    with mpmath.workdps(50):
+        for c, cand, hp, _, _ in _orbit_rows():
+            assert abs(mpmath.mpf(cand["sweep"]) - mpmath.mpf(hp["sweep"])) < 1e-6                 # rounding, rad
+            assert abs(mpmath.mpf(cand["time"]) - mpmath.mpf(hp["time"])) < 1e-7 * mpmath.mpf(hp["time"])
+
+
+def test_orbit_dt40_meets_the_target_away_from_the_separatrix_and_FAILS_near_it() -> None:
+    """RECORDED FAILURE (reported, verdict pending): within |b/b_orb - 1| <= 1e-4 the dt = 40 discretization error
+    exceeds 1e-5 (sweep up to ~9e-4 rad at 1e-4, O(1) at 1e-6 and on b_orb); at 1e-2 and 0.8 / 1.2 it is second order
+    and small. The audit quadrature itself fails at b_orb (1 + 1e-6) for five energies."""
+    audit_fail = 0
+    with mpmath.workdps(50):
+        for c, _, hp, hp20, ref in _orbit_rows():
+            tag = c["b_over_b_orb"]
+            if "error" in ref:
+                audit_fail += 1
+                assert tag == "1+1/1000000"
+                continue
+            e40 = mpmath.mpf(hp["sweep"]) - mpmath.mpf(ref["sweep"])
+            t40 = (mpmath.mpf(hp["time"]) - mpmath.mpf(ref["time"])) / mpmath.mpf(ref["time"])
+            if tag in ("0.8", "1.2", "1-1/100", "1+1/100"):
+                assert abs(e40) < 5e-6 and abs(t40) < 1e-6
+                e20 = mpmath.mpf(hp20["time"]) - mpmath.mpf(ref["time"])
+                assert 3.9 < (mpmath.mpf(hp["time"]) - mpmath.mpf(ref["time"])) / e20 < 4.1
+            elif tag in ("1-1/10000", "1+1/10000"):
+                assert abs(e40) > 1e-5                                   # the failure, recorded as such
+            else:
+                assert abs(e40) > 1e-3
+    assert audit_fail == 5
