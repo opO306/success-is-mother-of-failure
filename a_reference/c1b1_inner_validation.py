@@ -54,31 +54,47 @@ def mp(x: Q):
     return mpmath.mpf(x.numerator) / x.denominator
 
 
-def orbiting_b(e: Q, b_cap: Q | None = None):
-    """Impact parameter (bohr) at which the centrifugal barrier top OUTSIDE the well (R >= R_e) equals E -- orbiting --
-    or None if it is above b_cap (default b_max = 2 R_e). Barrier top taken on a radial grid (diagnostic).
-    (Fixed 2026-09-26: the first version started its grid at 6 bohr, inside the repulsive wall, so V_eff >= E held for
-    every L and it always returned 0 -- the v1 record therefore holds the b = 0 case three times per energy and no
-    near-orbiting case; at these energies the true orbiting b is > 21 bohr, outside b <= 2 R_e anyway.)"""
-    mpmath.mp.dps = 40
-    cap = b_cap if b_cap is not None else 2 * S.RE_GRID
-    E = mp(e * S.DE_GRID)
-    p = mpmath.sqrt(2 * mp(MU) * E)
-    rs = [mp(S.RE_GRID) * mpmath.mpf("1.01") ** i for i in range(700)]          # R_e ... ~7700 bohr
-    Vs = [mp(C.potential_high(S.mq(r) ** 2, 256)) for r in rs]
+def barrier_energy(R: Q, M: int = 320):
+    """(E, V'(R)) at a centrifugal-barrier top R*: dV_eff/dR = 0 gives L^2 = mu R^3 V'(R), V_eff(R*) = V + R V'/2 = E
+    (diagnostic enclosure midpoints at 2^-M)."""
+    V, dV = C.potential_high(R * R, M), -C.force_high(R * R, M)
+    return V + R * dV / 2, dV
 
-    def top(L):
-        return max(v + L * L / (2 * mp(MU) * r * r) for r, v in zip(rs, Vs))
-    if top(mp(cap) * p) < E:
+
+def orbiting(e: Q):
+    """(b_orb, R*) in bohr at which E = e De sits exactly on a barrier top (orbiting), or None when E is above every
+    barrier top (E_max ~ 0.9964 De for this potential). Outer branch of E(R*) (falling to 0 as R* grows); bisection on
+    exact rationals, b = L / p."""
+    E = e * S.DE_GRID
+    grid = [S.RE_GRID * Q(101, 100) ** i for i in range(1, 900)]
+    vals = [barrier_energy(R)[0] for R in grid]
+    k = max(range(len(grid)), key=lambda i: vals[i])
+    if vals[k] < E:
         return None
-    lo, hi = mpmath.mpf(0), mp(cap) * p
-    for _ in range(60):
+    lo, hi = grid[k], grid[-1]
+    if not barrier_energy(hi)[0] < E:
+        raise ValueError("energy below the grid's outer end")
+    for _ in range(200):
         mid = (lo + hi) / 2
-        if top(mid) < E:
+        if barrier_energy(mid)[0] > E:
             lo = mid
         else:
             hi = mid
-    return lo / p
+    R = (lo + hi) / 2
+    L2 = MU * R ** 3 * barrier_energy(R)[1]
+    with mpmath.workdps(60):
+        b = mpmath.sqrt(mp(L2) / mp(2 * MU * E))
+    return S.mq(b), R
+
+
+def orbiting_b(e: Q, b_cap: Q | None = None):
+    """b_orb (bohr) if orbiting exists at e De and b_orb <= b_cap (default b_max = 2 R_e), else None.
+    (Fixed twice, 2026-09-26: the first grid version started inside the repulsive wall and always returned 0 -- the v1
+    record holds the b = 0 case three times per energy and no near-orbiting case; the second grid version took the
+    grid's edge at R_e for a barrier top and invented orbiting above E_max. Now the barrier-top conditions are solved.)"""
+    r = orbiting(e)
+    cap = b_cap if b_cap is not None else 2 * S.RE_GRID
+    return r[0] if r is not None and r[0] <= cap else None
 
 
 def state(e: Q, b: Q):

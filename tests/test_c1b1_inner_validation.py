@@ -97,9 +97,15 @@ def test_the_dt40_energy_error_crosses_the_target_near_1e11_De() -> None:
             assert rel <= Q(1, 10 ** 5) if Q(e) >= Q(1, 10 ** 11) else rel > Q(1, 10 ** 5)
 
 
-def test_orbiting_impact_parameter_is_outside_the_study_range_below_1e2_De() -> None:
-    """The fixed orbiting_b: at E <= 1e-2 De orbiting needs b > 2 R_e (none in the study); at 1 De it lies inside."""
+def test_orbiting_impact_parameter_regression() -> None:
+    """b_orb from the barrier-top conditions (both earlier grid versions were wrong: always 0, then invented orbiting
+    above E_max). Orbiting exists only below E_max ~ 0.9964 De; inside b <= 2 R_e only from ~0.14 De up."""
     import a_reference.c1b1_inner_validation as I
-    assert I.orbiting_b(Q(1, 100)) is None
-    b1 = I.orbiting_b(Q(1))
-    assert b1 is not None and 10 < b1 < 10.4                  # ~10.17 bohr: inside b <= 2 R_e -- not yet validated
+    for e, want in ((Q(1, 2), 11.719), (Q(15, 100), 14.103), (Q(1, 10), 15.019), (Q(1, 100), 21.679)):
+        b, R = I.orbiting(e)
+        assert abs(float(b) - want) < 2e-3 and b > 0 and R > I.S.RE_GRID       # never 0, outside the well
+        E, dV = I.barrier_energy(R)
+        assert abs(E - e * I.S.DE_GRID) < Q(1, 10 ** 30) and dV > 0           # really on a barrier top
+    assert I.orbiting(Q(1)) is None and I.orbiting(Q(10)) is None               # above E_max: no orbiting
+    assert I.orbiting_b(Q(1, 100)) is None and I.orbiting_b(Q(1, 10)) is None   # b_orb > 2 R_e
+    assert I.orbiting_b(Q(1, 2)) is not None

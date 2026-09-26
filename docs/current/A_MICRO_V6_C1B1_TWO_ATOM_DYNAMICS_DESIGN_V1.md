@@ -773,3 +773,23 @@ rigorous 상한, **C2 + C4는 실제 이산 적분기 기준의 오차 상한**(
 3. near-orbiting 사례(E ≈ 0.13~10 Dₑ, b ≈ b_orb) 검증을 추가할지 — 추가를 권한다.
 4. 바깥(R ≥ 20) formal proof의 대상 재정의 — 지배 오차가 위치 반올림에 의한 **에너지 오차**이므로, 형식 증명도 "바깥 구간에서 수정 에너지·각운동량이 반올림으로
    얼마나 변하는가"를 대상으로 하는 것을 제안(운동량 impulse 소실은 이미 무시할 만함이 측정됨).
+
+## 21. 설계자 20판 — 수치 검증 하한 E ≥ 10⁻⁸ Dₑ, 위치 확장 보류, 궤도 포획 검증 최우선 (2026-09-26)
+
+1. **승인: numerically validated lower bound `E ≥ 10⁻⁸ Dₑ`.** 현재 숫자 표현(위치 FX(96,48))에서 설정한 정확도 기준을 **실측으로 보장한 최저점** — 10⁻⁸ Dₑ 아래가
+   물리적으로 틀렸다는 뜻도, 계산할 수 없다는 뜻도, 형식적으로 증명된 절대 한계도 아니다. 문서 표현: *Current numerically validated energy domain: E ≥ 10⁻⁸ Dₑ.
+   Values below this threshold are outside the validated numerical domain, not necessarily physically invalid.* E < 10⁻⁸ Dₑ는 계산을 금지하지 않되 **검증 범위 밖
+   상태를 반드시 표시**한다.
+2. **보류: 위치 FX(96,48) → FX(128,80).** 16판 결정 유지(position FX(96,48), momentum FX(96,80), validated E ≥ 10⁻⁸ Dₑ). 목적은 가능한 작은 에너지까지 내려가는
+   것이 아니라 현재 표현이 어디까지 믿을 만한지 아는 것 — 달성. 병목이 위치 표현임을 알았으므로, A가 실제로 E < 10⁻⁸ Dₑ를 요구할 때 **position precision extension
+   Gate**를 별도로 연다.
+3. **승인(최우선): 궤도 포획 근처 검증.** b < b_orb / b ≈ b_orb(경계 양쪽을 여러 δ로 조밀하게) / b > b_orb, 에너지 범위를 덮는다. b_orb 함수에 regression test.
+4. **승인: 바깥 formal bound의 대상** — 주항 = 위치 반올림 → |ΔẼ| ≤ B_E, |ΔL| ≤ B_L, 가능하면 산란각·체류시간 bound까지 연결. **운동량 양자화·impulse 반올림은
+   없다고 가정하지 않고 별도 상한의 잔여항**(total = 위치 기여 + 운동량 기여 + 산술 반올림 기여) — "측정해 보니 작더라"가 증명의 전제가 되지 않게.
+순서: ① b_orb regression ② 궤도 포획 경계 검증 ③ 이상 없으면 numeric domain 확정(E ≥ 10⁻⁸ Dₑ, 위치 FX(96,48) 유지) ④ outer formal bound ⑤ 증명과 실측 교차검증.
+
+**구현자 정정(20판 직후) — 궤도 포획 범위:** 20절에서 "0.13 ~ 10 Dₑ에서 b_orb가 domain 안(1 Dₑ: 10.17 bohr)"이라 한 것은 **틀렸다.** 고친 격자 함수도
+격자 시작점(Rₑ)을 장벽 꼭대기로 잘못 잡아 E_max 위에서 가짜 궤도 포획을 만들었다. 장벽 꼭대기 조건(L² = μR³V′, E = V + RV′/2)을 직접 풀면 **궤도 포획은
+E < E_max ≈ 0.9964 Dₑ에서만 존재**(R* = 8.17 bohr)하고, b ≤ 2Rₑ 안에 들어오는 것은 **약 0.14 ~ 0.996 Dₑ**. `orbiting_b`를 이 해로 바꾸고 regression test로
+고정(0을 내면 실패, E_max 위에서 None). 검증 에너지: 0.15, 0.2, 0.3, 0.5, 0.7, 0.9, 0.99 Dₑ × b 9개 = 59사례(`a_reference/c1b1_orbit_validation.py`) — Vast
+원격 노드에서 실행.
