@@ -906,3 +906,28 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
   V''' 부호 반전과 상대 drift 오차 반감 결함을 검출. D_valid 코드와 fixture는 변경하지 않았다.
 - 검증: 관련 28개 통과. LOCAL FULL **2335 passed + 1 strict xfailed, 실패 0, skip 0**, 447.41초.
   컴파일러 출력 cp949 해독 경고 25건이 남는다. 로그·JUnit: `runs/c1b1_outer_bound_local_full.*`.
+
+## 25. ④-2 / ④-3 outgoing shell bootstrap와 analytic tail (2026-09-27)
+
+후속 계약: `docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md`.
+구현 `a_reference/c1b1_outer_bootstrap.py`, `c1b1_outer_chain.py`; 시험 `tests/test_c1b1_outer_bootstrap.py`.
+
+- E>0이나 변위 norm만으로 탈출을 인정하지 않는다. 실제 저장 drift에서 ΔR²≥g_min>0을 귀납적으로 보장하고,
+  운동량 cap·전체 chord shell·절대 위치/운동량 overflow까지 검사한다. 유한 체류 step 상한은 정확 ceil로 계산한다.
+- 출구 enclosure를 다음 입구로 넘겨 R_J까지 연결한다. 중간 궤적을 측정하지 않으며 D_valid를 읽지 않는다.
+  충분조건이 닫히는 outgoing 상태만 인증한다. 실패는 NotCertified이지 물리 실패가 아니다.
+- 양수 계수의 integrable inverse-power force envelope로 R≥20 전체와 무한 적분을 덮는다.
+  R_J는 20·2^j 중 strict h F_bar(R_J)<u_p를 처음 만족하는 값으로 정한다. 실측 결과에 맞추지 않는다.
+- R_J 이후 실행기 half-kick은 raw 0, momentum은 정확히 상수. 실제 fixed drift의 바깥 진행을 별도로 유지한다.
+  **연속 tail 기준은 동일 실제 handoff 상태에서 다시 출발한다.** 연속 radial escape와 비영 잔여 impulse를 독립 증명하고 momentum 방향을 상한화한다.
+- 에너지 원인별 유한합과 tail 항은 별도 보존. 상대 L은 유한 entry→R_J에만 보장하며 무한시간 균일 L은 제외한다.
+  유한 FX overflow 전 안전 step 수와 수학적 무한 연장을 구별한다.
+- 예시 q=(20,0,0), P=(1,0,0), P_cap=2: R_J=10240, 28 shell, 최대 2,387,040,365 step, E_tilde 상한 ≈6.32237×10^-13 hartree.
+  큰 체류 상한과 시간 이산화항은 보수적인 충분 상한이다. attainable worst case는 미증명이며 실측으로 줄이지 않았다.
+- D_valid frozen 파일 변경 0, formal 인증의 new_run 연결 없음, ⑤ 미진입.
+  inbound/inner·global shadowing·전체 산란각·E_min 재생성·C1-B1 전체 동결은 아직 열려 있다.
+- 위 귀납은 정확한 반올림 전이의 증명이다. 미래 모든 impulse가 실행기의 16384-bit 정밀도 한도 내에 결정됨은 미증명이며
+  shell/tail/전체 record의 reference_decision_within_precision_cap에 명시한다. 계산 자원 한도에서 ReferenceUndecided로 중단될 가능성을 별도로 남긴다.
+- 관련 59개 통과, Vast Linux REMOTE PYTHON FULL 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초.
+  LOCAL FULL은 설계자의 게임 중 GPU 회피 요청으로 재실행하지 않았다. Windows/native skip을 통과로 세지 않는다.
+  기록: `runs/c1b1_outer_bootstrap_full_v1.*`.

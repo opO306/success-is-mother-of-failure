@@ -478,7 +478,23 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | V''' 부호 반전 | 원문 Fortran 독립 파싱 + 고정밀 수치 미분 대조가 실패 | 수치 미분은 enclosure의 형식 증명 자체가 아님; interval Taylor 유도가 별도 근거 |
 | 상대 drift의 full ulp를 half ulp로 축소 | 직접 구성한 3D torque가 잘못 줄인 상한을 넘어 검출 | 에너지 총합만 검사하면 큰 이산화항에 작은 반올림 결함이 숨을 수 있음 |
 | radial shell 끝점만 검사 | 양 끝은 shell 안, 중간은 0을 지나는 선분을 거부 | 실제 저장 끝점의 선분 전체가 유효 영역에 있어야 Taylor 상한 적용 가능 |
-| 1-step 상한을 무한 궤적 주장으로 확대 | scope·전제·유한 step 합과 초기 투영항을 분리하여 기록 | 이산 궤적 영역 유지·체류 step 수·무한 tail 부트스트랩은 아직 열림 |
+| 1-step 상한을 무한 궤적 주장으로 확대 | scope·전제·유한 step 합과 초기 투영항을 분리하여 기록 | ④-1 당시 영역 유지·체류·tail은 열려 있었음. 후속 outgoing 충분조건 인증도 inbound/global shadowing까지 확장하지 않음 |
+
+### C1-B1 outgoing bootstrap / tail v1 (2026-09-27)
+
+| 주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| force envelope를 0으로 바꿈 | 원래 Lang exact derivative와 비교하는 시험이 실패 | 유한 표본이 전역 증명을 대신하지 않음; 양수 EXP 급수·polynomial envelope 유도가 별도 근거 |
+| w=q·P의 누적 radial drag 생략 | 작은 outward momentum의 실제 KDK step이 높아진 g_min을 위반 | drag가 0인 빠른 사례만 시험하면 결함이 숨음 |
+| 체류 ceil→floor | 실제 shell 출구가 잘못 줄인 count 내에 도달하지 않아 실패 | step 증명은 finite shell만; 무한대 도달 step 수를 주장하지 않음 |
+| 캐시 (0,)를 zero impulse로 취급 | malformed cache red 시험을 확인한 뒤 정확 (0,0,0) 비교로 수정 | 값이 0인 것과 3성분 물리 캐시인 것은 다른 조건 |
+| E>0 sub-grid stall·원주 이동을 탈출로 간주 | 실제 ΔR² strict 조건과 continuous radial escape margin이 거부 | 충분조건 실패는 그 궤적이 반드시 못 나간다는 증명이 아님 |
+| force=0이면 L drift도 0이라고 확장 | 실제 zero-kick 궤적에서 매 step (−1,−1,+1)·2^-47 torque 확인 | 무한 균일 L은 제외; momentum 방향과 finite L은 별도 계약 |
+| 같은 tail 입구 기준을 전체 산란 오차로 확장 | comparison_scope/global_trajectory_shadowing 명시 | 원래 연속 궤적이 같은 handoff 상태에 도달한다는 증거는 없음 |
+| 반올림 전이 증명을 평가기 liveness로 확장 | 모든 record의 reference_decision_within_precision_cap=not_proved_for_future_steps 검사 | 미래의 모든 반올림이 16384-bit 한도 내에서 결정된다는 증거는 없음; ReferenceUndecided 중단 가능성 유지 |
+| 계수 fingerprint만 같으면 같은 모델이라고 취급 | runtime retardation OFF/Ar40 질량 변경 red 시험 확인 후 명시적 거부 | source hash와 계수 일치만으로 다른 동작 설정을 승인하지 않음 |
+| 궤적 실측/D_valid로 해석 bound 맞추기 | chain 인증에서 step 호출·validation 읽기를 금지한 시험, source hash·예시 재생성 | 예시는 충분조건을 닫는 한 상태; D_valid 전체 인증이나 E_min 재생성 아님 |
+| Linux 원격 통과를 LOCAL FULL로 합침 | REMOTE PYTHON FULL과 Windows/native skip 수를 별도로 기록 | 이번 LOCAL FULL은 미실행; native 비트 동등성까지 재확인했다고 말하지 않음 |
 
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다

@@ -1,16 +1,33 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-27
-**검증:** LOCAL FULL 직접 재실행 2307 passed + 1 strict xfailed, skip 0, 컴파일러 출력 인코딩 경고 24건(2026-09-27 Codex 인수인계 점검, 코드 HEAD 0898ca3 + 문서 정정, -n 6, 445.58초). 로그·JUnit: runs/project_review_20260927/. 경고 원인과 확인 범위: docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md. GitHub Actions 독립 재실행 기록과 구분한다.
+**검증:** 마지막 LOCAL FULL은 ④-1 시점 2335 passed + 1 strict xfailed / 실패 0 / skip 0, 447.41초(아래 기록). 이번 ④-2/④-3 변경은 설계자 요청으로 Vast Linux에서 REMOTE PYTHON FULL: 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초. 로컬 GPU 사용을 피하기 위해 이번 LOCAL FULL은 재실행하지 않았다. 두 검증 범위를 합쳐 LOCAL FULL 통과로 보고하지 않는다.
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
 
 **④ 바깥 formal bound 진행(2026-09-27):** `C1B1_OUTER_FORMAL_BOUND_V1.md`, `c1b1_outer_bound.py`에 원인별 해석적 1-step 상한과 유한 segment 합을 구현.
 위치·초기 운동량·impulse·이산화항을 분리하고 V~V'''를 정확 구간 Taylor 산술로 enclosure한다. 유한 outer shell과 실제 half-step 운동량 cap이 전제다.
-**무한 tail·이산 영역 유지·체류 step 수 부트스트랩·E_min 재생성은 아직 미완료**. 동결 D_valid 변경 없음. ⑤ 실측 교차검증은 별도 다음 관문.
-이번 LOCAL FULL: 2335 passed + 1 strict xfailed, failure 0, skip 0, 447.41초, 컴파일러 출력 cp949 경고 25건.
+**④-1 당시에는 무한 tail·이산 영역 유지·체류 step 수 부트스트랩·E_min 재생성이 열려 있었다.** 후속 outgoing 인증 범위는 아래 ④-2/④-3에 기록한다. 동결 D_valid 변경 없음. ⑤ 실측 교차검증은 별도 다음 관문.
+④-1 LOCAL FULL: 2335 passed + 1 strict xfailed, failure 0, skip 0, 447.41초, 컴파일러 출력 cp949 경고 25건.
 로그·JUnit: `runs/c1b1_outer_bound_local_full.log`, `runs/c1b1_outer_bound_local_full.xml`.
+
+**④-2/④-3 outgoing outer 인증 구현(2026-09-27):** 계약 `docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md`,
+구현 `a_reference/c1b1_outer_bootstrap.py` / `c1b1_outer_chain.py`.
+실제 저장 상태의 `ΔR²≥g_min>0`·운동량/방사 귀납·절대 FX overflow 여유를 검사하여 유한 shell 체류 step 수를 닫고,
+실측 중간 궤적 없이 출구 packet을 다음 shell로 넘긴다. 닫히지 않는 상태는 `NotCertified`이며 E>0 탈출을 가정하지 않는다.
+동결 potential에서 전역 적분 가능한 force envelope와 strict `h F_bar<u_p` 반경 R_J를 유도한다.
+R_J 이후 **실행기 impulse=0 / 동일 실제 입구에서 시작한 연속 물리 tail impulse>0**를 분리한다.
+에너지는 outgoing 입구부터의 수정 상대 에너지, L은 **유한 입구→R_J만**, 방향은 **동일 tail 입구의 연속 기준 대비 점근 momentum 방향만**이다.
+무한 L·무한 FX 실행·원래 산란 초기 상태로부터의 global shadowing·inbound/inner·E_min은 미인증. ④ 전체 동결·⑤ 진입을 주장하지 않는다.
+정확한 반올림 전이의 귀납이며, 미래의 모든 impulse가 기존 평가기의 16384-bit 한도 안에서 결정되는 liveness는 미증명이다.
+모든 인증 record에 `reference_decision_within_precision_cap=not_proved_for_future_steps`를 남긴다. 중도 ReferenceUndecided 가능성을 숨기지 않는다.
+해석 예시(측정 아님)는 `fixtures/c1b1_outer_bootstrap_example_v1.json`: q=(20,0,0), P=(1,0,0), P_cap=2;
+28 shell, R_J=10240 bohr, 최대 2,387,040,365 step이라는 **느슨한 충분 상한**. 시간 이산화항이 지배적이며 attainable worst case는 증명하지 않았다.
+관련 시험 59개 통과. 신규 31개에는 실제 outward step, stall, radial drag 생략/ceil→floor/force=0 결함 주입, 실행 시 retardation/질량 계약 불일치 거부,
+D_valid 읽기·궤적 step 호출 금지, source hash·예시 완전 재생성이 포함된다.
+REMOTE PYTHON FULL은 위 수치이며 skip 108개를 통과로 세지 않는다. 로그·JUnit: `runs/c1b1_outer_bootstrap_full_v1.*`.
+변경은 증거 계층에만 있으며 A 실행기·동결 D_valid 코드/fixture는 변경하지 않았다. 남은 LOCAL FULL은 게임 종료 후 별도 수행한다.
 
 ---
 
