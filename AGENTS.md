@@ -49,13 +49,15 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2251개 통과 + 1 xfailed, skip 0** (2026-09-26 기준. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
-skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:eference`가 없으면 해당 시험이 skip된다).
+**기준선: 2253개 통과 + 1 xfailed, skip 0** (2026-09-26 기준. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
+eference`가 없으면 해당 시험이 skip된다).
 
 **병렬 채택 근거 (2026-09-26 측정, 설계자 승인 조건 충족):** 직렬 793초 / `-n 6` 369초 / `-n 8` 377초 / `-n 10` 389초 / `-n 12` 376초 —
 네 설정 모두 **시험 2248개의 결과가 직렬과 하나하나 동일**(junit 대조, 병렬에서만 깨지는 시험 0). 속도는 약 2.1배에서 멈춘다: GPU를 쓰는
 시험의 합(약 365초)이 GPU 한 장에서 병렬로 줄지 않기 때문이다. 작업자를 늘리면 GPU·컴파일러 경합만 커진다(`-n 12`에서 시험 시간 합 1551초).
-**실행 이름을 구분한다:** `LOCAL FULL` = 이 로컬 전체(Python + native CPU/CUDA + Windows 계약 + `D:eference`). 원격 리눅스에서는 native가 skip되므로
+**실행 이름을 구분한다:** `LOCAL FULL` = 이 로컬 전체(Python + native CPU/CUDA + Windows 계약 + `D:
+eference`). 원격 리눅스에서는 native가 skip되므로
 `REMOTE PYTHON FULL`로 부르고 LOCAL FULL과 같은 의미로 보고하지 않는다. `REMOTE STUDY` = 궤적·정밀도·감사 계산.
 
 특정 계통만 빠르게 볼 때:
