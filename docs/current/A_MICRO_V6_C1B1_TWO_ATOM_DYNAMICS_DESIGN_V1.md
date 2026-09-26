@@ -882,3 +882,11 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
 - **측정한 상태 = 인정하는 상태:** fixture 탐침 181개 전부가 기록된 b에서의 생성기 출력과 같고, 동시에 자기 b_current에서 `canonical_member`로 식별된다(시험, 예외 0).
   이전 문단의 "32개 불일치 공개"는 이 재측정으로 해소되었다(그 32개는 이제 옛 생성기의 산물로만 남아 결함 주입 시험의 실제 사례로 쓰인다).
 - 결함 주입 추가: 새 기록의 탐침 하나를 옛 생성기 상태(Pr 한 칸)로 바꾸면 해시 없이도 load 검사에서 거부; b₁의 Pt + b₂의 Pr을 이어 붙인 상태 거부.
+
+**설계자 최종 판정(a8619c8, 2026-09-27): D_valid v2 FROZEN.**
+- 동결 대상: canonical 생성기(`c1b1_canonical_state`, `c1b1-canonical-state-v1`), 기준 fixture `c1b1_orbit_boundary_v3.json`(sha256 `eb2582…8cf9`,
+  측정 HEAD `e3a73f5`), 계약 `c1b1-dvalid-v2`. 옛 fixture(v1 50cceaa, v2 30c14b7)는 역사 증거로만.
+- 계약 내용 고정: 가장 바깥 탐침 밖 unsupported, 보간·외삽 없음, 실행 프로파일 불일치 unsupported, validation scope = initial state,
+  네이티브 실행 600초 하드 타임아웃. 빌드 타임아웃은 별도 인프라 과제.
+- 증거 사슬: canonical_initial_state → 실제 측정 → fixture → D_valid → new_run 초기 상태 검증 — 중간에 다른 생성 규칙 없음.
+- **더 만지지 않는다.** 새 결함이 발견되거나 다음 물리 단계가 현재 unsupported 영역을 실제로 요구할 때만 재측정(같은 D_valid 규약으로 바깥 탐침 확장).
