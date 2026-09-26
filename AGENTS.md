@@ -49,7 +49,7 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2253개 통과 + 1 xfailed, skip 0** (2026-09-26 기준. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+**기준선: 2280개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 448초; D_valid c1b1-dvalid-v1 연결 커밋 8ce0c0a 뒤. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
 
