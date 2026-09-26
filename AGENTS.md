@@ -31,9 +31,10 @@ B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된
   구현에서 떨어져 나온 천장이다. `docs/current/LOCAL_INTERACTION_PRINCIPLES_V1.md` 참조.
 - **v2 성장 경로의 물리는 particle_id에 의존한다** — 구별 불가능한 후보 중 번호가 작은 쪽이 이긴다. v2는 동결 형식이라
   이 잘못된 동작을 재현성 때문에 보존한다(`tests/test_legacy_causal_semantics.py`의 `legacy_defect`).
-  **causal v5에서는 해소됐다**(GEO v1B, 2026-09-24): 성장·병합이 이름·순서와 무관하고, 사슬 길이 천장이 없다.
-  증거는 `tests/test_known_defects_causal_kernel.py`에 **의도적으로 실패할 날을 기다리며** 있다.
-  그 파일의 테스트가 깨지면 회귀가 아니라 **결함이 고쳐진 것**이다. 파일 맨 위를 읽을 것.
+  **causal v5에서는 해소됐다**(GEO v1B, 2026-09-24): 성장·병합이 이름·순서와 무관하며, v2의 길이 3 천장이 제거되어 31개 사슬까지 검증됐다.
+  별도 크기 상한은 구현되어 있지 않지만, 정사각형 기하와 미정의 충돌은 성장 경로를 제한한다.
+  수정된 성질의 증거는 `tests/test_v5_geo_v1b.py`, 동결 v2의 잘못된 동작은 `tests/test_legacy_causal_semantics.py`에 있다.
+  `tests/test_known_defects_causal_kernel.py`에는 현재 살아 있는 결함 시험이 없고, 다음 결함을 기록할 자리로 남아 있다. 새 결함 시험을 추가하거나 해석할 때 파일 맨 위를 읽을 것.
 - 따라서 **생명·복사·진화의 새 증거는 아직 나오지 않았다.**
 
 ---
@@ -52,6 +53,8 @@ python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — �
 **기준선: 2335개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 447.41초; outer formal bound 원인별 1-step·유한합 구현, D_valid 동결 유지. 컴파일러 출력 인코딩 경고 25건. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
+
+**Codex 인수인계 재실측(2026-09-27):** 같은 기준선, 445.58초, 컴파일러 출력 인코딩 경고 24건. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: `docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md`.
 
 **병렬 채택 근거 (2026-09-26 측정, 설계자 승인 조건 충족):** 직렬 793초 / `-n 6` 369초 / `-n 8` 377초 / `-n 10` 389초 / `-n 12` 376초 —
 네 설정 모두 **시험 2248개의 결과가 직렬과 하나하나 동일**(junit 대조, 병렬에서만 깨지는 시험 0). 속도는 약 2.1배에서 멈춘다: GPU를 쓰는

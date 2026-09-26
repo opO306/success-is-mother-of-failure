@@ -29,7 +29,8 @@ A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생�
 | **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
 | **A-Numeric VM** | `a_numeric/` | A 계산 의미의 기준(VM 0.2: FX·A-Binary64-Finite·EXACT, 정수만 사용, SUM·DOT은 정확 누적 후 1회 반올림, EXP는 정확한 e^x를 1회 반올림) — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` | 가능. 세계 실행기 아님, 실행기들이 이것에 맞춰 판정받음 |
 | **물리 기준 평가기** | `a_reference/` | 물리 함수의 A 값 = 정확한 모델 값을 한 번 반올림(느림, 정답 정의). 현재 `ar2_lang2024.py`(C1-A Ar–Ar, 계약 `c1a-ar2-lang2024-v1`) + **Git fixture** `fixtures/ar2_lang2024_c1a_v1.json`(332 입력 × 7 양, 감사 판정·출처 기록, 생성기 `ar2_lang2024_fixture.py`) — **동결**(`docs/current/C1A_AR2_FREEZE_V1.md`, `tests/test_c1a_freeze.py`) — `docs/current/A_MICRO_V6_ARAR_POTENTIAL_SURVEY_V1.md` 10·11절 | 가능. 세계 실행기 아님 |
-| **C1-B1 두 원자 동역학 기준** | `a_reference/c1b1_two_atom.py`, `c1b1_dt_study.py`, `c1b1_numrep_study.py`, `c1b1_typed_study.py`, `c1b1_boundary_study.py`, `fixtures/c1b1_*.json` | 정확 Δr·R², √R² 구간, 충격량 J 한 번 반올림, KDK, drift = r + round(p·Δt/m), drift 선분 r_min 감시(계약 `c1b1-two-atom-v2`). drift v2는 임시 기본값, profile 동결은 보류(3방식 비교 뒤 판정). Δt·수 표현 측정 자료. 감사 `audit/independent_physics/c1b1_two_atom.py` — `docs/current/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` 4~7절 | 가능. 세계 실행기 아님 |
+| **C1-B1 두 원자 동역학 기준** | `a_reference/c1b1_two_atom.py`, `c1b1_*study.py`, `c1b1_*compare.py`, `fixtures/c1b1_*.json` | 정확 Δr·R², √R² 구간, 충격량 J 한 번 반올림, KDK, drift = r + round(p·Δt/m), drift 선분 r_min 감시(계약 `c1b1-two-atom-v2`). 현재 후보: 위치 FX(96,48)·운동량 FX(96,80)·Δt = 40·drift v2. 전체 동결은 속박 domain/error proof·native J와 비트 동등성 등을 기다림. 감사 `audit/independent_physics/c1b1_two_atom.py` — 설계 문서 23절이 최신 결정 | 가능. 세계 실행기 아님 |
+| **C1-B1 D_valid v2** | `a_reference/c1b1_canonical_state.py`, `c1b1_domain_contract.py`, `c1b1_orbit_boundary.py`, `fixtures/c1b1_orbit_boundary_v3.json` | 단일 canonical 생성기·기준 fixture·계약 `c1b1-dvalid-v2` 동결. 7 에너지 × 2쪽 재측정, 181개 측정 상태 = 식별 상태. `run.validation`은 초기 상태만 분류(`numerical_validated` / `unsupported`), 궤적 인증 아님. 에너지 보간·바깥 탐침 외삽 없음, 실행 비간섭 | 새 결함 또는 다음 물리 단계의 필요가 생길 때만 재측정 |
 | **물리 함수 네이티브 실행기** | `a_physics_native/` | C1-A V(R)·F(R)의 B0 직렬 C++·B1 병렬 C++·B2 CUDA. 기준·fixture와 같은 비트, 못 맞추면 거부. 조사 문서 11절. `bench_state.*` = C1-B1 상태 폭별 비용 측정 전용(세계 실행기 아님) | 가능. MSVC·nvcc·GPU 필요(없으면 시험 건너뜀) |
 | **C1-B1 outer formal bound v1** | `a_reference/c1b1_outer_bound.py`, `docs/current/C1B1_OUTER_FORMAL_BOUND_V1.md` | 정확 구간 Taylor 도함수 0~3차, 위치·초기 운동량·impulse·이산화 원인별 상한. 유한 shell/half-step momentum cap 아래 1-step·유한합. 무한 tail 부트스트랩은 아직 미완료, D_valid와 별도 | 가능. 실측으로 bound 조정 금지 |
 | **네이티브 실행기** | `a_numeric_native/` | VM 프로그램의 네이티브 실행기: B0 직렬 C++, B1 병렬 C++(스레드 수 E9), B2 CUDA(블록 크기 E9). VM이 판정자, 네이티브는 VM을 부르지 않음 — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` 4.1 | 가능. MSVC·nvcc·NVIDIA GPU 필요(없으면 시험 건너뜀) |
@@ -284,7 +285,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 총 1827개 통과 (2026-09-24). 기준선은 `AGENTS.md`가 정본.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2307 passed + 1 strict xfailed, skip 0). 과거 단계의 개수와 혼합하지 않는다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)
