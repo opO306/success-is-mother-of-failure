@@ -6,6 +6,12 @@
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
 
+**④ 바깥 formal bound 진행(2026-09-27):** `C1B1_OUTER_FORMAL_BOUND_V1.md`, `c1b1_outer_bound.py`에 원인별 해석적 1-step 상한과 유한 segment 합을 구현.
+위치·초기 운동량·impulse·이산화항을 분리하고 V~V'''를 정확 구간 Taylor 산술로 enclosure한다. 유한 outer shell과 실제 half-step 운동량 cap이 전제다.
+**무한 tail·이산 영역 유지·체류 step 수 부트스트랩·E_min 재생성은 아직 미완료**. 동결 D_valid 변경 없음. ⑤ 실측 교차검증은 별도 다음 관문.
+이번 LOCAL FULL: 2335 passed + 1 strict xfailed, failure 0, skip 0, 447.41초, 컴파일러 출력 cp949 경고 25건.
+로그·JUnit: `runs/c1b1_outer_bound_local_full.log`, `runs/c1b1_outer_bound_local_full.xml`.
+
 ---
 
 ## 한 줄 요약

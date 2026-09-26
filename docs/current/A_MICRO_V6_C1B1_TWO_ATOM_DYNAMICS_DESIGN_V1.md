@@ -890,3 +890,20 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
   네이티브 실행 600초 하드 타임아웃. 빌드 타임아웃은 별도 인프라 과제.
 - 증거 사슬: canonical_initial_state → 실제 측정 → fixture → D_valid → new_run 초기 상태 검증 — 중간에 다른 생성 규칙 없음.
 - **더 만지지 않는다.** 새 결함이 발견되거나 다음 물리 단계가 현재 unsupported 영역을 실제로 요구할 때만 재측정(같은 D_valid 규약으로 바깥 탐침 확장).
+
+## 24. Outer formal bound v1 — 원인별 1-step 유도 (2026-09-27)
+
+설계자 진행 승인: ④를 먼저 구현하고 ⑤에서 독립 실측 대조. 새 대규모 측정으로 상한을 맞추지 않는다.
+계약·전체 유도: `docs/current/C1B1_OUTER_FORMAL_BOUND_V1.md`.
+구현: `a_reference/c1b1_outer_bound.py`, 시험: `tests/test_c1b1_outer_bound.py`.
+
+- profile FX(96,48)/FX(96,80), dt=40, drift v2. 유한 shell `20<=a<=R<=b`에서 실제 저장 끝점 사이 선분 전체와 half-step 상대 운동량 상한을 전제로 한다.
+- 정확한 계수와 interval Taylor 산술로 V·V'·V''·V''' 상한. 수정 상대 에너지 `E_tilde=H-h²|F|²/(8mu)`와 상대 L의 1-step 변화를 직접 전개한다.
+- 위치·impulse·이산화·기타 산술(성공한 FX 격자 덧셈은 0)을 분리한다. 초기 위치/운동량 투영은 일회 항으로 따로 기록한다.
+- 유한 N개에 대한 triangle 합을 제공한다. **이산 영역 유지·체류 step 수·무한 outer tail 부트스트랩·E_min 재생성은 아직 열림**. ④ 전체가 닫혔다고 주장하지 않는다.
+- 해석 예시 `fixtures/c1b1_outer_bound_examples_v1.json`: P_cap=1일 때 20~21 bohr에서는 위치항이 impulse항보다 크고, 10000~10001에서는 impulse항이 크다.
+  20~21에서는 이산화 상한이 가장 크다. 위치 지배를 전제하지 않았으며 이 예시들은 궤적 측정 자료가 아니다.
+- 독립 Fortran numerical derivative 대조, 실제 KDK 외곽 step, 경계·부호·최대 격자·정밀도·순서 시험.
+  V''' 부호 반전과 상대 drift 오차 반감 결함을 검출. D_valid 코드와 fixture는 변경하지 않았다.
+- 검증: 관련 28개 통과. LOCAL FULL **2335 passed + 1 strict xfailed, 실패 0, skip 0**, 447.41초.
+  컴파일러 출력 cp949 해독 경고 25건이 남는다. 로그·JUnit: `runs/c1b1_outer_bound_local_full.*`.
