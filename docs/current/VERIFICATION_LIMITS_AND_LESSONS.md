@@ -494,7 +494,22 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | 반올림 전이 증명을 평가기 liveness로 확장 | 모든 record의 reference_decision_within_precision_cap=not_proved_for_future_steps 검사 | 미래의 모든 반올림이 16384-bit 한도 내에서 결정된다는 증거는 없음; ReferenceUndecided 중단 가능성 유지 |
 | 계수 fingerprint만 같으면 같은 모델이라고 취급 | runtime retardation OFF/Ar40 질량 변경 red 시험 확인 후 명시적 거부 | source hash와 계수 일치만으로 다른 동작 설정을 승인하지 않음 |
 | 궤적 실측/D_valid로 해석 bound 맞추기 | chain 인증에서 step 호출·validation 읽기를 금지한 시험, source hash·예시 재생성 | 예시는 충분조건을 닫는 한 상태; D_valid 전체 인증이나 E_min 재생성 아님 |
-| Linux 원격 통과를 LOCAL FULL로 합침 | REMOTE PYTHON FULL과 Windows/native skip 수를 별도로 기록 | 이번 LOCAL FULL은 미실행; native 비트 동등성까지 재확인했다고 말하지 않음 |
+| Linux 원격 통과를 LOCAL FULL로 합침 | REMOTE PYTHON FULL과 Windows/native skip 수를 별도로 기록 | ④-2 당시 LOCAL FULL 미실행; 후속 ④-4에서 설계자 승인 후 별도 실행 |
+
+### C1-B1 rounding decision v1 (2026-09-27)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| EXP fixed cutoff 4096 | M=8192에서 실제 upper end가 3^-4096보다 작아 실패; 수정 후 고정 cutoff 복원 mutation도 실패 | e<3의 독립 유리수 비교이며 같은 EXP 계산기로 자신을 채점하지 않음 |
+| 음/양 coarse endpoint가 모두 overflow면 즉시 halt | 구간이 0을 포함하는 helper 입력과 실제 q=2^47 impulse가 실패; 수정 후 0으로 정상 판정 | 같은 쪽의 실제 overflow는 계속 halt해야 하며 별도로 검사 |
+| tail cell 하나 누락 | uniform cover 연속성 시험이 실패 | 유한 profile geometry까지만 cover; 무한 FX 위치를 주장하지 않음 |
+| incomplete prefix를 certified로 승격 | budget=2의 실제 초기 상태 시험이 실패 | 확인하지 않은 future의 rounding separation은 모름 |
+| 미래 ReferenceUndecided 삭제·성공 처리 | 주입한 실패의 status/종류/메시지 보존 및 원본 상태 불변 확인 | primitive evaluator liveness와 geometry induction은 별개 의무 |
+| finite N이면 cap도 충분하다고 추론 | raw 정답은 1이지만 16384-bit에서 못 결정하는 단일 scalar helper 예시 | 실제 reachable Lang force 반례라고 주장하지 않음; 일반적인 pre-tail completeness는 여전히 열림 |
+| parent EXP enclosure가 point 계산 endpoint를 자동 포함한다고 가정 | zero-cell의 모든 EXP constant-branch 조건을 기계적으로 검사 | range-reduction guard가 달라지는 일반 Taylor numerical endpoint의 단조성은 가정하지 않음 |
+| subdivision에서 raw 정수 한 칸 누락 | 정확한 격자 union/intersection 의무 시험에 gap mutation 주입 → 실패 | 연속 좌표의 틈이 아니라 FX 격자 전체의 cover 의무 |
+| 비영 cell의 tie를 거의 불가능하다고 인정 | synthetic exact half-ulp enclosure에서 실제 evaluator와 cell proof 모두 거부 | 실제 Lang reachable tie 반례라고 주장하지 않음 |
+| 단일 궤적을 reachable enclosure 인증으로 승격 | adaptive API에서 C.step 금지, R=20의 예산 초과 NotCertified와 미해결 목록 검사 | scalar shell packet은 좁은 방향 정보를 보존하지 않아 cover가 커짐; 미해결을 성공으로 바꾸지 않음 |
 
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다

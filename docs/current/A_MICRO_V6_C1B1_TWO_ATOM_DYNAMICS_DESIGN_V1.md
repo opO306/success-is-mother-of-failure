@@ -931,3 +931,24 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
 - 관련 59개 통과, Vast Linux REMOTE PYTHON FULL 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초.
   LOCAL FULL은 설계자의 게임 중 GPU 회피 요청으로 재실행하지 않았다. Windows/native skip을 통과로 세지 않는다.
   기록: `runs/c1b1_outer_bootstrap_full_v1.*`.
+
+## 26. ④-4 rounding-decision completeness v1 (2026-09-27, 진행 중)
+
+설계자 승인: ④-2/④-3 implemented, conditional on rounding-decision completeness.
+유한 N_max만으로 16384-bit cap에서 모든 반올림이 결정된다는 결론은 따라오지 않는다. 계약: `C1B1_ROUNDING_DECISION_V1.md`.
+
+- 실제 C1-B1 `_model_R`의 signed interval과 실제 `_mul`을 사용하여 R_J→2^49의 210개 cell을 덮는다.
+  각 point의 evaluator enclosure가 cell enclosure에 포함되도록 모든 EXP가 같은 proven constant [0,1] branch를 사용하는지도 검사한다.
+  실제 impulse endpoint가 모두 strict half-ulp 안에 있으므로 모든 legal FX tail geometry에서 raw 0. 최대 충분 정밀도 512 bit.
+- evaluator 결함 수정: exp(-4096)의 고정 1 ulp 상한은 높은 M에서 거짓 → M ln(2)의 유리수 upper bound 기준으로 변경.
+  coarse enclosure 양 끝의 반대쪽 overflow는 값 전체의 overflow가 아님 → refine 유지. 실제 R=2^47 zero impulse에서도 재현했던 잘못된 halt 해소.
+  같은 쪽 실제 overflow와 ReferenceUndecided 중단은 유지. cap 증가·clamp·추측 없음.
+- 유한 구간은 zero-cell 전체 cover 또는 정확 replay의 모든 point witness와 tail handoff가 있어야 완료다.
+  prefix 검사는 원본 상태·D_valid를 바꾸지 않으며 budget 증가 없이 incomplete_budget을 남긴다.
+- 늦은 진입 R_J−0.01의 양자화 상태는 uniform zero cells로 완료한다. R=20의 2-step prefix는 미완료.
+  설계자 후속 승인에 따라 기존 shell induction의 reachable enclosure에 adaptive FX cell subdivision을 적용한다.
+  수치 Taylor의 가능한 분기·stopping iteration을 모두 덮으며 비영 signed impulse도 검사한다.
+  unresolved cell은 NotCertified(report)로 보존한다. R=20의 64-cell 시도는 미인증이며 단일 궤적 증명으로 대체하지 않는다.
+  전체 reachable rounding-cell cover는 남았다. 이후 실제 전 구간 추적은 ⑤ 대조 사례로 남긴다. 23.9억 step 상한을 실행하지 않았다.
+- D_valid frozen files·canonical 생성기·측정 fixture 변경 0. outer analytic example은 certificate 동일, evaluator source hash만 갱신.
+  ④ FROZEN·⑤·전체 산란각·E_min 재생성은 보류. 신규 rounding 24개 + adaptive cover 14개, 최종 시험 결과는 CURRENT_STATE에 기록한다.

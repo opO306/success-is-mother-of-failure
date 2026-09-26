@@ -1,7 +1,7 @@
 # 현재 상태
 
 **최종 갱신:** 2026-09-27
-**검증:** 마지막 LOCAL FULL은 ④-1 시점 2335 passed + 1 strict xfailed / 실패 0 / skip 0, 447.41초(아래 기록). 이번 ④-2/④-3 변경은 설계자 요청으로 Vast Linux에서 REMOTE PYTHON FULL: 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초. 로컬 GPU 사용을 피하기 위해 이번 LOCAL FULL은 재실행하지 않았다. 두 검증 범위를 합쳐 LOCAL FULL 통과로 보고하지 않는다.
+**검증:** 최종 ④-4 LOCAL FULL: **2404 passed + 1 strict xfailed / 실패 0 / skip 0, 388.84초**, 컴파일러 출력 cp949 경고 25건. `python -m pytest tests -q -n 6`, 로그·JUnit `runs/c1b1_rounding_decision_local_full_v1.*`. Python + native CPU/CUDA + Windows/외부 참조 시험을 실제 로컬에서 별도로 실행했다. 과거 ④-2/④-3 Vast REMOTE PYTHON FULL은 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초라는 별도 이력이며 두 실행의 범위를 합치지 않는다.
 **Git:** 2026-09-21 초기화. 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\` 에 봉인
 
 이 문서는 작업이 진행될 때마다 갱신한다. 낡았다고 판단되면 먼저 고치고 작업한다.
@@ -27,7 +27,28 @@ R_J 이후 **실행기 impulse=0 / 동일 실제 입구에서 시작한 연속 �
 관련 시험 59개 통과. 신규 31개에는 실제 outward step, stall, radial drag 생략/ceil→floor/force=0 결함 주입, 실행 시 retardation/질량 계약 불일치 거부,
 D_valid 읽기·궤적 step 호출 금지, source hash·예시 완전 재생성이 포함된다.
 REMOTE PYTHON FULL은 위 수치이며 skip 108개를 통과로 세지 않는다. 로그·JUnit: `runs/c1b1_outer_bootstrap_full_v1.*`.
-변경은 증거 계층에만 있으며 A 실행기·동결 D_valid 코드/fixture는 변경하지 않았다. 남은 LOCAL FULL은 게임 종료 후 별도 수행한다.
+④-2/④-3 변경은 증거 계층에만 있으며 A 실행기·동결 D_valid 코드/fixture는 변경하지 않았다. 당시 LOCAL FULL은 게임 종료 후로 보류했으며, 후속 ④-4에서 로컬 사용 승인 후 별도 실행한다.
+
+**④-4 rounding-decision completeness 진행(2026-09-27, 설계자 로컬 사용 승인):**
+계약 `docs/current/C1B1_ROUNDING_DECISION_V1.md`, 구현 `a_reference/c1b1_rounding_completeness.py`.
+실제 evaluator를 덮는 210개의 연속 radial cell로 **R_J=10240 이후 모든 legal FX 상대 위치의 impulse 결정성**을 최대 512 bit에서 닫았다.
+16384-bit cap을 높이지 않았으며 무한 FX 실행을 주장하지 않는다. EXP constant branch 전제까지 기계적으로 검사한다.
+이 과정에서 기존 C1-B1 evaluator 결함 두 개를 실제로 재현·수정했다: 높은 M에서 거짓 구간이 되는 고정 EXP cutoff,
+그리고 음/양 방향의 coarse overflow endpoint 두 개를 exact overflow로 오판하던 분기. 동결 C1-A·D_valid 파일은 수정하지 않았다.
+유한 영역은 point witness 또는 uniform zero cell 전체 cover가 있어야 완료다. 예시 R_J−0.01의 실제 양자화 outgoing 상태는
+trajectory 없이 연결 인증된다. **R=20의 2-step prefix는 incomplete_budget**이며 전체 pre-tail 미인증이다.
+유한 N_max만으로 16384-bit separation이 따라오지 않으므로 일반적인 20→R_J 비영 impulse 영역은 계속 열려 있다.
+④-2/④-3 상태는 conditional on rounding-decision completeness. ④ FROZEN·⑤·전체 산란각/E_min 재생성은 계속 보류한다.
+신규 rounding 24개 + adaptive cover 14개 / 관련 97개 통과(27.99초).
+최종 LOCAL FULL: 2404 passed + 1 strict xfailed / failure 0 / skip 0, 388.84초, 기존 cp949 경고 25건.
+이전 중간 코드의 LOCAL FULL 기록은 `runs/c1b1_rounding_decision_local_full_v1_intermediate.*` 및 `*_pre_adaptive.*`에 따로 보존했다.
+증명 예시: `fixtures/c1b1_rounding_decision_examples_v1.json`(측정 아님, 8개 source hash).
+기존 outer analytic example은 소스 provenance만 재생성했고 78a1a25와 certificate 전체가 완전히 같다.
+설계자 후속 승인대로 `certify_reachable_rounding`은 기존 shell induction의 reachable enclosure에서 유도한 FX 격자 projection만 덮는다.
+방향 제약이 없는 scalar packet에서 초기 radial ray를 임의로 가정하지 않는다. 실제 Taylor의 모든 수치 분기 출력을 enclosure하고
+signed 비영 rounding cell도 검사한다. unresolved cell만 격자 subdivision하며 예산 초과/tie 미해결이면 `NotCertified(report=...)`다.
+R=20 해석 예시는 64-cell 예산에서 미해결 cell/미검사 shell 38개 기록을 보존하며 **미인증**. trajectory 호출 0.
+일반 enclosure 인증을 단일 궤적 인증으로 대체하지 않는다. 이후 전 구간 실제 추적은 ⑤의 독립 대조 사례로 남긴다.
 
 ---
 

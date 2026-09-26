@@ -50,11 +50,11 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2335개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 447.41초; outer formal bound 원인별 1-step·유한합 구현, D_valid 동결 유지. 컴파일러 출력 인코딩 경고 25건. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+**기준선: 2404개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 388.84초; outgoing bootstrap/tail 및 rounding decision cover 구현. tail 결정성 인증 완료, R=20 비영 reachable cover는 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고 25건. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
 
-**Codex 인수인계 재실측(2026-09-27):** 같은 기준선, 445.58초, 컴파일러 출력 인코딩 경고 24건. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: `docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md`.
+**Codex 인수인계 재실측(2026-09-27, 당시 이력):** 2307 passed + 1 strict xfailed / skip 0, 445.58초, 컴파일러 출력 인코딩 경고 24건. 현재 기준선과 구별한다. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: `docs/current/PROJECT_HANDOVER_REVIEW_2026-09-27.md`.
 
 **병렬 채택 근거 (2026-09-26 측정, 설계자 승인 조건 충족):** 직렬 793초 / `-n 6` 369초 / `-n 8` 377초 / `-n 10` 389초 / `-n 12` 376초 —
 네 설정 모두 **시험 2248개의 결과가 직렬과 하나하나 동일**(junit 대조, 병렬에서만 깨지는 시험 0). 속도는 약 2.1배에서 멈춘다: GPU를 쓰는

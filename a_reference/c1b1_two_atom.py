@@ -41,7 +41,7 @@ from fractions import Fraction as Q
 from math import isqrt
 
 import a_reference.ar2_lang2024 as L
-from a_numeric.exp import enclosure as _exp_enclosure
+from a_numeric.exp import enclosure as _exp_enclosure, LN2_UPPER
 from a_numeric.profiles import VMHalt
 
 CONTRACT_VERSION = "c1b1-two-atom-v2"          # v2: the drift rounds the displacement (14th ed.)
@@ -130,7 +130,9 @@ def _div_pos(a, b, M):
 
 def _exp_neg(x, M):
     """e^-x for x = [lo, hi] / 2^M >= 0."""
-    if x[0] >= 4096 << M:
+    # e^-x < 2^-M requires x > M ln(2), not a fixed x cutoff.
+    # LN2_UPPER > ln(2); equality at this rational threshold is also safe.
+    if x[0]*LN2_UPPER.denominator >= (M*LN2_UPPER.numerator) << M:
         return 0, 1
     def enc(end):
         return _exp_enclosure(Q(-end, 1 << M), M, max(0, end.bit_length() - M + 1) + 8)
@@ -157,9 +159,12 @@ def _model(R2: Q, M: int, ret: bool):
     return _model_R((lo, hi), M, ret)                          # R * 2^M, outward
 
 
-def _model_R(R: tuple, M: int, ret: bool):
+def _model_R(R: tuple, M: int, ret: bool, *, exp_neg=None):
     """Enclosures (V, dV/dR, 1/R) at 2^-M valid for EVERY R in [R[0], R[1]] / 2^M (interval arithmetic throughout;
     R[0] > 0). _model passes the enclosure of one sqrt(R2); interval audits pass a whole cell."""
+    # Proof callers may supply an enclosure of all numerical EXP branches.
+    # Execution callers retain exactly the existing point evaluator.
+    exp_neg = _exp_neg if exp_neg is None else exp_neg
     lo, hi = R
     one = 1 << M
     pw = {0: (one, one), 1: R}
@@ -173,7 +178,7 @@ def _model_R(R: tuple, M: int, ret: bool):
     V = dV = (0, 0)
     for name, (shorts, eta_iv, eta, kadd, C) in _const_cache(M).items():
         for alpha_iv, alpha, coefs in shorts:
-            E = _exp_neg(_mul(alpha_iv, R, M), M)
+            E = exp_neg(_mul(alpha_iv, R, M), M)
             P = dP = (0, 0)
             for i, c in coefs.items():
                 if c == 0:
@@ -184,7 +189,7 @@ def _model_R(R: tuple, M: int, ret: bool):
             V = _add(V, _mul(E, P, M))
             dV = _add(dV, _mul(E, _add(dP, _neg(_scale(P, alpha))), M))
         x = _mul(eta_iv, R, M)
-        E = _exp_neg(x, M)
+        E = exp_neg(x, M)
         piece = total = (one, one)
         done = 0
         kmin = min(C)
@@ -240,6 +245,11 @@ def _decide(profile, value_at):
             b = _Halt(h.reason)
         if a == b:
             if isinstance(a, _Halt):
+                # Equal halt REASONS at opposite ends do not describe one
+                # rounding cell: the interval may contain valid values (0).
+                if lo < 0 < hi:
+                    M *= 2
+                    continue
                 raise VMHalt(a.reason)
             return a
         M *= 2
