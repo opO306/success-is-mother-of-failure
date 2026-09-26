@@ -142,7 +142,14 @@ def coefficients(b_max: Q, F_bits: int, cs=None, KV=None):
     c_end = _sqrt_lo(1 - (b_max / R_END) ** 2)
     A += K / (6 * R_END ** 6 * c_end)
     B += DT * K / R_END ** 7
-    return 2 * A, 2 * B
+    return _round_up(2 * A), _round_up(2 * B)
+
+
+def _round_up(x: Q, bits: int = 128) -> Q:
+    """x rounded UP to a 128-bit binary mantissa (an upper bound stays an upper bound; keeps the record printable)."""
+    e = bits - (x.numerator.bit_length() - x.denominator.bit_length())
+    n = x * (Q(2) ** e)
+    return Q(-((-n.numerator) // n.denominator)) / Q(2) ** e
 
 
 def ratio_bound(E: Q, A: Q, B: Q) -> Q:
