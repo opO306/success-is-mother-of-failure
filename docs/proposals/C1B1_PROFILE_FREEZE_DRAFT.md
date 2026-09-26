@@ -1,6 +1,6 @@
 # [보류 초안] C1-B1 수 표현 동결안 — 위치 FX(96,48) · 운동량 FX(64,48) (C1-B1 한정)
 
-**상태: 보류 — 동결 아님.** 14판 추가 판정(2026-09-26): drift 세 방식(v1 `round(r+x)` / v2 `r+round(x)` / 정확·잔여 drift) 비교 측정 뒤
+**상태: 보류 — 동결 아님.** 16판: drift v2·위치 FX(96,48)·운동량 FX(96,80) 선택됨. 동결 조건: certified E_min_scatter, 속박 domain proof, native J bit-equivalence. 14판 추가 판정(2026-09-26): drift 세 방식(v1 `round(r+x)` / v2 `r+round(x)` / 정확·잔여 drift) 비교 측정 뒤
 최종 drift와 위치 profile을 함께 판정한다. 이 문서는 그때 쓸 초안이며 강제 시험은 없다(`test_c1b1_freeze.py`는 보류로 제거).
 **근거:** `A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md` 8~10절.
 
@@ -16,7 +16,7 @@
 | 항목 | 내용 |
 |---|---|
 | 위치 profile | `FX(96,48)` — raw 정수 v가 v·2⁻⁴⁸ bohr, 범위 [−2⁹⁵, 2⁹⁵−1] raw |
-| 운동량 profile | `FX(64,48)` — raw 정수 v가 v·2⁻⁴⁸ a.u.(ħ/a₀), 범위 [−2⁶³, 2⁶³−1] raw |
+| 운동량 profile | **`FX(96,80)`**(16판 채택; 옛 초안의 FX(64,48)은 암묵 cutoff 438 bohr로 동결 금지) — raw 정수 v가 v·2⁻⁸⁰ a.u., 정수 범위 ±2¹⁵ a.u. |
 | 충격량 J | 운동량 profile로 **한 번** 반올림 (`J_k = round(F(R)·Δr_k/R·Δt/2)`, R = √R² 반올림 안 함) |
 | 킥 | `p ± J` — 같은 격자의 정확한 덧셈 |
 | **drift** | **`δr = round_pos(p·Δt/m)`, `r' = r + δr`** — 변위를 한 번 반올림(짝수 쪽), 위치에는 정확한 정수 이동. 동점이 아닐 때는 v1(`round(r + p·Δt/m)`)과 비트 동일 |

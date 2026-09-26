@@ -609,3 +609,24 @@ v2(`r + round(p·Δt/m)`)는 **임시 기본값**으로 유지(되돌리지 않�
 
 **설계자에게 묻는 것:** ① 운동량 profile(FX(80,64) / FX(96,80) / FX(128,112) / carry / 기타) ② 문턱 근처(|E_rel| < E_min)를 적분기 범위에서 명시
 제외할지, 다른 계약으로 다룰지 ③ 그 뒤 C1-B1 profile 동결 여부.
+
+## 14. 설계자 16판 — 운동량 FX(96,80) 채택, 문턱 영역은 계약 밖, 전체 동결은 보류 (2026-09-26)
+
+1. **운동량 profile `FX(96,80)` 채택.** 유한 fixed-point는 어디서든 J가 0이 되거나 잘못 반올림되는 것을 피할 수 없다 — 목표는 무한 정밀 profile이 아니라
+   **충분히 넓은 물리 영역을 보장하면서 가장 싼 profile**. FX(80,64)와 비용이 같고 cutoff 7567 bohr·E_min 6.5×10⁻¹⁴ Dₑ — 현재 Pareto 지점.
+   **carry는 main path에서 탈락**(연구 기록으로만 보존), **FX(128,112)은 감사·기준 후보로만 보존**. 위치 FX(96,48), drift v2 유지.
+2. **산란의 E_rel → 0⁺ 영역은 현재 적분기 계약에서 제외.** 의미는 "작은 에너지는 물리적으로 무시한다"가 아니라 **"현재 C1-B1 수치 적분기와 선택한
+   운동량 profile이 요구 오차를 증명할 수 없는 영역 — 적분기 domain 밖"**. 하한은 사람이 고른 보기 좋은 숫자가 아니라 **FX(96,80)의 impulse 양자화와
+   꼬리 오차 경계에서 목표 오차 10⁻⁵를 만족하도록 계산된 certified `E_min_scatter`** — 증명이 숫자를 생성한다.
+3. **C1-B1 전체 동결은 보류.** 현재 경계식은 산란에만 적용된다. 속박 궤도(특히 해리 문턱 E → 0⁻, outer turning point가 매우 멀어짐)에 대해 운동량 양자화와
+   위치 drift 양자화의 영향을 제한하는 **별도 domain/error proof**가 필요하다(에너지 하한 대신 또는 함께 **최대 분리거리/outer turning point bound** 사용 가능 —
+   각운동량이 들어가면 |E| 하나로는 상태를 말하기 애매하다).
+4. **최종 동결 조건:** ① FX(96,80)의 certified E_min_scatter를 경계식에서 정식 생성·시험 고정 ② 속박 domain/error proof ③ **native J evaluator**가 생긴 뒤
+   Python 기준과 CPU/GPU 실행의 bit-equivalence 확인(성능 때문에 semantic profile을 바꾸지는 않지만, 실행 계약 전체를 동결하려면 native 경로까지 닫는다).
+5. **위치 sub-grid drift stall을 known numerical behavior로 명시**(영구 cutoff 아님: 작은 p → round(p·Δt/m) = 0 → 잠시 정지 → 힘으로 p 누적 → 임계 넘으면 이동).
+   약한 속박 궤도의 turning point 근처에서는 속박 domain 검증과 함께 확인한다.
+6. 스터디 실행기 변경(긴 작업부터 배정·작업별 partial 저장·resume·진행 로그) 승인·유지. xdist 벤치마크와 scheduling 개선은 물리 계약 판정과 분리.
+
+**구현자 공개(16판 직후):** 13절 표의 E_min 경계식은 **certified라고 부르기에 부족했다** — ① 모든 충격 매개변수에 직선 비행(반지름 속도 ≥ v)을 가정했으나
+b가 크면 근점 근처 반지름 속도가 0에 가깝다, ② R_c 안쪽 걸음 수를 무한원 속도로 셌다(안쪽 느린 구간 누락), ③ |V(R_c)|를 enclosure 상한이 아니라 중간값으로
+썼다. certified E_min_scatter는 이 세 가지를 고친 유도로 새로 만든다(15절 예정).
