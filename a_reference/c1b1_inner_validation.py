@@ -84,7 +84,9 @@ def orbiting(e: Q):
     L2 = MU * R ** 3 * barrier_energy(R)[1]
     with mpmath.workdps(60):
         b = mpmath.sqrt(mp(L2) / mp(2 * MU * E))
-    return S.mq(b), R
+    with mpmath.workdps(40):     # the rational is b rounded to 40 digits, EXPLICITLY: it used to be rounded at the
+        bq = S.mq(b)             # caller's global precision (40 in every recorded study; 60 after a state() call),
+    return bq, R                 # a global-state dependence found by the D_valid fixture load check (2026-09-27)
 
 
 def orbiting_b(e: Q, b_cap: Q | None = None):

@@ -316,6 +316,17 @@ class Run:
     J_cache: tuple | None = field(default=None, repr=False)
     validated_only: bool = True
     drift: str = "v2"   # "v2" (interim default) or "v1" -- for the drift comparison (14th ed.) only
+    initial: tuple | None = field(default=None, repr=False, compare=False)   # the atoms new_run built (D_valid judges these)
+    _validation: dict | None = field(default=None, repr=False, compare=False)
+
+    @property
+    def validation(self) -> dict:
+        """D_valid (c1b1_domain_contract, fail-closed) of the INITIAL state: validation_status, reason, provenance.
+        Computed on first access and cached; it never raises and never changes or blocks the dynamics."""
+        if self._validation is None:
+            from a_reference.c1b1_domain_contract import evaluate_run
+            self._validation = evaluate_run(self)
+        return self._validation
 
     @property
     def profile(self):
@@ -514,14 +525,15 @@ def new_run(profile, dt: Q, r_i, p_i, r_j, p_j, species=("Ar40", "Ar40"), moment
             validated_only: bool = True, drift: str = "v2") -> Run:
     """Atoms from exact-rational vectors: positions rounded once to `profile`, momenta to `momentum_profile`
     (default: the same profile). validated_only=False skips the integrator-domain check -- ONLY for the
-    domain-guard stress tests, whose results are not A-world physics."""
+    domain-guard stress tests, whose results are not A-world physics. The returned run carries run.validation, the
+    D_valid evidence level of this initial state (never blocks the computation)."""
     mom = momentum_profile or profile
     atoms = tuple(Atom(s, tuple(profile.from_exact(Q(x)) for x in r), tuple(mom.from_exact(Q(x)) for x in p))
                   for s, r, p in ((species[0], r_i, p_i), (species[1], r_j, p_j)))
     R2 = sum((x * x for x in relative(profile, *atoms)), Q(0))
     if R2 < R_MIN2:
         raise PhysicsDomainExceeded("initial state at R < r_min")
-    run = Run(profile, mom, Q(dt), atoms, validated_only=validated_only, drift=drift)
+    run = Run(profile, mom, Q(dt), atoms, validated_only=validated_only, drift=drift, initial=atoms)
     if validated_only:
         check_integrator_domain(run)
     return run
