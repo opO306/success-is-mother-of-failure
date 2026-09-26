@@ -74,7 +74,7 @@ def _bisect_side(e: Q, bo: Q, sign: int, log):
     """Bisect log(rho) in [RHO_LO, RHO_HI] on one side (sign=-1 below b_orb, +1 above). Returns
     {"delta": rho at the boundary (mid of final bracket), "lo_fail": ..., "hi_pass": ..., "audit_fail_at": [...]}.
     Convention: rho with sign*rho > 0 is "this side". Assumes monotonic pass/fail in |rho| and asserts it."""
-    audit_fails = []
+    audit_fails, probes = [], []
     lo, hi = mpmath.log(RHO_LO), mpmath.log(RHO_HI)      # log|rho|; lo end assumed FAIL, hi end assumed PASS
     seen_fail_logrho, seen_pass_logrho = lo, hi
 
@@ -87,17 +87,20 @@ def _bisect_side(e: Q, bo: Q, sign: int, log):
             audit_fails.append({"rho": float(rho), "reason": res[1]})
             return None
         if res[0] != "ok":
+            probes.append({"rho": float(rho), "status": res[0]})
             return None
+        probes.append({"rho": float(rho), "e40_sweep_rad": res[1], "pass": abs(res[1]) < TARGET})
         return abs(res[1]) < TARGET       # True = pass (meets target), False = fail
 
     p_hi = probe(hi)
     p_lo = probe(lo)
     if p_hi is False:
         log(f"  side {sign:+d}: even |rho|={float(RHO_HI):.1e} fails -- band wider than bracket, recording as-is")
-        return {"delta": float(RHO_HI), "bracket_exceeded": True, "audit_fail_at": audit_fails}
+        return {"delta": float(RHO_HI), "bracket_exceeded": True, "audit_fail_at": audit_fails, "probes": probes}
     if p_lo is True:
         log(f"  side {sign:+d}: even |rho|={float(RHO_LO):.1e} passes -- band narrower than bracket")
-        return {"delta": float(RHO_LO), "bracket_exceeded": False, "audit_fail_at": audit_fails, "band_below_bracket": True}
+        return {"delta": float(RHO_LO), "bracket_exceeded": False, "audit_fail_at": audit_fails, "band_below_bracket": True,
+                "probes": probes}
     for _ in range(BISECT_STEPS):
         mid = (lo + hi) / 2
         r = probe(mid)
@@ -118,35 +121,41 @@ def _bisect_side(e: Q, bo: Q, sign: int, log):
         f"non-monotonic pass/fail on side {sign:+d} at E={e}: fail seen at log(rho)={seen_fail_logrho}, " \
         f"pass at {seen_pass_logrho} -- the single-interval D_capture assumption does not hold here"
     boundary = (lo + hi) / 2
-    return {"delta": float(mpmath.e ** boundary), "bracket_exceeded": False, "audit_fail_at": audit_fails}
+    # monotonicity check over ALL probes (not just the bracket): no pass may sit closer to b_orb than a fail
+    fails = [abs(q["rho"]) for q in probes if q.get("pass") is False]
+    passes = [abs(q["rho"]) for q in probes if q.get("pass") is True]
+    monotone = not fails or not passes or max(fails) < min(passes)
+    return {"delta": float(mpmath.e ** boundary), "bracket_exceeded": False, "audit_fail_at": audit_fails,
+            "monotone_over_probes": monotone, "probes": probes}
 
 
 def _job(args):
-    e = args
+    e, sign = args
     r = I.orbiting(e)
-    if r is None:
-        return e, None
+    if r is None or r[0] > B_MAX:
+        return e, sign, None
     bo, Rs = r
-    if bo > B_MAX:
-        return e, None
     log_lines = []
-    minus = _bisect_side(e, bo, -1, log_lines.append)
-    plus = _bisect_side(e, bo, +1, log_lines.append)
-    return e, {"b_orb": str(bo), "R_star": str(Rs), "delta_minus": minus, "delta_plus": plus, "log": log_lines}
+    side = _bisect_side(e, bo, sign, log_lines.append)
+    return e, sign, {"b_orb": str(bo), "R_star": str(Rs), "side": side, "log": log_lines}
 
 
-def main(procs: int = 7):
+def main(procs: int = 14):
     t0 = time.time()
     head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     dirty = subprocess.run(["git", "status", "--porcelain", "--", "a_reference", "audit"], capture_output=True,
                            text=True, cwd=ROOT).stdout.strip()
     code = {f: _sha(ROOT / f) for f in CODE_FILES}
     results = {}
-    with Pool(min(procs, len(E_FRACS))) as pool:
-        for e, res in pool.imap_unordered(_job, E_FRACS):
-            print(f"E/De={e}: {'no orbiting' if res is None else 'done'} ({time.time() - t0:.0f}s)", flush=True)
+    jobs = [(e, s) for e in E_FRACS for s in (-1, 1)]
+    with Pool(min(procs, len(jobs))) as pool:
+        for e, sign, res in pool.imap_unordered(_job, jobs, chunksize=1):
+            print(f"E/De={e} side {sign:+d}: {'no orbiting' if res is None else res['side']['delta']} "
+                  f"({time.time() - t0:.0f}s)", flush=True)
             if res is not None:
-                results[str(e)] = res
+                row = results.setdefault(str(e), {"b_orb": res["b_orb"], "R_star": res["R_star"], "log": []})
+                row["delta_minus" if sign < 0 else "delta_plus"] = res["side"]
+                row["log"] += res["log"]
     doc = {"format": "c1b1-orbit-boundary-v1", "status": "NUMERICALLY VALIDATED evidence (not certified)",
            "contract": C.CONTRACT_VERSION, "target_sweep_rad": str(TARGET), "rho_bracket": [str(RHO_LO), str(RHO_HI)],
            "bisect_steps": BISECT_STEPS, "b_max": str(B_MAX),
@@ -158,4 +167,4 @@ def main(procs: int = 7):
 
 
 if __name__ == "__main__":
-    main(int(sys.argv[1]) if len(sys.argv) > 1 else 7)
+    main(int(sys.argv[1]) if len(sys.argv) > 1 else 14)
