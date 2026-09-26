@@ -203,6 +203,7 @@ def run_case(args):
     except C.ReferenceUndecided as e:
         res["status"] = f"reference_undecided: {e}"
     res["steps"] = run.t_steps
+    res["P_exit"] = [str(x) for x in pj]                 # relative momentum (atom j) at the last step, exact
     res["max_abs_dE_over_De"] = float(Emax / DE_GRID)
     res["dLz"] = str(C.angular_momentum(run)[2] - L0[2])
     res["dP"] = [str(a - b) for a, b in zip(C.total_momentum(run), P0)]
