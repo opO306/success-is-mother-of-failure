@@ -23,6 +23,10 @@
 
 B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된다. 이 분리는 타협 대상이 아니다.
 
+**현재 개발 우선순위(2026-09-27):** A: ACTIVE → L: DEFERRED UNTIL A FOUNDATION IS SUFFICIENT → B: DEFERRED TO LATE STAGE, NOT CANCELLED.
+A의 기반이 충분해진 뒤 L은 A 안에서 자연 발생·진화하는 계통으로 진행한다. A와 L이 어느 정도 완성되어 작은 세계가 돌아가는 단계 뒤 B를 본격적으로 만든다.
+B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 활성 Gate는 C1-B1의 outer formal bound ④다. **④ 전체는 FROZEN 아님, ⑤ 미착수.** 상세·다음 Gate는 `CURRENT_STATE.md`를 본다.
+
 **현재 정직한 한계:**
 - B는 학습형 신경망이 아니다. 사람이 규칙을 적어준 결정론 어댑터다.
 - A는 v2에서 다중 결합과 사슬 성장까지 왔다. 촉매·주형 복사는 아직 없음.

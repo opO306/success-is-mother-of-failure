@@ -4,11 +4,14 @@
 
 | 폴더 | 계통 | 상태 |
 |---|---|---|
-| `current/` | 결정론 A/B (현재 작업) | 살아있음, 계속 갱신 |
+| `current/` | A 활성 문서 + 보존된 B 설계·계약·역사 | 폴더명은 모두 현재 개발한다는 뜻이 아님. 활성 Gate는 CURRENT_STATE |
 | `legacy-probabilistic/` | 확률 세계 sequence·GCP (2026-09-17~18 설계, 09-21 감사) | 동결된 비교 기준선. 수정 안 함 |
 | `legacy-society-brain/` | 초기 사회·원시인·뇌 계통의 장기 설계 구상 | 보존, 현재 미참조 |
 | (루트) | 프로젝트 전체를 다루는 운영 문서 | `PROJECT_CLEANUP_AUDIT_V1.md` |
 
 **작업 전에 반드시 [`AGENTS.md`](../AGENTS.md)를 먼저 읽는다.** 이 폴더 전체를 훑지 않아도 되게 만든 진입점이다.
+
+현재 상태는 [CURRENT_STATE.md](../CURRENT_STATE.md)가 정본이다. A 최우선, L은 A 기반 이후, B 본격 개발은 작은 세계가 돌아가는 후기 단계로 보류하며 취소하지 않는다.
+과거 진행 순서·실험 기록은 [상태 역사](current/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 보존한다.
 
 각 하위 폴더의 README도 참고: [`current/README.md`](current/README.md), [`legacy-probabilistic/README.md`](legacy-probabilistic/README.md), [`legacy-society-brain/README.md`](legacy-society-brain/README.md)

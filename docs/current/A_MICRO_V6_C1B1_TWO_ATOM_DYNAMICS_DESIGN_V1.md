@@ -1,6 +1,9 @@
 # C1-B1 — 두 Ar 원자 동역학: 설계·결정·검증 기록
 
 **현재 상태(2026-09-27):** **D_valid v2 FROZEN**(23절, 설계자 최종 판정 `0898ca3`, 대상 구현 `a8619c8`). 현재 후보는 위치 FX(96,48)·운동량 FX(96,80)·Δt = 40 a.u.·drift v2. **C1-B1 전체 동결은 계속 보류**(속박 domain/error proof, native J evaluator와 비트 동등성 등). D_valid는 초기 상태의 수치 검증 범위이며 궤적 전체 인증이 아니다. 1~22절은 설계 전환·탈락·측정 이력을 보존한다.
+**현재 활성 단계:** outer formal bound ④ 진행. **23절은 D_valid 동결**, **24절은 ④-1 원인별 1-step 상한**, **25절은 ④-2 outgoing shell induction·유한 체류 상한 / ④-3 R_J·zero discrete impulse·analytic continuous tail 구현**, **26절은 rounding-decision completeness 진행**이다.
+Tail 결정성은 닫혔지만 일반 pre-tail reachable enclosure의 미래 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정됨은 아직 미증명이다. **④ 전체는 FROZEN 아님, ⑤는 미착수.** 다음은 16384-bit 완전성 → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증.
+D_valid evidence(`numerical_validated` / `unsupported`)와 analytic outer certificate는 별도이며 자동 승격·연결하지 않는다. 현재 우선순위는 [CURRENT_STATE.md](../../CURRENT_STATE.md)를 따른다.
 **전제:** C1-A 동결(`C1A_AR2_FREEZE_V1.md`) — V(R)·F(R)의 의미는 이미 정해졌다. 여기서 정할 것은 **위치 벡터에서 R을 만들고, 힘을 두 원자에 적용하고,
 시간을 진행시키는 규칙**이다.
 **범위 밖(10판):** 다입자 힘 합산, 액체, 고체, thermostat, 3체, Cencek 퍼텐셜. 세계 최종 수 체계와 fast profile도 여기서 고르지 않는다.
@@ -899,7 +902,7 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
 - profile FX(96,48)/FX(96,80), dt=40, drift v2. 유한 shell `20<=a<=R<=b`에서 실제 저장 끝점 사이 선분 전체와 half-step 상대 운동량 상한을 전제로 한다.
 - 정확한 계수와 interval Taylor 산술로 V·V'·V''·V''' 상한. 수정 상대 에너지 `E_tilde=H-h²|F|²/(8mu)`와 상대 L의 1-step 변화를 직접 전개한다.
 - 위치·impulse·이산화·기타 산술(성공한 FX 격자 덧셈은 0)을 분리한다. 초기 위치/운동량 투영은 일회 항으로 따로 기록한다.
-- 유한 N개에 대한 triangle 합을 제공한다. **이산 영역 유지·체류 step 수·무한 outer tail 부트스트랩·E_min 재생성은 아직 열림**. ④ 전체가 닫혔다고 주장하지 않는다.
+- 유한 N개에 대한 triangle 합을 제공한다. **④-1 당시에는 이산 영역 유지·체류 step 수·무한 outer tail 부트스트랩·E_min 재생성이 열려 있었다.** 이후 outgoing 범위의 ④-2/④-3은 25절, 남은 정밀도 완전성은 26절을 본다. ④ 전체가 닫혔다고 주장하지 않는다.
 - 해석 예시 `fixtures/c1b1_outer_bound_examples_v1.json`: P_cap=1일 때 20~21 bohr에서는 위치항이 impulse항보다 크고, 10000~10001에서는 impulse항이 크다.
   20~21에서는 이산화 상한이 가장 크다. 위치 지배를 전제하지 않았으며 이 예시들은 궤적 측정 자료가 아니다.
 - 독립 Fortran numerical derivative 대조, 실제 KDK 외곽 step, 경계·부호·최대 격자·정밀도·순서 시험.
@@ -929,7 +932,7 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
 - 위 귀납은 정확한 반올림 전이의 증명이다. 미래 모든 impulse가 실행기의 16384-bit 정밀도 한도 내에 결정됨은 미증명이며
   shell/tail/전체 record의 reference_decision_within_precision_cap에 명시한다. 계산 자원 한도에서 ReferenceUndecided로 중단될 가능성을 별도로 남긴다.
 - 관련 59개 통과, Vast Linux REMOTE PYTHON FULL 2258 passed + 108 skipped + 1 strict xfailed / 실패 0, 71.23초.
-  LOCAL FULL은 설계자의 게임 중 GPU 회피 요청으로 재실행하지 않았다. Windows/native skip을 통과로 세지 않는다.
+  당시 LOCAL FULL은 설계자의 게임 중 GPU 회피 요청으로 재실행하지 않았다. 후속 26절 작업에서 로컬 승인 뒤 별도 LOCAL FULL을 실행했다. Windows/native skip을 통과로 세지 않는다.
   기록: `runs/c1b1_outer_bootstrap_full_v1.*`.
 
 ## 26. ④-4 rounding-decision completeness v1 (2026-09-27, 진행 중)

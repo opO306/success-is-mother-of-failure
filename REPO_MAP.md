@@ -2,18 +2,21 @@
 
 작업 대상을 빠르게 찾기 위한 지도다. 저장소 전체를 검색하지 말고 여기서 범위를 정한 뒤 해당 디렉터리만 읽는다.
 
-**규모:** 32,795 파일 / 4.3GB — 이 중 4.2GB가 `runs/`(실험 결과)다. 코드+문서는 67MB.
+**규모(과거 집계):** 32,795 파일 / 4.3GB — 이 중 4.2GB가 `runs/`(실험 결과)다. 코드+문서는 67MB. 현재 규모를 재집계한 값은 아니다.
 
 ---
 
 ## 프로젝트 구조 — A / B / L
 
 ```
-A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생길 생명 계통
-주 개발 대상            B-classic, B-G12 뒤 PARK    코드 없음. A에서 생기면 관찰
+A = 세계 (물리)        L = A 안의 생명 계통         B = 세계 밖 연구자
+ACTIVE                A 기반이 충분한 뒤 진행     후기 단계로 보류, 취소 아님
 ```
 
-번호는 트랙 접두사로 읽는다: `A-V4.x`, `A-V4.GEO`, `B-Gx`, `L-Px` — `CURRENT_STATE.md` "번호 체계와 현재 판".
+현재 우선순위·Gate는 [CURRENT_STATE.md](CURRENT_STATE.md)가 정본이다. A 최우선 → A 기반이 충분한 뒤 L의 자연 발생·진화 → 작더라도 세계가 돌아가는 단계 뒤 B 본격 개발.
+B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 현재 활성 Gate는 C1-B1의 outer formal bound ④이며 ④ 전체는 FROZEN이 아니고 ⑤는 미착수다.
+
+과거 번호는 `A-V4.x`, `A-V4.GEO`, `B-Gx`, `L-Px`로 읽는다. 번호 체계·옛 진행 방침은 [상태 역사](docs/current/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)의 해당 절을 본다.
 
 ## 계통
 
@@ -22,18 +25,18 @@ A = 세계 (물리)        B = 세계 밖 연구자        L = A 안에서 생�
 | 계통 | 위치 | 상태 | 수정 |
 |---|---|---|---|
 | **결정론 A** | `engine/deterministic/` (물리 부분) | 현재 주 개발 | 가능 |
-| **B-classic 연구선** | `engine/deterministic/` (blind_*, probe_*, research_* 등) | B-G12 뒤 PARK 예정 | 가능. 단 동결 파일 7개는 새 버전으로만 (`tests/test_probe_v3_freeze.py`) |
-| **초기 B 관찰 도구** | `engine/deterministic/` (b_language, cognitive_map 등) | B0 시기 도구 | 가능 |
-| **연구 데이터 저장소** | `research_store/` (코드) + D: (데이터) | 현재 | 가능 |
+| **B-classic 연구선** | `engine/deterministic/` (blind_*, probe_*, research_* 등) | 후기 비교군/연구 자산 보존 | 이번 정리에서 구현·시험 변경 없음. 동결 파일 7개의 새 버전 규약 유지 (`tests/test_probe_v3_freeze.py`) |
+| **초기 B 관찰 도구** | `engine/deterministic/` (b_language, cognitive_map 등) | B0 시기 도구 보존. 본격 B 개발은 후기 단계 | 이번 정리에서 변경 없음 |
+| **연구 데이터 저장소** | `research_store/` (코드) + D: (데이터) | 보존된 연구 기반 | 이번 정리에서 변경 없음 |
 | **정답표** | `ground_truth/` | 봉인된 기준표 | **B 쪽 import 금지** |
 | **독립 감사** | `audit/` | 현재 주 개발 | 가능 (**engine import 금지**) |
 | **A-Numeric VM** | `a_numeric/` | A 계산 의미의 기준(VM 0.2: FX·A-Binary64-Finite·EXACT, 정수만 사용, SUM·DOT은 정확 누적 후 1회 반올림, EXP는 정확한 e^x를 1회 반올림) — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` | 가능. 세계 실행기 아님, 실행기들이 이것에 맞춰 판정받음 |
 | **물리 기준 평가기** | `a_reference/` | 물리 함수의 A 값 = 정확한 모델 값을 한 번 반올림(느림, 정답 정의). 현재 `ar2_lang2024.py`(C1-A Ar–Ar, 계약 `c1a-ar2-lang2024-v1`) + **Git fixture** `fixtures/ar2_lang2024_c1a_v1.json`(332 입력 × 7 양, 감사 판정·출처 기록, 생성기 `ar2_lang2024_fixture.py`) — **동결**(`docs/current/C1A_AR2_FREEZE_V1.md`, `tests/test_c1a_freeze.py`) — `docs/current/A_MICRO_V6_ARAR_POTENTIAL_SURVEY_V1.md` 10·11절 | 가능. 세계 실행기 아님 |
-| **C1-B1 두 원자 동역학 기준** | `a_reference/c1b1_two_atom.py`, `c1b1_*study.py`, `c1b1_*compare.py`, `fixtures/c1b1_*.json` | 정확 Δr·R², √R² 구간, 충격량 J 한 번 반올림, KDK, drift = r + round(p·Δt/m), drift 선분 r_min 감시(계약 `c1b1-two-atom-v2`). 현재 후보: 위치 FX(96,48)·운동량 FX(96,80)·Δt = 40·drift v2. 전체 동결은 속박 domain/error proof·native J와 비트 동등성 등을 기다림. 감사 `audit/independent_physics/c1b1_two_atom.py` — 설계 문서 23절이 최신 결정 | 가능. 세계 실행기 아님 |
-| **C1-B1 D_valid v2** | `a_reference/c1b1_canonical_state.py`, `c1b1_domain_contract.py`, `c1b1_orbit_boundary.py`, `fixtures/c1b1_orbit_boundary_v3.json` | 단일 canonical 생성기·기준 fixture·계약 `c1b1-dvalid-v2` 동결. 7 에너지 × 2쪽 재측정, 181개 측정 상태 = 식별 상태. `run.validation`은 초기 상태만 분류(`numerical_validated` / `unsupported`), 궤적 인증 아님. 에너지 보간·바깥 탐침 외삽 없음, 실행 비간섭 | 새 결함 또는 다음 물리 단계의 필요가 생길 때만 재측정 |
+| **C1-B1 두 원자 동역학 기준** | `a_reference/c1b1_two_atom.py`, `c1b1_*study.py`, `c1b1_*compare.py`, `fixtures/c1b1_*.json` | 정확 Δr·R², √R² 구간, 충격량 J 한 번 반올림, KDK, drift = r + round(p·Δt/m), drift 선분 r_min 감시(계약 `c1b1-two-atom-v2`). 현재 후보: 위치 FX(96,48)·운동량 FX(96,80)·Δt = 40·drift v2. 전체 동결은 속박 domain/error proof·native J와 비트 동등성 등을 기다림. 감사 `audit/independent_physics/c1b1_two_atom.py` — 설계 문서 23절(D_valid 동결)·24절(④-1)·25절(④-2/④-3)·26절(rounding 진행)을 함께 참조 | 가능. 세계 실행기 아님 |
+| **C1-B1 D_valid v2** | `a_reference/c1b1_canonical_state.py`, `c1b1_domain_contract.py`, `c1b1_orbit_boundary.py`, `fixtures/c1b1_orbit_boundary_v3.json` | 단일 canonical 생성기·기준 fixture·계약 `c1b1-dvalid-v2` 동결. 7 에너지 × 2쪽 재측정, 181개 측정 상태 = 식별 상태. `run.validation`은 초기 상태만 분류(`numerical_validated` / `unsupported`), 궤적 인증 아님. 에너지 보간·바깥 탐침 외삽 없음, 실행 비간섭. analytic outer certificate와 자동 승격·연결 없음 | 새 결함 또는 다음 물리 단계의 필요가 생길 때만 재측정 |
 | **물리 함수 네이티브 실행기** | `a_physics_native/` | C1-A V(R)·F(R)의 B0 직렬 C++·B1 병렬 C++·B2 CUDA. 기준·fixture와 같은 비트, 못 맞추면 거부. 조사 문서 11절. `bench_state.*` = C1-B1 상태 폭별 비용 측정 전용(세계 실행기 아님) | 가능. MSVC·nvcc·GPU 필요(없으면 시험 건너뜀) |
 | **C1-B1 outer formal bound v1** | `a_reference/c1b1_outer_bound.py`, `docs/current/C1B1_OUTER_FORMAL_BOUND_V1.md` | 정확 구간 Taylor 도함수 0~3차, 위치·초기 운동량·impulse·이산화 원인별 상한. 유한 shell/half-step momentum cap 아래 1-step·유한합. 후속 전제 인증은 아래 별도 계층, D_valid와 별도 | 가능. 실측으로 bound 조정 금지 |
-| **C1-B1 outgoing bootstrap / tail v1** | `a_reference/c1b1_outer_bootstrap.py`, `c1b1_outer_chain.py`, `fixtures/c1b1_outer_bootstrap_example_v1.json`, `docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md` | 실제 ΔR²>0 귀납·유한 shell 체류/출구 packet 연결·절대 overflow 인증. model-derived R_J 이후 실행기 impulse 0과 동일 입구 연속 tail의 비영 impulse/점근 momentum 방향 분리. L은 유한 입구→R_J만. inbound/inner/global shadowing/E_min 미인증 | 가능. A/D_valid에 자동 연결·실측 보정 금지 |
+| **C1-B1 outgoing bootstrap / tail v1** | `a_reference/c1b1_outer_bootstrap.py`, `c1b1_outer_chain.py`, `fixtures/c1b1_outer_bootstrap_example_v1.json`, `docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md` | 실제 ΔR²>0 귀납·유한 shell 체류/출구 packet 연결·절대 overflow 인증. model-derived R_J 이후 실행기 impulse 0과 동일 입구 연속 tail의 비영 impulse/점근 momentum 방향 분리. L은 유한 입구→R_J만. rounding-decision completeness에 조건부이며 ④ 전체 FROZEN 아님. inbound/inner/global shadowing/전체 산란각/E_min 미인증 | 가능. A/D_valid에 자동 연결·실측 보정 금지 |
 | **C1-B1 rounding decision v1** | `a_reference/c1b1_rounding_completeness.py`, `fixtures/c1b1_rounding_decision_examples_v1.json`, `docs/current/C1B1_ROUNDING_DECISION_V1.md` | legal FX tail 전체: 210 cell·최대 512 bit. 유한 부분: 기존 shell-induced reachable enclosure의 FX adaptive signed rounding cover. 미해결은 NotCertified(report). R=20의 64-cell 시도는 미인증; 단일 궤적으로 대체하지 않음 | 가능. precision cap 상향·미검사 future 인정·D_valid 확대 금지 |
 | **네이티브 실행기** | `a_numeric_native/` | VM 프로그램의 네이티브 실행기: B0 직렬 C++, B1 병렬 C++(스레드 수 E9), B2 CUDA(블록 크기 E9). VM이 판정자, 네이티브는 VM을 부르지 않음 — `docs/current/A_NUMERIC_EXECUTION_STACK_V1.md` 4.1 | 가능. MSVC·nvcc·NVIDIA GPU 필요(없으면 시험 건너뜀) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
@@ -76,7 +79,7 @@ Run 객체 (TickRecord 목록 + 최종 digest)
 
 **causal 형식:** v1/v2/v3 = 동결 레거시(`tests/test_legacy_causal_semantics.py`가 보존 강제), v4 = experimental.
 v4만 수정된 충돌 의미(A-V4.A)와 구조가 소유하는 운동 `StructureState`(A-V4.B)를 가진다.
-**v4에는 아직 구조가 생기거나 자라는 경로가 없다** — 다음 작업 A-V4.GEO.
+**v4에는 구조가 생기거나 자라는 경로가 없다.** A-V4.GEO는 당시 다음 작업 이름이며 이후 v5에서 생성·성장·병합을 구현했다. 현재 활성 작업은 v6의 C1-B1이다.
 
 **커널 내부 단계** (`environment_kernel.py`의 `step_environment_world`):
 
@@ -102,7 +105,9 @@ deterministic_physical_flux_v4.json      물리 flux (최신)
 
 ---
 
-## 모델 중립 B — 관찰자
+## 모델 중립 B — 보존된 관찰 도구
+
+아래는 기존 구현 위치와 동작 설명이다. B 본격 개발은 A·L 기반의 작은 세계가 돌아가는 후기 단계로 보류하며 자산과 시험은 보존한다.
 
 **데이터 흐름:**
 
@@ -287,7 +292,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2307 passed + 1 strict xfailed, skip 0). 과거 단계의 개수와 혼합하지 않는다.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2404 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이다. 문서 정리의 재검증 결과와도 구별한다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)
@@ -336,7 +341,7 @@ test_agent*.py            레거시 사회
 ```
 docs/
 ├── README.md                 이 폴더 안내
-├── current/                  결정론 A/B — 지금 작업 대상
+├── current/                  A 활성 문서 + 보존된 B 설계·계약·역사 (모두 활성 작업은 아님)
 ├── legacy-probabilistic/     확률 세계 sequence·GCP — 동결된 기준선
 ├── legacy-society-brain/     초기 사회·원시인·뇌 장기 설계 구상 — 보존
 └── PROJECT_CLEANUP_AUDIT_V1.md   프로젝트 전체를 다루는 운영 문서 (루트에 유지)
@@ -348,7 +353,8 @@ docs/
 |---|---|
 | `PROJECT_CONSTITUTION.md` | 헌법 26조 |
 | `docs/current/EVOLVING_WORLD_LANGUAGE_ARCHITECTURE.md` | B 전체 아키텍처 (58KB) |
-| `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 구현 순서·완료 판정 (32KB) |
+| `docs/current/DETERMINISTIC_A_B_BUILD_SEQUENCE_V1.md` | 과거 구현 순서·완료 판정 (32KB), 현재 순서는 CURRENT_STATE |
+| `docs/current/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md` | 정리 전 CURRENT_STATE 전체 원문, 과거 상태·실험·설계 보존 |
 | `docs/current/DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` | A 물리 심화 설계 |
 | `docs/current/MIDPOINT_A_B_AUDIT_2026-09-21.md` | 최근 중간 점검 |
 | `docs/current/VERIFICATION_LIMITS_AND_LESSONS.md` | 검증이 무엇을 못 잡는가, 결함 주입 기록 |

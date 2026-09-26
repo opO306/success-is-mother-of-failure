@@ -1,5 +1,9 @@
 # 세계 명세 언어 사전 v1 — B가 A를 만들 때 쓰는 언어
 
+> **역사/과거 설계·연구 자산 안내 (2026-09-27):** 아래 본문의 “현재”, “다음”, 구현 순서는 문서 작성 당시의 기록이다. 현재 우선순위와 활성 Gate는 [CURRENT_STATE.md](../../CURRENT_STATE.md)를 따른다.
+> A가 최우선이며 L은 A의 기반이 충분한 뒤 자연 발생·진화 계통으로 진행한다. B 본격 개발은 A와 L 기반의 작은 세계가 돌아가는 후기 단계로 보류하며 취소·폐기하지 않는다. 기존 B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다.
+> 아래의 B 설계·세계 제작 역할이나 A/B 동시 개발 제안은 과거 구상이며 현재 작업 지시·권한이 아니다. 현재 A/B 경계는 RULES·헌법을 따른다. 이 안내는 본문 계약이나 시험 의미를 변경하지 않는다.
+
 **상태:** 실제 코드에서 뽑은 사전. 구현된 부분은 상세, 예정된 부분은 이름과 자리만
 **날짜:** 2026-09-22
 **대상:** B가 A를 만들 때 쓰는 JSON 명세 형식 — `engine/deterministic/spec.py`,
@@ -472,7 +476,7 @@ counterfactual(1곳)에도 있었다 — 그쪽은 `port_limits`와 `chains_may_
 | 🧭 | `InteractionRelation` (hyperedge) | 환원 불가능한 N체 결합 (`Bond(A,B,C)` 자체가 하나의 관계) | `LOCAL_INTERACTION_PRINCIPLES_V1.md` §②, §목표 구조 8단계 |
 | 🧭 | 촉매 중간체 | `C+A → C-A → C-A-B → C+AB` | `DETERMINISTIC_WORLD_LANGUAGE_DEEP_DESIGN_V1.md` 8.4, `LOCAL_INTERACTION_PRINCIPLES_V1.md` §촉매 정정 |
 | 🧭 | 주형 복사 | 사슬 옆에 상보적 사슬이 자람 | 위 문서들, "옆"이 아직 없어서 막혀 있었음 |
-| 🧭 | 경계 물질 / 독립 분열 | 안팎을 나누는 막, 끊고 다시 닫힘 | `CURRENT_STATE.md` "다음 갈림길 (나)" |
+| 🧭 | 경계 물질 / 독립 분열 | 안팎을 나누는 막, 끊고 다시 닫힘 | [상태 역사](PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)의 과거 “다음 갈림길 (나)” |
 
 **구현되면 이 표에서 빼고 §4의 본문 절로 승격하며 🧭를 ✅로 바꾼다.**
 
