@@ -154,7 +154,13 @@ def _model(R2: Q, M: int, ret: bool):
     hi = isqrt(-((-s.numerator) // s.denominator))
     if hi * hi < -((-s.numerator) // s.denominator):
         hi += 1
-    R = (lo, hi)                                               # R * 2^M, outward
+    return _model_R((lo, hi), M, ret)                          # R * 2^M, outward
+
+
+def _model_R(R: tuple, M: int, ret: bool):
+    """Enclosures (V, dV/dR, 1/R) at 2^-M valid for EVERY R in [R[0], R[1]] / 2^M (interval arithmetic throughout;
+    R[0] > 0). _model passes the enclosure of one sqrt(R2); interval audits pass a whole cell."""
+    lo, hi = R
     one = 1 << M
     pw = {0: (one, one), 1: R}
     for i in range(2, 7):

@@ -226,7 +226,8 @@ def test_audit_recomputes_the_conserved_quantities() -> None:
     P, Lv, E = ref.conserved(pos, mom)
     assert tuple(P) == C.total_momentum(run) and tuple(Lv) == C.angular_momentum(run)
     E_ref = C.kinetic(run) + C.potential_high(sum((x * x for x in C.relative(FX, *run.atoms)), Q(0)))
-    assert abs(E - (mpmath.mpf(E_ref.numerator) / E_ref.denominator)) < mpmath.mpf(10) ** -25
+    with mpmath.workdps(40):         # own precision: the global one depends on which test modules were imported
+        assert abs(E - (mpmath.mpf(E_ref.numerator) / E_ref.denominator)) < mpmath.mpf(10) ** -25
 
 
 # --- domain-guard stress (12th ed. item 6; not an accuracy claim) -----------------------------------------------
