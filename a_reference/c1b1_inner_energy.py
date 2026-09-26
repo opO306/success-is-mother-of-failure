@@ -7,7 +7,8 @@ inbound and stepped until it is back at R >= 20 bohr outbound; the exit state gi
 for the candidate (position FX(96,48), momentum FX(96,80), drift v2) and the high-precision run (exact positions,
 momentum FX(256,192)). Quantization in energy = E~_cand - E~_hp; integrator energy error = E~_hp - E_initial.
 V and F at the exit radius are enclosed at 2^-512 (the diagnostic midpoint is far below every reported difference).
-Measurement only. Run: python -m a_reference.c1b1_inner_energy -> fixtures/c1b1_inner_energy_v1.json
+Also two hybrids at a few energies to split the cause: pos_only (position rounded, momentum FX(256,192)) and
+mom_only (exact positions, momentum FX(96,80)). Measurement only. Run: python -m a_reference.c1b1_inner_energy -> fixtures/c1b1_inner_energy_v1.json
 """
 from __future__ import annotations
 
@@ -30,6 +31,12 @@ B_BOHR = [Q(0), 2 * I.S.RE_GRID]
 M = 512
 
 
+# cause decomposition (designer 19th ed.: position vs momentum rounding): one representation rounded, the other exact-ish
+HYBRID = {"pos_only": (I.POS, I.HPM, "v2"),           # position FX(96,48), momentum FX(256,192)
+          "mom_only": (C.ExactPosition(), I.MOM, "v2")}  # exact positions, momentum FX(96,80)
+DECOMP_E = [Q(1, 10 ** k) for k in (6, 8, 9, 10, 12)]
+
+
 def energy(run):
     q = C.relative(run.pos, *run.atoms)
     R2 = sum((x * x for x in q), Q(0))
@@ -43,7 +50,7 @@ def task(args):
     e, b, pname = args
     t0 = time.time()
     st = I.state(e, b)
-    pos, mom, rule = I.PROFILES[pname]
+    pos, mom, rule = I.PROFILES.get(pname) or HYBRID[pname]
     run = C.new_run(pos, 40, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=mom, validated_only=False,
                     drift=rule)
     E0, Em0, _ = energy(run)
@@ -69,6 +76,7 @@ def _sha(p: Path) -> str:
 def main(procs: int = 11):
     t0 = time.time()
     jobs = [(e, b, p) for e in E_FRACS for b in B_BOHR for p in ("hp", "cand")]
+    jobs += [(e, b, p) for e in DECOMP_E for b in B_BOHR for p in HYBRID]
     with Pool(procs) as pool:
         res = pool.map(task, jobs, chunksize=1)
     head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
