@@ -54,20 +54,24 @@ def mp(x: Q):
     return mpmath.mpf(x.numerator) / x.denominator
 
 
-def orbiting_b(e: Q):
-    """Impact parameter (bohr) at which the effective potential's barrier top equals E (orbiting), or None if it is
-    not below b_max = 2 R_e. Located by bisection on L with the barrier top found on a radial grid (diagnostic)."""
+def orbiting_b(e: Q, b_cap: Q | None = None):
+    """Impact parameter (bohr) at which the centrifugal barrier top OUTSIDE the well (R >= R_e) equals E -- orbiting --
+    or None if it is above b_cap (default b_max = 2 R_e). Barrier top taken on a radial grid (diagnostic).
+    (Fixed 2026-09-26: the first version started its grid at 6 bohr, inside the repulsive wall, so V_eff >= E held for
+    every L and it always returned 0 -- the v1 record therefore holds the b = 0 case three times per energy and no
+    near-orbiting case; at these energies the true orbiting b is > 21 bohr, outside b <= 2 R_e anyway.)"""
     mpmath.mp.dps = 40
+    cap = b_cap if b_cap is not None else 2 * S.RE_GRID
     E = mp(e * S.DE_GRID)
     p = mpmath.sqrt(2 * mp(MU) * E)
-    V = lambda r: mp(C.potential_high(Q(r) ** 2, 256)) if isinstance(r, Q) else mp(C.potential_high(S.mq(r) ** 2, 256))
+    rs = [mp(S.RE_GRID) * mpmath.mpf("1.01") ** i for i in range(700)]          # R_e ... ~7700 bohr
+    Vs = [mp(C.potential_high(S.mq(r) ** 2, 256)) for r in rs]
 
     def top(L):
-        rs = [mpmath.mpf(6) * mpmath.mpf("1.05") ** i for i in range(80)]
-        return max(V(r) + L * L / (2 * mp(MU) * r * r) for r in rs)
-    lo, hi = mpmath.mpf(0), 2 * mp(S.RE_GRID) * p
-    if top(hi) < E:
+        return max(v + L * L / (2 * mp(MU) * r * r) for r, v in zip(rs, Vs))
+    if top(mp(cap) * p) < E:
         return None
+    lo, hi = mpmath.mpf(0), mp(cap) * p
     for _ in range(60):
         mid = (lo + hi) / 2
         if top(mid) < E:
