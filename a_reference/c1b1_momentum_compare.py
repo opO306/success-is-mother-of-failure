@@ -244,63 +244,98 @@ def native_costs():
 
 # --- main ----------------------------------------------------------------------------------------------------
 
-def _run(task, args):
+def _run(item):
+    key, task, args = item
     _register()
-    return task(args)
+    return key, task.__name__, task(args)
 
 
 def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
-def main(procs: int = 11):
-    t0 = time.time()
-    jobs = []
-    for cand in CANDS + ["ref"]:
-        for e, b in FAR_FIELD:
-            jobs.append((far_field_task, (cand, e, b)))
+PARTIAL = ROOT / "runs" / "c1b1_momentum_compare_partial.jsonl"     # runs/ is outside Git
+CODE_FILES = ("a_reference/c1b1_two_atom.py", "a_reference/c1b1_dt_study.py", "a_reference/c1b1_drift_compare.py",
+              "a_reference/c1b1_momentum_compare.py", "a_physics_native/bench_mom.hpp",
+              "a_physics_native/bench_mom_io.hpp", "a_physics_native/bench_state.cpp",
+              "a_physics_native/bench_state.cu", "a_physics_native/bench_state.py")
+SECTION = {"far_field_task": "D_far_field", "long_task": "F_long", "run_case": "A_accuracy", "far_task": "C_far_pairs",
+           "invariance_task": "F_invariance", "step_cost_task": "G_step_cost"}
+
+
+def _jobs():
+    """(key, task, args), longest first (one job per worker at a time -- no chunking)."""
     st = {"standard": DC.standard_state(), "orbit": DC.orbit_state(), "bound_f0.3": DC.study_state("bound", f=Q(3, 10)),
           "rest_1000": rest_state(1000), "far_tie": DC.far_tie_state()}
-    for cand in CANDS + ["ref"]:
-        for name in ("bound_f0.3", "orbit"):
-            jobs.append((long_task, (cand, name, st[name])))
+    heavy = ["ref", "carry", "fx128_112", "fx96_80", "fx80_64", "fx64_48"]
+    jobs = [(f"far_field|{c}|{e}|{b}", far_field_task, (c, e, b)) for e, b in FAR_FIELD for c in heavy]
+    jobs.sort(key=lambda j: (j[2][1] != 1, heavy.index(j[2][0])))           # E = 1 De first (the longest)
+    jobs += [(f"long|{c}|{n}", long_task, (c, n, st[n])) for c in heavy for n in ("bound_f0.3", "orbit")]
     cs = S.cases()
     cstates = [S.scattering_state(c["e"], c["b"]) if c["kind"] == "scatter" else S.bound_state(c["f"]) for c in cs]
     old = {r["case"]: r for r in json.loads(S.OUT.read_text(encoding="utf-8"))["references"]}
+    acc = []
     for c, cst in zip(cs, cstates):
         nom = old[c["name"]].get("nominal", {})
         t_ref = float(nom.get("time", nom.get("two_periods", 4e5)))
         for dt in (10, 20, 40):
             for cand in CANDS:
-                jobs.append((S.run_case, (c, cst, dt, cand, int(3 * t_ref / dt) + 200)))
-    for cand in CANDS + ["ref"]:
-        for R in FAR_R:
-            jobs.append((far_task, (cand, R)))
-        for name in ("standard", "orbit", "rest_1000", "far_tie"):
-            jobs.append((invariance_task, (cand, name, st[name], 40)))
-    with Pool(procs) as pool:
-        results = pool.starmap(_run, jobs)
-        budget = pool.map(budget_row, CANDS + ["ref"])
-        costs = pool.starmap(_run, [(step_cost_task, (c, 200)) for c in CANDS + ["ref"]])
-    kinds = {far_field_task: "D_far_field", long_task: "F_long", S.run_case: "A_accuracy", far_task: "C_far_pairs",
-             invariance_task: "F_invariance"}
-    out = {v: [] for v in kinds.values()}
-    for (task, _), res in zip(jobs, results):
-        out[kinds[task]].append(res)
-    native = native_costs()
+                cap = int(3 * t_ref / dt) + 200
+                acc.append((cap, (f"acc|{c['name']}|{dt}|{cand}", S.run_case, (c, cst, dt, cand, cap))))
+    jobs += [j for _, j in sorted(acc, key=lambda x: -x[0])]
+    for c in CANDS + ["ref"]:
+        jobs += [(f"far|{c}|{R}", far_task, (c, R)) for R in FAR_R]
+        jobs += [(f"inv|{c}|{n}", invariance_task, (c, n, st[n], 40)) for n in ("standard", "orbit", "rest_1000", "far_tie")]
+    return jobs
+
+
+def _load_partial(head, code):
+    done = {}
+    if PARTIAL.exists():
+        lines = PARTIAL.read_text(encoding="utf-8").splitlines()
+        if lines and json.loads(lines[0]) == {"git_head": head, "code": code}:
+            for l in lines[1:]:
+                r = json.loads(l)
+                done[r["key"]] = r
+        else:
+            PARTIAL.unlink()                                   # made by other code: never mixed in
+    if not PARTIAL.exists():
+        PARTIAL.parent.mkdir(parents=True, exist_ok=True)
+        PARTIAL.write_text(json.dumps({"git_head": head, "code": code}) + "\n", encoding="utf-8")
+    return done
+
+
+def main(procs: int = 11):
+    t0 = time.time()
     head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=ROOT).stdout.strip()
     dirty = subprocess.run(["git", "status", "--porcelain", "--", "a_reference", "audit", "a_physics_native"],
                            capture_output=True, text=True, cwd=ROOT).stdout.strip()
+    code = {f: _sha(ROOT / f) for f in CODE_FILES}
+    native = native_costs()                                    # first, on an idle machine; fails early if broken
+    print(f"native costs done in {time.time() - t0:.0f}s", flush=True)
+    done = _load_partial(head, code)
+    todo = [j for j in _jobs() if j[0] not in done]
+    todo += [(f"cost|{c}", step_cost_task, (c, 200)) for c in CANDS + ["ref"] if f"cost|{c}" not in done]
+    print(f"{len(done)} jobs already recorded, {len(todo)} to run", flush=True)
+    with Pool(procs) as pool, PARTIAL.open("a", encoding="utf-8") as f:
+        for i, (key, name, res) in enumerate(pool.imap_unordered(_run, todo, chunksize=1)):
+            f.write(json.dumps({"key": key, "task": name, "result": res}) + "\n")
+            f.flush()
+            done[key] = {"key": key, "task": name, "result": res}
+            if i % 25 == 0:
+                print(f"  {i + 1}/{len(todo)} ({time.time() - t0:.0f}s)", flush=True)
+        budget = pool.map(budget_row, CANDS + ["ref"])
+    out = {v: [] for v in SECTION.values()}
+    order = [j[0] for j in _jobs()] + [f"cost|{c}" for c in CANDS + ["ref"]]
+    for key in order:
+        r = done[key]
+        out[SECTION[r["task"]]].append(r["result"])
     doc = {"format": "c1b1-momentum-compare-v1", "contract": C.CONTRACT_VERSION, "dt": 40, "position": POS.name,
            "drift": "v2", "candidates": {k: m.name for k, m in MOMS.items()}, "fine_bits": FINE_BITS,
            "criterion": CRITERION,
            "provenance": {"git_head": head, "uncommitted_changes_in_a_reference_audit_or_native": bool(dirty),
-                          "code_sha256": {f: _sha(ROOT / f) for f in (
-                              "a_reference/c1b1_two_atom.py", "a_reference/c1b1_dt_study.py",
-                              "a_reference/c1b1_drift_compare.py", "a_reference/c1b1_momentum_compare.py",
-                              "a_physics_native/bench_mom.hpp", "a_physics_native/bench_state.py")}},
-           **out, "B_E_budget": budget, "G_step_cost": costs, "G_native": native, "seconds": None}
-    doc["seconds"] = round(time.time() - t0)
+                          "code_sha256": code},
+           **out, "B_E_budget": budget, "G_native": native, "seconds_this_session": round(time.time() - t0)}
     OUT.write_text(json.dumps(doc, indent=1), encoding="utf-8")
     print(f"wrote {OUT} in {time.time() - t0:.0f}s")
 

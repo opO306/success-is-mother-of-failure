@@ -251,9 +251,10 @@ static int mrun(const std::string& mode, size_t n, int iters, const char* out) {
 }
 
 int main(int argc, char** argv) {
-    if (argc < 5) return 2;
+    if (argc < 4) return 2;
     std::string mode = argv[1], rule = argv[2];
-    if (mode[0] == 'm') {
+    if (mode[0] == 'm') {                        // mcheck / mtime need 5 arguments, me2e 4
+        if (mode != "me2e" && argc < 5) return 2;
         size_t nm = (size_t)atoll(argv[3]);
         int it = mode == "mtime" ? atoi(argv[4]) : 1;
         const char* o = argv[4];
@@ -262,6 +263,7 @@ int main(int argc, char** argv) {
         BENCH_MOM_KINDS(BENCH_MOM_RUN)
         return 2;
     }
+    if (argc < 5) return 2;
     int L = atoi(argv[3]);
     size_t n = (size_t)atoll(argv[4]);
     int iters = argc > 5 && mode == "time" ? atoi(argv[5]) : 1;
