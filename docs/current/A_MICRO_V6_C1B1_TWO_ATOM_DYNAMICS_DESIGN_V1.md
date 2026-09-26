@@ -866,3 +866,19 @@ CERTIFIED 상태, 격자 상태 4칸 이동, 격자 상태 삭제, 생성기 명
 - **`run_native()` 600초 하드 타임아웃(설계자 승인).** 모든 네이티브 실행(`a_numeric_native.run_native`, `a_physics_native.run`, `bench_state`, selftest)이
   `run_with_timeout`을 거친다: 600초 초과 → 프로세스와 자식 전부 종료 → `NativeTimeout`(실행 인프라 실패, 물리 아님; skip·xfail·재시도 없음), 메시지에 명령·경과
   시간·stdout/stderr 끝부분·프로파일. 시험 `tests/test_native_timeout.py`(컴파일러 없이 돌아감, skip 없음; 부모만 죽이는 결함 주입을 잡음). 빌드(컴파일러 호출)에는 아직 타임아웃 없음.
+
+**설계자 판정(7532788) → 생성기 단일화 + 전체 재측정 (2026-09-27, D_valid 동결 조건):**
+- **생성기는 하나.** `a_reference/c1b1_canonical_state.py`: Pt_q = round(b·√(2μE)/R_start)를 **먼저** 정하고, Pr_q = round(−√(2μ(E − V0) − Pt_q²))를
+  **저장될 Pt_q로** 계산(half-even, FX(96,80), 정확 유리수, 동점 미결정은 거부). 경계 측정(fixture 생성)과 new_run 식별이 모두 이것만 쓴다.
+  옛 `c1b1_inner_validation.state`는 20~22절 기록용으로만 남는다.
+- **멱등성(허용오차 없음):** S = canonical_initial_state(E, b), b_current² = b_from_state(S, E)(정확 유리수) → canonical_initial_state_b2(E, b_current²) == S.
+  시험: 7 에너지 × 11 ρ. 생성기에 옛 규칙(반올림 전 Pt로 Pr)을 되돌리면 멱등성·"측정 = 식별" 시험이 실패함을 확인.
+- **14쪽 전체 재측정**(Vast 노드 1대, HEAD `e3a73f5`, 14 작업자, 680초, exit 0) → `fixtures/c1b1_orbit_boundary_v3.json`(형식 v4, sha256 `eb2582…8cf9`).
+  계약은 이 파일만 받는다 — v1(50cceaa)·v2(30c14b7) 기록은 역사 자료, 계약에 넣으면 형식에서 거부(시험).
+- **50cceaa와 자동 비교**(`a_reference/c1b1_boundary_compare.py` → `fixtures/c1b1_orbit_boundary_v3_vs_v1.json`, 시험이 재계산해 대조):
+  **14쪽 모두 largest_nonpass·smallest_pass·가장 바깥 통과 탐침·단조성·탐침 순서(|ρ|, 통과 여부)가 동일**(상대 변화 0). 상태가 실제로 바뀐 탐침은
+  옛 기록에서 표시된 **정확히 32개**(Pr ±1 격자, Pt 불변, 실제 에너지 변화 ≤ 5.4×10⁻²⁵ 상대)이고, 181개 전부의 산란각 오차 float도 비트 단위로 같다
+  (운동량 10⁻²⁵ 상대 변화는 float64 해상도 아래). → **"생성기 canonical화에도 경계 동일"**.
+- **측정한 상태 = 인정하는 상태:** fixture 탐침 181개 전부가 기록된 b에서의 생성기 출력과 같고, 동시에 자기 b_current에서 `canonical_member`로 식별된다(시험, 예외 0).
+  이전 문단의 "32개 불일치 공개"는 이 재측정으로 해소되었다(그 32개는 이제 옛 생성기의 산물로만 남아 결함 주입 시험의 실제 사례로 쓰인다).
+- 결함 주입 추가: 새 기록의 탐침 하나를 옛 생성기 상태(Pr 한 칸)로 바꾸면 해시 없이도 load 검사에서 거부; b₁의 Pt + b₂의 Pr을 이어 붙인 상태 거부.

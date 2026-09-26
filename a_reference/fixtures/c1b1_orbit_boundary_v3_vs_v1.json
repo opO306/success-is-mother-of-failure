@@ -1,0 +1,392 @@
+{
+ "old": "c1b1_orbit_boundary_v1.json",
+ "new": "c1b1_orbit_boundary_v3.json",
+ "old_git_head": "b204baca872ae950490de345f1e806348ed58fef",
+ "new_git_head": "e3a73f544cc64683977f9ff650a76023268a32f9",
+ "sides": [
+  {
+   "e": "3/20",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00023591251485,
+    "smallest_pass": 0.00024415241222,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00023591251485,
+    "smallest_pass": 0.00024415241222,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "3/20",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000122874067584,
+    "smallest_pass": 0.000127165784397,
+    "outermost_pass": 0.003,
+    "probes": 12
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000122874067584,
+    "smallest_pass": 0.000127165784397,
+    "outermost_pass": 0.003,
+    "probes": 12
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "1/5",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000335846740037,
+    "smallest_pass": 0.000348723406058,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000335846740037,
+    "smallest_pass": 0.000348723406058,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "1/5",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000179254747474,
+    "smallest_pass": 0.000185515715542,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000179254747474,
+    "smallest_pass": 0.000185515715542,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "3/10",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000590528073894,
+    "smallest_pass": 0.000613169451276,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000590528073894,
+    "smallest_pass": 0.000613169451276,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "3/10",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0003,
+    "smallest_pass": 0.000311502269773,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0003,
+    "smallest_pass": 0.000311502269773,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "1/2",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00127165784397,
+    "smallest_pass": 0.00131607401295,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00127165784397,
+    "smallest_pass": 0.00131607401295,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "1/2",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000590528073894,
+    "smallest_pass": 0.000613169451276,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.000590528073894,
+    "smallest_pass": 0.000613169451276,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "7/10",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0024415241222,
+    "smallest_pass": 0.00252680110806,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0024415241222,
+    "smallest_pass": 0.00252680110806,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "7/10",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.001,
+    "smallest_pass": 0.00103492776708,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.001,
+    "smallest_pass": 0.00103492776708,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "9/10",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00453796167129,
+    "smallest_pass": 0.0047119512025,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00453796167129,
+    "smallest_pass": 0.0047119512025,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "9/10",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00173205080757,
+    "smallest_pass": 0.00179254747474,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.00173205080757,
+    "smallest_pass": 0.00179254747474,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "99/100",
+   "side": "delta_minus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0048926116488,
+    "smallest_pass": 0.00508019877906,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0048926116488,
+    "smallest_pass": 0.00508019877906,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  },
+  {
+   "e": "99/100",
+   "side": "delta_plus",
+   "old": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0024415241222,
+    "smallest_pass": 0.00252680110806,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "new": {
+    "status": "ok",
+    "monotone": true,
+    "largest_nonpass": 0.0024415241222,
+    "smallest_pass": 0.00252680110806,
+    "outermost_pass": 0.01,
+    "probes": 13
+   },
+   "rel_change": {
+    "largest_nonpass": 0.0,
+    "smallest_pass": 0.0,
+    "outermost_pass": 0.0
+   },
+   "interval_identical": true,
+   "probe_sequence_identical": true
+  }
+ ],
+ "summary": {
+  "sides": 14,
+  "interval_identical": 14,
+  "probe_sequence_identical": 14,
+  "all_monotone": true
+ }
+}

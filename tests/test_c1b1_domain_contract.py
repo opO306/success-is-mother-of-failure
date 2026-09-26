@@ -15,6 +15,8 @@ from fractions import Fraction as Q
 import mpmath
 import pytest
 
+import a_reference.c1b1_boundary_compare as X
+import a_reference.c1b1_canonical_state as G
 import a_reference.c1b1_domain_contract as D
 import a_reference.c1b1_inner_validation as I
 import a_reference.c1b1_dt_study as S
@@ -116,35 +118,47 @@ def _state_atoms(pj):
     return _atoms((-half, Q(0), Q(0)), (half, Q(0), Q(0)), pj)
 
 
-def test_a_momentum_from_another_b_is_refused_even_though_the_generator_makes_it() -> None:
-    """Designer's fault test: a state whose momentum is state(E, b2) -- really produced by the generator at b2 -- but
-    which is not state(E, b_current) of the b it represents (b_current != b2) must be unsupported. The fixture's own
-    probes supply real cases: the measurement's constructor rounds Pr from the UNROUNDED Pt, so for 32 of 181 probes
-    regenerating at the state's own b_current moves Pr by one grid unit. The first v2 draft accepted every one of them."""
-    doc = json.loads(D.BOUNDARY_FIXTURE.read_text(encoding="utf-8"))
+def _history(name):
+    return json.loads((D.BOUNDARY_FIXTURE.parent / name).read_text(encoding="utf-8"))
+
+
+def test_a_momentum_from_another_b_is_refused() -> None:
+    """Designer's fault test: a state whose momentum another b produced but which is not
+    canonical_initial_state(E, b_current) of the b it represents must be unsupported.
+    (a) real cases: the retired constructor (Pr from the UNROUNDED Pt) made 32 of the 181 states of the historical v2
+        record; each was built at its recorded b2 but regenerates to another Pr at its own b_current -- all refused,
+        among them the E = 0.15 De negative-side smallest_pass probe of that record;
+    (b) splice: the stored Pt of a state at b1 with the Pr the generator makes at b2 (another Pt cell) -- refused."""
+    old = _history("c1b1_orbit_boundary_v2.json")
     refused, identified = [], 0
-    for row in doc["energies"]:
-        bo_e = Q(row["b_orb"])
+    for row in old["energies"]:
         for name in ("delta_minus", "delta_plus"):
             for p in row[name]["probes"]:
                 pj = tuple(Q(int(x)) * D.MOM_ULP for x in p["p_j_raw"])
-                b2 = bo_e * (1 + Q(p["rho"]))
-                rng = D.canonical_b_range(row["e"], pj)
-                assert rng[0] <= b2 <= rng[1]                     # the generator at b2 really makes this momentum
                 m = D.canonical_member(I.POS, I.MOM, _state_atoms(pj))
                 if m is None:
                     refused.append((row["e"], name, p["rho"], row[name]["smallest_pass"] == p["abs_rho"]))
-                    assert D.regenerate_momentum(row["e"], pj[1]) != pj[0]   # b_current regenerates another Pr
+                    assert G.radial_momentum(row["e"], pj[1]) != pj[0]      # its own b_current regenerates another Pr
                 else:
                     identified += 1
-                    assert m[0] == row["e"]
     assert (identified, len(refused)) == (149, 32)
-    assert ("3/20", "delta_minus", "-12207620611/50000000000000", True) in refused   # a smallest_pass probe among them
+    assert ("3/20", "delta_minus", "-12207620611/50000000000000", True) in refused
     e, name, rho, _ = refused[0]
-    row = next(r for r in doc["energies"] if r["e"] == e)
+    row = next(r for r in old["energies"] if r["e"] == e)
     pj = tuple(Q(int(x)) * D.MOM_ULP for x in next(p for p in row[name]["probes"] if p["rho"] == rho)["p_j_raw"])
     v = C.new_run(I.POS, 40, (-10, 0, 0), tuple(-x for x in pj), (10, 0, 0), pj, momentum_profile=I.MOM).validation
     assert v["validation_status"] == "unsupported" and "not identified" in v["reason"]
+
+    bo = I.orbiting(HALF)[0]
+    s1 = D.canonical_initial_state("1/2", bo * Q(995, 1000))
+    spliced = 0
+    for k in range(1, 40):
+        s2 = D.canonical_initial_state("1/2", bo * Q(995, 1000) * (1 + k * Q(1, 10 ** 24)))
+        if s2["p_j"][1] != s1["p_j"][1] and s2["p_j"][0] != s1["p_j"][0]:
+            pj = (s2["p_j"][0], s1["p_j"][1], Q(0))                   # b1's Pt, b2's Pr
+            assert D.canonical_member(I.POS, I.MOM, _state_atoms(pj)) is None
+            spliced += 1
+    assert spliced > 0
 
 
 def test_different_b_collapsing_to_one_quantized_state_is_one_state(bo) -> None:
@@ -160,41 +174,37 @@ def test_different_b_collapsing_to_one_quantized_state_is_one_state(bo) -> None:
     assert c1["b_current_bohr"] == c2["b_current_bohr"] and c1["rho_current"] == c2["rho_current"]
 
 
-def test_every_recorded_probe_state_is_the_constructor_output() -> None:
-    """The fixture's lattice states are what state(e, b_orb (1 + rho)) builds (sampled: every probe of two energies and
-    the first probe of every other side); the load check verifies canonicity of ALL probes."""
+def test_measured_states_are_exactly_the_identified_states() -> None:
+    """"측정한 상태 = 인정하는 상태": every probe of the frozen record is the generator's output at its recorded b AND is
+    identified by canonical_member at its own b_current (the energy it was measured at) -- all of them, no exception."""
     doc = json.loads(D.BOUNDARY_FIXTURE.read_text(encoding="utf-8"))
+    assert doc["canonical_state"] == G.SPEC and doc["format"] == "c1b1-orbit-boundary-v4"
+    n = 0
     for row in doc["energies"]:
         bo_e = Q(row["b_orb"])
         for name in ("delta_minus", "delta_plus"):
-            probes = row[name]["probes"] if row["e"] in ("3/20", "99/100") else row[name]["probes"][:1]
-            for p in probes:
-                st = I.state(Q(row["e"]), bo_e * (1 + Q(p["rho"])))
+            for p in row[name]["probes"]:
+                st = G.canonical_initial_state(row["e"], bo_e * (1 + Q(p["rho"])))
                 assert p["p_j_raw"] == [str(I.MOM.from_exact(x)) for x in st["p_j"]], (row["e"], name, p["rho"])
+                m = D.canonical_member(I.POS, I.MOM, _state_atoms(st["p_j"]))
+                assert m is not None and m[0] == row["e"], (row["e"], name, p["rho"])
+                n += 1
+    assert n == sum(len(r[k]["probes"]) for r in doc["energies"] for k in ("delta_minus", "delta_plus"))
 
 
-MEASURED = ("abs_rho", "status", "e40_sweep_rad", "pass", "reason")
-SIDE_SUMMARY = ("status", "side_limit", "largest_fail", "largest_nonpass", "smallest_pass", "unknown_probes")
+def test_historical_records_are_refused_by_the_contract(bo) -> None:
+    """The v1 (50cceaa) and v2 (30c14b7) records stay as history; the contract accepts neither (format and generator)."""
+    for name in ("c1b1_orbit_boundary_v1.json", "c1b1_orbit_boundary_v2.json"):
+        v = D.evaluate_domain(HALF * DE, bo * Q(995, 1000), path=D.BOUNDARY_FIXTURE.parent / name, expected_sha=None)
+        assert v.evidence == "unsupported" and "fixture rejected" in v.reason and "format" in v.reason, name
 
 
-def test_v2_record_reproduces_the_50cceaa_measurement_probe_by_probe() -> None:
-    """The v3-format record was regenerated (new fields only); every energy, b_orb, side summary and probe measurement
-    (|rho|, status, sweep error, pass, order) equals the v1 record of 50cceaa, and every v2 side names itself."""
-    fx = D.BOUNDARY_FIXTURE.parent
-    old = json.loads((fx / "c1b1_orbit_boundary_v1.json").read_text(encoding="utf-8"))
-    new = json.loads(D.BOUNDARY_FIXTURE.read_text(encoding="utf-8"))
-    for k in ("status", "contract", "target_sweep_rad", "scan_abs_rho", "bisect_ratio", "b_max"):
-        assert new[k] == old[k], k
-    assert [r["e"] for r in new["energies"]] == [r["e"] for r in old["energies"]]
-    for ro, rn in zip(old["energies"], new["energies"]):
-        assert (rn["b_orb"], rn["R_star"]) == (ro["b_orb"], ro["R_star"])
-        for name, label, sign in (("delta_minus", "negative", -1), ("delta_plus", "positive", 1)):
-            so, sn = ro[name], rn[name]
-            assert sn["side"] == label
-            assert {k: sn.get(k) for k in SIDE_SUMMARY} == {k: so.get(k) for k in SIDE_SUMMARY}, (ro["e"], name)
-            assert [{k: p.get(k) for k in MEASURED} for p in sn["probes"]] == \
-                   [{k: p.get(k) for k in MEASURED} for p in so["probes"]], (ro["e"], name)
-            assert all(float(Q(p["rho"])) == sign * p["abs_rho"] for p in sn["probes"])
+def test_boundary_change_against_50cceaa_is_recorded() -> None:
+    """The re-measured boundaries against the 50cceaa record, per side: largest_nonpass, smallest_pass, outermost pass,
+    monotonicity -- the recorded comparison must equal the one recomputed from the two records."""
+    got = X.compare_records(_history("c1b1_orbit_boundary_v1.json"),
+                            json.loads(D.BOUNDARY_FIXTURE.read_text(encoding="utf-8")))
+    assert got == _history("c1b1_orbit_boundary_v3_vs_v1.json")["sides"]
 
 
 def test_state_uses_local_precision_only() -> None:
@@ -318,6 +328,17 @@ def _spec(doc):
     doc["canonical_state"]["R_start"] = "25"
 
 
+def _old_generator(doc):        # one probe's state replaced by the retired constructor's (one Pr grid unit off)
+    hist = _history("c1b1_orbit_boundary_v2.json")
+    for rn, ro in zip(doc["energies"], hist["energies"]):
+        for name in ("delta_minus", "delta_plus"):
+            for pn, po in zip(rn[name]["probes"], ro[name]["probes"]):
+                if pn["p_j_raw"] != po["p_j_raw"]:
+                    pn["p_j_raw"] = po["p_j_raw"]
+                    return
+    raise AssertionError("no probe differs between the two generators")
+
+
 def _insert(doc):
     r = json.loads(json.dumps(_row(doc)))
     r["e"] = "2/5"
@@ -348,7 +369,7 @@ def _certified(doc):
 MUTATIONS = {"shift": _shift, "swap": _swap, "swap_relabelled": _swap_relabelled, "swap_resigned": _swap_resigned,
              "insert": _insert, "delete_side": _delete_side, "reverse": _reverse, "duplicate": _duplicate,
              "unknown_status": _unknown_status, "certified_status": _certified, "lattice": _lattice,
-             "no_lattice": _no_lattice, "canonical_spec": _spec}
+             "no_lattice": _no_lattice, "canonical_spec": _spec, "old_generator_state": _old_generator}
 
 
 def _write(tmp_path, name, doc=None, raw=None):
