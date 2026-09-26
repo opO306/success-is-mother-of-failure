@@ -17,11 +17,16 @@ Evidence sources feeding this module (as of 2026-09-26, section 22 + this verdic
   * b_max = 2 R_e          -- the impact-parameter cap actually swept by every inner/orbit validation study.
   * orbiting capture range -- energies where c1b1_inner_validation.orbiting(e) is not None (E < E_max ~ 0.9964 De)
                                AND b_orb(e) <= b_max (empirically, from ~0.14 De up; below that b_orb > b_max).
-  * delta_-, delta_+       -- from c1b1_orbit_boundary.py's per-energy asymmetric bisection (fixtures/
-                               c1b1_orbit_boundary_v1.json), ONLY at the energies actually measured there; between
-                               measured energies, no interpolation is assumed valid (designer: "측정점 사이를 그냥
-                               보간해서 전부 numerically validated라고 선언하면 안 됩니다") -- an energy without a direct
-                               measurement classifies as "unsupported" inside the capture range, never "numerical_validated".
+  * delta_-, delta_+       -- from c1b1_orbit_boundary.py (fixtures/c1b1_orbit_boundary_v1.json), stored per side as an
+                               INTERVAL largest_nonpass <= delta_c <= smallest_pass. Only |rho| >= smallest_pass on a side
+                               whose status is "ok" is numerically validated; the uncertain interval, a side with
+                               "no_pass_found" and a side with "non_monotone" are unsupported.
+  * unmeasured energies    -- inside the capture range, an energy without its own fixture row is UNSUPPORTED at every
+                               b (no interpolation, and no "far enough from b_orb, probably fine" either -- designer on
+                               3f2f73c). Extending to a continuous energy range needs a conservative envelope per energy
+                               interval, a separate, later step.
+  * beyond the probes      -- |rho| above the largest probe on a side rests on the monotone band model (checked on the
+                               probes) plus the section 22 points at 0.8 / 1.2 b_orb; it is not probed point by point.
 """
 from __future__ import annotations
 
@@ -42,7 +47,7 @@ B_MAX = 2 * I.S.RE_GRID                    # x R_e, the cap every validation stu
 @dataclass(frozen=True)
 class DomainVerdict:
     in_base: bool                # E_low <= E_rel and 0 <= b <= b_max
-    in_capture_band: bool        # inside the measured orbital-capture exclusion, if that energy was measured
+    in_capture_band: bool | None # True / False when this energy was measured; None when it was not (unknown)
     evidence: str                # "numerical_validated" | "unsupported" | "formal_certified" (unused so far)
     reason: str                  # human-readable, always filled
 
@@ -59,37 +64,38 @@ def evaluate_domain(e_rel: Q, b: Q, boundary: dict | None = None) -> DomainVerdi
     every known-good region comes back "unsupported", not rejected (new_run still runs the computation)."""
     boundary = _load_boundary() if boundary is None else boundary
     e_de = e_rel / I.S.DE_GRID
-    in_base = e_rel >= E_LOW and 0 <= b <= B_MAX
-    if not in_base:
+    if not (e_rel >= E_LOW and 0 <= b <= B_MAX):
         return DomainVerdict(False, False, "unsupported",
-                              f"outside D_base: E_rel={float(e_de):.3g} De (need >= {float(E_LOW / I.S.DE_GRID):.1g}), "
-                              f"b={float(b):.3g} bohr (need 0..{float(B_MAX):.3g})")
+                             f"outside D_base: E_rel={float(e_de):.3g} De (need >= {float(E_LOW / I.S.DE_GRID):.1g}), "
+                             f"b={float(b):.3g} bohr (need 0..{float(B_MAX):.3g})")
     r = I.orbiting(e_de)
     if r is None:
         return DomainVerdict(True, False, "numerical_validated",
-                              "in D_base, no orbital-capture band at this energy (above E_max or no orbiting)")
+                             "in D_base, no orbital-capture band at this energy (above E_max ~ 0.9964 De)")
     bo, _ = r
     if bo > B_MAX:
         return DomainVerdict(True, False, "numerical_validated",
-                              f"in D_base, b_orb={float(bo):.3g} > b_max: capture band outside the swept range")
+                             f"in D_base, b_orb={float(bo):.3g} > b_max: capture band outside the swept range")
     rho = b / bo - 1
     row = boundary.get(str(e_de))
     if row is None:
-        # capture exists here in principle, but this exact energy was never measured for delta_-/delta_+:
-        # do not interpolate (designer instruction) -- if b is anywhere plausibly near b_orb, flag unsupported.
-        # "plausibly near" uses the widest delta measured anywhere as a conservative flag radius.
-        return DomainVerdict(True, None, "unsupported" if abs(rho) < Q(1, 100) else "numerical_validated",
-                              f"in D_base, capture band exists (b_orb={float(bo):.3g}) but E/De={float(e_de):.3g} "
-                              f"was not measured for delta_-/delta_+ -- no interpolation assumed")
-    dm, dp = row["delta_minus"]["delta"], row["delta_plus"]["delta"]
-    in_band = (-dm < float(rho) < dp)
-    if in_band:
+        return DomainVerdict(True, None, "unsupported",
+                             f"capture band exists at E/De={float(e_de):.3g} (b_orb={float(bo):.3g}) but this energy was "
+                             f"not measured -- unsupported at every b (no interpolation, no envelope yet)")
+    side = row["delta_minus"] if rho < 0 else row["delta_plus"]
+    name = "delta_-" if rho < 0 else "delta_+"
+    if side["status"] != "ok":
         return DomainVerdict(True, True, "unsupported",
-                              f"in D_base, inside the measured orbital-capture exclusion band "
-                              f"(rho={float(rho):.3g}, -delta_-={-dm:.3g}, +delta_+={dp:.3g})")
-    return DomainVerdict(True, False, "numerical_validated",
-                          f"in D_base, outside the measured capture band (rho={float(rho):.3g}, "
-                          f"band=(-{dm:.3g}, +{dp:.3g}))")
+                             f"{name} side at E/De={float(e_de):.3g} has status {side['status']}: the whole side is "
+                             f"unsupported (rho={float(rho):.3g})")
+    sp = side["smallest_pass"]
+    if rho != 0 and abs(float(rho)) >= sp:
+        return DomainVerdict(True, False, "numerical_validated",
+                             f"outside the measured capture band: |rho|={abs(float(rho)):.3g} >= smallest pass {sp:.3g} "
+                             f"({name})")
+    return DomainVerdict(True, True, "unsupported",
+                         f"inside the capture band or its uncertain edge: |rho|={abs(float(rho)):.3g} < smallest pass "
+                         f"{sp:.3g} ({name}; largest non-pass {side['largest_nonpass']})")
 
 
 def report(e_rel: Q, b: Q) -> dict:
