@@ -160,6 +160,27 @@ failure/error 0, exit 0, 383.44초**, cp949 출력 해독 경고 25건 유지. �
 다음은 15〜18 우선의 **전 domain** 합동류 하한 조사이며 새 lemma가 확보되기 전에는 checker·coverage를 변경하지 않는다.
 ④ 동결·⑤·E_min·전체 산란각 보류 유지.
 
+**④-4c-2 full residue-class 조사(2026-09-28, 기준 `23144df`):**
+[shell 15〜18 전수 class survey](docs/active/C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md)는
+n=2^a·5^b·u, gcd(u,10)=1의 모든 valuation/unit class와 필요한 normalized zero residue refinement를 포함한다.
+원래 격자점 **230,627,472,909,852,564개**의 덮개를 **14,271개 분석 class**로 구성했다.
+합계·닫힌 endpoint·class의 서로 겹치지 않음을 검사했다. 추가 point 표본은 없으며 singleton class 1,005개는 전체 허용 입력을 정확 계산했다.
+**5,541개 class**에서 필요한 Δ 하한을 확인했지만 **8,730개 class의 가변 CRT gap은 미해결**이다.
+shell별 미해결 class는 3272/2802/2065/591이고 새 shell 전체 lemma 후보 0, 실제 작은 Δ 입력 반례 0이다.
+보장되는 2/5 공통 인수를 제거한 integer polynomial identity를 확인했고, 추가 odd gcd를 없어졌다고 가정하지 않았다.
+Q′=F·v, gcd(v,10)=1인 경우 높은 모든 2/5 prime-power 제약은 Δ′≡2P′−F mod2F로 합쳐진다.
+**미해결 5,370개 class**에서는 2gF<M_req이므로 odd quotient 범위를 제한하지 않는 이 고정 정보만으로 작은 Δ를 전부 배제할 수 없음을 확인했다.
+예를 들어 n≡3 mod10 class는 고정 2/5 정보와 양립하는 비영 gap≤781250을 가진다. 실제 full Δ 반례라는 뜻은 아니다.
+현재 남은 의무는 u^17·D_normalized²의 **가변 divisor와 odd quotient 범위**를 유지한 parametric gap lemma다.
+고정 class가 full CRT residue를 하나로 정한다는 가정은 같은 class의 서로 다른 Q로 반박됐다.
+**survey_only·새 region 0·11/64 region·gap 84·전체 NotCertified** 유지. shell 0〜14·기존 checker·물리·Frozen D_valid를 변경하지 않았다.
+기존 관련 소스/fixture/시험 33개가 `23144df`와 LF 바이트 동일하다. 181 probe의 긴 replay 재실행은 아니다.
+신규 직렬 **27 passed, 22.48초**. **LOCAL FULL: 2652 passed + 1 strict xfailed, skip 0,
+failure/error 0, exit 0, 425.76초**, cp949 출력 해독 경고 25건 유지. 신규 27개 직렬/병렬 결과가 항목별로 같다.
+증거: `runs/c1b1_residue_class_20260928/{focused_with_fixed_power.log,focused_with_fixed_power.xml,local_full.log,local_full.xml,unchanged_contracts.json,verification_summary.json,concept_alignment.json}`.
+오류 문구 정규식에서 괄호를 escape하지 않아 실패한 중간 시험 로그는 보존한다. 알고리즘의 변조 거부 자체는 정상 작동했다.
+shell 전체 하한이 확보되지 않았으므로 새 independent lemma checker/coverage 승격은 보류하고 ④ 동결·⑤·E_min·전체 산란각 보류도 유지한다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -201,6 +222,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-2 full residue-class survey LOCAL FULL (2026-09-28) | **2652 passed + 1 strict xfailed, failure/error 0, skip 0, 425.76초**, cp949 경고 25건. 신규 27개 직렬/병렬 동일 | `runs/c1b1_residue_class_20260928/local_full.log`, `runs/c1b1_residue_class_20260928/local_full.xml` |
 | ④-4c-1 modular-distance survey LOCAL FULL (2026-09-28) | **2625 passed + 1 strict xfailed, failure/error 0, skip 0, 383.44초**, cp949 경고 25건. 신규 32개 직렬/병렬 동일 | `runs/c1b1_modular_distance_20260928/local_full.log`, `runs/c1b1_modular_distance_20260928/local_full.xml` |
 | ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |
 | ④-4b 미해결 진단 LOCAL FULL (2026-09-27) | **2430 passed + 1 strict xfailed, failure/error 0, skip 0, 362.74초**, cp949 경고 25건. 진단 시험 17개 | `runs/c1b1_unresolved_diagnosis_20260927/local_full.log`, `runs/c1b1_unresolved_diagnosis_20260927/local_full.xml` |

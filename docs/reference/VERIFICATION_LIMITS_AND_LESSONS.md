@@ -585,6 +585,19 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | pinned source/fixture·exact identity 변조 | 읽기 변조 및 독립 전개 계수 변조를 각각 거부 | EXP·numeric error·동결 상수는 기존 공통 기반 |
 | 거짓 pass flag·sample minimum을 certificate로 전달 | 기존 family checker가 survey 객체를 거부, 새 family 하한 None·새 region 0·11/64/gap 84 유지 | shell 15〜18 표본 CRT 후보도 family 인증 아님 |
 
+### C1-B1 full residue-class survey v1 (2026-09-28)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| class의 lift/endpoint 누락·중복 | 작은 synthetic domain 전수와 실제 전체 count 대조, 같은 valuation leaf의 CRT 교차가 구간 안에 없는지 검사. unit residue 9 누락 주입을 거부 | 전수인 것은 class cover이며 전체 variable-modulus feasibility는 미해결 |
+| normalized zero를 정확 valuation으로 처리 | 0 residue가 v 이상만 의미하며 서로 다른 lift의 실제 valuation이 달라지는 예 확인 | digit 작업 한도 뒤 class를 유지하고 미결정 표시, R3808식 정보 손실을 exact tie로 읽지 않음 |
+| 공통 인수 과잉 제거·분모 identity 오류 | 치환 다항식의 모든 계수가 g로 나누어지는지 검사하고 denominator를 계수 전체에서 재곱함. 곱셈 변조 거부 | g25는 보장되는 2/5 공통 인수, 추가 odd gcd가 없다는 뜻 아님 |
+| fixed CRT에서 odd multiplier/lift 누락 | 작은 synthetic period의 모든 parameter와 odd h를 별도 전수해 exact coset 및 최소 비영 gap과 대조 | 작은 gap과 양립하는 residue는 actual full Δ 반례가 아님 |
+| 높은 고정 2/5 modulus가 무조건 강화된다고 가정 | gcd(v,10)=1인 Q′=Fv에서 모든 더 높은 modulus의 coset가 mod2F와 동일함을 독립 전수로 검사 | 이 한계는 고정 2/5 정보에 해당, 가변 u^17/D²를 사용한 lemma를 반박하지 않음 |
+| rational tie 배제·source/gcd foundation을 가정 | 기존 tie checker의 예외 주입 및 prior hash/D0 변조를 거부 | 전체 physical impulse와 signed residual의 반올림 인증은 여전히 별도 |
+| 분석 작업 예산 부족·거짓 shell 인증 플래그 | leaf 예산 1로 강제해 incomplete를 거부, 기존 family checker에 survey 객체 전달 시 거부 | 14,271 분석 class는 64 certification region과 다른 집계 |
+| 큰 fixture의 압축 과정에서 정수/하한 정보 손실 | columnar pack/unpack의 전체 정확 객체 일치 및 fixture 재현 검사 | 복원 함수는 proof checker가 아님 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다
