@@ -43,6 +43,15 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 FX 범위를 넘어 프로그램이 무한히 실행된다는 뜻은 아니다. 일반적인 유한 outgoing 입구→R_J 구간은 기존 shell induction의 **reachable enclosure 전체**를 덮어야 한다.
 R=20 예시는 64-cell 예산에서 미인증이고, 2-step prefix도 `incomplete_budget`이다. 단일 궤적 인증으로 전체 enclosure 인증을 대신하지 않는다.
 
+**④-4b 진행(2026-09-27):** evaluator 수정 전·후 frozen 181개 probe replay는 exit 0, 181/181 초기 비트·D_valid 판정·KDK 전이 일치
+(총 3,470,163 전이, 3815.645초), fixture 변경 없음. 기존 audit_fail 6개는 독립 감사 재실행 없이 보존했다.
+실제 KDK에서 보존되는 상대 좌표 0과 누적 kick/유한 L bound를 유도한
+[coordinate tube·direction projection](docs/active/C1B1_REACHABLE_GEOMETRY_V1.md)을 구현했으며 신규 시험 9개 통과.
+Cell budget은 64 유지. 재생성한 R=20 예시는 상대 좌표 3D→1D로 줄었지만 64 cell 검사 뒤 미해결 record 76개가 남아 `NotCertified`다.
+관련 시험 **106 passed, 51.59초**. VAST **REMOTE PYTHON FULL: 2292 passed + 121 skipped + 1 strict xfailed, 실패 0, 98.89초, exit 0**.
+skip은 Windows/native 98개, CUDA 10개, 외부 원문 자료 13개이며 통과로 세지 않는다. 이번 LOCAL FULL은 설계자의 원격 이전 지시로 중단했으므로 새 LOCAL FULL 결과가 아니다.
+로그 회수와 VAST 정지 확인 완료. **④-4b 전체 미완료**이며 다음 의무는 enclosure를 추가로 좁히는 수학적 제약이다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 

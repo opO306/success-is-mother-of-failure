@@ -515,6 +515,14 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | 비영 cell의 tie를 거의 불가능하다고 인정 | synthetic exact half-ulp enclosure에서 실제 evaluator와 cell proof 모두 거부 | 실제 Lang reachable tie 반례라고 주장하지 않음 |
 | 단일 궤적을 reachable enclosure 인증으로 승격 | adaptive API에서 C.step 금지, R=20의 예산 초과 NotCertified와 미해결 목록 검사 | scalar shell packet은 좁은 방향 정보를 보존하지 않아 cover가 커짐; 미해결을 성공으로 바꾸지 않음 |
 
+### C1-B1 reachable geometry v1 (2026-09-27)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 초기 q_k=0만 보고 축 고정, P_k 무시 | 잘못된 축 판정 주입 후 실제 KDK의 좌표 tube 포함 시험이 실패 | 같은 질량·실제 FX v2의 q_k=P_k=0 축만 보존; 임의의 기울어진 평면은 실제 drift 반례로 거부 |
+| 유한 L bound에서 초기 q0×P0 누락 | 초기 cross를 0으로 주입하면 실제 상태와 방향 cell 포함 의무가 실패 | 각운동량의 정확 보존을 주장하지 않음; finite 누적 오차합만 사용 |
+| projection 축소만으로 completeness 승격 | 64-cell 예산의 R=20 예시가 1D에서도 NotCertified이며 미해결 목록 보존 | 필요 반올림 전체를 닫지 않았고 더 큰 cell budget으로 밀어붙이지 않음 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다

@@ -13,6 +13,7 @@ from a_numeric import FixedPoint
 from a_reference import c1b1_two_atom as C
 from a_reference import c1b1_outer_bootstrap as O
 from a_reference import c1b1_outer_bound as B
+from a_reference import c1b1_reachable_geometry as G
 
 VERSION = 'c1b1-rounding-decision-v1'
 RELATIVE_RADIUS_CAP = Q(2**49)  # |q_k|<2^48; sqrt(3)*2^48 < 2^49.
@@ -271,14 +272,14 @@ def split_grid_cell(box):
 def certify_reachable_rounding(run,p_cap,*,max_cells=64):
     """Adaptive lattice cover of the existing induction's position projection.
 
-    The scalar induction retains no direction constraint. Its position
-    projection is therefore its radial guard, not the initial radial ray.
-    P constraints are omitted only because impulse does not depend on P.
+    Coordinate equality and finite kick/angular bounds narrow the scalar
+    projection before subdivision. No measured path or arbitrary plane is
+    used. Remaining intersecting cells still require evaluator decisions.
     Never replay, enlarge to arbitrary shells, or silently increase budgets.
     """
     if type(max_cells) is not int or max_cells<1:
         raise TypeError('positive fixed cell budget required')
-    geometry=O.certify_outgoing_outer(run,p_cap)
+    geometry,projection=G.certify_outgoing_reachable(run,p_cap)
     tail=certify_zero_tail()
     results=[]
     checked=0
@@ -291,12 +292,16 @@ def certify_reachable_rounding(run,p_cap,*,max_cells=64):
             continue
         except O.NotCertified:
             pass
-        bound=min(2**96-1,int(b/B.UX))
-        pending=[tuple((-bound,bound) for _ in range(3))]
+        constraint=projection['shells'][index]
+        pending=[constraint['root_box']]
         leaves=[]
         while pending and checked<max_cells:
             box=pending.pop()
             checked+=1
+            excluded=G.exclude_direction_cell(box,constraint)
+            if excluded is not None:
+                leaves.append({'box':box,'kind':excluded})
+                continue
             try:
                 leaves.append(certify_grid_cell(box,a,b))
             except O.NotCertified as error:
@@ -314,9 +319,10 @@ def certify_reachable_rounding(run,p_cap,*,max_cells=64):
     report={'version':VERSION,'scope':'shell_induction_reachable_enclosure_projection',
             'status':'not_certified' if unresolved else 'certified',
             'rounding_decision_completeness':'not_proved' if unresolved else 'certified_for_induced_enclosure',
-            'geometry_certificate':geometry,'tail_decision':tail,'shell_covers':tuple(results),
+            'geometry_certificate':geometry,'reachable_projection':projection,
+            'tail_decision':tail,'shell_covers':tuple(results),
             'checked_cells':checked,'cell_budget':max_cells,'unresolved_cells':tuple(unresolved),
-            'position_projection':'radial_guards_no_angular_constraint_retained_by_induction',
+            'position_projection':'induced_coordinate_tubes_zero_axes_and_outward_direction_constraints',
             'global_initial_state_family_completeness':'not_claimed'}
     if unresolved:
         error=O.NotCertified('reachable rounding cover unresolved; no complete certificate')
@@ -406,7 +412,8 @@ def example_report():
             return [serial(v) for v in x]
         return x
     root=Path(__file__).resolve().parents[1]
-    files=('a_reference/c1b1_rounding_completeness.py','a_reference/c1b1_two_atom.py',
+    files=('a_reference/c1b1_rounding_completeness.py','a_reference/c1b1_reachable_geometry.py',
+           'a_reference/c1b1_two_atom.py',
            'a_reference/c1b1_outer_bootstrap.py','a_reference/c1b1_outer_chain.py',
            'a_reference/c1b1_outer_bound.py','a_reference/ar2_lang2024.py',
            'a_numeric/profiles.py','a_numeric/exp.py')
@@ -415,7 +422,8 @@ def example_report():
     except O.NotCertified as error:
         attempt=error.report
     attempt={key:attempt[key] for key in ('scope','status','rounding_decision_completeness',
-             'checked_cells','cell_budget','unresolved_cells','shell_covers','position_projection')}
+             'checked_cells','cell_budget','unresolved_cells','shell_covers','position_projection',
+             'reachable_projection')}
     return serial({'version':VERSION,'kind':'analytic_rounding_decision_examples_not_measurements',
                    'uniform_tail':certify_zero_tail(),
                    'late_outgoing':certify_outgoing_decisions(run_at(O.zero_impulse_radius()-Q(1,100)),Q(2),max_steps=0),

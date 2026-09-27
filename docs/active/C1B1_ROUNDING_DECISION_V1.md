@@ -165,13 +165,17 @@ D_valid 비간섭, source hash·예시 재생성 등을 검증한다.
 `certify_reachable_rounding(run,p_cap,max_cells=64)`는 기존 ④-2 certificate를 직접 생성하여 그 shell guard만 사용한다.
 외부에서 임의의 더 큰 shell을 입력해 인증 범위를 확장하지 않는다. `C.step`이나 D_valid 조회를 호출하지 않는다.
 
-현재 ④-2 packet은 `a≤R≤guard_b`, `|P|≤P_cap`, `q·P≥w_floor` 등의 scalar 조건을 전달하며
-좌표축별 좁은 방향 범위를 보존하지 않는다. 따라서 q의 projection은 방향을 고정한 초기 ray가 아니다.
-impulse는 P에 의존하지 않으므로 P를 소거한 radial guard의 FX 격자 cover를 사용한다.
-P 조건 일부를 소거해 더 보수적이지만 충분한 projection을 덮는다. 이것을 exact reachable trajectory 집합이라고 부르지 않는다.
+원래 ④-2 packet은 `a≤R≤guard_b`, `|P|≤P_cap`, `q·P≥w_floor` 등의 scalar 조건을 전달했다.
+④-4b에서는 [귀납적 geometry 제약](C1B1_REACHABLE_GEOMETRY_V1.md)을 추가한다.
+초기 `q_k=P_k=0`이 보존되는 축을 고정하고, 누적 kick/체류/유한 L bound로
+좌표 tube와 `q·P0`, `|q×P0|` 제약을 유도한다. 임의의 기울어진 평면이나 초기 ray 고정은 가정하지 않는다.
+이 제약을 radial guard와 함께 교차한 projection을 덮는다. exact reachable trajectory 집합이라고 부르지 않는다.
 임의의 다른 실행 profile/에너지/초기 상태 family를 함께 인증하지 않는다.
 
-각 shell의 원래 root box는 `[-floor(guard_b/u_x),+floor(guard_b/u_x)]³`의 **정수 raw 격자**다.
+원래 root box는 `[-floor(guard_b/u_x),+floor(guard_b/u_x)]³`이었다.
+현재 root는 해당 shell의 귀납적 coordinate tube를 교차한 **정수 raw 격자**다.
+dot 상한 또는 cross norm² 하한으로 direction 제약과 교집합이 없다고 증명한 cell만 추가 제외한다.
+등호와 겹치는 cell은 계속 판정 대상이다.
 `certify_grid_cell(box,a,b)`는 각 좌표 interval의 정확한 제곱 최솟값/최댓값으로 R² 범위를 계산하고
 shell guard의 [a²,b²]와 교차시킨다. 교집합이 비면 증명으로 제외한다. 표본이 없다는 이유로 제외하지 않는다.
 다른 경우에는 outward sqrt interval → 실제 evaluator의 signed G=F/R enclosure → 각 성분의 signed impulse interval로 이어진다.
@@ -193,7 +197,11 @@ negative Taylor의 floor/ceil term·교대 합을 interval로 실행하고, `t_h
 열린 cell이 하나라도 있으면 성공 record를 반환하지 않는다. tie를 거의 불가능하다고 배제하거나 자동 재시도하지 않는다.
 
 현재 R=20 예시는 64-cell 예산에서 닫히지 않았다. 이것은 **16384 bit의 실제 Lang 반례도, 불가능성 증명도 아니다**.
-현 scalar enclosure와 제한된 subdivision으로 전체 cover를 얻지 못한 상태다.
-더 좁은 방향/좌표 enclosure가 필요하다면 실제 induction에서 유도해야 하며 측정 궤적으로 맞출 수 없다.
+원래 scalar enclosure 예시의 결과는 위 기록이다. coordinate/direction projection을 적용해 재생성한 예시는
+상대 좌표 3D→1D, exact zero 축 y/z이며 64 cell 검사 뒤 미해결 record 76개(미검사 shell 포함)가 남아 `NotCertified`다.
+geometry를 포함한 관련 시험은 **106 passed, 51.59초**.
+후속 **REMOTE PYTHON FULL은 2292 passed + 121 skipped + 1 strict xfailed, 실패 0, 98.89초, exit 0**이다.
+이번 LOCAL FULL은 설계자의 원격 이전 지시로 중단했다. 위 2404개 LOCAL FULL은 이전 구현의 기록이며 원격 skip을 통과로 세지 않는다.
+더 좁은 projection의 구현만으로 completeness를 인정하지 않는다. 미해결 cell은 그대로 보존한다.
 비영 multi-state cell과 실제 signed impulse의 일치, 분할 gap mutation, precision cap 저하 거부,
 synthetic exact tie 거부 등을 시험한다. synthetic tie는 reachable Lang 상태라는 주장이 아니다.
