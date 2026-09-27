@@ -47,6 +47,7 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 | **C1-B1 full residue-class survey v1** | `a_reference/c1b1_residue_class_survey.py`, `fixtures/c1b1_residue_class_survey_v1.json`, [조사 결과](docs/active/C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md) | shell 15〜18 전체 격자를 14,271 class로 덮음. 5,541 부분 class 하한·8,730 가변 CRT 미해결. 5,370 class에서 고정 2/5 정보의 한계 확인. survey_only·전체 NotCertified | 가능. class cover를 lemma로 승격·합동 가능성을 실제 반례로 오해·기존 checker/coverage 변경 금지 |
 | **C1-B1 normalized quotient-gap survey v1** | `a_reference/c1b1_quotient_gap_survey.py`, `fixtures/c1b1_quotient_gap_survey_v1.json`, [조사 결과](docs/active/C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ceil(M/g)·정확 D² identity·홀수 quotient 범위/coset. 작은 654 class의 2,680 입력 전수로 하한 추가, 큰 8,076 class 미해결. 새 shell lemma 0·coverage 유지 | 가능. remainder를 full-Q remainder로 오해·c 역원 가정·interval overlap을 실제 반례로 승격 금지 |
 | **C1-B1 same-input filter/checker v1** | `a_reference/c1b1_same_input_filter.py`, `c1b1_same_input_checker.py`, `fixtures/c1b1_same_input_survey_v1.json`, [결과](docs/active/C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 같은 j의 F_h 항등식·완전한 홀수 h inventory·bounded 분할 proof 검사. 작은 241 class의 2,980 입력 추가 확인, 7,835 미해결. 실제 큰 class symbolic 하한 0, 이차 lemma 효과는 합성 사례 | 가능. class proof의 region 승격·작업 한도의 물리 cap 대체·부분 leaf의 전체 class 승격 금지 |
+| **C1-B1 hard-case search survey v1** | `a_reference/c1b1_hard_case_search.py`(생성기), `c1b1_hard_case_checker.py`(독립 checker, 생성기 import 금지), `c1b1_hard_case_survey.py`(driver), `fixtures/c1b1_hard_case_survey_v1.json`, [결과](docs/active/C1B1_HARD_CASE_SEARCH_SURVEY_V1.md) | ψ=P/Q−½ 블록 보간 + Bernstein 비율 도함수 상한, T=G+δ. shell 18 전체 quadratic: 교차 1,568,498·후보 109·hazard 0, checker 1024/1024. survey_only | 가능. 근사값 인증·threshold 임의 고정·다른 shell 자동 일반화·coverage 연결 금지 |
 | **네이티브 실행기** | `a_numeric_native/` | VM 프로그램의 네이티브 실행기: B0 직렬 C++, B1 병렬 C++(스레드 수 E9), B2 CUDA(블록 크기 E9). VM이 판정자, 네이티브는 VM을 부르지 않음 — [docs/reference/A_NUMERIC_EXECUTION_STACK_V1.md](docs/reference/A_NUMERIC_EXECUTION_STACK_V1.md) 4.1 | 가능. MSVC·nvcc·NVIDIA GPU 필요(없으면 시험 건너뜀) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
@@ -306,7 +307,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-28: 2724 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output의 2471 passed, boundary의 2502 passed, class survey의 2652 passed, quotient survey의 2686 passed와도 구별한다.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-28: 2764 passed + 1 strict xfailed, skip 0). same-input 단계의 2724 passed와도 구별한다. 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output의 2471 passed, boundary의 2502 passed, class survey의 2652 passed, quotient survey의 2686 passed와도 구별한다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)

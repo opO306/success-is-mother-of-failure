@@ -18,7 +18,8 @@
 | [shell 15〜18 full residue-class 조사](C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md) | 전체 격자 class cover·정확 normalized polynomial·고정 CRT period. 14,271 class 중 8,730 가변 gap 미해결, 새 shell lemma/인증 0 |
 | [정규화 gap·가변 divisor·quotient 조사](C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ceil(M/g)·D² remainder identity·홀수 quotient 조건. 작은 654 class 하한 추가, 큰 8,076 class 미해결. 새 shell lemma/인증 0·11/64·gap 84 유지 |
 | [같은 입력 correlation 단계 계획](C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md) | ④-4c-4의 설계. 최소 구현 결과는 아래 조사에 기록하며 큰 class 수학 의무는 미완료 |
-| [같은 입력 gap 필터·별도 checker 조사](C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 기존 미해결 8,076 class 전부 root 검사. 작은 241 class·2,980 입력 추가 확인, 7,835 미해결. 실제 큰 class symbolic 하한 0·새 region 0 |
+| [같은 입력 gap 필터·별도 checker 조사](C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 기존 미해결 8,076 class 전부 root 검사. 작은 241 class·2,980 입력 추가 확인, 7,835 미해결. 실제 큰 class symbolic 하한 0·새 region 0. 이후 h 합동 lemma 방향은 보류 |
+| [shell 18 hard-case 탐색 조사](C1B1_HARD_CASE_SEARCH_SURVEY_V1.md) | 블록 보간 + 엄밀 오차로 T=G+δ 유도. affine 부적합, quadratic L=2^34 전체 실행: 교차 1,568,498·후보 109·hazard 0, checker 1024/1024. survey_only, 다른 shell 미적용 |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.
 다음 Gate는 **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다.

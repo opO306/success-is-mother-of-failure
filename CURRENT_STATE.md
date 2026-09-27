@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-5 hard-case 탐색 조사)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -219,6 +219,23 @@ failure/error 0, exit 0, 453.76초**, cp949 출력 해독 경고 25건 유지. �
 증거: `runs/c1b1_same_input_20260928/{raw_classes_final.jsonl,proofs_final.jsonl,raw_verification.json,unchanged_contracts.json,concept_alignment.json,verification_summary.json}`.
 범용 증명 언어·창고·자동화·B 연결은 미구현이다. 다음은 실제 29차 식의 같은-j 조건을 열거 없이 유지할 lemma다.
 
+**④-4c-5 shell 18 hard-case 탐색 실현 가능성 조사(2026-09-28, 기준 `0bab51b`):**
+설계자 판정으로 h 합동 lemma 방향은 **보류(폐기 아님)**하고 (b) Lefèvre/SLZ 계열의 가장 싼 단계부터 실측했다.
+[조사 결과](docs/active/C1B1_HARD_CASE_SEARCH_SURVEY_V1.md)는 ψ=P/Q−½의 원래 shell 18 domain 전체에서
+블록별 보간다항식 + 엄밀한 보간 오차 δ(도함수 분자 N_k의 Bernstein 비율 상한)를 쓰고, search threshold를 **T=G+δ**(G는 ④-4c-1의 고정 guard, 약 2^-1614)로 유도했다.
+affine은 거짓 후보를 수천 개 이하로 두려면 블록 약 47억 개가 필요해 부적합했고, **quadratic L=2^34(블록 4,547,510)**로 shell 전체를 실행했다.
+교차 수 **1,568,498**은 half-ulp fixture의 경계 수와 정확히 같고, 후보 **109개**를 원래 P/Q로 전부 재평가한 결과 **hazard 0·거짓 후보 109**다.
+별도 checker(생성기 import 금지)가 superblock **1024/1024**를 독립 재계산해 일치했다. 6 워커로 생성기 562초·checker 582초.
+합성 12설정과 실제 shell 18 창 24설정의 brute force 대조는 모두 **누락 0**(창은 대조를 위해 τ를 명시적으로 키움)이며, 결함 주입 4종과 proof row 조작을 잡았다.
+cubic은 오차만 계산했고 lattice/SLZ는 구현하지 않았다. 교차별 처리 비용은 경계 수에 선형이라 경계가 격자점보다 많은 shell 0〜4에는 원리적으로 쓸 수 없고,
+고정 guard로 2GN을 계산하면 shell 0〜6은 guard 안 입력이 휴리스틱으로 매우 많아 전체 impulse를 대상으로 한 별도 설계가 필요하다(추정, 미측정).
+**survey_only**: 인증 계약·coverage 연결 없음, **④-4b NotCertified·11/64 region·gap 84·16384-bit·새 region 0** 유지, shell 0〜17로 일반화하지 않는다.
+checker는 동결 P/Q 항등식과 기존 guard를 공유하므로 새 독립 물리 감사가 아니다. 기존 파일 수정 0(신규 5파일).
+신규 집중 직렬 **40 passed, 13.86초**. **LOCAL FULL: 2764 passed + 1 strict xfailed, skip 0, failure/error 0, exit 0, 455.87초**. 신규 40개 직렬/병렬 결과가 항목별로 같다.
+이번 실행 요약에는 컴파일러 인코딩 경고 줄이 없었으나 원인을 조사하지 않았으므로 해결로 보고하지 않는다.
+증거: `runs/c1b1_hard_case_20260928/{survey_full.json,survey_full.log,focused_final.log,focused_final.xml,local_full.log,local_full.xml,local_full.exit,verification_summary.json,attempt_notes.json}`.
+다음 판단: shell 18 결과의 인증 계약 승격 여부, shell 17→15 실측 확대 여부, shell 0〜6 별도 설계 여부.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -260,6 +277,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-5 shell 18 hard-case search survey LOCAL FULL (2026-09-28) | **2764 passed + 1 strict xfailed, failure/error 0, skip 0, 455.87초**, 요약에 경고 줄 없음(원인 미조사). 신규 40개 직렬/병렬 동일 | `runs/c1b1_hard_case_20260928/local_full.log`, `runs/c1b1_hard_case_20260928/local_full.xml` |
 | ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |
 | ④-4c-4 same-input 최소 구현 LOCAL FULL (2026-09-28) | **2724 passed + 1 strict xfailed, failure/error 0, skip 0, 453.76초**, cp949 경고 25건. 신규 38개 직렬/병렬 동일 | `runs/c1b1_same_input_20260928/local_full.log`, `runs/c1b1_same_input_20260928/local_full.xml` |
 | ④-4c-2 full residue-class survey LOCAL FULL (2026-09-28) | **2652 passed + 1 strict xfailed, failure/error 0, skip 0, 425.76초**, cp949 경고 25건. 신규 27개 직렬/병렬 동일 | `runs/c1b1_residue_class_20260928/local_full.log`, `runs/c1b1_residue_class_20260928/local_full.xml` |

@@ -23,6 +23,7 @@
 | [C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md](active/C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ④-4c-3: ceil(M/g)·변수 치환 D² identity·odd quotient 범위/coset, 작은 654 class 하한 추가·큰 8,076 class 미해결 |
 | [C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md](active/C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md) | ④-4c-4 단계 계획. 최소 구현 착수, 전체 계획 완료·큰 class 인증 아님 |
 | [C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md](active/C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 최소 필터·proof object·별도 checker. 작은 241 class 하한 추가·7,835 미해결·큰 class symbolic 하한 0 |
+| [C1B1_HARD_CASE_SEARCH_SURVEY_V1.md](active/C1B1_HARD_CASE_SEARCH_SURVEY_V1.md) | ④-4c-5: shell 18 hard-case 탐색 실현 가능성. quadratic 전체 실행 후보 109·hazard 0·checker 일치, survey_only |
 
 ## 동결 원문
 
