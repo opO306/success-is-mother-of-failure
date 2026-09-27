@@ -201,6 +201,24 @@ failure/error 0, exit 0, 433.59초**, cp949 경고 25건 유지. 신규 34개 �
 다음은 가변 B(j)와 quotient의 같은-j 상관관계를 더 보존하거나 다른 분모 인수와 remainder를 함께 쓰는 lemma다.
 ④ 동결·⑤·E_min·전체 산란각 보류 유지.
 
+**④-4c-4 same-input 필터 최소 구현(2026-09-28, 기준 `0bdfa49`):**
+[같은 입력 필터·별도 checker 조사](docs/active/C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md)는
+기존 미해결 8,076 class 전부의 정규화 항등식·홀수 h inventory를 검사한다.
+`F_h=(A−c·h·B)V+R=c(2P′−hQ′)`를 같은 j에서 결합한 뒤 범위를 계산하며 m=ceil(M/g)를 유지한다.
+입력 16개 이하 241 class와 사전 선정 대표 12개에만 깊이 4·노드 31의 추가 분할을 적용했다.
+**추가 하한은 작은 241 class·2,980 입력이며 전부 singleton leaf까지 나눈 결과다.**
+실제 큰 class symbolic 하한 0·실제 joint-polynomial-sign leaf 0, 합성 이차 사례의 개선과 구별한다.
+class 하한 집계 **6,436**, 남은 **7,835 미해결**, 전체 shell lemma·실제 small-gap witness·새 region 0이다.
+최소 proof object와 별도 checker는 원래 class/항등식/기준/정수 분할/홀수 inventory를 재구성한다.
+builder를 import하지 않지만 frozen 물리 항등식과 기존 numeric foundation은 공유하며 새 독립 물리 감사는 아니다.
+기존 6,195 survey 하한을 이번 checker로 일괄 승격하지 않았고 coverage 연결도 추가하지 않았다.
+**④-4b NotCertified·11/64 region·gap 84·16384-bit·④ 미동결·⑤ 미착수** 유지.
+기존 물리·D_valid·인증·직전 survey 관련 **39파일**은 `0bdfa49`와 LF 바이트 동일하다.
+새 집중 직렬 **38 passed, 9.06초**. **LOCAL FULL: 2724 passed + 1 strict xfailed, skip 0,
+failure/error 0, exit 0, 453.76초**, cp949 출력 해독 경고 25건 유지. 신규 38개 직렬/병렬 결과가 항목별로 같다.
+증거: `runs/c1b1_same_input_20260928/{raw_classes_final.jsonl,proofs_final.jsonl,raw_verification.json,unchanged_contracts.json,concept_alignment.json,verification_summary.json}`.
+범용 증명 언어·창고·자동화·B 연결은 미구현이다. 다음은 실제 29차 식의 같은-j 조건을 열거 없이 유지할 lemma다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -243,6 +261,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
 | ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |
+| ④-4c-4 same-input 최소 구현 LOCAL FULL (2026-09-28) | **2724 passed + 1 strict xfailed, failure/error 0, skip 0, 453.76초**, cp949 경고 25건. 신규 38개 직렬/병렬 동일 | `runs/c1b1_same_input_20260928/local_full.log`, `runs/c1b1_same_input_20260928/local_full.xml` |
 | ④-4c-2 full residue-class survey LOCAL FULL (2026-09-28) | **2652 passed + 1 strict xfailed, failure/error 0, skip 0, 425.76초**, cp949 경고 25건. 신규 27개 직렬/병렬 동일 | `runs/c1b1_residue_class_20260928/local_full.log`, `runs/c1b1_residue_class_20260928/local_full.xml` |
 | ④-4c-1 modular-distance survey LOCAL FULL (2026-09-28) | **2625 passed + 1 strict xfailed, failure/error 0, skip 0, 383.44초**, cp949 경고 25건. 신규 32개 직렬/병렬 동일 | `runs/c1b1_modular_distance_20260928/local_full.log`, `runs/c1b1_modular_distance_20260928/local_full.xml` |
 | ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |

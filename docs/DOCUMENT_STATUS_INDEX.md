@@ -21,6 +21,8 @@
 | [C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md](active/C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md) | ④-4c-1: 원래 19 domain·2,679점 exact Δ/CRT survey_only, 새 family 하한 0·coverage 유지 |
 | [C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md](active/C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md) | ④-4c-2: shell 15〜18 전체 class cover·fixed prime-power 한계·가변 CRT gap 미해결, 새 shell lemma 0 |
 | [C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md](active/C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ④-4c-3: ceil(M/g)·변수 치환 D² identity·odd quotient 범위/coset, 작은 654 class 하한 추가·큰 8,076 class 미해결 |
+| [C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md](active/C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md) | ④-4c-4 단계 계획. 최소 구현 착수, 전체 계획 완료·큰 class 인증 아님 |
+| [C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md](active/C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 최소 필터·proof object·별도 checker. 작은 241 class 하한 추가·7,835 미해결·큰 class symbolic 하한 0 |
 
 ## 동결 원문
 
@@ -105,4 +107,7 @@ D_valid v2의 생성기·계약·fixture는 코드와 데이터 위치를 그대
 
 [확률 세계](legacy-probabilistic/README.md), [이전 사회·원시인·뇌](legacy-society-brain/README.md)는 기존 분류를 유지한다.
 [장기 제안](proposals/README.md)은 구현·동결 상태와 구분한다.
+[A 증명 조립 아키텍처](proposals/A_PROOF_COMPOSITION_ARCHITECTURE_V1.md)와
+[로드맵](proposals/A_PROOF_COMPOSITION_ROADMAP_V1.md)은 장기 제안이다.
+현재 C1-B1의 최소 proof/checker 구현을 장기 구조 전체 완료로 승격하지 않는다.
 옛 경로가 필요한 코드·시험·규칙은 호환 안내를 통해 실제 원문을 찾는다. LLM_HANDOFF의 manifest는 생성 당시 스냅샷이므로 현재 파일의 해시 목록으로 사용하지 않는다.
