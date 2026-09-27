@@ -572,6 +572,19 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | domain 경계점 제외·축/해시/source 변경·전체 Certified로 승격 | 외부 원래 domain/hash·foundation·scope와 대조, fresh coverage gap 84 및 전체 NotCertified 보존 | coverage 증가를 ④ 전체 완료로 읽지 않음 |
 | live numeric error/helper를 작은 error로 변조 | 호출 binding·helper descriptor·고정 math precision 검사에서 거부 | 이 source-bound 기존 lemma 자체를 다른 증명기로 재증명한 것은 아님 |
 
+### C1-B1 exact modular-distance survey v1 (2026-09-28)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| half-integer 거리를 mod Q 또는 Δ/Q로 잘못 계산 | 작은 정수 P/Q 전수의 직접 half-integer 거리와 대조, 홀수 배수/factor-of-two 오류의 반례 확인 | rational 부분 거리이며 전체 impulse는 signed exp residual을 포함함 |
+| unreduced Δ 증가를 phase 개선으로 읽음 | 2^34·5^8로 P/Q를 확대해도 거리·약분 Δ/Q가 동일함을 검사 | 표본 최소 Δ는 domain 전체 하한이 아님 |
+| 분모 인수가 모두 서로소라고 가정 | 비서로소 generalized CRT를 작은 전체 residue 공간과 대조, 모순 residue 거부. lcm 12를 product 24로 쓰는 오류 검출 | CRT는 각 입력의 하한이며 odd-multiple parity도 버림 |
+| 유리 다항식 remainder를 무단 integer congruence로 사용 | exact 계수 전체를 곱해 c·2P=quotient·D^j+remainder 확인. 역원을 가정하는 synthetic 반례 확인 | c를 약분할 수 있다는 주장은 없음 |
+| 16-bit zero를 valuation/tie라고 해석 | 실제 R=3808의 v2(P,Q)=(1557,1555), 약분 후 (2,0)을 정수로 확인 | valuation만으로 새 stronger family 하한이 생기지 않음 |
+| domain에 hidden residue 제한·endpoint 누락 | 원래 19 domain과 선택 점을 대조, closed integer residue multiplicity를 작은 전수와 대조 | 선택 점은 전체 reachable lattice 열거가 아님 |
+| pinned source/fixture·exact identity 변조 | 읽기 변조 및 독립 전개 계수 변조를 각각 거부 | EXP·numeric error·동결 상수는 기존 공통 기반 |
+| 거짓 pass flag·sample minimum을 certificate로 전달 | 기존 family checker가 survey 객체를 거부, 새 family 하한 None·새 region 0·11/64/gap 84 유지 | shell 15〜18 표본 CRT 후보도 family 인증 아님 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다

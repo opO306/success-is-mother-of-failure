@@ -142,6 +142,24 @@ skip 0, 실패/error 0, exit 0, 385.03초**, cp949 출력 해독 경고 25건은
 증거: `runs/c1b1_family_checker_20260928/{local_full_complete.log,local_full_complete.xml,verification_summary.json,unchanged_contracts.json,exception_structure.json}`.
 초기 검사에서 잡힌 integer / float division 오류와 이전 전체 실행(2590 passed, 427.65초)은 로그로 보존하며 최종 버전 검증과 구별한다.
 
+**④-4c-1 exact modular-distance 조사(2026-09-28, 기준 `561a91e`):**
+[19-domain 별도 survey](docs/active/C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md)는 원래 shell 0〜18의 domain을 유지하고
+미리 정한 bounded selection의 **2,679점**에서 정수 Δ=|2P−(2k+1)Q|·약분·정확 경계 거리·분모 인수별 residue·gcd·generalized CRT를 기록했다.
+관측 최소값은 선택한 점에만 해당하며 새 family 하한은 없다. **survey_only·새 region 0·11/64 region·gap 84·전체 NotCertified** 유지.
+19개는 **4+1+14**로 갈린다. shell 0〜3은 residual guard≥½ ULP여서 unshifted rational 거리만으로 기존 조건을 닫을 수 없고,
+shell 4는 guard<½지만 공통 M/(2Q_max) 방식에 필요한 M이 Q_min을 넘어 현재 구조가 너무 강하다.
+shell 5〜18의 모든 선택 점은 guard보다 멀었지만 전체 격자 분리 증명은 없다.
+특히 shell 15〜18의 선택 점 **570개** 모두에서 point CRT 하한이 M_req 이상이므로 다음 lemma 조사 후보다. 인증 승격하지 않는다.
+D_int(0)=2^318·5^32와 gcd(n,D(n))|D_int(0)을 확인했다. D/D² remainder는 정수화 multiplier를 포함하며 역원을 가정하지 않는다.
+모든 domain이 작은 modulus의 모든 residue를 포함하며, mod 5^8 단독 거리 하한은 실제 5의 배수 witness에서 0이다.
+약분 전 큰 Δ나 16-bit zero를 강한 separation/tie로 해석하지 않는다. 이전 checker·물리·Frozen D_valid를 변경하지 않았고
+기존 관련 소스/fixture/시험 30개가 `561a91e`와 LF 바이트 동일하다. 181 probe 장시간 replay 재실행은 아니다.
+신규 직렬 **32 passed, 25.73초**. **LOCAL FULL: 2625 passed + 1 strict xfailed, skip 0,
+failure/error 0, exit 0, 383.44초**, cp949 출력 해독 경고 25건 유지. 신규 32개 직렬/병렬 결과가 항목별로 같다.
+증거: `runs/c1b1_modular_distance_20260928/{focused_final.log,focused_final.xml,local_full.log,local_full.xml,raw_samples_final.jsonl,unchanged_contracts.json,verification_summary.json,concept_alignment.json}`.
+다음은 15〜18 우선의 **전 domain** 합동류 하한 조사이며 새 lemma가 확보되기 전에는 checker·coverage를 변경하지 않는다.
+④ 동결·⑤·E_min·전체 산란각 보류 유지.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -183,6 +201,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-1 modular-distance survey LOCAL FULL (2026-09-28) | **2625 passed + 1 strict xfailed, failure/error 0, skip 0, 383.44초**, cp949 경고 25건. 신규 32개 직렬/병렬 동일 | `runs/c1b1_modular_distance_20260928/local_full.log`, `runs/c1b1_modular_distance_20260928/local_full.xml` |
 | ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |
 | ④-4b 미해결 진단 LOCAL FULL (2026-09-27) | **2430 passed + 1 strict xfailed, failure/error 0, skip 0, 362.74초**, cp949 경고 25건. 진단 시험 17개 | `runs/c1b1_unresolved_diagnosis_20260927/local_full.log`, `runs/c1b1_unresolved_diagnosis_20260927/local_full.xml` |
 | 폴더 정리 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 454.67초**, cp949 경고 25건 | `runs/documentation_folder_cleanup_20260927/local_full.log`, `runs/documentation_folder_cleanup_20260927/local_full.xml` |

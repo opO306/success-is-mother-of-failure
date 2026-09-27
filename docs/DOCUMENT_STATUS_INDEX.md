@@ -18,6 +18,7 @@
 | [C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md](active/C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md) | boundary 역상 배제 계약·27개 domain 측정·3개 추가 인증·24개 family 미증명 |
 | [C1B1_FRACTIONAL_PHASE_SURVEY_V1.md](active/C1B1_FRACTIONAL_PHASE_SURVEY_V1.md) | 남은 24개 정확 식·signed residual·간격/tie 구조 조사, 새 인증 계약은 미구현 |
 | [C1B1_RATIONAL_SPACING_FAMILY_V1.md](active/C1B1_RATIONAL_SPACING_FAMILY_V1.md) | 후속 별도 checker·proof object·5개 domain 인증, coverage 11/64·gap 84, 남은 19개 수학은 별도 |
+| [C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md](active/C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md) | ④-4c-1: 원래 19 domain·2,679점 exact Δ/CRT survey_only, 새 family 하한 0·coverage 유지 |
 
 ## 동결 원문
 

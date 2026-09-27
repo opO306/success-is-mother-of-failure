@@ -14,6 +14,7 @@
 | [half-ulp boundary 역상 배제](C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md) | 후속 27개 domain 측정·3개 전체 인증. 51개 경계→후보 3개, 24개 family 의무 남음. 6/64 region·gap 89, 전체 NotCertified |
 | [fractional phase 식 구조 조사](C1B1_FRACTIONAL_PHASE_SURVEY_V1.md) | 남은 24개 정규형·signed residual·modular tie 조사. 간격 충분조건 5개, rational tie 24개 배제(유한 예외 1점 포함). survey_only, 새 region 0개 |
 | [rational spacing family 인증](C1B1_RATIONAL_SPACING_FAMILY_V1.md) | 별도 checker·proof-object 변조 검사 후 shell 19〜23 전체 인증. coverage 11/64 region·gap 84, 큰 family 19개와 전체 NotCertified 유지 |
+| [19-domain exact modular-distance 조사](C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md) | 2,679점 exact Δ·약분·인수별 residue·generalized CRT. 4+1+14로 조사 분리, shell 15〜18 표본 후보. 전체 하한 미증명·coverage 유지 |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.
 다음 Gate는 **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다.
