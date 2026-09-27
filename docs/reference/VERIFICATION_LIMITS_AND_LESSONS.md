@@ -545,6 +545,19 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | boundary/후보 작업 예산 초과를 부분 성공으로 승격 | 미열거 수를 null로 보존하고 incomplete certificate를 checker가 거부 | 작업 예산은 물리/precision cap이 아니며 249개 경계의 열거 불가능성 증명도 아님 |
 | 부분 domain 인증을 전체 rounding completeness로 확대 | fresh geometry compositor에서 미피복 gap 89개 및 전체 NotCertified 보존 | 세 domain 전체가 닫혔어도 24개 큰 family와 최종 감사가 남음 |
 
+### C1-B1 fractional phase survey v1 (2026-09-27)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 유리식 inverse 항 누락·부호 반전·단위 배수 오류 | 기존 전개와 다른 식으로 각 frozen component를 직접 미분한 정확 분수와 불일치 검출 | 독립 식이지만 같은 frozen 물리 상수를 사용함. 전역 인증 checker는 아직 없음 |
+| exponential 항 누락·부호 반전 | short/damping monomial의 개별 미분으로 얻은 모든 계수와 대조해 검출 | exp enclosure 자체는 기존 정수 Taylor 구현에 의존 |
+| signed residual 방향을 뒤집음 | synthetic ±exp(-R)의 768-bit point enclosure가 변조 구간 밖에 놓여 검출 | 실제 domain에서 부호가 미결정인 구간은 그대로 미결정으로 기록 |
+| 음의 P를 잘못 나머지 처리·0/음의 Q 허용 | modular distance와 직접 half-integer 거리를 대조, 잘못된 분모를 거부 | 3개 phase witness는 가족 전체 거리 하한으로 승격하지 않음 |
+| 같은 valuation 최소 항을 유일하다고 취급·정확 tie를 제외 | 상쇄 다항식은 None, synthetic P/Q=1/2는 합동류 refinement 뒤에도 미결정 유지 | modulus cap 65536 뒤 남은 입력은 수를 먼저 세고 64점 이하만 finite fallback |
+| 위조된 square 분모의 parity 사용 | 정수 계수 전체를 다시 곱해 원래 Q와 일치하지 않으면 거부 | 약분 전 분모 구조이며 점별 gcd는 별도 |
+| source/hash/cap 변경 뒤 조사 결과 재사용 | cap 32768 및 prior inventory hash 변조를 각각 거부 | 조사는 인증서가 아니며 sufficient domain도 coverage로 자동 등록하지 않음 |
+| 간격 충분조건 5개를 전체 완료로 승격 | survey_only·새 인증 region 0·전체 NotCertified 검사 | 19개 signed modular 거리 의무와 독립 family checker가 남음 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다

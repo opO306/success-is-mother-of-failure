@@ -101,6 +101,29 @@ skip 0, 실패/error 0, exit 0, 405.59초**, 컴파일러 cp949 해독 경고 27
 증거: `runs/c1b1_boundary_exclusion_20260927/{local_full_final.log,local_full_final.xml,verification_summary.json,unchanged_contracts.json}`.
 최대 precision 필드 보강 전의 LOCAL FULL(2501 passed, 403.78초)은 별도 이전 실행 로그로 보존한다.
 
+**④-4b fractional phase 구조 조사(2026-09-27, 기준 `f275d0b`):**
+[24개 식 조사](docs/active/C1B1_FRACTIONAL_PHASE_SURVEY_V1.md)는 원래 domain을 그대로 유지하고
+ULP 단위 exact impulse를 정수 유리식 P(n)/Q(n)+지수 잔여항으로 분리했다.
+P는 22차, Q는 29차이며 정확히 **Q=5^8·n^17·D_int(n)^2**다. 고정/2의 거듭제곱 분모가 아니고 점별 약분은 별도다.
+4096-bit 수학 enclosure의 signed residual과 기존 numeric endpoint error를 합친 결과,
+**shell 19〜23의 5개 domain**에서 guard<1/(2Q_max)가 성립했다(실행 precision 2048/2048/2048/4096/4096).
+23개 domain의 유리식 exact tie는 bounded 합동류와 square valuation parity로 배제했고,
+마지막 하나는 미해결 합동류를 정확히 **n=1071856711314178048 한 점**으로 줄였다.
+그 점의 정확 유리식도 tie가 아니며 기존 finite-point 인증기에서 256-bit 이하로 결정된다.
+따라서 유한 fallback 포함 rational tie 배제는 24/24다. 전체 impulse의 경계 분리로 연결 가능한 것은 충분조건을 만족한 5개뿐이다.
+나머지 19개는 현재 residual 상한이 최소 간격보다 크며, 홀수 n에 대한 2-adic 정보만으로 간격을 더 키울 수 없다.
+더 강한 signed modular family bound는 미증명이다. 현재 enclosure의 부호 미결정을 실제 부호 변화나 precision 실패로 해석하지 않는다.
+이번 결과는 **survey_only**, family certificate 계약·독립 checker·coverage 연결은 아직 없다.
+새 region 0개, 기존 **6/64 region·gap 89**, **R=20/④-4b NotCertified** 유지.
+물리·기존 인증기/fixture·181 Frozen D_valid를 보존하며 ④ 동결·⑤·E_min·전체 산란각은 계속 보류한다.
+다음은 충분조건 5개를 독립 checker로 연결하고 남은 19개의 실제 위상 거리 하한을 조사하는 것이다.
+신규 직렬 **37 passed, 12.21초**. 최종 **LOCAL FULL: 2539 passed + 1 strict xfailed,
+skip 0, 실패/error 0, exit 0, 426.25초**, 컴파일러 cp949 해독 경고 27건.
+신규 37개 결과는 직렬/병렬 항목별 동일하며, 관련 기존 소스/fixture/시험 23개가 `f275d0b`와 LF 바이트 동일하다.
+181 probe의 긴 replay를 새로 실행한 결과는 아니다. 소스/fixture 보존과 이번 전체 회귀 검증을 구분한다.
+증거: `runs/c1b1_fractional_phase_20260927/{local_full_final.log,local_full_final.xml,verification_summary.json,unchanged_contracts.json}`.
+중간 집중 시험의 JSON 키 비교/API 호출 오류 및 최종 진단 필드 추가로 중단한 첫 전체 실행 로그는 별도로 보존하며 최종 결과로 세지 않는다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
