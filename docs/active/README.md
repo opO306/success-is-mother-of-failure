@@ -16,6 +16,7 @@
 | [rational spacing family 인증](C1B1_RATIONAL_SPACING_FAMILY_V1.md) | 별도 checker·proof-object 변조 검사 후 shell 19〜23 전체 인증. coverage 11/64 region·gap 84, 큰 family 19개와 전체 NotCertified 유지 |
 | [19-domain exact modular-distance 조사](C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md) | 2,679점 exact Δ·약분·인수별 residue·generalized CRT. 4+1+14로 조사 분리, shell 15〜18 표본 후보. 전체 하한 미증명·coverage 유지 |
 | [shell 15〜18 full residue-class 조사](C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md) | 전체 격자 class cover·정확 normalized polynomial·고정 CRT period. 14,271 class 중 8,730 가변 gap 미해결, 새 shell lemma/인증 0 |
+| [정규화 gap·가변 divisor·quotient 조사](C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ceil(M/g)·D² remainder identity·홀수 quotient 조건. 작은 654 class 하한 추가, 큰 8,076 class 미해결. 새 shell lemma/인증 0·11/64·gap 84 유지 |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.
 다음 Gate는 **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다.

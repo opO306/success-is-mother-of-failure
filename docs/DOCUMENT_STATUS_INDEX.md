@@ -20,6 +20,7 @@
 | [C1B1_RATIONAL_SPACING_FAMILY_V1.md](active/C1B1_RATIONAL_SPACING_FAMILY_V1.md) | 후속 별도 checker·proof object·5개 domain 인증, coverage 11/64·gap 84, 남은 19개 수학은 별도 |
 | [C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md](active/C1B1_EXACT_MODULAR_DISTANCE_SURVEY_V1.md) | ④-4c-1: 원래 19 domain·2,679점 exact Δ/CRT survey_only, 새 family 하한 0·coverage 유지 |
 | [C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md](active/C1B1_FULL_RESIDUE_CLASS_SURVEY_V1.md) | ④-4c-2: shell 15〜18 전체 class cover·fixed prime-power 한계·가변 CRT gap 미해결, 새 shell lemma 0 |
+| [C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md](active/C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md) | ④-4c-3: ceil(M/g)·변수 치환 D² identity·odd quotient 범위/coset, 작은 654 class 하한 추가·큰 8,076 class 미해결 |
 
 ## 동결 원문
 

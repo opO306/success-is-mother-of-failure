@@ -181,6 +181,26 @@ failure/error 0, exit 0, 425.76초**, cp949 출력 해독 경고 25건 유지. �
 오류 문구 정규식에서 괄호를 escape하지 않아 실패한 중간 시험 로그는 보존한다. 알고리즘의 변조 거부 자체는 정상 작동했다.
 shell 전체 하한이 확보되지 않았으므로 새 independent lemma checker/coverage 승격은 보류하고 ④ 동결·⑤·E_min·전체 산란각 보류도 유지한다.
 
+**④-4c-3 normalized quotient-gap 조사(2026-09-28, 기준 `875aa31`):**
+[정규화 gap·quotient 조사](docs/active/C1B1_NORMALIZED_QUOTIENT_GAP_SURVEY_V1.md)는 기존 shell 15〜18의 14,271 class 전체를 유지한다.
+class 공통 인수 g에 맞춰 필요한 기준을 **ceil(M/g)**로 바꾸고,
+기존 D² remainder 항등식을 선형 변수 치환과 scalar 정리 후 계수별로 재검사했다.
+`Q′=B·D_normalized²`, `c·z=(A−c·h·B)D_normalized²+R`에서 홀수 h·multiplier·cofactor를 함께 보존한다.
+R 부호만으로 gap을 판정하거나 c의 modular 역원을 가정하지 않는다. non-singleton P′/Q′ 차수는 22/29다.
+exact Bernstein ratio 범위와 quotient coefficient coset을 조사했지만 **큰 class의 새 하한은 0개**다.
+입력 8개 이하의 미해결 작은 class **654개·2,680 입력**을 전수 계산하고 별도 정수 평가로 확인해 class 하한을 추가했다.
+기존 하한 5,541개와 합쳐 **6,195 class 하한**, **8,076 class 미해결**이며 shell별 미해결은 3014/2587/1894/581이다.
+전체 shell lemma 후보 0·실제 작은 gap 반례 0이며, 큰 class의 느슨한 조건에 후보가 남는 것을 존재 증거로 바꾸지 않는다.
+실제 유리식 gap 반례라도 전체 impulse 반올림 실패/16384-bit 초과 증거와는 별개다.
+**survey_only·새 region 0·11/64 region·gap 84·④-4b NotCertified** 유지. 새 independent checker/coverage 연결은 없다.
+기존 물리·D_valid·인증 관련 36개 파일은 `875aa31`과 LF 바이트 동일하며 181 probe replay 재실행은 아니다.
+신규 집중 직렬 **34 passed, 1.38초**. **LOCAL FULL: 2686 passed + 1 strict xfailed, skip 0,
+failure/error 0, exit 0, 433.59초**, cp949 경고 25건 유지. 신규 34개 직렬/병렬 결과는 항목별로 동일하다.
+원자료 14,271행 해시·정규화 기준·작은 class 독립 전수·보존 해시·구상 경계는
+`runs/c1b1_quotient_gap_20260928/{raw_verification.json,unchanged_contracts.json,concept_alignment.json,verification_summary.json}`에 기록한다.
+다음은 가변 B(j)와 quotient의 같은-j 상관관계를 더 보존하거나 다른 분모 인수와 remainder를 함께 쓰는 lemma다.
+④ 동결·⑤·E_min·전체 산란각 보류 유지.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -222,6 +242,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |
 | ④-4c-2 full residue-class survey LOCAL FULL (2026-09-28) | **2652 passed + 1 strict xfailed, failure/error 0, skip 0, 425.76초**, cp949 경고 25건. 신규 27개 직렬/병렬 동일 | `runs/c1b1_residue_class_20260928/local_full.log`, `runs/c1b1_residue_class_20260928/local_full.xml` |
 | ④-4c-1 modular-distance survey LOCAL FULL (2026-09-28) | **2625 passed + 1 strict xfailed, failure/error 0, skip 0, 383.44초**, cp949 경고 25건. 신규 32개 직렬/병렬 동일 | `runs/c1b1_modular_distance_20260928/local_full.log`, `runs/c1b1_modular_distance_20260928/local_full.xml` |
 | ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |

@@ -1,0 +1,17 @@
+{
+  "project": "Self-Specializing Compute System",
+  "language": "ko-KR",
+  "format": "Markdown",
+  "files": [
+    "00_README.md",
+    "01_CONCEPT_AND_GOALS.md",
+    "02_SYSTEM_ARCHITECTURE.md",
+    "03_EQUIVALENCE_AND_VERIFICATION.md",
+    "04_DECOMPOSITION_AND_OPTIMIZATION.md",
+    "05_SEARCH_AND_LEARNING.md",
+    "06_HARDWARE_MAPPING.md",
+    "07_IMPLEMENTATION_ROADMAP.md",
+    "08_EXPERIMENT_PLAN.md",
+    "09_EXISTING_TECH_AND_POSITIONING.md"
+  ]
+}
