@@ -127,3 +127,7 @@ coverage gap 보존, 궤적·D_valid·subdivision 접근 금지, exact fixture �
 관련 물리·동결·기존 증명 소스/fixture 16개가 `6184700`과 LF 바이트 동일함을 확인했다.
 로그·JUnit·결과 요약·파일 동일성 증거는 `runs/c1b1_multi_output_20260927/`에 보존했다.
 전체 시험의 통과는 27개 격자 margin 미증명을 해소하거나 ④-4b를 승격하지 않는다.
+
+후속 [half-ulp boundary 역상 배제](C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md)에서 당시 27개 중
+3개 큰 domain을 추가 인증했다. 24개 family 의무가 남으며 전체 NotCertified다.
+위 수치와 fixture는 `d59b565` 단계의 증거로 보존한다.

@@ -83,6 +83,24 @@ skip은 Windows/native 98개, CUDA 10개, 외부 원문 자료 13개이며 통�
 실행기·기존 인증기·도달 geometry·동결 fixture 등을 포함한 16개 파일이 `6184700`과 LF 바이트 동일하다.
 증거: `runs/c1b1_multi_output_20260927/{local_full.log,local_full.xml,verification_summary.json,unchanged_contracts.json}`.
 
+**④-4b boundary 역상 배제(2026-09-27, 기준 `d59b565`):**
+[half-ulp boundary 증명](docs/active/C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md)에서 기존 미인증 domain 27개의
+정확한 endpoint enclosure·ulp span·경계 개수를 기록했다. shell 24〜26은
+**51개 경계 → 후보 정수 3개 → 직접 인증 3개**로 각 domain 전체를 256-bit 안에서 닫았다.
+선언된 격자점 수는 각각 298,023,842,104,416,266 / 372,529,648,073,654,547 /
+465,661,905,535,202,398개이며 실제 방문 점 수는 아니다.
+나머지 **24개 큰 domain**은 경계 작업 한도 64를 넘어 symbolic-family 대상으로 남겼다.
+경계 수는 249〜6,304,880,043,134,911,522개이며 후보 수는 미열거로 기록했다.
+64-region과 16384-bit 유지. 별도 경계/후보 작업 한도는 물리 cap이 아니다.
+새 compositor가 검증된 기존/신규 6개 region을 fresh geometry와 대조한 결과 gap은 92→89다.
+**R=20 및 ④-4b 전체 NotCertified**, ④ 동결·⑤·E_min·전체 산란각 보류 유지.
+기존 물리·D_valid·multi-output/constant-output 증명 및 fixture는 변경하지 않았다.
+신규 직렬 **31 passed, 26.86초**. 최종 **LOCAL FULL: 2502 passed + 1 strict xfailed,
+skip 0, 실패/error 0, exit 0, 405.59초**, 컴파일러 cp949 해독 경고 27건.
+신규 31개 결과는 직렬/병렬 항목별 동일하며, 관련 기존 소스/fixture 19개가 `d59b565`와 LF 바이트 동일하다.
+증거: `runs/c1b1_boundary_exclusion_20260927/{local_full_final.log,local_full_final.xml,verification_summary.json,unchanged_contracts.json}`.
+최대 precision 필드 보강 전의 LOCAL FULL(2501 passed, 403.78초)은 별도 이전 실행 로그로 보존한다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -124,6 +142,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |
 | ④-4b 미해결 진단 LOCAL FULL (2026-09-27) | **2430 passed + 1 strict xfailed, failure/error 0, skip 0, 362.74초**, cp949 경고 25건. 진단 시험 17개 | `runs/c1b1_unresolved_diagnosis_20260927/local_full.log`, `runs/c1b1_unresolved_diagnosis_20260927/local_full.xml` |
 | 폴더 정리 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 454.67초**, cp949 경고 25건 | `runs/documentation_folder_cleanup_20260927/local_full.log`, `runs/documentation_folder_cleanup_20260927/local_full.xml` |
 | 내용 정리 당시 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 395.50초**, cp949 경고 25건 | `runs/documentation_cleanup_20260927_local_full.log`, `runs/documentation_cleanup_20260927_local_full.xml` |

@@ -15,6 +15,7 @@
 | [C1B1_REACHABLE_GEOMETRY_V1.md](active/C1B1_REACHABLE_GEOMETRY_V1.md) | ④-4b 신규 귀납 제약·frozen replay 기록 |
 | [C1B1_ROUNDING_DIAGNOSIS_V1.md](active/C1B1_ROUNDING_DIAGNOSIS_V1.md) | ④-4b 미해결 76개 기록 분류·64-cell uniform cover 한계 |
 | [C1B1_MULTI_OUTPUT_DECISION_V1.md](active/C1B1_MULTI_OUTPUT_DECISION_V1.md) | multi-output region 계약·65점 수용 사례·29개 그룹 분석·남은 margin 의무 |
+| [C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md](active/C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md) | boundary 역상 배제 계약·27개 domain 측정·3개 추가 인증·24개 family 미증명 |
 
 ## 동결 원문
 

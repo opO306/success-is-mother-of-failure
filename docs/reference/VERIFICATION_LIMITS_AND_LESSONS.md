@@ -532,6 +532,19 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | guard 밖·off-grid·거짓 raw·rounding 경계 교차 witness를 유효 증거로 인정 | 네 종류의 손상된 witness를 cover 하한 검사기가 각각 거부 | signed interval의 PES 타당성은 기존 evaluator에 의존하며 완전 독립 재증명은 아님 |
 | uniform cell 불가를 16384-bit pointwise 불가능성으로 해석 | 74개 구간의 서로 다른 끝점은 실제 evaluator에서 128/256 bit로 결정되고 내부 completeness는 not_proved로 남음 | 65-output은 현재 projection+uniform 방식의 64-cell obstruction만 증명 |
 
+### C1-B1 half-ulp boundary exclusion v1 (2026-09-27)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 증가 방향을 반전·공통 error를 축소 | 외부 domain의 해석 slope와 실행기 endpoint error를 다시 구해 변조를 거부 | PES/수치 error 기반은 기존 동결 소스에 의존하며 전체 독립 재증명은 아님 |
+| half-ulp index 하나 생략 | 확정한 시작/끝 index의 연속 전체 목록과 대조하여 거부 | 64개 초과 family는 열거하지 않고 미증명으로 남김 |
+| inverse lower/upper endpoint를 조작 | 최종 endpoint의 실제 physical enclosure 부등식을 검사해 거부 | bisection 탐색 경로를 신뢰하지 않음; 512-bit enclosure 자체의 미분리는 성공이 아님 |
+| 후보 정수 하나 생략·domain 끝점 축소 | ceil/floor의 닫힌 정수 목록 및 외부 coverage 의무 domain과 대조해 거부 | 선언된 보수 격자점 수는 실제 방문 점 수가 아님 |
+| 후보 precision 변조·최대 precision을 공통 precision보다 작게 표시 | schedule 검사와 후보 재검증, domain/후보 precision의 최대값 검사에서 거부 | 현재 실제 세 domain은 256 bit. synthetic 변조를 실제 Lang precision 반례로 해석하지 않음 |
+| exact tie·16384-bit 미분리를 성공으로 처리 | affine synthetic의 exact half-ulp 및 2^-20000 margin 예시에서 NotCertified 유지 | half-even 값은 정의돼 있어도 strict-separation 증명은 tie를 인증하지 않음 |
+| boundary/후보 작업 예산 초과를 부분 성공으로 승격 | 미열거 수를 null로 보존하고 incomplete certificate를 checker가 거부 | 작업 예산은 물리/precision cap이 아니며 249개 경계의 열거 불가능성 증명도 아님 |
+| 부분 domain 인증을 전체 rounding completeness로 확대 | fresh geometry compositor에서 미피복 gap 89개 및 전체 NotCertified 보존 | 세 domain 전체가 닫혔어도 24개 큰 family와 최종 감사가 남음 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다

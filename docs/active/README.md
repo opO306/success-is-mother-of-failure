@@ -11,6 +11,7 @@
 | [reachable coordinate·direction 제약](C1B1_REACHABLE_GEOMETRY_V1.md) | ④-4b 귀납적 projection 축소와 frozen 181개 probe replay. Completeness 전체는 미완료 |
 | [64-cell 미해결 원인 진단](C1B1_ROUNDING_DIAGNOSIS_V1.md) | 76개 기록 전부 분류. 현재 projection에 최소 65 uniform leaf 필요, ④-4b NotCertified 유지 |
 | [multi-output 결정성 계약·결과](C1B1_MULTI_OUTPUT_DECISION_V1.md) | 65점 한 region·256 bit 인증, 29개 그룹 단조성 증명, 마지막 전체 축 구간 인증. 27개 그룹 margin 미증명, 전체 NotCertified |
+| [half-ulp boundary 역상 배제](C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md) | 후속 27개 domain 측정·3개 전체 인증. 51개 경계→후보 3개, 24개 family 의무 남음. 6/64 region·gap 89, 전체 NotCertified |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.
 다음 Gate는 **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다.

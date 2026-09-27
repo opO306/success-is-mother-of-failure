@@ -40,6 +40,7 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 | **C1-B1 rounding decision v1** | `a_reference/c1b1_rounding_completeness.py`, `fixtures/c1b1_rounding_decision_examples_v1.json`, [docs/active/C1B1_ROUNDING_DECISION_V1.md](docs/active/C1B1_ROUNDING_DECISION_V1.md) | legal FX tail 전체: 210 cell·최대 512 bit. 유한 부분: 기존 shell-induced reachable enclosure의 FX adaptive signed rounding cover. 미해결은 NotCertified(report). R=20의 64-cell 시도는 미인증; 단일 궤적으로 대체하지 않음 | 가능. precision cap 상향·미검사 future 인정·D_valid 확대 금지 |
 | **C1-B1 reachable geometry v1** | `a_reference/c1b1_reachable_geometry.py`, [docs/active/C1B1_REACHABLE_GEOMETRY_V1.md](docs/active/C1B1_REACHABLE_GEOMETRY_V1.md) | 실제 KDK에서 상대 좌표 0 귀납·좌표 tube·유한 kick/L bound로 direction 제약 유도. 기존 rounding cover의 root와 제외 검사에 적용. 임의 평면 보존·전체 completeness는 주장하지 않음 | 가능. 궤적으로 enclosure 조정·cell budget 확대 금지 |
 | **C1-B1 multi-output region v1** | `a_reference/c1b1_rounding_regions.py`, `c1b1_axis_decision_bounds.py`, `fixtures/c1b1_rounding_regions_v1.json`, [계약·결과](docs/active/C1B1_MULTI_OUTPUT_DECISION_V1.md) | 명시 65점 하나의 region·256 bit 인증. 29개 그룹 단조성·수치 오차 상한, 마지막 전체 축 구간 인증. 나머지 27개 그룹 margin 미증명, 전체 NotCertified. 기존 constant-output 보존 | 가능. 64 region·16384 bit 유지, 유한 점 인증을 전체 coverage로 승격 금지 |
+| **C1-B1 half-ulp boundary exclusion v1** | `a_reference/c1b1_half_ulp_boundaries.py`, `fixtures/c1b1_half_ulp_boundaries_v1.json`, [계약·결과](docs/active/C1B1_HALF_ULP_BOUNDARY_EXCLUSION_V1.md) | 27개 domain span/경계 수 확정. 3개 큰 domain을 51개 경계·후보 3개로 인증. 나머지 24개 family 미증명. fresh coverage 6/64 region·gap 89, 전체 NotCertified | 가능. 경계 누락·inverse 방향 추정·domain 축소·precision cap 상향 금지 |
 | **네이티브 실행기** | `a_numeric_native/` | VM 프로그램의 네이티브 실행기: B0 직렬 C++, B1 병렬 C++(스레드 수 E9), B2 CUDA(블록 크기 E9). VM이 판정자, 네이티브는 VM을 부르지 않음 — [docs/reference/A_NUMERIC_EXECUTION_STACK_V1.md](docs/reference/A_NUMERIC_EXECUTION_STACK_V1.md) 4.1 | 가능. MSVC·nvcc·NVIDIA GPU 필요(없으면 시험 건너뜀) |
 | **확률 세계** | `engine/sequence/`, `engine/living/` | 동결된 기준선 | **읽기만** |
 | **레거시 사회/원시인/뇌** | `engine/primal|brain|agentworld/` + 루트 `engine/*.py` | 이전 프로젝트 | 현재 대상 아님 |
@@ -299,7 +300,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2471 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed 및 진단의 2430 passed와도 구별한다.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2502 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output 단계의 2471 passed와도 구별한다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)

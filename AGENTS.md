@@ -54,7 +54,7 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2471개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 359.84초; multi-output region·29개 그룹 분석 포함. tail 결정성 인증 완료, 65점 한 region 및 마지막 축 구간 인증. 27개 그룹 margin 미증명, R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고 26건. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+**기준선: 2502개 통과 + 1 xfailed, skip 0** (2026-09-27 기준, `-n 6` 405.59초; half-ulp boundary 역상 배제 포함. tail·65점 한 region·마지막 축 구간 인증에 더해 큰 domain 3개 추가 인증. 24개 큰 family 미증명, R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고 27건. xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
 
