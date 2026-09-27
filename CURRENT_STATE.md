@@ -1,6 +1,6 @@
 # 현재 상태
 
-**최종 갱신:** 2026-09-27 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-09-28 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
 
@@ -123,6 +123,24 @@ skip 0, 실패/error 0, exit 0, 426.25초**, 컴파일러 cp949 해독 경고 27
 181 probe의 긴 replay를 새로 실행한 결과는 아니다. 소스/fixture 보존과 이번 전체 회귀 검증을 구분한다.
 증거: `runs/c1b1_fractional_phase_20260927/{local_full_final.log,local_full_final.xml,verification_summary.json,unchanged_contracts.json}`.
 중간 집중 시험의 JSON 키 비교/API 호출 오류 및 최종 진단 필드 추가로 중단한 첫 전체 실행 로그는 별도로 보존하며 최종 결과로 세지 않는다.
+
+**④-4b rational spacing family 인증(2026-09-28, 기준 `f0484af`):**
+[별도 family checker](docs/active/C1B1_RATIONAL_SPACING_FAMILY_V1.md)는 survey/생성기를 import하거나 pass flag를 사용하지 않는다.
+동결 component를 직접 미분해 exact P/Q·지수항 계수를 재구성하고, 닫힌 domain 전체 Q_max·signed residual·numeric E·strict guard를 재계산한다.
+완전한 valuation/residue tree와 유한 exception을 검사하며 요구 precision과 실제 execution cap을 대조한다.
+**shell 19〜23의 원래 5개 domain 전체 Certified**, p 상한 2048/2048/2048/4096/4096.
+마지막 exception n=1071856711314178048은 정확 rational tie 배제 및 실제 point proof 256-bit 재검증.
+momentum legal output도 exact triangle bound로 확인한다. 64-region·16384-bit, 원래 domain과 물리는 유지한다.
+기존 6개와 새 5개를 각 checker로 확인한 fresh coverage는 **11/64 region·gap 84개**다.
+남은 큰 family 19개에는 새 수학을 추가하지 않았으며 **R=20/④-4b 전체 NotCertified**를 유지한다.
+④ 동결·⑤·E_min·전체 산란각은 계속 보류. 다음은 별도의 ④-4c modular-distance lower-bound survey다.
+source-bound numeric error lemma·정수 EXP·동결 상수·기존 point API는 공통 기반으로 재사용하므로 전역 독립 물리 감사와 구별한다.
+신규 직렬 시험 **54 passed, 32.93초**. 최종 **LOCAL FULL: 2593 passed + 1 strict xfailed,
+skip 0, 실패/error 0, exit 0, 385.03초**, cp949 출력 해독 경고 25건은 남았다.
+신규 54개 결과는 직렬/병렬 항목별 동일하며, 기존 관련 소스/fixture/시험 26개가 `f0484af`와 LF 바이트 동일하다.
+181 probe의 장시간 replay를 새로 실행한 결과가 아니라 보존 해시와 이번 전체 회귀 검증이다.
+증거: `runs/c1b1_family_checker_20260928/{local_full_complete.log,local_full_complete.xml,verification_summary.json,unchanged_contracts.json,exception_structure.json}`.
+초기 검사에서 잡힌 integer / float division 오류와 이전 전체 실행(2590 passed, 427.65초)은 로그로 보존하며 최종 버전 검증과 구별한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

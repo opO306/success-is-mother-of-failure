@@ -558,6 +558,20 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | source/hash/cap 변경 뒤 조사 결과 재사용 | cap 32768 및 prior inventory hash 변조를 각각 거부 | 조사는 인증서가 아니며 sufficient domain도 coverage로 자동 등록하지 않음 |
 | 간격 충분조건 5개를 전체 완료로 승격 | survey_only·새 인증 region 0·전체 NotCertified 검사 | 19개 signed modular 거리 의무와 독립 family checker가 남음 |
 
+### C1-B1 rational spacing family checker v1 (2026-09-28)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| survey의 통과 여부·동일 구현을 신뢰 | survey 주요 함수들을 실패 함수로 바꾸고도 checker가 5개 객체를 검사. shell 18의 거짓 pass flag도 strict guard로 거부 | 동결 상수·numeric endpoint lemma·정수 EXP는 공통 기반이며 완전 독립 물리 감사가 아님 |
+| P/Q·retardation D·지수항 누락/부호 오류 | 각 frozen component를 직접 미분한 별도 전개 및 square identity와 일치하지 않으면 거부 | 새로운 물리나 19개 stronger bound는 추가하지 않음 |
+| Q_max를 작은 값/반대 끝점으로 기록·signed residual/error/guard 축소 | 닫힌 domain의 양의 계수 Q(hi), signed 구간과 기존 endpoint error를 재계산해 거부 | 물리 range 폭을 numerical E로 사용하지 않음 |
+| E=margin 등호·spacing/margin 과장 | 주입한 정확 등호 및 변조 분수에서 strict 조건이 거부 | synthetic 경계 조건이며 실제 Lang reachable tie 반례가 아님 |
+| 요구 p/cap/max 필드 변조·부족한 외부 execution ceiling | 원래 128→…→16384 schedule·family/point 최대값·외부 상한과 대조해 거부 | 현재 family p는 2048/4096, 실행 산술·cap 자체는 수정하지 않음 |
+| valuation class/leaf를 누락·중복·과장 | 가능한 모든 t와 radix tree의 실제 교차 branch를 검사하고 modular Horner valuation을 재계산해 거부 | modulus cap 65536 뒤의 입력은 64점 이하 finite fallback으로만 처리 |
+| exception 하나 누락·n/residue 위조·point proof 누락/precision 초과 | 원래 domain 안의 후보 수를 먼저 세어 목록을 재구성, exact tie 검사와 기존 point API 재인증 | 실제 한 점 R=3808은 256-bit. 전수 trajectory replay가 아님 |
+| domain 경계점 제외·축/해시/source 변경·전체 Certified로 승격 | 외부 원래 domain/hash·foundation·scope와 대조, fresh coverage gap 84 및 전체 NotCertified 보존 | coverage 증가를 ④ 전체 완료로 읽지 않음 |
+| live numeric error/helper를 작은 error로 변조 | 호출 binding·helper descriptor·고정 math precision 검사에서 거부 | 이 source-bound 기존 lemma 자체를 다른 증명기로 재증명한 것은 아님 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다
