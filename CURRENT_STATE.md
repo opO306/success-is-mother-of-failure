@@ -278,8 +278,8 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
 | ④-4c-5 shell 18 hard-case search survey LOCAL FULL (2026-09-28) | **2764 passed + 1 strict xfailed, failure/error 0, skip 0, 455.87초**, 요약에 경고 줄 없음(원인 미조사). 신규 40개 직렬/병렬 동일 | `runs/c1b1_hard_case_20260928/local_full.log`, `runs/c1b1_hard_case_20260928/local_full.xml` |
-| ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |
 | ④-4c-4 same-input 최소 구현 LOCAL FULL (2026-09-28) | **2724 passed + 1 strict xfailed, failure/error 0, skip 0, 453.76초**, cp949 경고 25건. 신규 38개 직렬/병렬 동일 | `runs/c1b1_same_input_20260928/local_full.log`, `runs/c1b1_same_input_20260928/local_full.xml` |
+| ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |
 | ④-4c-2 full residue-class survey LOCAL FULL (2026-09-28) | **2652 passed + 1 strict xfailed, failure/error 0, skip 0, 425.76초**, cp949 경고 25건. 신규 27개 직렬/병렬 동일 | `runs/c1b1_residue_class_20260928/local_full.log`, `runs/c1b1_residue_class_20260928/local_full.xml` |
 | ④-4c-1 modular-distance survey LOCAL FULL (2026-09-28) | **2625 passed + 1 strict xfailed, failure/error 0, skip 0, 383.44초**, cp949 경고 25건. 신규 32개 직렬/병렬 동일 | `runs/c1b1_modular_distance_20260928/local_full.log`, `runs/c1b1_modular_distance_20260928/local_full.xml` |
 | ④-4b boundary 역상 배제 최종 LOCAL FULL (2026-09-27) | **2502 passed + 1 strict xfailed, failure/error 0, skip 0, 405.59초**, cp949 경고 27건. 신규 31개 시험 | `runs/c1b1_boundary_exclusion_20260927/local_full_final.log`, `runs/c1b1_boundary_exclusion_20260927/local_full_final.xml` |

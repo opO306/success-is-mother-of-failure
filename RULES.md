@@ -186,7 +186,7 @@ A에 다음을 직접 넣지 않는다:
 통과율 100%는 안심할 이유가 아니라 의심할 이유다. 검사기가 눈을 감고 있을 수 있다.
 
 - 새 검사기를 만들면 **결함을 일부러 심어서 잡히는지 확인한다.** 안 잡으면 그 검사는 무의미하다
-- 검사 결과를 `docs/current/VERIFICATION_LIMITS_AND_LESSONS.md`의 결함 주입 표에 기록한다
+- 검사 결과를 `docs/reference/VERIFICATION_LIMITS_AND_LESSONS.md`의 결함 주입 표에 기록한다
 - 검사기가 검사 대상과 같은 함수를 쓰면 자기 결함을 못 잡는다 (2026-09-21 `verify_trace()` 사례)
 
 ### 성공의 정의

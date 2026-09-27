@@ -307,7 +307,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-28: 2764 passed + 1 strict xfailed, skip 0). same-input 단계의 2724 passed와도 구별한다. 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output의 2471 passed, boundary의 2502 passed, class survey의 2652 passed, quotient survey의 2686 passed와도 구별한다.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-28: 2764 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output의 2471 passed, boundary의 2502 passed, class survey의 2652 passed, quotient survey의 2686 passed, same-input 단계의 2724 passed, hard-case survey의 2764 passed와도 구별한다. 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed, 진단의 2430 passed, multi-output의 2471 passed, boundary의 2502 passed, class survey의 2652 passed, quotient survey의 2686 passed와도 구별한다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)
