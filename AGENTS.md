@@ -54,7 +54,7 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2764개 통과 + 1 xfailed, skip 0** (2026-09-28 기준, `-n 6` 455.87초; rational-spacing family checker·exact modular-distance·full residue-class·normalized quotient-gap·same-input filter/checker·shell-18 hard-case search 시험 포함. hard-case 조사는 survey_only로 shell 18 전체 quadratic 탐색 후보 109개·hazard 0, 인증 아님. shell 19〜23 원래 5개 domain 인증으로 11/64 region·gap 84 유지. same-input 최소 구현에서 작은 241 class의 2,980 입력을 singleton 분할로 추가 확인해 class 하한 집계 6,436·미해결 7,835다. 실제 큰 class symbolic 하한·새 shell lemma·인증 0개. 남은 큰 family 19개와 R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고는 직전까지 25건이었고 이번 실행 요약에는 경고 줄이 없었다(원인 미조사, 해결로 보고하지 않음). xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+**기준선: 2798개 통과 + 1 xfailed, skip 0** (2026-09-28 기준, `-n 6` 448.71초; rational-spacing family checker·exact modular-distance·full residue-class·normalized quotient-gap·same-input filter/checker·shell-18 hard-case search·certificate 시험 포함. shell 18 hard-case 인증서로 원래 domain 하나 Certified(후보 109·hazard 0), shell 19〜23 5개와 합친 fresh coverage 12/64 region·gap 83. same-input 최소 구현에서 작은 241 class의 2,980 입력을 singleton 분할로 추가 확인해 class 하한 집계 6,436·미해결 7,835다. 실제 큰 class symbolic 하한·새 shell lemma·인증 0개. 남은 큰 family 19개와 R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고는 직전까지 25건이었고 이번 실행 요약에는 경고 줄이 없었다(원인 미조사, 해결로 보고하지 않음). xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
 skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
 eference`가 없으면 해당 시험이 skip된다).
 

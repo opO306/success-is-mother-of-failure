@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-5 hard-case 탐색 조사)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-6 shell 18 hard-case 인증서 완료, 다음 ④-4c-7 shell 17 단독 실측)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -236,6 +236,20 @@ checker는 동결 P/Q 항등식과 기존 guard를 공유하므로 새 독립 �
 증거: `runs/c1b1_hard_case_20260928/{survey_full.json,survey_full.log,focused_final.log,focused_final.xml,local_full.log,local_full.xml,local_full.exit,verification_summary.json,attempt_notes.json}`.
 다음 판단: shell 18 결과의 인증 계약 승격 여부, shell 17→15 실측 확대 여부, shell 0〜6 별도 설계 여부.
 
+**④-4c-6 shell 18 hard-case 인증서(2026-09-28, 기준 `7ab8de3`):**
+설계자 판정(1)에 따라 ④-4c-5 결과를 [인증 계약·proof object](docs/active/C1B1_HARD_CASE_CERTIFICATE_V1.md)로 올렸다.
+family checker와 같은 잠금을 건다: 외부 domain binding, frozen P/Q, residual/numeric error 출처와 G 재계산, precision 4096 ≤ execution limit ≤ 16384, legal momentum 출력, source 해시.
+verify는 superblock 1024행의 도함수 상한·교차 수·후보 구간을 전부 다시 계산해 정확히 대조하고, 후보 **109개**를 원래 P/Q로 재평가한다(**hazard 0**).
+**shell 18 원래 domain 전체(격자점 78,125,618,227,463,141개) Certified.** 통과 뒤 계산한 **fresh coverage는 12/64 region·gap 83**이며 shell 18 gap은 0이다.
+남은 gap은 shell 0에 65개, shell 1에 2개, shell 2〜17에 각 1개다. **R=20/④-4b 전체 NotCertified**, ④ 미동결·⑤ 미착수다.
+인증서 1024행은 ④-4c-5 생성기 행과 전부 일치한다. 저장 JSON을 그대로 읽은 전체 재검증도 통과했다(560.7초). 독립 물리 감사는 아니다(동결 P/Q·numeric lemma·정수 EXP 공유).
+첫 전체 실행은 superblock을 quadratic 블록 하나로 통째 처리한 결함으로 1시간 46분 멈췄다. build/verify가 같은 함수를 공유해 시험이 못 잡은 유형 A다.
+수정 뒤 교차 구현 대조·회귀·작업 한도 시험을 추가했다. 설명문 수정 뒤 전체를 재생성했으며 인증서·coverage가 이전 실행과 동일하다.
+최종 실행 build 551초·verify 547초·coverage 합성 567초(6 워커). 신규 직렬 **34 passed**(관련 74개 65.95초).
+**LOCAL FULL: 2798 passed + 1 strict xfailed, skip 0, failure/error 0, exit 0, 448.71초**, 신규 74개 직렬/병렬 항목별 동일, 로그에 경고 줄 없음(원인 미조사).
+증거: `runs/c1b1_hard_case_certificate_20260928/{certificate_full.json,certificate_full.log,verify_wire.log,focused_serial.xml,local_full.log,local_full.xml,attempt_notes.json}`.
+다음은 ④-4c-7 shell 17 단독 확장성 실측이다(16/15 함께 하지 않음). shell 0〜6은 전체 impulse I(n)=P/Q+S의 별도 설계 트랙으로 기록만 한다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -277,6 +291,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-6 shell 18 hard-case 인증서 LOCAL FULL (2026-09-28) | **2798 passed + 1 strict xfailed, failure/error 0, skip 0, 448.71초**, 로그에 경고 줄 없음(원인 미조사). 신규 관련 74개 직렬/병렬 동일 | `runs/c1b1_hard_case_certificate_20260928/local_full.log`, `runs/c1b1_hard_case_certificate_20260928/local_full.xml` |
 | ④-4c-5 shell 18 hard-case search survey LOCAL FULL (2026-09-28) | **2764 passed + 1 strict xfailed, failure/error 0, skip 0, 455.87초**, 요약에 경고 줄 없음(원인 미조사). 신규 40개 직렬/병렬 동일 | `runs/c1b1_hard_case_20260928/local_full.log`, `runs/c1b1_hard_case_20260928/local_full.xml` |
 | ④-4c-4 same-input 최소 구현 LOCAL FULL (2026-09-28) | **2724 passed + 1 strict xfailed, failure/error 0, skip 0, 453.76초**, cp949 경고 25건. 신규 38개 직렬/병렬 동일 | `runs/c1b1_same_input_20260928/local_full.log`, `runs/c1b1_same_input_20260928/local_full.xml` |
 | ④-4c-3 normalized quotient-gap survey LOCAL FULL (2026-09-28) | **2686 passed + 1 strict xfailed, failure/error 0, skip 0, 433.59초**, cp949 경고 25건. 신규 34개 직렬/병렬 동일 | `runs/c1b1_quotient_gap_20260928/local_full.log`, `runs/c1b1_quotient_gap_20260928/local_full.xml` |

@@ -19,6 +19,7 @@
 | 사례 | 날짜 | 무슨 일이었나 |
 |---|---|---|
 | `verify_trace()` | 2026-09-21 발견 | 기록할 때 쓴 `_delta()`·`_digest()`를 검증할 때 다시 씀. 그 함수가 틀리면 기록도 검증도 같이 틀려서 "일치" 판정 |
+| shell 18 hard-case 인증서 `_recompute_row` | 2026-09-28 발견 | build와 verify가 같은 행 재계산 함수를 불러 서로 일치. 그 함수가 superblock 하나를 quadratic 블록 하나로 통째 처리해 후보가 천문학적으로 불었고 전체 실행이 1시간 46분 멈춤. 결과는 sound였지만 시험은 못 잡음. smoke에서 같은 64블록 후보 945 vs 10 신호를 조사하지 않았다. 해결: 생성기(다른 구현)가 만든 조사 fixture 행과 대조 |
 
 **증상:** 검사가 항상 통과한다. 통과율이 100%인데 아무도 이상하게 여기지 않는다.
 
@@ -609,6 +610,18 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | proof row 조작(후보 삭제·상한 절반·교차 수·superblock 삭제/이동) | 독립 checker가 모두 거부 | checker는 동결 P/Q 항등식·기존 guard를 공유(독립 물리 감사 아님) |
 | 실제 G에서의 공허한 대조 | 실제 창은 τ를 기울기 64배로 명시해 창마다 hazard 128개 요구 | 실제 G의 hazard 0 결과 자체는 brute force로 확인 불가능한 규모 |
 | 최대/최소를 따로 쓴 느슨한 도함수 상한 | 합성 함수에서 T≈7×10⁷로 폭주(첫 smoke) → Bernstein 가중평균 비율 상한으로 교체 | 비율 상한도 superblock 폭에 따라 느슨해질 수 있음 |
+
+### C1-B1 shell-18 hard-case certificate v1 (2026-09-28)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| superblock 전체를 quadratic 블록 하나로 처리(실제 발생) | 생성기 조사 fixture 행과의 교차 구현 대조(1024행 전부 일치), 통째 처리 시 후보 100배 이상 증가 회귀 시험, 후보 작업 한도 2^20 거부 | build/verify는 여전히 `_recompute_row`를 공유한다. 교차 구현 대조는 저장된 생성기 행에 의존 |
+| guard·후보 수·impulse 상한·domain·momentum scale·foundation 해시·P·residual·status/version/scope·required_bits·Q_max 변조 | 13종 모두 전체 재계산 대조에서 거부 | 인증서 필드 대조이며, 동결 P/Q·numeric error lemma·정수 EXP 기반은 공유(독립 물리 감사 아님) |
+| 도함수 상한을 작게 위조·후보 삽입/삭제·superblock 누락 | 행별 재계산과 정확 일치 요구, 연속성 검사로 거부 | 실제 shell 18 slice는 후보가 거의 없어 삭제 시험에는 후보를 먼저 삽입한 뒤 삭제 |
+| 실제 hazard가 guard 안에 있는데 인증 | 합성 항등식 + 큰 guard에서 build 거부 | 실제 shell 18에서는 hazard 0이라 실제 입력으로는 이 경로를 밟지 못함 |
+| 요구 precision보다 작은 실행 한도 | execution_limit 2048에서 거부 | 4096-bit 진단 precision 자체는 고정 입력 |
+| 부분 slice 인증을 shell 전체·전체 coverage로 승격 | 작은 slice는 region +1이지만 not_certified 유지, 65 region 거부, 전체 인증은 fresh coverage 12/64·gap 83·not_certified | coverage 수치는 compositor가 계산, 미리 적지 않음 |
+| 저장된 fixture의 coverage 재현 | 저장 인증서로 coverage 재합성이 저장값과 일치 | 이 시험은 10분 재검증을 동일성 검사로 대체. 저장 JSON 전체 재검증은 스위트 밖에서 1회 실행해 로그로 보존 |
 
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
