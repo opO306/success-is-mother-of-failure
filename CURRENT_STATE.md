@@ -65,6 +65,24 @@ skip은 Windows/native 98개, CUDA 10개, 외부 원문 자료 13개이며 통�
 따라서 도달가능 제약만으로 64개의 동일-output cell을 만드는 것은 이 초기 상태의 해결책이 아니다.
 **서로 다른 output을 허용하는 pointwise 판정 증명 표현이 우선**, 추가 불변량은 그 대상 축소의 보조 수단이다.
 
+**④-4b multi-output 증명 계약 구현(2026-09-27):** 기존 constant-output 인증기를 보존한 채
+[서로 다른 output의 결정성 인증](docs/active/C1B1_MULTI_OUTPUT_DECISION_V1.md)을 추가했다.
+명시한 65개 서로 다른 impulse 입력을 **한 region·공통 256-bit**로 인증했다.
+이것은 65점 전수 평가이며 큰 격자 구간이나 실제 궤적 전체의 인증은 아니다.
+29개 그룹 전부 V′>0·V″<0, impulse 엄격 증가와 인접 separation 하한을 해석적으로 증명했다.
+마지막 특이 구간은 내부 극값·zero crossing 없이 **전체 선언 격자점 553,997,943,205,884,291개**를
+분할 없이 256-bit impulse=0으로 인증했다. singleton도 128-bit로 인증했다.
+나머지 **27개 그룹은 격자 rounding-boundary margin 미증명**이다. 공통 수치 endpoint error bound는 확보했다.
+새 coverage checker는 fresh shell projection의 정확한 gap 92개를 남긴다(원래 미해결 기록 76개와 다른 집계).
+사용 region 3/64, precision cap 16384 유지. **R=20 및 ④-4b 전체 NotCertified**다.
+물리 실행기·기존 인증기·도달 projection·181 Frozen D_valid는 변경하지 않았다.
+⑤·E_min·전체 산란각은 계속 보류하며 다음 의무는 27개 큰 격자 domain 전체의 half-ulp 경계 분리 증명이다.
+신규 직렬 시험 **41 passed, 22.82초**. **LOCAL FULL: 2471 passed + 1 strict xfailed, skip 0,
+실패/error 0, 359.84초, exit 0**. 신규 41개 시험의 직렬/병렬 결과가 항목별로 동일하다.
+컴파일러 출력 cp949 해독 경고 26건은 남아 있으며 해결됐다고 해석하지 않는다.
+실행기·기존 인증기·도달 geometry·동결 fixture 등을 포함한 16개 파일이 `6184700`과 LF 바이트 동일하다.
+증거: `runs/c1b1_multi_output_20260927/{local_full.log,local_full.xml,verification_summary.json,unchanged_contracts.json}`.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 

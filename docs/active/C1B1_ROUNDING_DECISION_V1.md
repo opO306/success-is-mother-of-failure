@@ -216,3 +216,12 @@ synthetic exact tie 거부 등을 시험한다. synthetic tie는 reachable Lang 
 실제 궤적의 precision failure 또는 전체 pointwise completeness 불가능성 증명이 아니다.
 더 강한 이산 도달가능 제약 또는 비상수-output 구간의 pointwise separation 증명이 남는다.
 ④-4b NotCertified와 ④ 전체 FROZEN·⑤·E_min·전체 산란각 보류를 유지한다.
+
+## 9. multi-output region 추가: 기존 uniform-output 경로 보존
+
+[새 계약·결과](C1B1_MULTI_OUTPUT_DECISION_V1.md)는 region 안의 서로 다른 output을 허용한다.
+65점은 하나의 유한 집합 인증서·공통 256-bit로 결정됐지만 큰 projection 전체를 덮지 않는다.
+29개 그룹의 단조성·수치 endpoint error bound를 구했고 마지막 특이 축 구간은 분할 없이 닫았다.
+나머지 27개 그룹의 격자 rounding-boundary margin은 미증명이다.
+기존 `c1b1_rounding_completeness.py`·물리·도달 geometry·Frozen D_valid는 보존한다.
+64-region·16384-bit 한도 유지, 전체 ④-4b NotCertified 유지.
