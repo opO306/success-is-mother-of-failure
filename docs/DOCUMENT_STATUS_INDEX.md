@@ -13,6 +13,7 @@
 | [C1B1_OUTER_FORMAL_BOUND_V1.md](active/C1B1_OUTER_FORMAL_BOUND_V1.md) | docs/current/C1B1_OUTER_FORMAL_BOUND_V1.md |
 | [C1B1_ROUNDING_DECISION_V1.md](active/C1B1_ROUNDING_DECISION_V1.md) | docs/current/C1B1_ROUNDING_DECISION_V1.md |
 | [C1B1_REACHABLE_GEOMETRY_V1.md](active/C1B1_REACHABLE_GEOMETRY_V1.md) | ④-4b 신규 귀납 제약·frozen replay 기록 |
+| [C1B1_ROUNDING_DIAGNOSIS_V1.md](active/C1B1_ROUNDING_DIAGNOSIS_V1.md) | ④-4b 미해결 76개 기록 분류·64-cell uniform cover 한계 |
 
 ## 동결 원문
 

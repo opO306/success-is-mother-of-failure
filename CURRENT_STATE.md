@@ -52,6 +52,19 @@ Cell budget은 64 유지. 재생성한 R=20 예시는 상대 좌표 3D→1D로 �
 skip은 Windows/native 98개, CUDA 10개, 외부 원문 자료 13개이며 통과로 세지 않는다. 이번 LOCAL FULL은 설계자의 원격 이전 지시로 중단했으므로 새 LOCAL FULL 결과가 아니다.
 로그 회수와 VAST 정지 확인 완료. **④-4b 전체 미완료**이며 다음 의무는 enclosure를 추가로 좁히는 수학적 제약이다.
 
+**④-4b 미해결 원인 진단(2026-09-27, 기준 `4088061`):** 기존 64-cell 결과의 76개 기록은
+첫 shell 대기 cell 49개 + 미검사 shell 27개다. [진단](docs/active/C1B1_ROUNDING_DIAGNOSIS_V1.md)에서
+74개는 두 끝 격자점의 실제 raw impulse가 다르고, 1개 singleton은 개별 판정 성공,
+1개는 끝점은 0이지만 parent enclosure 미분리임을 기록했다.
+현재 첫 shell projection에 서로 다른 output을 갖는 격자점 65개가 있어 **최소 65 uniform leaf가 필요하다**.
+따라서 현재 projection을 유지한 동일-output cover는 64-cell 안에서 완료할 수 없다.
+이것은 실제 궤적의 ReferenceUndecided 반례나 16384-bit 불가능성 증명이 아니다.
+64-cell/16384-bit 한도·물리·D_valid는 유지한다. 다음 의무는 더 강한 이산 도달가능 제약 또는
+서로 다른 output을 허용하는 전체 격자점의 rounding separation 증명이며 아직 미완료다.
+추가 조건부 유도에서 첫 64회 정상 전이의 65개 kick 입력도 서로 다른 output을 가져야 함을 확인했다.
+따라서 도달가능 제약만으로 64개의 동일-output cell을 만드는 것은 이 초기 상태의 해결책이 아니다.
+**서로 다른 output을 허용하는 pointwise 판정 증명 표현이 우선**, 추가 불변량은 그 대상 축소의 보조 수단이다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -93,6 +106,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4b 미해결 진단 LOCAL FULL (2026-09-27) | **2430 passed + 1 strict xfailed, failure/error 0, skip 0, 362.74초**, cp949 경고 25건. 진단 시험 17개 | `runs/c1b1_unresolved_diagnosis_20260927/local_full.log`, `runs/c1b1_unresolved_diagnosis_20260927/local_full.xml` |
 | 폴더 정리 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 454.67초**, cp949 경고 25건 | `runs/documentation_folder_cleanup_20260927/local_full.log`, `runs/documentation_folder_cleanup_20260927/local_full.xml` |
 | 내용 정리 당시 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 395.50초**, cp949 경고 25건 | `runs/documentation_cleanup_20260927_local_full.log`, `runs/documentation_cleanup_20260927_local_full.xml` |
 | ④-4 구현 당시 LOCAL FULL (2026-09-27) | **2404 passed + 1 strict xfailed, failure 0, skip 0, 388.84초**, cp949 경고 25건 | `runs/c1b1_rounding_decision_local_full_v1.*` |

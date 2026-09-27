@@ -523,6 +523,15 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | 유한 L bound에서 초기 q0×P0 누락 | 초기 cross를 0으로 주입하면 실제 상태와 방향 cell 포함 의무가 실패 | 각운동량의 정확 보존을 주장하지 않음; finite 누적 오차합만 사용 |
 | projection 축소만으로 completeness 승격 | 64-cell 예산의 R=20 예시가 1D에서도 NotCertified이며 미해결 목록 보존 | 필요 반올림 전체를 닫지 않았고 더 큰 cell budget으로 밀어붙이지 않음 |
 
+### C1-B1 rounding diagnosis v1 (2026-09-27)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 두 끝점의 output이 같으므로 parent도 uniform이라고 승격 | 마지막 shell의 끝점 0/0과 parent 경계 교차를 보존하는 의무 시험에 거짓 uniform 분류 주입 → 실패 | 끝점 일치가 내부 판정 성공을 증명하지 않음 |
+| 중복 witness 수를 서로 다른 output 수로 취급 | 같은 point 65개를 최소 65 leaf라고 세는 함수 결함 주입 → 중복 count 의무 시험 실패 | point output 집합의 크기만 uniform cover 하한이며 실제 궤적 하한은 아님 |
+| guard 밖·off-grid·거짓 raw·rounding 경계 교차 witness를 유효 증거로 인정 | 네 종류의 손상된 witness를 cover 하한 검사기가 각각 거부 | signed interval의 PES 타당성은 기존 evaluator에 의존하며 완전 독립 재증명은 아님 |
+| uniform cell 불가를 16384-bit pointwise 불가능성으로 해석 | 74개 구간의 서로 다른 끝점은 실제 evaluator에서 128/256 bit로 결정되고 내부 completeness는 not_proved로 남음 | 65-output은 현재 projection+uniform 방식의 64-cell obstruction만 증명 |
+
 - **통과율 100%는 안심할 이유가 아니라 의심할 이유다.** 검사기가 눈을 감고 있을 수 있다
 - **실패·반박·미검사 결과를 지우지 않는다.** 과거의 실패가 다음 오류를 찾는 지도다
 - **"작동한다"고 말하려면 작동하지 않는 경우를 보여줘야 한다.** 결함 주입이 그 방법이다

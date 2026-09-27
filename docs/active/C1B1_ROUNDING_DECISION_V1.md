@@ -205,3 +205,14 @@ geometry를 포함한 관련 시험은 **106 passed, 51.59초**.
 더 좁은 projection의 구현만으로 completeness를 인정하지 않는다. 미해결 cell은 그대로 보존한다.
 비영 multi-state cell과 실제 signed impulse의 일치, 분할 gap mutation, precision cap 저하 거부,
 synthetic exact tie 거부 등을 시험한다. synthetic tie는 reachable Lang 상태라는 주장이 아니다.
+
+## 8. 64-cell 미해결 진단: 현재 uniform-output 방식의 예산 충돌
+
+[원인별 진단](C1B1_ROUNDING_DIAGNOSIS_V1.md)은 원래 76개 기록을 보존하여 분석한다.
+74개는 실제 구간 양 끝의 raw impulse가 달라 uniform cell일 수 없고, 1개는 singleton,
+1개는 끝점은 0이지만 parent enclosure가 rounding 경계를 가로지른다.
+첫 shell의 현재 projection에 서로 다른 output 65개가 있어 최소 65 uniform leaf가 필요하다.
+64-cell 예산이나 16384-bit 한도를 늘리지 않았다. 이것은 현재 cover 방식의 한계이며
+실제 궤적의 precision failure 또는 전체 pointwise completeness 불가능성 증명이 아니다.
+더 강한 이산 도달가능 제약 또는 비상수-output 구간의 pointwise separation 증명이 남는다.
+④-4b NotCertified와 ④ 전체 FROZEN·⑤·E_min·전체 산란각 보류를 유지한다.

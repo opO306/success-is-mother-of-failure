@@ -49,6 +49,11 @@ A와 B가 같은 디렉터리에 있는 이유: 둘 다 결정론 계통에 속�
 
 ## 결정론 A — 세계
 
+**C1-B1 미해결 진단:** `a_reference/c1b1_rounding_diagnosis.py`와
+`fixtures/c1b1_rounding_diagnosis_v1.json` — 현재 R=20의 76개 기록 전부 분류,
+첫 shell projection에 최소 65 uniform leaf 필요. 64-cell/16384-bit 한도 유지,
+④-4b NotCertified. 상세: [원인별 진단](docs/active/C1B1_ROUNDING_DIAGNOSIS_V1.md).
+
 **데이터 흐름:**
 
 ```
@@ -293,7 +298,7 @@ export_csv.py / export_dashboard_data.py   레거시 출력
 
 ## 테스트
 
-`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2404 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이다. 문서 정리의 재검증 결과와도 구별한다.
+`tests/` — 기준선은 `AGENTS.md`가 정본(2026-09-27: 2430 passed + 1 strict xfailed, skip 0). 인수인계 당시 2307 passed는 `0898ca3`의 과거 실측이며 문서 정리의 2404 passed와도 구별한다.
 
 ```
 test_deterministic_*.py   결정론 A/B (32개 파일)
