@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import pytest
 
-from a_numeric_native.harness import cuda_device_present, find_nvcc, find_vcvars
+from a_numeric_native.harness import have_cxx, have_gpu_toolchain
 from a_physics_native import bench_state as S
 
 
@@ -23,15 +23,15 @@ def test_the_inputs_contain_ties_that_separate_v1_and_v2() -> None:
 
 @pytest.fixture(scope="module")
 def cpu_exe(tmp_path_factory):
-    if find_vcvars() is None:
-        pytest.skip("MSVC not installed")
+    if not have_cxx():
+        pytest.skip("C++ toolchain (MSVC / g++) not installed")
     return S.build("cpu", tmp_path_factory.mktemp("bcpu"))
 
 
 @pytest.fixture(scope="module")
 def cuda_exe(tmp_path_factory):
-    if find_vcvars() is None or find_nvcc() is None or not cuda_device_present():
-        pytest.skip("MSVC, nvcc or a CUDA device missing")
+    if not have_gpu_toolchain():
+        pytest.skip("C++ toolchain, nvcc or a CUDA device missing")
     return S.build("cuda", tmp_path_factory.mktemp("bgpu"))
 
 

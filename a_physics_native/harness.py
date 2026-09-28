@@ -7,10 +7,9 @@ evaluator receives only (quantity, retardation, profile, raw R) -- never an expe
 from __future__ import annotations
 
 import pathlib
-import subprocess
 import tempfile
 
-from a_numeric_native.harness import NATIVE_TIMEOUT_S, NVCC_FLAGS, find_nvcc, find_vcvars, run_with_timeout
+from a_numeric_native.harness import NATIVE_TIMEOUT_S, compile_cpp, compile_cu, have_cxx, run_with_timeout
 
 HERE = pathlib.Path(__file__).resolve().parent
 CORE = [HERE / "ar2_core.hpp", HERE.parent / "a_numeric_native" / "anvm_core.hpp"]
@@ -19,31 +18,19 @@ B0_R_MAX_BOHR = 1 << 20
 
 
 def build(kind: str, out_dir, inject: int = 0, defines: dict | None = None) -> pathlib.Path:
-    """Compile an evaluator (MSVC /fp:strict; B2 with nvcc). inject > 0 compiles a deliberate defect."""
-    vcvars = find_vcvars()
-    if vcvars is None:
-        raise RuntimeError("MSVC not found (vswhere/vcvars64.bat)")
+    """Compile an evaluator (MSVC /fp:strict or g++ without contraction; B2 with nvcc). inject > 0 compiles a
+    deliberate defect."""
+    if not have_cxx():
+        raise RuntimeError("C++ toolchain not found (MSVC / g++)")
     extra = "".join(f"_{k}{v}" for k, v in sorted((defines or {}).items()))
     out = pathlib.Path(out_dir) / f"ar2_{kind}_inject{inject}{extra}"
-    dflags = "".join(f" -D{k}={v}" for k, v in sorted((defines or {}).items()))
     out.mkdir(parents=True, exist_ok=True)
     src = HERE / "ar2_b2.cu" if kind == "b2" else SOURCES[kind]
     for f in [src, *CORE]:        # the repository path is not ASCII: compile copies inside out_dir
         (out / f.name).write_bytes(f.read_bytes())
     exe = out / f"ar2_{kind}.exe"
-    if kind == "b2":
-        nvcc = find_nvcc()
-        if nvcc is None:
-            raise RuntimeError("nvcc not found")
-        cmd = (f'@"{nvcc}" {NVCC_FLAGS} -Xcompiler "/fp:strict /EHsc /wd4702" -DINJECT={inject}{dflags} '
-               f'{src.name} -o {exe.name}')
-    else:
-        cmd = f'@cl /nologo /O2 /fp:strict /EHsc /std:c++17 /W3 /wd4702 /DINJECT={inject}{dflags} {src.name} /Fe{exe.name}'
-    bat = out / "build.bat"
-    bat.write_text(f'@call "{vcvars}" >nul\r\n{cmd}\r\n', encoding="mbcs")
-    r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out)
-    if r.returncode != 0 or not exe.exists():
-        raise RuntimeError(f"{kind} build failed:\n{r.stdout[-4000:]}\n{r.stderr[-4000:]}")
+    flags = {"INJECT": inject, **dict(sorted((defines or {}).items()))}
+    (compile_cu if kind == "b2" else compile_cpp)(out, src.name, exe.name, flags)
     return exe
 
 

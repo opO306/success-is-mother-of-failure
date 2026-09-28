@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import os
 import pathlib
+import shutil
 import subprocess
 import tempfile
 import time
@@ -39,25 +40,59 @@ def find_vcvars() -> pathlib.Path | None:
 
 SOURCES = {"b0": B0_SOURCE, "b1": HERE / "b1_parallel.cpp"}
 
+# Linux (remote node) toolchain: g++ on x86-64 uses SSE2 scalar arithmetic, like MSVC x64. The flags below are the
+# g++ counterpart of /fp:strict for these sources: no FMA contraction, no fast-math, SSE (not x87) arithmetic.
+# Bit equality with the VM is not assumed from the flags; the same differential tests judge the Linux builds.
+GXX_FLAGS = ["-O2", "-std=c++17", "-ffp-contract=off", "-fno-fast-math", "-msse2", "-mfpmath=sse", "-pthread"]
+GXX_FOR_NVCC = "-ffp-contract=off,-fno-fast-math"
+
+
+def find_gxx() -> pathlib.Path | None:
+    if os.name == "nt":
+        return None
+    found = shutil.which("g++")
+    return pathlib.Path(found) if found else None
+
+
+def have_cxx() -> bool:
+    """A C++ toolchain for this OS: MSVC on Windows, g++ elsewhere."""
+    return find_vcvars() is not None if os.name == "nt" else find_gxx() is not None
+
+
+def compile_cpp(out_dir, source: str, exe: str, defines: dict) -> None:
+    """Compile `source` (already copied into out_dir) to `exe`. MSVC /fp:strict on Windows, g++ GXX_FLAGS elsewhere."""
+    out_dir = pathlib.Path(out_dir)
+    dflags = [f"{k}={v}" for k, v in defines.items()]
+    if os.name == "nt":
+        vcvars = find_vcvars()
+        if vcvars is None:
+            raise RuntimeError("MSVC not found (vswhere/vcvars64.bat)")
+        bat = out_dir / "build.bat"
+        bat.write_text(f'@call "{vcvars}" >nul\r\n'
+                       f'@cl /nologo /O2 /fp:strict /EHsc /std:c++17 /W3 /wd4702 '
+                       f'{" ".join("/D" + d for d in dflags)} {source} /Fe{exe}\r\n', encoding="mbcs")
+        r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out_dir)
+    else:
+        gxx = find_gxx()
+        if gxx is None:
+            raise RuntimeError("g++ not found")
+        r = subprocess.run([str(gxx), *GXX_FLAGS, *("-D" + d for d in dflags), source, "-o", exe],
+                           capture_output=True, text=True, cwd=out_dir)
+    if r.returncode != 0 or not (out_dir / exe).exists():
+        raise RuntimeError(f"{source} build failed:\n{r.stdout[-4000:]}\n{r.stderr[-4000:]}")
+
 
 def build_native(kind: str, out_dir, inject: int = 0) -> pathlib.Path:
-    """Compile an executor with MSVC /fp:strict. inject > 0 compiles a deliberate defect."""
-    vcvars = find_vcvars()
-    if vcvars is None:
-        raise RuntimeError("MSVC not found (vswhere/vcvars64.bat)")
+    """Compile an executor (MSVC /fp:strict or g++ GXX_FLAGS). inject > 0 compiles a deliberate defect."""
+    if not have_cxx():
+        raise RuntimeError("C++ toolchain not found (MSVC / g++)")
     out_dir = pathlib.Path(out_dir) / f"{kind}_inject{inject}"
     out_dir.mkdir(parents=True, exist_ok=True)
     # the repository path is not ASCII; compile copies with relative names inside out_dir
     for f in (SOURCES[kind], HERE / "anvm_core.hpp"):
         (out_dir / f.name).write_bytes(f.read_bytes())
     exe = out_dir / f"{kind}.exe"
-    bat = out_dir / "build.bat"
-    bat.write_text(f'@call "{vcvars}" >nul\r\n'
-                   f'@cl /nologo /O2 /fp:strict /EHsc /std:c++17 /W3 /wd4702 /DINJECT={inject} '
-                   f'{SOURCES[kind].name} /Fe{exe.name}\r\n', encoding="mbcs")
-    r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out_dir)
-    if r.returncode != 0 or not exe.exists():
-        raise RuntimeError(f"{kind} build failed:\n{r.stdout}\n{r.stderr}")
+    compile_cpp(out_dir, SOURCES[kind].name, exe.name, {"INJECT": inject})
     return exe
 
 
@@ -66,12 +101,19 @@ def build_b0(out_dir, inject: int = 0) -> pathlib.Path:
 
 
 def find_nvcc() -> pathlib.Path | None:
+    if os.name != "nt":
+        found = shutil.which("nvcc") or ("/usr/local/cuda/bin/nvcc" if os.path.exists("/usr/local/cuda/bin/nvcc") else None)
+        return pathlib.Path(found) if found else None
     roots = [pathlib.Path(os.environ["CUDA_PATH"])] if os.environ.get("CUDA_PATH") else []
     roots += sorted(pathlib.Path(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA").glob("v*"), reverse=True)
     for r in roots:
         if (r / "bin" / "nvcc.exe").exists():
             return r / "bin" / "nvcc.exe"
     return None
+
+
+def have_gpu_toolchain() -> bool:
+    return have_cxx() and find_nvcc() is not None and cuda_device_present()
 
 
 def cuda_device_present() -> bool:
@@ -85,23 +127,41 @@ def cuda_device_present() -> bool:
 NVCC_FLAGS = "-O2 -arch=sm_89 -std=c++17 -fmad=false --prec-div=true --prec-sqrt=true -ftz=false"
 
 
+def device_arch() -> str:
+    """sm_XY of the first CUDA device. Windows keeps the fixed sm_89 (RTX 4060) in NVCC_FLAGS."""
+    cap = subprocess.run(["nvidia-smi", "--query-gpu=compute_cap", "--format=csv,noheader"],
+                         capture_output=True, text=True).stdout.split()[0]
+    return "sm_" + cap.replace(".", "")
+
+
+def compile_cu(out_dir, source: str, exe: str, defines: dict) -> None:
+    """nvcc with the section-4 flags; the host compiler is MSVC /fp:strict on Windows, g++ without contraction elsewhere."""
+    out_dir = pathlib.Path(out_dir)
+    nvcc = find_nvcc()
+    if nvcc is None or not have_cxx():
+        raise RuntimeError("C++ toolchain or nvcc not found")
+    dflags = [f"-D{k}={v}" for k, v in defines.items()]
+    if os.name == "nt":
+        bat = out_dir / "build.bat"
+        bat.write_text(f'@call "{find_vcvars()}" >nul\r\n'
+                       f'@"{nvcc}" {NVCC_FLAGS} -Xcompiler "/fp:strict /EHsc /wd4702" {" ".join(dflags)} '
+                       f'{source} -o {exe}\r\n', encoding="mbcs")
+        r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out_dir)
+    else:
+        flags = NVCC_FLAGS.replace("-arch=sm_89", f"-arch={device_arch()}").split()
+        r = subprocess.run([str(nvcc), *flags, "-Xcompiler", GXX_FOR_NVCC, *dflags, source, "-o", exe],
+                           capture_output=True, text=True, cwd=out_dir)
+    if r.returncode != 0 or not (out_dir / exe).exists():
+        raise RuntimeError(f"{source} build failed:\n{r.stdout[-4000:]}\n{r.stderr[-4000:]}")
+
+
 def build_b2(out_dir, inject: int = 0) -> pathlib.Path:
-    vcvars, nvcc = find_vcvars(), find_nvcc()
-    if vcvars is None or nvcc is None:
-        raise RuntimeError("MSVC or nvcc not found")
     out_dir = pathlib.Path(out_dir) / f"b2_inject{inject}"
     out_dir.mkdir(parents=True, exist_ok=True)
     for f in (HERE / "b2_cuda.cu", HERE / "anvm_core.hpp"):
         (out_dir / f.name).write_bytes(f.read_bytes())
-    bat = out_dir / "build.bat"
-    bat.write_text(f'@call "{vcvars}" >nul\r\n'
-                   f'@"{nvcc}" {NVCC_FLAGS} -Xcompiler "/fp:strict /EHsc /wd4702" -DINJECT={inject} '
-                   f'b2_cuda.cu -o b2.exe\r\n', encoding="mbcs")
-    r = subprocess.run(["cmd", "/c", str(bat)], capture_output=True, text=True, cwd=out_dir)
-    exe = out_dir / "b2.exe"
-    if r.returncode != 0 or not exe.exists():
-        raise RuntimeError(f"b2 build failed:\n{r.stdout[-4000:]}\n{r.stderr[-4000:]}")
-    return exe
+    compile_cu(out_dir, "b2_cuda.cu", "b2.exe", {"INJECT": inject})
+    return out_dir / "b2.exe"
 
 
 # ---------------------------------------------------------------------------

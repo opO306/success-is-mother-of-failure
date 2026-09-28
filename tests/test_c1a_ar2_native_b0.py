@@ -14,10 +14,10 @@ import pytest
 
 import a_reference.ar2_lang2024 as L
 import a_reference.ar2_lang2024_fixture as X
-from a_numeric_native.harness import find_vcvars, run_with_timeout
+from a_numeric_native.harness import have_cxx, run_with_timeout
 from a_physics_native import harness as H
 
-pytestmark = pytest.mark.skipif(find_vcvars() is None, reason="MSVC not installed")
+pytestmark = pytest.mark.skipif(not have_cxx(), reason="C++ toolchain (MSVC / g++) not installed")
 
 FIX = X.load()
 VF = {"V": ("V", True), "V_ret_off": ("V", False), "F": ("F", True), "F_ret_off": ("F", False)}

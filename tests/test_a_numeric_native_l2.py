@@ -16,8 +16,8 @@ from a_numeric_native import harness as H
 from a_numeric_native import l2
 from a_numeric_native.harness import F64, FX64
 
-pytestmark = pytest.mark.skipif(H.find_vcvars() is None, reason="MSVC not installed")
-HAVE_GPU = H.find_nvcc() is not None and H.cuda_device_present()
+pytestmark = pytest.mark.skipif(not H.have_cxx(), reason="C++ toolchain (MSVC / g++) not installed")
+HAVE_GPU = H.have_gpu_toolchain()
 
 
 @pytest.fixture(scope="module")

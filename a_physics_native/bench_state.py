@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 from fractions import Fraction as Q
 
-from a_numeric_native.harness import NATIVE_TIMEOUT_S, NVCC_FLAGS, find_nvcc, find_vcvars, run_with_timeout
+from a_numeric_native.harness import NATIVE_TIMEOUT_S, compile_cpp, compile_cu, run_with_timeout
 
 HERE = pathlib.Path(__file__).resolve().parent
 A, B = 5485799090441, 399623831237000000         # 1/m = A/B (m in electron masses)
@@ -17,7 +17,6 @@ TIE_P = 4995297890462500                          # |p| raw: p dt / m exactly ha
 
 
 def build(kind: str, out_dir) -> pathlib.Path:
-    vcvars = find_vcvars()
     out = pathlib.Path(out_dir) / f"bench_{kind}"
     out.mkdir(parents=True, exist_ok=True)
     files = ["bench_state.hpp", "bench_state_io.hpp", "bench_mom.hpp", "bench_mom_io.hpp", "ar2_core.hpp"]
@@ -25,16 +24,14 @@ def build(kind: str, out_dir) -> pathlib.Path:
     for f in files:
         (out / f).write_bytes((HERE / f).read_bytes())
     (out / "anvm_core.hpp").write_bytes((HERE.parent / "a_numeric_native" / "anvm_core.hpp").read_bytes())
-    if kind == "cuda":
-        cmd = f'@"{find_nvcc()}" {NVCC_FLAGS} -Xcompiler "/fp:strict /EHsc /wd4702" bench_state.cu -o bench.exe'
-    else:
-        cmd = "@cl /nologo /O2 /fp:strict /EHsc /std:c++17 /W3 /wd4702 bench_state.cpp /Febench.exe"
-    (out / "build.bat").write_text(f'@call "{vcvars}" >nul\r\n{cmd}\r\n', encoding="mbcs")
-    r = subprocess.run(["cmd", "/c", str(out / "build.bat")], capture_output=True, text=True, cwd=out)
-    exe = out / "bench.exe"
-    if r.returncode != 0 or not exe.exists():
-        raise RuntimeError(r.stdout[-3000:] + r.stderr[-3000:])
-    return exe
+    try:
+        if kind == "cuda":
+            compile_cu(out, "bench_state.cu", "bench.exe", {})
+        else:
+            compile_cpp(out, "bench_state.cpp", "bench.exe", {})
+    except RuntimeError as e:
+        raise RuntimeError(str(e)[-6000:]) from None
+    return out / "bench.exe"
 
 
 class Rng:

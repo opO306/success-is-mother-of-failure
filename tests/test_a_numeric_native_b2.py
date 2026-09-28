@@ -12,8 +12,8 @@ import pytest
 
 from a_numeric_native import harness as H
 
-pytestmark = pytest.mark.skipif(H.find_vcvars() is None or H.find_nvcc() is None or not H.cuda_device_present(),
-                                reason="MSVC, nvcc or CUDA device missing")
+pytestmark = pytest.mark.skipif(not H.have_gpu_toolchain(),
+                                reason="C++ toolchain, nvcc or CUDA device missing")
 
 BLOCKS = (1, 32, 64, 128, 256)
 MUTANTS = {

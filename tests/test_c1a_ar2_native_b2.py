@@ -9,11 +9,11 @@ from __future__ import annotations
 import pytest
 
 import a_reference.ar2_lang2024_fixture as X
-from a_numeric_native.harness import cuda_device_present, find_nvcc, find_vcvars
+from a_numeric_native.harness import have_gpu_toolchain
 from a_physics_native import harness as H
 
-pytestmark = pytest.mark.skipif(find_vcvars() is None or find_nvcc() is None or not cuda_device_present(),
-                                reason="MSVC, nvcc or a CUDA device missing")
+pytestmark = pytest.mark.skipif(not have_gpu_toolchain(),
+                                reason="C++ toolchain, nvcc or a CUDA device missing")
 
 FIX = X.load()
 VF = {"V": ("V", True), "V_ret_off": ("V", False), "F": ("F", True), "F_ret_off": ("F", False)}

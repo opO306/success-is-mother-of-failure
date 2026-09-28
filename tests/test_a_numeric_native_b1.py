@@ -10,7 +10,7 @@ import pytest
 
 from a_numeric_native import harness as H
 
-pytestmark = pytest.mark.skipif(H.find_vcvars() is None, reason="MSVC not installed")
+pytestmark = pytest.mark.skipif(not H.have_cxx(), reason="C++ toolchain (MSVC / g++) not installed")
 
 THREADS = (1, 2, 4, 8, 12)
 
