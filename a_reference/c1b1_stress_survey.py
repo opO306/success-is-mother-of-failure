@@ -60,10 +60,21 @@ class Telemetry:
     """In-memory counters. decisions: final precision M of each impulse rounding (or 'undecided' / 'halt@M');
     admission: precision at which each check_integrator_domain call settled."""
 
+    HOT_BITS = 512                       # decisions at or above this precision are located, not only counted
+    HOT_KEEP = 200                       # at most this many located records per trajectory (the count stays exact)
+
     def __init__(self):
         self.decisions = Counter()
         self.decide_calls = 0
         self.admission_M = []            # every M requested by relative_energy_enclosure during one admission check
+        self.step = None                 # run.t_steps before the step being computed (None during admission)
+        self.run = None                  # the run being stepped, read only to locate hot decisions
+        self.hot = []                    # [{'M', 'step', 'raw'}] for decisions >= HOT_BITS or that failed
+
+    def locate(self, M):
+        if len(self.hot) < self.HOT_KEEP:
+            raw = None if self.run is None else [[str(x) for x in v] for v in _raw(self.run)]
+            self.hot.append({'M': M, 'step': self.step, 'raw_before_step': raw})
 
     def admission_decided_at(self):
         return max(self.admission_M) if self.admission_M else None
@@ -85,11 +96,15 @@ def instrumented(tel: Telemetry):
             out = orig_decide(profile, at)
         except C.ReferenceUndecided:
             tel.decisions['undecided'] += 1
+            tel.locate('undecided')
             raise
         except VMHalt:
             tel.decisions[f'halt@{top[0]}'] += 1
+            tel.locate(f'halt@{top[0]}')
             raise
         tel.decisions[top[0]] += 1
+        if top[0] >= tel.HOT_BITS:
+            tel.locate(top[0])
         return out
 
     def enclosure(run, M):
@@ -282,7 +297,9 @@ def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False) -> dic
         if trace:
             trace_rows.append(_raw(run))
         out['end'] = 'step_cap'
+        tel.run = run
         while run.t_steps < sp['max_steps']:
+            tel.step = run.t_steps
             C.step(run)
             if trace:
                 trace_rows.append(_raw(run))
@@ -320,6 +337,7 @@ def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False) -> dic
     out['d_valid'] = None if holder[0] is None else holder[0].validation.get('validation_status')
     out['decide_calls'] = tel.decide_calls
     out['decisions'] = {str(k): v for k, v in sorted(tel.decisions.items(), key=lambda kv: str(kv[0]))}
+    out['hot'] = tel.hot
     if trace:
         out['trace'] = [[[str(x) for x in v] for v in row] for row in trace_rows]
     return out
