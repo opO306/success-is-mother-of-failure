@@ -54,18 +54,15 @@ python -m pytest tests -q -n 6          # 표준 (LOCAL FULL): pytest-xdist, 작
 python -m pytest tests -q               # 직렬 기준 경로: 약 13분 — 병렬 결과를 의심할 때, 그리고 큰 변경 뒤 대조용
 ```
 
-**기준선: 2798개 통과 + 1 xfailed, skip 0** (2026-09-28 기준, `-n 6` 448.71초; rational-spacing family checker·exact modular-distance·full residue-class·normalized quotient-gap·same-input filter/checker·shell-18 hard-case search·certificate 시험 포함. shell 18 hard-case 인증서로 원래 domain 하나 Certified(후보 109·hazard 0), shell 19〜23 5개와 합친 fresh coverage 12/64 region·gap 83. same-input 최소 구현에서 작은 241 class의 2,980 입력을 singleton 분할로 추가 확인해 class 하한 집계 6,436·미해결 7,835다. 실제 큰 class symbolic 하한·새 shell lemma·인증 0개. 남은 큰 family 19개와 R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고는 직전까지 25건이었고 이번 실행 요약에는 경고 줄이 없었다(원인 미조사, 해결로 보고하지 않음). xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
-skip이 생기면 통과로 세지 않는다(MSVC·nvcc·GPU·`D:
-eference`가 없으면 해당 시험이 skip된다).
+**기준선: 2807개 통과 + 1 xfailed, skip 0** (2026-09-28 기준, `-n 6` 405.49초; rational-spacing family checker·exact modular-distance·full residue-class·normalized quotient-gap·same-input filter/checker·shell-18 hard-case search·certificate·shell-17 survey 시험 포함. shell 17은 survey_only(후보 827·hazard 0). shell 18 hard-case 인증서로 원래 domain 하나 Certified(후보 109·hazard 0), shell 19〜23 5개와 합친 fresh coverage 12/64 region·gap 83. same-input 최소 구현에서 작은 241 class의 2,980 입력을 singleton 분할로 추가 확인해 class 하한 집계 6,436·미해결 7,835다. 실제 큰 class symbolic 하한·새 shell lemma·인증 0개. 남은 큰 family 19개와 R=20 전체 미인증이며 ④ FROZEN 아님. D_valid 동결 유지. 컴파일러 출력 인코딩 경고는 직전까지 25건이었고 이번 실행 요약에는 경고 줄이 없었다(원인 미조사, 해결로 보고하지 않음). xfail은 strict: binary64 절대 위치 탈락 사유 고정). 이보다 줄면 회귀다.
+skip이 생기면 통과로 세지 않는다(C++ 컴파일러(MSVC 또는 g++)·nvcc·GPU·`D:\reference`가 없으면 해당 시험이 skip된다).
 
 **Codex 인수인계 재실측(2026-09-27, 당시 이력):** 2307 passed + 1 strict xfailed / skip 0, 445.58초, 컴파일러 출력 인코딩 경고 24건. 현재 기준선과 구별한다. 기본 셸에서 외부 해시 검사가 skip되면 설치된 `C:\Program Files\Git\usr\bin\sha256sum.exe`가 PATH에 있는지 확인한다. 기본 cp949와 `PYTHONUTF8=1` 모두에서 진단 출력 해독 경고가 남았으므로 UTF-8 강제로 해결됐다고 보고하지 않는다. 상세·로그 위치: [docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md](docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md).
 
 **병렬 채택 근거 (2026-09-26 측정, 설계자 승인 조건 충족):** 직렬 793초 / `-n 6` 369초 / `-n 8` 377초 / `-n 10` 389초 / `-n 12` 376초 —
 네 설정 모두 **시험 2248개의 결과가 직렬과 하나하나 동일**(junit 대조, 병렬에서만 깨지는 시험 0). 속도는 약 2.1배에서 멈춘다: GPU를 쓰는
 시험의 합(약 365초)이 GPU 한 장에서 병렬로 줄지 않기 때문이다. 작업자를 늘리면 GPU·컴파일러 경합만 커진다(`-n 12`에서 시험 시간 합 1551초).
-**실행 이름을 구분한다:** `LOCAL FULL` = 이 로컬 전체(Python + native CPU/CUDA + Windows 계약 + `D:
-eference`). 원격 리눅스에서는 native가 skip되므로
-`REMOTE PYTHON FULL`로 부르고 LOCAL FULL과 같은 의미로 보고하지 않는다. `REMOTE STUDY` = 궤적·정밀도·감사 계산.
+**실행 이름을 구분한다:** `LOCAL FULL` = 이 로컬 전체(Python + native CPU/CUDA + Windows 계약 + `D:\reference`). 원격 리눅스 노드는 2026-09-28부터 native를 g++/nvcc로 빌드하고 원문 파일도 복사해 **skip 0으로 전체를 실행**하지만, Windows/MSVC 경로는 확인하지 못하므로 `REMOTE FULL`로 부르고 LOCAL FULL과 같은 의미로 보고하지 않는다(그 이전의 skip 있는 원격 실행은 `REMOTE PYTHON FULL`). `REMOTE STUDY` = 궤적·정밀도·감사 계산.
 
 특정 계통만 빠르게 볼 때:
 

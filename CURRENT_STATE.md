@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-6 shell 18 hard-case 인증서 완료, 다음 ④-4c-7 shell 17 단독 실측)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-7 shell 17 단독 확장성 실측 완료, 다음 판단은 설계자)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -250,6 +250,23 @@ verify는 superblock 1024행의 도함수 상한·교차 수·후보 구간을 �
 증거: `runs/c1b1_hard_case_certificate_20260928/{certificate_full.json,certificate_full.log,verify_wire.log,focused_serial.xml,local_full.log,local_full.xml,attempt_notes.json}`.
 다음은 ④-4c-7 shell 17 단독 확장성 실측이다(16/15 함께 하지 않음). shell 0〜6은 전체 impulse I(n)=P/Q+S의 별도 설계 트랙으로 기록만 한다.
 
+**④-4c-7 shell 17 hard-case 확장성 실측(2026-09-28, 기준 `1d75da3`):**
+설계자 지시대로 shell 17 **하나만** 같은 생성기·checker·정책으로 쟀다([결과](docs/active/C1B1_HARD_CASE_SEARCH_SHELL17_SURVEY_V1.md)).
+블록 3,638,015개, 교차 **8,645,949**(half-ulp fixture 경계 수와 같음), 후보 **827**(휴리스틱 예상 2,148), exact recheck **hazard 0**, 독립 checker 1024/1024.
+brute force 대조(합성 12, 실제 창 24)는 누락 0이다. 병렬 효율은 생성기 0.986, checker 0.991이다.
+교차가 5.5배로 늘었지만 생성기 CPU는 오히려 줄었고(2,989초), checker CPU는 35% 늘었다(4,654초).
+두 실행으로 푼 추정 교차당 비용은 생성기 약 45 µs, checker 약 256 µs다. 실행마다 흔들리며 측정이 아니다.
+**survey_only**: 인증·coverage 변경 없음, **12/64·gap 83** 유지, shell 16/15로 확장하지 않았다.
+이 과정의 결함 세 가지(옛 coverage 숫자 고정, 줄바꿈 의존 해시, 전제가 틀린 시험 단언)는 수정 뒤 재실행했고 기록으로 보존한다. 세 실행의 결정적 결과는 모두 같다.
+
+**native 리눅스 빌드와 원격 노드(2026-09-28, `90efde0`):** native harness가 Windows(MSVC, 명령 그대로)와 리눅스(g++/nvcc)를 모두 빌드한다.
+원격 Vast 노드(RTX 3090, CPU 32)에서 native·GPU 시험 104개가 Windows와 항목별로 같은 결과로 통과했다.
+원문 참조 파일도 복사했다. 그래서 **원격 전체 시험이 skip 0으로 2807개를 실행**한다(`894cf5e`에서 1건 실패 → 줄바꿈 해시 수정 `91a5c38`).
+원격은 LOCAL FULL을 대신하지 않는다. Windows 경로(MSVC)는 로컬에서만 확인된다.
+**LOCAL FULL(`91a5c38`): 2807 passed + 1 strict xfailed, skip 0, failure/error 0, exit 0, 405.49초.**
+증거: `runs/native_linux_port_20260928/{windows_native.*,linux_native.*,local_full.*}`, `runs/c1b1_hard_case_shell17_20260928/{survey_full.json,local_full.*,first_run/,second_run/}`.
+다음 판단(설계자): shell 17 인증 승격 여부, shell 16/15 확장 여부. shell 0〜6 전체 impulse 트랙은 기록만 한다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -291,6 +308,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-7 shell 17 조사 + native 리눅스 빌드 LOCAL FULL (2026-09-28, `91a5c38`) | **2807 passed + 1 strict xfailed, failure/error 0, skip 0, 405.49초**. 원격 전체(`894cf5e`)는 skip 0·2806 passed·1 failed(줄바꿈 해시, 이후 수정) | `runs/c1b1_hard_case_shell17_20260928/local_full.log`, `runs/c1b1_hard_case_shell17_20260928/local_full.xml` |
 | ④-4c-6 shell 18 hard-case 인증서 LOCAL FULL (2026-09-28) | **2798 passed + 1 strict xfailed, failure/error 0, skip 0, 448.71초**, 로그에 경고 줄 없음(원인 미조사). 신규 관련 74개 직렬/병렬 동일 | `runs/c1b1_hard_case_certificate_20260928/local_full.log`, `runs/c1b1_hard_case_certificate_20260928/local_full.xml` |
 | ④-4c-5 shell 18 hard-case search survey LOCAL FULL (2026-09-28) | **2764 passed + 1 strict xfailed, failure/error 0, skip 0, 455.87초**, 요약에 경고 줄 없음(원인 미조사). 신규 40개 직렬/병렬 동일 | `runs/c1b1_hard_case_20260928/local_full.log`, `runs/c1b1_hard_case_20260928/local_full.xml` |
 | ④-4c-4 same-input 최소 구현 LOCAL FULL (2026-09-28) | **2724 passed + 1 strict xfailed, failure/error 0, skip 0, 453.76초**, cp949 경고 25건. 신규 38개 직렬/병렬 동일 | `runs/c1b1_same_input_20260928/local_full.log`, `runs/c1b1_same_input_20260928/local_full.xml` |
