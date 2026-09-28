@@ -243,7 +243,9 @@ def _merge_totals(out: Path):
         if p.name in ('totals.json',) or p.name.startswith('overhead') or p.name.startswith('hard_case'):
             continue
         d = json.loads(p.read_text(encoding='utf-8'))
-        stage = 'stream' if p.name.startswith('stream_') else p.stem
+        if 'aggregate' not in d:
+            continue
+        stage ='stream' if p.name.startswith('stream_') else p.stem
         t = totals.setdefault(stage, {'files': 0, 'trajectories': 0, 'steps': 0, 'decisions': Counter(),
                                       'by_dvalid': {}, 'ends': Counter(), 'hot': 0, 'failure_candidates': 0})
         a = d['aggregate']
@@ -306,10 +308,42 @@ def main(out_dir: str, workers: int, stages: str, max_chunks: int | None = None)
         _dump(out / 'fixed.json', {'version': VERSION, 'stage': 'fixed', **res})
         log(f'fixed done {res["wall_seconds"]:.0f}s ends={res["aggregate"]["summary"]["ends"]} '
             f'dist={res["aggregate"]["precision_all"]["by_precision"]} hot={len(res["aggregate"]["hot_decisions"])}')
+    if 'symmetry' in want and not (out / 'symmetry.json').exists():
+        res = symmetry_check(workers)
+        _dump(out / 'symmetry.json', {'version': VERSION, 'stage': 'symmetry', **res})
+        log(f'symmetry {len(res["rows"])} transformed runs, all bit-equal={res["all_match"]}')
     if 'stream' in want:
         run_stream(out, workers, log, max_chunks)
     _dump(out / 'totals.json', _merge_totals(out))
     log('campaign exit')
+
+
+SYMMETRY_BASES = ((Q(1, 2), Q(0)), (Q(9), Q(1, 2)), (Q(1, 10), Q(2)), (Q(1, 2), Q(1, 2)), (Q(99, 10), Q(1, 4)))
+
+
+def _full_job(sp):
+    return X.run_trajectory(sp, telemetry=True)
+
+
+def symmetry_check(workers):
+    """Each base run to its end, and each transform of it: the final raw state must be the exact image of the base's
+    (the fixed stage kept only step counts)."""
+    bases = [_spec('symmetry_base', f'e={e} b={bf}Re', e, bf * X.RE, SCATTER_CAP) for e, bf in SYMMETRY_BASES]
+    runs = [b for b in bases] + [dict(b, transform=t) for b in bases for t in ('swap_xy', 'mirror_x', 'swap_atoms')]
+    with ProcessPoolExecutor(workers) as pool:
+        recs = list(pool.map(_full_job, runs))
+    base = {r['label']: r for r in recs if r['transform'] is None}
+    rows = []
+    for r in recs:
+        if r['transform'] is None:
+            continue
+        b = base[r['label']]
+        expect = X.transform_raw([[int(x) for x in v] for v in b['final_raw']], r['transform'])
+        rows.append({'label': r['label'], 'transform': r['transform'], 'steps': r['steps'], 'end': r['end'],
+                     'match': (r['end'], r['steps']) == (b['end'], b['steps'])
+                     and [[int(x) for x in v] for v in r['final_raw']] == [list(v) for v in expect]})
+    return {'rows': rows, 'all_match': all(x['match'] for x in rows),
+            'base_steps': {k: v['steps'] for k, v in base.items()}}
 
 
 def _stream_job(i: int) -> dict:
