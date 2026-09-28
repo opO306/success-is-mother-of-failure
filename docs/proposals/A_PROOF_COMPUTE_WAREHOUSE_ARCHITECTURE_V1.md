@@ -5,6 +5,7 @@
 **구현 상태:** **미구현.** 이 문서를 근거로 코드를 만들지 않는다. 설계자 승인 전에는 기존 계산 구조를 한 줄도 바꾸지 않는다.
 **현재 활성 Gate:** C1-B1 outer formal bound ④. 이 문서는 ④의 완료·인증 근거가 아니다.
 **현재 기준 상태(이 문서 작성 시점):** ④-4c-10 설계자 판정으로 shell 16 인증이 승인되어 driver(`a_reference/c1b1_hard_case_certificate_shell16.py`)만 추가된 상태. shell 16 인증서·fresh coverage는 아직 생성 전. 직전 확정 coverage **13/64 region·gap 82**, **④-4b NotCertified**, precision cap **16384**, LOCAL FULL 기준선 **2815 passed + 1 strict xfailed, skip 0**.
+**상태 갱신(개정 1 뒤, 2026-09-28):** shell 16 인증은 이 문서와 별도로 master에서 끝났다(`0117cd8`, 문서·검증 `d236842`). fresh coverage **14/64 region·gap 81**, LOCAL FULL 기준선 **2834 passed + 1 strict xfailed, skip 0**, ④-4b는 여전히 NotCertified다. 이 문서는 그 인증 경로를 건드리지 않았다.
 **B와의 관계:** Warehouse는 연구자 B가 아니라 **세계 밖 설계자·감사 도구**다(헌법 제24조). B는 Warehouse의 존재도 내용도 모른다.
 **개정 1 (2026-09-28, 설계자 판정 반영):** Q1을 세 축 상태 모델로 대체했다(6절). 해시를 셋으로 나누고 artifact 정체성을 내용 해시와 분리했으며, 자료형 추측 대신 명시적 mapper를 쓴다(7절). registry는 정본이 아닌 파생 인덱스로 정의했다(13절). Q2~Q8은 승인됐다(17절). **문서만 바꿨다. Warehouse 코드는 여전히 미구현이다.**
 
@@ -607,7 +608,7 @@ proof_warehouse/                 # 최상위, audit/·research_store/와 형제
 
 등록만 해도 읽기 전용으로 확인할 수 있는 것이 있다. 이것이 v0의 첫 쓸모다.
 
-이 문서 작성 시점의 fixture 33개를 선언된 `status`로 세면 다음과 같다(2026-09-28 실측): `survey_only` 8, `certified` 2(shell 18·17), `not_certified` 보고서 4(rounding_regions·rounding_diagnosis·half_ulp·family — 안에 certified group 3+5개 포함), `NUMERICALLY VALIDATED …` 6, `CONDITIONAL CANDIDATE …` 1(E_min), `status` 없음 12. 이 분포 자체가 6.3절 매핑표가 빠뜨린 값이 없는지의 첫 시험이다.
+이 문서 작성 시점의 fixture 33개를 선언된 `status`로 세면 다음과 같다(2026-09-28 실측, shell 16 인증서가 master에 들어오기 전. 지금은 `certified` 인증서가 하나 늘어 34개다): `survey_only` 8, `certified` 2(shell 18·17), `not_certified` 보고서 4(rounding_regions·rounding_diagnosis·half_ulp·family — 안에 certified group 3+5개 포함), `NUMERICALLY VALIDATED …` 6, `CONDITIONAL CANDIDATE …` 1(E_min), `status` 없음 12. 이 분포 자체가 6.3절 매핑표가 빠뜨린 값이 없는지의 첫 시험이다.
 
 - 인증서 fixture 안의 coverage 값이 문서와 같은가: shell 17 fixture `used_regions 13 · gap 82`, shell 18 fixture `12 · 83`.
 - family 인증서 5개·half-ulp 인증 3개·hard-case 2개(shell 16 뒤 3개)가 claim `certified`로 읽히고, survey 8개가 전부 usage `survey_only`로 읽히는가.
@@ -645,7 +646,7 @@ AGENTS.md 규칙("문서와 코드가 어긋나면 코드가 옳고 문서가 �
 
 ### 13.7 v0가 shell 16 인증에 주는 영향
 
-**없어야 한다.** shell 16 인증서는 기존 driver로 생성·검증·coverage 합성되고, v0는 그 결과 fixture가 커밋된 **뒤에** 등록만 한다. LOCAL FULL 기준선(2815 + 1 xfailed, shell 16 시험 10개 추가 예정)은 v0 시험이 **더해질** 뿐 기존 시험은 바뀌지 않는다.
+**없어야 한다.** shell 16 인증서는 기존 driver로 생성·검증·coverage 합성되고, v0는 그 결과 fixture가 커밋된 **뒤에** 등록만 한다. 실제로 shell 16 인증서는 이 문서와 무관하게 master에서 만들어졌고(`0117cd8`), 기준선은 2834 passed + 1 xfailed가 됐다. v0 시험은 이 기준선에 **더해질** 뿐 기존 시험은 바뀌지 않는다.
 
 ---
 
@@ -734,7 +735,7 @@ CPU / GPU / Exact worker
 | Q4 | v0 패키지 이름·위치, registry Git 추적 여부 | `proof_warehouse/`, Git 추적 JSON | **조건부 승인.** registry는 정본이 아닌 파생 인덱스, 재생성 결과 = Git 사본 시험. 검증 기록에 로그·manifest 해시 |
 | Q5 | 저장 계층 이동은 RULES 5절 절차 확립 전 금지 | 금지 확인 | 승인 |
 | Q6 | 다차원 Cell 스키마는 R<20 트랙 착수 시 별도 설계 | 별도 설계 | 승인 |
-| Q7 | v0 착수 시점: shell 16 인증서 + LOCAL FULL 확정 뒤 별도 Gate | 그렇게 | 승인 |
+| Q7 | v0 착수 시점: shell 16 인증서 + LOCAL FULL 확정 뒤 별도 Gate | 그렇게 | 승인. 선행 조건은 master `0117cd8`·`d236842`로 충족됐다. 착수는 Q9~Q11 확인 뒤 별도 Gate |
 | Q8 | 이 문서를 증명 조립 아키텍처 5.4·5.5절의 명세로 연결 | 연결 | 승인. 증명 조립 아키텍처 5.4절과 로드맵 Phase 6에 한 줄 참조를 추가했다 |
 
 **개정 1에서 새로 생긴 확인 항목.** 구현자 해석이 판정 문장보다 한 걸음 더 나간 곳이다. v0 구현 전에 확인받는다.
