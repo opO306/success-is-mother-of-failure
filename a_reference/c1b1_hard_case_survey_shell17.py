@@ -135,7 +135,8 @@ def example_report():
                                                   'a_reference/c1b1_hard_case_survey.py',
                                                   'a_reference/c1b1_hard_case_survey_shell17.py')},
                    'prior_fixture_sha256': {H.PRIOR: H.PRIOR_HASH, H.BOUNDARIES: H.BOUNDARIES_HASH,
-                                            CERTIFICATE: sha256((ROOT/CERTIFICATE).read_bytes()).hexdigest()}})
+                                            CERTIFICATE: sha256((ROOT/CERTIFICATE).read_bytes()
+                                                                .replace(b'\r\n', b'\n')).hexdigest()}})
     return report
 
 

@@ -44,7 +44,7 @@ def test_prior_coverage_is_read_from_the_certificate_fixture(fixture):
         'used_regions': coverage['used_regions'], 'region_budget': 64,
         'gap_count': len(coverage['uncovered_intervals']),
         'shell_17_gaps': sum(g['shell_index'] == 17 for g in coverage['uncovered_intervals'])}
-    assert fixture['prior_fixture_sha256'][S.CERTIFICATE] == sha256((ROOT/S.CERTIFICATE).read_bytes()).hexdigest()
+    assert fixture['prior_fixture_sha256'][S.CERTIFICATE] == _digest(S.CERTIFICATE)   # LF-normalized: same on Windows and Linux
 
 
 def test_fixture_is_bound_to_current_sources(fixture):
