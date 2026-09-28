@@ -31,6 +31,7 @@ from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
 from contextlib import contextmanager
 from fractions import Fraction as Q
+from math import isqrt
 from pathlib import Path
 
 import a_reference.c1b1_canonical_state as G
@@ -70,6 +71,36 @@ class Telemetry:
         self.step = None                 # run.t_steps before the step being computed (None during admission)
         self.run = None                  # the run being stepped, read only to locate hot decisions
         self.hot = []                    # [{'M', 'step', 'raw'}] for decisions >= HOT_BITS or that failed
+        self.bins = Counter()            # profile only
+        self.wfinal = Counter()          # profile only: (final M, log2 of the final enclosure width in ulps)
+        self.hardest = None              # profile only: the decision whose final midpoint was nearest a boundary
+        self.cur_R2 = None               # profile only: R^2 of the impulse being decided
+        self.comp = 0                    # profile only: decision index inside the current impulse
+        self.axes = []                   # profile only: axis index of each nonzero component of the current impulse
+
+    # --- optional per-decision profile (read-only): why does a decision need 256 bits? -------------------------
+    profile = False                      # set True on an instance to fill `bins` and `hardest`
+    R_BIN = Q(1, 2)                      # bohr
+
+    def profile_decision(self, fx, comp, evals, M_final):
+        """evals = [(M, lo, hi)] in the order _decide asked for them. Records, per decision: final M, component,
+        separation bin, log2 of the 128-bit enclosure width in output ulps, and log2 of the distance of the final
+        enclosure midpoint from the nearest rounding boundary (half-integer ulp), also in ulps."""
+        scale = 1 << fx.frac_bits
+        _, lo0, hi0 = evals[0]
+        w0 = _flog2((hi0 - lo0) * scale)
+        M, lo, hi = evals[-1]
+        v = (lo + hi) / 2 * scale
+        t = v - (v.numerator // v.denominator)
+        d = abs(t - Q(1, 2))
+        dl = _flog2(d)
+        rb = None if self.cur_R2 is None else int(_sqrt_floor(self.cur_R2 / (self.R_BIN * self.R_BIN)))
+        self.bins[(M_final, comp, rb, w0, max(dl, -64) if dl is not None else 'tie')] += 1
+        wf = (hi - lo) * scale
+        self.wfinal[(M_final, _flog2(wf))] += 1
+        if self.hardest is None or d < self.hardest['d']:
+            self.hardest = {'d': d, 'M_final': M_final, 'comp': comp, 'R2': self.cur_R2, 'width_final_ulps': wf,
+                            'width_128_log2': w0, 'step': self.step}
 
     def locate(self, M):
         if len(self.hot) < self.HOT_KEEP:
@@ -85,15 +116,25 @@ def instrumented(tel: Telemetry):
     """Observe the original executor; never replace its logic. Restored on every exit path."""
     orig_decide, orig_enclosure = C._decide, C.relative_energy_enclosure
 
+    orig_impulse = C.impulse
+
     def decide(profile, value_at):
         top = [0]
+        evals = []
 
         def at(M):
             top[0] = M
-            return value_at(M)            # the computation itself is the original one
+            r = value_at(M)               # the computation itself is the original one
+            if tel.profile:
+                evals.append((M, r[0], r[1]))
+            return r
         tel.decide_calls += 1
+        comp = tel.axes[tel.comp] if tel.profile and tel.comp < len(tel.axes) else tel.comp
+        tel.comp += 1
         try:
             out = orig_decide(profile, at)
+            if tel.profile:
+                tel.profile_decision(profile, comp, evals, top[0])
         except C.ReferenceUndecided:
             tel.decisions['undecided'] += 1
             tel.locate('undecided')
@@ -111,11 +152,33 @@ def instrumented(tel: Telemetry):
         tel.admission_M.append(M)
         return orig_enclosure(run, M)
 
+    def impulse(dr, dt_kick, profile):
+        tel.cur_R2, tel.comp = sum((x * x for x in dr), Q(0)), 0
+        tel.axes = [k for k, x in enumerate(dr) if x != 0]      # the executor decides only nonzero components
+        return orig_impulse(dr, dt_kick, profile)
+
     C._decide, C.relative_energy_enclosure = decide, enclosure
+    if tel.profile:
+        C.impulse = impulse
     try:
         yield tel
     finally:
-        C._decide, C.relative_energy_enclosure = orig_decide, orig_enclosure
+        C._decide, C.relative_energy_enclosure, C.impulse = orig_decide, orig_enclosure, orig_impulse
+
+
+def _flog2(x: Q):
+    """floor(log2 x) for a rational x > 0, exactly; None for 0."""
+    if x == 0:
+        return None
+    n, d = x.numerator, x.denominator
+    k = n.bit_length() - d.bit_length()
+    if (n << max(0, -k)) < (d << max(0, k)):
+        k -= 1
+    return k
+
+
+def _sqrt_floor(x: Q) -> int:
+    return isqrt(x.numerator // x.denominator)
 
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -277,11 +340,12 @@ def _rel2(run) -> Q:
     return sum((x * x for x in C.relative(run.pos, *run.atoms)), Q(0))
 
 
-def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False) -> dict:
+def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False, profile: bool = False) -> dict:
     """Run one canonical state with the unchanged executor until it returns to its starting separation after the
     closest approach, a refusal, or max_steps. Returns counters (and the full raw-state trace if trace=True)."""
     st = transform_state(_state(sp), sp['transform'])
     tel = Telemetry()
+    tel.profile = profile
     out = {'kind': sp['kind'], 'label': sp['label'], 'transform': sp['transform']}
     trace_rows = [] if trace else None
     t0 = time.perf_counter()
@@ -338,9 +402,21 @@ def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False) -> dic
     out['decide_calls'] = tel.decide_calls
     out['decisions'] = {str(k): v for k, v in sorted(tel.decisions.items(), key=lambda kv: str(kv[0]))}
     out['hot'] = tel.hot
+    if profile:
+        out['profile'] = profile_dump(tel)
     if trace:
         out['trace'] = [[[str(x) for x in v] for v in row] for row in trace_rows]
     return out
+
+
+def profile_dump(tel: Telemetry) -> dict:
+    h = tel.hardest
+    return {'bins': [[list(k), v] for k, v in sorted(tel.bins.items(), key=str)],
+            'wfinal': [[list(k), v] for k, v in sorted(tel.wfinal.items(), key=str)],
+            'hardest': None if h is None else {**h, 'd': str(h['d']), 'd_log2': _flog2(h['d']),
+                                               'R2': None if h['R2'] is None else str(h['R2']),
+                                               'width_final_ulps': str(h['width_final_ulps']),
+                                               'width_final_log2': _flog2(h['width_final_ulps'])}}
 
 
 def _job(args):
