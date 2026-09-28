@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-8 shell 17 인증 완료, shell 16/15는 미승인)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-9 shell 16 survey_only 완료, 인증·shell 15는 미승인)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -280,6 +280,19 @@ brute force 대조(합성 12, 실제 창 24)는 누락 0이다. 병렬 효율은
 리눅스는 작업자를 fork로 띄워 DeprecationWarning이 6건 나왔다. 그래서 spawn 전달 검증은 Windows에서만 실제로 일어난다.
 증거: `runs/c1b1_hard_case_certificate_shell17_20260928/{certificate_full.json,certificate_full.log,local_full.*,remote_linux_full.*}`.
 다음 판단(설계자): shell 16 survey_only 진입 여부. shell 15는 그 뒤에 따로 판단한다.
+
+**④-4c-9 shell 16 survey_only(2026-09-28, 기준 `018bb65`):**
+설계자 판정: shell 16은 인증에 앞서 survey_only 전수 조사만 한다. coverage·인증 상태는 바꾸지 않는다([결과](docs/active/C1B1_HARD_CASE_SEARCH_SHELL16_SURVEY_V1.md)).
+원격 32스레드 실행 결과는 다음과 같다.
+- 교차 **46,892,493**(fixture 경계 수와 같음), 후보 **6,581**, **hazard 0**(독립 재평가 동일), checker **1024/1024**, brute force 누락 0.
+- 생성기 213초/6,719 CPU초, checker 628초/19,751 CPU초, 효율 0.98, 작업자 메모리 약 30 MB.
+- 같은 기계에서 다시 돈 shell 17 기준선의 행이 기존 fixture와 같다.
+- shell 17 대비 교차 5.42배, 후보 7.96배, **후보 밀도 1.47배**, checker CPU 3.10배.
+- 후보는 휴리스틱 2N(G+δ)를 일정 비율(0.43→0.39→0.37)로 따르며, 밀도 증가는 δ 증가로 설명된다(구현자 해석). 판정 기준의 "밀도 변화" 항목이므로 설계자 판단 사항이다.
+- 예측했던 shell 16 checker 약 2.0×10⁴ CPU초와 실측 차이는 약 1%다. shell 15 조사 재추정은 원격 약 1시간 5분이다.
+- 검증: 설계자 판정대로 LOCAL FULL은 생략했다. 관련 시험 101개와 변경 범위(새 파일만, 해시 고정 소스 4개 불변)를 확인했다. 새 시험 10개는 아직 기준선 2815에 포함되지 않았다.
+증거: `runs/c1b1_hard_case_shell16_20260928/{survey_full.json,survey_full.log}`.
+다음 판단(설계자): 밀도 변화 해석 수용 여부 → shell 16 인증 여부 → shell 15 조사 진입 여부.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
