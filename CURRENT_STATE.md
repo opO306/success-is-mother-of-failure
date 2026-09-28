@@ -362,7 +362,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 - [C1-B1 설계·결정·검증 기록](docs/active/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md): **23절 D_valid 동결, 24절 ④-1, 25절 ④-2/④-3, 26절 rounding-decision 진행**을 함께 읽는다.
 - [④-4 rounding-decision 상태](docs/active/C1B1_ROUNDING_DECISION_V1.md): tail 증거와 미완 pre-tail cover의 상세. **23절만을 최신 결정으로 읽지 않는다.**
 - [저장소 지도](REPO_MAP.md): 구현 위치와 계통 구분.
-- [A 계산·증명 Warehouse 아키텍처 설계](docs/proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md): 2026-09-28 설계 전용 제안. **미구현·미승인.** 기존 shell survey/certificate/checker 경로·해시 고정 파일은 변경하지 않으며, shell 16 인증 일정·결과와 무관하다. 현재 구조와의 충돌 지점(12절)과 read-only v0 범위(13절)를 보고한다.
+- [A 계산·증명 Warehouse 아키텍처 설계](docs/proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md): 2026-09-28 설계 전용 제안, 설계자 판정 개정 1 반영(세 축 상태 모델·해시 셋·정체성 분리, Q2~Q8 승인). **코드 미구현.** 기존 shell survey/certificate/checker 경로·해시 고정 파일은 변경하지 않으며, shell 16 인증 일정·결과와 무관하다. 현재 구조와의 충돌 지점(12절)과 read-only v0 범위(13절)를 보고한다.
 - [인수인계 점검](docs/history/PROJECT_HANDOVER_REVIEW_2026-09-27.md): 현재 보충 안내와 `0898ca3` 당시 점검·시험 이력을 구분.
 - [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md): 문서 정리 전 대시보드 원문, 과거 번호 체계·진행 순서·갈림길·B 연구·실험·기술 부채·최근 이력 전체. 본문 속 “다음”은 당시 기록이다.
 

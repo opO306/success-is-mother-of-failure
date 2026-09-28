@@ -244,6 +244,8 @@ gap exclusion
 
 # Phase 6 — Proof Warehouse
 
+> 설계 명세: [A 계산·증명 Warehouse 아키텍처](A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md) (설계 전용·미구현). 읽기 전용 v0는 shell 16 인증서와 LOCAL FULL 확정 뒤 별도 Gate에서만 착수한다(2026-09-28 설계자 판정 Q7·Q8).
+
 ## 목적
 
 proof가 많아졌을 때 찾고 재사용한다.

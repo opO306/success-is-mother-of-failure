@@ -307,6 +307,8 @@ proof object 자체는 판정자가 아니다.
 
 proof warehouse는 **증명 보관소**다.
 
+> 저장·metadata·의존성 골조의 명세는 [A 계산·증명 Warehouse 아키텍처](A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md)에 있다(설계 전용·미구현, 2026-09-28 설계자 판정 Q8). 아래 최소 저장 정보와 권한 경계는 그 문서의 세 축 상태 모델·정체성 규칙으로 구체화됐다.
+
 최소 저장 정보:
 
 ```text
