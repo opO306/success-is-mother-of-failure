@@ -51,3 +51,16 @@ def test_hard_case_point_profile():
     assert rec['end'] == 'decided' and rec['profile']['bins'][0][0][0] == 256
     t = P.combine([rec])
     assert t['decisions'] == 1 and t['hardest_10'][0]['kind'] == 'hard_case'
+
+
+def test_outgoing_flight_runs_past_the_start_separation():
+    sp = dict(X.spec('outgoing', 't', X.canonical(Q(9), Q(1, 2) * X.RE), 20000), stop_R='21')
+    rec = X.run_trajectory(sp)
+    back = X.run_trajectory({k: v for k, v in sp.items() if k != 'stop_R'})
+    assert back['end'] == 'returned_to_start' and rec['end'] == 'reached_stop_R'
+    assert rec['steps'] > back['steps']
+
+
+def test_outgoing_specs_target_the_zero_impulse_radius():
+    specs = P.outgoing_specs()
+    assert len(specs) == 14 and {s['stop_R'] for s in specs} == {'10240'}

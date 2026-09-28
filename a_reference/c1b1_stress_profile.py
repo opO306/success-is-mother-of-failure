@@ -102,6 +102,47 @@ def combine(recs):
             'hardest_10': hardest[:10]}
 
 
+OUTGOING_CAP = 12_000_000
+
+
+def outgoing_specs():
+    """Outgoing flight to R_J (the zero-impulse radius, 10240 bohr): the pre-tail shells 0..26 that the stress
+    campaign never entered (it stopped on returning to R = 20 bohr)."""
+    import a_reference.c1b1_inner_validation as I
+    import a_reference.c1b1_outer_bootstrap as O
+    rj = O.zero_impulse_radius()
+    out = []
+    for e in (Q(1, 2), Q(1), Q(2), Q(5), Q(9)):
+        for bf in (Q(1, 2), Q(3, 2)):
+            out.append(dict(X.spec('outgoing', f'e={e} b={bf}Re', X.canonical(e, bf * X.RE), OUTGOING_CAP),
+                            stop_R=str(rj)))
+    for e in (Q(2), Q(9)):
+        out.append(dict(X.spec('outgoing', f'e={e} b=0', X.canonical(e, Q(0)), OUTGOING_CAP), stop_R=str(rj)))
+    bo = I.orbiting_b(Q(1, 2), K.B_MAX_FRAC * X.RE)
+    for sign in (-1, 1):
+        out.append(dict(X.spec('outgoing', f'e=1/2 rho={sign}e-6', X.canonical(Q(1, 2), bo * (1 + sign * Q(1, 10 ** 6))),
+                               OUTGOING_CAP), stop_R=str(rj)))
+    return out
+
+
+def run_outgoing(out: Path, workers: int, log):
+    specs = outgoing_specs()
+    t0 = time.perf_counter()
+    recs = []
+    with ProcessPoolExecutor(min(workers, len(specs))) as pool:
+        for r in pool.map(_traj_job, specs, chunksize=1):
+            recs.append(r)
+            log(f"outgoing {r['label']}: end={r['end']} steps={r.get('steps')} wall={r['wall_seconds']:.0f}s "
+                f"dist={r['decisions']} hot={len(r['hot'])}")
+    res = {'version': VERSION, 'stage': 'outgoing', 'trajectories': len(recs),
+           'wall_seconds': time.perf_counter() - t0, 'ends': dict(Counter(r['end'] for r in recs)),
+           'precision': X.precision_distribution(recs), 'all': combine(recs),
+           'records': [{k: v for k, v in r.items() if k != 'profile'} for r in recs],
+           'per_trajectory': {r['label']: combine([r]) for r in recs}}
+    _dump(out / 'profile_outgoing.json', res)
+    log(f'outgoing done {res["wall_seconds"]:.0f}s ends={res["ends"]} dist={res["precision"]["by_precision"]}')
+
+
 def _dump(path: Path, obj):
     tmp = path.with_suffix('.tmp')
     tmp.write_text(json.dumps(obj, separators=(',', ':'), default=str) + '\n', encoding='utf-8')
@@ -160,4 +201,9 @@ def main(out_dir: str, workers: int, stream_items: int):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]) if len(sys.argv) > 3 else 1024)
+    if len(sys.argv) > 3 and sys.argv[3] == 'outgoing':
+        o = Path(sys.argv[1])
+        o.mkdir(parents=True, exist_ok=True)
+        run_outgoing(o, int(sys.argv[2]), lambda m: print(f'[{time.strftime("%Y-%m-%d %H:%M:%S")}] {m}', flush=True))
+    else:
+        main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]) if len(sys.argv) > 3 else 1024)

@@ -357,6 +357,8 @@ def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False, profil
         holder[0] = run
         p0 = C.total_momentum(run)
         R2_start = prev = _rel2(run)
+        stop_R = sp.get('stop_R')            # outgoing flight: run on past the start separation up to stop_R bohr
+        R2_stop = R2_start if stop_R is None else Q(stop_R) ** 2
         passed_min = False
         if trace:
             trace_rows.append(_raw(run))
@@ -371,8 +373,8 @@ def run_trajectory(sp: dict, telemetry: bool = True, trace: bool = False, profil
             if R2 > prev:
                 passed_min = True
             prev = R2
-            if passed_min and R2 >= R2_start:
-                out['end'] = 'returned_to_start'
+            if passed_min and R2 >= R2_stop:
+                out['end'] = 'returned_to_start' if stop_R is None else 'reached_stop_R'
                 break
         out['steps'] = run.t_steps
         out['final_raw'] = [[str(x) for x in v] for v in _raw(run)]
