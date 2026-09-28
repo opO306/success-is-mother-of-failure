@@ -20,6 +20,7 @@
 | [같은 입력 correlation 단계 계획](C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md) | ④-4c-4의 설계. 최소 구현 결과는 아래 조사에 기록하며 큰 class 수학 의무는 미완료 |
 | [같은 입력 gap 필터·별도 checker 조사](C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 기존 미해결 8,076 class 전부 root 검사. 작은 241 class·2,980 입력 추가 확인, 7,835 미해결. 실제 큰 class symbolic 하한 0·새 region 0. 이후 h 합동 lemma 방향은 보류 |
 | [shell 18 hard-case 탐색 조사](C1B1_HARD_CASE_SEARCH_SURVEY_V1.md) | 블록 보간 + 엄밀 오차로 T=G+δ 유도. affine 부적합, quadratic L=2^34 전체 실행: 교차 1,568,498·후보 109·hazard 0, checker 1024/1024. survey_only, 다른 shell 미적용 |
+| [shell 16 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_SHELL16_V1.md) | ④-4c-10: shell 17과 같은 계약으로 shell 16 인증. 후보 6,581·hazard 0. fresh coverage 14/64·gap 81, shell 15는 미승인 |
 | [shell 16 hard-case 전수 조사](C1B1_HARD_CASE_SEARCH_SHELL16_SURVEY_V1.md) | ④-4c-9: survey_only. 교차 46,892,493·후보 6,581·hazard 0, checker 1024/1024, 같은 기계 shell 17 기준선. 후보 밀도 1.47배(휴리스틱 추종) — 설계자 판단 사항 |
 | [shell 17 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_SHELL17_V1.md) | ④-4c-8: shell 18과 같은 계약으로 shell 17 인증. 후보 827·hazard 0, 단계별 비용 실측(원격 32스레드). fresh coverage 13/64·gap 82, 전체 NotCertified |
 | [shell 17 hard-case 확장성 조사](C1B1_HARD_CASE_SEARCH_SHELL17_SURVEY_V1.md) | ④-4c-7: shell 17 단독 실측. 교차 8,645,949·후보 827·hazard 0, checker 1024/1024. checker 비용이 교차 수에 비례해 커짐. survey_only |

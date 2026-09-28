@@ -24,6 +24,7 @@
 | [C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md](active/C1B1_SAME_INPUT_CORRELATION_PLAN_V1.md) | ④-4c-4 단계 계획. 최소 구현 착수, 전체 계획 완료·큰 class 인증 아님 |
 | [C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md](active/C1B1_SAME_INPUT_CORRELATION_SURVEY_V1.md) | 최소 필터·proof object·별도 checker. 작은 241 class 하한 추가·7,835 미해결·큰 class symbolic 하한 0 |
 | [C1B1_HARD_CASE_SEARCH_SURVEY_V1.md](active/C1B1_HARD_CASE_SEARCH_SURVEY_V1.md) | ④-4c-5: shell 18 hard-case 탐색 실현 가능성. quadratic 전체 실행 후보 109·hazard 0·checker 일치, survey_only |
+| [C1B1_HARD_CASE_CERTIFICATE_SHELL16_V1.md](active/C1B1_HARD_CASE_CERTIFICATE_SHELL16_V1.md) | ④-4c-10: shell 16 인증(같은 계약). 14/64·gap 81, shell 15 미승인 |
 | [C1B1_HARD_CASE_SEARCH_SHELL16_SURVEY_V1.md](active/C1B1_HARD_CASE_SEARCH_SHELL16_SURVEY_V1.md) | ④-4c-9: shell 16 survey_only 전수 조사. 후보 6,581·hazard 0·checker 일치, 인증·coverage 변경 없음 |
 | [C1B1_HARD_CASE_CERTIFICATE_SHELL17_V1.md](active/C1B1_HARD_CASE_CERTIFICATE_SHELL17_V1.md) | ④-4c-8: shell 17 인증(같은 계약)·단계별 비용. 13/64·gap 82, 전체 NotCertified |
 | [C1B1_HARD_CASE_SEARCH_SHELL17_SURVEY_V1.md](active/C1B1_HARD_CASE_SEARCH_SHELL17_SURVEY_V1.md) | ④-4c-7: shell 17 단독 확장성 실측. 후보 827·hazard 0·checker 일치, survey_only |

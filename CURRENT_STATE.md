@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-9 shell 16 survey_only 완료, 인증·shell 15는 미승인)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-10 shell 16 인증 완료, shell 15는 미승인)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -294,6 +294,19 @@ brute force 대조(합성 12, 실제 창 24)는 누락 0이다. 병렬 효율은
 증거: `runs/c1b1_hard_case_shell16_20260928/{survey_full.json,survey_full.log}`.
 다음 판단(설계자): 밀도 변화 해석 수용 여부 → shell 16 인증 여부 → shell 15 조사 진입 여부.
 
+**④-4c-10 shell 16 hard-case 인증서(2026-09-28, 기준 `a4eb67b`):**
+설계자 판정: shell 16 survey의 후보 밀도 증가(1.47배)는 δ 증가로 설명 가능한 **진행 판단용 관측**으로만 받아들이고, 증명으로 승격하지 않는다. 인증 여부는 hazard 0·checker 일치·brute-force 누락 0·구조 불일치 없음·효율 유지·메모리 문제 없음·비용 예측 오차 약 1%로 판단해 shell 16 인증을 승인했다([계약·결과](docs/active/C1B1_HARD_CASE_CERTIFICATE_SHELL16_V1.md)).
+계약은 shell 17과 완전히 같다(모듈 미수정). fresh coverage는 shell 18·17·16 세 인증서를 함께 재검증해 계산했다.
+**shell 16 원래 domain 전체(격자점 50,000,618,227,463,141개) Certified.** 후보 **6,581개** 전부 정확 재평가, **hazard 0**.
+**fresh coverage 14/64 region·gap 81**이며 shell 16·17·18 gap은 0이다. **R=20/④-4b 전체 NotCertified**다.
+인증서 1024행은 ④-4c-9 생성기 행과 전부 일치한다. 원격 32스레드 실측: build·verify·저장본 verify 각 약 628초/19,760 CPU초(효율 0.98), coverage(세 인증서 재검증) 988초/30,590 CPU초. 전체 47분 57초.
+예측한 shell 16 검증 비용(약 2.0×10⁴ CPU초)과 실측(19,761초)의 차이는 약 1%다.
+**LOCAL FULL(`0117cd8`): 2834 passed + 1 strict xfailed, skip 0, failure/error 0, exit 0, 398.68초.**
+**REMOTE LINUX FULL(같은 커밋, 32워커 재실행): 2834 passed + 1 xfailed, skip 0, 361.87초, 2835개 항목별 로컬과 완전 동일.**
+첫 원격 실행에서 `test_primal_precision.py`의 모듈 전역 상태 의존 시험이 1회 간헐적으로 실패했으나 재실행·로컬에서 재현되지 않아 xdist 스케줄링 문제로 기록했다(회귀 아님).
+증거: `runs/c1b1_hard_case_certificate_shell16_20260928/{certificate_full.json,certificate_full.log,local_full.*,remote_linux_full.*}`.
+다음 판단(설계자): shell 15 survey_only 진입 여부(원격 약 1시간 5분 추정).
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
@@ -335,6 +348,7 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 | 실행 기록 | 결과 | 로그·JUnit |
 |---|---|---|
+| ④-4c-10 shell 16 인증서 LOCAL FULL (2026-09-28, `0117cd8`) | **2834 passed + 1 strict xfailed, failure/error 0, skip 0, 398.68초**. REMOTE LINUX FULL 재실행 2834 passed, 361.87초, 항목별 동일(첫 원격 실행 간헐적 실패 1건은 재현 안 됨) | `runs/c1b1_hard_case_certificate_shell16_20260928/local_full.log`, `runs/c1b1_hard_case_certificate_shell16_20260928/local_full.xml` |
 | ④-4c-8 shell 17 인증서 LOCAL FULL (2026-09-28, `8d45209`) | **2815 passed + 1 strict xfailed, failure/error 0, skip 0, 408.27초**. REMOTE LINUX FULL 같은 커밋 2815 passed + 1 xfailed, skip 0, 356.36초, 항목별 동일 | `runs/c1b1_hard_case_certificate_shell17_20260928/local_full.log`, `runs/c1b1_hard_case_certificate_shell17_20260928/local_full.xml` |
 | ④-4c-7 shell 17 조사 + native 리눅스 빌드 LOCAL FULL (2026-09-28, `91a5c38`) | **2807 passed + 1 strict xfailed, failure/error 0, skip 0, 405.49초**. 원격 전체(`894cf5e`)는 skip 0·2806 passed·1 failed(줄바꿈 해시, 이후 수정) | `runs/c1b1_hard_case_shell17_20260928/local_full.log`, `runs/c1b1_hard_case_shell17_20260928/local_full.xml` |
 | ④-4c-6 shell 18 hard-case 인증서 LOCAL FULL (2026-09-28) | **2798 passed + 1 strict xfailed, failure/error 0, skip 0, 448.71초**, 로그에 경고 줄 없음(원인 미조사). 신규 관련 74개 직렬/병렬 동일 | `runs/c1b1_hard_case_certificate_20260928/local_full.log`, `runs/c1b1_hard_case_certificate_20260928/local_full.xml` |
