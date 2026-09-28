@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (④-4c-10 shell 16 인증 완료, shell 15는 미승인)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 (shell 15 survey_only 완료 — shell별 전수 hard-case 탐색 방식 STOP)** |
 | **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -315,7 +315,18 @@ STOP 뒤 두 갈래: (A) 더 싼 수학적 방법(예: lattice reduction) 조사
 **화학/다입자**는 이번 결정에 포함되지 않는다. Ar-Ar 반올림 증명에 갇히지 않기 위한 방향 경고로만 기록한다. 지금 착수하지 않는다.
 전체 순서: shell 16(완료) → shell 15 survey → 전수 방식 종료 판정 → 반올림 계약 최종 정리 → C1-B1 나머지 정리(inbound/inner/전체 산란각/E_min/native J) → C1-B1 freeze → 다입자·화학 조사. B/L은 건드리지 않는다.
 
-**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
+**shell 15 hard-case 전수 조사(2026-09-28, 기준 `ab81005`) — 마지막 shell별 전수 조사:**
+설계자 판정대로 shell 15를 마지막으로 한 번만 돌리고, **shell별 전수 hard-case 탐색 방식을 shell 14 이하로 잇지 않는다(STOP)**([결과](docs/active/C1B1_HARD_CASE_SEARCH_SHELL15_SURVEY_V1.md)).
+STOP은 반올림 연구 중단이 아니다. exact 반올림 의미는 유지하고, "shell마다 전수 인증"이라는 방법만 버린다.
+원격 32스레드 실측: 교차 **250,139,754**(fixture 경계 수와 같음), 후보 **54,419**, **hazard 0**, checker **1024/1024**, brute force 누락 0.
+같은 기계에서 다시 돈 shell 16 기준선의 행이 기존 fixture와 완전히 같다.
+shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker CPU 4.70배. ④-4c-9 예측(shell 16 실측 기반)과 이번 실측의 오차는 생성기 약 −1%, checker 약 −0.7%다.
+교차당 비용(생성기 약 87µs, checker 약 363µs)으로 손 계산하면 shell 14 조사는 약 5시간, 인증은 약 17시간, shell 13은 각각 약 27시간·88시간으로 추정된다(측정 아님). shell 0〜4는 경계 수가 격자점 수보다 많아 교차별 처리가 원리적으로 불가능하다.
+검증: survey_only라 LOCAL FULL은 생략했다. 새 시험 10개와 관련 시험 28개 통과, 변경은 새 파일만이며 해시 고정 소스 4개는 불변이다.
+증거: `runs/c1b1_hard_case_shell15_20260928/{survey_full.json,survey_full.log}`.
+다음 판단(설계자): 남은 gap 81개를 (A) 더 싼 수학적 방법(lattice reduction/SLZ, 또는 shell 0〜6 전체 impulse 트랙)으로 좁힐지, (B) 판정 불가를 명시적으로 멈추는 조건부 계약으로 정리할지.
+
+**아직 남음:** inbound**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
 ## 증거 종류: 수치 검증과 별도 수학 증거
