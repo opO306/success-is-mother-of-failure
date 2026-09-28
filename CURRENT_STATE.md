@@ -303,7 +303,7 @@ brute force 대조(합성 12, 실제 창 24)는 누락 0이다. 병렬 효율은
 예측한 shell 16 검증 비용(약 2.0×10⁴ CPU초)과 실측(19,761초)의 차이는 약 1%다.
 **LOCAL FULL(`0117cd8`): 2834 passed + 1 strict xfailed, skip 0, failure/error 0, exit 0, 398.68초.**
 **REMOTE LINUX FULL(같은 커밋, 32워커 재실행): 2834 passed + 1 xfailed, skip 0, 361.87초, 2835개 항목별 로컬과 완전 동일.**
-첫 원격 실행에서 `test_primal_precision.py`의 모듈 전역 상태 의존 시험이 1회 간헐적으로 실패했으나 재실행·로컬에서 재현되지 않아 xdist 스케줄링 문제로 기록했다(회귀 아님).
+첫 원격 실행에서 `test_primal_precision.py`의 마지막 시험이 1회 실패했다. 원인은 시험 결함이다: xdist가 시험을 개별 단위로 나눠, 모듈 전역 `FELT`를 채우는 시험들과 다른 작업자에 배정되면 빈 리스트를 읽는다. 회귀는 아니지만 열린 결함으로 남긴다(처음의 "스케줄링 문제" 기록은 부정확해 정정).
 증거: `runs/c1b1_hard_case_certificate_shell16_20260928/{certificate_full.json,certificate_full.log,local_full.*,remote_linux_full.*}`.
 다음 판단(설계자): shell 15 survey_only 진입 여부(원격 약 1시간 5분 추정).
 

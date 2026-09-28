@@ -72,7 +72,10 @@
 
 ## 검증 실행
 
-- **LOCAL FULL·REMOTE LINUX FULL: 아래 결과 대조 참조.**
+- **LOCAL FULL(`0117cd8`): 2834 passed + 1 strict xfailed, skip 0, failure/error 0, 398.68초.**
+- **REMOTE LINUX FULL(같은 커밋, 32워커): 첫 실행 1 failed + 2833 passed.** 실패한 시험은 이번 변경과 무관한 `tests/test_primal_precision.py::test_what_hands_feel_never_names_the_engine`이다(아래 참조).
+- **REMOTE LINUX FULL 재실행: 2834 passed + 1 xfailed, skip 0, 361.87초.** LOCAL FULL과 시험 2835개의 목록·결과가 항목별로 같다.
+- 첫 원격 실패의 원인은 시험 쪽 결함이다. 마지막 시험이 같은 파일의 다른 시험들이 모듈 전역 `FELT` 리스트에 채워 둔 값을 읽는다. 그런데 pytest-xdist의 기본 분배(`--dist load`)는 시험을 개별 단위로 작업자에 나누므로, 마지막 시험이 다른 작업자에 배정되면 빈 리스트를 읽는다. 회귀는 아니지만 원인이 남아 있는 **열린 결함**이다([검증 한계](../reference/VERIFICATION_LIMITS_AND_LESSONS.md)). 로그: `runs/c1b1_hard_case_certificate_shell16_20260928/{local_full.*,remote_linux_full.*}`(재실행분).
 
 ## 다음 판단 (설계자)
 
