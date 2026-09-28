@@ -307,6 +307,14 @@ brute force 대조(합성 12, 실제 창 24)는 누락 0이다. 병렬 효율은
 증거: `runs/c1b1_hard_case_certificate_shell16_20260928/{certificate_full.json,certificate_full.log,local_full.*,remote_linux_full.*}`.
 다음 판단(설계자): shell 15 survey_only 진입 여부(원격 약 1시간 5분 추정).
 
+**설계자 판정 — shell 15를 마지막 확장성 조사로 두는 방향(2026-09-28):**
+shell 15는 survey_only 한 번만 한다. 결과를 본 뒤 **현재 shell별 전수 hard-case 탐색 방식을 shell 14 이하로 계속 내려가지 않는다(STOP)**.
+STOP은 반올림 연구 전체 중단이 아니다. exact 반올림 의미(정확한 값을 한 번 반올림)는 유지한다. 버리는 것은 "shell마다 무식하게 전수 인증"이라는 방법이다.
+STOP 뒤 두 갈래: (A) 더 싼 수학적 방법(예: lattice reduction) 조사, (B) 판정 불가능한 부분을 명시적으로 멈추는 조건부 계약으로 정리.
+**Proof Warehouse**(별도 브랜치 `claude/proof-warehouse-architecture-skrgwm`, 설계 문서만, 코드 0)는 **구현 보류·문서만 보존**한다. 반올림 전략이 바뀌면 저장할 proof의 양·종류도 달라지므로, 지금 v0를 시작하지 않는다. master와는 아직 합치지 않는다.
+**화학/다입자**는 이번 결정에 포함되지 않는다. Ar-Ar 반올림 증명에 갇히지 않기 위한 방향 경고로만 기록한다. 지금 착수하지 않는다.
+전체 순서: shell 16(완료) → shell 15 survey → 전수 방식 종료 판정 → 반올림 계약 최종 정리 → C1-B1 나머지 정리(inbound/inner/전체 산란각/E_min/native J) → C1-B1 freeze → 다입자·화학 조사. B/L은 건드리지 않는다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
