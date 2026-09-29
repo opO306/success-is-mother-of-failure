@@ -1,6 +1,6 @@
 # C1-B1 point prover generator 설계 V0
 
-**상태:** 설계 + **V0 구현·시험·검증 완료(9절)**.  **먼저 공개: 현재 checker V1은 실제 16384 STOP을 운영상 풀 수 없다(5절 측정, P-5).** 후속: checker V2가 구현·신뢰 승인됐고([V2](C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md) 9.7), prover V0가 같은 2^-17000 사례를 스스로 raw를 찾아 위·아래 모두 첫 시도에 VALID로 풀었다(9절).
+**상태:** 설계 + **V0 구현·시험·검증 완료(9절). V0 승인(설계자 판정 2026-09-30)**, 추정 overflow를 NOT_A_DECISION에서 `EXHAUSTED("estimate_out_of_output_range")`로 정정([wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md) 6절).  **먼저 공개: 현재 checker V1은 실제 16384 STOP을 운영상 풀 수 없다(5절 측정, P-5).** 후속: checker V2가 구현·신뢰 승인됐고([V2](C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md) 9.7), prover V0가 같은 2^-17000 사례를 스스로 raw를 찾아 위·아래 모두 첫 시도에 VALID로 풀었다(9절).
 **현재 상태(변경 없음):** checker 신뢰 승인(`e9b30eb`), A-EV 미해결, ④-Safety Conditional, ④-Liveness NotCertified, ④ 전체 Certified/Frozen 아님, 실행기 cap 16384.
 **근거:** 설계자 판정 2026-09-29(7차)의 원칙 1〜7, [checker 사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md), [Lemma A·B](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md).
 

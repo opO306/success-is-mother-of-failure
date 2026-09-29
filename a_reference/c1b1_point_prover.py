@@ -12,12 +12,14 @@ WHAT IT MAY NOT DO (designer principles 1-3, 2026-09-29)
 
 RESULTS
   FOUND          certificate + raw, with the checker's VALID Result attached.
-  NOT_A_DECISION the executor asks no rounding question here (dr_k = 0, dt = 0, R < r_min, position outside the
-                 profile) or the exact value leaves the FX(96,80) range (an overflow halt, not a rounding decision).
+  NOT_A_DECISION the executor asks no rounding question here, decided EXACTLY from the input alone: dr_k = 0,
+                 dt = 0, R < r_min, position outside the profile. Nothing estimated ever leads here.
   EXHAUSTED      no certificate within the operational limits YET. Either the prover's own budget ran out
                  (prover_budget:*, estimate_budget) or the checker REFUSED (checker_refused:<limit>) or the
-                 certificate could not be serialized (serialization_limit). This says NOTHING about truth: Lemmas A+B
-                 give a finite certificate, not one inside today's limits.
+                 certificate could not be serialized (serialization_limit) or the UNTRUSTED estimate put the value
+                 outside the FX(96,80) output range (estimate_out_of_output_range: no certificate says so, and a real
+                 output overflow is the executor's own terminal refusal, never a prover case). This says NOTHING
+                 about truth: Lemmas A+B give a finite certificate, not one inside today's limits.
   ANOMALY        the prover's guess and the checker contradict (the checker says raw_mismatch, or any INVALID reason
                  other than not_separated). Recorded and STOPPED: never retried into FOUND, because a silent retry
                  would hide a disagreement between two implementations.
@@ -142,19 +144,20 @@ def _split(y):
 
 def _estimate(dr, k, dt, budget):
     """Doubling-precision estimate. Accepts when two successive precisions agree to well within the distance to the
-    nearest boundary. Returns dict(m, dist_bits, y_bits, precision). Raises _Stop for overflow / exhaustion."""
+    nearest boundary. Returns dict(m, dist_bits, y_bits, precision). Raises _Stop(EXHAUSTED, ...) when the estimate
+    runs out of budget or lands outside the output range (an estimate is not evidence of an overflow)."""
     p_bits, prev = 512, None
     while True:
         y = _y_at(dr, k, dt, p_bits)
         with mp.workdps(int(p_bits * 0.30103) + 20):
             if abs(y) > mp.mpf(2) ** (K2.OUT_WIDTH + 1):
-                raise _Stop(NOT_A_DECISION, "overflow")
+                raise _Stop(EXHAUSTED, "estimate_out_of_output_range")
             if prev is not None:
                 m, dist = _split(y)
                 err = max(abs(y - prev), abs(y) * mp.mpf(2) ** (-(p_bits // 2 - 8)))
                 if dist > 8 * err and dist > 0:
                     if not RAW_MIN <= m <= RAW_MAX:
-                        raise _Stop(NOT_A_DECISION, "overflow")
+                        raise _Stop(EXHAUSTED, "estimate_out_of_output_range")
                     dist_bits = max(1, int(mp.ceil(-mp.log(dist, 2))))
                     y_bits = max(0, int(mp.ceil(mp.log(abs(y), 2)))) if abs(y) > 1 else 0
                     return {"m": m, "dist_bits": dist_bits, "y_bits": y_bits, "precision_bits": p_bits}

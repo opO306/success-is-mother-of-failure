@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 구현·검증 완료(판정 대기), 다음은 runtime wrapper 설계** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0 구현·검증 완료(판정 대기), Proof Cache 미착수** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -456,6 +456,20 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 미증명: 추정기 수락 규칙은 휴리스틱(틀리면 ANOMALY), 표본 결과는 전 입력 보장이 아님, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, wrapper·Proof Cache 미연결.
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(prover, survey, 시험)과 문서만 추가, 기존 코드 변경 0. **prover 24 + checker V2 95 + V1 185 = 304 passed**(아래 확인). 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_point_prover_20260929/`.
 다음 판단(설계자): prover V0 판정 → runtime wrapper 설계(STOP 시 prover 호출, WITNESS_RESOLVED 기록, 같은 step 재실행, certificate 바이트 크기 상한; Opus 5.5 High 권장) → Proof Cache.
+
+**설계자 판정(2026-09-30, 기준 HEAD `99830f2`): point prover V0 승인(비신뢰 generator). 추정 overflow의 상태 의미 1곳을 정정한 뒤 runtime wrapper 단독 구현, Proof Cache는 그 뒤.**
+- 정정: prover의 추정값이 출력 범위 밖이면 `NOT_A_DECISION("overflow")`가 아니라 **`EXHAUSTED("estimate_out_of_output_range")`**다. NOT_A_DECISION은 입력만으로 정확히 정해지는 경우에만 쓴다. 실제 출력 overflow는 실행기의 종결 거부이며 prover로 오지 않는다.
+
+**runtime wrapper V0(2026-09-30, survey_only·새 파일):** ([계약·결과](docs/active/C1B1_RUNTIME_WRAPPER_V0.md))
+- 계약 W1〜W8(설계자 조건): 실제 `ReferenceUndecided`만 prover로, FOUND도 바이트에서 재검증(크기 → JSON → binding → 입력 동일성 → checker V2 VALID → raw 일치), step을 처음부터 재실행, 재실행 중 실행기가 **바로 그 입력에서 다시 멈출 때만** witness raw 사용, NOT_A_DECISION/EXHAUSTED/ANOMALY/REFUSED는 진행 금지, 파싱 전 바이트 상한(256 KiB, 가용성만), on/off 차등, 결함 주입.
+- 실행기 소스는 바꾸지 않고 `C.impulse`·`C._decide`를 step 동안만 감싼다(모든 경로에서 복원, 스레드 안전하지 않음). wrapper는 cap을 건드리지 않는다.
+- 시험 30개 통과. 결함 주입: checker 생략, 입력 검사 제거 ×3(일관된 위조), binding 검사 제거, witness 없이 재개, step 중간부터 재개, 실행기 결정보다 witness 우선, 심은 witness 5종, stale binding, 재검증 REFUSED — 전부 잡힘.
+- **cap-128 rehearsal 실제 궤적 3개(1,640 / 5,775 / 21,056 step): 매 step full-cap 정상 실행과 비트 동일, witness 사용 25 / 77 / 239 = 정상 실행의 256-bit 판정 수.** 정상 궤적에서 wrapper on/off 동일, prover 호출 0.
+- **실제 cap 16384 STOP을 한 step 안에서 닫음(합성 2^-17000, 위·아래): 실행기 단독은 `ReferenceUndecided`, wrapper는 WITNESS_RESOLVED(성분 2개, witness raw = mpmath 기대값), 한 step 791초**(W2 재검증이 checker 비용을 두 배로). 기본 한도로는 합성 `dt_kick` 때문에 UNPROVED(`exhausted:checker_refused:integer_size_limit`).
+- 실패 기록: 첫 시험 12건 실패는 가짜 prover의 자기 재귀·변이체의 `__file__` 부재(시험 결함). "입력 검사 제거" 변이체가 raw 일치 검사에 막힌 것은 방어가 두 겹이라는 뜻이며, 입력 검사만 시험하도록 일관된 위조로 바꿨다.
+- 미증명: wrapper 정확성은 시험·차등 비교 기반, `_decide` 순서와 성분 대응은 실행기 구현에 의존(어긋나면 차등 비교가 잡음), hook은 스레드 안전하지 않음, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, Proof Cache 없음.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(wrapper, survey, 시험)과 prover의 상태 의미 1곳, 문서만 변경. 실행기·평가기·checker·동결 계약 변경 0. wrapper 30 + prover 24 + V2 95 + V1 185 + fail-closed·witness prototype·two_atom = **406 passed + 1 xfailed**(기존 strict xfail). 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_20260930/`.
+다음 판단(설계자): wrapper V0 판정 → Proof Cache(검증된 witness 재사용, 매 사용 재검증) 설계.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

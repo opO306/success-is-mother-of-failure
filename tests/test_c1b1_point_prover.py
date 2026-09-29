@@ -165,8 +165,11 @@ def test_not_a_decision_cases():
     assert P.prove(dr, 0, Q(0)).reason == "zero_kick"
     assert P.prove([1 << 48, 0, 0], 0, DT).reason == "below_r_min"
     assert P.prove([1 << 96, 5, 5], 0, DT).reason == "outside_position_profile"
+    # an estimate outside the output range is NOT a decision about the input: it is EXHAUSTED (no certificate says
+    # "overflow"; a real output overflow is the executor's terminal refusal and never reaches the prover)
     over = P.prove(dr, 0, Q(10 ** 40))
-    assert (over.status, over.reason) == (P.NOT_A_DECISION, "overflow")
+    assert (over.status, over.reason) == (P.EXHAUSTED, "estimate_out_of_output_range") and over.raw is None
+    assert P.NOT_A_DECISION not in {P.prove(dr, 0, Q(10 ** e)).status for e in (35, 40, 60)}
     for r in (P.prove([0, dr[1], dr[2]], 0, DT), P.prove(dr, 0, Q(0))):
         assert r.status == P.NOT_A_DECISION and r.raw is None and r.certificate is None
     with pytest.raises(ValueError):
