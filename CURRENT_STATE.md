@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), certificate·checker 사양 V1 승인 대기** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker 구현·교차검증 완료(판정 대기)** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -396,7 +396,17 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
   - 시험 의무 T1〜T9: 독립성, 지문, 교차검증 수천 건, 식 결함 주입, exp·√ 부등식, 음성, rehearsal, 운영 한도.
 - 기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 쓴다. A-EV는 별개로 남고 ④-Safety는 Conditional이다.
 - 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
-다음 판단(설계자): 사양 V1 승인(S1〜S4) → 독립 checker + 시험 구현(Sonnet 5.5) → point prover generator → wrapper·Proof Cache.
+다음 판단(설계자): 사양 V1 승인(S1〜S4) → 아래 판정.
+
+**설계자 판정(2026-09-29, 5차): S1〜S4 전부 승인 + 독립 checker 구현·시험(survey_only, 새 파일만):**
+- 승인 원칙: *Operational limits affect availability, never truth.* 한도 초과는 REFUSED이며 INVALID가 아니다. 한도를 바꿔도 VALID/INVALID는 바뀌지 않는다(시험 T9).
+- 구현: `a_reference/c1b1_exact_impulse_checker.py`(표준 라이브러리 5개만, 자체 상수표 + 동결 지문 binding), 탐색기(시험 보조), 교차검증 드라이버(mpmath 세 번째 구현 포함), `tests/test_c1b1_exact_impulse_checker.py` 127개. 실행기·C1-A 평가기·동결 fixture·기존 인증서 변경 0.
+- **교차검증(T3, 로컬 5 워커 1,123초, Vast 없음): 10,191 입력·14,102 성분 판정에서 checker VALID raw = 실행기 raw, 불일치 0.** 안쪽·축·바깥·먼 점·65점·hard-case 후보 7,517(shell 16/17/18 전부)·shell 24〜26 후보 3·near-tie 200(경계에서 2^-10〜2^-140 ulp, 위·아래). 128비트로 충분 14,023건, 256비트 79건은 전부 near-tie.
+- **식 결함 주입(T4) 40종 전부 잡힘**(전부 `raw_mismatch`; 부호·α·kadd·retardation 분기와 g′·2k·거듭제곱·dt·성분·단위·국소 고차항). 상수 오류는 지문이 막고, 지문을 우회해도 19건 중 18건은 교차검증이 잡는다. **예외: `RET_B[5]`(R⁶ 계수) 마지막 자리는 지문만이 막는다**(시험으로 고정).
+- rehearsal(T8): cap 128로 멈춘 near-tie와 실제 궤적 거부 충격량 전부를 certificate가 full-cap raw로 증명. 필요한 √ 비트는 경계가 가까울수록 커진다.
+- 한계: 식 전사는 시험으로만 보장(형식 증명 없음), A-EV는 별개(④-Safety Conditional 유지), 정성 Liveness는 Lemma A·B 논거에 기댐(관측은 sqrt_bits ≤ 256이지만 상한 아님), 운영 한도 기본값은 관측 기반 초기값. 사양에서 `time` import 1개 추가.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(모듈 3·시험 1)과 문서만 추가, 기존 실행 코드·동결 계약·fixture 변경 0. 새 시험 127개 + 직접 영향 범위(`two_atom`, `runtime_local_witness`, `step_fail_closed`, `stress_survey`, `c1a_ar2_lang2024`) **222 passed + 1 xfailed**. 기준선 숫자는 갱신하지 않는다.
+다음 판단(설계자): checker 신뢰 판정 → point prover generator → runtime wrapper·Proof Cache. 운영 한도 기본값과 `time` import 추가를 확인해 주세요.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
