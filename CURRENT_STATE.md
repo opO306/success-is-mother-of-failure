@@ -347,6 +347,10 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체(83 passed + 1 strict xfailed) / 새 파일만 추가.
 다음 판단(설계자): 이 구조를 정식 방향으로 검토할지, 실제 16384 실패용 국소 증명 방법, 차등 계약·witness 형식·④ 동결 조건.
 
+**설계자 판정(2026-09-29):** runtime + 국소 증명을 C1-B1 반올림 완전성의 **주력 방향으로 승격**. 버리는 것은 shell별 경계 사전 열거 방법뿐이며 ④의 의무는 약화하지 않는다.
+④를 **Safety**(틀린 상태를 만들지 않음)와 **Liveness**(인정한 영역의 판정이 모두 해결됨)로 나눈다. 둘 다 닫혀야 ④ 동결. 실제 16384 실패용 point prover는 설계만 하고 구현하지 않는다.
+계약안: [Runtime Rounding Contract V1 — 제안](docs/active/C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md)(네 상태, Safety S1〜S6·Liveness 조건, 차등 비교 역할 분리, Proof Cache/Hazard Atlas, Warehouse 원칙과의 충돌 C1〜C4). **승인 전이며 코드 변경 없음.**
+
 **아직 남음:** inbound**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
