@@ -162,11 +162,12 @@ prover 내부에서 쓴 bit 수는 상관없다. 기준은 **"최종 certificate
 
 - **넣는 것:** 실제 cap(16384)에서 STOPPED였고, 승인된 prover가 만든 뒤 검증된 witness **만**. 128→256처럼 실행기가 스스로 푼 판정은 넣지 않는다(실측 약 0.64%, 2억 판정이면 백만 건 이상 — 넣으면 창고가 철길보다 커진다).
 - **쓰는 때:** 실행기가 STOPPED를 낸 입력에 대해서만 조회한다. 실행기의 계산을 건너뛰는 용도가 아니다.
-- **쓸 때마다** binding 일치 확인 + witness 전체 재검증(Warehouse Q3 "④ 동결 전 full re-verify"와 같은 원칙). 저장된 `status`를 믿지 않는다.
+- **쓸 때마다** binding 일치 확인 + witness 전체 재검증([Warehouse](../proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md) Q3 "④ 동결 전 full re-verify"와 같은 원칙). 저장된 `status`를 믿지 않는다.
 - binding이 하나라도 다르면 STALE — 쓰지 않고 다시 증명한다. 지우지 않는다(STALE·REJECTED 보존).
 - **Proof Box 승격:** 여러 witness가 한 구간에 모이면, 그 구간 **전체가** 같은 반올림 결과를 가진다는 구간 증명(기존 multi-output region·hard-case 인증서와 같은 종류)이 있을 때만 box로 올린다. "비슷해 보여서" 묶지 않는다.
   box가 있으면 그 안의 처음 보는 입력의 STOP도 box로 풀 수 있다. 이미 인증된 14개 region은 이 의미의 box/domain이다.
-- 저장 형식: prototype witness는 `runs/`에만 둔다(fixture 아님). 정식 Proof Cache의 형식·위치는 첫 승인된 prover와 함께 정한다.
+- 저장 형식: prototype witness는 `runs/`에만 둔다(fixture 아님). **정식 위치(설계자 판정 2026-09-30, Q-PC1):** `runs/c1b1_proof_cache_v0/` 하나의 로컬 append-only 선반(`objects/` = certificate canonical bytes 그대로, `index.jsonl` = 정확한 lookup key → content address, `events.jsonl` = 실행별 metadata). Git fixture로 만들지 않고, 실행별로 선반을 쪼개지 않는다. single-writer V0. 시험은 임시 디렉터리.
+- **재검증 결과의 구분(설계자 판정 2026-09-30, Q-PC3):** binding 변경 → STALE(보존, 사용 금지). hash 불일치·malformed·input mismatch·checker INVALID → REJECTED(보존, 사용 금지, 스스로 부활하지 않음). **checker REFUSED → REJECTED 아님:** 이번 사용만 실패하고 event로 기록하며 캐시로는 세계를 진행하지 않는다(prover 또는 UNPROVED 정책으로 이동). REFUSED는 거짓 판정이 아니다.
 
 ## 6. Hazard Atlas — 통계 지도 (증명 아님)
 
@@ -176,14 +177,16 @@ prover 내부에서 쓴 bit 수는 상관없다. 기준은 **"최종 certificate
 
 ## 7. witness binding (필수 필드)
 
-모델 지문(`L.parameter_fingerprint()`), C1-A 동결 지문, 실행기·모델 소스의 LF 정규화 SHA-256, 위치/운동량 profile(이름·폭·소수 비트), dt, kick 간격, drift 규칙, retardation, 반올림 방식(half-even), 정밀도 schedule(128…16384), 정확한 입력 위치(유리수), 성분 축, **proof method와 그 checker의 해시**.
+**수학적 binding(witness가 참인 조건):** 모델 지문(`L.parameter_fingerprint()`), C1-A 동결 지문, 실행기·모델·수 체계(`a_numeric/profiles.py`) 소스의 LF 정규화 SHA-256, 위치/운동량 profile(구현 클래스·이름·폭·소수 비트·**확인된** 반올림 방식 half-even), dt, kick 간격, drift 규칙, retardation, 정확한 입력 위치(유리수), 성분 축, **proof method와 그 checker의 해시**.
 prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness에는 추가한다.
+
+**개정(설계자 판정 2026-09-30, Q-PC2): 정밀도 schedule(128…16384)은 수학적 binding에서 뺀다.** 같은 입력에서 checker가 증명한 raw는 실행기가 몇 비트까지 시도했든 같다. schedule은 "witness가 참인가"가 아니라 "이 witness가 어떤 실행 상황에서 만들어져 Cache에 들어왔는가"의 정보다. 그래서 **Cache admission metadata**로 옮긴다: executor schedule, cap(= 16384), production STOP 여부, source run id, 시각·호스트 등 비결정 정보. 5절의 "실제 production cap 16384에서 STOP한 witness만 정식 Proof Cache에 저장" 정책은 유지한다. **wrapper는 계속 `MAX_PRECISION_BITS`를 읽지 않는다.** 저장 자격은 wrapper 밖의 admission 층이 판단한다. cap-128 rehearsal의 캐시 시험은 test_only admission으로 **별도 임시 선반**에서만 하고 정식 선반에는 들어가지 않는다.
 
 ## 8. 기존 원칙과의 충돌 — 설계자 판단 필요
 
 | # | 충돌 | 내용 | 구현자 의견 |
 |---|---|---|---|
-| C1 | Warehouse 8절 "Warehouse는 A의 실행 경로에 없다" | Proof Cache는 STOPPED 때 **실행 중에** 조회된다 | **설계자 판정: 분리.** Proof Warehouse = 연구·증명 자산 보관소, A 실행 경로 밖. Runtime Proof Cache = 실제 실행 중 검증된 witness 재사용, 아주 작고 엄격, 매 사용 시 재검증. Hazard Atlas = 통계, 판단 권한 0. Cache의 검증된 자료를 Warehouse로 **복사해 연구 자산화**하는 것은 가능하지만, A가 Warehouse를 조회해 실행 결정을 내리는 경로는 없다 |
+| C1 | [Warehouse](../proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md) 8절 "Warehouse는 A의 실행 경로에 없다" | Proof Cache는 STOPPED 때 **실행 중에** 조회된다 | **설계자 판정: 분리.** Proof Warehouse = 연구·증명 자산 보관소, A 실행 경로 밖. Runtime Proof Cache = 실제 실행 중 검증된 witness 재사용, 아주 작고 엄격, 매 사용 시 재검증. Hazard Atlas = 통계, 판단 권한 0. Cache의 검증된 자료를 Warehouse로 **복사해 연구 자산화**하는 것은 가능하지만, A가 Warehouse를 조회해 실행 결정을 내리는 경로는 없다 |
 | C2 | 헌법 제2조(과정 보존)·RULES "캐시는 인과 영향 반경 전체의 정확한 입력이 같을 때만" | witness는 계산을 생략하는 것이 아니라, 실행기가 무한 정밀도라면 냈을 **바로 그 값**을 증명으로 제공한다. 입력 키가 충격량 입력 전체(상대 위치 전 성분 + binding)다 | 충돌 없음으로 본다. 다만 "캐시"라는 이름이 오해를 부를 수 있어 문서에서는 "Proof Cache = 증명 저장, 계산 캐시 아님"으로 못 박는다 |
 | C3 | ④ 동결 조건 | 기존 ④는 "reachable enclosure 전체의 사전 인증"을 요구했다 | 이 제안은 **방법**을 바꾸고 **의무**는 Safety+Liveness로 유지한다. Liveness를 무엇으로 닫을지(L-a/L-b)는 설계자 결정 |
 | C4 | Proof Warehouse 보류 결정 | "반올림 전략이 바뀌면 저장할 proof의 양·종류도 달라진다"는 이유로 보류했다 | 전략이 바뀐 지금, 저장 대상은 **실제 STOP의 witness와 box뿐**이라 훨씬 작다. Warehouse v0 재개 여부는 첫 실제 witness가 생긴 뒤 판단해도 늦지 않다 |

@@ -1,7 +1,7 @@
 # C1-B1 Proof Cache와 Proof Warehouse의 관계 V0 (검토, 문서만)
 
 **상태:** 비교 검토. 코드 없음. 기준 HEAD `76f4240`(= origin/master).
-**읽은 것:** Warehouse 제안서 전체(`origin/claude/proof-warehouse-architecture-skrgwm`의 `docs/proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md`, 749줄, 개정 1), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7·8·9절, [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md), [D_valid Liveness 경로 조사](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 6.3절.
+**읽은 것:** [Warehouse 제안서](../proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md) 전체(749줄, 개정 1. 검토 당시에는 원격 브랜치 `claude/proof-warehouse-architecture-skrgwm`에만 있었고 2026-09-30 Q-PC4 판정으로 문서만 master에 편입), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7·8·9절, [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md), [D_valid Liveness 경로 조사](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 6.3절.
 **현재 상태(변경 없음):** Proof Cache 미착수, Warehouse 미구현(v0 착수 전 Q9〜Q11 확인 대기), A-EV 미해결(별도 작업선), ④-Safety Conditional, ④-Liveness NotCertified.
 
 ## 0. 결론
@@ -70,3 +70,14 @@
 ## 5. 하지 않는 것
 
 Warehouse 구현, Warehouse 브랜치 병합, Proof Box, A-EV 관련 작업(별도 작업선), ④-Safety 승격, Proof Cache와 A-EV를 한 증명으로 묶는 것, 실행기·checker·prover·물리 계약 변경.
+
+## 6. 설계자 판정 (2026-09-30, 기준 HEAD `56af433`)
+
+| # | 판정 | 반영 |
+|---|---|---|
+| Q-PC1 | **수정.** 실행별 선반이 아니라 `runs/c1b1_proof_cache_v0/` **하나의** 로컬 append-only 선반: `objects/`(certificate canonical bytes 그대로), `index.jsonl`(정확한 lookup key → content address만), `events.jsonl`(실행 시간·source run·prover 시도 등). Git fixture 아님. single-writer V0, SQLite·서버 없음. 시험은 임시 디렉터리 | 계약 5절 |
+| Q-PC2 | **계약 수정.** 정밀도 schedule은 수학적 binding에서 뺀다. 대신 Cache admission metadata(schedule, cap = 16384, production STOP 여부, source run id, 시각·호스트)에 기록한다. wrapper는 cap을 읽지 않는다. 정식 선반은 canonical production cap의 실제 STOP에서 생성된 witness만 받는다. cap-128 rehearsal 캐시 시험은 test_only admission으로 별도 임시 선반에서만 | 계약 7절 |
+| Q-PC3 | **일부 수정.** STALE / REJECTED / verification-REFUSED를 구분한다. binding 변경 → STALE. hash 불일치·malformed·input mismatch·checker INVALID → REJECTED(스스로 부활하지 않음). **checker REFUSED는 REJECTED가 아니다:** 이번 사용만 실패, event 기록, 세계 진행 금지(prover·UNPROVED 정책으로 이동). 같은 key에 새 certificate가 생길 수 있다 | 계약 5절 |
+| Q-PC4 | 브랜치 전체 병합 금지. **Warehouse 제안서 파일 하나만** master `docs/proposals/`에 문서로 편입하고 cross-branch 인용을 master 내부 링크로 정리. Q9〜Q11 미승인 유지, Proof Cache 구현 권한 없음 | 제안서 머리 단락, 계약 5·8절 링크, 색인 2곳 |
+
+4절 권고에서 바뀐 것: Q-PC1(실행별 선반 → 하나의 선반), Q-PC3(REFUSED를 REJECTED로 보내던 권고 철회). 4절의 `certificate_too_large`(바이트 상한)도 W6에 따라 가용성 한도이므로 REFUSED 쪽으로 분류한다(구현자 해석, 판정 표에 없는 항목이라 공개).

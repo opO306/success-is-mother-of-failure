@@ -116,5 +116,6 @@ D_valid v2의 생성기·계약·fixture는 코드와 데이터 위치를 그대
 [장기 제안](proposals/README.md)은 구현·동결 상태와 구분한다.
 [A 증명 조립 아키텍처](proposals/A_PROOF_COMPOSITION_ARCHITECTURE_V1.md)와
 [로드맵](proposals/A_PROOF_COMPOSITION_ROADMAP_V1.md)은 장기 제안이다.
+[Warehouse 아키텍처](proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md)도 PROPOSAL·미구현이다(2026-09-30 문서만 편입, Q9〜Q11 미판정). Runtime Proof Cache와 별개다.
 현재 C1-B1의 최소 proof/checker 구현을 장기 구조 전체 완료로 승격하지 않는다.
 옛 경로가 필요한 코드·시험·규칙은 호환 안내를 통해 실제 원문을 찾는다. LLM_HANDOFF의 manifest는 생성 당시 스냅샷이므로 현재 파일의 해시 목록으로 사용하지 않는다.
