@@ -645,3 +645,14 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | 지원 profile을 name/width/frac_bits로만 판정(실제 발생, 설계자 검토가 발견) | V0 게이트로 되돌린 변이체가 half-up 위조 FX(96,80)에 WITNESS_RESOLVED를 줌 → 시험이 잡음. 수정 후 위조 7종 모두 `unsupported_profile`·prover 0회 | 기존 30개 시험과 그 결함 주입이 이 구멍을 못 봤다: 시험이 모두 진짜 FixedPoint만 썼다(유형 A와 같은 모양 — 검사 대상이 스스로 말하는 이름을 믿음) |
 | `type is` 대신 `isinstance` | `to_exact`만 다른 subclass가 prover까지 감 → 잡음 | 탐침은 `to_exact(3)`, `to_exact(-5)`만 본다 |
 | 알려진 답 탐침 제거 | 모듈 `_div_round`를 half-up으로 교체한 경우가 prover까지 감 → 잡음 | 탐침이 보는 점 밖에서만 다른 교체는 어느 층도 못 잡는다. 실행 중 교체 방어는 불완전하며 파일 변경만 `profiles_sha256`이 stale로 만든다 |
+
+### C1-B1 Proof Cache V0 (2026-09-30)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 저장된 바이트를 신뢰해 raw를 그대로 사용(변이체) | `verify_witness` 대신 저장된 raw를 읽는 변이체가 위조 raw를 세계에 넣음 → 캐시 없는 실행과의 차등 비교가 잡음 | 차등 비교는 시험 궤적 2개와 STOP 1개에서만 |
+| checker REFUSED를 REJECTED로 분류(변이체) | 참인 witness를 영구히 잃음 → REFUSED 시험이 잡음(다음 사용에서 prover로 감) | 분류 기준(바이트 상한을 REFUSED로 본 것)은 구현자 해석 |
+| production 선반에 cap-128 rehearsal witness 입고(변이체) | cap 규칙 제거 변이체가 선반을 채움 → 시험이 잡음 | 실제 cap 16384 종단 입고는 시험하지 않음 |
+| 죽은 항목을 다시 검사(변이체) | sticky REJECTED 제거 변이체가 같은 항목을 재검사 → 시험이 잡음 | 마지막 events 줄을 위조하면 죽은 항목이 한 번 더 검사됨(안전 영향 없음, 시험 고정) |
+| **해시 체인의 꼬리 한계(실제 발견)** | 첫 시험에서 색인 줄 변조가 체인에 걸리지 않았다(마지막 줄을 가리키는 줄이 없음). 색인 줄 해시를 입고 event에 교차 기록해 막음. **events 마지막 줄 변조와 index·events 꼬리의 일관된 재작성은 여전히 못 잡는다**(시험으로 확인, `corrupt = None`) | 로그 무결성은 audit/provenance 한계이며 formal tamper-proof가 아니다. 물리 correctness는 로그가 아니라 사용 때마다의 재검증에 기댄다. 위조 로그가 못 하는 것(검증 안 된 raw를 세계에 넣기)은 일관된 꼬리 재작성 4종으로 확인 |
+| **원격 검증 환경 설정 오류(실제 발생)** | 새 Vast 노드의 참조 파일 링크 이름이 틀려 `two_atom` 시험 2건이 실패(527 passed, 2 failed). 코드 문제가 아님을 실패 메시지(파일 없음)로 확인하고 링크 수정 뒤 전체 묶음을 깨끗이 재실행 529 passed | 원격 환경이 로컬과 같다는 확인은 시험 통과와 소스 해시 대조에 기댐. 첫 실행 로그 보존 |

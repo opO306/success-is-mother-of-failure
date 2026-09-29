@@ -1,6 +1,6 @@
 # C1-B1 Proof Cache V0 — 검증된 witness의 선반, 쓸 때마다 다시 검증
 
-**상태:** 계약 + 구현 + 시험(아래 6절). 기준 HEAD `073c9c3`.
+**상태:** **로컬 구현 + 관련 시험·원격 검증 통과, 승인 아님.** 공식 LOCAL FULL은 아직 안 돌렸다(6절). 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
 **현재 상태(변경 없음):** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. 실행기·평가기·checker V1/V2·prover·물리 계약·D_valid 변경 0.
 **근거:** 설계자 판정 2026-09-30 Q-PC1〜Q-PC4([관계 검토](C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md) 6절), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7절(개정), [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md) 9절의 필수 조건.
 
@@ -61,7 +61,44 @@ WITNESS_RESOLVED의 witness 기록마다 `certificate_sha256`(= content address)
 4. **single writer.** 두 프로세스가 같은 선반에 동시에 쓰는 경우는 막지 않는다. xdist 시험은 각자 임시 선반을 쓴다. wrapper의 hook처럼 스레드 안전하지 않다.
 5. Proof Box, Warehouse 등록, 선반 간 복사·병합, 저장 계층 이동은 하지 않았다. A-EV와 섞지 않았다.
 6. 실제 궤적에서 cap 16384 STOP은 아직 관측되지 않았으므로 **정식 선반은 지금 비어 있다**(만들지도 않았다).
+7. **로그 무결성 ≠ 물리 correctness (V0의 audit/provenance 한계, 숨기지 않는다).** 해시 체인은 formal tamper-proof가 아니다. (a) **events 마지막 줄** 자체의 변조는 체인이 볼 수 없다(뒤에서 가리키는 줄이 없다). (b) **index와 events의 꼬리를 둘 다 일관되게 다시 쓰면**(체인·교차 참조 유지) 정직한 입고와 구별할 수 없다. 이것은 시험으로 확인했다(`corrupt`가 `None`으로 남음). 이 한계가 **세계 상태로 전파되지 않는 것**도 시험한다: 로그·색인의 어떤 문구도 raw를 승인하지 않고(로그에 raw 필드가 없고, bytes → usable raw로 가는 곳은 `_check`의 `verify_witness` 한 곳뿐), 위조된 항목은 쓸 때마다 bytes → 주소 해시 → parse → binding → 정확한 입력 → checker V2 VALID 순서로 다시 검증되어 거부되며, 세계 상태는 캐시 없는 실행과 같다. 위조가 할 수 있는 일은 가용성 손실(정상 항목이 있어도 못 찾음)이나 죽은 항목의 재검사뿐이다.
 
 ## 6. 결과
 
-(시험 실행 뒤 채운다)
+### 6.1 시험 (Proof Cache 42개 + 관련 시험)
+
+| 실행 | 결과 |
+|---|---|
+| 로컬 `test_c1b1_proof_cache.py` 직렬·병렬(`-n 6`), 마지막 보강 뒤 | **42 passed, 60초** |
+| **VAST 관련 시험 묶음(REMOTE LINUX, `-n 12`, RTX 3090 노드 52763685)** | **529 passed + 1 xfailed, 실패·error·skip 0(junit의 skipped 1 = strict xfail), exit 0, 194.43초** |
+| 위 묶음 구성 | proof_cache 42 · runtime_wrapper 42 · point_prover 24 · checker V2 95 · checker V1 185 · runtime_local_witness 23 · step_fail_closed 8 · two_atom 41 + xfail 1 · blind_execution 16 · blind_protocol 25 · blind_session 28 |
+| 코드 동일성 | 원격에서 돌린 `c1b1_proof_cache.py`·`c1b1_runtime_wrapper.py`·`test_c1b1_proof_cache.py`의 SHA-256이 로컬과 같다 |
+
+- **LOCAL FULL 생략(아직).** 로컬 CPU는 Codex가 쓰므로 이번에는 돌리지 않았다. 기존 runtime source(wrapper)에 통합을 넣었으므로 **이번 Proof Cache Gate를 공식으로 닫을 때는 LOCAL FULL `python -m pytest tests -q -n 6`을 한 번 실행한다**(설계자 지시). 지금 결과는 기준선을 갱신하지 않는다. 원격 실행은 REMOTE LINUX의 **관련 시험 묶음**이지 REMOTE LINUX FULL도 LOCAL FULL도 아니다.
+- **첫 원격 실행의 2건 실패는 제 설정 오류였다(보존).** `test_c1b1_two_atom.py`의 두 시험이 `D:\reference\ar2_lang2024\S2_ar2_pot.f90`을 찾지 못했다. 참조 파일 심볼릭 링크를 만들 때 셸 따옴표 처리 오류로 이름이 틀렸다. 코드·물리와 무관하다. 링크를 고친 뒤 `two_atom` 41 passed + 1 xfailed를 확인하고, 깨끗한 단일 실행으로 전체 묶음을 다시 돌려 위 결과를 얻었다. 첫 실행 로그(527 passed, 2 failed)는 `runs/c1b1_proof_cache_v0_validation_20260930/vast_run1_setup_error/`에 보존했다.
+- 증거: `runs/c1b1_proof_cache_v0_validation_20260930/vast_clean/{related.log,related.xml,head.txt,DONE}`.
+
+### 6.2 요청된 시험 항목 (모두 실제로 실행·통과)
+
+| 항목 | 시험 | 확인한 것 |
+|---|---|---|
+| OFF / 빈 캐시 / 찬 캐시 동일 | `test_cache_off_empty_and_full_are_bit_identical_in_every_state_and_every_decision` × 궤적 2개(1,640 / 5,775 step, cap 128 rehearsal) | 일반 실행기·캐시 없는 wrapper·빈 캐시·찬 캐시 4가지의 **매 step raw 상태와 매 witness 결정(step, 키, raw)이 모두 같다**. witness 25개 / 77개 |
+| hit에서 prover 0회, checker는 재검증 | 같은 시험 | 찬 캐시 실행: prover 0회, **V2 checker는 witness당 정확히 1회**(25 / 77). 빈 캐시·캐시 없음: prover 25 / 77, checker는 2배(prover 내부 + wrapper 바이트 재검증) |
+| certificate 1bit 변조 | `test_a_damaged_object_is_rejected_by_its_address[flip_byte]` | 주소 불일치 → REJECTED, prover로 진행, 상태 동일 |
+| object 바꿔치기 | `[swapped]` | 다른 입력의 VALID witness 바이트를 같은 주소 파일에 넣음 → 주소 불일치 REJECTED |
+| 다른 binding | `[stale_binding]` | STALE, 보존, 사용 안 함 |
+| 다른 dr / component / dt | `other_dr`, `other_component`, `other_dt` | **각각 그 입력의 진짜 VALID witness**를 넣었는데도 input_mismatch → REJECTED |
+| malformed / oversized | `malformed`, `oversized` | bad_json → REJECTED. 256 KiB 초과는 **`json.loads` 호출 전** 거부, REFUSED, 항목은 죽지 않음 |
+| missing object | `[missing]` | REJECTED(`missing_object`) |
+| index 변조 | 로그 변조 시험 4종 + 일관된 꼬리 재작성 4종 | 체인 불일치 → 선반 사용 중단(세계는 prover 경로로 동일 진행). 일관된 재작성은 로그가 못 잡지만 위조 witness는 검증에서 거부(7번 한계) |
+| checker INVALID | `invalid_raw` | REJECTED, 상태 동일 |
+| checker REFUSED | `test_refused_is_not_rejected...[checker_refused]` | 이번 사용만 실패, run 불변, 항목은 살아 있어 다음에 hit |
+| REJECTED 재사용 시도 | `test_rejected_never_revives...`, `test_a_rejected_entry_is_not_checked_again` | 바이트를 고쳐도, 선반을 다시 열어도 다시 쓰지 않음 |
+| 같은 key에 여러 content address | `test_one_lookup_key_with_several_content_addresses` × 2 | 나쁜 주소는 REJECTED 후 같은 조회에서 다음 주소 시도, 좋은 주소로 종료 |
+| 캐시 모듈 변이체 4종 | `trusts_the_stored_bytes`, `refused_is_rejected`, `no_cap_rule`, `forgets_dead_entries` | 전부 잡힘 |
+
+### 6.3 아직 증명되지 않은 것
+1. 실제 production cap(16384) STOP의 종단 입고는 시험하지 않았다(13분/건). 입고 규칙 5조합과 cap-128에서 production 선반 거부만 시험했다.
+2. 공식 LOCAL FULL 미실행. 이 Gate는 아직 닫히지 않았다.
+3. single writer. 동시 쓰기, 스레드 안전성은 다루지 않았다.
+4. A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. Proof Cache는 STOP을 검증된 witness로 푸는 저장소이며 D_valid 전체의 Liveness를 보이지 않는다.

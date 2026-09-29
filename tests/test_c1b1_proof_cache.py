@@ -95,35 +95,48 @@ def _uses(cache):
 
 # --- S6 / reuse: the cache changes nothing but who found the witness -------------------------------------------------
 
-def test_a_second_pass_takes_every_witness_from_the_cache_and_equals_the_plain_run_at_every_step(tmp_path, monkeypatch):
-    n = 1640
-    ref = mk()
+@pytest.mark.parametrize("e,bf,n,stops", ((Q(9), Q(1, 2), 1640, 25), (Q(1, 2), Q(1, 2), 5775, 77)),
+                         ids=("e9_1640", "e0.5_5775"))
+def test_cache_off_empty_and_full_are_bit_identical_in_every_state_and_every_decision(tmp_path, monkeypatch,
+                                                                                    e, bf, n, stops):
+    """Contract S6. Four runs from one initial state: the plain full-cap executor, the wrapper at cap 128 WITHOUT a cache,
+    the wrapper with an empty cache (pass 1) and with the filled cache (pass 2). Every raw state and every witness raw
+    (step, key, raw) must agree; pass 2 calls the prover 0 times and the V2 checker exactly once per witness."""
+    ref = mk(e, bf)
     plain = [W._raw(ref)]
     for _ in range(n):
         C.step(ref)
         plain.append(W._raw(ref))
     spy = _Spy(monkeypatch)
-    seen = []
-    for rnd in (1, 2):
+
+    def go(cache):
         spy.prove = spy.check = 0
-        cache = PC.ProofCache(tmp_path, PC.TEST_ONLY, run_id=f"pass{rnd}")
-        run, outs = mk(), []
+        run, states, decisions, sources = mk(e, bf), None, [], Counter()
         states = [W._raw(run)]
         with W.precision_cap(128):
-            for _ in range(n):
-                o = PC.step(run, cache)
-                outs.append(o)
+            for i in range(n):
+                o = RW.step(run) if cache is None else PC.step(run, cache)
                 assert o.advanced
                 states.append(W._raw(run))
-        assert states == plain, "every raw state, with the cache empty and full"
-        sources = Counter(w["source"] for o in outs for w in o.witnesses)
-        seen.append((sources, spy.prove, spy.check, cache.status(run)))
-    (s1, p1, c1, st1), (s2, p2, c2, st2) = seen
-    assert s1 == {"prover": 25} and p1 == 25 and c1 == 50                 # prover's check + the wrapper's bytes check
-    assert s2 == {"cache": 25} and p2 == 0 and c2 == 25                   # the search is skipped, the check is not
-    assert st2 == {"corrupt": None, "entries": 25, PC.STALE: 0, PC.REJECTED: 0, "usable": 25}
+                decisions += [(i, json.dumps(w["key"]), w["raw"]) for w in o.witnesses]
+                sources.update(w["source"] for w in o.witnesses)
+        return states, decisions, sources, spy.prove, spy.check
+
+    off = go(None)
+    cache = PC.ProofCache(tmp_path, PC.TEST_ONLY, run_id="pass1")
+    p1 = go(cache)
+    p2 = go(PC.ProofCache(tmp_path, PC.TEST_ONLY, run_id="pass2"))
+    for states, decisions, *_ in (off, p1, p2):
+        assert states == plain, "every raw state, with the cache off, empty and full"
+        assert decisions == off[1], "every witness decision: same step, same input, same raw"
+    assert len(off[1]) == stops
+    assert (off[2], off[3], off[4]) == ({"prover": stops}, stops, 2 * stops)   # prover's check + the wrapper's bytes check
+    assert (p1[2], p1[3], p1[4]) == ({"prover": stops}, stops, 2 * stops)
+    assert (p2[2], p2[3], p2[4]) == ({"cache": stops}, 0, stops)              # the search is skipped, the check is not
+    st = PC.ProofCache(tmp_path, PC.TEST_ONLY).status(mk(e, bf))
+    assert st == {"corrupt": None, "entries": stops, PC.STALE: 0, PC.REJECTED: 0, "usable": stops}
     objs = sorted(p.name for p in (tmp_path / "objects").iterdir())
-    assert len(objs) == 25 and all(len(name) == 64 for name in objs)
+    assert len(objs) == stops and all(len(name) == 64 for name in objs)
 
 
 def test_every_witness_record_carries_the_content_address_of_the_bytes_on_the_shelf(tmp_path, stop):
@@ -195,9 +208,19 @@ def _bad_bytes(kind, stop):
     doc = json.loads(stop["data"])
     if kind == "invalid_raw":
         doc["output"]["raw"] = str(int(doc["output"]["raw"]) + 1)
-    elif kind == "other_input":
-        cert = REAL_PROVE([int(v) for v in doc["input"]["dr_raw"]], doc["input"]["component"], stop["key"][2] * 2).certificate
-        doc = dict(cert, runtime_binding=doc["runtime_binding"])
+    elif kind in ("other_input", "other_dt", "other_dr", "other_component"):     # a VALID witness of another input
+        dr, k, dt = [int(v) for v in doc["input"]["dr_raw"]], doc["input"]["component"], stop["key"][2]
+        if kind in ("other_input", "other_dt"):
+            dt = dt * 2
+        elif kind == "other_dr":
+            dr[k] += 1
+        else:
+            k = next(j for j, v in enumerate(dr) if v != 0 and j != k)
+        res = REAL_PROVE(dr, k, dt)
+        assert res.status == P.FOUND
+        doc = dict(res.certificate, runtime_binding=doc["runtime_binding"])
+    elif kind == "oversized":                                      # valid JSON, over the 256 KiB byte limit
+        return stop["data"] + b" " * (RW.Config().max_certificate_bytes + 1)
     elif kind == "stale_binding":
         doc["runtime_binding"]["executor_sha256"] = "0" * 64
     elif kind == "malformed":
@@ -207,20 +230,30 @@ def _bad_bytes(kind, stop):
 
 @pytest.mark.parametrize("kind,result,reason", (
     ("invalid_raw", PC.REJECTED, "checker_invalid"),
-    ("other_input", PC.REJECTED, "input_mismatch"),
+    ("other_dt", PC.REJECTED, "input_mismatch"),
+    ("other_dr", PC.REJECTED, "input_mismatch"),
+    ("other_component", PC.REJECTED, "input_mismatch"),
     ("malformed", PC.REJECTED, "bad_json"),
     ("stale_binding", PC.STALE, "stale_binding"),
+    ("oversized", PC.REFUSED, "certificate_too_large"),
 ))
-def test_a_bad_entry_is_never_used_is_kept_and_the_step_falls_back_to_the_prover(tmp_path, stop, kind, result, reason):
+def test_a_bad_entry_is_never_used_is_kept_and_the_step_falls_back_to_the_prover(tmp_path, stop, kind, result, reason,
+                                                                                 monkeypatch):
     cache = PC.ProofCache(tmp_path, PC.TEST_ONLY)
     bad = _bad_bytes(kind, stop)
     cache.admit(stop["key"], _first_refusal_state(), bad, _test_admission())
+    parsed = []
+    real_loads = json.loads
+    monkeypatch.setattr(RW.json, "loads", lambda s, *a, **k: (parsed.append(len(s)), real_loads(s, *a, **k))[1])
     o, state, _, _ = _step_from_refusal(cache)
     assert o.status == RW.WITNESS_RESOLVED and o.witnesses[0]["source"] == "prover" and state == stop["after"]
     use = _uses(cache)[0]
     assert use["result"] == result and use["reason"].startswith(reason)
     assert (tmp_path / "objects" / PC._sha(bad)).read_bytes() == bad, "kept, not deleted"
-    assert cache.status(_first_refusal_state())[result] == 1
+    if result == PC.REFUSED:                                     # not a falsity: still usable later, never parsed
+        assert cache.dead == {} and len(bad) not in parsed
+    else:
+        assert cache.status(_first_refusal_state())[result] == 1
 
 
 @pytest.mark.parametrize("damage", ("flip_byte", "missing", "swapped"))
@@ -319,6 +352,70 @@ def test_known_limit_an_edit_of_the_last_event_line_is_not_seen_but_safety_holds
     assert reopened.corrupt is None and reopened.dead == {}, "the limit is real"
     o = _lookup_only(reopened)
     assert o.witnesses[0]["source"] == "prover" and _uses(reopened)[-1]["result"] == PC.REJECTED
+
+
+def _forge_consistent_tails(root, key, run, data, extra_event=None):
+    """ATTACK FOR THE TEST: write an object and rewrite the tails of BOTH logs consistently (chain and cross-reference
+    intact), as someone with write access to the shelf could. The logs cannot tell this from an honest admission."""
+    shelf = PC.ProofCache(root, PC.TEST_ONLY)
+    address = PC._sha(data)
+    (root / "objects" / address).write_bytes(data)
+    doc = PC.key_doc(key, run)
+    entry = shelf.index.append({"key_id": PC._sha(PC.canonical(doc)), "key": doc, "address": address})
+    shelf.events.append({"event": "admit", "index_seq": entry["seq"], "address": address,
+                         "index_line_sha256": shelf.index.line_sha[entry["seq"]], "admission": _test_admission(),
+                         "prover": {"status": "FOUND"}, "run_id": "forged", "new_index_entry": True})
+    if extra_event:
+        shelf.events.append(extra_event)
+    return entry
+
+
+@pytest.mark.parametrize("forgery", ("invalid_raw", "other_dr", "other_component", "other_dt"))
+def test_logs_rewritten_consistently_are_undetected_but_cannot_put_an_unverified_raw_into_the_world(tmp_path, stop,
+                                                                                                     forgery):
+    """Known V0 audit limit: a consistent rewrite of the index and events tails passes every log check. Physics does not
+    rest on the logs: the forged entry, even with a forged 'hit' event claiming a raw, is verified from its bytes and
+    rejected; the world state equals the plain executor's."""
+    entry = _forge_consistent_tails(tmp_path, stop["key"], _first_refusal_state(), _bad_bytes(forgery, stop),
+                                    extra_event={"event": "use", "index_seq": 0, "result": "hit", "reason": "valid",
+                                                 "raw": 12345, "address": "x", "run_id": "forged"})
+    reopened = PC.ProofCache(tmp_path, PC.TEST_ONLY)
+    assert reopened.corrupt is None, "the limit is real: the logs alone cannot see this"
+    o, state, _, _ = _step_from_refusal(reopened)
+    assert o.witnesses[0]["source"] == "prover" and state == stop["after"]
+    use = [u for u in _uses(reopened) if u["run_id"] != "forged"][0]
+    assert (use["index_seq"], use["result"]) == (entry["seq"], PC.REJECTED)
+
+
+@pytest.mark.parametrize("order", ("bad_newest", "good_newest"))
+def test_one_lookup_key_with_several_content_addresses(tmp_path, stop, order, monkeypatch):
+    """Newest first; a bad address is rejected and the next one is tried in the same lookup; a good one ends it."""
+    cache = PC.ProofCache(tmp_path, PC.TEST_ONLY)
+    run = _first_refusal_state()
+    bad = _bad_bytes("invalid_raw", stop)
+    first, second = (stop["data"], bad) if order == "bad_newest" else (bad, stop["data"])
+    cache.admit(stop["key"], run, first, _test_admission())
+    cache.admit(stop["key"], run, second, _test_admission())
+    assert len({e["address"] for e in cache.index.records}) == 2 and len({e["key_id"] for e in cache.index.records}) == 1
+    spy = _Spy(monkeypatch)
+    o = _lookup_only(cache)
+    assert o.witnesses[0]["source"] == "cache" and spy.prove == 0 and o.status == RW.WITNESS_RESOLVED
+    results = [u["result"] for u in _uses(cache)]
+    assert results == ([PC.REJECTED, PC.HIT] if order == "bad_newest" else [PC.HIT])
+    assert o.witnesses[0]["certificate_sha256"] == PC._sha(stop["data"])
+
+
+def test_no_log_carries_a_raw_so_no_metadata_can_approve_one(tmp_path, stop):
+    cache = PC.ProofCache(tmp_path, PC.TEST_ONLY, run_id="r")
+    _step_from_refusal(cache)
+    _step_from_refusal(cache)
+    for rec in cache.index.records + cache.events.records:
+        assert "raw" not in json.dumps(rec).replace('"dr_raw"', ""), rec
+    src = ast.parse(CACHE_SRC)
+    hit_returns = [n for n in ast.walk(src) if isinstance(n, ast.Return) and isinstance(n.value, ast.Tuple)
+                   and len(n.value.elts) == 4 and getattr(n.value.elts[0], "id", None) == "HIT"]
+    assert len(hit_returns) == 1, "exactly one place turns bytes into a usable raw"
+    assert "verify_witness" in CACHE_SRC.split("return HIT")[0].rsplit("def _check", 1)[1]
 
 
 def test_the_logs_hold_no_certificate_bytes_and_the_index_holds_only_key_to_address(tmp_path, stop):

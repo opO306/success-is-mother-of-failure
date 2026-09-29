@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 검토 완료(설계자 확인 대기), Proof Cache 미착수** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, **Proof Cache V0 로컬 구현·관련 시험 통과(승인·LOCAL FULL 대기)**** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -493,6 +493,16 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 불일치 공개: (1) master 문서가 master에 없는 Warehouse 제안서(원격 브랜치에만 있음)를 인용한다, (2) 계약 7절의 "정밀도 schedule"이 binding에 없고, "실제 cap 16384 STOP만 저장" 조건은 "wrapper는 cap을 읽지 않음"과 충돌한다, (3) 선반 위치 미정, (4) Proof Box는 V0 범위 밖, (5) 실제 궤적에서 cap 16384 STOP은 아직 관측되지 않았다(합성 2건뿐).
 - 코드·시험 변경 0. Warehouse 브랜치는 병합하지 않았다.
 다음 판단(설계자): Q-PC1(선반 위치)·Q-PC2(cap 조건 충돌)·Q-PC3(REJECTED 처리)·Q-PC4(Warehouse 인용) 확인 → Proof Cache V0 구현.
+
+**설계자 판정(2026-09-30, 기준 HEAD `56af433`→`073c9c3`): Q-PC1 수정(하나의 선반), Q-PC2 계약 수정(정밀도 schedule은 binding이 아니라 Cache admission metadata), Q-PC3 일부 수정(STALE/REJECTED/REFUSED 구분, REFUSED는 REJECTED가 아님), Q-PC4(Warehouse 제안서 파일 하나만 문서로 편입, branch 병합 금지, Q9~Q11 미승인).** 반영: `073c9c3`(문서만).
+
+**Proof Cache V0(2026-09-30, 구현 `403a42d` + 시험 확장, 로컬):** ([계약·결과](docs/active/C1B1_PROOF_CACHE_V0.md))
+- `runs/c1b1_proof_cache_v0/` 하나의 append-only 선반(`objects/<sha256>` = certificate 바이트 그대로, `index.jsonl` = 정확한 key → 주소, `events.jsonl` = 입고·사용 기록), 로그는 해시 체인 + 색인 줄 교차 참조. 조회는 STOP에서만, hit도 wrapper의 전체 재검증(크기 → 주소 해시 → JSON → binding → 정확한 입력 → checker V2 VALID)을 거친다. **캐시는 prover 탐색만 생략하고 checker는 생략하지 않는다.** STALE / REJECTED / REFUSED 구분, REJECTED는 부활하지 않음. 입고는 wrapper 밖의 admission 층이 하며(cap을 읽는 곳은 여기뿐) production 선반은 실제 cap 16384 STOP의 witness만 받는다.
+- **시험:** Proof Cache 42개. 캐시 OFF / 빈 캐시 / 찬 캐시가 궤적 2개(1,640 / 5,775 step, cap-128 rehearsal)에서 매 step 상태·매 witness 결정이 비트 동일, 찬 캐시는 prover 0회·checker witness당 1회. 요청된 결함 주입 11종(1bit 변조·바꿔치기·다른 binding·다른 dr/component/dt·malformed/oversized·missing·index 변조·INVALID·REFUSED·REJECTED 재사용·한 key 여러 주소)과 캐시 변이체 4종 전부 잡힘. **VAST 관련 시험 묶음(REMOTE LINUX, RTX 3090): 529 passed + 1 xfailed, 실패·skip 0, 194초.** 첫 원격 실행의 2건 실패(527 passed)는 제 참조 파일 링크 설정 오류였고 로그를 보존했다.
+- **한계(숨기지 않음):** 해시 체인은 formal tamper-proof가 아니다. events 마지막 줄의 변조와 index·events 꼬리의 일관된 재작성은 로그만으로는 못 잡는다(시험으로 확인). 이것이 물리 correctness로 전파되지 않음도 시험한다: 로그 문구는 raw를 승인하지 않고, 저장된 witness는 쓸 때마다 전부 재검증된다. 실제 production cap 종단 입고는 시험하지 않았다(13분/건). 정식 선반은 비어 있다. single writer.
+- **검증 범위:** 관련 시험(위)만 실행. **LOCAL FULL은 아직 안 돌렸다**(로컬은 Codex 사용 중). 기존 runtime source(wrapper)를 수정한 통합이 있으므로 이번 Gate를 공식으로 닫을 때 LOCAL FULL `python -m pytest tests -q -n 6`을 한 번 실행한다. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_proof_cache_v0_validation_20260930/`.
+- 상태: **Proof Cache V0 = 로컬 구현, 관련 시험·원격 검증 통과, 승인 아님, LOCAL FULL 미실행.** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**.
+다음 판단(설계자): Proof Cache V0 판정 + LOCAL FULL 실행 시점(Codex의 로컬 사용이 끝난 뒤).
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
