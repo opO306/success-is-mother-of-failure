@@ -704,3 +704,196 @@ def test_t9_the_default_limits_and_the_measured_cost_are_recorded(honest_small):
     res = K.check_certificate(cert)
     assert res.stats["limits"] == K.Limits().as_dict()
     assert res.stats["max_bits"] > 0 and res.stats["seconds"] >= 0 and len(res.stats["orders"]) == 9
+
+
+# --- T10: oversized integer strings (regression: a leaked ValueError from Python's int() digit limit) --------------
+# Contract: a syntactically wrong string is INVALID; a syntactically valid but operationally too long one is REFUSED;
+# no Python exception ever leaves the checker; limits change availability only, never the mathematical verdict.
+
+VERDICTS = {"VALID", "INVALID", "REFUSED"}
+LENGTHS = (4300, 4301, 10000)
+NINES = "9"
+
+
+def _set(cert, path, value):
+    c = copy.deepcopy(cert)
+    node = c
+    for p in path[:-1]:
+        node = node[p]
+    node[path[-1]] = value
+    return c
+
+
+# (label, certificate path, string builder, what the checker must answer at exactly 4300 digits)
+OVERSIZED_FIELDS = [
+    ("raw", ("output", "raw"), lambda n: NINES * n, ("INVALID", "out_of_range")),
+    ("raw negative", ("output", "raw"), lambda n: "-" + NINES * n, ("INVALID", "out_of_range")),
+    ("dr_raw", ("input", "dr_raw", 0), lambda n: NINES * n, ("INVALID", "input_range")),
+    ("dr_raw last entry", ("input", "dr_raw", 2), lambda n: NINES * n, ("INVALID", "input_range")),
+    ("sqrt_bits", ("proof", "sqrt_bits"), lambda n: NINES * n, ("REFUSED", "sqrt_limit")),
+    ("order", ("proof", "exp", 0, "order"), lambda n: NINES * n, ("REFUSED", "order_limit")),
+    ("dt_kick numerator", ("input", "dt_kick"), lambda n: NINES * n, ("INVALID", "raw_mismatch")),
+    ("dt_kick denominator", ("input", "dt_kick"), lambda n: "1/" + NINES * n, ("INVALID", "raw_mismatch")),
+    ("rate numerator", ("proof", "exp", 1, "rate"), lambda n: NINES * n + "/1", ("INVALID", "exp_rate")),
+]
+
+
+@pytest.mark.parametrize("n", LENGTHS)
+@pytest.mark.parametrize("label,path,build,at_limit", OVERSIZED_FIELDS, ids=[f[0] for f in OVERSIZED_FIELDS])
+def test_t10_oversized_integer_strings_never_leak_an_exception(honest_small, label, path, build, at_limit, n):
+    cert, _ = honest_small
+    res = K.check_certificate(_set(cert, path, build(n)))          # must not raise
+    assert res.status in VERDICTS
+    if n == 4300:
+        # at Python's own conversion limit nothing changed: the mathematical verdict is what it was before the fix
+        assert (res.status, res.reason) == at_limit
+    else:
+        assert (res.status, res.raw, res.reason) == ("REFUSED", None, "integer_size_limit")
+
+
+def test_t10_the_five_named_fields_at_4301_digits_are_refused_not_invalid_and_not_a_python_error(honest_small):
+    cert, _ = honest_small
+    for label in ("raw", "dr_raw", "sqrt_bits", "order", "dt_kick numerator"):
+        f = next(x for x in OVERSIZED_FIELDS if x[0] == label)
+        res = K.check_certificate(_set(cert, f[1], f[2](4301)))
+        assert (res.status, res.reason) == ("REFUSED", "integer_size_limit"), label
+
+
+def test_t10_syntax_errors_are_invalid_whatever_the_length(honest_small):
+    """Syntax is judged before size: a long string that is not a canonical integer is INVALID, never REFUSED."""
+    cert, _ = honest_small
+    paths = (("output", "raw"), ("input", "dr_raw", 1), ("proof", "sqrt_bits"), ("proof", "exp", 2, "order"),
+             ("input", "dt_kick"))
+    for n in LENGTHS:
+        for bad in (NINES * n + "x", "0" + NINES * n, NINES * (n // 2) + " " + NINES * (n // 2), "--" + NINES * n,
+                    NINES * n + chr(10), chr(0x669) * n, "+" + NINES * n):
+            for path in paths:
+                res = K.check_certificate(_set(cert, path, bad))
+                assert res.status == "INVALID" and res.reason.startswith("bad_"), (n, path, res)
+
+
+def test_t10_a_syntax_error_elsewhere_beats_an_oversized_field(honest_small):
+    """Two problems in one certificate: the malformed one decides (INVALID), not the resource limit."""
+    cert, _ = honest_small
+    big = _set(cert, ("input", "dr_raw", 0), NINES * 10000)          # parsed first, so a late syntax error would be hidden
+    assert K.check_certificate(big).reason == "integer_size_limit"
+    cases = ((("output", "raw"), "01", "bad_integer:raw"), (("input", "dt_kick"), "1/0", "bad_rational:dt_kick"),
+             (("input", "dr_raw", 1), "x", "bad_integer:dr_raw"), (("proof", "exp", 4, "order"), "1.5", "bad_integer:order"),
+             (("proof", "sqrt_bits"), "-", "bad_integer:sqrt_bits"))
+    for path, value, reason in cases:
+        res = K.check_certificate(_set(big, path, value))
+        assert (res.status, res.reason) == ("INVALID", reason)
+    for path in (("proof", "extra"), ("output", "extra")):
+        res = K.check_certificate(_set(big, path, 1))
+        assert res.status == "INVALID" and res.reason.startswith("keys:")
+    res = K.check_certificate(_variant(big, ("output", "raw"), KeyError))
+    assert res.status == "INVALID" and res.reason.startswith("keys:")
+
+
+def test_t10_python_big_integers_in_the_small_fields_are_invalid_not_a_crash(honest_small):
+    cert, _ = honest_small
+    huge = 10 ** 5000
+    for path in (("input", "component"), ("input", "position_frac_bits"), ("output", "width"), ("output", "frac_bits")):
+        for value in (huge, -huge):
+            res = K.check_certificate(_set(cert, path, value))
+            assert res.status == "INVALID", (path, res)
+    for path in (("output", "raw"), ("input", "dr_raw", 0), ("proof", "sqrt_bits"), ("input", "dt_kick")):
+        res = K.check_certificate(_set(cert, path, huge))                    # an int, not the string the format needs
+        assert res.status == "INVALID" and res.reason.startswith("bad_")
+
+
+def test_t10_hostile_shapes_in_every_string_field_always_give_a_defined_verdict(honest_small):
+    cert, _ = honest_small
+    paths = [("output", "raw"), ("input", "dr_raw", 0), ("input", "dr_raw", 1), ("input", "dr_raw", 2),
+             ("input", "dt_kick"), ("proof", "sqrt_bits")] + [("proof", "exp", i, k) for i in range(9) for k in ("rate", "order")]
+    shapes = [lambda n: NINES * n, lambda n: "-" + NINES * n, lambda n: NINES * n + "/1", lambda n: "1/" + NINES * n,
+              lambda n: NINES * n + "/" + NINES * n, lambda n: "0" * n, lambda n: NINES * n + "x"]
+    for n in (4301, 100000):
+        for path in paths:
+            for shape in shapes:
+                res = K.check_certificate(_set(cert, path, shape(n)))
+                assert res.status in ("INVALID", "REFUSED") and res.raw is None and res.reason
+
+
+def test_t10_the_python_process_limit_on_int_conversion_is_refused_not_leaked(honest_small):
+    """If the process is configured with a stricter int/str digit limit than ours, a valid-looking long string must
+    still be REFUSED (the ValueError of int() is a resource limit, not a fact about the certificate)."""
+    import sys
+    cert, raw = honest_small
+    old = sys.get_int_max_str_digits()
+    try:
+        sys.set_int_max_str_digits(640)                                  # the smallest value Python allows
+        long_valid = _set(cert, ("input", "dr_raw", 0), NINES * 1000)   # 1000 digits <= digits_max (4300)
+        res = K.check_certificate(long_valid)
+        assert (res.status, res.reason) == ("REFUSED", "integer_size_limit")
+        assert K.check_certificate(cert).raw == raw                      # ordinary certificates are unaffected
+    finally:
+        sys.set_int_max_str_digits(old)
+    assert sys.get_int_max_str_digits() == old
+
+
+def _digit_lengths(o):
+    """Digit counts of every integer string of a certificate (numerators and denominators)."""
+    if isinstance(o, str):
+        if o[:1] in "-0123456789":
+            body = o.lstrip("-")
+            return [len(part.lstrip("-")) for part in body.split("/")]
+        return []
+    if isinstance(o, dict):
+        skip = ("format", "method", "model", "runtime_binding")
+        return [x for k, v in o.items() if k not in skip for x in _digit_lengths(v)]
+    if isinstance(o, list):
+        return [x for v in o for x in _digit_lengths(v)]
+    return []
+
+
+def test_t10_the_digit_limit_changes_availability_only(honest_small):
+    cert, raw = honest_small
+    widest = max(_digit_lengths(cert))
+    assert widest >= 20                                                  # dr_raw / raw are 15-25 digits
+    wrong = _variant(cert, ("output", "raw"), str(raw + 1))
+    seen_valid = False
+    for d in (1, 5, widest - 1, widest, widest + 1, 100, 4300, 10 ** 6):
+        good = K.check_certificate(cert, K.Limits(digits_max=d))
+        bad = K.check_certificate(wrong, K.Limits(digits_max=d))
+        assert good.status in ("VALID", "REFUSED") and bad.status in ("INVALID", "REFUSED")
+        if good.status == "VALID":
+            assert good.raw == raw and d >= widest
+            seen_valid = True
+        else:
+            assert good.reason == "integer_size_limit" and not seen_valid    # once available, stays available
+    assert K.check_certificate(cert, K.Limits(digits_max=widest - 1)).status == "REFUSED"
+    assert K.check_certificate(cert, K.Limits(digits_max=widest)).raw == raw
+    assert K.Limits().digits_max == 4300 and K.Limits().as_dict()["digits_max"] == 4300
+
+
+GUARD_TEXT = ("    if len(body) > ctx.limits.digits_max:\n        raise _Refused(\"integer_size_limit\")\n    try:\n"
+              "        return int(s)\n    except ValueError:                       # the syntax is already checked: only the process "
+              "conversion limit is left\n        raise _Refused(\"integer_size_limit\")")
+
+
+def test_t10_fault_injection_the_size_check_and_the_conversion_guard_are_both_needed(honest_small):
+    """Remove the length cap and/or the ValueError guard and the leak returns, so these tests would see it."""
+    cert, _ = honest_small
+    leaky = _mutant((GUARD_TEXT, "    return int(s)"))
+    with pytest.raises(ValueError):
+        leaky.check_certificate(_set(cert, ("output", "raw"), NINES * 4301))
+    only_cap = _mutant((GUARD_TEXT, "    if len(body) > ctx.limits.digits_max:\n        raise _Refused(\"integer_size_limit\")\n"
+                                    "    return int(s)"))
+    # the cap alone stops our own limit ...
+    assert only_cap.check_certificate(_set(cert, ("output", "raw"), NINES * 4301)).reason == "integer_size_limit"
+    # ... but not a stricter process limit: only the guard covers that
+    import sys
+    old = sys.get_int_max_str_digits()
+    try:
+        sys.set_int_max_str_digits(640)
+        with pytest.raises(ValueError):
+            only_cap.check_certificate(_set(cert, ("input", "dr_raw", 0), NINES * 1000))
+        assert K.check_certificate(_set(cert, ("input", "dr_raw", 0), NINES * 1000)).reason == "integer_size_limit"
+    finally:
+        sys.set_int_max_str_digits(old)
+    # the syntax pre-pass matters too: without it a size refusal could hide a later syntax error
+    no_prepass = _mutant(("def _check(cert, ctx):\n    _prepass(cert)", "def _check(cert, ctx):\n    pass"))
+    bad_elsewhere = _set(_set(cert, ("input", "dr_raw", 0), NINES * 10000), ("proof", "exp", 4, "order"), "1.5")
+    assert no_prepass.check_certificate(bad_elsewhere).status == "REFUSED"
+    assert K.check_certificate(bad_elsewhere).status == "INVALID"

@@ -223,7 +223,7 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 2. ~~④-Liveness(D_valid) 수학 경로 조사~~ — [조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 완료(survey_only, 문서만). 결론: 정량 Liveness의 싼 경로 없음. 전역 exact tie 배제 + 엄밀 구간 prover의 정성 경로가 유일한 후보. Q1〜Q4 판정 완료(2.2절·4절).
 2a. ~~Lemma A·B 감사~~ — [감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md). A 승인, B 표현 정정 뒤 방향 승인. accepted design basis, not frozen certificate.
 2b. ~~certificate 형식 + 독립 checker 사양 고정~~ — [사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md). S1〜S4 승인(2026-09-29 5차).
-2c. ~~독립 checker + fault-injection 시험 구현~~ — **구현 완료(사양 8절).** 시험 127개, 교차검증 14,102건 불일치 0, 식 결함 주입 40종 전부 잡힘. survey_only·독립 물리 증명 아님. **설계자 판정 대기.**
+2c. ~~독립 checker + fault-injection 시험 구현~~ — **구현 완료(사양 8절).** 시험 162개(초대형 정수 문자열 수정 T10 포함), 교차검증 14,102건 불일치 0, 식 결함 주입 40종 전부 잡힘. survey_only·독립 물리 증명 아님. **설계자 판정 대기.**
 2d. checker 신뢰 판정 뒤 point prover generator(세 번째 단계). 기존: checker → cross-check → 결함 주입 → lowered-cap rehearsal → 운영 한도까지 완료했다.
 기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 유지한다.
 3. **point prover**(2d와 같음): 사양 V1의 certificate를 찾는 생성기. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.

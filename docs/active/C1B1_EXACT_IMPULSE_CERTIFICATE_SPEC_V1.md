@@ -101,7 +101,9 @@ kadd: BO 1, REL 0, QED 0.   kmin: BO 3, REL 2, QED 3(QED는 특수 분기 없음
     엄격 분리이므로 tie 규칙(half-even)은 판정에 쓰이지 않는다. tie 불가능은 Lemma A다.
 
 ### 3.7 운영 한도
-N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산을 멈추고 **REFUSED(`operational_limit`)**를 돌려준다. 이것은 참/거짓 판정이 아니다. **Operational limits affect availability, never truth.** 한도를 올리거나 내려서 바뀌는 것은 REFUSED ↔ VALID/INVALID뿐이며, VALID↔INVALID는 바뀌지 않는다(시험 T9). 예: 한도 4096에서 REFUSED, 8192에서 VALID(123)는 가능하지만 4096에서 INVALID는 불가. 기본값은 구현 단계에서 정해 결과에 기록한다(8절). Liveness의 정량 상한이 아니라 설계자 판정의 operational bound다.
+N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산을 멈추고 **REFUSED(`operational_limit`)**를 돌려준다. 이것은 참/거짓 판정이 아니다. **정수 문자열 크기 규칙(구현 뒤 추가, 아래 8.5):** 문법이 틀린 문자열(정규 십진 정수 형태가 아님)은 길이와 상관없이 **INVALID**. 문법이 맞지만 십진 자릿수가 `digits_max`(기본 4300)를 넘으면 변환하지 않고 **REFUSED(`integer_size_limit`)**. 프로세스의 Python `int()` 변환 한도가 더 엄격해 `ValueError`가 나는 경우도 같은 REFUSED다(자원 한도이지 certificate의 성질이 아니다). 어떤 Python 예외도 checker 밖으로 나가지 않는다.
+
+**Operational limits affect availability, never truth.** 한도를 올리거나 내려서 바뀌는 것은 REFUSED ↔ VALID/INVALID뿐이며, VALID↔INVALID는 바뀌지 않는다(시험 T9). 예: 한도 4096에서 REFUSED, 8192에서 VALID(123)는 가능하지만 4096에서 INVALID는 불가. 기본값은 구현 단계에서 정해 결과에 기록한다(8절). Liveness의 정량 상한이 아니라 설계자 판정의 operational bound다.
 
 ## 4. 건전성과 완결성
 
@@ -113,7 +115,7 @@ N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산
 
 | # | 시험 | 잡아야 하는 것 |
 |---|---|---|
-| T1 | 정적 import 검사(AST): 표준 라이브러리 4개 외 import 0, `a_reference`·`a_numeric` 문자열 import 0 | P1b 독립성 위반 |
+| T1 | 정적 import 검사(AST): 표준 라이브러리 5개(`fractions`, `hashlib`, `json`, `math`, `time`) 외 import 0, `a_reference`·`a_numeric` 문자열 import 0 | P1b 독립성 위반 |
 | T2 | 내장 상수표 지문 = `ar2_lang2024.parameter_fingerprint()`(시험에서만 import) | 상수 전사 오류 |
 | T3 | **교차검증:** 실행기가 RESOLVED하는 입력 수천 개(안쪽 R 2.3〜20 3D, 바깥 shell 0〜26, x·y·z축, 기울어진 방향, 65 multi-output 점, shell 15〜18 hard-case 후보 표본, shell 24〜26 후보 3개). prover 대용 두 배 탐색으로 certificate를 만들고 checker VALID raw = 실행기 raw | 식·분기 불일치 |
 | T4 | **식 결함 주입**(checker 사본 변형): short 계수 부호, α 한 자리, `kadd` 0/1 교환, BO/REL retardation 분기 교환(g−T ↔ 1−T ↔ −T), `2k` → `k`, `P'−αP` → `P'+αP`, g' 분자 부호, dt·성분 인수 누락 | T3에서 raw 불일치 또는 INVALID로 **반드시** 잡힘. 안 잡히는 변형이 있으면 그 변형을 잡는 입력을 T3에 추가 |
@@ -122,6 +124,7 @@ N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산
 | T7 | 음성 시험: raw ±1, dr_k = 0, R < r_min, 모르는 키, 지문·rate·순서 변조, N 너무 작음(`not_separated`), full 조건 위반, 범위 밖 raw | 각각 의도한 이유로 INVALID |
 | T8 | **rehearsal:** 실행기 cap을 128로 낮춰 STOP한 입력에서 두 배 탐색 → certificate VALID → raw = cap 16384 정상 실행 결과. 폭이 N·n 증가에 따라 줄어드는지 기록 | 수렴·재개 경로 |
 | T9 | 운영 한도: 한도 초과는 REFUSED이고 VALID·INVALID가 아님 | 한도가 참/거짓을 오염시키지 않음 |
+| T10 | 초대형 정수 문자열(4300/4301/10000자리 이상)을 모든 큰 정수 필드에 주입: 정의된 verdict만, Python 예외 0. 문법 오류는 크기보다 먼저 INVALID | `int()` 자릿수 한도의 `ValueError` 유출(구현 뒤 검토에서 발견) |
 
 추가(선택, 증명 아님): 실행기 `_model` 구간과 checker 구간이 겹치는지 대조하는 A-EV spot-check. 겹침은 둘 다 참값을 포함하는 데 필요한 조건일 뿐이며 A-EV 증명이 아니다. ④-Safety Conditional은 그대로다.
 
@@ -141,7 +144,7 @@ checker·prover·wrapper·Proof Cache 코드, 시험, Vast 사용. 기존 shell 
 ## 8. 구현 결과 (2026-09-29)
 
 **파일:** `a_reference/c1b1_exact_impulse_checker.py`(checker, 표준 라이브러리만), `a_reference/c1b1_exact_impulse_search.py`(매개변수 탐색, **시험 보조·신뢰 대상 아님**, point prover 아님),
-`a_reference/c1b1_exact_impulse_crosscheck.py`(T3 캠페인 드라이버 + mpmath 세 번째 기준 구현), `tests/test_c1b1_exact_impulse_checker.py`(127개). 실행기·C1-A 평가기·동결 fixture·기존 인증서 변경 0.
+`a_reference/c1b1_exact_impulse_crosscheck.py`(T3 캠페인 드라이버 + mpmath 세 번째 기준 구현), `tests/test_c1b1_exact_impulse_checker.py`(162개: 최초 구현 127개 + T10 35개, 8.5). 실행기·C1-A 평가기·동결 fixture·기존 인증서 변경 0.
 
 ### 8.1 시험 T1〜T9 결과
 
@@ -167,7 +170,7 @@ checker·prover·wrapper·Proof Cache 코드, 시험, Vast 사용. 기존 shell 
 
 ### 8.3 운영 한도 기본값 (S4, 구현 시 기록)
 
-`sqrt_bits_max=4096`, `order_max=20000`, `bits_max=8,000,000`(최대 관측 정수 크기의 약 8배), `seconds_max=300`. 관측은 위 캠페인뿐이며 신성한 상수가 아니다. 바꿔도 VALID/INVALID 의미는 변하지 않는다.
+`sqrt_bits_max=4096`, `order_max=20000`, `bits_max=8,000,000`(최대 관측 정수 크기의 약 8배), `seconds_max=300`, `digits_max=4300`(정수 문자열 자릿수. CPython 기본 변환 한도와 같은 값이며, 프로세스 한도가 더 엄격하면 그것도 REFUSED로 처리, 8.5). 관측은 위 캠페인뿐이며 신성한 상수가 아니다. 바꿔도 VALID/INVALID 의미는 변하지 않는다.
 
 ### 8.4 사양과 달라진 점, 그리고 남은 한계 (먼저 공개)
 
@@ -181,3 +184,20 @@ checker·prover·wrapper·Proof Cache 코드, 시험, Vast 사용. 기존 shell 
 8. **정성 Liveness(Lemma A+B)는 checker가 아니라 수학적 논거에 기댄다.** 캠페인의 모든 입력이 `sqrt_bits ≤ 256`에서 VALID였다는 것은 수렴 논거와 일치하는 관측이며, 필요한 정밀도의 상한이 아니다.
 9. **point prover generator·wrapper·Proof Cache는 미구현.** 매개변수 탐색기는 부동소수점 추정으로 차수를 고르는 시험 보조이고 checker가 판정한다(잘못 고르면 INVALID일 뿐).
 10. **VMHalt 정리(예외 분류)와 trajectory-completion은 이번 범위 밖**(각각 ④ 동결 전 정리, Q4 분리).
+
+### 8.5 초대형 정수 문자열 수정 (2026-09-29, `e6a377d` 뒤 검토 지적)
+
+**결함:** 4301자리 이상의 십진 문자열이 `raw`, `dr_raw`, `sqrt_bits`, `order`, `dt_kick`(그리고 `rate`)에 있으면 Python `int()`의 변환 한도(기본 4300자리) 때문에 `ValueError`가 checker 밖으로 새어 나갔다. 4300자리 이하는 정의된 결과였다. 재현으로 확인했다(다섯 필드 × 4301·10000자리 모두 유출). 이전 시험(T7·T9)에는 이 경우가 없었다.
+**수정:** 정수 파싱을 구문 검사(`_int_syntax`)와 변환(`_big_int`)으로 나눴다. 구문 오류는 INVALID, 구문이 맞고 자릿수 > `digits_max`이면 REFUSED(`integer_size_limit`), 구문 검사 뒤 `int()`가 `ValueError`를 내면(프로세스 한도가 더 엄격한 경우) 그것도 REFUSED. 변환 전에 모든 필드의 구문·키 구조를 먼저 훑는 사전 통과(`_prepass`)를 넣어 **구문 오류는 크기 한도에 가려지지 않는다.**
+**분류 규칙(요약):**
+
+| 입력 | 결과 |
+|---|---|
+| 정규 십진 정수 형태가 아님(길이 무관: 문자, 공백, 부호 중복, 선행 0, 비ASCII 숫자, 분모 0 등), 키 구조 오류 | INVALID(`bad_integer:*`, `bad_rational:*`, `keys:*`) — 항상 크기 판정보다 먼저 |
+| 구문이 맞고 자릿수 ≤ `digits_max` | 종전과 같이 수학적 판정(범위 밖 raw는 INVALID `out_of_range` 등). 이 수정이 VALID/INVALID의 의미를 바꾸지 않는다(4300자리 결과가 수정 전과 같음을 시험으로 고정) |
+| 구문이 맞고 자릿수 > `digits_max`, 또는 프로세스 `int()` 한도 초과 | REFUSED(`integer_size_limit`) — 가용성 한도이며 참/거짓에 대한 말이 아님 |
+| Python `int`가 문자열 대신 들어온 경우, 작은 필드(component 등)에 큰 Python 정수 | INVALID |
+
+**의도적 선택(먼저 공개):** `raw`와 `dr_raw`는 30자리만 넘어도 범위 밖이라 INVALID임을 자릿수만으로 알 수 있지만, 규칙을 하나로 유지하려고 자릿수가 `digits_max`를 넘으면 REFUSED로 답한다. 한도를 넉넉히 올리면 INVALID가 된다(REFUSED ↔ INVALID는 허용되는 변화). 어느 쪽도 VALID로 바뀌지 않는다.
+**남은 한계:** `digits_max` 이하의 큰 `dt_kick`(수천 자리)은 실제로 계산하며(계산 비용은 `bits_max`·`seconds_max`가 REFUSED로 막는다), `digits_max`는 관측 없이 CPython 기본값을 따른 것이다. 크기 관련 다른 경로(`sqrt_bits`, `order`, 정수 크기)는 기존 한도가 그대로 막는다.
+

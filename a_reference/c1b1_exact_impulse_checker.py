@@ -110,13 +110,13 @@ class _Refused(Exception):
 class Limits:
     """Operational limits. Hitting one gives REFUSED, never INVALID."""
 
-    def __init__(self, sqrt_bits_max=4096, order_max=20000, bits_max=8_000_000, seconds_max=300.0):
+    def __init__(self, sqrt_bits_max=4096, order_max=20000, bits_max=8_000_000, seconds_max=300.0, digits_max=4300):
         self.sqrt_bits_max, self.order_max = sqrt_bits_max, order_max
-        self.bits_max, self.seconds_max = bits_max, seconds_max
+        self.bits_max, self.seconds_max, self.digits_max = bits_max, seconds_max, digits_max
 
     def as_dict(self):
         return {"sqrt_bits_max": self.sqrt_bits_max, "order_max": self.order_max, "bits_max": self.bits_max,
-                "seconds_max": self.seconds_max}
+                "seconds_max": self.seconds_max, "digits_max": self.digits_max}
 
 
 class Result:
@@ -302,13 +302,28 @@ def _dv(R, E, ctx):
 
 # --- certificate parsing -----------------------------------------------------------------------------------------
 
-def _big_int(s, what):
+def _int_syntax(s, what):
+    """The digits of a canonical decimal integer string (optional leading '-'), or INVALID. Syntax only: no conversion,
+    so the length of the string can never make this raise anything but INVALID."""
     if not isinstance(s, str) or not s or s != s.strip():
         raise _Invalid("bad_integer:" + what)
     body = s[1:] if s[0] == "-" else s
     if not (body.isascii() and body.isdigit()) or (len(body) > 1 and body[0] == "0"):
         raise _Invalid("bad_integer:" + what)
-    return int(s)
+    return body
+
+
+def _big_int(s, what, ctx):
+    """A syntactically valid integer string is converted unless it is operationally too long: then REFUSED.
+    Python also refuses to convert very long decimal strings (sys.set_int_max_str_digits); that limit is a resource
+    limit of the process, not a property of the certificate, so it is REFUSED too (never a leaked ValueError)."""
+    body = _int_syntax(s, what)
+    if len(body) > ctx.limits.digits_max:
+        raise _Refused("integer_size_limit")
+    try:
+        return int(s)
+    except ValueError:                       # the syntax is already checked: only the process conversion limit is left
+        raise _Refused("integer_size_limit")
 
 
 def _small_int(v, what):
@@ -317,16 +332,23 @@ def _small_int(v, what):
     return v
 
 
-def _rational(s, what):
+def _rational_syntax(s, what):
     if not isinstance(s, str) or s != s.strip():
         raise _Invalid("bad_rational:" + what)
     parts = s.split("/")
     if len(parts) > 2:
         raise _Invalid("bad_rational:" + what)
-    num = _big_int(parts[0], what)
-    den = _big_int(parts[1], what) if len(parts) == 2 else 1
-    if den <= 0:
+    for part in parts:
+        _int_syntax(part, what)
+    if len(parts) == 2 and (parts[1].startswith("-") or parts[1] == "0"):
         raise _Invalid("bad_rational:" + what)
+    return parts
+
+
+def _rational(s, what, ctx):
+    parts = _rational_syntax(s, what)
+    num = _big_int(parts[0], what, ctx)
+    den = _big_int(parts[1], what, ctx) if len(parts) == 2 else 1
     return Fraction(num, den)
 
 
@@ -340,6 +362,25 @@ def _keys(d, required, optional, where):
 
 
 # --- the check ---------------------------------------------------------------------------------------------------
+
+def _prepass(cert):
+    """Syntax before size. Every wrong key set and every malformed integer / rational string is INVALID here, before
+    any operational size limit can answer REFUSED, whatever the lengths are. Nothing is converted."""
+    _keys(cert, ("format", "method", "model", "input", "output", "proof"), ("runtime_binding",), "certificate")
+    inp = _keys(cert["input"], ("position_frac_bits", "dr_raw", "component", "dt_kick"), (), "input")
+    if isinstance(inp["dr_raw"], list):
+        for v in inp["dr_raw"]:
+            _int_syntax(v, "dr_raw")
+    _rational_syntax(inp["dt_kick"], "dt_kick")
+    _int_syntax(_keys(cert["output"], ("width", "frac_bits", "raw"), (), "output")["raw"], "raw")
+    proof = _keys(cert["proof"], ("sqrt_bits", "exp"), (), "proof")
+    _int_syntax(proof["sqrt_bits"], "sqrt_bits")
+    if isinstance(proof["exp"], list):
+        for entry in proof["exp"]:
+            _keys(entry, ("rate", "mode", "order"), (), "exp")
+            _rational_syntax(entry["rate"], "rate")
+            _int_syntax(entry["order"], "order")
+
 
 def _sqrt_interval(R2, N):
     """[a/2^N, (a+1)/2^N] with a = isqrt(floor(R2 * 4^N)); contains sqrt(R2) (verified again by the caller)."""
@@ -360,7 +401,7 @@ def _decide_raw(J, m):
 
 
 def _check(cert, ctx):
-    _keys(cert, ("format", "method", "model", "input", "output", "proof"), ("runtime_binding",), "certificate")
+    _prepass(cert)
     if cert["format"] != FORMAT or cert["method"] != METHOD:
         raise _Invalid("format")
     if "runtime_binding" in cert and not isinstance(cert["runtime_binding"], dict):
@@ -381,10 +422,10 @@ def _check(cert, ctx):
         raise _Invalid("input")
     if not isinstance(inp["dr_raw"], list) or len(inp["dr_raw"]) != 3:
         raise _Invalid("input")
-    dr = [_big_int(v, "dr_raw") for v in inp["dr_raw"]]
+    dr = [_big_int(v, "dr_raw", ctx) for v in inp["dr_raw"]]
     if any(abs(v) >= 1 << 96 for v in dr):
         raise _Invalid("input_range")
-    dt = _rational(inp["dt_kick"], "dt_kick")
+    dt = _rational(inp["dt_kick"], "dt_kick", ctx)
     if dt == 0:
         raise _Invalid("input")
     if dr[comp] == 0:
@@ -397,12 +438,12 @@ def _check(cert, ctx):
     out = _keys(cert["output"], ("width", "frac_bits", "raw"), (), "output")
     if _small_int(out["width"], "width") != OUT_WIDTH or _small_int(out["frac_bits"], "frac_bits") != OUT_FRAC:
         raise _Invalid("output_profile")
-    m = _big_int(out["raw"], "raw")
+    m = _big_int(out["raw"], "raw", ctx)
     if not -(1 << (OUT_WIDTH - 1)) <= m <= (1 << (OUT_WIDTH - 1)) - 1:
         raise _Invalid("out_of_range")
 
     proof = _keys(cert["proof"], ("sqrt_bits", "exp"), (), "proof")
-    N = _big_int(proof["sqrt_bits"], "sqrt_bits")
+    N = _big_int(proof["sqrt_bits"], "sqrt_bits", ctx)
     if N < 1:
         raise _Invalid("sqrt_bits")
     if not isinstance(proof["exp"], list) or len(proof["exp"]) != len(RATE_ORDER):
@@ -410,11 +451,11 @@ def _check(cert, ctx):
     plan = []
     for entry, rate in zip(proof["exp"], rates()):
         _keys(entry, ("rate", "mode", "order"), (), "exp")
-        if _rational(entry["rate"], "rate") != rate:
+        if _rational(entry["rate"], "rate", ctx) != rate:
             raise _Invalid("exp_rate")
         if entry["mode"] not in ("full", "zero_floor"):
             raise _Invalid("exp_mode")
-        order = _big_int(entry["order"], "order")
+        order = _big_int(entry["order"], "order", ctx)
         if order < 0:
             raise _Invalid("exp_order")
         plan.append((rate, entry["mode"], order))

@@ -408,6 +408,12 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(모듈 3·시험 1)과 문서만 추가, 기존 실행 코드·동결 계약·fixture 변경 0. 새 시험 127개 + 직접 영향 범위(`two_atom`, `runtime_local_witness`, `step_fail_closed`, `stress_survey`, `c1a_ar2_lang2024`) **222 passed + 1 xfailed**. 기준선 숫자는 갱신하지 않는다.
 다음 판단(설계자): checker 신뢰 판정 → point prover generator → runtime wrapper·Proof Cache. 운영 한도 기본값과 `time` import 추가를 확인해 주세요.
 
+**checker 초대형 정수 문자열 수정(2026-09-29, `e6a377d` 뒤 검토 지적, 범위 한정 수정):**
+- 결함: 4301자리 이상의 십진 문자열이 `raw`·`dr_raw`·`sqrt_bits`·`order`·`dt_kick`에 있으면 Python `int()` 한도의 `ValueError`가 checker 밖으로 유출됐다(재현 확인, 4300자리 이하는 정상).
+- 수정: 구문 오류 → INVALID(길이 무관, 크기보다 먼저), 구문이 맞고 자릿수 > `digits_max`(기본 4300) 또는 프로세스 `int()` 한도 초과 → **REFUSED(`integer_size_limit`)**. VALID/INVALID의 수학적 의미는 불변(4300자리 이하 결과가 수정 전과 같음을 시험으로 고정). 운영 한도는 가용성만 바꾼다.
+- 시험: T10 35개 추가(9개 필드 × 4300/4301/10000자리, 구문 우선, 프로세스 한도 시뮬레이션, 결함 주입). 새 파일 전체 162개 통과. 사양 T1의 표준 라이브러리 수를 5개로 정정.
+- 범위 밖으로 유지: point prover generator, 실행기·평가기·동결 계약, A-EV, ④-Safety Conditional 승격, 새 물리 계약. 대규모 교차검증 캠페인·LOCAL FULL은 재실행하지 않았다(검증기 파싱 경로만 변경, 판정 수식 불변).
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
