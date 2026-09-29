@@ -1,6 +1,6 @@
 # C1-B1 D3 — Checker V2 enclosure 수렴 lemma (Lemma B의 V2 확장) + prover V0.2 완결성 조립 — 개정 2
 
-**상태:** **개정 2 — 독립 감사 통과(GPT-5.6 Sol High, 2회차, 2026-09-30, 대상 `8c5c4f7`). 설계자 상태 승인 대기.** 1회차(개정 1, `5f1a4c7`)는 불통과였다. 증거 등급: 독립 수학/코드 감사 통과이며 proof assistant의 formal certified가 아니다. 감사 기록: [인계 문서 6절](C1B1_D3_AUDIT_HANDOFF_V0.md). 기준: prover V0.2 + 힌트 상한(`a_reference/c1b1_point_prover.py`: D1·D2 + H-B + UNREPRESENTABLE + `HINT_WORK_BITS_MAX`), checker V2 소스(변경 없음).
+**상태:** **개정 2 — APPROVED(설계자 판정 2026-09-30).** 근거: 독립 감사 2회차 통과(GPT-5.6 Sol High, 대상 `8c5c4f7`; 1회차 개정 1 `5f1a4c7`은 불통과). 증거 등급: 독립 수학·코드 감사 통과이며 proof assistant의 formal certified가 **아니다.** **승인 범위(넓히지 않는다):** (1) 기본 운영 한도에서 항상 FOUND라는 뜻이 아니다 — 각 입력에 대해 충분히 큰 유한 한도가 존재한다는 정성 완결성이다. (2) Checker V2 자체의 formal proof를 새로 한 것이 아니다 — Lemma A와 Checker V2 enclosure soundness를 전제로 한다. (3) ④-Liveness 전체 승인이 아니다. 감사 기록: [인계 문서 6절](C1B1_D3_AUDIT_HANDOFF_V0.md). 기준: prover V0.2 + 힌트 상한(`a_reference/c1b1_point_prover.py`), checker V2 소스(변경 없음).
 **근거:** 설계자 판정 2026-09-30 D1 승인·D2 승인·**D3 진행**·D4 정확 상한([완결성 감사 V0](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md) 6·8절), **H-B 승인과 그 수정**(부동소수 차수는 힌트, 정확 인증, fallback은 반복 없는 닫힌 부등식으로 인증), `UNREPRESENTABLE` 분리. [Lemma A·B 감사](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md)(A 승인, B 방향 승인).
 **개정 1에서 바뀐 것:** 초판의 가정 (H-float, 부동소수 차수 선택)을 없앴다(4절). 3절에 필요한 차수 성질을 코드의 정확 인증이 보장한다. 정성 완결성은 **고정 `CERT_BITS = 64` 힌트 인증기에도 기대지 않는다**: 완결성이 쓰는 경로는 O(1) 닫힌 부등식으로 인증되는 fallback이다.
 **개정 2에서 바뀐 것(감사 불통과 2건):** (1) **부동소수 힌트가 실제로는 필수 경로였다.** `_certified_plan`이 fallback보다 먼저 `_exp_plan`을 무조건 불렀고, 그 안의 `bits * LN2`는 P가 아주 크면 `OverflowError`를 낸다(재현: `_exp_plan(3.0, 128, 10**400)`). 임의 유리수 dt_kick에서는 필요한 P에 공통 상한이 없으므로 정성 정리에서 무시할 수 없다. 이제 힌트는 `_hint_plan`을 거친다: P > `HINT_WORK_BITS_MAX` = 2^16이면 부동소수 코드를 **호출하지 않고**, 그 아래에서도 planner의 산술 예외(`ArithmeticError`, `ValueError`)는 "힌트 없음"이다. 둘 다 전부 fallback으로 간다(4절 0). 수정 전에는 planner의 `ValueError`가 `prove()`에서 `EXHAUSTED(serialization_limit)`로 잘못 분류되기도 했다(시험으로 확인). (2) 5절의 "budget·Limits가 무한이면"은 실제 코드의 계약이 아니다(`for _ in range(budget.max_attempts)`). **"충분히 큰 유한 budget과 Limits가 존재한다"**로 고쳤다. 아울러 fallback의 "O(1)"은 "Taylor 차수 n에 비례하는 반복 없이 상수 개수의 정확 비교"로 고쳤다(큰 정수 비교 자체의 비용은 비트 길이에 따라 는다).
@@ -89,7 +89,7 @@
 7. `UNREPRESENTABLE`의 정의와 wrapper의 `RuntimeContractViolation`(dt = 40에서만, run 불변).
 8. **개정 2(재감사 대상):** (i) `_hint_plan`이 P > 2^16에서 부동소수 코드를 부르지 않는지, 그 아래 예외가 모두 fallback으로 가는지(수정 뒤 `prove()`의 `except ValueError`(serialization_limit)에 planner 예외가 닿지 않는지 포함), (ii) P ≤ 2^16에서 planner가 끝난다는 4절 0 (b)의 논증, (iii) 5절의 "입력마다 충분히 큰 유한 한도가 존재" 진술과 증명 0단계, (iv) `5f1a4c7` 이후 실제 diff.
 
-감사자는 구현자와 다른 사람 또는 모델이 맡는다(설계자 지정). **개정 2는 2회차 감사를 통과했다. 설계자의 상태 승인 전에는 승인된 것으로 쓰지 않는다.**
+감사자는 구현자와 다른 사람 또는 모델이 맡는다(설계자 지정). **개정 2는 2회차 감사를 통과했고 설계자가 승인했다(2026-09-30, 범위는 머리말).**
 
 ## 7. 하지 않은 것
 

@@ -556,7 +556,17 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 **D3 독립 감사 2회차: 통과(GPT-5.6 Sol High, 대상 개정 2 / `8c5c4f7`, 2026-09-30).** 전 항목 성립, 1회차 blocker 닫힘(P > 2^16에서 planner 호출 0회, 산술 예외는 fallback, planner 종료, 입력별 유한 한도 존재). 남은 지적은 인계 문서의 낡은 문구뿐이었고 고쳤다(docs only). 통과한 명제: 지원 C1-B1 rounding-decision 입력 하나를 고정하고 참 raw가 FX(96,80) 안이면, Lemma A와 checker V2 enclosure 건전성 아래에서 그 입력에 대해 충분히 큰 유한 Budget·Limits가 존재하며 prover V0.2는 유한 단계에서 checker V2 VALID를 찾는다(dt = 40에서는 D4가 범위 가정을 보장). **증거 등급: 독립 수학/코드 감사 통과, formal certified 아님.** 감사 기록: `docs/active/C1B1_D3_AUDIT_HANDOFF_V0.md` 6절.
 - **상태(설계자 승인 전):** D3 lemma 개정 2 = 독립 감사 통과. Point Prover V0.2 정성 완결성 = 명시한 전제 아래 감사됨. **④-Liveness 전체 NotCertified 유지**(A-EV, inbound, inner, global shadowing, 전체 산란각, E_min 재생성 등 남음), ④-Safety Conditional, A-EV 미해결.
 - Git 사실(remote-tracking reflog): `8c5c4f7` push 08:28:49. 이 구현자 세션은 push를 실행하지 않았고 누가 했는지는 기록에 없다. 직전 보고의 "push 안 함(로컬이 1개 앞섬)"은 커밋 직후 시점에는 맞았지만 그 뒤 push되어 현재 상태와 다르다.
-다음 판단(설계자): D3 개정 2 상태 승인 여부.
+
+**설계자 판정(2026-09-30, 기준 HEAD `4f81898`): D3 lemma 개정 2 = APPROVED. Point Prover V0.2 rounding-decision qualitative completeness = APPROVED under stated premises.** 증거 등급은 독립 수학·코드 감사 통과이며 formal certified가 아니다. **승인 범위(넓히지 않는다):** (1) 기본 운영 한도에서 항상 FOUND라는 뜻이 아니다 — 각 입력에 대해 충분히 큰 유한 한도가 존재한다는 정성 완결성이다. (2) Checker V2 자체의 formal proof를 새로 한 것이 아니다 — Lemma A와 Checker V2 enclosure soundness를 전제로 한다. (3) ④-Liveness 전체 승인이 아니다. 코드·시험 변경 없음(문서 상태만).
+```
+D3 lemma revision 2                       = APPROVED (independent math/code audit; NOT formal certified)
+Point Prover V0.2 qualitative completeness = APPROVED under stated premises
+④-Liveness = NotCertified
+④-Safety = Conditional
+A-EV = Unresolved
+```
+Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다.
+다음: 새 증명·FULL 재실행이 아니라 ④의 다음 미해결 조각(A-EV는 별도 작업선, inbound, inner, global shadowing, 전체 산란각, E_min 재생성 등).
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 

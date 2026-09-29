@@ -1,7 +1,7 @@
 # D3 독립 감사 인계 — Checker V2 수렴 lemma(개정 2) + Point Prover V0.2
 
 **감사자:** GPT-5.6 Sol High(설계자 지정, 2026-09-30). 작성자(Claude)와 다른 계열이 교차 검증한다.
-**감사 결과:** 1회차(개정 1, 대상 `5f1a4c7`) **불통과** → 개정 2(`8c5c4f7`) → 2회차 **통과**(2026-09-30). 기록은 6절. **상태 변경의 최종 승인은 설계자 몫이며 아직 내려지지 않았다.**
+**감사 결과:** 1회차(개정 1, 대상 `5f1a4c7`) **불통과** → 개정 2(`8c5c4f7`) → 2회차 **통과**(2026-09-30). 기록은 6절. **설계자 판정 2026-09-30: D3 lemma 개정 2 APPROVED, Point Prover V0.2 rounding-decision 정성 완결성 APPROVED under stated premises.** **승인 범위(넓히지 않는다):** (1) 기본 운영 한도에서 항상 FOUND라는 뜻이 아니다 — 각 입력에 대해 충분히 큰 유한 한도가 존재한다는 정성 완결성이다. (2) Checker V2 자체의 formal proof를 새로 한 것이 아니다 — Lemma A와 Checker V2 enclosure soundness를 전제로 한다. (3) ④-Liveness 전체 승인이 아니다.
 **감사 범위 밖(통과해도 바뀌지 않음):** ④-Liveness 전체(NotCertified), ④-Safety(Conditional), A-EV(별도 작업선, 미해결).
 
 ## 1. 감사할 명제
