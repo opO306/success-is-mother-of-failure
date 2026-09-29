@@ -1,6 +1,6 @@
 # C1-B1 Proof Cache V0 — 검증된 witness의 선반, 쓸 때마다 다시 검증
 
-**상태:** **로컬 구현 + 관련 시험·원격 검증 통과, 승인 아님.** 공식 LOCAL FULL은 아직 안 돌렸다(6절). 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
+**상태:** **로컬 구현 + 관련 시험·원격 검증·LOCAL FULL 통과, 승인 아님**(설계자 판정 대기). 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
 **현재 상태(변경 없음):** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. 실행기·평가기·checker V1/V2·prover·물리 계약·D_valid 변경 0.
 **근거:** 설계자 판정 2026-09-30 Q-PC1〜Q-PC4([관계 검토](C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md) 6절), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7절(개정), [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md) 9절의 필수 조건.
 
@@ -74,7 +74,8 @@ WITNESS_RESOLVED의 witness 기록마다 `certificate_sha256`(= content address)
 | 위 묶음 구성 | proof_cache 42 · runtime_wrapper 42 · point_prover 24 · checker V2 95 · checker V1 185 · runtime_local_witness 23 · step_fail_closed 8 · two_atom 41 + xfail 1 · blind_execution 16 · blind_protocol 25 · blind_session 28 |
 | 코드 동일성 | 원격에서 돌린 `c1b1_proof_cache.py`·`c1b1_runtime_wrapper.py`·`test_c1b1_proof_cache.py`의 SHA-256이 로컬과 같다 |
 
-- **LOCAL FULL 생략(아직).** 로컬 CPU는 Codex가 쓰므로 이번에는 돌리지 않았다. 기존 runtime source(wrapper)에 통합을 넣었으므로 **이번 Proof Cache Gate를 공식으로 닫을 때는 LOCAL FULL `python -m pytest tests -q -n 6`을 한 번 실행한다**(설계자 지시). 지금 결과는 기준선을 갱신하지 않는다. 원격 실행은 REMOTE LINUX의 **관련 시험 묶음**이지 REMOTE LINUX FULL도 LOCAL FULL도 아니다.
+- **위 원격 실행은 REMOTE LINUX의 관련 시험 묶음**이지 REMOTE LINUX FULL도 LOCAL FULL도 아니다.
+- **LOCAL FULL(설계자 지시: 기존 runtime source에 wrapper 통합을 넣었으므로 Gate를 닫을 때 1회):** `python -m pytest tests -q -n 6`, HEAD `1636b1d`, **3289 passed + 1 xfailed, skip 0, 실패·error 0, exit 0, 554.35초.** xfailed는 기존 strict xfail(`test_representation_preserving_translation_b64`)이다. junit도 같다(tests 3290, failures 0, errors 0, skipped 1 = 그 xfail). 이전 공식 기준선 2834 + 1 xfailed(2026-09-28)보다 455개 많다: 그 사이 여러 Gate(checker V1/V2, prover, wrapper, Proof Cache 등)가 관련 시험만으로 LOCAL FULL을 생략했고 이번 실행이 한 번에 확인했다. **회귀는 없다.** 컴파일러 출력 인코딩 경고: 이번 로그의 요약(-q)에는 경고 줄이 없다. 원인은 조사하지 않았고 해결됐다고 보고하지 않는다. 증거: `runs/c1b1_proof_cache_v0_validation_20260930/{local_full.log,local_full.xml,local_full_head.txt}`.
 - **첫 원격 실행의 2건 실패는 제 설정 오류였다(보존).** `test_c1b1_two_atom.py`의 두 시험이 `D:\reference\ar2_lang2024\S2_ar2_pot.f90`을 찾지 못했다. 참조 파일 심볼릭 링크를 만들 때 셸 따옴표 처리 오류로 이름이 틀렸다. 코드·물리와 무관하다. 링크를 고친 뒤 `two_atom` 41 passed + 1 xfailed를 확인하고, 깨끗한 단일 실행으로 전체 묶음을 다시 돌려 위 결과를 얻었다. 첫 실행 로그(527 passed, 2 failed)는 `runs/c1b1_proof_cache_v0_validation_20260930/vast_run1_setup_error/`에 보존했다.
 - 증거: `runs/c1b1_proof_cache_v0_validation_20260930/vast_clean/{related.log,related.xml,head.txt,DONE}`.
 
@@ -99,6 +100,6 @@ WITNESS_RESOLVED의 witness 기록마다 `certificate_sha256`(= content address)
 
 ### 6.3 아직 증명되지 않은 것
 1. 실제 production cap(16384) STOP의 종단 입고는 시험하지 않았다(13분/건). 입고 규칙 5조합과 cap-128에서 production 선반 거부만 시험했다.
-2. 공식 LOCAL FULL 미실행. 이 Gate는 아직 닫히지 않았다.
+2. LOCAL FULL은 통과했지만 이 Gate는 **설계자 판정 전**이다. 승인 전에는 완료로 세지 않는다. `AGENTS.md`의 기준선 숫자(2834)는 설계자 판단 없이 고치지 않았다.
 3. single writer. 동시 쓰기, 스레드 안전성은 다루지 않았다.
 4. A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. Proof Cache는 STOP을 검증된 witness로 푸는 저장소이며 D_valid 전체의 Liveness를 보이지 않는다.
