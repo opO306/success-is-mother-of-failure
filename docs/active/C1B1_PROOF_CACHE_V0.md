@@ -1,6 +1,6 @@
 # C1-B1 Proof Cache V0 — 검증된 witness의 선반, 쓸 때마다 다시 검증
 
-**상태:** **Proof Cache V0 = APPROVED**(설계자 판정 2026-09-30: 기본 구조·재검증·OFF/empty/warm 불변성·STALE/REJECTED/REFUSED·로그 위조의 권한 없음·tail 한계 공개, 관련 시험 529, LOCAL FULL 3289 승인 + 마지막 종단 시험 1건 통과 조건 충족 → 6.4절). ④-Liveness 인증이 아니다. 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
+**상태:** **Proof Cache V0 = APPROVED**(설계자 판정 2026-09-30: 기본 구조·재검증·OFF/empty/warm 불변성·STALE/REJECTED/REFUSED·로그 위조의 권한 없음·tail 한계 공개, 관련 시험 529, LOCAL FULL 3289 승인 + 마지막 종단 시험 1건 통과 조건 충족 → 6.4절). ④-Liveness 인증이 아니다. 최종 승인(2026-09-30) 기준 HEAD `af0a341`.
 **현재 상태(변경 없음):** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. 실행기·평가기·checker V1/V2·prover·물리 계약·D_valid 변경 0.
 **근거:** 설계자 판정 2026-09-30 Q-PC1〜Q-PC4([관계 검토](C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md) 6절), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7절(개정), [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md) 9절의 필수 조건.
 

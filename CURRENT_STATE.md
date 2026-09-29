@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, **Proof Cache V0 = APPROVED(production cap 종단 입고 1건 통과)**** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, Proof Cache V0 = APPROVED(production cap 종단 입고 1건 통과), ④-Liveness 수학 연결 감사 중** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -511,6 +511,18 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 검증 범위: 종단 시험 1건만. **LOCAL FULL 재실행 없음**(지시). 스크립트는 스위트 밖 survey_only 새 파일이며 기존 코드 변경 0. 증거: `runs/c1b1_proof_cache_production_e2e_20260930/`.
 - 한계: 합성 입력 1건의 종단 확인이다. 실제 궤적의 production STOP 관측은 0건이고 정식 선반은 비어 있다. **④-Liveness 인증 아님.** A-EV·④-Safety Conditional·④-Liveness NotCertified 변경 없음.
 다음 판단(설계자): ④-Liveness 쪽 다음 단계(rounding-decision completeness) 지시.
+
+**설계자 판정(2026-09-30, 기준 HEAD `af0a341`): Proof Cache V0 최종 승인.** 종단 입고 시험의 `int == str` 실패는 판정식의 자료형 오류이며, 저장값 재평가로 충분하다(재실행 없음). 이번 작업: 문서 정합성 정리 + ④-Liveness 수학 연결 감사(코드 변경 없음).
+
+**Point Prover 정성적 완결성 감사 V0(2026-09-30, 문서·수학만):** ([감사](docs/active/C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md))
+- 질문: prover의 무한 정밀도 schedule이 지원 입력 전부에서 유한 단계 안에 checker V2 VALID를 찾는가. **결과: 분류 B.** 수학적으로는 가능하지만 현재 `prove()` 경로에 구멍이 있다. **완결성 lemma를 쓰지 않았고 코드도 고치지 않았다.**
+- 성립: Lemma A는 대상 입력 전부에 적용된다(d > 0). N은 1.5배로 무한히 증가하고 P = N + 96, exp 차수도 P를 따른다. raw가 맞으면 VALID 전까지는 `not_separated`만 나온다. 운영 한도(budget·Limits·정수 문자열)는 모두 가용성이다.
+- **구멍 H1:** raw m을 비신뢰 mpmath 추정이 한 번 고정한다. 틀리면 checker가 `raw_mismatch` → ANOMALY로 영구 정지한다(재시도 금지 원칙). 추정 수락 규칙은 틀린 m을 배제하지 못한다(mpmath 정확도 가정, 임의 dt_kick, prover 자신의 식 전사에 기댐). 건전성 결함이 아니라 **Liveness가 비신뢰 구성요소에 기대는 결함**이다.
+- **구멍 H2:** 추정이 출력 범위 밖이면 정밀도를 더 올리지 않고 즉시 EXHAUSTED다. 운영 한도가 아니다.
+- **빈칸 G1:** 승인된 Lemma B는 V1형 정확 유리수 enclosure(N, n)에 대한 것이다. V2의 outward 반올림(P)·`zero_floor`·부동소수 차수 선택으로의 확장은 증명 가능(스케치 작성)하지만 미작성·미감사다. 범위 공개: 출력 overflow 경계의 STOP은 certificate로 표현할 수 없고, D_valid의 \|J\| 상한 기록은 이번에 찾지 못했다.
+- 설계자 판단 요청: D1(raw를 신뢰 enclosure로 정하고 추정은 시작 N 힌트로만: H1 제거, ANOMALY 의미 변경), D2(H2 제거), D3(G1 정식 lemma + 독립 감사), D4(overflow·\|J\| 상한 가정 명시).
+- **④-Liveness NotCertified 유지.** A-EV 미해결, ④-Safety Conditional.
+다음 판단(설계자): 완결성 감사 V0의 D1〜D4.
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
