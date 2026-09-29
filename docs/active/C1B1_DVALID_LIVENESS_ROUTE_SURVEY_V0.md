@@ -110,6 +110,7 @@ d(q) > w_p(q)이면(여유 포함) p에서 RESOLVED다. 따라서
 - 계산량 0(lemma 하나). 폭발 없음. 새 수학 없음. 재사용: ④-2 귀납 구조를 inbound에도 공유.
 - 실패 지점: 판정 입력은 **위치**이고, 시간 역전은 위치 집합을 줄이지 않는다. 간격 문제가 그대로 남는다.
 - 판정: **보조 lemma.** 기록·시험할 가치는 있지만 Liveness를 닫지 않는다.
+- **정정(2026-09-30, [inbound V0](C1B1_INBOUND_V0.md)):** "④-2 귀납 구조를 inbound에도 공유"는 과장이었다. T는 순방향 inbound 궤도를 역방향 outgoing 궤도로 보내므로 ④-2의 순방향 탈출 정리는 inbound infall을 주지 않는다. 공유되는 것은 귀납의 모양과 1-step 상한·힘 envelope·zero-impulse 반경이며, inbound에는 거울 귀납이 따로 필요하다. lemma 자체는 코드·시험으로 고정됐다.
 
 ### R3. 안쪽 R<20의 w256 해석적 상한 (오차 부품)
 - 대상: R 5〜20(3D)에서 w_p(q) 상한. 바깥 조사의 "256-bit 폭 ≤ 2^-126 ulp"도 같은 방식으로 수식화할 수 있다.
@@ -197,7 +198,7 @@ d(q) > w_p(q)이면(여유 포함) p에서 RESOLVED다. 따라서
 
 ### 6.2 격자 동역학의 정확한 시간 가역성 (유도, 시험 안 함)
 
-p_h = p₀ + J(q₀), q₁ = q₀ + round(h·p_h/m), p₁ = p_h + J(q₁)에서 (q₁, −p₁)로 한 step 가면 −p_h, q₀, −p₀ 순서로 정확히 돌아온다. round(−x) = −round(x)(half-even)와 위치만의 함수 J가 조건이다. drift 선분 domain 검사도 선분 대칭이다.
+p_h = p₀ + J(q₀), q₁ = q₀ + round(h·p_h/m), p₁ = p_h + J(q₁)에서 (q₁, −p₁)로 한 step 가면 −p_h, q₀, −p₀ 순서로 정확히 돌아온다. round(−x) = −round(x)(half-even)와 위치만의 함수 J가 조건이다. drift 선분 domain 검사도 선분 대칭이다. **정정(2026-09-30): 틀렸다.** 역방향 선분은 순방향 선분을 drift 반올림 잔차 d(\|d_k\| ≤ 2^−48)만큼 평행이동한 것이라 r_min 바로 위에서는 순방향 합법·역방향 거부가 실제로 일어난다([inbound V0](C1B1_INBOUND_V0.md) 2절 (ii), 시험으로 확인).
 
 ### 6.3 운동량 offset 다발 (유도)
 

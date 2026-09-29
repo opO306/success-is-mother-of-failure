@@ -568,6 +568,16 @@ A-EV = Unresolved
 Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다.
 다음: 새 증명·FULL 재실행이 아니라 ④의 다음 미해결 조각(A-EV는 별도 작업선, inbound, inner, global shadowing, 전체 산란각, E_min 재생성 등).
 
+**설계자 지시(2026-09-30): 다음 작업 = C1-B1 inbound V0**(순서 inbound → inner → global shadowing → 전체 산란각 → E_min 재생성, native J는 별도 병렬 가능). 범위: 시간역전 lemma + 재사용 경계 + handoff 계약만.
+
+**inbound V0(2026-09-30, 기준 HEAD `c3e0e3c`):** ([C1B1_INBOUND_V0.md](docs/active/C1B1_INBOUND_V0.md))
+- **Lemma TR 고정:** T(운동량 부호 반전) 뒤 한 step은 정확히 T s0로 돌아오거나, drift **선분** guard에서만 거부된다(정확한 조건: segment_min_R2(q0 + d, v·h) < r_min², d는 drift 반올림 잔차, \|d_k\| ≤ 2^−48). 역방향이 묻는 충격량은 모두 순방향이 판정한 것이다(같은 STOP·Proof Cache witness). 코드 `a_reference/c1b1_time_reversal.py`(실행기 변경 0), 시험 7개: R ≈ 28.4 inbound D_valid(H) 산란 사건 3,600 step을 중간 상태까지 비트 단위로 역추적, 새 판정 질문 없음, r_min 한 칸 위 실제 반례(순방향 합법·역방향 거부, 예측 일치), D_valid의 T 비불변(F 상태의 T 상은 unsupported), 전제 거부, 결함 주입(floor drift).
+- **전제 정정 공개:** 조사 문서 R2의 "④-2 귀납을 inbound에 공유"는 과장, 6.2의 "선분 guard도 대칭"은 틀림(둘 다 조사 문서에 정정 표기). "inbound"가 Runtime Contract V1에서는 R 20→최근접(안쪽) 뜻으로도 쓰였다. D_valid L·H는 출발 반지름·방향 제한이 없어 R > 20 inbound 상태(및 R ≈ 10 출발 상태)도 `numerical_validated`다.
+- **판정 제안(설계자 판정 대기):** 바깥 inbound는 outgoing과 **같은 계약**(1-step 상한, 힘 envelope, shell 덮개, R_J zero-impulse, packet·실패 형식)으로 다룰 수 있다. **그러나 시간역전만으로는 아니다:** T는 순방향 inbound를 역방향 outgoing으로 보내므로 ④-2의 순방향 탈출 정리는 infall을 주지 않는다. 작은 **거울 귀납** 하나(w 상한, 불리한 drift 항)가 필요하다(유도만, 미구현·미감사). handoff 계약(입력·(Z) R ≥ R_J 격자 직선·(S) 거울 shell·출력 s_h ∈ R [20, 20+g)·실패 조건) 명세.
+- 검증: 신규 파일만(모듈·시험·문서) → **LOCAL FULL 생략 / 관련 시험으로 대체 / 기존 실행 코드·공용 모듈·동결 계약·fixture 변경 없음.** 관련 7개 파일 **181 passed + 1 xfailed**(신규 7 포함).
+- 상태 변화 없음: **④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결.**
+다음 판단(설계자): inbound V0의 IN-1〜IN-4(문서 7절). 구현자 권고: inbound V1(거울 귀납 + (Z) 구간 + chain) → inner.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
