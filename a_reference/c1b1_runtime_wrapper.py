@@ -20,6 +20,9 @@ Profile identity: a witness is proven for the canonical half-even a_numeric.prof
 
 The executor's source is not modified: C.impulse and C._decide are wrapped for the duration of one step and restored
 on every exit path (not thread-safe, like the witness prototype). The wrapper never reads or changes the precision cap.
+Proof Cache (optional, Config.cache): at a STOP the cache is asked first; whatever it returns has been re-verified from its
+bytes by verify_witness. A miss or any failure falls back to the prover. The wrapper never writes to a cache: admission is
+the caller's layer (a_reference/c1b1_proof_cache.py), which is also the only place that may know the precision cap.
 """
 import hashlib
 import json
@@ -113,16 +116,17 @@ def _dr_raw(dr):
 
 
 class Config:
-    def __init__(self, budget=None, limits=None, max_certificate_bytes=262144, max_attempts_per_step=8):
-        self.budget, self.limits = budget, limits
+    def __init__(self, budget=None, limits=None, max_certificate_bytes=262144, max_attempts_per_step=8, cache=None):
+        self.budget, self.limits, self.cache = budget, limits, cache
         self.max_certificate_bytes, self.max_attempts_per_step = max_certificate_bytes, max_attempts_per_step
 
 
 class StepOutcome:
-    def __init__(self, status, reason, witnesses=None, stops=None, prover=None, exception=None):
+    def __init__(self, status, reason, witnesses=None, stops=None, prover=None, exception=None, new_certificates=None):
         self.status, self.reason = status, reason
         self.witnesses, self.stops = witnesses or [], stops or []
         self.prover, self.exception = prover, exception
+        self.new_certificates = new_certificates or []    # [(stop key, bytes)] the prover made; for an admission layer
 
     def __repr__(self):
         return f"StepOutcome({self.status}, {self.reason}, witnesses={len(self.witnesses)})"
@@ -173,7 +177,7 @@ def verify_witness(data, key, run, claimed_raw, config):
         raise _Reject("checker_refused:" + res.reason)
     if not res.valid:
         raise _Reject("checker_invalid:" + res.reason)
-    if res.raw != claimed_raw:
+    if claimed_raw is not None and res.raw != claimed_raw:            # None: no outside claim (a cached witness)
         raise _Reject("raw_disagrees")
     return res.raw
 
@@ -235,9 +239,15 @@ def _prove_and_verify(key, run, config):
         raise _Reject(result.status.lower() + ":" + result.reason, summary)
     data = witness_bytes(result.certificate, run)
     raw = verify_witness(data, key, run, result.raw, config)
-    return raw, {"key": [[str(x) for x in dr], k, str(dt_kick)], "raw": raw,
-                 "certificate_sha256": hashlib.sha256(data).hexdigest(), "certificate_bytes": len(data),
-                 "prover": summary}
+    return raw, witness_record(key, raw, data, "prover", prover=summary), data
+
+
+def witness_record(key, raw, data, source, prover=None, **extra):
+    """What a WITNESS_RESOLVED step records per witness: the content address of the exact bytes it was verified from."""
+    rec = {"key": [[str(x) for x in key[0]], key[1], str(key[2])], "raw": raw, "source": source,
+           "certificate_sha256": hashlib.sha256(data).hexdigest(), "certificate_bytes": len(data), "prover": prover}
+    rec.update(extra)
+    return rec
 
 
 def _run_step(run, table, stops, used):
@@ -249,7 +259,7 @@ def _run_step(run, table, stops, used):
 def step(run, config=None):
     """Advance run by one step under the wrapper. Returns a StepOutcome; the run changes only if it advanced."""
     config = config or Config()
-    table, records, stop_log = {}, [], []
+    table, records, stop_log, new = {}, [], [], []
     for _ in range(config.max_attempts_per_step):
         before = dict(vars(run))
         stops, used = [], []
@@ -266,10 +276,15 @@ def step(run, config=None):
                 return StepOutcome(UNPROVED, "witness_not_applied", records, stop_log)
             if not _supported(run):
                 return StepOutcome(UNPROVED, "unsupported_profile", records, stop_log)
-            try:
-                raw, record = _prove_and_verify(key, run, config)
-            except _Reject as r:
-                return StepOutcome(UNPROVED, r.reason, records, stop_log, prover=r.prover)
+            hit = config.cache.lookup(key, run, config) if config.cache is not None else None
+            if hit is not None:                                         # re-verified from its bytes by the cache
+                raw, record = hit
+            else:
+                try:
+                    raw, record, data = _prove_and_verify(key, run, config)
+                except _Reject as r:
+                    return StepOutcome(UNPROVED, r.reason, records, stop_log, prover=r.prover)
+                new.append((key, data))
             table[key] = raw
             records.append(record)
             continue                                                    # W3: the same step again, from its start
@@ -279,7 +294,7 @@ def step(run, config=None):
             return StepOutcome(TERMINAL, type(exc).__name__, records, stop_log, exception=str(exc))
         if len(used) < len(table):                                      # a verified witness that was not needed
             return _unused(run, before, records, stop_log)
-        return StepOutcome(WITNESS_RESOLVED if used else RESOLVED, "advanced", records, stop_log)
+        return StepOutcome(WITNESS_RESOLVED if used else RESOLVED, "advanced", records, stop_log, new_certificates=new)
     return StepOutcome(UNPROVED, "attempt_limit", records, stop_log)
 
 
