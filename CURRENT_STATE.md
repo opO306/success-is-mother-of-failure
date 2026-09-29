@@ -337,6 +337,16 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 검증: 관련 시험 26개는 원격 Linux에서 통과(캠페인 코드 기준). LOCAL FULL은 설계자 지시로 92%에서 중단했고(통과·기준선으로 세지 않음, 로그는 미완료 실행으로 보존), 변경이 새 파일·시험·문서뿐이라 관련 시험으로 대체했다. LOCAL FULL은 작업 묶음 끝의 push 또는 기준선 갱신 직전에 한 번 실행한다.
 다음 판단(설계자): 전수 사전 인증 대신 "실행 + 판정 불가 정지 + 국소 증명" 구조를 검토할지, 남은 형식 의무(256-bit 폭 해석적 상한·유리수 tie 배제 확장·정지 계약) 범위.
 
+**Runtime Fail-Closed Contract v0 + 국소 witness prototype(2026-09-29, 설계자 승인):**
+([결과](docs/active/C1B1_RUNTIME_FAIL_CLOSED_V0.md)) 실행기 무변경.
+- 1단계(계약 시험): 판정 불가·drift 선분·위치 범위로 거부된 step은 run을 전혀 바꾸지 않는다. 일찍 쓰는 결함 step을 검사가 잡는다. 6 passed.
+- 2단계(prototype, survey_only): cap을 시험 설정으로 128에 두고 "정지 → 그 충격량만 계약 schedule로 재판정 → 저장 형태 검증 → 같은 step 재실행"을 돌렸다.
+  궤적 3개(1,640 / 5,775 / 21,056 step) 모두 **매 step raw 상태가 정상 실행과 동일**, 정상 256 판정 = 거부 = witness(25/77/239). 변조 15종 거부. 23 passed.
+- 한계: witness는 실행기와 같은 평가기를 쓰는 "executor rounding decision 재검증 witness"이며 독립 물리 검증이 아니다.
+  실제 16384 판정 불가는 범위 밖(정지 유지). witness는 `runs/`에만 둔다. 14/64·gap 81·④-4b NotCertified 유지.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체(83 passed + 1 strict xfailed) / 새 파일만 추가.
+다음 판단(설계자): 이 구조를 정식 방향으로 검토할지, 실제 16384 실패용 국소 증명 방법, 차등 계약·witness 형식·④ 동결 조건.
+
 **아직 남음:** inbound**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
