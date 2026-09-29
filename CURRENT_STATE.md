@@ -1,6 +1,6 @@
 # 현재 상태
 
-**최종 갱신:** 2026-09-28 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-09-29 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
 
@@ -16,8 +16,8 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 (shell 15 survey_only 완료 — shell별 전수 hard-case 탐색 방식 STOP)** |
-| **다음 Gate** | **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Runtime Rounding Contract V1 구조 승인, ④-Liveness(D_valid) 경로 조사 v0 완료, 설계자 판단 Q1〜Q4 대기** |
+| **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
 
@@ -351,14 +351,28 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 ④를 **Safety**(틀린 상태를 만들지 않음)와 **Liveness**(인정한 영역의 판정이 모두 해결됨)로 나눈다. 둘 다 닫혀야 ④ 동결. 실제 16384 실패용 point prover는 설계만 하고 구현하지 않는다.
 계약: [Runtime Rounding Contract V1](docs/active/C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) — **구조 승인(2026-09-29).**
 - 네 상태 RESOLVED / STOPPED / WITNESS_RESOLVED / UNPROVED(영구 STOP).
-- **④-Safety**는 runtime 구조로 닫는다(평가기 구간 유효성 A-EV 아래에서). 남았던 Fail-Closed 시험(`VMHalt`, 운동량 범위)을 추가해 8 passed.
-- **④-Liveness 대상 = D_valid**(정확히 7개 에너지의 b 한 줄씩). 실행 가능 영역(입장 계약)과 분리. 별도 수학적 보장이 필요하며 **NotCertified**.
+- **④-Safety**는 runtime 구조로 닫는다. 남았던 Fail-Closed 시험(`VMHalt`, 운동량 범위)을 추가해 8 passed.
+  **후속 판정 D3:** A-EV(평가기 구간이 참값을 포함)를 S1〜S6보다 앞선 **선행조건**으로 둔다. A-EV 미해결이면 ④-Safety는 **Conditional**이다(현재 미해결).
+- **④-Liveness 대상 = D_valid.** 실행 가능 영역(입장 계약)과 분리. 별도 수학적 보장이 필요하며 **NotCertified**.
   실행 단위 증명서 단독으로는 닫지 않는다. shell 전수 열거 대신 더 싼 방법(해석적 bound·prover completeness·Proof Box)으로 덮는다.
-- 실제 16384 실패: point prover가 고정밀을 **탐색 도구로** 쓸 수 있으나, 정확 산술로 검증 가능한 certificate가 있을 때만 재개(세부 해석 P1a 확인 요청).
+  (당시 문서의 "정확히 7개 에너지의 b 한 줄씩"은 구현자의 잘못된 요약이었다. 아래 조사 v0 참조.)
+- 실제 16384 실패: point prover가 고정밀을 **탐색 도구로** 쓸 수 있으나, 정확 산술로 검증 가능한 certificate가 있을 때만 재개.
+  **후속 판정 P1a:** 평가기를 cap 위에서 다시 돌리는 verifier는 불허. 허용은 (A) cap ≤ 16384 안의 검증 가능한 interval witness, (B) 평가기와 다른 수학적 근거(정확 유리수 부등식·modular-distance·exact tie·대수적 bound). 기준은 "검증할 때 고정밀 결과를 믿어야만 하는가".
 - Runtime Proof Cache(엄격·매 사용 재검증)와 Proof Warehouse(실행 경로 밖) 분리, Hazard Atlas 판단 권한 0.
 - 구현(wrapper·prover·cache)은 각각 별도 설계·승인 뒤. 14/64·gap 81·④-4b NotCertified 유지.
+- **순서 변경(후속 판정):** Liveness 경로 조사 → point prover 설계 → 정말 필요하면 runtime wrapper. `_decide`의 `VMHalt`/`ExecutorLimitExceeded` 예외 분류 불일치는 ④ 최종 동결 전 정리 대상(지금은 실행기 무변경).
 
-**아직 남음:** inbound**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
+**④-Liveness(D_valid) 수학 경로 조사 v0(2026-09-29, survey_only, 문서만):**
+([조사](docs/active/C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md)) 코드 변경·Vast·시험 추가 0. 수치는 동결 fixture·기존 모듈·기존 `runs/`를 읽기만 한 스크래치 계산이다.
+- **전제 정정(먼저 공개):** 코드상 D_valid는 7개 에너지만이 아니다. **L**(1e-8〜약 0.1418 De, 모든 b, 임의 3D 배치) + **H**(약 0.9974〜10 De, 모든 b, 임의 배치) + **F**(7개 에너지의 궤도 포획 경계 옆 짧은 b 구간 14개, 폭 0.04〜0.14 bohr, b=0 없음)로 이루어진다. 계약 V1 2.2절을 정정했고 L0 재확인을 요청했다.
+- **기존 형식 증거와 D_valid의 겹침:** 14 region은 전부 **+x축 1D 입력**이라 F 궤적과는 겹치지 않고, L·H의 정면충돌 상태에만 해당한다. 안쪽 R<20의 형식 증거는 없다. 실행 조사의 F 몫은 안쪽 6궤적이고 바깥 비행은 0이다.
+- **결론:** 정량 Liveness(16384 안에서, 또는 정밀도 상한이 있는 증명으로)의 싼 경로는 없다. 안쪽은 exp가 지배해 유리식·합동류 방법이 원리적으로 불성립하고, 경계 전수 방법은 평면/3D에서 폭발한다.
+- **새 후보(구현자 유도, 인증 아님):** 계수 전부 유리수 + 서로 다른 exp 지수 9개 → Lindemann–Weierstrass로 **모든 격자 입력(q_k≠0)의 정확 충격량은 유리수가 아니다 → 정확 tie 불가능**(exp 계수함수 5개가 양의 근 없음, 공약수 1). 영역 크기·차원 무관, 정성적. 엄밀 유리수 구간 prover와 결합하면 D_valid 전체의 **정성적** Liveness 후보가 된다.
+- 기타: 격자 KDK의 정확한 시간 가역성(유도), 운동량 offset 다발(위치열 공유)을 기록했다. 둘 다 입력 간격 문제를 줄이지는 않는다.
+- 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
+다음 판단(설계자): **Q1** L0 재확인, **Q2** Liveness가 정성인지 정량인지, **Q3(P1b)** 엄밀 유리수 구간 certificate가 P1a의 B 범주인지, **Q4** "모든 run이 R_J 도착"을 ④-Liveness에 포함할지.
+
+**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
 ## 증거 종류: 수치 검증과 별도 수학 증거
@@ -373,6 +387,7 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 
 D_valid v2는 설계자 판정 `0898ca3`(대상 구현 `a8619c8`)으로 동결했다. 단일 canonical 생성기 → 실제 경계 측정 → 기준 fixture → 초기 상태 식별이 연결되며,
 7 에너지 × 2쪽의 181개 측정 상태가 식별 상태와 일치한다. 기준 fixture는 `a_reference/fixtures/c1b1_orbit_boundary_v3.json`, 계약은 `c1b1-dvalid-v2`다.
+계약상 `numerical_validated`에는 이 fixture 에너지들 외에 capture band가 없는 두 넓은 영역도 포함된다. L은 b_orb > 2Re인 저에너지(약 0.1418 De 미만), H는 장벽 꼭대기 위(약 0.9974 De 초과)이며 둘 다 모든 b와 임의 배치를 받는다([Liveness 조사 v0](docs/active/C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 2.1절).
 미측정 에너지 보간·외삽, 가장 바깥 탐침 밖 인정, 다른 profile로의 확대는 하지 않는다. 같은 에너지·같은 쪽의 탐침 사이는 단조 띠 모형에 근거하며 연속 구간 전체의 증명은 아니다.
 `unsupported`는 운동 계산을 바꾸거나 막지 않는다. 동결 대상의 재측정은 새 결함 또는 다음 물리 단계의 필요가 생길 때만 별도 판단하며 이번에는 변경하지 않는다.
 

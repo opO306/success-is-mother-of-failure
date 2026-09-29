@@ -1,6 +1,6 @@
 # C1-B1 Runtime Rounding Contract V1 — 제안
 
-**문서 상태: 구조 승인(설계자 판정 2026-09-29, 9절).** 파일 이름의 PROPOSAL은 링크 보존을 위해 유지한다. 승인된 것은 계약 **구조**이며,
+**문서 상태: 구조 승인(설계자 판정 2026-09-29, 9절). 같은 날 후속 판정으로 P1a 채택·D3(A-EV를 Safety 선행조건으로) 채택·다음 순서 변경(10절).** 2.2절의 D_valid 모양 설명은 구현자 오류로 정정했다([Liveness 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 2절). 파일 이름의 PROPOSAL은 링크 보존을 위해 유지한다. 승인된 것은 계약 **구조**이며,
 runtime wrapper·point prover·Proof Cache 구현은 각각 별도 설계·승인 뒤에만 한다. 실행기·인증서·coverage·D_valid는 바꾸지 않는다.
 **현재 상태(변경 없음):** coverage 14/64 region·gap 81, ④-4b NotCertified, ④ 미동결, ⑤ 미착수, 정밀도 cap 16384.
 **근거:** [실행 기반 정밀도 조사](C1B1_RUNTIME_STRESS_SURVEY_V1.md), [Fail-Closed v0 + 국소 witness prototype](C1B1_RUNTIME_FAIL_CLOSED_V0.md), 설계자 판정(2026-09-29).
@@ -35,11 +35,21 @@ runtime wrapper·point prover·Proof Cache 구현은 각각 별도 설계·승�
 |---|---|---|
 | 질문 | 애매한 반올림으로 **틀린 세계 상태를 만들지 않는가** | 인정한 C1-B1 영역의 모든 실행에서 **필요한 판정이 결국 모두 해결되는가** |
 | 기차 비유 | 모르는 철길을 무시하고 지나가지 않는다 | 허용된 모든 기차가 목적지까지 간다 |
-| 현재 | prototype과 시험으로 상당히 확인. 아래 S1〜S6을 채우면 완료 후보 | **NotCertified** |
+| 현재 | prototype과 시험으로 상당히 확인. 선행조건 A-EV + 아래 S1〜S6을 채우면 완료 후보(A-EV 미해결 동안은 Conditional) | **NotCertified** |
 
 **④ 전체 동결 = ④-Safety 완료 + ④-Liveness 완료 + 설계자 판정.** 둘 중 하나만으로 ④를 동결하지 않는다.
 
 ### 2.1 ④-Safety 완료 조건
+
+**선행조건 A-EV (Evaluator Validity, 설계자 판정 D3):** 사용되는 numerical enclosure가 해당 물리식의 참값을 포함한다.
+Safety 논리는 "enclosure가 참값을 포함 → 두 endpoint가 같은 raw → 참값도 그 raw"이므로 첫 줄이 깨지면 뒤가 모두 무너진다. EXP cutoff 결함이 실제로 한 번 있었다.
+
+```
+A-EV 성립 + S1〜S6 성립 = ④-Safety
+A-EV 미해결            → ④-Safety는 Conditional(전제하 성립). 완료로 쓰지 않는다
+```
+
+현재 A-EV는 **미해결**이다(아래 S2의 한계). 따라서 S1〜S6이 모두 채워져도 ④-Safety는 Conditional이다.
 
 | # | 조건 | 현재 |
 |---|---|---|
@@ -52,7 +62,8 @@ runtime wrapper·point prover·Proof Cache 구현은 각각 별도 설계·승�
 
 **S2의 한계 (먼저 공개):** RESOLVED가 옳다는 것은 "구간 양 끝이 같은 raw로 반올림됨"과 "평가기 구간이 참값을 감쌈(A-EV)"의 결합이다.
 A-EV는 지금까지의 모든 인증서가 공유하는 전제이며, 전 입력에 대해 증명된 것이 아니다. 과거에 EXP 고정 cutoff가 높은 정밀도에서 틀린 구간을 준 결함이 실제로 있었다([rounding-decision](C1B1_ROUNDING_DECISION_V1.md) 2.1절).
-따라서 ④-Safety의 완료는 "A-EV 아래에서"이며, A-EV 자체의 강화(예: 독립 구간 힘 평가기)는 별도 과제로 남긴다. audit의 독립 Lang 모델은 V만 구간으로 감싸고 힘은 수치 미분이라 지금은 A-EV를 독립 검증하지 못한다.
+따라서 ④-Safety는 A-EV가 닫히기 전까지 **Conditional**이다(D3). A-EV 자체의 강화(예: 독립 구간 힘 평가기)는 별도 과제다. audit의 독립 Lang 모델은 V만 구간으로 감싸고 힘은 수치 미분이라 지금은 A-EV를 독립 검증하지 못한다.
+[Liveness 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md)의 R7 prover에 필요한 독립 엄밀 구간 평가기는 이 A-EV 강화 부품과 같은 것이다.
 
 ### 2.2 ④-Liveness 완료 조건
 
@@ -64,20 +75,26 @@ A-EV는 지금까지의 모든 인증서가 공유하는 전제이며, 전 입�
 ```
 
 입장 계약 전체를 바로 목표로 잡지 않는다. 다른 영역의 물리 검증이 쌓이면 L0를 넓힌다.
-D_valid의 실제 모양(코드 확인): 동결 fixture의 **정확히 7개 에너지(0.15 … 0.99 De)**, 표준 생성기로 만든 초기 상태(상대 위치 (20,0,0))만 정확 일치로 식별, b ≤ b_max = 2 Re,
-orbiting 경계 근처 띠(`inside_band`·`uncertain_edge`)와 가장 바깥 탐침 밖(`beyond_probes`)은 제외. 보간·근처 에너지 없음.
-즉 2차원 영역이 아니라 **에너지 7개 각각의 b 한 줄**이다. 모두 1 De 미만이다.
+
+**정정(2026-09-29, 구현자 오류):** 이전 판의 이 자리에는 "D_valid = 정확히 7개 에너지, 에너지마다 b 한 줄"이라고 적혀 있었다. fixture 가지만 읽은 잘못된 요약이다.
+코드(`evaluate_run` → `classify`)상 D_valid(`numerical_validated`)는 세 부분이다([조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 2.1절).
+- **L:** 1e-8 De ≤ E < 약 0.14181 De(b_orb = 2Re가 되는 에너지), **모든 b ∈ [0, 2Re]**, 초기 배치 제한 없음(3D 가능).
+- **H:** 약 0.99736 De < E ≤ 10 De(장벽 꼭대기 위), **모든 b ∈ [0, 2Re]**, 초기 배치 제한 없음.
+- **F:** 정확히 7개 에너지(0.15 … 0.99 De)의 canonical 생성기 상태(출발 R=20, 평면). 에너지마다 궤도 포획 경계 **양옆의 짧은 b 구간 2개**(|ρ| ≈ 10⁻⁴〜5×10⁻³부터 0.01까지, 폭 0.04〜0.14 bohr). b=0은 포함하지 않는다.
+- 그 밖의 에너지(0.1418〜0.9974 De)는 unsupported. 보간·근처 에너지 없음.
+
+설계자의 L0 판정은 이전 요약을 보고 내려졌으므로 재확인을 요청한다(조사 v0 7절 Q1).
 
 주장: D_valid의 모든 초기 상태에서, 종료 조건(R_J로 나가 tail에 인계)까지 **모든 판정이 RESOLVED 또는 승인된 방법의 WITNESS_RESOLVED**이다.
 이 주장은 inbound(R 20→최근접)·안쪽·outgoing(→R_J) 전 구간의 판정을 포함한다. 기존 형식 증거는 outgoing 쪽 일부뿐이다(아래 표).
 
 | 증거 | 상태 | 비고 |
 |---|---|---|
-| tail(R ≥ R_J = 10,240 bohr) | 형식 인증(최대 512 bit) | 기존 |
-| outgoing shell 16〜26 | 형식 인증(14/64 region) | R=20 기준 enclosure에 대한 것 |
-| shell 0〜15의 gap 81 | **미인증** | 전수 hard-case 방식은 shell 15에서 STOP |
+| tail(R ≥ R_J = 10,240 bohr) | 형식 인증(최대 512 bit) | 기존. 모든 legal 3D 위치 |
+| outgoing shell 16〜26 | 형식 인증(14/64 region) | **+x축 위 입력만**(예시 상태 q=(20,0,0), P=(1,0,0)의 1D enclosure). D_valid에서는 L·H의 정면충돌(b=0) 상태에만 해당하고 **F 궤적과는 겹치지 않는다**(정정 2026-09-29) |
+| shell 0〜15의 gap 81 | **미인증** | 전수 hard-case 방식은 shell 15에서 STOP. 역시 +x축 기준 |
 | 안쪽(R < 20)·inbound | 형식 liveness **없음** | 기존 ④ 범위 밖이기도 함 |
-| 실행 조사(약 2.3억 판정, 바깥 비행 포함) | STOP 0 | **survey_only.** 증명 아님 |
+| 실행 조사(약 2.3억 판정, 바깥 비행 포함) | STOP 0 | **survey_only.** 증명 아님. D_valid 몫은 거의 전부 H다. F는 안쪽 6궤적, 바깥 비행 0 |
 
 닫는 길(D4, 설계자 판정: **혼합형**):
 - **목표는 L-a(D_valid 전체에 대한 별도 수학적 보장)를 유지한다. 방법은 shell 전수 열거가 아니어도 된다.**
@@ -115,7 +132,13 @@ orbiting 경계 근처 띠(`inside_band`·`uncertain_edge`)와 가장 바깥 탐
       → 작은 verifier가 정확 산술로 확인 → raw가 수학적으로 확정 → 같은 step 재실행
 ```
 
-**구현자 해석, 확인 필요(P1a):** "작은 verifier"가 **실행기 평가기(`C._model`)를 16384보다 높은 정밀도로 다시 돌려** 구간을 재계산하고 반올림을 비교하는 방식은
+**P1a 설계자 판정(2026-09-29): 아래 구현자 해석 채택.** 허용 certificate는 두 종류뿐이다.
+**A.** cap ≤ 16384 안에서 나온 검증 가능한 interval witness. **B.** 실행기 평가기와 다른 수학적 근거(exact rational inequality, modular-distance bound, exact tie 판정, algebraic bound).
+prover 내부에서 쓴 bit 수는 상관없다. 기준은 **"최종 certificate를 검증할 때 그 고정밀 계산 결과를 믿어야만 하는가?"**다.
+예: prover가 65536 bit로 `2N < (2k+1)D`를 찾고 verifier가 N·D·k를 정확한 정수로 확인하면 허용한다. "65536-bit evaluator 결과가 이렇다"뿐이면 불허한다.
+**후속 확인 요청(P1b):** 엄밀 유리수 구간(Taylor 부분합 + 명시적 나머지) certificate를 독립 검사기가 정확 산술로 확인하는 형태가 B인지([조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 7절 Q3).
+
+**(판정 전 기록) 구현자 해석(P1a):** "작은 verifier"가 **실행기 평가기(`C._model`)를 16384보다 높은 정밀도로 다시 돌려** 구간을 재계산하고 반올림을 비교하는 방식은
 정확 정수 산술이긴 하지만 사실상 "고정밀 결과를 믿는" 금지 패턴과 같다고 본다(평가기를 cap 위에서 한 번 더 돌리는 것일 뿐).
 그래서 허용되는 certificate는 **verifier가 cap 이하 정밀도 또는 평가기와 다른 정확 부등식(유리식 거리 하한 + 잔여항·오차 상한 등)만으로 확인할 수 있는 것**으로 좁히기를 제안한다.
 현재 prototype witness(평가기 재계산)는 cap 안에서만 쓰므로 이 해석과 충돌하지 않는다.
@@ -158,10 +181,10 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 |---|---|---|---|
 | D1 | 네 상태와 규칙(1절)을 계약으로 채택 | 채택 | 승인 |
 | D2 | ④를 Safety/Liveness로 나누고 둘 다 있어야 ④ 동결(2절) | 채택 | 승인. **④의 정의는 약화하지 않는다** |
-| D3 | ④-Safety가 A-EV에 조건부임을 명시하고, A-EV 강화는 별도 과제로 둠 | 채택 | 판정문에 명시 없음 — 이 문서의 공개 사항으로 유지(확인 요청) |
+| D3 | ④-Safety가 A-EV에 조건부임을 명시하고, A-EV 강화는 별도 과제로 둠 | 채택 | **채택(후속 판정).** A-EV를 S1〜S6보다 앞선 **선행조건**으로 둔다. A-EV 미해결이면 ④-Safety는 Conditional(2.1절) |
 | L0 | ④-Liveness의 대상 영역 | 설계자 결정 | **D_valid.** 실행 가능 영역(입장 계약)과 분리 |
 | D4 | Liveness를 닫는 길 | 첫 prover 설계 뒤 결정 | **혼합형.** L-a 목표 유지·전수 열거 방법 폐기, L-b 단독 불가, L-c 불채택 |
-| P1 | 별도 prover의 16384 초과 정밀도 | 기본 불허 | **조건부 허용.** 고정밀은 탐색 도구, 재개는 정확 산술로 검증 가능한 certificate가 있을 때만. 세부 해석 P1a 확인 요청 |
+| P1 | 별도 prover의 16384 초과 정밀도 | 기본 불허 | **조건부 허용.** 고정밀은 탐색 도구, 재개는 정확 산술로 검증 가능한 certificate가 있을 때만. **P1a 채택(후속 판정, 4절):** 평가기 재실행 verifier 불허, A/B 두 종류만 허용 |
 | D5 | 차등 비교는 개발·회귀 시험 계약, runtime 계약은 "같은 입력+검증된 witness"(3절) | 채택 | 승인 |
 | D6 | Proof Cache를 Warehouse와 분리, STOPPED 입력에만(C1) | 채택 | 승인 |
 | D7 | Hazard Atlas는 survey_only, 결과 비간섭 시험 필수 | 채택 | 승인(판단 권한 0) |
@@ -171,19 +194,23 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 
 ```
 ④-Safety   애매하면 STOP · 상태 변화 없음 · witness 없으면 진행 금지 · witness는 재검증 · cache가 없어도 결과 동일
-           → runtime 구조로 닫는다 (A-EV 아래에서)
+           → runtime 구조로 닫는다. 선행조건 A-EV(D3). A-EV 미해결 동안은 Conditional
 ④-Liveness 대상 D_valid. 모든 허용 상태가 결국 RESOLVED 또는 증명 가능한 WITNESS_RESOLVED로 끝난다는 별도 수학적 보장
            → NotCertified
 실제 16384 실패 → point prover (고정밀 사용 가능) → 정확 검증 가능한 certificate가 있을 때만 재개
                 → 증명 못 함 = UNPROVED = 영구 STOP
 ```
 
-## 10. 다음 순서 (제안)
+## 10. 다음 순서
+
+**설계자 판정(2026-09-29, 순서 변경):** 제안했던 "wrapper → point prover → Liveness 조사"를 **"Liveness 경로 조사 → point prover 설계 → 정말 필요하면 runtime wrapper"**로 바꾼다.
+기계장치(STOP·상태 불변·witness 검증·재개·매 step 동일)는 prototype으로 가능성이 이미 확인됐다. 실제 16384 실패도 승인된 witness 방법도 0개인 지금 wrapper를 먼저 만들면 기능 없는 교통경찰부터 세우는 꼴이다.
 
 1. ~~S1의 남은 Fail-Closed 시험~~ — 완료(`VMHalt`, 운동량 범위; 8 passed).
-2. 네 상태를 코드 상수·결과 기록으로 표현하는 **얇은 runtime wrapper** 설계(실행기 무변경, prototype 대체).
-3. **point prover 설계 문서**(P1/P1a 조건 반영): certificate 형식, 작은 verifier, 결함 주입. 승인 뒤 구현. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
-4. **④-Liveness(D_valid) 수학 경로 조사 계획**: 7개 에너지 b-줄 각각에서 inbound·안쪽·outgoing 판정을 덮는 더 싼 방법(해석적 bound, prover completeness, Proof Box) 후보 정리. 전수 열거는 쓰지 않는다.
+2. ~~④-Liveness(D_valid) 수학 경로 조사~~ — [조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 완료(survey_only, 문서만). 결론: 정량 Liveness의 싼 경로 없음. 전역 exact tie 배제 + 엄밀 구간 prover의 정성 경로가 유일한 후보. **설계자 판단 Q1〜Q4 대기.**
+3. **point prover 설계 문서**(P1/P1a/P1b 반영): certificate 형식, 작은 verifier, 결함 주입. 승인 뒤 구현. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
+4. 정말 필요하면 네 상태를 코드 상수·결과 기록으로 표현하는 **얇은 runtime wrapper**(실행기 무변경, prototype 대체).
 5. Runtime Proof Cache·Hazard Atlas는 첫 승인된 prover가 생긴 뒤.
+6. **④ 최종 동결 전 정리 대상:** `_decide` 안의 `VMHalt`(감싸지지 않음)와 다른 범위 초과의 `ExecutorLimitExceeded` 사이의 예외 분류 불일치. 둘 다 fail-closed지만 taxonomy가 일관되지 않다. 새 방향 설계와 섞이지 않게 지금은 실행기를 고치지 않는다.
 
 이번 문서로 바꾸는 코드는 없다. 궤적 추가 주행·shell 14 탐색도 하지 않는다.

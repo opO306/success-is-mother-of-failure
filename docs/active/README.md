@@ -27,11 +27,12 @@
 | [shell 17 hard-case 확장성 조사](C1B1_HARD_CASE_SEARCH_SHELL17_SURVEY_V1.md) | ④-4c-7: shell 17 단독 실측. 교차 8,645,949·후보 827·hazard 0, checker 1024/1024. checker 비용이 교차 수에 비례해 커짐. survey_only |
 | [실행 기반 정밀도 조사](C1B1_RUNTIME_STRESS_SURVEY_V1.md) | survey_only. 실제 궤적 판정 약 2.3억 회: R ≤ 320에서 256 bit 0.6%대, R ≥ 640에서 100%, 512+ 0. 256 비율 = 128-bit 구간 폭 |
 | [Fail-Closed v0 + 국소 witness prototype](C1B1_RUNTIME_FAIL_CLOSED_V0.md) | 거부된 step의 run 불변을 시험으로 고정. cap 128 강제 정지→재판정→검증→재실행이 3궤적 매 step 정상 실행과 동일. prototype |
-| [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) | **구조 승인(2026-09-29). ④-Liveness 대상 D_valid, NotCertified.** RESOLVED/STOPPED/WITNESS_RESOLVED/UNPROVED, ④-Safety/④-Liveness 분리, Proof Cache/Hazard Atlas. 코드 변경 근거 아님 |
+| [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) | **구조 승인(2026-09-29). P1a·D3 채택(A-EV = Safety 선행조건). ④-Liveness 대상 D_valid, NotCertified.** RESOLVED/STOPPED/WITNESS_RESOLVED/UNPROVED, ④-Safety/④-Liveness 분리, Proof Cache/Hazard Atlas. 코드 변경 근거 아님 |
+| [④-Liveness(D_valid) 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) | survey_only·문서만. **D_valid 모양 정정(L·H 넓은 영역 + F 14구간)**, 기존 14 region은 +x축 전용이라 F와 겹침 0. 정량 경로 없음, 전역 exact tie 배제(Lindemann–Weierstrass) + 엄밀 구간 prover의 정성 경로 후보. 설계자 Q1〜Q4 대기 |
 | [shell 18 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_V1.md) | ④-4c-6: 위 조사를 인증 계약·proof object로 승격. 전체 재계산 verify, 후보 109·hazard 0. shell 18 원래 domain Certified, fresh coverage 12/64·gap 83, 전체 NotCertified |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.
-다음 Gate는 **16384-bit rounding-decision completeness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다.
+다음 Gate는 **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증**이다(Runtime Rounding Contract V1).
 inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 / native J / C1-B1 전체 freeze도 남아 있다.
 
 [동결 안내](../frozen/README.md)와 [공통 참조](../reference/README.md)를 함께 확인한다. D_valid의 수치 검증 범위와 analytic outer certificate는 별도이며 자동 승격·연결이 없다.
