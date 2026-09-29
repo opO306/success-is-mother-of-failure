@@ -349,7 +349,14 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 
 **설계자 판정(2026-09-29):** runtime + 국소 증명을 C1-B1 반올림 완전성의 **주력 방향으로 승격**. 버리는 것은 shell별 경계 사전 열거 방법뿐이며 ④의 의무는 약화하지 않는다.
 ④를 **Safety**(틀린 상태를 만들지 않음)와 **Liveness**(인정한 영역의 판정이 모두 해결됨)로 나눈다. 둘 다 닫혀야 ④ 동결. 실제 16384 실패용 point prover는 설계만 하고 구현하지 않는다.
-계약안: [Runtime Rounding Contract V1 — 제안](docs/active/C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md)(네 상태, Safety S1〜S6·Liveness 조건, 차등 비교 역할 분리, Proof Cache/Hazard Atlas, Warehouse 원칙과의 충돌 C1〜C4). **승인 전이며 코드 변경 없음.**
+계약: [Runtime Rounding Contract V1](docs/active/C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) — **구조 승인(2026-09-29).**
+- 네 상태 RESOLVED / STOPPED / WITNESS_RESOLVED / UNPROVED(영구 STOP).
+- **④-Safety**는 runtime 구조로 닫는다(평가기 구간 유효성 A-EV 아래에서). 남았던 Fail-Closed 시험(`VMHalt`, 운동량 범위)을 추가해 8 passed.
+- **④-Liveness 대상 = D_valid**(정확히 7개 에너지의 b 한 줄씩). 실행 가능 영역(입장 계약)과 분리. 별도 수학적 보장이 필요하며 **NotCertified**.
+  실행 단위 증명서 단독으로는 닫지 않는다. shell 전수 열거 대신 더 싼 방법(해석적 bound·prover completeness·Proof Box)으로 덮는다.
+- 실제 16384 실패: point prover가 고정밀을 **탐색 도구로** 쓸 수 있으나, 정확 산술로 검증 가능한 certificate가 있을 때만 재개(세부 해석 P1a 확인 요청).
+- Runtime Proof Cache(엄격·매 사용 재검증)와 Proof Warehouse(실행 경로 밖) 분리, Hazard Atlas 판단 권한 0.
+- 구현(wrapper·prover·cache)은 각각 별도 설계·승인 뒤. 14/64·gap 81·④-4b NotCertified 유지.
 
 **아직 남음:** inbound**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

@@ -14,7 +14,7 @@ from fractions import Fraction as Q
 import pytest
 
 import a_reference.c1b1_two_atom as C
-from a_numeric.profiles import FixedPoint
+from a_numeric.profiles import FixedPoint, VMHalt
 from a_reference import c1b1_stress_survey as X
 
 POS, MOM, DT = X.POS, X.MOM, X.DT
@@ -128,6 +128,25 @@ def test_position_range_refusal_leaves_the_run_unchanged():
             assert snapshot(run) == before and run.t_steps > 0
             return
     raise AssertionError('the position range was never exceeded')
+
+
+def test_impulse_overflow_refusal_leaves_the_run_unchanged():
+    """The impulse itself overflows the momentum profile on both enclosure ends (FX(8,4), R = 3 bohr): _decide
+    raises VMHalt. The executor lets this VMHalt out unwrapped (other range overflows become ExecutorLimitExceeded)
+    -- recorded, not changed here."""
+    z = (Q(0),) * 3
+    run = C.new_run(POS, DT, z, z, (Q(3), Q(0), Q(0)), z, momentum_profile=FixedPoint(8, 4), validated_only=False)
+    assert_fail_closed(C.step, run, VMHalt)
+
+
+def test_momentum_range_refusal_at_the_kick_leaves_the_run_unchanged():
+    """Momenta on FX(24,16) (|p| < 128), p = 127.99 outward and a repulsive impulse at R = 5 bohr: the kick leaves
+    the range -- ExecutorLimitExceeded before any field of the run is written."""
+    z, p, mom = (Q(0),) * 3, Q(12799, 100), FixedPoint(24, 16)
+    run = C.new_run(POS, DT, z, (-p, Q(0), Q(0)), (Q(5), Q(0), Q(0)), (p, Q(0), Q(0)), momentum_profile=mom,
+                    validated_only=False)
+    assert C.impulse(C.relative(POS, *run.atoms), DT / 2, mom)[0] > 0            # the kick pushes past the range
+    assert_fail_closed(C.step, run, C.ExecutorLimitExceeded)
 
 
 def _leaky_step(run):
