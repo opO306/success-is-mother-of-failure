@@ -32,6 +32,7 @@
 | [반올림 Liveness Lemma A·B 감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md) | 구현자 감사(인증 아님). **A: QED short-2 단일 계수로 전역 no-tie 통과. B: 독립 exact-rational certificate 수렴·검사 가능, 구현 전(식 전사 충실도가 주 위험).** Liveness = 정성적 finite termination(계약 변경). **A 승인, B 표현 정정 뒤 방향 승인 — accepted design basis, not frozen certificate** |
 | [exact impulse certificate·독립 checker 사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md) | S1〜S4 승인, **checker 신뢰 승인(`e9b30eb`)**. 매개변수만 담는 certificate, 표준 라이브러리 전용 checker(VALID/INVALID/REFUSED), 지문 binding, `full`/`zero_floor` exp 모드. **독립 checker 구현 완료(8절): 시험 185개, 교차검증 14,102건 불일치 0, 식 결함 주입 40종 전부 잡힘, 초대형 정수 문자열은 REFUSED(8.5).** Operational limits affect availability, never truth |
 | [point prover generator 설계 V0](C1B1_POINT_PROVER_DESIGN_V0.md) | 설계 제안(문서만). 비신뢰 생성기, 최종 권한은 checker VALID 하나. FOUND/NOT_A_DECISION/EXHAUSTED/ANOMALY. mpmath 추정 + checker 1회 권고. 실제 cap 16384를 넘는 합성 사례 측정. 설계자 판정 대기 |
+| [checker V2 — outward dyadic rounding](C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md) | V1 보존(변경 0), 별도 모듈. 끝점 바깥쪽 dyadic 반올림으로 정수 크기를 work_bits에 묶음. 시험 95, 결함 주입 50종 전부 잡힘, 교차검증 14,102건 불일치 0, N=2048에서 800배. **실행기 cap 16384가 멈춘 2^-17000 합성 사례를 142〜147초에 VALID.** 신뢰 승인 판정 대기 |
 | [shell 18 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_V1.md) | ④-4c-6: 위 조사를 인증 계약·proof object로 승격. 전체 재계산 verify, 후보 109·hazard 0. shell 18 원래 domain Certified, fresh coverage 12/64·gap 83, 전체 NotCertified |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.

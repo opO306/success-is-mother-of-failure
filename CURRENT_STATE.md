@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker 신뢰 승인, point prover generator 설계 단계** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1 신뢰 승인, checker V2(outward dyadic rounding) 구현·검증 완료(판정 대기)** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -426,6 +426,19 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 다음: point prover generator 설계 및 구현. 원칙: 비신뢰 생성기(무엇을 써서 후보를 찾아도 됨), 최종 권한은 `check_certificate == VALID(raw)` 하나, 실행기 16384 cap을 늘리는 프로그램 금지(별도 correctness path), 싸게 시작해 올림, REFUSED와 "아직 못 찾음" 구분(Lemma A+B는 운영 한도 안의 발견을 보장하지 않음), 첫 검증은 cap 128 rehearsal과 near-tie 합성, 그 뒤 wrapper·Proof Cache.
 - 설계 V0: [point prover 설계](docs/active/C1B1_POINT_PROVER_DESIGN_V0.md). 설계자 판정 대기(P-1〜P-5).
 - **먼저 공개할 측정(scratchpad):** 합성 입력(경계에서 2^-17000 ulp)에서 실행기는 cap 16384로 `ReferenceUndecided`를 냈다(13초). 그러나 현재 checker V1(반올림 없는 정확 유리수)의 비용은 √ 비트 N에 대해 거의 N³이다(N=256/512/1024/2048에서 2.6/14.6/104.8/871초). 그래서 **실제 16384 STOP의 certificate는 며칠〜몇 주 걸려 현실적으로 불가능하다.** 정성 Liveness는 수학적으로 맞지만 지금은 운영상 쓸 수 없다. 해법 후보는 checker V2(구간 끝점의 바깥쪽 dyadic 반올림, 사양 변경, P-5)다.
+
+**checker V2 — outward dyadic rounding(2026-09-29, 기준 HEAD `0ce4527`, survey_only·새 파일 중심):** ([설계·결과](docs/active/C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md))
+- 목적: V1의 정확 유리수 폭증(√ 비트 N에 거의 N³)을 막는다. 구간 끝점을 work_bits 유효 비트로 **항상 바깥쪽** 반올림한다(하한은 −∞ 쪽 floor, 상한은 +∞ 쪽 ceiling. 잘린 비트는 구간 폭에 흡수). 세계 상태의 반올림이 아니며 실행기·물리·once-rounding은 그대로다.
+- **V1 변경 0**(소스 해시를 `e9b30eb`판에 고정, V1 시험 185개 통과). V2는 별도 모듈·형식·method이고 V1·실행기·`a_numeric`를 import하지 않는다(상수표·파서도 독립). 기존 파일 수정은 1개(`c1b1_exact_impulse_crosscheck.near_tie_item`에 `dt_bits`, 기본값 동일)다.
+- 반올림 지점: 곱·나눗셈·역수, exp·damping 급수의 매 단계, 항 조립마다 1회, 비-dyadic 상수. neg·항 내부의 고정 덧셈·√·최종 J는 반올림하지 않는다. `sqrt_bits`와 `work_bits`는 certificate의 별도 필드다. checker 안에 guard 상수는 없다(guard 96은 비신뢰 탐색기의 선택).
+- 시험 95개 통과. **결함 주입 50종 전부 잡힘**(방향 반올림 5·구간 연산 7·√ 2·거듭제곱 2·exp 점별 7·exp 단계별 7·반올림 제거 2·식 전사 18). **먼저 공개:** 처음에는 exp 끝단 반올림 방향 뒤집기 3종이 점별 포함 시험을 통과했다(급수 여유가 가림). 단계별 정확값 비교 시험을 추가해 잡았다. work_bits를 N 이하로 낮춘 "guard 제거" certificate에서 틀린 VALID는 0건이다.
+- **교차검증: 14,102건에서 V2 = 실행기 = V1, 불일치 0**(83초). 첫 요약의 "V1과 불일치 100건"은 near-tie 위·아래가 같은 대조 키로 겹친 드라이버 결함이었다. 키를 고친 뒤 0건이며, 잘못된 요약은 invalid-measurement로 보존했다.
+- 성능(같은 입력): N=256/512/1024/2048에서 V1 2.5/14.5/106/871초 → V2 0.06/0.11/0.33/1.09초(40〜800배). enclosure 폭은 V1과 같다. V2 가수는 P+2비트로 묶인다(V1은 최대 1,060만 비트). V2는 4096/8192/16384에서 5.1/23.6/127초다.
+- **2^-17000 합성 STOP:** 실행기는 cap 16384에서 `ReferenceUndecided`(13초). **V2는 N=17408에서 위·아래 모두 VALID(142/147초), raw = mpmath 5,700자리 기대값**, 틀린 raw는 전부 INVALID. 기본 한도로는 합성 `dt_kick`(약 5,300자리)이 `digits_max`에 걸려 REFUSED다(실제 runtime 입력에는 없는 합성법의 문제).
+- 미증명: V2 건전성은 논증과 시험 기반(형식 증명 없음), 식 전사는 시험 기반, V2 신뢰 승인은 설계자 판정 대기, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, prover·wrapper·Proof Cache 미연결.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(checker V2, 탐색기, 드라이버, 시험)과 문서, 그리고 survey 보조 모듈 1개에 기본값 동일한 선택 매개변수만 추가했다. 실행기·물리·동결 계약·fixture·V1 변경 0. **V2 95 + V1 185 = 280 passed**. 기준선 숫자는 갱신하지 않는다.
+- 증거: `runs/c1b1_exact_impulse_crosscheck_v2_20260929/`, `runs/c1b1_exact_impulse_checker_v2_20260929/{perf_v1v2,v2_scaling,v1_scaling_17000_input,deep_ladder,stop17000}.txt`.
+다음 판단(설계자): V2 신뢰 승인 여부 → point prover V0(P-1〜P-4, V2 기반) → runtime wrapper·Proof Cache.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

@@ -190,18 +190,20 @@ def reference_J_unit(dr, k, dps=160):
         return -reference_dv(R2, dps) * (mp.mpf(dr[k]) / 2 ** 48) / R
 
 
-def near_tie_item(dr, k, e_bits, sign, dps=200):
+def near_tie_item(dr, k, e_bits, sign, dps=200, dt_bits=400):
     """An input whose exact impulse is 2^-e_bits ulps above (sign>0) / below (sign<0) a half-ulp boundary.
 
-    dt_kick is chosen (a rational with 400 bits) so that J = boundary + sign * 2^-e_bits ulp. The expected raw is
-    m+1 (above) or m (below), m the cell below the boundary. Returns (family, dr, dt_kick, expected_raw)."""
+    dt_kick is chosen (a rational with dt_bits fractional bits) so that J = boundary + sign * 2^-e_bits ulp. The
+    quantization of dt shifts J by about 2^(70 - dt_bits) ulp, so dt_bits must exceed e_bits by a margin (default 400:
+    good for e_bits up to about 300). The expected raw is m+1 (above) or m (below), m the cell below the boundary.
+    Returns (family, dr, dt_kick, expected_raw)."""
     with mp.workdps(dps):
         Ju = reference_J_unit(dr, k, dps)
         ulp = mp.mpf(2) ** -80
         m = int(mp.floor(Ju * 20 / ulp))
         target = (m + mp.mpf(1) / 2) * ulp + sign * ulp * mp.mpf(2) ** -e_bits
         dt = target / Ju
-        dt_q = Fraction(int(mp.floor(dt * mp.mpf(2) ** 400)), 1 << 400)
+        dt_q = Fraction(int(mp.floor(dt * mp.mpf(2) ** dt_bits)), 1 << dt_bits)
     return f"near_tie_2^-{e_bits}", tuple(dr), dt_q, m + 1 if sign > 0 else m
 
 
