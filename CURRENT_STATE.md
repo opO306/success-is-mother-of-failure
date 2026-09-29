@@ -484,6 +484,8 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: wrapper(survey_only 계층)·시험·문서만 변경, 실행기·평가기·checker V1/V2·prover·동결 계약 변경 0. **418 passed + 1 xfailed**(기존 strict xfail), 245.59초. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_profile_identity_20260930/`.
 다음 판단(설계자): profile identity 보강 재판정 → Proof Cache 설계(certificate bytes 불변 저장, 매 사용 재검증, prover 탐색만 생략).
 
+**작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
+
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
