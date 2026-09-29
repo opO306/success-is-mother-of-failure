@@ -544,6 +544,15 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - **완결성 정리는 초안이며 독립 감사 전이다. ④-Liveness NotCertified**, A-EV 미해결, ④-Safety Conditional. Exact Aggregate·작은 완전세계는 대기.
 다음 판단(설계자): D3 lemma 개정 1 + prover V0.2의 독립 감사(GPT-5.6 Sol High, 인계 자료 `docs/active/C1B1_D3_AUDIT_HANDOFF_V0.md`).
 
+**D3 독립 감사 1회차: 불통과(GPT-5.6 Sol High, 대상 `5f1a4c7`, 2026-09-30).** F2·F3·exp 폭 수렴·`_dv` 수렴·enclosure↔checker 동일 J·UNREPRESENTABLE/runtime은 성립, H-B fallback 부등식은 성립. **막는 구멍 1개:** 부동소수 힌트가 실제로는 필수 경로였다(`_certified_plan`이 fallback 전에 `_exp_plan`을 무조건 호출, 큰 P에서 `bits * LN2`가 `OverflowError`). **문구 1개:** "budget·Limits 무한"은 코드 계약이 아니다. 부수: fallback "O(1)"은 부정확. Git 정정: 이전 보고의 "`5f1a4c7`은 로컬에만 있고 push 안 함"은 틀렸다 — remote-tracking reflog에 `5f1a4c7` push 07:29:34, `449ee9b` push 08:02:47이 있다(누가 실행했는지는 기록에 없음).
+
+**감사 반영(2026-09-30):** ([D3 lemma 개정 2](docs/active/C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md), [prover 설계 12절](docs/active/C1B1_POINT_PROVER_DESIGN_V0.md))
+- `_hint_plan`: P > `HINT_WORK_BITS_MAX` = 2^16이면 부동소수 planner를 **호출하지 않고** 전부 fallback. 그 아래에서 planner의 `ArithmeticError`·`ValueError`도 "힌트 없음" → fallback. 상한은 힌트/fallback 선택만 바꾸고 판정·거부는 바꾸지 않는다(속도만). 함께 발견: 수정 전 planner의 `ValueError`는 `EXHAUSTED(serialization_limit)`로 잘못 분류됐고 `OverflowError`는 `prove()` 밖으로 나갔다(`5f1a4c7` 소스에 주입해 확인).
+- lemma 개정 2: 정리를 "입력마다 충분히 큰 **유한** Budget·Limits가 존재"로 바꾸고 증명 0단계(한도 고르기), planner·추정의 종료 논증(4절 0, 4절 끝)을 추가. 지원 입력 전체의 공통 유한 한도는 주장하지 않는다. fallback은 "Taylor 차수 n에 비례하는 반복 없는 상수 개수 정확 비교"로 표현 정정.
+- 검증: prover 시험 48 → 54(상한 위 planner 호출 0회, 상한 안 planner 실패 3종 → FOUND, 변이체 2종), 관련 묶음 247 passed, **LOCAL FULL 3333 passed + 1 xfailed, skip 0, 실패·error 0, exit 0, 608.92초**(junit tests 3334 / skipped 1 = strict xfail). 증거: `runs/c1b1_prover_v02_hint_bound_20260930/`. AGENTS.md 기준선 숫자(3289)는 설계자 판정 없이 갱신하지 않았다.
+- **D3 lemma = 개정 2, 재감사 대기(승인 아님). ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결.** H-B fallback 수학은 감사 통과, H-B 전체 liveness는 재감사 전 미완료.
+다음 판단(설계자): D3 개정 2 재감사(`5f1a4c7` 이후 diff만, lemma 6절 8).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.

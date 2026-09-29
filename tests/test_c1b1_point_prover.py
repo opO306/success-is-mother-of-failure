@@ -394,7 +394,7 @@ def test_every_certified_order_really_satisfies_the_exact_condition(R, d):
 
 
 def test_the_fallback_order_is_linear_in_p_and_x_and_certifies_in_constant_time():
-    """n_fb = max(ceil(2e x_hi), P + 32) + 1 is O(P + x) (the lemma needs n 2^-P -> 0) and passes the O(1) closed-form
+    """n_fb = max(ceil(2e x_hi), P + 32) + 1 is O(P + x) (the lemma needs n 2^-P -> 0) and passes the closed-form
     certificate, even for astronomically large P (no rounding chain, no CERT_BITS)."""
     import time
     for x in (Fraction_(1, 3), Fraction_(25), Fraction_(700), Fraction_(12345, 7), Fraction_(10 ** 9, 7)):
@@ -409,7 +409,7 @@ def test_the_fallback_order_is_linear_in_p_and_x_and_certifies_in_constant_time(
 
 @pytest.mark.parametrize("x,Pb", ((Fraction_(1, 3), 128), (Fraction_(25), 224), (Fraction_(700), 160), (Fraction_(12345, 7), 128)))
 def test_the_fallback_closed_form_really_bounds_the_relative_tail(x, Pb):
-    """The O(1) certificate's claim, U_n(x) < 2^-(P+32) S_n(x) at n = n_fb, evaluated independently in mpmath."""
+    """The closed-form certificate's claim, U_n(x) < 2^-(P+32) S_n(x) at n = n_fb, evaluated independently in mpmath."""
     n = P._fallback_order(x, Pb)
     assert _true_relative_tail_bits(n, x, Pb + 200) <= -(Pb + P.FULL_SLACK)
 
@@ -445,6 +445,73 @@ def test_an_order_above_the_checker_limit_ends_before_any_heavy_work(monkeypatch
     r = P.prove(XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT, limits=K2.Limits(order_max=10))
     assert (r.status, r.reason) == (P.EXHAUSTED, "checker_refused:order_limit") and count.calls == 0
     assert time.perf_counter() - t < 5
+
+
+def _recording_planner(calls, exc=None):
+    real = P._exp_plan
+
+    def plan(R, N, Pbits):
+        calls.append(Pbits)
+        if exc is not None:
+            raise exc("float planner failure (injected)")
+        return real(R, N, Pbits)
+    return plan
+
+
+def test_above_the_hint_bound_the_float_planner_is_never_called_and_every_order_is_the_fallback(monkeypatch):
+    """D3 audit 2026-09-30: _certified_plan used to run the float planner before the fallback, and P * ln 2 as a float
+    overflows for huge P, so the completeness path still depended on floats. Above HINT_WORK_BITS_MAX the planner is
+    now not called at all; the orders are the closed-form fallback."""
+    dr = XC._dr(7.11, (0.7, 0.7, 0.1))
+    with pytest.raises(OverflowError):
+        P._exp_plan(7.11, 128, 10 ** 400)                                   # the hole the bound avoids
+    calls = []
+    monkeypatch.setattr(P, "_exp_plan", _recording_planner(calls, AssertionError))
+    assert P._hint_plan(dr, 10 ** 400, 10 ** 400) is None
+    assert P._hint_plan(dr, 128, P.HINT_WORK_BITS_MAX + 1) is None
+    Pb = P.HINT_WORK_BITS_MAX + 64
+    info = {}
+    plan = P._certified_plan(dr, Pb - 96, Pb, info)
+    assert calls == [] and info == {"orders_hinted": 0, "orders_fallback": len(K2.rates())}
+    assert plan == [("full", P._fallback_order(x.hi, Pb)) for x in P._exact_x(dr, Pb - 96, Pb)]
+
+
+@pytest.mark.parametrize("exc", (OverflowError, ValueError, ZeroDivisionError), ids=lambda e: e.__name__)
+def test_a_float_planner_that_fails_inside_the_bound_gives_the_fallback_and_the_run_still_ends_in_found(monkeypatch,
+                                                                                                        exc):
+    """A planner failure is 'no hint', not a crash and not EXHAUSTED(serialization_limit) (prove() maps ValueError
+    there, so a planner ValueError used to end the run)."""
+    calls = []
+    monkeypatch.setattr(P, "_exp_plan", _recording_planner(calls, exc))
+    dr = XC._dr(7.11, (0.7, 0.7, 0.1))
+    r = P.prove(dr, 0, DT)
+    assert r.status == P.FOUND and r.raw == _exe(dr)[0] and P.verify_found(r), r
+    assert calls and r.attempts[-1]["orders_hinted"] == 0 and r.attempts[-1]["orders_fallback"] == len(K2.rates())
+
+
+HINT_BOUND = "    if P > HINT_WORK_BITS_MAX:\n        return None\n"
+HINT_EXCEPT = "    except (ArithmeticError, ValueError):\n"
+
+
+def test_fault_injection_a_removed_hint_bound_is_caught():
+    """Mutant: no bound. The float planner is then called at a huge P (here it overflows and is swallowed, but the
+    completeness path is again running float code first)."""
+    for src_mod, expect in ((P, []), (_mutant((HINT_BOUND, "")), [10 ** 400])):
+        calls = []
+        src_mod_real, src_mod._exp_plan = src_mod._exp_plan, _recording_planner(calls)
+        try:
+            assert src_mod._hint_plan(XC._dr(7.11, (0.7, 0.7, 0.1)), 10 ** 400, 10 ** 400) is None
+        finally:
+            src_mod._exp_plan = src_mod_real
+        assert calls == expect
+
+
+def test_fault_injection_a_planner_failure_that_escapes_is_caught():
+    """Mutant: the planner's exceptions are not caught. The same injected failure as above then ends prove()."""
+    mod = _mutant((HINT_EXCEPT, "    except ():\n"))
+    mod._exp_plan = _recording_planner([], OverflowError)
+    with pytest.raises(OverflowError):
+        _run_mutant(mod, XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT)
 
 
 def test_fault_injection_a_certifier_that_accepts_every_hint_is_caught():

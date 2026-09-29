@@ -37,7 +37,10 @@ estimate never ends a run (hole H2). The final verdict is still one check_certif
 
 V0.2 (designer verdicts H-B and its revision, 2026-09-30). The exp ORDERS are also only hinted by floats.
 _certified_plan computes the exact x intervals exactly as checker V2 will (same sqrt interval, same outward products).
-  hint path (FAST, optional)  a float order is used only if it passes an exact check:
+  hint path (FAST, optional)  the float planner runs only when P <= HINT_WORK_BITS_MAX (2^16, checker V2's default
+      work_bits_max); above it, or if it fails in any way, there is no hint and every order takes the fallback. The
+      bound chooses hint vs fallback only, never a verdict or a refusal. A float order is used only if it passes an exact
+      check:
       full       n + 2 > x_hi and U_n(x_hi) = t_(n+1)(x_hi) (n+2)/(n+2-x_hi) <= 2^-(P+FULL_SLACK) S_n(x_hi) (a RELATIVE
                  tail), both sides bounded by one-sided rounded chains kept as (mantissa, exponent) integer pairs of
                  CERT_BITS bits (t upward, S_n downward), so every step costs O(CERT_BITS) whatever n is;
@@ -45,7 +48,8 @@ _certified_plan computes the exact x intervals exactly as checker V2 will (same 
                  by upward-rounded repeated squaring.
       A hint that fails, exceeds n_fb, or exceeds the checker's order limit is simply not used.
   fallback (the COMPLETENESS path)  full with n_fb = max(ceil(2 E_UP x_hi), P + FULL_SLACK) + 1, certified by two exact
-      rational comparisons, O(1) work, no rounding chain, no dependence on CERT_BITS:
+      rational comparisons: a constant number of exact comparisons with no loop over the Taylor order n, no rounding
+      chain, no dependence on CERT_BITS (each comparison still costs time in the bit length of its integers):
           n + 1 >= 2 E_UP x_hi   and   n >= P + FULL_SLACK + 1.
       Then e x_hi/(n+1) <= 1/2, so t_(n+1) <= (e x_hi/(n+1))^(n+1) <= 2^-(n+1)  [(n+1)! >= ((n+1)/e)^(n+1)], and
       (n+2)/(n+2-x_hi) <= 1/(1 - 1/(2e)) < 1.23, so U_n(x_hi) < 2^-n <= 2^-(P+FULL_SLACK+1) < 2^-(P+FULL_SLACK) S_n
@@ -338,18 +342,37 @@ def _fallback_order(x_hi, P):
 
 
 def _fallback_ok(n, x_hi, P):
-    """The COMPLETENESS path's certificate: two exact rational comparisons, O(1), no rounding chain (module docstring):
+    """The COMPLETENESS path's certificate: two exact rational comparisons, no loop over n, no rounding chain (module docstring):
     n + 1 >= 2 E_UP x_hi and n >= P + FULL_SLACK + 1 imply n + 2 > x_hi and U_n(x_hi) < 2^-(P + FULL_SLACK) S_n(x_hi)."""
     return n + 1 >= 2 * E_UP * x_hi and n >= P + FULL_SLACK + 1
 
 
+HINT_WORK_BITS_MAX = 1 << 16                                        # the float planner runs only up to here
+
+
+def _hint_plan(dr, N, P):
+    """The float order hints, or None: then every order takes the fallback. Above HINT_WORK_BITS_MAX the float planner
+    is not called at all (P * ln 2 as a float overflows for huge P: D3 audit 2026-09-30), and any arithmetic failure
+    of the planner below it also gives None. The bound decides only hint vs fallback, never a verdict or a refusal
+    (checker V2's default work_bits_max is the same 2^16)."""
+    if P > HINT_WORK_BITS_MAX:
+        return None
+    try:
+        R = math.sqrt(sum(float(v) * float(v) for v in dr)) / 2.0 ** K2.POSITION_FRAC_BITS
+        return _exp_plan(R, N, P)
+    except (ArithmeticError, ValueError):
+        return None
+
+
 def _certified_plan(dr, N, P, info=None, limits=None):
-    """The exp plan with every order certified exactly (H-B). The float plan is only a hint."""
+    """The exp plan with every order certified exactly (H-B). The float plan is only an optional hint."""
     order_max = (limits or K2.Limits()).order_max
-    R = math.sqrt(sum(float(v) * float(v) for v in dr)) / 2.0 ** K2.POSITION_FRAC_BITS
-    hint = _exp_plan(R, N, P)
+    xs = _exact_x(dr, N, P)
+    hint = _hint_plan(dr, N, P)
+    if hint is None or len(hint) != len(xs):
+        hint = [(None, None)] * len(xs)
     out, hinted, fallback = [], 0, 0
-    for (mode, n), x in zip(hint, _exact_x(dr, N, P)):
+    for (mode, n), x in zip(hint, xs):
         n_fb = _fallback_order(x.hi, P)
         ok = (type(n) is int and n <= n_fb and n <= order_max
               and (_full_ok(n, x.hi, P) if mode == "full" else mode == "zero_floor" and _zero_ok(n, x.lo, P)))

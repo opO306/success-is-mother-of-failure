@@ -199,9 +199,17 @@ runtime wrapper, Proof Cache, certificate 바이트 크기 상한(wrapper 과제
 
 - **UNREPRESENTABLE(새 상태):** 신뢰 enclosure가 참값이 FX(96,80) 밖 칸에 있음을 보이면 이 상태를 낸다(`output_out_of_range`). EXHAUSTED(한도를 올리면 풀릴 수 있음)도 NOT_A_DECISION(반올림 질문이 없음)도 아니다. 합성 입력·임의 dt_kick에서는 정상 결과다. C1-B1 profile(dt = 40)에서는 D4 상한(\|J\| ≤ 1277.3 a.u.)으로 불가능하므로 wrapper가 `RuntimeContractViolation`을 낸다(run 불변, TERMINAL 아님).
 - **H-B:** 부동소수 `_exp_plan`의 차수는 힌트다. `_certified_plan`은 checker와 **같은** 정확 x 구간(`_exact_x`)에서 각 차수를 인증한다.
-  - 힌트 경로(빠른 길, 선택): `full`은 상대 꼬리 U_n ≤ 2^−(P+32)·S_n을 한쪽 반올림 사슬로 검사하고, `zero_floor`는 1/S_n ≤ 2^−(P+72)를 Robbins 상한과 올림 제곱 반복으로 검사한다. 사슬 값은 (가수 64비트, 정수 지수) 쌍이라 단계마다 비용이 일정하다. 힌트는 n ≤ n_fb, n ≤ order_max일 때만 쓴다.
-  - **fallback(완결성 경로):** n_fb = max(⌈2·E_UP·x_hi⌉, P + 32) + 1. **O(1) 정확 비교 두 개**(n+1 ≥ 2·E_UP·x_hi, n ≥ P+33)로 인증한다. 반복이 없고 CERT_BITS와 무관하다(설계자 수정 지시). 두 비교가 (C1)을 함의하는 증명은 [D3 lemma](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) 4절에 있다.
+  - 힌트 경로(빠른 길, 선택): 부동소수 planner는 P ≤ `HINT_WORK_BITS_MAX` = 2^16(checker V2 기본 `work_bits_max`)일 때만 `_hint_plan`이 부르고, 그 위에서는 **부르지 않는다**. 그 아래에서 planner의 산술 예외는 "힌트 없음"이다. 둘 다 전부 fallback이다(12절). `full`은 상대 꼬리 U_n ≤ 2^−(P+32)·S_n을 한쪽 반올림 사슬로 검사하고, `zero_floor`는 1/S_n ≤ 2^−(P+72)를 Robbins 상한과 올림 제곱 반복으로 검사한다. 사슬 값은 (가수 64비트, 정수 지수) 쌍이라 단계마다 비용이 일정하다. 힌트는 n ≤ n_fb, n ≤ order_max일 때만 쓴다.
+  - **fallback(완결성 경로):** n_fb = max(⌈2·E_UP·x_hi⌉, P + 32) + 1. **정확 비교 두 개**(n+1 ≥ 2·E_UP·x_hi, n ≥ P+33)로 인증한다. Taylor 차수 n에 비례하는 반복이 없고(비교 자체의 비용은 정수 비트 길이에 따라 는다. 개정 전 문서의 "O(1)"은 이 뜻), CERT_BITS와 무관하다(설계자 수정 지시). 두 비교가 (C1)을 함의하는 증명은 [D3 lemma](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) 4절에 있다.
   - **order limit 사전 검사:** 고른 차수가 `order_max`를 넘으면 checker와 같은 규칙으로 무거운 계산 전에 `EXHAUSTED(checker_refused:order_limit)`를 낸다.
 - **WIP(`99077a4`)에서 고친 것:** (1) fallback을 64비트 O(n) 사슬로 인증하던 것을 O(1) 닫힌 부등식으로 바꿨다. P가 매우 커지면 고정 비트 인증기의 누적 반올림이 fallback 인증을 실패시켜 ANOMALY로 이어질 수 있었다(설계자 지적). (2) 사슬을 `Fraction`으로 들고 있으면 지수가 k·log k 비트짜리 분모가 되어 거대 차수 인증이 멈췄다(WIP 시험 hang의 원인). 정수 (가수, 지수) 쌍으로 바꿔 차수 200,000 사슬이 0.19초가 됐다. (3) 첫 인증기는 절대 꼬리를 요구해 x가 큰 힌트를 거의 다 떨어뜨렸다. 수렴에 필요한 상대 꼬리로 바꿨다.
 - **결과:** 표본 8건(R 2.4〜9000, near-tie 2^−300·2^−4000)에서 힌트 9/9 인증, 속도 유지(2^−4000은 5.2초). prover 시험 29 → 48(힌트 교체 4종, 독립 mpmath 대조, fallback O(1)·선형·실제 꼬리 대조, dyadic 한쪽 반올림, order 사전 검사, 변이체 4종: 인증 생략, fallback 축소, 사전 검사 제거, checker 거부 무시(size_limit로 이동)). wrapper 시험 42 → 45(UNREPRESENTABLE: dt = 40에서 계약 위반·run 불변·hook 복원, 다른 dt에서는 UNPROVED, CANONICAL_DT = domain contract dt).
 - LOCAL FULL: **3327 passed + 1 xfailed, skip 0, 실패 0, exit 0, 575.86초**.
+
+## 12. D3 감사 불통과 반영 — 힌트를 진짜 선택으로 (2026-09-30)
+
+- **감사 지적(GPT-5.6 Sol High, 대상 `5f1a4c7`):** `_certified_plan`이 fallback 전에 `_exp_plan`을 무조건 불렀다. planner 안의 `bits * LN2`는 P가 아주 크면 `OverflowError`를 낸다. 즉 CERT_BITS 의존은 없앴지만 정성 완결성의 부동소수 의존은 남아 있었다. H-B의 의도(부동소수가 실패해도 정확성·활성 경로가 존재)와 코드가 어긋났다.
+- **수정:** `_hint_plan(dr, N, P)`. P > `HINT_WORK_BITS_MAX`(2^16)이면 부동소수 코드를 부르지 않고 None, 그 아래에서는 `_exp_plan`의 `ArithmeticError`·`ValueError`를 None으로 바꾼다. None(또는 길이가 비율 수와 다른 힌트)이면 모든 비율이 fallback이다. 정확한 x는 힌트보다 먼저 계산한다. 상한은 힌트냐 fallback이냐만 정하고 판정·거부를 바꾸지 않는다(상한 위에서는 차수가 커질 수 있어 속도만 바뀐다).
+- **함께 발견한 것:** 수정 전에는 planner의 `ValueError`가 `prove()`의 `except ValueError`에 잡혀 `EXHAUSTED(serialization_limit)`로 잘못 분류됐고, `OverflowError`는 `prove()` 밖으로 튀어 나갔다(`5f1a4c7` 소스에 같은 주입을 해서 확인).
+- **시험 48 → 54:** 상한 위에서 planner 호출 0회·전부 fallback(10^400비트 영역 포함, `_exp_plan` 자체의 `OverflowError` 재현), 상한 안의 planner 실패 3종(`OverflowError`·`ValueError`·`ZeroDivisionError`) → 전부 fallback으로 FOUND, 변이체 2종(상한 제거 → 거대 P에서 planner 호출, 예외 처리 제거 → `prove()`가 예외로 끝남).
+- 상한 값 2^16은 운영 기본값(checker V2 `work_bits_max`)을 따른 구현 선택이다. 더 큰 `work_bits_max`로 돌릴 때 힌트를 계속 쓰고 싶으면 올릴 수 있다(판정은 변하지 않음, planner가 끝난다는 논증은 D3 lemma 4절 0).

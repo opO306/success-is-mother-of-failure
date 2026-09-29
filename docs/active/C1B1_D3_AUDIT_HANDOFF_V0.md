@@ -8,7 +8,7 @@
 [C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md)(개정 1)의 두 명제.
 
 - **Lemma B-V2 (3절):** 입력 하나를 고정하고 prover V0.2의 정밀도 순서를 따라가면 checker V2 enclosure J_j의 폭 → 0.
-- **조립 정리 (5절, 초안):** 지원 입력(R ≥ r_min, dr_k ≠ 0, dt_kick ≠ 0, FX(96,48) 상대 위치, 참 raw가 FX(96,80) 범위 안)에서 budget·Limits가 무한이면 `prove()`는 유한 단계에서 checker V2 VALID(참 raw)를 반환한다.
+- **조립 정리 (5절, 초안):** 지원 입력(R ≥ r_min, dr_k ≠ 0, dt_kick ≠ 0, FX(96,48) 상대 위치, 참 raw가 FX(96,80) 범위 안)에서 budget·Limits가 무한이면 `prove()`는 유한 단계에서 checker V2 VALID(참 raw)를 반환한다. **[2026-09-30 감사 불통과 뒤 개정 2: "입력마다 충분히 큰 유한 budget·Limits가 존재"로 바뀜, 부동소수 힌트는 P ≤ 2^16에서만 호출. lemma 문서 개정 2와 6절 8을 본다.]**
 
 전제로 쓰는 승인된 사실: Lemma A(참값은 half-ulp 경계가 아님, 승인), D4(dt = 40에서 |J| ≤ 1277.3 a.u., 승인. `a_reference/c1b1_impulse_magnitude_bound.py`).
 
