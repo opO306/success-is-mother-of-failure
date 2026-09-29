@@ -224,7 +224,8 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 2a. ~~Lemma A·B 감사~~ — [감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md). A 승인, B 표현 정정 뒤 방향 승인. accepted design basis, not frozen certificate.
 2b. ~~certificate 형식 + 독립 checker 사양 고정~~ — [사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md). S1〜S4 승인(2026-09-29 5차).
 2c. ~~독립 checker + fault-injection 시험 구현~~ — **구현 완료(사양 8절).** 시험 185개(초대형 정수 문자열 T10·파서 작업량 T11 포함), 교차검증 14,102건 불일치 0, 식 결함 주입 40종 전부 잡힘. survey_only·독립 물리 증명 아님. **설계자 판정 대기.**
-2d. checker 신뢰 판정 뒤 point prover generator(세 번째 단계). 기존: checker → cross-check → 결함 주입 → lowered-cap rehearsal → 운영 한도까지 완료했다.
+2d. **checker 신뢰 승인(설계자 판정 2026-09-29, 7차, `e9b30eb`).** parser 보강은 종료. 거대 입력 문자열은 wrapper의 certificate 바이트 크기 상한으로 막는다.
+2e. **point prover generator 설계**([설계 V0](C1B1_POINT_PROVER_DESIGN_V0.md)) → 승인 뒤 구현. 원칙: prover는 비신뢰 생성기, 최종 권한은 checker 하나, 실행기 cap을 늘리는 프로그램이 아님, 싸게 시작해 올림, REFUSED와 "아직 못 찾음"을 구분, 첫 검증은 cap 128 rehearsal과 near-tie 합성 사례.
 기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 유지한다.
 3. **point prover**(2d와 같음): 사양 V1의 certificate를 찾는 생성기. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
 4. 정말 필요하면 네 상태를 코드 상수·결과 기록으로 표현하는 **얇은 runtime wrapper**(실행기 무변경, prototype 대체).

@@ -1,6 +1,6 @@
 # C1-B1 exact impulse certificate · 독립 checker 사양 V1
 
-**상태:** **S1〜S4 전부 승인(설계자 판정 2026-09-29, 5차). 독립 checker와 시험 T1〜T9 구현 완료(8절).** point prover generator·wrapper·Proof Cache는 미구현.
+**상태:** **S1〜S4 전부 승인(설계자 판정 2026-09-29, 5차). 독립 checker와 시험 T1〜T11 구현 완료(8절). checker 신뢰 승인(설계자 판정 2026-09-29, 7차, `e9b30eb`): T1〜T11과 독립 교차검증 근거 수용, parser robustness 보강은 현 단계에서 종료.** 남은 거대 문자열 O(N) 읽기는 checker가 아니라 runtime wrapper의 certificate 전체 바이트 크기 상한으로 막는다(wrapper 단계 과제). point prover generator·wrapper·Proof Cache는 미구현. A-EV 미해결, ④-Safety Conditional, ④ 전체 Certified/Frozen 아님.
 **원칙(설계자 판정 문장):** *Operational limits affect availability, never truth.* 운영 한도는 "검증할 수 있었는가"만 바꾸며 "참인가 거짓인가"는 바꾸지 않는다. 한도 초과는 REFUSED이지 INVALID가 아니다.
 **근거:** [Lemma A·B 감사](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md)(accepted design basis, not frozen certificate), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 1·4·7절, P1a/P1b 판정.
 **현재 상태(변경 없음):** ④-Liveness NotCertified, ④-Safety Conditional(A-EV), 14/64·gap 81, ④ 미동결, ⑤ 미착수. 기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 쓴다.

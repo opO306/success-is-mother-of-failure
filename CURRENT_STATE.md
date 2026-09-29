@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker 구현·교차검증 완료(판정 대기)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker 신뢰 승인, point prover generator 설계 단계** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -419,6 +419,13 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 수정: 모양을 먼저 본다(`dr_raw` 3개, `exp` 9개, 키 개수). 틀린 크기의 리스트·딕셔너리는 원소를 보지 않고 즉시 INVALID. 100만 원소에서 순회 0회.
 - 문구 정정: 사양의 "어떤 Python 예외도 checker 밖으로 나가지 않는다"를 "시험한 적대적 입력에서 `int()` 변환 예외를 포함해 유출하지 않는다, 모든 예외에 대한 형식적 보장은 아님"으로 좁혔다. 광역 `except Exception`은 넣지 않았다(버그가 REFUSED로 숨는 것을 막기 위해. AST 시험으로 고정).
 - 시험: T11 23개 추가. checker 시험 전체 185개. 사양 8.6절. 설계 변경·point prover·A-EV·④-Safety 상태는 그대로다.
+
+**설계자 판정(2026-09-29, 7차): independent exact impulse checker 신뢰 승인(`e9b30eb`, 원격 master HEAD 확인됨).**
+- T1〜T11과 독립 교차검증 근거를 수용한다. parser robustness 보강은 현 단계에서 종료한다. 거대 문자열 O(N) 읽기는 나중에 runtime wrapper의 certificate 전체 바이트 크기 상한으로 막는다.
+- A-EV 미해결, ④-Safety Conditional, ④ 전체 Certified/Frozen 아님(변경 없음).
+- 다음: point prover generator 설계 및 구현. 원칙: 비신뢰 생성기(무엇을 써서 후보를 찾아도 됨), 최종 권한은 `check_certificate == VALID(raw)` 하나, 실행기 16384 cap을 늘리는 프로그램 금지(별도 correctness path), 싸게 시작해 올림, REFUSED와 "아직 못 찾음" 구분(Lemma A+B는 운영 한도 안의 발견을 보장하지 않음), 첫 검증은 cap 128 rehearsal과 near-tie 합성, 그 뒤 wrapper·Proof Cache.
+- 설계 V0: [point prover 설계](docs/active/C1B1_POINT_PROVER_DESIGN_V0.md). 설계자 판정 대기(P-1〜P-5).
+- **먼저 공개할 측정(scratchpad):** 합성 입력(경계에서 2^-17000 ulp)에서 실행기는 cap 16384로 `ReferenceUndecided`를 냈다(13초). 그러나 현재 checker V1(반올림 없는 정확 유리수)의 비용은 √ 비트 N에 대해 거의 N³이다(N=256/512/1024/2048에서 2.6/14.6/104.8/871초). 그래서 **실제 16384 STOP의 certificate는 며칠〜몇 주 걸려 현실적으로 불가능하다.** 정성 Liveness는 수학적으로 맞지만 지금은 운영상 쓸 수 없다. 해법 후보는 checker V2(구간 끝점의 바깥쪽 dyadic 반올림, 사양 변경, P-5)다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
