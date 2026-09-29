@@ -1,4 +1,7 @@
-"""Point prover V0: an UNTRUSTED generator. The only success is checker V2 VALID(raw).
+"""Point prover V0.1: an UNTRUSTED generator. The only success is checker V2 VALID(raw).
+
+V0.1 (designer verdicts D1, D2, 2026-09-30): the mpmath estimate only HINTS; checker V2's own enclosure decides the raw.
+A wrong hint is recovered (not an ANOMALY), a failed or out-of-range estimate ends nothing.
 
 Tests: FOUND agrees with the unchanged executor and always re-verifies; cap-128 rehearsal on real trajectories; near-tie
 ladder (the prover finds the raw and the parameters itself, from 2^-10 to 2^-4000 on both sides); the four results and their
@@ -165,10 +168,12 @@ def test_not_a_decision_cases():
     assert P.prove(dr, 0, Q(0)).reason == "zero_kick"
     assert P.prove([1 << 48, 0, 0], 0, DT).reason == "below_r_min"
     assert P.prove([1 << 96, 5, 5], 0, DT).reason == "outside_position_profile"
-    # an estimate outside the output range is NOT a decision about the input: it is EXHAUSTED (no certificate says
-    # "overflow"; a real output overflow is the executor's terminal refusal and never reaches the prover)
+    # an estimate outside the output range decides nothing (D2): the trusted enclosure is consulted, and only when IT lies
+    # strictly inside a cell outside FX(96,80) does the run end, as output_out_of_range (never NOT_A_DECISION)
     over = P.prove(dr, 0, Q(10 ** 40))
-    assert (over.status, over.reason) == (P.EXHAUSTED, "estimate_out_of_output_range") and over.raw is None
+    assert (over.status, over.reason) == (P.EXHAUSTED, "output_out_of_range") and over.raw is None
+    assert over.estimate["estimate_failed"] == "estimate_out_of_output_range"
+    assert over.attempts[-1]["verdict"] == "ENCLOSURE" and over.certificate is None
     assert P.NOT_A_DECISION not in {P.prove(dr, 0, Q(10 ** e)).status for e in (35, 40, 60)}
     for r in (P.prove([0, dr[1], dr[2]], 0, DT), P.prove(dr, 0, Q(0))):
         assert r.status == P.NOT_A_DECISION and r.raw is None and r.certificate is None
@@ -238,17 +243,47 @@ def test_a_too_small_first_guess_grows_and_still_ends_in_found():
     assert [a["sqrt_bits"] for a in r.attempts] == sorted(a["sqrt_bits"] for a in r.attempts)
 
 
-# --- ANOMALY: stop, record, never retry into FOUND ----------------------------------------------------------------
+# --- D1 / D2: the estimate hints, the trusted enclosure decides ----------------------------------------------------
 
 @pytest.mark.parametrize("delta", (1, -1, 5))
-def test_a_wrong_raw_guess_is_an_anomaly_after_exactly_one_checker_call(monkeypatch, delta):
+def test_a_wrong_raw_hint_is_recovered_by_the_enclosure_and_ends_in_found(monkeypatch, delta):
+    """D1 (audit hole H1): a wrong hint used to end as ANOMALY forever. Now the checker's raw_mismatch drops the hint,
+    checker V2's own enclosure at the same N decides the raw, and one more checker call returns VALID with the true raw."""
     dr = XC._dr(5.0, (0.55, 0.7, 0.3))
     monkeypatch.setattr(P, "_estimate", _fake_estimate(delta))
     count = _CountingChecker(monkeypatch)
     r = P.prove(dr, 0, DT)
-    assert (r.status, r.reason) == (P.ANOMALY, "checker_raw_mismatch") and r.raw is None
-    assert count.calls == 1 and count.verdicts == [("INVALID", "raw_mismatch")]
-    assert r.certificate is not None and r.checker.status == "INVALID" and not P.verify_found(r)
+    assert count.verdicts == [("INVALID", "raw_mismatch"), ("VALID", "strictly_separated")]   # before verify_found
+    assert r.status == P.FOUND and r.raw == _exe(dr)[0] and P.verify_found(r)
+    assert [(a["verdict"], a["reason"]) for a in r.attempts] == [("INVALID", "raw_mismatch"), ("ENCLOSURE", "cell"),
+                                                                 ("VALID", "strictly_separated")]
+    assert r.estimate["hint_rejected"] == _exe(dr)[0] + delta
+    assert len({a["sqrt_bits"] for a in r.attempts}) == 1, "the enclosure decides at the same N: no precision is wasted"
+
+
+def test_a_failed_estimate_ends_nothing_the_enclosure_decides_from_n_128():
+    """D2 (audit hole H2): the estimate's own budget runs out, yet the run goes on without a hint."""
+    dr = XC._dr(3.3, (0.5, 0.8, 0.2))
+    _, dr_, dt, expected = XC.near_tie_item(dr, 1, 300, 1, dps=300, dt_bits=700)
+    r = P.prove(dr_, 1, dt, budget=P.Budget(estimate_max_bits=256))
+    assert r.status == P.FOUND and r.raw == expected and P.verify_found(r)
+    assert r.estimate == {"hint": None, "estimate_failed": "estimate_budget"}
+    assert r.attempts[0]["sqrt_bits"] == 128 and r.attempts[0]["verdict"] == "ENCLOSURE"
+    ns = [a["sqrt_bits"] for a in r.attempts]
+    assert ns == sorted(ns) and ns[-1] > 300 and r.attempts[-1]["verdict"] == "VALID"
+    assert all(a["reason"] == "not_separated" for a in r.attempts[:-2])   # it grew N until the enclosure separated
+
+
+def test_the_enclosure_and_the_checker_disagreeing_is_an_anomaly(monkeypatch):
+    """If the raw the enclosure chose is rejected by check_certificate the two paths of the checker disagree: stop."""
+    dr = XC._dr(5.0, (0.55, 0.7, 0.3))
+    real_cell = P._cell
+    monkeypatch.setattr(P, "_cell", lambda J: None if real_cell(J) is None else real_cell(J) + 1)
+    r = P.prove(dr, 0, DT, budget=P.Budget(estimate_max_bits=256))
+    assert (r.status, r.reason) == (P.ANOMALY, "enclosure_checker_disagree:raw_mismatch") and r.raw is None
+
+
+# --- ANOMALY: stop, record, never retry into FOUND ----------------------------------------------------------------
 
 
 def test_an_unexpected_invalid_reason_is_an_anomaly_and_is_not_retried(monkeypatch):
@@ -331,21 +366,66 @@ def test_fault_injection_treating_not_separated_as_success_is_caught_by_verifica
     assert good.found and good.raw == expected and P.verify_found(good)
 
 
+def _bad_plan_for(mod):
+    real = mod._exp_plan
+
+    def bad_plan(R, N, Pbits):
+        plan = real(R, N, Pbits)
+        i = next(i for i, (mode, _) in enumerate(plan) if mode == "full")
+        plan[i] = ("full", 0)                           # violates n + 2 > x_hi: a structural rejection, not a wrong raw
+        return plan
+    return bad_plan
+
+
 def test_fault_injection_retrying_an_anomaly_hides_it(monkeypatch):
-    """Anything but not_separated must stop. A prover that keeps growing N on a raw_mismatch never reports the
-    disagreement between the two implementations."""
+    """A structural rejection (here exp_condition) must stop. A prover that keeps growing N on it never reports the
+    defect. (Since V0.1 a raw_mismatch on a HINT is recovered by design; this is the case that must still stop.)"""
     tail = ('        return ProverResult(ANOMALY, "checker_" + res.reason, certificate=cert, checker=res, attempts=attempts,\n'
             '                            estimate=est, budget=budget)\n')
     mod = _mutant((tail, "        N = _grow(N)\n        continue\n"))
-    dr = XC._dr(5.0, (0.55, 0.7, 0.3))
-    mod._estimate = _fake_estimate(1)
+    dr = XC._dr(2.6, (1, 0, 0))
+    mod._exp_plan = _bad_plan_for(mod)
     count = _CountingChecker(monkeypatch)
     r = _run_mutant(mod, dr, 0, DT, budget=mod.Budget(max_attempts=4))    # few attempts: N grows 3/2 per retry
     assert r.status != "ANOMALY" and count.calls == 4 and not P.verify_found(r)
     honest_count = count.calls
-    monkeypatch.setattr(P, "_estimate", _fake_estimate(1))
+    monkeypatch.setattr(P, "_exp_plan", _bad_plan_for(P))
     r2 = P.prove(dr, 0, DT)
-    assert r2.status == P.ANOMALY and count.calls == honest_count + 1
+    assert (r2.status, r2.reason) == (P.ANOMALY, "checker_exp_condition") and count.calls == honest_count + 1
+
+
+def test_fault_injection_the_v0_rule_a_wrong_hint_is_an_anomaly_is_caught():
+    """Mutant restoring V0: raw_mismatch on a hint ends the run. The D1 test must see it."""
+    mod = _mutant(('        if res.reason == "raw_mismatch" and not decided:                # a wrong HINT: let the enclosure decide (D1)\n'
+                   '            est["hint_rejected"] = m\n            m = None\n            continue\n', ""))
+    mod._estimate = _fake_estimate(1)
+    dr = XC._dr(5.0, (0.55, 0.7, 0.3))
+    r = _run_mutant(mod, dr, 0, DT)
+    assert (r.status, r.reason) == ("ANOMALY", "checker_raw_mismatch"), "the V0 behaviour must be visible to the test"
+
+
+def test_fault_injection_the_v0_rule_a_failed_estimate_ends_the_run_is_caught():
+    """Mutant restoring V0: an estimate failure ends the run as EXHAUSTED. The D2 test must see it."""
+    mod = _mutant(('    except _Stop as s:                                                  # D2: a failed estimate ends nothing\n'
+                   '        est, m, N = {"hint": None, "estimate_failed": s.reason}, None, 128\n',
+                   '    except _Stop as s:\n        return ProverResult(s.status, s.reason, attempts=attempts, budget=budget)\n'))
+    dr = XC._dr(3.3, (0.5, 0.8, 0.2))
+    _, dr_, dt, _ = XC.near_tie_item(dr, 1, 300, 1, dps=300, dt_bits=700)
+    r = _run_mutant(mod, dr_, 1, dt, budget=mod.Budget(estimate_max_bits=256))
+    assert (r.status, r.reason) == ("EXHAUSTED", "estimate_budget"), "the V0 behaviour must be visible to the test"
+
+
+def test_fault_injection_an_enclosure_that_ignores_strictness_is_caught_by_the_checker():
+    """Mutant: the cell is taken as round(J.lo) without the strict containment test. It picks a raw for a J that still
+    straddles a boundary; the checker then does not accept it and the enclosure-checker disagreement stops the run."""
+    mod = _mutant(('    if (2 * m - 1) * ulp / 2 < J.lo and J.hi < (2 * m + 1) * ulp / 2:\n        return m\n    return None\n',
+                   '    return m\n'))
+    dr = XC._dr(3.3, (0.5, 0.8, 0.2))
+    _, dr_, dt, expected = XC.near_tie_item(dr, 1, 300, 1, dps=300, dt_bits=700)
+    bad = _run_mutant(mod, dr_, 1, dt, budget=mod.Budget(estimate_max_bits=256))
+    assert bad.status == "ANOMALY" and bad.reason.startswith("enclosure_checker_disagree")
+    good = P.prove(dr_, 1, dt, budget=P.Budget(estimate_max_bits=256))
+    assert good.found and good.raw == expected
 
 
 def test_fault_injection_ignoring_a_checker_refusal_is_caught():

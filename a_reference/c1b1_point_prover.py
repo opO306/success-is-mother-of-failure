@@ -1,4 +1,4 @@
-"""C1-B1 point prover generator V0: finds certificates for checker V2. UNTRUSTED.
+"""C1-B1 point prover generator V0.1: finds certificates for checker V2. UNTRUSTED.
 
 Design: docs/active/C1B1_POINT_PROVER_DESIGN_V0.md. The prover is a generator, not a judge. It may use anything to guess
 a certificate (mpmath floats, heuristics); only checker V2 decides. **The one and only success is
@@ -15,19 +15,30 @@ RESULTS
   NOT_A_DECISION the executor asks no rounding question here, decided EXACTLY from the input alone: dr_k = 0,
                  dt = 0, R < r_min, position outside the profile. Nothing estimated ever leads here.
   EXHAUSTED      no certificate within the operational limits YET. Either the prover's own budget ran out
-                 (prover_budget:*, estimate_budget) or the checker REFUSED (checker_refused:<limit>) or the
-                 certificate could not be serialized (serialization_limit) or the UNTRUSTED estimate put the value
-                 outside the FX(96,80) output range (estimate_out_of_output_range: no certificate says so, and a real
-                 output overflow is the executor's own terminal refusal, never a prover case). This says NOTHING
-                 about truth: Lemmas A+B give a finite certificate, not one inside today's limits.
-  ANOMALY        the prover's guess and the checker contradict (the checker says raw_mismatch, or any INVALID reason
-                 other than not_separated). Recorded and STOPPED: never retried into FOUND, because a silent retry
-                 would hide a disagreement between two implementations.
+                 (prover_budget:*) or the checker REFUSED (checker_refused:<limit>) or the certificate could not be
+                 serialized (serialization_limit). This says NOTHING about truth: Lemmas A+B give a finite certificate,
+                 not one inside today's limits. One more reason, output_out_of_range, is NOT an operational limit:
+                 checker V2's own enclosure lies strictly inside a cell outside FX(96,80), so no certificate of this
+                 format exists for the input (a real output overflow is the executor's terminal refusal and should not
+                 reach the prover; the status for it awaits the designer's verdict).
+  ANOMALY        the certificate is rejected for a reason that is neither not_separated nor a wrong raw HINT (e.g.
+                 exp_condition), or the trusted enclosure and the checker disagree on a raw the enclosure chose.
+                 Recorded and STOPPED: never retried into FOUND.
 
-STEPS. (1) classify NOT_A_DECISION; (2) estimate y = J / ulp and its distance d (in ulps) to the nearest half-ulp
-boundary with mpmath at a doubling precision until two precisions agree to well within d; (3) raw m = floor(y + 1/2);
-(4) sqrt bits N = round64(d_bits + y_bits + n_margin), work bits P = N + guard, exp mode/order per rate from float
-estimates; (5) one checker V2 call; on not_separated grow N by 3/2 and retry; anything else ends the run.
+V0.1 (designer verdicts D1 and D2, 2026-09-30; completeness audit docs/active/C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md).
+The untrusted estimate only gives HINTS: a starting N and a first raw to try. The raw is DECIDED by checker V2's own
+enclosure: a raw_mismatch on a hinted raw is not an anomaly but a wrong hint, and the prover then computes the enclosure
+J at the same N (K2.enclosure, the checker's own computation) and takes the raw of the cell that strictly contains J, or
+grows N if J straddles a boundary. An estimate that fails or lands outside the output range stops nothing: the prover
+goes straight to the enclosure. So finding a certificate no longer depends on mpmath being right (audit hole H1), and an
+estimate never ends a run (hole H2). The final verdict is still one check_certificate call on the certificate returned.
+
+STEPS. (1) classify NOT_A_DECISION; (2) HINT: estimate y = J / ulp and its distance d (in ulps) to the nearest half-ulp
+boundary with mpmath at a doubling precision until two precisions agree to well within d; hinted raw m = floor(y + 1/2);
+(3) sqrt bits N = round64(d_bits + y_bits + n_margin) (128 without a hint), work bits P = N + guard, exp mode/order per
+rate from float estimates; (4) with a hint: one checker V2 call; VALID ends it, not_separated grows N by 3/2,
+raw_mismatch drops the hint; (5) without a hint: the enclosure at this N decides the raw (or N grows), then one checker
+call; (6) anything else ends the run.
 
 The numbers n_margin (40) and guard (96) are heuristics of THIS untrusted generator: N must exceed d_bits + y_bits by
 about 87 measured bits (the enclosure width is about |y| 2^-N * 2^7 ulps), plus slack for the rounding growth; P = N + guard
@@ -91,8 +102,8 @@ def _mpf(q):
 
 def _dv_mp(R2):
     """dV/dR (retardation ON) at R = sqrt(R2) with mpmath, from the constant tables of checker V2 (which the
-    checker's fingerprint ties to the frozen C1-A source). The generator's own transcription: if it is wrong the checker
-    answers raw_mismatch and the run ends as ANOMALY."""
+    checker's fingerprint ties to the frozen C1-A source). The generator's own transcription, used for HINTS only: if it
+    is wrong the checker answers raw_mismatch and the enclosure decides instead (V0.1); it can cost time, never truth."""
     R = mp.sqrt(_mpf(R2))
     Nr = 1 + sum(_mpf(a) * R ** (m + 1) for m, a in enumerate(K2.RET_A))
     Dn = 1 + sum(_mpf(b) * R ** (m + 1) for m, b in enumerate(K2.RET_B))
@@ -247,6 +258,30 @@ def _classify(dr, k, dt):
     return None
 
 
+def _cell(J):
+    """The raw m whose OPEN rounding cell ((2m-1)/2, (2m+1)/2) * 2^-80 strictly contains the enclosure J, else None.
+    The same strict test as checker V2's _decide_raw (it must never choose a raw the checker would not accept)."""
+    ulp = Fraction(1, 1 << K2.OUT_FRAC)
+    m = math.floor(J.lo / ulp + Fraction(1, 2))
+    if (2 * m - 1) * ulp / 2 < J.lo and J.hi < (2 * m + 1) * ulp / 2:
+        return m
+    return None
+
+
+def _enclosure(dr, k, dt, N, P, limits):
+    """Checker V2's own enclosure J of the exact impulse at (N, P). The raw written into the throw-away certificate is
+    irrelevant to J (0). Raises _Stop for a refusal (EXHAUSTED) or a structural rejection (ANOMALY)."""
+    cert = _certificate(dr, k, dt, 0, N, P)
+    try:
+        return K2.enclosure(cert, limits)
+    except K2._Refused as e:
+        raise _Stop(EXHAUSTED, "checker_refused:" + str(e))
+    except MemoryError:
+        raise _Stop(EXHAUSTED, "checker_refused:memory_limit")
+    except K2._Invalid as e:
+        raise _Stop(ANOMALY, "enclosure_" + str(e))
+
+
 def prove(dr_raw, component, dt_kick, budget=None, limits=None):
     """Find a checker-V2 certificate for J_component of the relative position dr_raw (FX(96,48) raws) and kick interval
     dt_kick. Returns a ProverResult; FOUND only with the checker's VALID verdict attached."""
@@ -262,10 +297,11 @@ def prove(dr_raw, component, dt_kick, budget=None, limits=None):
         return budget.seconds_max is not None and time.monotonic() - t0 > budget.seconds_max
     try:
         est = _estimate(dr, component, dt, budget)
-    except _Stop as s:
-        return ProverResult(s.status, s.reason, attempts=attempts, budget=budget)
-    m = est["m"]
-    N = _round_up(max(128, est["dist_bits"] + est["y_bits"] + budget.n_margin))
+        m = est["m"]                                                    # a HINT, never a decision (D1)
+        N = _round_up(max(128, est["dist_bits"] + est["y_bits"] + budget.n_margin))
+    except _Stop as s:                                                  # D2: a failed estimate ends nothing
+        est, m, N = {"hint": None, "estimate_failed": s.reason}, None, 128
+    decided = False                                                     # True once the enclosure chose m
     for _ in range(budget.max_attempts):
         if out_of_time():
             return ProverResult(EXHAUSTED, "prover_budget:time", attempts=attempts, estimate=est, budget=budget)
@@ -273,9 +309,23 @@ def prove(dr_raw, component, dt_kick, budget=None, limits=None):
             return ProverResult(EXHAUSTED, "prover_budget:sqrt_bits", attempts=attempts, estimate=est, budget=budget)
         P = N + budget.guard_bits
         try:
+            if m is None:                                               # the trusted enclosure decides the raw
+                J, stats = _enclosure(dr, component, dt, N, P, limits)
+                m = _cell(J)
+                attempts.append({"sqrt_bits": N, "work_bits": P, "verdict": "ENCLOSURE",
+                                 "reason": "not_separated" if m is None else "cell", "seconds": stats["seconds"]})
+                if m is None:
+                    N = _grow(N)
+                    continue
+                if not RAW_MIN <= m <= RAW_MAX:
+                    return ProverResult(EXHAUSTED, "output_out_of_range", attempts=attempts, estimate=est,
+                                        budget=budget)
+                decided = True
             cert = _certificate(dr, component, dt, m, N, P)
         except ValueError:                        # a number too long for Python's int/str conversion limit
             return ProverResult(EXHAUSTED, "serialization_limit", attempts=attempts, estimate=est, budget=budget)
+        except _Stop as s:
+            return ProverResult(s.status, s.reason, attempts=attempts, estimate=est, budget=budget)
         res = K2.check_certificate(cert, limits)
         attempts.append({"sqrt_bits": N, "work_bits": P, "verdict": res.status, "reason": res.reason,
                          "seconds": res.stats["seconds"]})
@@ -288,6 +338,13 @@ def prove(dr_raw, component, dt_kick, budget=None, limits=None):
         if res.reason == "not_separated":
             N = _grow(N)
             continue
+        if res.reason == "raw_mismatch" and not decided:                # a wrong HINT: let the enclosure decide (D1)
+            est["hint_rejected"] = m
+            m = None
+            continue
+        if decided:
+            return ProverResult(ANOMALY, "enclosure_checker_disagree:" + res.reason, certificate=cert, checker=res,
+                                attempts=attempts, estimate=est, budget=budget)
         return ProverResult(ANOMALY, "checker_" + res.reason, certificate=cert, checker=res, attempts=attempts,
                             estimate=est, budget=budget)
     return ProverResult(EXHAUSTED, "prover_budget:attempts", attempts=attempts, estimate=est, budget=budget)

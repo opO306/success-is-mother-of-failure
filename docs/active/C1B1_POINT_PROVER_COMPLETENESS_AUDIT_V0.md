@@ -1,6 +1,6 @@
 # C1-B1 Point Prover 정성적 완결성 감사 V0 (문서·수학만)
 
-**상태:** 감사 결과 **분류 B** — 수학적으로는 가능하지만 현재 `prove()` 경로에 실제 구멍이 있다. **코드 변경 없음, 설계자 판정 전 수정하지 않음.** 기준 HEAD `af0a341`.
+**상태:** 감사 결과 **분류 B**(기준 HEAD `af0a341`). **후속(2026-09-30): 설계자 판정 D1 승인·D2 승인·D3 진행·D4 정확 상한 → D1·D2 구현(prover V0.1), D4 상한 증명 완료, D3 lemma 작성(독립 감사 대기). 8절.**
 **질문(설계자, 2026-09-30):** 현재 Point Prover의 unbounded precision schedule이 지원되는 모든 exact impulse 입력에서 반드시 유한 단계 안에 Checker V2 VALID certificate를 찾는가?
 **읽은 것(전부):** `a_reference/c1b1_point_prover.py` 전체, `a_reference/c1b1_exact_impulse_checker_v2.py` 전체(1〜566행), [Lemma A·B 감사](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md) 2·3절, `c1b1_two_atom.impulse`/`_decide`(이전 작업에서 읽음).
 **현재 상태(변경 없음):** A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**.
@@ -87,3 +87,25 @@ D1〜D4가 끝나면 쓸 수 있는 명제(초안, 아직 주장하지 않음): 
 ## 7. 하지 않은 것
 
 코드 수정, 계산 실행, 무작위 시험, budget 확대 실측, shell 전수조사, Proof Box, Warehouse, A-EV, D_valid 축소, ④-Liveness 승인 기록. **④-Liveness는 NotCertified 그대로다.**
+
+## 8. 후속 — 설계자 판정과 처리 (2026-09-30)
+
+| # | 판정 | 처리 | 결과 |
+|---|---|---|---|
+| D1 | 승인 | **prover V0.1:** 추정은 힌트(시작 N, 첫 raw 후보)뿐. 힌트가 `raw_mismatch`이면 같은 N에서 checker V2의 `enclosure()`(같은 `_compute`)로 J를 계산하고 `_cell(J)`(checker `_decide_raw`와 같은 엄격 판정)가 raw를 정한 뒤 `check_certificate` 한 번. 신뢰 enclosure가 고른 raw를 checker가 거부하면 `ANOMALY("enclosure_checker_disagree:…")` | **H1 제거.** 틀린 힌트 ±1·+5 → FOUND(참 raw), checker 호출 2회(raw_mismatch, VALID), 같은 N에서 결정 |
+| D2 | 승인 | 추정 실패(예산·범위 밖)는 아무것도 끝내지 않는다: 힌트 없이 N = 128부터 enclosure 경로 | **H2 제거.** `estimate_max_bits = 256`으로 추정을 막아도 FOUND. dt = 10^40은 enclosure가 범위 밖을 보여 `EXHAUSTED("output_out_of_range")` |
+| D3 | 진행 | [Checker V2 수렴 lemma V0](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md): Lemma B-V2 + V0.1 완결성 조립 초안 | **작성, 독립 감사 대기.** 남는 가정 (H-float): 차수 선택이 부동소수. 권고 H-B(정확 정수 차수 선택, 판정 전 미구현) |
+| D4 | 정확 상한 | `a_reference/c1b1_impulse_magnitude_bound.py`: R ∈ [r_min, 2^49 bohr](FX(96,48) 상대 위치 전부) × dt_kick = 20(C1-B1 profile dt = 40)에서 \|J_k\| ≤ sup\|V′\|·20을 checker V2 구간 산술로 빈틈없는 덮개 위에서 상한 | **성립: \|J\| ≤ 1277.3 a.u. = FX(96,80) 경계 32768의 3.9%**(2,802 구간, 78초). 참 최댓값은 r_min에서 약 58.7 a.u.(점 값). 따라서 D_valid(그리고 dt = 40에서 실행기가 판정하는 모든 충격량)에서 overflow 경계 STOP은 일어나지 않는다 |
+
+**실행 기록(먼저 공개):**
+- D4 첫 실행은 **실패(exit 1)**였다. 폭 1/64의 균일 덮개에서 구간 산술이 r_min 근처 |V′|를 3605로 과대추정했다(실제 약 2.93, 서로 상쇄하는 큰 항들의 의존성 문제). 그래서 |J| 상한 72108이 경계의 2.2배로 나왔다. 상한을 넘는 구간만 반으로 나누는 적응형 분할로 고쳤다. 두 번째 실행(목표 = 경계의 절반)은 16237(49.6%), 세 번째(목표 |V′| ≤ 64)는 1277.3(3.9%)이다. 세 실행 모두 `runs/c1b1_impulse_magnitude_bound_20260930/`에 보존했다.
+- prover 시험 첫 실행에서 3건이 실패했다. 시험이 `verify_found`의 추가 checker 호출까지 세었기 때문이며(시험 결함), 세는 단언을 `verify_found` 앞으로 옮겼다.
+
+**검증:** prover 시험 29(신규 5 + 변경 3), D4 시험 11. 관련 묶음(prover·wrapper·Proof Cache·V2·V1·fail-closed·witness·two_atom) **465 passed + 1 xfailed.** prover는 기존 실행 코드이므로 **LOCAL FULL: 3294 passed + 1 xfailed, skip 0, 실패 0, exit 0, 556.32초**(기준선 3289 + prover 신규 5; D4 시험 11은 이 FULL 뒤에 추가된 새 파일이라 포함되지 않음). 증거: `runs/c1b1_prover_d1d2_20260930/`, `runs/c1b1_impulse_magnitude_bound_20260930/`.
+
+**설계자 확인 요청:**
+1. 신뢰 enclosure가 참값이 출력 범위 밖임을 보인 경우를 지금 `EXHAUSTED("output_out_of_range")`로 둔다. EXHAUSTED는 "한도를 올리면 풀릴 수 있다"는 뜻인데 이 경우는 그렇지 않다. 4상태에 맞는 것이 없어 임시로 두었다. D4로 D_valid에서는 도달하지 않는다.
+2. D3의 (H-float): H-A(유한 P로 한정) 또는 H-B(정확 차수 선택으로 코드 수정).
+3. D3 독립 감사자 지정.
+
+**상태:** H1·H2 제거, D4 성립. **완결성 정리는 아직 성립으로 쓰지 않는다**(D3 감사와 H-float 전). **④-Liveness NotCertified**, A-EV 미해결, ④-Safety Conditional.

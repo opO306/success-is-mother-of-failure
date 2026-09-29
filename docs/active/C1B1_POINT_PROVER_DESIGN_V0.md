@@ -183,3 +183,14 @@ runtime wrapper, Proof Cache, certificate 바이트 크기 상한(wrapper 과제
 5. 비용은 한 기계·한 입력 계열의 측정이다. 2^-17000 한 번의 checker 시간은 185초였다.
 6. 아직 하지 않은 것: runtime wrapper(STOP 상태에서 prover 호출, 결과의 WITNESS_RESOLVED 기록, 같은 step 재실행, certificate 바이트 크기 상한), Proof Cache. wrapper는 실패 의미와 correctness path를 실제 실행기에 연결하므로 설계자 권고대로 더 강한 모델(Opus 5.5 High)로 설계한다.
 
+## 10. V0.1 — 추정은 힌트, raw는 신뢰 enclosure가 결정 (설계자 판정 D1·D2, 2026-09-30)
+
+[완결성 감사 V0](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md)의 구멍 H1(틀린 추정 raw → ANOMALY 영구 정지)과 H2(추정 범위 밖 즉시 정지)를 없앴다.
+
+- mpmath 추정은 **힌트**만 준다: 시작 N과 첫 raw 후보. 추정이 실패하면(예산·범위 밖) 힌트 없이 N = 128부터 시작한다.
+- 힌트로 만든 certificate에 checker가 `raw_mismatch`를 내면 **틀린 힌트**로 보고, 같은 N에서 checker V2 자신의 `enclosure()`(같은 `_compute`)로 J를 계산한다. J가 한 칸 안에 엄격히 들어가면(`_cell`, checker `_decide_raw`와 같은 판정) 그 raw로 certificate를 만들어 `check_certificate` 한 번으로 최종 판정한다. 칸이 안 정해지면 N을 늘린다.
+- ANOMALY는 이제 두 경우다: 구조적 거부(예: `exp_condition`)와, enclosure가 고른 raw를 checker가 거부하는 경우(`enclosure_checker_disagree`). 둘 다 재시도하지 않는다.
+- 새 결과 이유 `output_out_of_range`: enclosure가 참값이 FX(96,80) 밖임을 보일 때. 상태 분류는 설계자 확인 대기(감사 8절). D4 상한으로 D_valid에서는 도달하지 않는다.
+- 힌트가 맞는 흔한 경우의 비용은 V0과 같다(checker 1회). 틀린 힌트는 enclosure 1회 + checker 1회가 더 든다.
+- 비신뢰 원칙은 그대로다. 유일한 성공은 `check_certificate == VALID(raw)`이고, 실행기·평가기·cap을 건드리지 않는다(정적 시험 유지). checker의 비공개 예외 클래스(`K2._Refused`, `K2._Invalid`)를 `enclosure()` 호출에서 잡는다.
+- 시험: 24 → 29. V0의 "틀린 raw는 ANOMALY" 시험은 "틀린 힌트는 FOUND로 회복"으로 바꿨다. 신규는 추정 실패 → FOUND, enclosure·checker 불일치 → ANOMALY, 결함 주입 3종(V0 힌트 규칙 복원, V0 추정 실패 규칙 복원, 엄격 판정 제거)이다. ANOMALY 재시도 은폐 결함 주입은 `exp_condition` 경우로 옮겼다.
