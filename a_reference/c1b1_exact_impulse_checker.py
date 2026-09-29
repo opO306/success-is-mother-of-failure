@@ -355,6 +355,8 @@ def _rational(s, what, ctx):
 def _keys(d, required, optional, where):
     if not isinstance(d, dict):
         raise _Invalid("not_an_object:" + where)
+    if len(d) > len(required) + len(optional):          # too many keys: decided without looking at any of them
+        raise _Invalid("keys:" + where)
     keys = set(d)
     if not set(required) <= keys or not keys <= set(required) | set(optional):
         raise _Invalid("keys:" + where)
@@ -365,21 +367,25 @@ def _keys(d, required, optional, where):
 
 def _prepass(cert):
     """Syntax before size. Every wrong key set and every malformed integer / rational string is INVALID here, before
-    any operational size limit can answer REFUSED, whatever the lengths are. Nothing is converted."""
+    any operational size limit can answer REFUSED, whatever the lengths are. Nothing is converted.
+    Shapes are checked before contents (key count, dr_raw length 3, exp length 9), so the work done here is bounded by
+    the format, not by how large a malformed certificate is; only the strings themselves are read, once."""
     _keys(cert, ("format", "method", "model", "input", "output", "proof"), ("runtime_binding",), "certificate")
     inp = _keys(cert["input"], ("position_frac_bits", "dr_raw", "component", "dt_kick"), (), "input")
-    if isinstance(inp["dr_raw"], list):
-        for v in inp["dr_raw"]:
-            _int_syntax(v, "dr_raw")
+    if not isinstance(inp["dr_raw"], list) or len(inp["dr_raw"]) != 3:      # the shape first: never walk a wrong-sized list
+        raise _Invalid("input")
+    for v in inp["dr_raw"]:
+        _int_syntax(v, "dr_raw")
     _rational_syntax(inp["dt_kick"], "dt_kick")
     _int_syntax(_keys(cert["output"], ("width", "frac_bits", "raw"), (), "output")["raw"], "raw")
     proof = _keys(cert["proof"], ("sqrt_bits", "exp"), (), "proof")
     _int_syntax(proof["sqrt_bits"], "sqrt_bits")
-    if isinstance(proof["exp"], list):
-        for entry in proof["exp"]:
-            _keys(entry, ("rate", "mode", "order"), (), "exp")
-            _rational_syntax(entry["rate"], "rate")
-            _int_syntax(entry["order"], "order")
+    if not isinstance(proof["exp"], list) or len(proof["exp"]) != len(RATE_ORDER):
+        raise _Invalid("exp_list")
+    for entry in proof["exp"]:
+        _keys(entry, ("rate", "mode", "order"), (), "exp")
+        _rational_syntax(entry["rate"], "rate")
+        _int_syntax(entry["order"], "order")
 
 
 def _sqrt_interval(R2, N):

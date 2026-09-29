@@ -101,7 +101,7 @@ kadd: BO 1, REL 0, QED 0.   kmin: BO 3, REL 2, QED 3(QED는 특수 분기 없음
     엄격 분리이므로 tie 규칙(half-even)은 판정에 쓰이지 않는다. tie 불가능은 Lemma A다.
 
 ### 3.7 운영 한도
-N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산을 멈추고 **REFUSED(`operational_limit`)**를 돌려준다. 이것은 참/거짓 판정이 아니다. **정수 문자열 크기 규칙(구현 뒤 추가, 아래 8.5):** 문법이 틀린 문자열(정규 십진 정수 형태가 아님)은 길이와 상관없이 **INVALID**. 문법이 맞지만 십진 자릿수가 `digits_max`(기본 4300)를 넘으면 변환하지 않고 **REFUSED(`integer_size_limit`)**. 프로세스의 Python `int()` 변환 한도가 더 엄격해 `ValueError`가 나는 경우도 같은 REFUSED다(자원 한도이지 certificate의 성질이 아니다). 어떤 Python 예외도 checker 밖으로 나가지 않는다.
+N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산을 멈추고 **REFUSED(`operational_limit`)**를 돌려준다. 이것은 참/거짓 판정이 아니다. **정수 문자열 크기 규칙(구현 뒤 추가, 아래 8.5):** 문법이 틀린 문자열(정규 십진 정수 형태가 아님)은 길이와 상관없이 **INVALID**. 문법이 맞지만 십진 자릿수가 `digits_max`(기본 4300)를 넘으면 변환하지 않고 **REFUSED(`integer_size_limit`)**. 프로세스의 Python `int()` 변환 한도가 더 엄격해 `ValueError`가 나는 경우도 같은 REFUSED다(자원 한도이지 certificate의 성질이 아니다). **보장 범위(좁게):** 지원되는 certificate 입력과, 시험한 적대적 입력(초대형 정수 문자열, 잘못된 크기의 리스트·딕셔너리)에서는 `int()` 변환 `ValueError`를 포함한 Python 예외가 checker 밖으로 나가지 않는다는 것을 시험했다. **모든 가능한 Python 예외에 대한 형식적 보장은 아니다.** `check_certificate`는 `_Invalid`, `_Refused`, `MemoryError`만 잡으며, 광역 `except Exception`은 일부러 넣지 않았다(프로그래밍 버그가 REFUSED로 숨어 독립 checker의 감사성이 떨어지므로. 시험 T11이 이를 고정한다).
 
 **Operational limits affect availability, never truth.** 한도를 올리거나 내려서 바뀌는 것은 REFUSED ↔ VALID/INVALID뿐이며, VALID↔INVALID는 바뀌지 않는다(시험 T9). 예: 한도 4096에서 REFUSED, 8192에서 VALID(123)는 가능하지만 4096에서 INVALID는 불가. 기본값은 구현 단계에서 정해 결과에 기록한다(8절). Liveness의 정량 상한이 아니라 설계자 판정의 operational bound다.
 
@@ -124,7 +124,8 @@ N_MAX, n_MAX, 유리수 크기(비트) 상한, 시간 상한을 넘으면 계산
 | T7 | 음성 시험: raw ±1, dr_k = 0, R < r_min, 모르는 키, 지문·rate·순서 변조, N 너무 작음(`not_separated`), full 조건 위반, 범위 밖 raw | 각각 의도한 이유로 INVALID |
 | T8 | **rehearsal:** 실행기 cap을 128로 낮춰 STOP한 입력에서 두 배 탐색 → certificate VALID → raw = cap 16384 정상 실행 결과. 폭이 N·n 증가에 따라 줄어드는지 기록 | 수렴·재개 경로 |
 | T9 | 운영 한도: 한도 초과는 REFUSED이고 VALID·INVALID가 아님 | 한도가 참/거짓을 오염시키지 않음 |
-| T10 | 초대형 정수 문자열(4300/4301/10000자리 이상)을 모든 큰 정수 필드에 주입: 정의된 verdict만, Python 예외 0. 문법 오류는 크기보다 먼저 INVALID | `int()` 자릿수 한도의 `ValueError` 유출(구현 뒤 검토에서 발견) |
+| T10 | 초대형 정수 문자열(4300/4301/10000자리 이상)을 모든 큰 정수 필드에 주입: 정의된 verdict만(시험한 입력에서 `int()` 변환 예외 유출 0; 모든 예외에 대한 보장은 아님). 문법 오류는 크기보다 먼저 INVALID | `int()` 자릿수 한도의 `ValueError` 유출(구현 뒤 검토에서 발견) |
+| T11 | 형식이 이미 틀린 큰 certificate의 파서 작업량: `dr_raw`가 3개가 아니거나 `exp`가 9개가 아니거나 키가 너무 많으면 원소를 하나도 훑지 않고 즉시 INVALID(100만 개 리스트·딕셔너리, 순회 횟수 0). 광역 `except` 부재 고정 | 사전 통과가 틀린 크기의 리스트를 전부 순회하던 것(리뷰에서 발견), 시계(`ctx.tick`) 없는 O(N) 작업 |
 
 추가(선택, 증명 아님): 실행기 `_model` 구간과 checker 구간이 겹치는지 대조하는 A-EV spot-check. 겹침은 둘 다 참값을 포함하는 데 필요한 조건일 뿐이며 A-EV 증명이 아니다. ④-Safety Conditional은 그대로다.
 
@@ -144,7 +145,7 @@ checker·prover·wrapper·Proof Cache 코드, 시험, Vast 사용. 기존 shell 
 ## 8. 구현 결과 (2026-09-29)
 
 **파일:** `a_reference/c1b1_exact_impulse_checker.py`(checker, 표준 라이브러리만), `a_reference/c1b1_exact_impulse_search.py`(매개변수 탐색, **시험 보조·신뢰 대상 아님**, point prover 아님),
-`a_reference/c1b1_exact_impulse_crosscheck.py`(T3 캠페인 드라이버 + mpmath 세 번째 기준 구현), `tests/test_c1b1_exact_impulse_checker.py`(162개: 최초 구현 127개 + T10 35개, 8.5). 실행기·C1-A 평가기·동결 fixture·기존 인증서 변경 0.
+`a_reference/c1b1_exact_impulse_crosscheck.py`(T3 캠페인 드라이버 + mpmath 세 번째 기준 구현), `tests/test_c1b1_exact_impulse_checker.py`(185개: 최초 구현 127개 + T10 35개 + T11 23개, 8.5·8.6). 실행기·C1-A 평가기·동결 fixture·기존 인증서 변경 0.
 
 ### 8.1 시험 T1〜T9 결과
 
@@ -200,4 +201,12 @@ checker·prover·wrapper·Proof Cache 코드, 시험, Vast 사용. 기존 shell 
 
 **의도적 선택(먼저 공개):** `raw`와 `dr_raw`는 30자리만 넘어도 범위 밖이라 INVALID임을 자릿수만으로 알 수 있지만, 규칙을 하나로 유지하려고 자릿수가 `digits_max`를 넘으면 REFUSED로 답한다. 한도를 넉넉히 올리면 INVALID가 된다(REFUSED ↔ INVALID는 허용되는 변화). 어느 쪽도 VALID로 바뀌지 않는다.
 **남은 한계:** `digits_max` 이하의 큰 `dt_kick`(수천 자리)은 실제로 계산하며(계산 비용은 `bits_max`·`seconds_max`가 REFUSED로 막는다), `digits_max`는 관측 없이 CPython 기본값을 따른 것이다. 크기 관련 다른 경로(`sqrt_bits`, `order`, 정수 크기)는 기존 한도가 그대로 막는다.
+
+### 8.6 파서 작업량 보강 (2026-09-29, `1215b9c` 뒤 검토 지적)
+
+**결함(재현 확인):** 사전 통과(`_prepass`)가 `dr_raw`와 `proof.exp`를 길이 확인 없이 먼저 전부 순회하고, 길이 검사(3개, 9개)는 그 뒤 본 검사에서 했다. 그래서 길이가 틀려 INVALID가 확정된 100만 원소 리스트도 100만 개를 모두 훑었다(각각 0.3초, 1.1초). 같은 종류로, 키 검사(`set(d)`)도 키가 100만 개인 딕셔너리를 전부 훑었다. 사전 통과에는 `ctx.tick()`도 없다. 수학적 soundness 문제는 아니다(VALID를 잘못 내지는 않는다). 가용성·작업량 문제다.
+**수정:** 모양을 내용보다 먼저 본다. `dr_raw`는 리스트가 아니거나 길이가 3이 아니면(`input`), `exp`는 리스트가 아니거나 길이가 9가 아니면(`exp_list`), 딕셔너리는 키 개수가 요구+선택 키 수를 넘으면(`keys:*`) 원소를 보지 않고 INVALID. 그 뒤에야 최대 3+9개 항목의 문자열 구문을 본다. 사전 통과의 작업량은 형식(고정 크기)이 정하고 malformed certificate의 크기가 정하지 않는다(문자열 자체를 한 번 읽는 비용 제외). 100만 원소에서 순회 0회, 즉시 INVALID를 계수 컨테이너로 시험한다.
+**부수 효과:** 여러 문제가 한 certificate에 겹칠 때 보고되는 이유가 바뀔 수 있다(모양 오류가 `model_binding` 등보다 먼저). 판정 자체(INVALID)와 VALID/INVALID의 수학적 의미는 바뀌지 않는다.
+**문구 정정:** 8.5절 수정 때 사양 3.7절에 적었던 "어떤 Python 예외도 checker 밖으로 나가지 않는다"는 코드가 보장하는 것보다 강한 표현이어서 위 보장 범위로 좁혔다. 광역 `except Exception`을 넣지 않은 것은 의도적이다(T11에서 AST로 고정: 잡는 것은 `_Invalid`, `_Refused`, `MemoryError`와, 구문 검사 직후의 `int()` 변환 가드 `ValueError` 하나뿐).
+**남은 한계:** 문자열 원소 하나가 극단적으로 길면(예: 수억 자) 그 문자열을 한 번 읽는 O(길이) 작업은 남는다(입력이 이미 메모리에 있다). `digits_max` 초과 여부는 한 번의 `isdigit` 뒤에 판정하므로 사전 통과는 시계로 끊지 않는다.
 

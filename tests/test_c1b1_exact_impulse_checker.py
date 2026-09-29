@@ -897,3 +897,141 @@ def test_t10_fault_injection_the_size_check_and_the_conversion_guard_are_both_ne
     bad_elsewhere = _set(_set(cert, ("input", "dr_raw", 0), NINES * 10000), ("proof", "exp", 4, "order"), "1.5")
     assert no_prepass.check_certificate(bad_elsewhere).status == "REFUSED"
     assert K.check_certificate(bad_elsewhere).status == "INVALID"
+
+
+# --- T11: parser work is bounded by the format, not by the size of a malformed certificate ------------------------
+# A certificate whose shape is already wrong (dr_raw not 3 entries, exp not 9 entries, too many keys) is INVALID
+# without looking at any element. Counting containers make "was it walked" observable.
+
+class _CountingList(list):
+    walked = 0
+
+    def __iter__(self):
+        for x in list.__iter__(self):
+            _CountingList.walked += 1
+            yield x
+
+
+class _CountingDict(dict):
+    walked = 0
+
+    def __iter__(self):
+        for x in dict.__iter__(self):
+            _CountingDict.walked += 1
+            yield x
+
+
+def _walked():
+    return _CountingList.walked + _CountingDict.walked
+
+
+def _reset_walked():
+    _CountingList.walked = _CountingDict.walked = 0
+
+
+BIG = 10 ** 6
+GOOD_ENTRY = {"rate": "1", "mode": "full", "order": "1"}
+
+
+@pytest.mark.parametrize("size", (0, 1, 2, 4, 100, BIG))
+def test_t11_a_dr_raw_list_of_the_wrong_length_is_invalid_without_being_walked(honest_small, size):
+    cert, _ = honest_small
+    _reset_walked()
+    res = K.check_certificate(_set(cert, ("input", "dr_raw"), _CountingList(["1"] * size)))
+    assert (res.status, res.reason) == ("INVALID", "input")
+    assert _walked() == 0
+
+
+@pytest.mark.parametrize("size", (0, 1, 8, 10, 100, BIG))
+def test_t11_an_exp_list_of_the_wrong_length_is_invalid_without_being_walked(honest_small, size):
+    cert, _ = honest_small
+    _reset_walked()
+    res = K.check_certificate(_set(cert, ("proof", "exp"), _CountingList([dict(GOOD_ENTRY)] * size)))
+    assert (res.status, res.reason) == ("INVALID", "exp_list")
+    assert _walked() == 0
+
+
+def test_t11_non_lists_in_those_places_are_invalid(honest_small):
+    cert, _ = honest_small
+    for value in (("1", "2", "3"), "123", {"0": "1"}, None, 3, True):
+        assert K.check_certificate(_set(cert, ("input", "dr_raw"), value)).reason == "input"
+    for value in (tuple(honest_small[0]["proof"]["exp"]), "exp", {"0": 1}, None, 9):
+        assert K.check_certificate(_set(cert, ("proof", "exp"), value)).reason == "exp_list"
+
+
+def test_t11_the_shape_is_judged_before_the_contents(honest_small):
+    """A wrong-sized list of malformed strings is INVALID for its shape; a right-sized one for its first bad element."""
+    cert, _ = honest_small
+    assert K.check_certificate(_set(cert, ("input", "dr_raw"), ["x"] * 4)).reason == "input"
+    assert K.check_certificate(_set(cert, ("input", "dr_raw"), ["x"] * 3)).reason == "bad_integer:dr_raw"
+    assert K.check_certificate(_set(cert, ("proof", "exp"), [{"junk": 1}] * 10)).reason == "exp_list"
+    assert K.check_certificate(_set(cert, ("proof", "exp"), [{"junk": 1}] * 9)).reason == "keys:exp"
+
+
+@pytest.mark.parametrize("where", ("certificate", "model", "input", "output", "proof", "exp entry"))
+def test_t11_a_dict_with_too_many_keys_is_invalid_without_being_walked(honest_small, where):
+    cert, _ = honest_small
+    _reset_walked()
+    huge = {str(i): 1 for i in range(BIG)}
+    if where == "certificate":
+        bad = _CountingDict(cert)
+        bad.update(huge)
+        expected = "keys:certificate"
+    else:
+        path = ("proof", "exp", 0) if where == "exp entry" else (where,)
+        bad = _set(cert, path, _CountingDict(huge))
+        expected = "keys:exp" if where == "exp entry" else "keys:" + where
+    res = K.check_certificate(bad)
+    assert (res.status, res.reason) == ("INVALID", expected)
+    assert _walked() == 0
+
+
+def test_t11_ordinary_certificates_are_unaffected(honest_small):
+    cert, raw = honest_small
+    assert K.check_certificate(cert).raw == raw
+    for path, value in ((("input", "dr_raw", 1), "x"), (("proof", "exp", 3, "order"), "1.5"), (("output", "raw"), "01")):
+        assert K.check_certificate(_set(cert, path, value)).reason.startswith("bad_")
+
+
+DR_SHAPE_CHECK = ('    if not isinstance(inp["dr_raw"], list) or len(inp["dr_raw"]) != 3:      # the shape first: never walk a '
+                  'wrong-sized list\n        raise _Invalid("input")')
+EXP_SHAPE_CHECK = ('    if not isinstance(proof["exp"], list) or len(proof["exp"]) != len(RATE_ORDER):\n'
+                   '        raise _Invalid("exp_list")\n'
+                   '    for entry in proof["exp"]:\n'
+                   '        _keys(entry, ("rate", "mode", "order"), (), "exp")')      # the pre-pass copy; the main check has another
+KEYS_GUARD = ('    if len(d) > len(required) + len(optional):          # too many keys: decided without looking at any of them\n'
+              '        raise _Invalid("keys:" + where)\n')
+
+
+def test_t11_fault_injection_each_shape_check_is_what_stops_the_walk(honest_small):
+    """Without the length checks the pre-pass walks all 10^6 elements again (so the tests above do see it)."""
+    cert, _ = honest_small
+    no_dr = _mutant((DR_SHAPE_CHECK, '    if not isinstance(inp["dr_raw"], list):\n        raise _Invalid("input")'))
+    _reset_walked()
+    no_dr.check_certificate(_set(cert, ("input", "dr_raw"), _CountingList(["1"] * BIG)))
+    assert _walked() == BIG
+    no_exp = _mutant((EXP_SHAPE_CHECK, '    if not isinstance(proof["exp"], list):\n        raise _Invalid("exp_list")\n'
+                                       '    for entry in proof["exp"]:\n'
+                                       '        _keys(entry, ("rate", "mode", "order"), (), "exp")'))
+    _reset_walked()
+    no_exp.check_certificate(_set(cert, ("proof", "exp"), _CountingList([dict(GOOD_ENTRY)] * BIG)))
+    assert _walked() >= BIG
+    no_keys = _mutant((KEYS_GUARD, ""))
+    _reset_walked()
+    no_keys.check_certificate(_set(cert, ("input",), _CountingDict({str(i): 1 for i in range(BIG)})))
+    assert _walked() == BIG
+
+
+def test_t11_no_blanket_exception_handler_hides_programming_errors():
+    """The checker catches exactly its own two verdict exceptions and MemoryError. A broad `except Exception` would turn
+    a bug into REFUSED and cost the checker its auditability, so this is pinned: only the tested inputs are covered."""
+    tree = ast.parse(CHECKER_SRC)
+    handlers = [h for n in ast.walk(tree) if isinstance(n, ast.Try) for h in n.handlers]
+    caught = []
+    for h in handlers:
+        assert h.type is not None, "bare except"
+        names = [e.id for e in (h.type.elts if isinstance(h.type, ast.Tuple) else [h.type])]
+        caught.extend(names)
+    assert set(caught) <= {"_Invalid", "_Refused", "MemoryError", "ValueError"}
+    assert caught.count("ValueError") == 1                 # the int() conversion guard, right after its syntax check
+    assert "Exception" not in caught and "BaseException" not in caught
