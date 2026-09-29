@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Runtime Rounding Contract V1 구조 승인, ④-Liveness(D_valid) 경로 조사 v0 완료, 설계자 판단 Q1〜Q4 대기** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A·B 감사 v0 완료, 설계자 판정 대기** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -370,7 +370,19 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - **새 후보(구현자 유도, 인증 아님):** 계수 전부 유리수 + 서로 다른 exp 지수 9개 → Lindemann–Weierstrass로 **모든 격자 입력(q_k≠0)의 정확 충격량은 유리수가 아니다 → 정확 tie 불가능**(exp 계수함수 5개가 양의 근 없음, 공약수 1). 영역 크기·차원 무관, 정성적. 엄밀 유리수 구간 prover와 결합하면 D_valid 전체의 **정성적** Liveness 후보가 된다.
 - 기타: 격자 KDK의 정확한 시간 가역성(유도), 운동량 offset 다발(위치열 공유)을 기록했다. 둘 다 입력 간격 문제를 줄이지는 않는다.
 - 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
-다음 판단(설계자): **Q1** L0 재확인, **Q2** Liveness가 정성인지 정량인지, **Q3(P1b)** 엄밀 유리수 구간 certificate가 P1a의 B 범주인지, **Q4** "모든 run이 R_J 도착"을 ④-Liveness에 포함할지.
+다음 판단(설계자): Q1〜Q4 → 아래 판정.
+
+**설계자 판정(2026-09-29, 3차) + Lemma A·B 감사 v0(문서만):**
+- **Q1:** L0 = D_valid 전체 유지(정정된 모양 확인).
+- **Q2(계약 변경):** ④-rounding의 수학적 Liveness = **정성적 finite termination**. 16384는 실행기 fast-path 자원 한도로 남고, 별도 exact certificate prover가 correctness path다. 계약은 ≤16384 RESOLVED → 아니면 유한 exact certificate로 WITNESS_RESOLVED → 아니면 STOP. 정량 상한은 operational bound로 관리. 기존 ④의 "16384 안에서 결정" 요구를 바꾸는 계약 변경으로 기록했다.
+- **Q3/P1b:** 허용, P1a 문구 수정. "16384 초과 평가기를 신뢰하지 않아도 독립적인 작은 checker가 exact arithmetic으로 참/거짓을 판정할 수 있어야 함". 구현 공유·`C._model`·`a_numeric.exp.enclosure` 재사용 금지.
+- **Q4:** r_min·overflow·포획 없는 R_J 도달은 별도 trajectory-completion obligation(C1-B1 freeze 전).
+- **감사**([문서](docs/active/C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md), 구현자 감사, 인증 아님):
+  - **Lemma A 통과.** QED short 2의 V′ 계수 cR(2−αR)가 R ≥ r_min에서 0이 아니다. 이것만으로 Lindemann–Weierstrass에 의해 dr_k ≠ 0인 모든 입력의 정확 충격량은 초월수이고 tie는 불가능하다. 9개 공통근 조사는 필요 없다.
+  - **Lemma B 수학적으로 성립, 구현 전.** √ isqrt 구간, e^{−y} ∈ [(1−T_n)/S_n, 1/S_n], 유리수 구간 산술로 폭 → 0이다. 최대 위험은 checker 식 전사 충실도이며 구현 시험 의무로 둔다.
+  - 정정: 조사 v0의 "새로 찾은 전역 결과"는 과장이었다. 동결 C1-A 머리말에 같은 관찰이 이미 있다.
+- 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
+다음 판단(설계자): Lemma A·B 감사 판정 → 승인되면 독립 checker + 시험 구현 → point prover 설계 → wrapper.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

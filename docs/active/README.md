@@ -28,7 +28,8 @@
 | [실행 기반 정밀도 조사](C1B1_RUNTIME_STRESS_SURVEY_V1.md) | survey_only. 실제 궤적 판정 약 2.3억 회: R ≤ 320에서 256 bit 0.6%대, R ≥ 640에서 100%, 512+ 0. 256 비율 = 128-bit 구간 폭 |
 | [Fail-Closed v0 + 국소 witness prototype](C1B1_RUNTIME_FAIL_CLOSED_V0.md) | 거부된 step의 run 불변을 시험으로 고정. cap 128 강제 정지→재판정→검증→재실행이 3궤적 매 step 정상 실행과 동일. prototype |
 | [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) | **구조 승인(2026-09-29). P1a·D3 채택(A-EV = Safety 선행조건). ④-Liveness 대상 D_valid, NotCertified.** RESOLVED/STOPPED/WITNESS_RESOLVED/UNPROVED, ④-Safety/④-Liveness 분리, Proof Cache/Hazard Atlas. 코드 변경 근거 아님 |
-| [④-Liveness(D_valid) 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) | survey_only·문서만. **D_valid 모양 정정(L·H 넓은 영역 + F 14구간)**, 기존 14 region은 +x축 전용이라 F와 겹침 0. 정량 경로 없음, 전역 exact tie 배제(Lindemann–Weierstrass) + 엄밀 구간 prover의 정성 경로 후보. 설계자 Q1〜Q4 대기 |
+| [④-Liveness(D_valid) 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) | survey_only·문서만. **D_valid 모양 정정(L·H 넓은 영역 + F 14구간)**, 기존 14 region은 +x축 전용이라 F와 겹침 0. 정량 경로 없음, 전역 exact tie 배제(Lindemann–Weierstrass) + 엄밀 구간 prover의 정성 경로 후보. Q1〜Q4 판정 완료 |
+| [반올림 Liveness Lemma A·B 감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md) | 구현자 감사(인증 아님). **A: QED short-2 단일 계수로 전역 no-tie 통과. B: 독립 exact-rational certificate 수렴·검사 가능, 구현 전(식 전사 충실도가 주 위험).** Liveness = 정성적 finite termination(계약 변경), 설계자 판정 대기 |
 | [shell 18 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_V1.md) | ④-4c-6: 위 조사를 인증 계약·proof object로 승격. 전체 재계산 verify, 후보 109·hazard 0. shell 18 원래 domain Certified, fresh coverage 12/64·gap 83, 전체 NotCertified |
 
 **④ 전체는 FROZEN이 아니고 ⑤는 아직 시작하지 않았다.** 미래의 필요한 impulse가 `MAX_PRECISION_BITS=16384` 안에서 항상 결정되는지는 미증명이다.

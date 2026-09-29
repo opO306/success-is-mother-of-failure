@@ -83,7 +83,16 @@ A-EV는 지금까지의 모든 인증서가 공유하는 전제이며, 전 입�
 - **F:** 정확히 7개 에너지(0.15 … 0.99 De)의 canonical 생성기 상태(출발 R=20, 평면). 에너지마다 궤도 포획 경계 **양옆의 짧은 b 구간 2개**(|ρ| ≈ 10⁻⁴〜5×10⁻³부터 0.01까지, 폭 0.04〜0.14 bohr). b=0은 포함하지 않는다.
 - 그 밖의 에너지(0.1418〜0.9974 De)는 unsupported. 보간·근처 에너지 없음.
 
-설계자의 L0 판정은 이전 요약을 보고 내려졌으므로 재확인을 요청한다(조사 v0 7절 Q1).
+**Q1 설계자 판정(2026-09-29, 3차): L0 = D_valid 전체 유지**(정정된 모양 확인). F만이나 canonical만으로 줄이지 않는다.
+
+**Liveness의 뜻(Q2 설계자 판정, 계약 변경):** ④-rounding의 수학적 Liveness는 **정성적 finite termination**이다.
+- 16384는 실행기 **fast-path의 자원 한도**로 남는다(삭제하지 않는다). 별도 exact certificate prover가 **correctness path**다.
+- 계약: ≤16384에서 RESOLVED, 아니면 prover가 유한한 exact certificate로 WITNESS_RESOLVED, 그것도 못 하면 STOP.
+- 정량 CPU/bit 상한은 별도 **operational bound**로 관리한다.
+- 기존 ④는 "필요한 모든 판정이 16384 안에서 결정됨"을 명시적으로 요구했으므로 **이것은 계약 변경이며 설계자 판정으로 기록한다.**
+- 근거 요건: `no exact tie(Lemma A) + certified enclosure convergence(Lemma B) = qualitative finite rounding liveness` ([감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md)).
+
+**Q4 설계자 판정:** r_min 침범 없음·overflow 없음·포획 없이 R_J 도달은 ④-rounding Liveness에서 분리한다. C1-B1 최종 freeze 전의 **별도 trajectory-completion obligation**이다.
 
 주장: D_valid의 모든 초기 상태에서, 종료 조건(R_J로 나가 tail에 인계)까지 **모든 판정이 RESOLVED 또는 승인된 방법의 WITNESS_RESOLVED**이다.
 이 주장은 inbound(R 20→최근접)·안쪽·outgoing(→R_J) 전 구간의 판정을 포함한다. 기존 형식 증거는 outgoing 쪽 일부뿐이다(아래 표).
@@ -136,7 +145,10 @@ A-EV는 지금까지의 모든 인증서가 공유하는 전제이며, 전 입�
 **A.** cap ≤ 16384 안에서 나온 검증 가능한 interval witness. **B.** 실행기 평가기와 다른 수학적 근거(exact rational inequality, modular-distance bound, exact tie 판정, algebraic bound).
 prover 내부에서 쓴 bit 수는 상관없다. 기준은 **"최종 certificate를 검증할 때 그 고정밀 계산 결과를 믿어야만 하는가?"**다.
 예: prover가 65536 bit로 `2N < (2k+1)D`를 찾고 verifier가 N·D·k를 정확한 정수로 확인하면 허용한다. "65536-bit evaluator 결과가 이렇다"뿐이면 불허한다.
-**후속 확인 요청(P1b):** 엄밀 유리수 구간(Taylor 부분합 + 명시적 나머지) certificate를 독립 검사기가 정확 산술로 확인하는 형태가 B인지([조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 7절 Q3).
+**P1b 설계자 판정(2026-09-29, 3차): 허용, P1a 문구 수정.** B의 조건은 "평가기와 다른 수학 방법"이 아니다(`a_numeric.exp.enclosure`도 Taylor + 나머지를 쓴다). 정확한 조건은 다음과 같다.
+**16384 초과 평가기의 결과를 신뢰하지 않아도 certificate의 참/거짓을 독립적인 작은 checker가 exact arithmetic으로 판정할 수 있어야 한다.**
+구현 공유 금지, `C._model` 호출 금지, `a_numeric.exp.enclosure` 재사용 금지. 같은 Taylor 정리를 써도 증명 객체와 checker가 독립적이면 허용한다.
+감사: [Lemma A·B 감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md).
 
 **(판정 전 기록) 구현자 해석(P1a):** "작은 verifier"가 **실행기 평가기(`C._model`)를 16384보다 높은 정밀도로 다시 돌려** 구간을 재계산하고 반올림을 비교하는 방식은
 정확 정수 산술이긴 하지만 사실상 "고정밀 결과를 믿는" 금지 패턴과 같다고 본다(평가기를 cap 위에서 한 번 더 돌리는 것일 뿐).
@@ -207,7 +219,8 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 기계장치(STOP·상태 불변·witness 검증·재개·매 step 동일)는 prototype으로 가능성이 이미 확인됐다. 실제 16384 실패도 승인된 witness 방법도 0개인 지금 wrapper를 먼저 만들면 기능 없는 교통경찰부터 세우는 꼴이다.
 
 1. ~~S1의 남은 Fail-Closed 시험~~ — 완료(`VMHalt`, 운동량 범위; 8 passed).
-2. ~~④-Liveness(D_valid) 수학 경로 조사~~ — [조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 완료(survey_only, 문서만). 결론: 정량 Liveness의 싼 경로 없음. 전역 exact tie 배제 + 엄밀 구간 prover의 정성 경로가 유일한 후보. **설계자 판단 Q1〜Q4 대기.**
+2. ~~④-Liveness(D_valid) 수학 경로 조사~~ — [조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 완료(survey_only, 문서만). 결론: 정량 Liveness의 싼 경로 없음. 전역 exact tie 배제 + 엄밀 구간 prover의 정성 경로가 유일한 후보. Q1〜Q4 판정 완료(2.2절·4절).
+2a. **Lemma A(전역 no-tie)·Lemma B(독립 certificate 수렴·검사 가능) 감사** — [감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md). 구현자 감사 통과(인증 아님). **설계자 판정 대기.** 승인되면 독립 checker + 시험을 구현한다.
 3. **point prover 설계 문서**(P1/P1a/P1b 반영): certificate 형식, 작은 verifier, 결함 주입. 승인 뒤 구현. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
 4. 정말 필요하면 네 상태를 코드 상수·결과 기록으로 표현하는 **얇은 runtime wrapper**(실행기 무변경, prototype 대체).
 5. Runtime Proof Cache·Hazard Atlas는 첫 승인된 prover가 생긴 뒤.
