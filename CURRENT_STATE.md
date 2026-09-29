@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0 구조·동작 승인 + profile identity 보강 완료(재판정 대기), Proof Cache 미착수** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 검토 완료(설계자 확인 대기), Proof Cache 미착수** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -483,6 +483,16 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 한계: 3·4층은 실행 중 교체에 대한 방어이며 탐침 밖에서만 다른 교체는 못 잡는다(프로세스 내 코드 신뢰 전제). Proof Cache 미착수, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**.
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: wrapper(survey_only 계층)·시험·문서만 변경, 실행기·평가기·checker V1/V2·prover·동결 계약 변경 0. **418 passed + 1 xfailed**(기존 strict xfail), 245.59초. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_profile_identity_20260930/`.
 다음 판단(설계자): profile identity 보강 재판정 → Proof Cache 설계(certificate bytes 불변 저장, 매 사용 재검증, prover 탐색만 생략).
+
+**설계자 판정(2026-09-30, 기준 HEAD `e7b46c3`): Point Prover V0 승인, Runtime Wrapper V0 승인, witness profile binding 승인.** 실행 중 프로세스 자체를 악의적으로 monkey-patch하는 경우까지 막는 것은 위협 모델 밖이다(위협 모델 = 저장소의 잘못된 구현·실수). profile 방어나 랜덤 시험은 더 만들지 않는다. 418 passed + 1 xfailed는 구현자 실행 기록이며 설계자는 소스·시험 구조를 확인했다. 다음: 작업선 분리 → Warehouse 제안서와 Proof Cache의 관계 검토 → Proof Cache.
+- 작업선 상태: Codex worktree `.codex/worktrees/a-ev-audit`가 `e7b46c3` 기준(detached HEAD)으로 존재한다. 이 작업선은 그 worktree와 `audit/independent_physics/`를 건드리지 않는다.
+
+**Proof Cache ↔ Warehouse 관계 검토(2026-09-30, 문서만):** ([검토](docs/active/C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md))
+- 결론: **저장소 두 개를 만들지 않는다.** 이미 계약 V1 D6으로 분리돼 있다. Proof Cache = 실행 경로 안의 작은 witness 선반(매 사용 재검증), Warehouse = 실행 경로 밖의 색인·의존성 장부. 관계는 한 방향이다: 나중에 Warehouse가 Cache 객체를 읽기 전용으로 등록한다.
+- Cache가 따를 Warehouse 규칙 R1〜R7: 조회 키와 content address 분리, run metadata를 객체 밖에, 정규 바이트 그대로 저장, 추가 전용 해시 체인 색인, REJECTED는 스스로 풀리지 않음, 파일 형식 문서화, import 방향. 측정: prover certificate에는 시간·시도 필드와 float가 없고, 같은 입력을 두 번 증명하면 certificate가 필드 단위로 같다.
+- 불일치 공개: (1) master 문서가 master에 없는 Warehouse 제안서(원격 브랜치에만 있음)를 인용한다, (2) 계약 7절의 "정밀도 schedule"이 binding에 없고, "실제 cap 16384 STOP만 저장" 조건은 "wrapper는 cap을 읽지 않음"과 충돌한다, (3) 선반 위치 미정, (4) Proof Box는 V0 범위 밖, (5) 실제 궤적에서 cap 16384 STOP은 아직 관측되지 않았다(합성 2건뿐).
+- 코드·시험 변경 0. Warehouse 브랜치는 병합하지 않았다.
+다음 판단(설계자): Q-PC1(선반 위치)·Q-PC2(cap 조건 충돌)·Q-PC3(REJECTED 처리)·Q-PC4(Warehouse 인용) 확인 → Proof Cache V0 구현.
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
