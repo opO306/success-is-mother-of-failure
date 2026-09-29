@@ -2,6 +2,8 @@
 
 V0.1 (designer verdicts D1, D2, 2026-09-30): the mpmath estimate only HINTS; checker V2's own enclosure decides the raw.
 A wrong hint is recovered (not an ANOMALY), a failed or out-of-range estimate ends nothing.
+V0.2 (designer verdicts 2026-09-30): an enclosure strictly outside FX(96,80) is UNREPRESENTABLE, and the exp orders are
+only hinted by floats: every order is certified by exact rational inequalities, else replaced by a certified fallback (H-B).
 
 Tests: FOUND agrees with the unchanged executor and always re-verifies; cap-128 rehearsal on real trajectories; near-tie
 ladder (the prover finds the raw and the parameters itself, from 2^-10 to 2^-4000 on both sides); the four results and their
@@ -171,7 +173,7 @@ def test_not_a_decision_cases():
     # an estimate outside the output range decides nothing (D2): the trusted enclosure is consulted, and only when IT lies
     # strictly inside a cell outside FX(96,80) does the run end, as output_out_of_range (never NOT_A_DECISION)
     over = P.prove(dr, 0, Q(10 ** 40))
-    assert (over.status, over.reason) == (P.EXHAUSTED, "output_out_of_range") and over.raw is None
+    assert (over.status, over.reason) == (P.UNREPRESENTABLE, "output_out_of_range") and over.raw is None
     assert over.estimate["estimate_failed"] == "estimate_out_of_output_range"
     assert over.attempts[-1]["verdict"] == "ENCLOSURE" and over.certificate is None
     assert P.NOT_A_DECISION not in {P.prove(dr, 0, Q(10 ** e)).status for e in (35, 40, 60)}
@@ -286,23 +288,145 @@ def test_the_enclosure_and_the_checker_disagreeing_is_an_anomaly(monkeypatch):
 # --- ANOMALY: stop, record, never retry into FOUND ----------------------------------------------------------------
 
 
+def _corrupt_rate(mod):
+    """A certificate whose first exp rate is not the frozen rate: a structural defect no hint or order can repair."""
+    real = mod._certificate
+
+    def bad(*a, **k):
+        cert = real(*a, **k)
+        cert["proof"]["exp"][0]["rate"] = "7"
+        return cert
+    return bad
+
+
 def test_an_unexpected_invalid_reason_is_an_anomaly_and_is_not_retried(monkeypatch):
     dr = XC._dr(2.6, (1, 0, 0))
-    real = P._exp_plan
-
-    def bad_plan(R, N, Pbits):
-        plan = real(R, N, Pbits)
-        i = next(i for i, (mode, _) in enumerate(plan) if mode == "full")
-        plan[i] = ("full", 0)                           # violates n + 2 > x_hi
-        return plan
-    monkeypatch.setattr(P, "_exp_plan", bad_plan)
+    monkeypatch.setattr(P, "_certificate", _corrupt_rate(P))
     count = _CountingChecker(monkeypatch)
     r = P.prove(dr, 0, DT)
-    assert (r.status, r.reason) == (P.ANOMALY, "checker_exp_condition")
+    assert (r.status, r.reason) == (P.ANOMALY, "checker_exp_rate")
     assert count.calls == 1
 
 
-# --- static independence, determinism ------------------------------------------------------------------------------
+# --- H-B: exp orders are certified exactly; floats only hint ---------------------------------------------------------
+
+def _plan_hint(transform):
+    real = P._exp_plan
+
+    def hinted(R, N, Pbits):
+        return [transform(i, mode, n) for i, (mode, n) in enumerate(real(R, N, Pbits))]
+    return hinted
+
+
+def test_an_order_hint_that_violates_n_plus_2_above_x_is_replaced_by_the_certified_fallback(monkeypatch):
+    """V0.1 ended this as ANOMALY(exp_condition) because it trusted the float order. V0.2 certifies and replaces it."""
+    dr = XC._dr(2.6, (1, 0, 0))
+    first_full = [None]
+
+    def t(i, mode, n):
+        if mode == "full" and first_full[0] in (None, i):
+            first_full[0] = i
+            return ("full", 0)
+        return (mode, n)
+    monkeypatch.setattr(P, "_exp_plan", _plan_hint(t))
+    r = P.prove(dr, 0, DT)
+    assert r.status == P.FOUND and r.raw == _exe(dr)[0] and P.verify_found(r)
+    assert r.attempts[-1]["orders_fallback"] == 1 and r.attempts[-1]["orders_hinted"] == 8
+
+
+@pytest.mark.parametrize("label,transform", (
+    ("too_small", lambda i, mode, n: (mode, max(1, n // 4))),                   # tail far too large
+    ("absurdly_large", lambda i, mode, n: (mode, 10 ** 9)),                     # above n_fb: capped, never sent
+    ("zero_floor_everywhere", lambda i, mode, n: ("zero_floor", 1)),            # uncertifiable floor
+    ("not_an_int", lambda i, mode, n: (mode, float(n))),
+), ids=lambda v: v if isinstance(v, str) else "")
+def test_bad_order_hints_are_replaced_and_the_run_still_ends_in_found(monkeypatch, label, transform):
+    dr = XC._dr(7.11, (0.7, 0.7, 0.1))
+    monkeypatch.setattr(P, "_exp_plan", _plan_hint(transform))
+    r = P.prove(dr, 0, DT)
+    assert r.status == P.FOUND and r.raw == _exe(dr)[0] and P.verify_found(r), (label, r)
+    assert r.attempts[-1]["orders_fallback"] >= 1
+    orders = [int(e["order"]) for e in r.certificate["proof"]["exp"]]
+    assert max(orders) < 10 ** 6, "an absurd hint never reaches the checker"
+
+
+def _true_relative_tail_bits(n, x, prec_bits):
+    """Independent evaluation in mpmath at prec_bits (a different arithmetic from the certifier's rounded chains):
+    log2 of U_n(x) / S_n(x), U_n = t_(n+1)(x) (n+2)/(n+2-x)."""
+    with mp.workprec(prec_bits):
+        y = mp.mpf(x.numerator) / x.denominator
+        t, S = mp.mpf(1), mp.mpf(1)
+        for k in range(1, n + 1):
+            t = t * y / k
+            S += t
+        U = t * y / (n + 1) * (n + 2) / (n + 2 - y)
+        return float(mp.log(U / S, 2))
+
+
+def _true_floor_bits(n, x, prec_bits):
+    with mp.workprec(prec_bits):
+        y = mp.mpf(x.numerator) / x.denominator
+        t, S = mp.mpf(1), mp.mpf(1)
+        for k in range(1, n + 1):
+            t = t * y / k
+            S += t
+        return float(-mp.log(S, 2))
+
+
+from fractions import Fraction as Fraction_          # noqa: E402
+
+
+@pytest.mark.parametrize("R,d", ((2.4, (1, 0.3, 0.2)), (7.11, (0.7, 0.7, 0.1)), (33.0, (0.5, 0.5, 1)), (300.0, (1, 0.2, 0.1))))
+def test_every_certified_order_really_satisfies_the_exact_condition(R, d):
+    """The certifier's rounded chains against an independent exact-rational evaluation: every 'full' order has
+    n + 2 > x_hi and a true relative tail below 2^-(P+32); every 'zero_floor' order has a true 1/S_n(x_lo) below
+    2^-(P+72). This is what the completeness lemma uses, checked in a different arithmetic (mpmath) from the certifier."""
+    dr = XC._dr(R, d)
+    for N in (128, 448):
+        Pb = N + 96
+        plan = P._certified_plan(dr, N, Pb)
+        for (mode, n), x in zip(plan, P._exact_x(dr, N, Pb)):
+            if mode == "full":
+                assert n + 2 > x.hi
+                assert _true_relative_tail_bits(n, x.hi, Pb + 200) <= -(Pb + P.FULL_SLACK)
+            else:
+                assert _true_floor_bits(n, x.lo, Pb + 200) <= -(Pb + P.ZERO_SLACK)
+
+
+def test_the_fallback_order_is_linear_in_p_and_x_and_certifies():
+    """n_fb = max(ceil(2e x_hi), P + 32) + 1 is O(P + x) (the lemma needs n 2^-P -> 0) and passes the exact check."""
+    for x in (Fraction_(1, 3), Fraction_(25), Fraction_(700), Fraction_(12345, 7)):
+        for Pb in (128, 1024, 4192):
+            n = P._fallback_order(x, Pb)
+            assert n <= 2 * 3 * x + Pb + P.FULL_SLACK + 3
+            assert P._full_ok(n, x, Pb)
+
+
+def test_fault_injection_a_certifier_that_accepts_every_hint_is_caught():
+    """Mutant: the exact check is skipped. A too-small order hint then reaches the checker; the run no longer ends in
+    FOUND with the honest raw within the same budget."""
+    mod = _mutant(('        ok = (type(n) is int and n <= n_fb\n'
+                   '              and (_full_ok(n, x.hi, P) if mode == "full" else mode == "zero_floor" and _zero_ok(n, x.lo, P)))\n',
+                   '        ok = True\n'))
+    real = mod._exp_plan
+    mod._exp_plan = lambda R, N, Pbits: [("full", 0) if m == "full" else (m, n) for m, n in real(R, N, Pbits)]
+    dr = XC._dr(2.6, (1, 0, 0))
+    bad = _run_mutant(mod, dr, 0, DT)
+    assert bad.status == "ANOMALY" and bad.reason == "checker_exp_condition"
+    honest_mod_free = P.prove(dr, 0, DT)
+    assert honest_mod_free.found
+
+
+def test_fault_injection_a_fallback_below_the_needed_order_is_caught():
+    """Mutant: the closed-form fallback is halved. It no longer certifies, and the prover stops as ANOMALY
+    (order_certification_failed) instead of sending an uncertified order."""
+    mod = _mutant(('    return max(math.ceil(2 * E_UP * x_hi), P + FULL_SLACK) + 1\n',
+                   '    return max(math.ceil(2 * E_UP * x_hi), P + FULL_SLACK) // 4 + 1\n'))
+    real = mod._exp_plan
+    mod._exp_plan = lambda R, N, Pbits: [("full", 0) for _ in real(R, N, Pbits)]
+    r = _run_mutant(mod, XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT)
+    assert (r.status, r.reason) == ("ANOMALY", "order_certification_failed")
+
 
 def test_the_prover_never_touches_the_executor_evaluator_or_its_cap():
     tree = ast.parse(PROVER_SRC)
@@ -378,20 +502,21 @@ def _bad_plan_for(mod):
 
 
 def test_fault_injection_retrying_an_anomaly_hides_it(monkeypatch):
-    """A structural rejection (here exp_condition) must stop. A prover that keeps growing N on it never reports the
-    defect. (Since V0.1 a raw_mismatch on a HINT is recovered by design; this is the case that must still stop.)"""
+    """A structural rejection (here a corrupted exp rate) must stop. A prover that keeps growing N on it never reports
+    the defect. (Since V0.1 a raw_mismatch on a HINT is recovered, and since V0.2 an order hint violating exp_condition
+    is certified away; a corrupted rate is the case that must still stop.)"""
     tail = ('        return ProverResult(ANOMALY, "checker_" + res.reason, certificate=cert, checker=res, attempts=attempts,\n'
             '                            estimate=est, budget=budget)\n')
     mod = _mutant((tail, "        N = _grow(N)\n        continue\n"))
     dr = XC._dr(2.6, (1, 0, 0))
-    mod._exp_plan = _bad_plan_for(mod)
+    mod._certificate = _corrupt_rate(mod)
     count = _CountingChecker(monkeypatch)
     r = _run_mutant(mod, dr, 0, DT, budget=mod.Budget(max_attempts=4))    # few attempts: N grows 3/2 per retry
     assert r.status != "ANOMALY" and count.calls == 4 and not P.verify_found(r)
     honest_count = count.calls
-    monkeypatch.setattr(P, "_exp_plan", _bad_plan_for(P))
+    monkeypatch.setattr(P, "_certificate", _corrupt_rate(P))
     r2 = P.prove(dr, 0, DT)
-    assert (r2.status, r2.reason) == (P.ANOMALY, "checker_exp_condition") and count.calls == honest_count + 1
+    assert (r2.status, r2.reason) == (P.ANOMALY, "checker_exp_rate") and count.calls == honest_count + 1
 
 
 def test_fault_injection_the_v0_rule_a_wrong_hint_is_an_anomaly_is_caught():

@@ -1,4 +1,4 @@
-"""C1-B1 point prover generator V0.1: finds certificates for checker V2. UNTRUSTED.
+"""C1-B1 point prover generator V0.2: finds certificates for checker V2. UNTRUSTED.
 
 Design: docs/active/C1B1_POINT_PROVER_DESIGN_V0.md. The prover is a generator, not a judge. It may use anything to guess
 a certificate (mpmath floats, heuristics); only checker V2 decides. **The one and only success is
@@ -17,10 +17,12 @@ RESULTS
   EXHAUSTED      no certificate within the operational limits YET. Either the prover's own budget ran out
                  (prover_budget:*) or the checker REFUSED (checker_refused:<limit>) or the certificate could not be
                  serialized (serialization_limit). This says NOTHING about truth: Lemmas A+B give a finite certificate,
-                 not one inside today's limits. One more reason, output_out_of_range, is NOT an operational limit:
-                 checker V2's own enclosure lies strictly inside a cell outside FX(96,80), so no certificate of this
-                 format exists for the input (a real output overflow is the executor's terminal refusal and should not
-                 reach the prover; the status for it awaits the designer's verdict).
+                 not one inside today's limits.
+  UNREPRESENTABLE the exact value is decided but the output profile cannot hold it: checker V2's own enclosure lies
+                 strictly inside a cell outside FX(96,80) (reason output_out_of_range). No precision helps. Designer
+                 verdict 2026-09-30. For the C1-B1 profile (dt = 40, R >= r_min) the D4 bound |J| <= 1277.3 a.u. shows
+                 it cannot happen; the runtime wrapper treats it there as a contract violation. Synthetic inputs and
+                 arbitrary dt_kick can return it normally.
   ANOMALY        the certificate is rejected for a reason that is neither not_separated nor a wrong raw HINT (e.g.
                  exp_condition), or the trusted enclosure and the checker disagree on a raw the enclosure chose.
                  Recorded and STOPPED: never retried into FOUND.
@@ -32,6 +34,18 @@ J at the same N (K2.enclosure, the checker's own computation) and takes the raw 
 grows N if J straddles a boundary. An estimate that fails or lands outside the output range stops nothing: the prover
 goes straight to the enclosure. So finding a certificate no longer depends on mpmath being right (audit hole H1), and an
 estimate never ends a run (hole H2). The final verdict is still one check_certificate call on the certificate returned.
+
+V0.2 (designer verdict H-B, 2026-09-30). The exp ORDERS are also only hinted by floats. _certified_plan computes the
+exact x intervals exactly as checker V2 will (same sqrt interval, same outward products) and certifies every hinted
+order with exact rational inequalities; a hint that fails, or exceeds the closed-form fallback order n_fb, is replaced
+by n_fb, which is itself certified. So the properties the completeness lemma needs (n + 2 > x_hi, a certified tail,
+a certified zero_floor floor, n = O(P + x)) never rest on floating point:
+  full       n + 2 > x_hi and U_n(x_hi) = t_(n+1)(x_hi) (n+2)/(n+2-x_hi) <= 2^-(P + FULL_SLACK) S_n(x_hi): a RELATIVE
+             tail, both sides bounded by one-sided rounded chains at CERT_BITS (t upward, S_n downward)
+  zero_floor 1/S_n(x_lo) <= n!/x_lo^n <= e n (n/(e x_lo))^n <= 2^-(P + ZERO_SLACK)   [n! <= e n^(n+1/2) e^-n, n >= 1]
+  fallback   full with n_fb = max(ceil(2 e x_hi), P + FULL_SLACK) + 1  (then e x_hi/(n+1) <= 1/2 and the tail
+             bound is below 2^-(n+1) * 1.23 < 2^-(P+FULL_SLACK) <= 2^-(P+FULL_SLACK) S_n); certified like any other.
+e is bracketed by the rationals E_LO < e < E_UP. The certifier only chooses orders; checker V2 still decides.
 
 STEPS. (1) classify NOT_A_DECISION; (2) HINT: estimate y = J / ulp and its distance d (in ulps) to the nearest half-ulp
 boundary with mpmath at a doubling precision until two precisions agree to well within d; hinted raw m = floor(y + 1/2);
@@ -57,6 +71,9 @@ import mpmath as mp
 import a_reference.c1b1_exact_impulse_checker_v2 as K2
 
 FOUND, NOT_A_DECISION, EXHAUSTED, ANOMALY = "FOUND", "NOT_A_DECISION", "EXHAUSTED", "ANOMALY"
+UNREPRESENTABLE = "UNREPRESENTABLE"
+E_LO, E_UP = Fraction(27182, 10000), Fraction(27183, 10000)        # E_LO < e < E_UP
+FULL_SLACK, ZERO_SLACK = 32, 72                                     # certified targets 2^-(P+32), 2^-(P+72)
 LN2 = math.log(2)
 RAW_MIN, RAW_MAX = -(1 << (K2.OUT_WIDTH - 1)), (1 << (K2.OUT_WIDTH - 1)) - 1
 
@@ -215,9 +232,70 @@ def _exp_plan(R, N, P):
     return plan
 
 
-def _certificate(dr, k, dt, raw, N, P):
+def _exact_x(dr, N, P):
+    """The exp arguments x = r * rate EXACTLY as checker V2's _compute builds them (same R^2, sqrt interval, products)."""
+    R2 = Fraction(sum(v * v for v in dr), 1 << (2 * K2.POSITION_FRAC_BITS))
+    r = K2._sqrt_interval(R2, N)
+    return [r.mul(K2._const(rate, P), P) for rate in K2.rates()]
+
+
+CERT_BITS = 64                                                      # mantissa bits of the certifier's own bounds
+
+
+def _full_ok(n, x_hi, P):
+    """Exact: n + 2 > x_hi and the RELATIVE Taylor tail U_n(x_hi) <= 2^-(P + FULL_SLACK) * S_n(x_hi), which is what
+    makes the enclosure of e^-x narrow relative to e^-x itself. Both sides are bounded by one-sided rounded chains
+    (like checker V2's series): t_up >= t_{n+1}(x_hi) = x_hi^(n+1)/(n+1)!, s_lo <= S_n(x_hi); all terms are positive."""
+    if n < 1 or not n + 2 > x_hi:
+        return False
+    y_up, y_lo = K2.up(x_hi, CERT_BITS), K2.down(x_hi, CERT_BITS)
+    t_up = t_lo = s_lo = Fraction(1)
+    for k in range(1, n + 1):
+        t_up = K2.up(t_up * y_up / k, CERT_BITS)
+        t_lo = K2.down(t_lo * y_lo / k, CERT_BITS)
+        s_lo = K2.down(s_lo + t_lo, CERT_BITS)
+    t_up = K2.up(t_up * y_up / (n + 1), CERT_BITS)
+    return t_up * Fraction(n + 2) / (n + 2 - x_hi) <= s_lo / (1 << (P + FULL_SLACK))
+
+
+def _zero_ok(n, x_lo, P):
+    """Exact: 1/S_n(v) <= 2^-(P + ZERO_SLACK) for every v >= x_lo."""
+    if n < 1 or not x_lo > 0:
+        return False
+    q = K2.up(Fraction(n) / (E_LO * x_lo), 64)                     # q >= n / (e x_lo)
+    if q >= 1:
+        return False
+    return E_UP * n * q ** n <= Fraction(1, 1 << (P + ZERO_SLACK))
+
+
+def _fallback_order(x_hi, P):
+    return max(math.ceil(2 * E_UP * x_hi), P + FULL_SLACK) + 1
+
+
+def _certified_plan(dr, N, P, info=None):
+    """The exp plan with every order certified exactly (H-B). The float plan is only a hint."""
     R = math.sqrt(sum(float(v) * float(v) for v in dr)) / 2.0 ** K2.POSITION_FRAC_BITS
-    plan = _exp_plan(R, N, P)
+    hint = _exp_plan(R, N, P)
+    out, hinted, fallback = [], 0, 0
+    for (mode, n), x in zip(hint, _exact_x(dr, N, P)):
+        n_fb = _fallback_order(x.hi, P)
+        ok = (type(n) is int and n <= n_fb
+              and (_full_ok(n, x.hi, P) if mode == "full" else mode == "zero_floor" and _zero_ok(n, x.lo, P)))
+        if ok:
+            out.append((mode, n))
+            hinted += 1
+            continue
+        if not _full_ok(n_fb, x.hi, P):                             # the closed form is certified like any order
+            raise _Stop(ANOMALY, "order_certification_failed")
+        out.append(("full", n_fb))
+        fallback += 1
+    if info is not None:
+        info["orders_hinted"], info["orders_fallback"] = hinted, fallback
+    return out
+
+
+def _certificate(dr, k, dt, raw, N, P, info=None):
+    plan = _certified_plan(dr, N, P, info)
     return {
         "format": K2.FORMAT, "method": K2.METHOD,
         "model": {"contract": K2.CONTRACT, "parameter_fingerprint": K2.FROZEN_FINGERPRINT, "retardation": True},
@@ -318,17 +396,18 @@ def prove(dr_raw, component, dt_kick, budget=None, limits=None):
                     N = _grow(N)
                     continue
                 if not RAW_MIN <= m <= RAW_MAX:
-                    return ProverResult(EXHAUSTED, "output_out_of_range", attempts=attempts, estimate=est,
+                    return ProverResult(UNREPRESENTABLE, "output_out_of_range", attempts=attempts, estimate=est,
                                         budget=budget)
                 decided = True
-            cert = _certificate(dr, component, dt, m, N, P)
+            info = {}
+            cert = _certificate(dr, component, dt, m, N, P, info)
         except ValueError:                        # a number too long for Python's int/str conversion limit
             return ProverResult(EXHAUSTED, "serialization_limit", attempts=attempts, estimate=est, budget=budget)
         except _Stop as s:
             return ProverResult(s.status, s.reason, attempts=attempts, estimate=est, budget=budget)
         res = K2.check_certificate(cert, limits)
         attempts.append({"sqrt_bits": N, "work_bits": P, "verdict": res.status, "reason": res.reason,
-                         "seconds": res.stats["seconds"]})
+                         "seconds": res.stats["seconds"], **info})
         if res.valid:
             return ProverResult(FOUND, "checker_valid", raw=res.raw, certificate=cert, checker=res, attempts=attempts,
                                 estimate=est, budget=budget)
