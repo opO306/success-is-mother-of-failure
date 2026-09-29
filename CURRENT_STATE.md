@@ -534,6 +534,16 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - **완결성 정리는 아직 성립으로 쓰지 않는다**(D3 감사·H-float 전). **④-Liveness NotCertified**, A-EV 미해결(별도 작업선), ④-Safety Conditional.
 다음 판단(설계자): `output_out_of_range` 상태 분류, H-float(H-A/H-B), D3 독립 감사자 지정.
 
+**설계자 판정(2026-09-30, 기준 HEAD `b6baa94`→`99077a4`): D1·D2 유지, D4 승인(C1-B1 dt = 40·FX(96,48) 상대 위치 전체·R ≥ r_min 범위, A-EV 아님). `output_out_of_range` → 새 상태 UNREPRESENTABLE, dt = 40 runtime에서는 RuntimeContractViolation. H-B 승인, 단 fallback은 반복 없는 닫힌 부등식으로 인증. D3 독립 감사는 H-B 뒤, 작성자와 다른 계열(GPT-5.6 Sol High).** `99077a4`는 미검증 WIP였고(원격에도 있음) 그 위에 검증 커밋을 쌓는다.
+
+**prover V0.2 + wrapper + D3 개정 1(2026-09-30):** ([prover 설계 11절](docs/active/C1B1_POINT_PROVER_DESIGN_V0.md), [감사 9절](docs/active/C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md), [D3 lemma](docs/active/C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md), [wrapper 10절](docs/active/C1B1_RUNTIME_WRAPPER_V0.md))
+- **UNREPRESENTABLE**: 신뢰 enclosure가 참값이 출력 범위 밖임을 보인 경우. dt = 40이면 wrapper가 **RuntimeContractViolation**(run 불변, TERMINAL 아님), 다른 dt에서는 UNPROVED.
+- **H-B**: 부동소수 차수는 힌트다. 힌트는 checker와 같은 정확 x에서 한쪽 반올림 사슬(정수 가수·지수 쌍, 단계당 일정 비용)로 인증한다. fallback n_fb는 **O(1) 정확 비교 두 개**로 인증하고, 그 비교가 상대 꼬리 조건을 함의함을 증명했다(CERT_BITS 비의존). order_max 초과는 무거운 계산 전에 거부한다. WIP의 hang 원인(`Fraction` 사슬의 거대 분모)을 고쳐 차수 200,000 인증이 0.19초다. 표본에서 힌트 9/9 인증, 속도 유지.
+- **D3 개정 1**: H-float 가정 제거. 정성 완결성은 O(1) fallback 경로에만 기대고, 힌트 인증기에는 건전성(True ⇒ 성질)만 필요하다.
+- 검증: prover 48, wrapper 45, 관련 묶음 **498 passed + 1 xfailed**, **LOCAL FULL 3327 passed + 1 xfailed, skip 0, 실패 0, exit 0, 575.86초**(D4 시험 11 포함). 증거: `runs/c1b1_prover_v02_hb_20260930/`.
+- **완결성 정리는 초안이며 독립 감사 전이다. ④-Liveness NotCertified**, A-EV 미해결, ④-Safety Conditional. Exact Aggregate·작은 완전세계는 대기.
+다음 판단(설계자): D3 lemma 개정 1 + prover V0.2의 독립 감사(GPT-5.6 Sol High, 인계 자료 `docs/active/C1B1_D3_AUDIT_HANDOFF_V0.md`).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.

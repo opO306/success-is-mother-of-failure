@@ -393,19 +393,64 @@ def test_every_certified_order_really_satisfies_the_exact_condition(R, d):
                 assert _true_floor_bits(n, x.lo, Pb + 200) <= -(Pb + P.ZERO_SLACK)
 
 
-def test_the_fallback_order_is_linear_in_p_and_x_and_certifies():
-    """n_fb = max(ceil(2e x_hi), P + 32) + 1 is O(P + x) (the lemma needs n 2^-P -> 0) and passes the exact check."""
-    for x in (Fraction_(1, 3), Fraction_(25), Fraction_(700), Fraction_(12345, 7)):
-        for Pb in (128, 1024, 4192):
+def test_the_fallback_order_is_linear_in_p_and_x_and_certifies_in_constant_time():
+    """n_fb = max(ceil(2e x_hi), P + 32) + 1 is O(P + x) (the lemma needs n 2^-P -> 0) and passes the O(1) closed-form
+    certificate, even for astronomically large P (no rounding chain, no CERT_BITS)."""
+    import time
+    for x in (Fraction_(1, 3), Fraction_(25), Fraction_(700), Fraction_(12345, 7), Fraction_(10 ** 9, 7)):
+        for Pb in (128, 1024, 4192, 10 ** 6, 10 ** 15):
             n = P._fallback_order(x, Pb)
-            assert n <= 2 * 3 * x + Pb + P.FULL_SLACK + 3
-            assert P._full_ok(n, x, Pb)
+            assert n <= 2 * Fraction_(27183, 10000) * x + Pb + P.FULL_SLACK + 3
+            t = time.perf_counter()
+            assert P._fallback_ok(n, x, Pb)
+            assert time.perf_counter() - t < 0.01
+            assert not P._fallback_ok(n // 4, x, Pb), "the closed form must reject an order well below it"
+
+
+@pytest.mark.parametrize("x,Pb", ((Fraction_(1, 3), 128), (Fraction_(25), 224), (Fraction_(700), 160), (Fraction_(12345, 7), 128)))
+def test_the_fallback_closed_form_really_bounds_the_relative_tail(x, Pb):
+    """The O(1) certificate's claim, U_n(x) < 2^-(P+32) S_n(x) at n = n_fb, evaluated independently in mpmath."""
+    n = P._fallback_order(x, Pb)
+    assert _true_relative_tail_bits(n, x, Pb + 200) <= -(Pb + P.FULL_SLACK)
+
+
+def test_the_hint_certifier_is_fast_for_huge_orders_and_the_dyadic_bounds_are_one_sided():
+    """The V0.2 WIP hang: Fraction chains carried 2^-e denominators of ~k log k bits. Integer (mantissa, exponent)
+    pairs keep a step O(CERT_BITS)."""
+    import time
+    t = time.perf_counter()
+    assert P._full_ok(200000, Fraction_(1234567, 1000), 4000)
+    assert P._zero_ok(10 ** 6, Fraction_(10 ** 7), 10 ** 6)
+    assert time.perf_counter() - t < 10
+    for x in (Fraction_(1, 3), Fraction_(10 ** 40 + 7, 3 ** 50), Fraction_(2 ** 70 + 1, 5), Fraction_(7, 2 ** 90)):
+        assert P._dy_frac(P._dy(x, True)) <= x <= P._dy_frac(P._dy(x, False))
+        for k in (1, 3, 1000003):
+            lo = P._dy_frac(P._dy_mul_div(P._dy(x, True), P._dy(x, True), k, True))
+            hi = P._dy_frac(P._dy_mul_div(P._dy(x, False), P._dy(x, False), k, False))
+            assert lo <= x * x / k <= hi
+        a, b = P._dy(x, True), P._dy(x * 12345, True)
+        assert P._dy_frac(P._dy_add(a, b, True)) <= P._dy_frac(a) + P._dy_frac(b) <= P._dy_frac(P._dy_add(a, b, False))
+        tiny = P._dy(x / 2 ** 400, True)
+        assert P._dy_frac(P._dy_add(a, tiny, True)) <= P._dy_frac(a) + P._dy_frac(tiny) <= P._dy_frac(P._dy_add(a, tiny, False))
+        q = P._dy(Fraction_(3, 7), False)
+        assert P._dy_frac(q) ** 77 <= P._dy_frac(P._dy_pow_up(q, 77))
+
+
+def test_an_order_above_the_checker_limit_ends_before_any_heavy_work(monkeypatch):
+    """The fallback above order_max: EXHAUSTED(checker_refused:order_limit) from the prover's precheck, the checker is
+    never called (it would refuse with the same rule: order > order_max)."""
+    count = _CountingChecker(monkeypatch)
+    import time
+    t = time.perf_counter()
+    r = P.prove(XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT, limits=K2.Limits(order_max=10))
+    assert (r.status, r.reason) == (P.EXHAUSTED, "checker_refused:order_limit") and count.calls == 0
+    assert time.perf_counter() - t < 5
 
 
 def test_fault_injection_a_certifier_that_accepts_every_hint_is_caught():
     """Mutant: the exact check is skipped. A too-small order hint then reaches the checker; the run no longer ends in
     FOUND with the honest raw within the same budget."""
-    mod = _mutant(('        ok = (type(n) is int and n <= n_fb\n'
+    mod = _mutant(('        ok = (type(n) is int and n <= n_fb and n <= order_max\n'
                    '              and (_full_ok(n, x.hi, P) if mode == "full" else mode == "zero_floor" and _zero_ok(n, x.lo, P)))\n',
                    '        ok = True\n'))
     real = mod._exp_plan
@@ -426,6 +471,16 @@ def test_fault_injection_a_fallback_below_the_needed_order_is_caught():
     mod._exp_plan = lambda R, N, Pbits: [("full", 0) for _ in real(R, N, Pbits)]
     r = _run_mutant(mod, XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT)
     assert (r.status, r.reason) == ("ANOMALY", "order_certification_failed")
+
+
+def test_fault_injection_a_removed_order_precheck_is_caught(monkeypatch):
+    """Mutant: no order_max precheck. The same limit is then hit inside the checker after the certificate is built and
+    sent: the checker is called, which the precheck test forbids."""
+    mod = _mutant(('        if n_fb > order_max:                                         # the checker would refuse: say so before any work\n'
+                   '            raise _Stop(EXHAUSTED, "checker_refused:order_limit")\n', ""))
+    count = _CountingChecker(monkeypatch)
+    r = _run_mutant(mod, XC._dr(7.11, (0.7, 0.7, 0.1)), 0, DT, limits=K2.Limits(order_max=10))
+    assert r.reason == "checker_refused:order_limit" and count.calls >= 1
 
 
 def test_the_prover_never_touches_the_executor_evaluator_or_its_cap():
@@ -557,11 +612,11 @@ def test_fault_injection_ignoring_a_checker_refusal_is_caught():
     mod = _mutant((REFUSED, ""))
     dr = XC._dr(4.4, (0.6, 0.6, 0.5))
     _, dr_, dt, _ = XC.near_tie_item(dr, 0, 1000, 1, dps=540, dt_bits=1400)
-    lim = K2.Limits(order_max=1)
+    lim = K2.Limits(bits_max=2000)          # a refusal inside the checker (order limits are prechecked since V0.2)
     honest = P.prove(dr_, 0, dt, limits=lim)
-    assert (honest.status, honest.reason) == (P.EXHAUSTED, "checker_refused:order_limit")
+    assert (honest.status, honest.reason) == (P.EXHAUSTED, "checker_refused:size_limit")
     bad = _run_mutant(mod, dr_, 0, dt, limits=lim, budget=mod.Budget(max_attempts=3))
-    assert (bad.status, bad.reason) != (P.EXHAUSTED, "checker_refused:order_limit")
+    assert (bad.status, bad.reason) != (P.EXHAUSTED, "checker_refused:size_limit")
 
 
 def test_fault_injection_an_estimate_that_loses_the_boundary_distance_is_caught_by_the_ladder():

@@ -1,18 +1,19 @@
-# C1-B1 D3 — Checker V2 enclosure 수렴 lemma V0 (Lemma B의 V2 확장) + prover V0.1 완결성 조립
+# C1-B1 D3 — Checker V2 enclosure 수렴 lemma (Lemma B의 V2 확장) + prover V0.2 완결성 조립 — 개정 1
 
-**상태:** **lemma 작성(구현자). 독립 감사 전 — 승인 아님.** 코드 변경 없음(이 문서는 수학 문서다). 기준: prover V0.1(D1·D2 구현), checker V2 소스 `a_reference/c1b1_exact_impulse_checker_v2.py`(변경 없음).
-**근거:** 설계자 판정 2026-09-30 D1 승인·D2 승인·**D3 진행**·D4 정확 상한([완결성 감사 V0](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md) 6절). [Lemma A·B 감사](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md)(A 승인, B 방향 승인).
+**상태:** **개정 1(H-float 제거). lemma 작성(구현자). 독립 감사 전 — 승인 아님.** 기준: prover V0.2(`a_reference/c1b1_point_prover.py`: D1·D2 + H-B + UNREPRESENTABLE), checker V2 소스(변경 없음).
+**근거:** 설계자 판정 2026-09-30 D1 승인·D2 승인·**D3 진행**·D4 정확 상한([완결성 감사 V0](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md) 6·8절), **H-B 승인과 그 수정**(부동소수 차수는 힌트, 정확 인증, fallback은 반복 없는 닫힌 부등식으로 인증), `UNREPRESENTABLE` 분리. [Lemma A·B 감사](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md)(A 승인, B 방향 승인).
+**개정 1에서 바뀐 것:** 초판의 가정 (H-float, 부동소수 차수 선택)을 없앴다(4절). 3절에 필요한 차수 성질을 코드의 정확 인증이 보장한다. 정성 완결성은 **고정 `CERT_BITS = 64` 힌트 인증기에도 기대지 않는다**: 완결성이 쓰는 경로는 O(1) 닫힌 부등식으로 인증되는 fallback이다.
 **현재 상태(변경 없음):** A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified.** 이 문서만으로는 아무것도 승격하지 않는다.
 
 ## 0. 한 줄
 
-입력 하나를 고정하고 prover V0.1의 정밀도 순서(N_j → ∞, P_j = N_j + 96, 차수는 `_exp_plan`)를 따라가면, checker V2가 계산하는 enclosure J_j의 폭은 0으로 간다(Lemma B-V2). Lemma A(참값이 경계에서 d > 0 떨어짐)와 합치면 유한한 j*에서 J가 참 raw의 열린 칸 안에 들어가고, V0.1의 흐름(힌트 → raw_mismatch → enclosure가 결정)은 그 전에 또는 그때 VALID를 반환한다(조립 정리). **단, 차수 선택이 부동소수 계산이라는 점 하나가 가정(H-float)으로 남는다(4절).**
+입력 하나를 고정하고 prover V0.2의 정밀도 순서(N_j → ∞, P_j = N_j + 96, 차수는 `_certified_plan`)를 따라가면, checker V2가 계산하는 enclosure J_j의 폭은 0으로 간다(Lemma B-V2). Lemma A(참값이 경계에서 d > 0 떨어짐)와 합치면 유한한 j*에서 J가 참 raw의 열린 칸 안에 들어가고, 흐름(힌트 → raw_mismatch → enclosure가 결정)은 그 전에 또는 그때 VALID를 반환한다(조립 정리). **부동소수 가정은 남지 않는다**(4절).
 
 ## 1. 기호와 대상
 
 - 입력: dr ∈ Z³(FX(96,48) raw), 성분 k(dr_k ≠ 0), dt_kick ∈ Q∖{0}, R² = Σdr_i²·2^−96 ≥ r_min². 참값 y* = J_k/ulp, ulp = 2^−80.
 - prover V0.1 순서: N_0 = round64(max(128, 힌트 비트)) 또는 128(힌트 없음), N_{j+1} = round64(⌊3N_j/2⌋ + 1). 따라서 **N_j는 엄격 증가하고 N_j → ∞.** P_j = N_j + 96.
-- 차수: 각 비율 λ(9개)에 대해 `_exp_plan(R_float, N_j, P_j)`가 (`full`, n) 또는 (`zero_floor`, n)을 준다.
+- 차수: 각 비율 λ(9개)에 대해 `_certified_plan`이 정한다. 부동소수 `_exp_plan`은 **힌트**만 준다. 힌트는 정확한 x 구간(checker와 같은 계산, `_exact_x`)에서 정확 인증을 통과하고 n ≤ n_fb, n ≤ order_max일 때만 쓰인다. 아니면 **fallback** (`full`, n_fb), n_fb = max(⌈2·E_UP·x_hi⌉, P + 32) + 1을 쓴다(E_LO = 2.7182 < e < E_UP = 2.7183, 유리수).
 - J_j: 그 매개변수로 checker V2 `_compute`가 만드는 구간(`enclosure()`와 `check_certificate()`는 같은 `_compute`를 쓴다. 출력 raw는 J에 들어가지 않는다. 1〜528행 확인).
 
 ## 2. 보조 사실 (코드에서 직접)
@@ -29,54 +30,63 @@
 
 ## 3. Lemma B-V2 (수렴)
 
-**진술.** 입력 하나를 고정한다. (H-float, 4절)을 가정하면 width(J_j) → 0 (j → ∞)이다.
+**진술.** 입력 하나를 고정한다. 차수가 4절의 성질 (C1)〜(C3)를 만족하면(prover V0.2는 항상 만족한다) width(J_j) → 0 (j → ∞)이다.
 
 **증명.**
 1. F1로 width(r_j) → 0.
 2. 각 비율 λ의 x_j = r_j·λ(반올림 1회)는 폭 ≤ λ·2^−N_j + 2·λR·2^−P_j → 0이고 x* = λR로 수렴한다.
-3. **exp 폭 → 0.** (a) `zero_floor`: prover는 n ≤ x_lo + 2이고 n ln x_lo − ln n! ≥ (P + 88)·ln2 + 1인 n이 있을 때만 이 모드를 고른다(`_zero_floor_order`, bits = P + 48, +40). 그러면 폭 ≤ n!/x_lo^n ≤ 2^−(P+88) → 0이다. 또 n ln x − ln n!의 최댓값은 x 근처에서 약 x이므로, P가 약 x*/ln2를 넘으면 그런 n이 없어 `full`로 넘어간다. (b) `full`: prover는 n_j를 x_hi 기준 꼬리 추정 ≤ 2^−(P_j+48)이 되는 가장 작은 n으로 고른다. (H-float)로 참 꼬리 U_n(x_hi) → 0이다. x_hi가 유계인 동안 n_j → ∞이고 n_j = O(P_j)이다. 급수 반올림의 누적 상대 오차는 (1 + 2^−P)^{2n+O(1)} − 1 ≤ (2n + O(1))·2^−P·(1 + o(1)) → 0이다. S_n(x) → e^x가 x에 대해 균등(x 유계)하고 e^−x는 연속이므로 [하한, 상한]의 폭 → 0이다.
+3. **exp 폭 → 0.** (a) `zero_floor`: (C3)로 폭 ≤ up(1/S⁻_n(x_lo)) ≤ 2^−(P+72)·(1 + O(n·2^−P)) → 0. (b) `full`: 참 enclosure [1/(S_n(x_hi) + U_n(x_hi)), 1/S_n(x_lo)]의 폭은
+   |1/S_n(x_lo) − 1/S_n(x_hi)| + U_n(x_hi)/S_n(x_hi)² ≤ (x_hi − x_lo) + 2^−(P+32)
+   이다. 첫 항은 S_n′ = S_{n−1} ≤ S_n, S_n ≥ 1에서 |d(1/S_n)/dx| ≤ 1이므로 **n에 대해 균등**하게 성립한다. 둘째 항은 (C1)의 상대 꼬리다. 두 항 모두 → 0이다. 여기에 checker의 한쪽 반올림(급수당 2n + O(1)회, 각 상대 오차 < 2^−P, F2)이 더하는 누적 상대 오차는 (C2)의 n = O(P + x)로 (2n + O(1))·2^−P·(1 + o(1)) → 0이다.
 4. **나머지 식(F5).** 입력 구간(r, 9개 exp)의 폭 → 0이고, 반올림 위치가 유한 개이며 각 상대 오차 < 2^−P → 0이다. 분모는 0에서 떨어져 있다(Dn ≥ 1, r.lo ≥ r_min − 2^−N > 0). 따라서 이 고정 모양 식의 구간 확장은 참값 근방에서 입력 폭과 반올림 오차에 대해 Lipschitz이고(Moore의 자연 구간 확장 수렴, Lemma B (iii)와 같은 논리), 폭(dV) → 0이다.
 5. G = −dV·[1/r.hi, 1/r.lo](반올림 2회), J = G·c(c = dr_k·dt_kick·2^−48, 정확 곱). width(J) = |c|·width(G) → 0. ∎
 
-**Lemma B(V1형)와의 차이:** 반올림(P)과 `zero_floor`와 부동소수 차수 선택 세 가지를 더했다. 수렴의 뼈대(√ 폭 → 0, exp 폭 → 0, 식의 연속성)는 같다.
+**Lemma B(V1형)와의 차이:** 반올림(P), `zero_floor`, 인증된 차수 선택 세 가지를 더했다. 수렴의 뼈대(√ 폭 → 0, exp 폭 → 0, 식의 연속성)는 같다. exp 폭은 절대 꼬리가 아니라 **상대 꼬리**와 n에 균등한 립시츠 성질로 묶는다(초판의 "S_n → e^x 균등"보다 직접적이다).
 
-## 4. 남는 가정 (H-float) — 먼저 공개
+## 4. 차수 성질과 그 보장 — 부동소수·고정 비트 가정 없음 (개정 1)
 
-prover의 차수 선택(`_full_order`, `_zero_floor_order`)은 **부동소수** `math.log`, `math.lgamma`와 float x_lo/x_hi를 쓴다. 3절이 쓰는 성질은 세 가지다.
-- (a) P_j → ∞이면 `full` 차수 n_j → ∞이고 참 꼬리 U_{n_j}(x_hi) → 0이다.
-- (b) `full`에서 n + 2 > x_hi(정확값)이다. 그렇지 않으면 checker가 `exp_condition` INVALID → ANOMALY로 멈춘다.
-- (c) `zero_floor`를 고르면 1/S_n(x_lo) ≤ 약 2^−(P+88)이다.
+3절이 쓰는 성질(모든 j, 모든 비율에서):
+- **(C1) full:** n + 2 > x_hi(정확값, checker의 `exp_condition`과 같은 조건)이고 U_n(x_hi) ≤ 2^−(P+32)·S_n(x_hi).
+- **(C2) 크기:** n ≤ n_fb(P, x_hi) = max(⌈2·E_UP·x_hi⌉, P + 32) + 1 = O(P + x).
+- **(C3) zero_floor:** 1/S_n(v) ≤ 2^−(P+72) (모든 v ≥ x_lo).
 
-**현실적 범위에서의 근거:** float 상대 오차는 약 10^−16이다. (b)는 n ≥ ⌈x_hi,float⌉ − 1로 약 1의 여유를 두는데, x < 2^52(R은 2^49 bohr 미만, λ < 7)이면 float 오차가 그 여유를 넘지 않는다. (a)와 (c)에서 log 꼬리의 float 오차는 약 10^−16·n·ln n 크기라 목표 (P + 48)·ln2보다 한참 작다. 다만 P가 2^50 정도로 커지면 이 비교가 무의미해진다. 그 크기는 정수 하나가 페타바이트급이라 실제로는 실행할 수 없는 영역이다.
+**보장.** `_certified_plan`은 각 비율에 대해 둘 중 하나를 쓴다.
+1. **fallback (`full`, n_fb) — 완결성 경로.** `_fallback_ok`는 정확한 유리수 비교 두 개 n + 1 ≥ 2·E_UP·x_hi, n ≥ P + 33만 본다. O(1)이고 반복·반올림 사슬이 없으며 CERT_BITS와 무관하다. n_fb의 정의에서 n_fb + 1 ≥ ⌈2E_UP·x_hi⌉ + 2 > 2E_UP·x_hi이고 n_fb ≥ P + 33이므로 이 두 비교는 **대수적으로 항상 참**이다. 따라서 `order_certification_failed`는 정의상 일어나지 않는다(코드의 그 분기는 결함 탐지용). 두 비교가 (C1)을 함의하는 증명:
+   - (n+1)! ≥ ((n+1)/e)^{n+1}(e^k ≥ k^k/k!)이므로 t_{n+1}(x_hi) = x_hi^{n+1}/(n+1)! ≤ (e·x_hi/(n+1))^{n+1} ≤ 2^−(n+1)(e·x_hi/(n+1) ≤ E_UP·x_hi/(n+1) ≤ 1/2).
+   - x_hi ≤ (n+1)/(2e) < n + 2이므로 n + 2 > x_hi이고, (n+2)/(n+2−x_hi) ≤ 1/(1 − 1/(2e)) < 1.23.
+   - 따라서 U_n(x_hi) = t_{n+1}·(n+2)/(n+2−x_hi) < 1.23·2^−(n+1) < 2^−n ≤ 2^−(P+33) < 2^−(P+32) ≤ 2^−(P+32)·S_n(x_hi)(S_n ≥ 1). (C2)는 등식이다.
+2. **힌트 (선택적 빠른 길).** 부동소수 힌트 (mode, n)는 int이고 n ≤ n_fb, n ≤ order_max이며 정확 검사를 통과할 때만 쓰인다.
+   - `full`: `_full_ok`가 t_{n+1}(x_hi)의 **상한**(위로 반올림한 사슬)과 S_n(x_hi)의 **하한**(아래로 반올림한 사슬)으로 (C1)을 검사한다. 사슬 값은 (가수 < 2^CERT_BITS, 정수 지수) 쌍이고 모든 반올림은 한쪽 방향이다(`_dy_norm`: floor/ceiling, `_dy_mul_div`: 나머지 있으면 올림, `_dy_add`: 지수 차가 2·CERT_BITS를 넘으면 작은 항을 버림(하한) 또는 마지막 자리 +1(상한)). 따라서 **True이면 (C1)이 참이다.**
+   - `zero_floor`: `_zero_ok`가 n! ≤ e·n^{n+1/2}·e^−n ≤ e·n^{n+1}·e^−n에서 1/S_n(v) ≤ n!/x_lo^n ≤ e·n·(n/(e·x_lo))^n를 쓰고, q ≥ n/(E_LO·x_lo)를 위로 반올림한 뒤 q^n을 위로 반올림한 제곱 반복으로 상한한다. **True이면 (C3)이 참이다.**
+   - (C2)는 n ≤ n_fb 검사로 보장된다.
+   - **CERT_BITS의 역할:** 힌트 검사가 True를 **얼마나 자주** 내는지(속도)만 정한다. False는 fallback으로 가므로 완결성에 영향이 없다. 정리에 필요한 것은 힌트 검사의 **건전성**(True ⇒ 성질)뿐이다.
+3. **order_max:** 무한 Limits에서는 사전 검사가 발동하지 않는다. 유한 Limits에서는 checker와 같은 규칙(order > order_max면 거부)으로 무거운 계산 전에 `EXHAUSTED(checker_refused:order_limit)`를 낸다(가용성).
 
-**엄밀한 수학적 정리로 쓰려면 둘 중 하나가 필요하다(설계자 판단):**
-- **H-A (문서):** 완결성 정리를 "P ≤ P_max(예: 2^40)에서 VALID가 나오는 입력"으로 한정한다. 정성 정리가 아니게 된다.
-- **H-B (코드, 작음):** 차수 선택을 정확 정수·유리수 계산으로 바꾼다. 예: n을 늘려 가며 checker와 같은 U_n 상한을 정확히 평가한다. 그러면 (a)〜(c)가 float 없이 성립하고, 정성 정리에서 H-float가 사라진다. prover는 비신뢰 생성기이므로 건전성에는 영향이 없고 가용성(속도)만 바뀐다.
+**부동소수가 남는 곳:** 힌트를 **만드는** `_exp_plan`과 mpmath 추정뿐이다. 둘 다 정리에서 아무 역할이 없다(틀리면 fallback·enclosure로 간다).
 
-구현자 권고: **H-B.** 수정은 prover 내부 두 함수에 한정되고 checker·실행기는 그대로다. 설계자 판정 전에는 구현하지 않는다.
+## 5. 조립 — prover V0.2 정성적 완결성 (독립 감사 조건부 초안)
 
-## 5. 조립 — prover V0.1 정성적 완결성 (D4·H-float·독립 감사 조건부 초안)
-
-**진술(초안).** 1절의 입력에서 참 raw m*가 FX(96,80) 범위 안이라고 하자(**D4 성립: dt = 40에서 실행기가 판정하는 모든 충격량은 \|J\| ≤ 1277.3 a.u. = 경계의 3.9%**, [감사 8절](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md)).  budget·Limits가 무한이고 Python 정수 문자열 한도를 해제했으며 (H-float)가 성립하면, `prove()`는 유한 단계에서 FOUND(checker V2 VALID, raw = m*)를 반환한다.
+**진술(초안).** 1절의 입력에서 참 raw m*가 FX(96,80) 범위 안이라고 하자(**D4 성립: dt = 40에서 실행기가 판정하는 모든 충격량은 \|J\| ≤ 1277.3 a.u. = 경계의 3.9%**, [감사 8절](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md)).  budget·Limits가 무한이고 Python 정수 문자열 한도를 해제했으면, `prove()`는 유한 단계에서 FOUND(checker V2 VALID, raw = m*)를 반환한다. (참 raw가 범위 밖이면 대신 `UNREPRESENTABLE`을 유한 단계에서 반환한다. 같은 논증에서 j*에 `_cell`이 범위 밖 칸을 준다.)
 
 **증명.** Lemma A로 d = |y* − 가장 가까운 경계| > 0이다. Lemma B-V2로 width(J_j) → 0이다. J_j ∋ y*이므로 width(J_j) < d인 j*에서 J_{j*}는 m*의 열린 칸 안에 있다. 이제 V0.1의 흐름을 보면:
 1. 매 반복은 N을 늘리거나(`not_separated`), 같은 N에서 힌트를 버리거나(`raw_mismatch`, 최대 1회: 이후 `decided`), 끝난다. 그래서 j*까지의 반복 수는 유한하다(힌트 버림 1회 + N 증가 j*회 + 마지막 1회).
 2. **힌트가 m*인 경우:** J는 항상 y* ∈ 칸(m*)을 포함하므로 `raw_mismatch`는 나올 수 없다. j* 이전에는 `not_separated`, j*에서는 VALID다.
 3. **힌트 m ≠ m*인 경우:** 늦어도 j*에서 J ⊂ 칸(m*)이고, 이것은 m의 닫힌 칸과 서로소이므로 `raw_mismatch`가 나온다. 그러면 같은 N에서 `enclosure()`가 같은 J를 계산한다(같은 `_compute`, 출력 raw 무관). `_cell(J)`는 `_decide_raw`와 같은 엄격 판정으로 m*를 돌려준다(J ∋ y*이고 J가 한 칸 안이면 그 칸은 m*의 칸이다). 이어지는 `check_certificate`는 같은 J로 VALID(m*)다. 더 이른 j에서 raw_mismatch가 나와도 `_cell`은 None(→ N 증가)이거나 m*다.
 4. **힌트 없음(추정 실패):** 3의 enclosure 경로를 N_0 = 128부터 탄다. j*에서 `_cell` = m*, 그다음 VALID.
-5. `enclosure_checker_disagree`, `exp_condition` 등 ANOMALY는 (H-float)(b)와 1절의 입력 조건 아래 일어나지 않는다. REFUSED는 무한 Limits에서 일어나지 않는다. `output_out_of_range`는 m*가 범위 밖일 때만 일어난다(가정으로 배제). ∎
+5. ANOMALY는 일어나지 않는다. `exp_condition`은 (C1)로, `order_certification_failed`는 4절 1로, `enclosure_checker_disagree`는 3의 같은 J로 배제된다. 나머지 구조적 INVALID(`exp_rate`, `format` 등)는 prover가 만드는 certificate가 형식 상수를 그대로 쓰므로 나오지 않는다. REFUSED는 무한 Limits에서 일어나지 않는다. `UNREPRESENTABLE`은 m*가 범위 밖일 때만이다(가정으로 배제; C1-B1 dt = 40에서는 D4로 불가능하며, 그때 wrapper는 `RuntimeContractViolation`을 낸다). ∎
 
 ## 6. 독립 감사가 봐야 할 곳 (감사 체크리스트)
 
 1. F2의 상대 오차 부등식(`down`의 e 선택, 음수의 floor 포함).
 2. F3: 급수를 한쪽으로 반올림할 때 S⁻ ≤ S_n ≤ S⁺, U⁺ ≥ U_n이 되는지(`_series_lower`/`_series_upper`/`_exp_combine`의 각 방향).
-3. 3절 3(b): `full` 차수 n_j = O(P_j)와 급수 누적 반올림 → 0.
+3. 3절 3(b): 상대 꼬리와 |d(1/S_n)/dx| ≤ 1(n에 균등)로 exp 폭을 묶는 논증, n_j = O(P_j + x)와 급수 누적 반올림 → 0.
 4. 3절 4: `_dv`의 반올림 위치가 식 모양으로 정해진 유한 개인지(루프 길이가 N·P에 의존하지 않는지. damping 합은 k ≤ 8로 고정).
 5. 5절 3: `enclosure()`와 `check_certificate()`의 J가 **정확히 같은지**(같은 cert에서 출력 raw만 다름. `_compute`가 raw를 J 계산에 쓰지 않음). Limits가 같을 때 REFUSED 여부도 같은지.
-6. (H-float)의 범위 서술(4절)과 H-B 선택지.
+6. **4절 전체(개정 1의 핵심):** (i) fallback의 두 비교가 (C1)을 함의하는 부등식 사슬((n+1)! ≥ ((n+1)/e)^{n+1}, 1/(1 − 1/(2e)) < 1.23), n_fb 정의에서 두 비교가 항상 참이라는 것, (ii) 힌트 검사의 건전성: `_dy_*`의 모든 반올림이 올바른 방향인지(특히 `_dy_add`의 지수 차 분기와 `_dy_norm`의 ceiling), `_zero_ok`의 n! 상한, (iii) 완결성이 CERT_BITS에 기대지 않는다는 논증(False는 fallback으로만 간다), (iv) `_exact_x`가 checker `_compute`의 x와 **정확히** 같은지(같은 `_sqrt_interval`, 같은 `r.mul(_const(rate, P), P)`).
+7. `UNREPRESENTABLE`의 정의와 wrapper의 `RuntimeContractViolation`(dt = 40에서만, run 불변).
 
 감사자는 구현자와 다른 사람 또는 모델이 맡는다(설계자 지정). 감사 전에는 이 lemma를 승인된 것으로 쓰지 않는다.
 
 ## 7. 하지 않은 것
 
-코드 변경, H-B 구현, 계산 캠페인, ④-Liveness 승격, A-EV. D4 상한은 별도 스크립트(`a_reference/c1b1_impulse_magnitude_bound.py`)이고 결과는 감사 문서 8절에 있다.
+계산 캠페인, ④-Liveness 승격, A-EV. 코드(H-B, UNREPRESENTABLE, wrapper)는 prover V0.2 커밋에 있다. D4 상한은 별도 스크립트(`a_reference/c1b1_impulse_magnitude_bound.py`)이고 결과는 감사 문서 8절에 있다.

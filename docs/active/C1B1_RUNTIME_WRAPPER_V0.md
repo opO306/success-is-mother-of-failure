@@ -138,3 +138,7 @@ step의 첫 충격량 입력을 2^-17000 near-tie로, dt를 그 두 배(17,600�
 **상태:** Point Prover V0 승인 / Runtime Wrapper V0 구조·동작 승인 / 정식 witness binding은 이 보강으로 profile identity 조건을 채움(설계자 재판정 대기) / Proof Cache 미착수 / ④-Safety Conditional / ④-Liveness NotCertified.
 
 **검증:** LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: wrapper 파일(survey_only 새 계층)과 그 시험·문서만 변경, 실행기·평가기·checker V1/V2·prover·동결 계약 변경 0. wrapper 42 + prover 24 + V2 95 + V1 185 + fail-closed·witness prototype·two_atom = **418 passed + 1 xfailed**(기존 strict xfail), `-n 6`, 245.59초. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_profile_identity_20260930/{related.log,related.xml}`.
+
+## 10. UNREPRESENTABLE → RuntimeContractViolation (설계자 판정 2026-09-30)
+
+prover가 `UNREPRESENTABLE`(신뢰 enclosure가 참값이 FX(96,80) 밖임을 보임)을 내고 run의 dt가 C1-B1 profile의 40이면, wrapper는 `RuntimeContractViolation`을 던진다. D4 상한(\|J\| ≤ 1277.3 a.u. = 경계의 3.9%)이 이 경우를 배제하므로, 이것은 세계의 사건이 아니라 prover 결함·checker 불일치·D4 가정 위반·profile 계약 파손 중 하나다. 그래서 TERMINAL(물리적 종결)도 UNPROVED(아직 못 풂)도 아니고 크게 실패한다. 예외는 step이 run을 바꾸기 전에 나고, hook은 복원된다(시험). dt ≠ 40이면 평범한 UNPROVED(`unrepresentable:output_out_of_range`)다. `CANONICAL_DT`는 `c1b1_domain_contract.PROFILE["dt"]`와 같음을 시험한다.

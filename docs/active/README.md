@@ -36,7 +36,7 @@
 | [Proof Cache ↔ Warehouse 관계 V0](C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md) | 검토(문서만). 두 저장소를 만들지 않는다: Proof Cache = 실행 경로 안의 witness 선반, Warehouse = 밖의 색인(계약 D6). Cache가 따를 Warehouse 규칙 R1〜R7, 불일치 5개, 설계자 확인 Q-PC1〜4 |
 | [Proof Cache V0](C1B1_PROOF_CACHE_V0.md) | 검증된 witness 선반: 하나의 append-only 선반, hit도 wrapper의 전체 재검증(checker 생략 없음), STALE/REJECTED/REFUSED 구분, 입고는 wrapper 밖 admission 층. 시험 42 + 관련 묶음(VAST) 529 passed. **APPROVED**(LOCAL FULL 3289 passed, production cap 종단 입고 1건 통과). 로그 무결성 ≠ 물리 correctness 한계 명시 |
 | [Point Prover 완결성 감사 V0](C1B1_POINT_PROVER_COMPLETENESS_AUDIT_V0.md) | 분류 B → 설계자 판정 D1·D2 승인·D3 진행·D4 정확 상한. **prover V0.1로 H1·H2 제거**(추정은 힌트, raw는 신뢰 enclosure가 결정). **D4 성립: \|J\| ≤ 1277.3 a.u.(경계의 3.9%).** LOCAL FULL 3294 passed. ④-Liveness NotCertified |
-| [Checker V2 수렴 lemma V0 (D3)](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) | Lemma B의 V2 확장(반올림 P·zero_floor·차수 선택) + prover V0.1 완결성 조립 초안. **독립 감사 대기, 승인 아님.** 남는 가정 H-float(부동소수 차수 선택), 권고 H-B |
+| [Checker V2 수렴 lemma (D3, 개정 1)](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) | Lemma B의 V2 확장 + prover V0.2 완결성 조립 초안. **H-float 제거**(H-B: 부동소수 차수는 힌트, fallback은 O(1) 닫힌 부등식으로 인증, CERT_BITS 비의존). **독립 감사(GPT-5.6 Sol High) 대기, 승인 아님** |
 | [checker V2 — outward dyadic rounding](C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md) | V1 보존(변경 0), 별도 모듈. 끝점 바깥쪽 dyadic 반올림으로 정수 크기를 work_bits에 묶음. 시험 95, 결함 주입 50종 전부 잡힘, 교차검증 14,102건 불일치 0, N=2048에서 800배. **실행기 cap 16384가 멈춘 2^-17000 합성 사례를 142〜147초에 VALID.** **신뢰 checker 승인**(설계자 판정 2026-09-29, formal certified 아님) |
 | [shell 18 hard-case 인증서](C1B1_HARD_CASE_CERTIFICATE_V1.md) | ④-4c-6: 위 조사를 인증 계약·proof object로 승격. 전체 재계산 verify, 후보 109·hazard 0. shell 18 원래 domain Certified, fresh coverage 12/64·gap 83, 전체 NotCertified |
 

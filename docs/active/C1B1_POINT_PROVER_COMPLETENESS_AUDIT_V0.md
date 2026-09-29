@@ -109,3 +109,12 @@ D1〜D4가 끝나면 쓸 수 있는 명제(초안, 아직 주장하지 않음): 
 3. D3 독립 감사자 지정.
 
 **상태:** H1·H2 제거, D4 성립. **완결성 정리는 아직 성립으로 쓰지 않는다**(D3 감사와 H-float 전). **④-Liveness NotCertified**, A-EV 미해결, ④-Safety Conditional.
+
+## 9. 후속 2 — UNREPRESENTABLE, H-B와 그 수정 (2026-09-30)
+
+설계자 판정: `output_out_of_range`는 **UNREPRESENTABLE**(새 상태), dt = 40 runtime에서는 wrapper의 **RuntimeContractViolation**(TERMINAL 아님). **H-B 승인**, 단 부동소수 차수는 힌트, 정확 검사로 인증, fallback은 **반복 없는 닫힌 부등식으로 직접 인증**(고정 64비트 사슬로 인증하면 P → ∞에서 누적 반올림이 fallback 인증을 막아 liveness가 끊길 수 있음). D3 감사는 H-B 뒤로(작성자와 다른 계열 GPT-5.6 Sol High).
+
+처리: prover V0.2, wrapper, D3 lemma 개정 1(H-float 제거, CERT_BITS 비의존 명시). 세부는 [prover 설계 11절](C1B1_POINT_PROVER_DESIGN_V0.md), [D3 lemma](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) 4절.
+검증: 관련 묶음 **498 passed + 1 xfailed**(prover 48, wrapper 45, Proof Cache 42, D4 11, V2 95, V1 185, fail-closed 8, witness 23, two_atom 41). LOCAL FULL **3327 passed + 1 xfailed, skip 0, 실패 0, exit 0, 575.86초**(이전 FULL 뒤에 추가된 D4 시험 11 포함).
+WIP 기록: `99077a4`(원격에도 있음)는 미검증 WIP였다. 그 위에 검증 커밋을 쌓았고 히스토리는 고치지 않았다.
+**상태:** 완결성 정리는 D3 lemma 5절에 초안으로만 있고 **독립 감사 전이다. ④-Liveness NotCertified**, A-EV 미해결, ④-Safety Conditional.

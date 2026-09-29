@@ -194,3 +194,14 @@ runtime wrapper, Proof Cache, certificate 바이트 크기 상한(wrapper 과제
 - 힌트가 맞는 흔한 경우의 비용은 V0과 같다(checker 1회). 틀린 힌트는 enclosure 1회 + checker 1회가 더 든다.
 - 비신뢰 원칙은 그대로다. 유일한 성공은 `check_certificate == VALID(raw)`이고, 실행기·평가기·cap을 건드리지 않는다(정적 시험 유지). checker의 비공개 예외 클래스(`K2._Refused`, `K2._Invalid`)를 `enclosure()` 호출에서 잡는다.
 - 시험: 24 → 29. V0의 "틀린 raw는 ANOMALY" 시험은 "틀린 힌트는 FOUND로 회복"으로 바꿨다. 신규는 추정 실패 → FOUND, enclosure·checker 불일치 → ANOMALY, 결함 주입 3종(V0 힌트 규칙 복원, V0 추정 실패 규칙 복원, 엄격 판정 제거)이다. ANOMALY 재시도 은폐 결함 주입은 `exp_condition` 경우로 옮겼다.
+
+## 11. V0.2 — 인증된 exp 차수(H-B)와 UNREPRESENTABLE (설계자 판정 2026-09-30)
+
+- **UNREPRESENTABLE(새 상태):** 신뢰 enclosure가 참값이 FX(96,80) 밖 칸에 있음을 보이면 이 상태를 낸다(`output_out_of_range`). EXHAUSTED(한도를 올리면 풀릴 수 있음)도 NOT_A_DECISION(반올림 질문이 없음)도 아니다. 합성 입력·임의 dt_kick에서는 정상 결과다. C1-B1 profile(dt = 40)에서는 D4 상한(\|J\| ≤ 1277.3 a.u.)으로 불가능하므로 wrapper가 `RuntimeContractViolation`을 낸다(run 불변, TERMINAL 아님).
+- **H-B:** 부동소수 `_exp_plan`의 차수는 힌트다. `_certified_plan`은 checker와 **같은** 정확 x 구간(`_exact_x`)에서 각 차수를 인증한다.
+  - 힌트 경로(빠른 길, 선택): `full`은 상대 꼬리 U_n ≤ 2^−(P+32)·S_n을 한쪽 반올림 사슬로 검사하고, `zero_floor`는 1/S_n ≤ 2^−(P+72)를 Robbins 상한과 올림 제곱 반복으로 검사한다. 사슬 값은 (가수 64비트, 정수 지수) 쌍이라 단계마다 비용이 일정하다. 힌트는 n ≤ n_fb, n ≤ order_max일 때만 쓴다.
+  - **fallback(완결성 경로):** n_fb = max(⌈2·E_UP·x_hi⌉, P + 32) + 1. **O(1) 정확 비교 두 개**(n+1 ≥ 2·E_UP·x_hi, n ≥ P+33)로 인증한다. 반복이 없고 CERT_BITS와 무관하다(설계자 수정 지시). 두 비교가 (C1)을 함의하는 증명은 [D3 lemma](C1B1_CHECKER_V2_CONVERGENCE_LEMMA_V0.md) 4절에 있다.
+  - **order limit 사전 검사:** 고른 차수가 `order_max`를 넘으면 checker와 같은 규칙으로 무거운 계산 전에 `EXHAUSTED(checker_refused:order_limit)`를 낸다.
+- **WIP(`99077a4`)에서 고친 것:** (1) fallback을 64비트 O(n) 사슬로 인증하던 것을 O(1) 닫힌 부등식으로 바꿨다. P가 매우 커지면 고정 비트 인증기의 누적 반올림이 fallback 인증을 실패시켜 ANOMALY로 이어질 수 있었다(설계자 지적). (2) 사슬을 `Fraction`으로 들고 있으면 지수가 k·log k 비트짜리 분모가 되어 거대 차수 인증이 멈췄다(WIP 시험 hang의 원인). 정수 (가수, 지수) 쌍으로 바꿔 차수 200,000 사슬이 0.19초가 됐다. (3) 첫 인증기는 절대 꼬리를 요구해 x가 큰 힌트를 거의 다 떨어뜨렸다. 수렴에 필요한 상대 꼬리로 바꿨다.
+- **결과:** 표본 8건(R 2.4〜9000, near-tie 2^−300·2^−4000)에서 힌트 9/9 인증, 속도 유지(2^−4000은 5.2초). prover 시험 29 → 48(힌트 교체 4종, 독립 mpmath 대조, fallback O(1)·선형·실제 꼬리 대조, dyadic 한쪽 반올림, order 사전 검사, 변이체 4종: 인증 생략, fallback 축소, 사전 검사 제거, checker 거부 무시(size_limit로 이동)). wrapper 시험 42 → 45(UNREPRESENTABLE: dt = 40에서 계약 위반·run 불변·hook 복원, 다른 dt에서는 UNPROVED, CANONICAL_DT = domain contract dt).
+- LOCAL FULL: **3327 passed + 1 xfailed, skip 0, 실패 0, exit 0, 575.86초**.

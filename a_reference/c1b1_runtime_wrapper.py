@@ -40,6 +40,14 @@ VERSION = "c1b1-runtime-wrapper-v0"
 ROOT = Path(__file__).resolve().parents[1]
 RESOLVED, WITNESS_RESOLVED, UNPROVED, TERMINAL = "RESOLVED", "WITNESS_RESOLVED", "UNPROVED", "TERMINAL"
 TERMINAL_EXCEPTIONS = (C.PhysicsDomainExceeded, C.ExecutorLimitExceeded, VMHalt)
+CANONICAL_DT = Q(40)                  # the C1-B1 profile dt (c1b1_domain_contract.PROFILE); D4 is proved for it
+
+
+class RuntimeContractViolation(Exception):
+    """Not a world event and not a verdict: something the contract proves impossible happened. Raised with the run
+    untouched (the step has not advanced). Today: the prover reports UNREPRESENTABLE for the canonical profile, where
+    the D4 bound |J| <= 1277.3 a.u. (3.9% of the FX(96,80) edge) excludes it; so a prover bug, a checker disagreement,
+    a violated D4 assumption or a broken profile contract. Designer verdict 2026-09-30: fail loudly, never TERMINAL."""
 
 
 def _lf_sha256(rel):
@@ -235,6 +243,8 @@ def _prove_and_verify(key, run, config):
     result = P.prove(dr_raw, k, dt_kick, config.budget, config.limits)
     summary = {"status": result.status, "reason": result.reason,
                "attempts": [(a["sqrt_bits"], a["verdict"]) for a in result.attempts]}
+    if result.status == P.UNREPRESENTABLE and Q(run.dt) == CANONICAL_DT:
+        raise RuntimeContractViolation(f"UNREPRESENTABLE at dt = 40 (D4 excludes it): {result.reason}, input {key!r}")
     if result.status != P.FOUND:                                        # W5: no progress, no retry of an ANOMALY
         raise _Reject(result.status.lower() + ":" + result.reason, summary)
     data = witness_bytes(result.certificate, run)

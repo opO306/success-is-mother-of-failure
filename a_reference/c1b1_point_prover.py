@@ -35,16 +35,23 @@ grows N if J straddles a boundary. An estimate that fails or lands outside the o
 goes straight to the enclosure. So finding a certificate no longer depends on mpmath being right (audit hole H1), and an
 estimate never ends a run (hole H2). The final verdict is still one check_certificate call on the certificate returned.
 
-V0.2 (designer verdict H-B, 2026-09-30). The exp ORDERS are also only hinted by floats. _certified_plan computes the
-exact x intervals exactly as checker V2 will (same sqrt interval, same outward products) and certifies every hinted
-order with exact rational inequalities; a hint that fails, or exceeds the closed-form fallback order n_fb, is replaced
-by n_fb, which is itself certified. So the properties the completeness lemma needs (n + 2 > x_hi, a certified tail,
-a certified zero_floor floor, n = O(P + x)) never rest on floating point:
-  full       n + 2 > x_hi and U_n(x_hi) = t_(n+1)(x_hi) (n+2)/(n+2-x_hi) <= 2^-(P + FULL_SLACK) S_n(x_hi): a RELATIVE
-             tail, both sides bounded by one-sided rounded chains at CERT_BITS (t upward, S_n downward)
-  zero_floor 1/S_n(x_lo) <= n!/x_lo^n <= e n (n/(e x_lo))^n <= 2^-(P + ZERO_SLACK)   [n! <= e n^(n+1/2) e^-n, n >= 1]
-  fallback   full with n_fb = max(ceil(2 e x_hi), P + FULL_SLACK) + 1  (then e x_hi/(n+1) <= 1/2 and the tail
-             bound is below 2^-(n+1) * 1.23 < 2^-(P+FULL_SLACK) <= 2^-(P+FULL_SLACK) S_n); certified like any other.
+V0.2 (designer verdicts H-B and its revision, 2026-09-30). The exp ORDERS are also only hinted by floats.
+_certified_plan computes the exact x intervals exactly as checker V2 will (same sqrt interval, same outward products).
+  hint path (FAST, optional)  a float order is used only if it passes an exact check:
+      full       n + 2 > x_hi and U_n(x_hi) = t_(n+1)(x_hi) (n+2)/(n+2-x_hi) <= 2^-(P+FULL_SLACK) S_n(x_hi) (a RELATIVE
+                 tail), both sides bounded by one-sided rounded chains kept as (mantissa, exponent) integer pairs of
+                 CERT_BITS bits (t upward, S_n downward), so every step costs O(CERT_BITS) whatever n is;
+      zero_floor 1/S_n(x_lo) <= n!/x_lo^n <= e n (n/(e x_lo))^n <= 2^-(P+ZERO_SLACK) [n! <= e n^(n+1/2) e^-n], the power
+                 by upward-rounded repeated squaring.
+      A hint that fails, exceeds n_fb, or exceeds the checker's order limit is simply not used.
+  fallback (the COMPLETENESS path)  full with n_fb = max(ceil(2 E_UP x_hi), P + FULL_SLACK) + 1, certified by two exact
+      rational comparisons, O(1) work, no rounding chain, no dependence on CERT_BITS:
+          n + 1 >= 2 E_UP x_hi   and   n >= P + FULL_SLACK + 1.
+      Then e x_hi/(n+1) <= 1/2, so t_(n+1) <= (e x_hi/(n+1))^(n+1) <= 2^-(n+1)  [(n+1)! >= ((n+1)/e)^(n+1)], and
+      (n+2)/(n+2-x_hi) <= 1/(1 - 1/(2e)) < 1.23, so U_n(x_hi) < 2^-n <= 2^-(P+FULL_SLACK+1) < 2^-(P+FULL_SLACK) S_n
+      (S_n >= 1); n + 2 > x_hi follows. A failed hint check can only lead here, never to an ANOMALY.
+  order limit  an order above the checker's order_max is refused BEFORE any heavy work, with the checker's own reason
+      (checker_refused:order_limit; checker V2 refuses exactly when order > order_max).
 e is bracketed by the rationals E_LO < e < E_UP. The certifier only chooses orders; checker V2 still decides.
 
 STEPS. (1) classify NOT_A_DECISION; (2) HINT: estimate y = J / ulp and its distance d (in ulps) to the nearest half-ulp
@@ -239,54 +246,121 @@ def _exact_x(dr, N, P):
     return [r.mul(K2._const(rate, P), P) for rate in K2.rates()]
 
 
-CERT_BITS = 64                                                      # mantissa bits of the certifier's own bounds
+CERT_BITS = 64                                                      # mantissa bits of the HINT certifier only
+
+# --- one-sided dyadic arithmetic for the hint certifier: a positive value is (m, e) meaning m * 2^e, m < 2^CERT_BITS.
+# Keeping the exponent as a separate integer is what makes a step O(CERT_BITS) for any n (a Fraction would carry a
+# 2^e denominator of about k log k bits after k Taylor terms: the V0.2 WIP hang).
+
+
+def _dy_norm(m, e, down):
+    sh = m.bit_length() - CERT_BITS
+    if sh > 0:
+        m = m >> sh if down else -((-m) >> sh)                      # floor / ceiling (m > 0)
+        e += sh
+    return m, e
+
+
+def _dy(x, down):
+    """A positive Fraction bounded below (down) or above (not down) by a CERT_BITS dyadic."""
+    a, b = x.numerator, x.denominator
+    sh = CERT_BITS + 2 + b.bit_length() - a.bit_length()
+    num, den = (a << sh, b) if sh >= 0 else (a, b << -sh)
+    q, r = divmod(num, den)
+    if r and not down:
+        q += 1
+    return _dy_norm(q, -sh, down)
+
+
+def _dy_mul_div(a, b, k, down):
+    """a * b / k (k a positive int), rounded down or up."""
+    extra = k.bit_length() + 2
+    q, r = divmod((a[0] * b[0]) << extra, k)
+    if r and not down:
+        q += 1
+    return _dy_norm(q, a[1] + b[1] - extra, down)
+
+
+def _dy_add(a, b, down):
+    """a + b (both positive), rounded down or up."""
+    if a[1] < b[1]:
+        a, b = b, a                                                 # a has the larger exponent
+    if a[1] - b[1] > 2 * CERT_BITS:                                 # b < 2^(a_e): below one unit of a's last place
+        return a if down else _dy_norm(a[0] + 1, a[1], down)
+    return _dy_norm((a[0] << (a[1] - b[1])) + b[0], b[1], down)
+
+
+def _dy_frac(v):
+    m, e = v
+    return Fraction(m << e) if e >= 0 else Fraction(m, 1 << -e)
+
+
+def _dy_pow_up(q, n):
+    """An upper bound of q^n (q positive dyadic) by repeated squaring, every product rounded up."""
+    result, base = (1, 0), q
+    while n:
+        if n & 1:
+            result = _dy_mul_div(result, base, 1, False)
+        n >>= 1
+        if n:
+            base = _dy_mul_div(base, base, 1, False)
+    return result
 
 
 def _full_ok(n, x_hi, P):
-    """Exact: n + 2 > x_hi and the RELATIVE Taylor tail U_n(x_hi) <= 2^-(P + FULL_SLACK) * S_n(x_hi), which is what
-    makes the enclosure of e^-x narrow relative to e^-x itself. Both sides are bounded by one-sided rounded chains
-    (like checker V2's series): t_up >= t_{n+1}(x_hi) = x_hi^(n+1)/(n+1)!, s_lo <= S_n(x_hi); all terms are positive."""
+    """HINT check. Exact: n + 2 > x_hi and the RELATIVE Taylor tail U_n(x_hi) <= 2^-(P + FULL_SLACK) * S_n(x_hi), which
+    is what makes the enclosure of e^-x narrow relative to e^-x itself. t_up >= t_(n+1)(x_hi) and s_lo <= S_n(x_hi) by
+    one-sided rounded chains (all terms positive). A False only means 'not certified here': the caller falls back."""
     if n < 1 or not n + 2 > x_hi:
         return False
-    y_up, y_lo = K2.up(x_hi, CERT_BITS), K2.down(x_hi, CERT_BITS)
-    t_up = t_lo = s_lo = Fraction(1)
+    y_up, y_lo = _dy(x_hi, False), _dy(x_hi, True)
+    t_up = t_lo = s_lo = (1, 0)
     for k in range(1, n + 1):
-        t_up = K2.up(t_up * y_up / k, CERT_BITS)
-        t_lo = K2.down(t_lo * y_lo / k, CERT_BITS)
-        s_lo = K2.down(s_lo + t_lo, CERT_BITS)
-    t_up = K2.up(t_up * y_up / (n + 1), CERT_BITS)
-    return t_up * Fraction(n + 2) / (n + 2 - x_hi) <= s_lo / (1 << (P + FULL_SLACK))
+        t_up = _dy_mul_div(t_up, y_up, k, False)
+        t_lo = _dy_mul_div(t_lo, y_lo, k, True)
+        s_lo = _dy_add(s_lo, t_lo, True)
+    t_up = _dy_mul_div(t_up, y_up, n + 1, False)
+    return _dy_frac(t_up) * Fraction(n + 2) / (n + 2 - x_hi) <= _dy_frac(s_lo) / (1 << (P + FULL_SLACK))
 
 
 def _zero_ok(n, x_lo, P):
-    """Exact: 1/S_n(v) <= 2^-(P + ZERO_SLACK) for every v >= x_lo."""
+    """HINT check. Exact: 1/S_n(v) <= 2^-(P + ZERO_SLACK) for every v >= x_lo."""
     if n < 1 or not x_lo > 0:
         return False
-    q = K2.up(Fraction(n) / (E_LO * x_lo), 64)                     # q >= n / (e x_lo)
-    if q >= 1:
+    q = _dy(Fraction(n) / (E_LO * x_lo), False)                    # q >= n / (e x_lo)
+    if _dy_frac(q) >= 1:
         return False
-    return E_UP * n * q ** n <= Fraction(1, 1 << (P + ZERO_SLACK))
+    return E_UP * n * _dy_frac(_dy_pow_up(q, n)) <= Fraction(1, 1 << (P + ZERO_SLACK))
 
 
 def _fallback_order(x_hi, P):
     return max(math.ceil(2 * E_UP * x_hi), P + FULL_SLACK) + 1
 
 
-def _certified_plan(dr, N, P, info=None):
+def _fallback_ok(n, x_hi, P):
+    """The COMPLETENESS path's certificate: two exact rational comparisons, O(1), no rounding chain (module docstring):
+    n + 1 >= 2 E_UP x_hi and n >= P + FULL_SLACK + 1 imply n + 2 > x_hi and U_n(x_hi) < 2^-(P + FULL_SLACK) S_n(x_hi)."""
+    return n + 1 >= 2 * E_UP * x_hi and n >= P + FULL_SLACK + 1
+
+
+def _certified_plan(dr, N, P, info=None, limits=None):
     """The exp plan with every order certified exactly (H-B). The float plan is only a hint."""
+    order_max = (limits or K2.Limits()).order_max
     R = math.sqrt(sum(float(v) * float(v) for v in dr)) / 2.0 ** K2.POSITION_FRAC_BITS
     hint = _exp_plan(R, N, P)
     out, hinted, fallback = [], 0, 0
     for (mode, n), x in zip(hint, _exact_x(dr, N, P)):
         n_fb = _fallback_order(x.hi, P)
-        ok = (type(n) is int and n <= n_fb
+        ok = (type(n) is int and n <= n_fb and n <= order_max
               and (_full_ok(n, x.hi, P) if mode == "full" else mode == "zero_floor" and _zero_ok(n, x.lo, P)))
         if ok:
             out.append((mode, n))
             hinted += 1
             continue
-        if not _full_ok(n_fb, x.hi, P):                             # the closed form is certified like any order
+        if not _fallback_ok(n_fb, x.hi, P):                          # can only fail if the closed form were wrong
             raise _Stop(ANOMALY, "order_certification_failed")
+        if n_fb > order_max:                                         # the checker would refuse: say so before any work
+            raise _Stop(EXHAUSTED, "checker_refused:order_limit")
         out.append(("full", n_fb))
         fallback += 1
     if info is not None:
@@ -294,8 +368,8 @@ def _certified_plan(dr, N, P, info=None):
     return out
 
 
-def _certificate(dr, k, dt, raw, N, P, info=None):
-    plan = _certified_plan(dr, N, P, info)
+def _certificate(dr, k, dt, raw, N, P, info=None, limits=None):
+    plan = _certified_plan(dr, N, P, info, limits)
     return {
         "format": K2.FORMAT, "method": K2.METHOD,
         "model": {"contract": K2.CONTRACT, "parameter_fingerprint": K2.FROZEN_FINGERPRINT, "retardation": True},
@@ -349,7 +423,7 @@ def _cell(J):
 def _enclosure(dr, k, dt, N, P, limits):
     """Checker V2's own enclosure J of the exact impulse at (N, P). The raw written into the throw-away certificate is
     irrelevant to J (0). Raises _Stop for a refusal (EXHAUSTED) or a structural rejection (ANOMALY)."""
-    cert = _certificate(dr, k, dt, 0, N, P)
+    cert = _certificate(dr, k, dt, 0, N, P, limits=limits)
     try:
         return K2.enclosure(cert, limits)
     except K2._Refused as e:
@@ -400,7 +474,7 @@ def prove(dr_raw, component, dt_kick, budget=None, limits=None):
                                         budget=budget)
                 decided = True
             info = {}
-            cert = _certificate(dr, component, dt, m, N, P, info)
+            cert = _certificate(dr, component, dt, m, N, P, info, limits)
         except ValueError:                        # a number too long for Python's int/str conversion limit
             return ProverResult(EXHAUSTED, "serialization_limit", attempts=attempts, estimate=est, budget=budget)
         except _Stop as s:

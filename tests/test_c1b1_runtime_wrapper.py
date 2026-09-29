@@ -605,3 +605,33 @@ def test_mutants_of_the_identity_check_let_a_forgery_reach_the_prover(monkeypatc
         o = mod.step(run)
     assert spy.calls, "the identity test must see this mutant send a forged profile to the prover"
     assert o.reason != "unsupported_profile"
+
+
+# --- UNREPRESENTABLE: a contract violation at the canonical dt, a plain UNPROVED elsewhere (designer verdict 2026-09-30) -
+
+def test_the_canonical_dt_is_the_domain_contract_dt():
+    import a_reference.c1b1_domain_contract as DC
+    assert RW.CANONICAL_DT == DC.PROFILE["dt"] == Q(40)
+
+
+def test_unrepresentable_at_the_canonical_dt_is_a_runtime_contract_violation_and_the_run_is_untouched(monkeypatch):
+    """D4 proves |J| <= 1277.3 a.u. at dt = 40, so UNREPRESENTABLE there is not a world event: the wrapper fails loudly
+    (not TERMINAL, not UNPROVED), with the run unchanged and the executor hooks restored."""
+    _ProverSpy(monkeypatch, fake=lambda *a: P.ProverResult(P.UNREPRESENTABLE, "output_out_of_range"))
+    run = _first_refusal_state()
+    before = dict(vars(run))
+    orig = (C.impulse, C._decide)
+    with W.precision_cap(128):
+        with pytest.raises(RW.RuntimeContractViolation, match="UNREPRESENTABLE at dt = 40"):
+            RW.step(run)
+    assert dict(vars(run)) == before and (C.impulse, C._decide) == orig
+
+
+def test_unrepresentable_elsewhere_is_an_ordinary_unproved_reason(monkeypatch):
+    _ProverSpy(monkeypatch, fake=lambda *a: P.ProverResult(P.UNREPRESENTABLE, "output_out_of_range"))
+    st = X.canonical(Q(9), Q(1, 2) * X.RE)
+    run = C.new_run(POS, Q(41), st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=MOM)
+    key = (tuple(Q(v, 1 << 48) for v in (5 << 48, 3 << 48, 0)), 0, Q(41, 2), MOM.name, 96, 80)
+    with pytest.raises(RW._Reject) as e:
+        RW._prove_and_verify(key, run, RW.Config())
+    assert e.value.reason == "unrepresentable:output_out_of_range"
