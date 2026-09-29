@@ -1,6 +1,6 @@
 # C1-B1 Proof Cache V0 — 검증된 witness의 선반, 쓸 때마다 다시 검증
 
-**상태:** **로컬 구현 + 관련 시험·원격 검증·LOCAL FULL 통과, 승인 아님**(설계자 판정 대기). 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
+**상태:** **Proof Cache V0 = APPROVED**(설계자 판정 2026-09-30: 기본 구조·재검증·OFF/empty/warm 불변성·STALE/REJECTED/REFUSED·로그 위조의 권한 없음·tail 한계 공개, 관련 시험 529, LOCAL FULL 3289 승인 + 마지막 종단 시험 1건 통과 조건 충족 → 6.4절). ④-Liveness 인증이 아니다. 기준 HEAD `073c9c3`, 구현 커밋 `403a42d` + 시험 확장(미커밋 → 이번 커밋).
 **현재 상태(변경 없음):** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. 실행기·평가기·checker V1/V2·prover·물리 계약·D_valid 변경 0.
 **근거:** 설계자 판정 2026-09-30 Q-PC1〜Q-PC4([관계 검토](C1B1_PROOF_CACHE_WAREHOUSE_RELATION_V0.md) 6절), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 5·7절(개정), [Runtime Wrapper V0](C1B1_RUNTIME_WRAPPER_V0.md) 9절의 필수 조건.
 
@@ -99,7 +99,27 @@ WITNESS_RESOLVED의 witness 기록마다 `certificate_sha256`(= content address)
 | 캐시 모듈 변이체 4종 | `trusts_the_stored_bytes`, `refused_is_rejected`, `no_cap_rule`, `forgets_dead_entries` | 전부 잡힘 |
 
 ### 6.3 아직 증명되지 않은 것
-1. 실제 production cap(16384) STOP의 종단 입고는 시험하지 않았다(13분/건). 입고 규칙 5조합과 cap-128에서 production 선반 거부만 시험했다.
-2. LOCAL FULL은 통과했지만 이 Gate는 **설계자 판정 전**이다. 승인 전에는 완료로 세지 않는다. `AGENTS.md`의 기준선 숫자(2834)는 설계자 판단 없이 고치지 않았다.
+1. ~~실제 production cap(16384) STOP의 종단 입고는 시험하지 않았다.~~ **6.4절에서 합성 near-tie 1건으로 시험했다.** 실제 궤적에서 관측된 production STOP은 여전히 0건이고 정식 선반 `runs/c1b1_proof_cache_v0/`는 비어 있다.
+2. LOCAL FULL 통과. `AGENTS.md` 기준선을 3289 + 1 xfailed로 갱신했다(설계자 지시, FULL 재실행 없음).
 3. single writer. 동시 쓰기, 스레드 안전성은 다루지 않았다.
 4. A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**. Proof Cache는 STOP을 검증된 witness로 푸는 저장소이며 D_valid 전체의 Liveness를 보이지 않는다.
+
+### 6.4 실제 production cap 16384 종단 입고 1건 (설계자 지시, 승격 조건)
+
+**시험:** 합성 near-tie `2^-17000`(부호 +, dt = 2·dt_kick 17,600비트 유리수, `validated_only=False`인 합성 스트레스 상태이며 물리 주장이 아니다) **한 사례**. 실행기 cap `MAX_PRECISION_BITS`는 16384 그대로이고 시험은 읽기만 했다(`precision_cap` 미사용, 시작·끝·OFF 실행 모두 16384). 같은 초기 상태에서 세 번: X1 = 새 임시 디렉터리의 **production 선반**(빈 선반), X2 = 같은 선반을 디스크에서 다시 열어 새 동일 run, Y = 캐시 OFF. X와 Y는 별도 프로세스에서 동시에 실행했다. 스크립트: `a_reference/c1b1_proof_cache_production_e2e.py`(survey_only, 스위트에 넣지 않음: 건당 12분 이상). 증거: `runs/c1b1_proof_cache_production_e2e_20260930/`.
+
+| 조건 | 결과 |
+|---|---|
+| 실행기 단독 | `ReferenceUndecided` at cap 16384 (15.1초) |
+| X1: STOP → prover → wrapper 바이트 재검증 → step 진행 | WITNESS_RESOLVED, **STOP 2회**(성분 0·1), prover 2회, checker 4회(prover 내부 2 + wrapper 재검증 2), `t_steps = 1`, **732.5초** |
+| X1: new_certificates → production 입고 | 2개, certificate 각 33,692 바이트, object 2 / index 2 / admit event 2 생성 |
+| 입고 metadata | 2건 모두 `kind = production`, `cap_before = 16384`, `cap_after = 16384`, `production_stop = true`, schedule 128 … 16384 |
+| X2: 같은 선반 재실행 | 모든 witness `source = cache`, **prover 0회, checker 2회**(witness당 1회), use 이벤트 2건 모두 `hit`/`valid`, **299.3초** |
+| raw 동일성 | X1 = X2 = OFF의 witness raw가 성분별로 같고 mpmath 구성 기대값 `1661044444155845687898841`과 같다 |
+| 최종 상태 | X1 = X2 = OFF의 world state SHA-256 동일(`05fd14d2393a…`), `t_steps = 1` |
+| 캐시 OFF | WITNESS_RESOLVED, prover 2회, checker 4회, source 전부 `prover`, **736.0초** |
+| 전체 시간 | X와 Y 동시 실행 벽시계 **1047.5초** |
+
+- 조건 14개가 모두 참이다. **"정확히 1건"의 의미:** 하나의 입력·하나의 step이다. 이 step은 x·y 성분의 정확한 충격량이 같아 STOP이 두 번 나오고(성분마다 별도 witness와 별도 object, 서로 다른 주소 2개) 두 번째 충격량은 실행기가 스스로 결정했다. 새 계산 캠페인이나 다른 STOP 탐색은 하지 않았다.
+- **먼저 공개(실행 기록):** 첫 실행은 조건 13개가 참이고 1개(`raw_equals_mpmath_expected`)가 거짓이어서 스크립트가 exit 1로 끝났다(`run.exit`). 원인은 **제 스크립트의 비교 오류**였다: witness raw는 정수, 기대값은 문자열로 저장돼 있어 `int == str`이 항상 거짓이었다. 실제 값은 같다(위). 스크립트의 비교를 `int(...) == int(...)`로 고치고, **다시 실행하지 않고** 기록된 `summary.json`에서 조건을 재평가했다(`--recheck`, `recheck.json`, exit 0). 그러므로 이 조건 하나는 "실행 중 판정"이 아니라 "기록값 재평가"다. 캐시 모듈과 wrapper의 소스 해시는 시험 전후 같다(`sources.sha256`). 첫 실행 로그·exit는 보존했다.
+- 이 시험은 **④-Liveness 전체 인증이 아니다.** 합성 입력 1건의 종단 경로 확인이다. A-EV 미해결, ④-Safety Conditional, ④-Liveness NotCertified는 변하지 않는다.

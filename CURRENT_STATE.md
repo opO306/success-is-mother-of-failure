@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, **Proof Cache V0 로컬 구현·관련 시험·LOCAL FULL 통과(설계자 판정 대기)**** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, **Proof Cache V0 = APPROVED(production cap 종단 입고 1건 통과)**** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -501,8 +501,16 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - **시험:** Proof Cache 42개. 캐시 OFF / 빈 캐시 / 찬 캐시가 궤적 2개(1,640 / 5,775 step, cap-128 rehearsal)에서 매 step 상태·매 witness 결정이 비트 동일, 찬 캐시는 prover 0회·checker witness당 1회. 요청된 결함 주입 11종(1bit 변조·바꿔치기·다른 binding·다른 dr/component/dt·malformed/oversized·missing·index 변조·INVALID·REFUSED·REJECTED 재사용·한 key 여러 주소)과 캐시 변이체 4종 전부 잡힘. **VAST 관련 시험 묶음(REMOTE LINUX, RTX 3090): 529 passed + 1 xfailed, 실패·skip 0, 194초.** 첫 원격 실행의 2건 실패(527 passed)는 제 참조 파일 링크 설정 오류였고 로그를 보존했다.
 - **한계(숨기지 않음):** 해시 체인은 formal tamper-proof가 아니다. events 마지막 줄의 변조와 index·events 꼬리의 일관된 재작성은 로그만으로는 못 잡는다(시험으로 확인). 이것이 물리 correctness로 전파되지 않음도 시험한다: 로그 문구는 raw를 승인하지 않고, 저장된 witness는 쓸 때마다 전부 재검증된다. 실제 production cap 종단 입고는 시험하지 않았다(13분/건). 정식 선반은 비어 있다. single writer.
 - **검증:** 관련 시험 묶음(VAST) + **LOCAL FULL `-n 6`(HEAD `1636b1d`): 3289 passed + 1 xfailed, skip 0, 실패·error 0, exit 0, 554.35초**(설계자 지시: wrapper 통합을 넣었으므로 Gate 종료 시 1회). 이전 기준선 2834보다 455개 많은 것은 그 사이 Gate들이 LOCAL FULL을 생략한 몫이며 회귀가 아니다. 컴파일러 인코딩 경고는 이번 요약에 안 보이지만 원인 미조사, 해결로 보고하지 않는다. `AGENTS.md`의 기준선 숫자는 설계자 판단 전이라 고치지 않았다. 증거: `runs/c1b1_proof_cache_v0_validation_20260930/`.
-- 상태: **Proof Cache V0 = 로컬 구현, 관련 시험·원격 검증·LOCAL FULL 통과, 승인 아님.** A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**.
-다음 판단(설계자): Proof Cache V0 판정, `AGENTS.md` 기준선 숫자(2834 → 3289) 갱신 여부.
+- 상태: 아래 판정과 종단 시험으로 **Proof Cache V0 = APPROVED.** ④-Liveness 인증이 아니다. A-EV 미해결(별도 작업선), ④-Safety Conditional, **④-Liveness NotCertified**.
+
+**설계자 판정(2026-09-30, 기준 HEAD `a0ec008`): Proof Cache V0 기본 구조·재검증·OFF/empty/warm 불변성·STALE/REJECTED/REFUSED 분리·로그 위조의 권한 없음·tail 한계 공개·관련 시험 529·LOCAL FULL 3289 승인. 마지막 조건: 실제 production cap 16384 STOP의 종단 입고 정확히 1건. 통과하면 APPROVED. `AGENTS.md` 기준선은 3289 + 1 xfailed, skip 0으로 갱신(FULL 재실행 없음).**
+
+**Proof Cache V0 production cap 종단 입고 1건(2026-09-30):** ([6.4절](docs/active/C1B1_PROOF_CACHE_V0.md))
+- 합성 near-tie `2^-17000`(합성 스트레스 상태, 물리 주장 아님), 실행기 cap 16384 그대로. X1(빈 production 선반) `ReferenceUndecided`(15.1초) → prover FOUND → wrapper 재검증 → step 진행 → 입고: STOP 2회(성분 0·1, 이 step의 정확한 충격량이 같음), certificate 각 33,692바이트, object/index/admit event 각 2개, metadata `production`·cap 16384/16384·`production_stop = true`, **732.5초**. X2(같은 선반 재실행): source 전부 `cache`, **prover 0회·checker 2회**(witness당 1회), hit 2건, **299.3초**. 캐시 OFF 736.0초. raw는 X1 = X2 = OFF = mpmath 기대값, 최종 world state SHA-256 동일. 조건 14개 모두 참.
+- 실행 기록: 첫 실행은 13/14 참(exit 1). 1개는 제 스크립트의 `int == str` 비교 오류였고 값은 같았다. 스크립트를 고치고 다시 실행하지 않고 기록된 요약에서 재평가했다(그 조건 하나는 기록값 재평가). 로그 보존.
+- 검증 범위: 종단 시험 1건만. **LOCAL FULL 재실행 없음**(지시). 스크립트는 스위트 밖 survey_only 새 파일이며 기존 코드 변경 0. 증거: `runs/c1b1_proof_cache_production_e2e_20260930/`.
+- 한계: 합성 입력 1건의 종단 확인이다. 실제 궤적의 production STOP 관측은 0건이고 정식 선반은 비어 있다. **④-Liveness 인증 아님.** A-EV·④-Safety Conditional·④-Liveness NotCertified 변경 없음.
+다음 판단(설계자): ④-Liveness 쪽 다음 단계(rounding-decision completeness) 지시.
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
