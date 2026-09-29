@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1 신뢰 승인, checker V2(outward dyadic rounding) 구현·검증 완료(판정 대기)** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 구현·검증 완료(판정 대기), 다음은 runtime wrapper 설계** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -433,12 +433,29 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 반올림 지점: 곱·나눗셈·역수, exp·damping 급수의 매 단계, 항 조립마다 1회, 비-dyadic 상수. neg·항 내부의 고정 덧셈·√·최종 J는 반올림하지 않는다. `sqrt_bits`와 `work_bits`는 certificate의 별도 필드다. checker 안에 guard 상수는 없다(guard 96은 비신뢰 탐색기의 선택).
 - 시험 95개 통과. **결함 주입 50종 전부 잡힘**(방향 반올림 5·구간 연산 7·√ 2·거듭제곱 2·exp 점별 7·exp 단계별 7·반올림 제거 2·식 전사 18). **먼저 공개:** 처음에는 exp 끝단 반올림 방향 뒤집기 3종이 점별 포함 시험을 통과했다(급수 여유가 가림). 단계별 정확값 비교 시험을 추가해 잡았다. work_bits를 N 이하로 낮춘 "guard 제거" certificate에서 틀린 VALID는 0건이다.
 - **교차검증: 14,102건에서 V2 = 실행기 = V1, 불일치 0**(83초). 첫 요약의 "V1과 불일치 100건"은 near-tie 위·아래가 같은 대조 키로 겹친 드라이버 결함이었다. 키를 고친 뒤 0건이며, 잘못된 요약은 invalid-measurement로 보존했다.
-- 성능(같은 입력): N=256/512/1024/2048에서 V1 2.5/14.5/106/871초 → V2 0.06/0.11/0.33/1.09초(40〜800배). enclosure 폭은 V1과 같다. V2 가수는 P+2비트로 묶인다(V1은 최대 1,060만 비트). V2는 4096/8192/16384에서 5.1/23.6/127초다.
+- 성능(같은 입력): N=256/512/1024/2048에서 V1 2.5/14.5/106/871초 → V2 0.06/0.11/0.33/1.09초(40〜800배). enclosure 폭은 N=256/512/1024에서만 V1과 같음을 측정했다(N=2048은 V2 폭만 기록, V1과의 동일성은 **미측정**). V2 가수는 P+2비트로 묶인다(V1은 최대 1,060만 비트). V2는 4096/8192/16384에서 5.1/23.6/127초다.
 - **2^-17000 합성 STOP:** 실행기는 cap 16384에서 `ReferenceUndecided`(13초). **V2는 N=17408에서 위·아래 모두 VALID(142/147초), raw = mpmath 5,700자리 기대값**, 틀린 raw는 전부 INVALID. 기본 한도로는 합성 `dt_kick`(약 5,300자리)이 `digits_max`에 걸려 REFUSED다(실제 runtime 입력에는 없는 합성법의 문제).
 - 미증명: V2 건전성은 논증과 시험 기반(형식 증명 없음), 식 전사는 시험 기반, V2 신뢰 승인은 설계자 판정 대기, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, prover·wrapper·Proof Cache 미연결.
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(checker V2, 탐색기, 드라이버, 시험)과 문서, 그리고 survey 보조 모듈 1개에 기본값 동일한 선택 매개변수만 추가했다. 실행기·물리·동결 계약·fixture·V1 변경 0. **V2 95 + V1 185 = 280 passed**. 기준선 숫자는 갱신하지 않는다.
 - 증거: `runs/c1b1_exact_impulse_crosscheck_v2_20260929/`, `runs/c1b1_exact_impulse_checker_v2_20260929/{perf_v1v2,v2_scaling,v1_scaling_17000_input,deep_ladder,stop17000}.txt`.
-다음 판단(설계자): V2 신뢰 승인 여부 → point prover V0(P-1〜P-4, V2 기반) → runtime wrapper·Proof Cache.
+다음 판단(설계자): 아래 판정.
+
+**설계자 판정(2026-09-29, 8차, 기준 HEAD `1baedc8`): checker V2 신뢰 승인.**
+- V2를 V1과 같은 의미의 독립 trusted exact-impulse checker로 승격한다. **formal certified가 아니다**(시험 통과와 형식 증명은 분리).
+- 승인 범위: 특정 `(dr_raw, component, dt_kick)`와 certificate에 대해 frozen C1-A exact impulse가 FX(96,80)의 제시된 raw로 반올림됨을 V2의 엄밀한 enclosure로 검증한다. **④-Liveness, ④-Safety, A-EV, 전체 궤적 정확성은 승인되지 않는다**(one-step과 trajectory correctness 분리).
+- 정정: V1/V2 enclosure 폭의 동일성은 N=256/512/1024에서만 측정했고 N=2048은 V2만 기록했다(V1과의 동일성 미측정). 2^-17000 사례는 V2와 mpmath의 독립 일치이지 V1과의 교차검증이 아니다. 대규모 랜덤 캠페인은 더 돌리지 않는다.
+- 다음: point prover V0(비신뢰 생성기, 성공은 `V2 checker == VALID(raw)`뿐, FOUND/NOT_A_DECISION/EXHAUSTED/ANOMALY, ANOMALY는 재시도로 FOUND를 만들지 않음) → cap-128 rehearsal·near-tie·2^-17000 → runtime wrapper(모델 상향 필요) → Proof Cache.
+
+**point prover generator V0(2026-09-29, 기준 HEAD `1baedc8`, survey_only·새 파일):** ([설계·결과](docs/active/C1B1_POINT_PROVER_DESIGN_V0.md) 9절)
+- **비신뢰 생성기.** 유일한 성공은 `V2 checker == VALID(raw)`이고 FOUND는 항상 checker 판정을 동반한다. 실행기 평가기·`MAX_PRECISION_BITS`·V1을 참조하지 않는다(AST 시험). 결과 4종: FOUND / NOT_A_DECISION / EXHAUSTED(prover 예산·checker REFUSED·직렬화 한도, 참/거짓 아님) / ANOMALY(재시도로 FOUND를 만들지 않고 정확히 1회 checker 호출 뒤 멈춤).
+- 방식: mpmath로 raw와 경계까지 거리를 스스로 추정 → √ 비트 N·work_bits P 선택(N = round64(거리 비트 + |y| 비트 + 40), P = N + 96; 이 40·96은 **생성기의 휴리스틱**) → checker V2 1회 → not_separated이면 N을 3/2배.
+- 시험 24개(35초), 결함 주입 5종(checker 건너뛰기, not_separated를 성공 처리, ANOMALY 재시도, REFUSED 무시, 거리 측정 상실) 전부 잡힘. V1·V2·실행기·평가기·동결 계약 변경 0.
+- **검증(prover는 raw를 받지 않음):** 표본 2,660 성분 전부 FOUND·일치·**첫 시도 VALID 100%**(중앙값 0.05초). **cap-128 rehearsal 실제 궤적 3개(1,640 / 5,775 / 21,056 step): 거부된 충격량 25 / 77 / 239개(성분 682개) 전부 해결, raw = full-cap 실행기.** near-tie 2^-10〜2^-1000·2^-4000 위·아래 FOUND.
+- **2^-17000(실행기 cap 16384 `ReferenceUndecided`): prover가 위·아래 모두 raw와 거리를 스스로 추정해 첫 시도(√ 17152)에 FOUND, raw = mpmath 기대값(각 188초).** 기본 한도로는 합성 `dt_kick`(약 5,300자리) 때문에 EXHAUSTED(`checker_refused:integer_size_limit`).
+- 실패 기록(보존): 시험 25분은 변이체 설계 문제(35초로 수정), 3단계 첫 요약의 `agree: false`는 재검증을 기본 한도로 한 드라이버 결함(같은 한도로 재실행), 재실행의 BrokenProcessPool은 표준입력 스크립트의 spawn 문제(모듈 진입점으로 재실행).
+- 미증명: 추정기 수락 규칙은 휴리스틱(틀리면 ANOMALY), 표본 결과는 전 입력 보장이 아님, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, wrapper·Proof Cache 미연결.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(prover, survey, 시험)과 문서만 추가, 기존 코드 변경 0. **prover 24 + checker V2 95 + V1 185 = 304 passed**(아래 확인). 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_point_prover_20260929/`.
+다음 판단(설계자): prover V0 판정 → runtime wrapper 설계(STOP 시 prover 호출, WITNESS_RESOLVED 기록, 같은 step 재실행, certificate 바이트 크기 상한; Opus 5.5 High 권장) → Proof Cache.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
