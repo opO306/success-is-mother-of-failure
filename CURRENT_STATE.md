@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A·B 감사 v0 완료, 설계자 판정 대기** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), certificate·checker 사양 V1 승인 대기** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -382,7 +382,21 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
   - **Lemma B 수학적으로 성립, 구현 전.** √ isqrt 구간, e^{−y} ∈ [(1−T_n)/S_n, 1/S_n], 유리수 구간 산술로 폭 → 0이다. 최대 위험은 checker 식 전사 충실도이며 구현 시험 의무로 둔다.
   - 정정: 조사 v0의 "새로 찾은 전역 결과"는 과장이었다. 동결 C1-A 머리말에 같은 관찰이 이미 있다.
 - 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
-다음 판단(설계자): Lemma A·B 감사 판정 → 승인되면 독립 checker + 시험 구현 → point prover 설계 → wrapper.
+다음 판단(설계자): Lemma A·B 감사 판정 → 아래 판정.
+
+**설계자 판정(2026-09-29, 4차) + certificate·checker 사양 V1(문서만):**
+- **Lemma A 승인, Lemma B 방향 승인.** 둘 다 **accepted design basis, not frozen certificate**(audited mathematical lemma).
+- Lemma B의 exp 구간을 **1/(S_n+U_n) ≤ e^{−y} ≤ 1/S_n**으로 정정했다. U_n = y^{n+1}/(n+1)!·(n+2)/(n+2−y), 조건 n+2 > y, 순수 급수 꼬리 상한이다. 이전 (1−T_n)/S_n은 정의대로라면 유효했고 같은 값이지만, 표현을 바꿨다. 스크래치 대조 28건 위반 0(증명 아님).
+- P1b 재확인: 같은 수학 정리를 독립 구현하는 것은 허용. 금지 항목은 그대로다.
+- **[사양 V1](docs/active/C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md):**
+  - certificate는 매개변수만 담는다(√ bit N, exp 9개의 모드·차수).
+  - checker는 표준 라이브러리만 쓰고, 상수표를 직접 적고, 동결 지문 `ada6153b…839e`로 묶는다.
+  - 결과는 VALID(m)/INVALID/REFUSED(운영 한도) 중 하나다. 엄격 분리만 인정한다.
+  - `zero_floor` 모드(e^{−x} ∈ [0, 1/S_n])는 큰 R의 운영 지름길이며, Liveness 증명은 `full`에만 의존한다.
+  - 시험 의무 T1〜T9: 독립성, 지문, 교차검증 수천 건, 식 결함 주입, exp·√ 부등식, 음성, rehearsal, 운영 한도.
+- 기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 쓴다. A-EV는 별개로 남고 ④-Safety는 Conditional이다.
+- 검증: LOCAL FULL 생략 / 관련 시험 해당 없음 / 문서만 변경.
+다음 판단(설계자): 사양 V1 승인(S1〜S4) → 독립 checker + 시험 구현(Sonnet 5.5) → point prover generator → wrapper·Proof Cache.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

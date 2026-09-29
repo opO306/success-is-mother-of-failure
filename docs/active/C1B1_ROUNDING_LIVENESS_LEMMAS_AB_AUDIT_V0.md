@@ -1,5 +1,6 @@
 # C1-B1 반올림 Liveness 보조정리 A·B 감사 v0
 
+**설계자 판정(2026-09-29, 4차): Lemma A 승인, Lemma B 방향 승인(exp 구간 표현 정정 뒤 구현 승인).** 두 lemma는 **accepted design basis, not frozen certificate**다. 문서 상태는 audited mathematical lemma이며 정식 동결 인증서가 아니다. 후속 사양: [exact impulse certificate·독립 checker 사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md).
 **상태:** 구현자 감사(문서만). 코드·시험·Vast 0. **인증 아님.** "감사 통과"는 구현자가 전제와 추론 단계를 원본 코드와 대조해 오류를 찾지 못했다는 뜻이다. 증명 보조기 검증이나 외부 수학 검토는 아니다.
 **현재 상태(변경 없음):** ④-Liveness NotCertified, ④-Safety Conditional(A-EV 미해결), 14/64·gap 81, ④ 미동결, ⑤ 미착수.
 **근거:** 설계자 판정(2026-09-29, 아래 1절), [Liveness 경로 조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md), 동결 원본 `a_reference/ar2_lang2024.py`(C1-A), 실행기 `a_reference/c1b1_two_atom.py`.
@@ -66,15 +67,20 @@ J_k = F(R)·dr_k·dt_kick/R, F = −V′(R)(retardation ON, 동결 C1-A 식)은 
 **certificate(설계, 미구현).** 입력 (dr, k, dt_kick, 출력 profile, binding)과 정수 매개변수 (N, n).
 checker는 동결 상수(데이터)만 읽고 아래를 정확한 유리수로 **다시 계산·확인**한다. `C._model`, `a_numeric.exp`, `ar2_lang2024`의 평가 함수는 부르지 않는다.
 1. **√:** r_lo = isqrt(⌊R²·4^N⌋)/2^N, r_hi = r_lo + 2^-N. 확인할 것: 0 < r_lo, r_lo² ≤ R² ≤ r_hi²(정확 비교).
-2. **exp:** y > 0 유리수에 대해 S_n(y) = Σ_{i≤n} yⁱ/i!, T_n(y) = y^{n+1}/(n+1)!.
-   S_n(y) ≤ e^y이고, Lagrange 나머지에서 e^y ≤ S_n(y) + e^y·T_n(y)이다. 따라서 T_n(y) < 1이면
-   **(1 − T_n(y))/S_n(y) ≤ e^{−y} ≤ 1/S_n(y)**이다. e^{−x}는 감소함수이므로 x ∈ [λr_lo, λr_hi]에 대해 e^{−x} ∈ [(1−T_n(λr_hi))/S_n(λr_hi), 1/S_n(λr_lo)]이다.
+2. **exp (설계자 판정으로 표현 정정, 2026-09-29 4차):** 유리수 y > 0에 대해
+   S_n(y) = Σ_{k=0..n} y^k/k!, t_{n+1}(y) = y^{n+1}/(n+1)!,
+   **U_n(y) = t_{n+1}(y)·(n+2)/(n+2−y)** (조건 n+2 > y).
+   - 0 ≤ e^y − S_n(y): y ≥ 0이면 꼬리의 모든 항이 음이 아니다.
+   - e^y − S_n(y) ≤ U_n(y): k ≥ n+1에서 인접 항의 비가 y/(k+1) ≤ y/(n+2) < 1이므로 꼬리 ≤ t_{n+1}·Σ_j (y/(n+2))^j이다. e^y 자체를 쓰지 않는 순수 급수 상한이다.
+   - 따라서 **1/(S_n + U_n) ≤ e^{−y} ≤ 1/S_n**이다. 유리수 사칙연산만으로 확인할 수 있다.
+   - e^{−x}는 감소함수이므로 x ∈ [x_lo, x_hi] = [λr_lo, λr_hi]에 대해 **e^{−x} ∈ [1/(S_n(x_hi)+U_n(x_hi)), 1/S_n(x_lo)]**이다.
+   - (기록) 이전 판의 (1−T_n)/S_n(T_n = t_{n+1}, T_n < 1)은 Lagrange 나머지에서 유도한 유효한 하한이었다. U_n = S_n·T_n/(1−T_n)을 넣은 1/(S_n+U_n)과 정확히 같다. 해석이 T_n의 정의에 매이지 않도록 위 표현으로 바꾼다. 스크래치 대조: 28개 (y, n) 조합, mpmath 300자리와 위반 0(증명 아님).
 3. **나머지 식:** 유리수 구간 산술(반올림 없음, 포함 단조)로 원본과 같은 식 구조를 평가한다. 나눗셈은 양의 구간(R^m, 1+ΣB_m R^m)으로만 한다.
 4. **결론 확인:** J_k의 구간 [lo, hi]가 어떤 정수 m에 대해 (m−½)·2^-80 < lo ≤ hi < (m+½)·2^-80이면 raw = m이다. 등호가 걸리면 certificate는 거부되고 prover가 (N, n)을 올린다.
 
 **수렴 증명.** 입력 하나를 고정한다.
 (i) N → ∞이면 r_hi − r_lo = 2^-N → 0이다.
-(ii) 고정된 y에서 n → ∞이면 S_n(y) → e^y, T_n(y) → 0이므로 exp 구간 폭 → 0이다. 여기에 (i)와 e^{−x}의 연속성을 더하면 exp 구간 폭 → 0이다.
+(ii) 유계인 y에서 n → ∞이면 S_n(y) → e^y, U_n(y) → 0(균등)이므로 exp 구간 폭 → 0이다. 여기에 (i)와 e^{−x}의 연속성을 더하면 exp 구간 폭 → 0이다.
 (iii) 3의 식은 참값 근방에서 분모가 0에서 떨어진 유리함수다. 따라서 정확 유리수 구간 확장은 포함 단조이고 입력 폭에 대해 Lipschitz이며(Moore의 natural interval extension 수렴), 폭 → 0이다.
 (iv) Lemma A로 참값과 가장 가까운 경계의 거리 d > 0이다. 참값을 포함하고 폭 < d인 구간은 참값이 속한 열린 반올림 칸 안에 있다.
 따라서 유한한 (N, n)에서 4의 확인이 성공한다. prover가 N·n을 단조 증가(예: 두 배)시키며 찾으면 **반드시 끝난다.** ∎
@@ -88,7 +94,7 @@ checker는 동결 상수(데이터)만 읽고 아래를 정확한 유리수로 *
 | B1 | **식 전사 충실도.** 독립 checker가 식을 다르게 옮기면(부호, `kadd`, retardation 분기 `g − T`/`−T`, `2k/R^{2k+1}` 항) **다른 함수의 올바른 certificate**가 된다. 독립성이 공유 버그를 막는 대신 이 위험을 만든다 | 가장 큰 실제 위험 | 실행기가 RESOLVED하는 다수 입력에서 raw 일치를 비교한다. 동결 C1-A fixture와 비교한다. 식 변형 결함 주입(분기·부호·항 누락)이 비교에서 잡히는지 확인한다 |
 | B2 | 상수 binding | 중간 | 상수는 데이터로 읽되 `parameter_fingerprint`와 같은 해시를 독립 재계산해 binding한다. 평가 코드는 공유하지 않는다 |
 | B3 | 필요한 (N, n)의 사전 상한 없음 | 정성 lemma의 본성 | 설계자 판정대로 operational bound(CPU·bit·시간)로 따로 관리한다. 초과는 STOP |
-| B4 | 큰 y에서 Taylor 비용. 예: pre-tail y ≤ 약 7×10⁴이면 n은 수십만 항, 유리수 크기가 매우 크다 | 운영 비용(수렴에는 영향 없음) | 정확한 argument reduction(e^{−y} = (e^{−y/2^s})^{2^s}, 양수 구간 거듭제곱)은 여전히 정확 산술이다. 채택하면 lemma의 2단계에 그 부등식을 추가한다 |
+| B4 | 큰 y에서 Taylor 비용. 예: pre-tail y ≤ 약 7×10⁴이면 n은 수십만 항, 유리수 크기가 매우 크다 | 운영 비용(수렴에는 영향 없음) | 사양 V1은 건전한 `zero_floor` 모드(e^{−x} ∈ [0, 1/S_n])로 해결한다(수렴 증명은 `full`에만 의존). 정확한 argument reduction은 필요하면 나중에 추가한다 |
 | B5 | 엄격 부등식만 인정 | 설계 | tie 처리 분기를 두지 않는다(Lemma A). 경계 등호는 거부 후 정제 |
 | B6 | 출력 overflow | 범위 밖 | 참값이 profile 범위 밖이면 `VMHalt` 종결 거부이지 반올림 liveness가 아니다(계약 V1 1절) |
 

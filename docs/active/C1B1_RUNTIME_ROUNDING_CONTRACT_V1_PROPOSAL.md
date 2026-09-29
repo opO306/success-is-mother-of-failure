@@ -147,8 +147,9 @@ prover 내부에서 쓴 bit 수는 상관없다. 기준은 **"최종 certificate
 예: prover가 65536 bit로 `2N < (2k+1)D`를 찾고 verifier가 N·D·k를 정확한 정수로 확인하면 허용한다. "65536-bit evaluator 결과가 이렇다"뿐이면 불허한다.
 **P1b 설계자 판정(2026-09-29, 3차): 허용, P1a 문구 수정.** B의 조건은 "평가기와 다른 수학 방법"이 아니다(`a_numeric.exp.enclosure`도 Taylor + 나머지를 쓴다). 정확한 조건은 다음과 같다.
 **16384 초과 평가기의 결과를 신뢰하지 않아도 certificate의 참/거짓을 독립적인 작은 checker가 exact arithmetic으로 판정할 수 있어야 한다.**
-구현 공유 금지, `C._model` 호출 금지, `a_numeric.exp.enclosure` 재사용 금지. 같은 Taylor 정리를 써도 증명 객체와 checker가 독립적이면 허용한다.
-감사: [Lemma A·B 감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md).
+구현 공유 금지, `C._model` 호출 금지, `a_numeric.exp.enclosure` 재사용 금지. **동일한 수학 정리(Taylor 등) 자체를 독립 구현하는 것은 허용한다.** 증명 객체와 checker가 독립적이면 된다(4차 판정에서 재확인).
+감사: [Lemma A·B 감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md) — **Lemma A 승인, Lemma B 방향 승인(exp 구간을 1/(S_n+U_n) ≤ e^{−y} ≤ 1/S_n으로 정정), 둘 다 accepted design basis, not frozen certificate.**
+사양: [exact impulse certificate·독립 checker 사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md).
 
 **(판정 전 기록) 구현자 해석(P1a):** "작은 verifier"가 **실행기 평가기(`C._model`)를 16384보다 높은 정밀도로 다시 돌려** 구간을 재계산하고 반올림을 비교하는 방식은
 정확 정수 산술이긴 하지만 사실상 "고정밀 결과를 믿는" 금지 패턴과 같다고 본다(평가기를 cap 위에서 한 번 더 돌리는 것일 뿐).
@@ -220,8 +221,12 @@ prototype은 proof method 필드가 없다(방법이 하나뿐). 정식 witness�
 
 1. ~~S1의 남은 Fail-Closed 시험~~ — 완료(`VMHalt`, 운동량 범위; 8 passed).
 2. ~~④-Liveness(D_valid) 수학 경로 조사~~ — [조사 v0](C1B1_DVALID_LIVENESS_ROUTE_SURVEY_V0.md) 완료(survey_only, 문서만). 결론: 정량 Liveness의 싼 경로 없음. 전역 exact tie 배제 + 엄밀 구간 prover의 정성 경로가 유일한 후보. Q1〜Q4 판정 완료(2.2절·4절).
-2a. **Lemma A(전역 no-tie)·Lemma B(독립 certificate 수렴·검사 가능) 감사** — [감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md). 구현자 감사 통과(인증 아님). **설계자 판정 대기.** 승인되면 독립 checker + 시험을 구현한다.
-3. **point prover 설계 문서**(P1/P1a/P1b 반영): certificate 형식, 작은 verifier, 결함 주입. 승인 뒤 구현. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
+2a. ~~Lemma A·B 감사~~ — [감사 v0](C1B1_ROUNDING_LIVENESS_LEMMAS_AB_AUDIT_V0.md). A 승인, B 표현 정정 뒤 방향 승인. accepted design basis, not frozen certificate.
+2b. **certificate 형식 + 독립 checker 사양 고정** — [사양 V1](C1B1_EXACT_IMPULSE_CERTIFICATE_SPEC_V1.md). **설계자 승인 대기**(S1〜S4).
+2c. 독립 checker + fault-injection 시험 구현(설계자 권고: Sonnet 5.5). 실행기가 풀 수 있는 수천 개 입력에서 같은 raw 교차검증, 식 결함 주입이 반드시 잡혀야 한다.
+2d. checker 신뢰 확인 뒤 point prover generator.
+기존 shell 인증서는 삭제·무효화하지 않고 교차검증 자료로 유지한다.
+3. **point prover**(2d와 같음): 사양 V1의 certificate를 찾는 생성기. 실제 STOP이 없으므로 cap을 낮춘 rehearsal과 합성 사례로 시험한다.
 4. 정말 필요하면 네 상태를 코드 상수·결과 기록으로 표현하는 **얇은 runtime wrapper**(실행기 무변경, prototype 대체).
 5. Runtime Proof Cache·Hazard Atlas는 첫 승인된 prover가 생긴 뒤.
 6. **④ 최종 동결 전 정리 대상:** `_decide` 안의 `VMHalt`(감싸지지 않음)와 다른 범위 초과의 `ExecutorLimitExceeded` 사이의 예외 분류 불일치. 둘 다 fail-closed지만 taxonomy가 일관되지 않다. 새 방향 설계와 섞이지 않게 지금은 실행기를 고치지 않는다.
