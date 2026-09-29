@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0 구현·검증 완료(판정 대기), Proof Cache 미착수** |
+| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0 구조·동작 승인 + profile identity 보강 완료(재판정 대기), Proof Cache 미착수** |
 | **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -470,6 +470,19 @@ shell 16 대비 교차 5.33배, 후보 8.27배, 후보 밀도 1.55배, checker C
 - 미증명: wrapper 정확성은 시험·차등 비교 기반, `_decide` 순서와 성분 대응은 실행기 구현에 의존(어긋나면 차등 비교가 잡음), hook은 스레드 안전하지 않음, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, Proof Cache 없음.
 - 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 새 파일(wrapper, survey, 시험)과 prover의 상태 의미 1곳, 문서만 변경. 실행기·평가기·checker·동결 계약 변경 0. wrapper 30 + prover 24 + V2 95 + V1 185 + fail-closed·witness prototype·two_atom = **406 passed + 1 xfailed**(기존 strict xfail). 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_20260930/`.
 다음 판단(설계자): wrapper V0 판정 → Proof Cache(검증된 witness 재사용, 매 사용 재검증) 설계.
+
+**설계자 판정(2026-09-30, 기준 HEAD `1140628`): Runtime Wrapper V0 구조·동작 승인(single-threaded C1-B1 reference 실행의 V0 구현 증거까지). 정식 witness binding은 profile identity 보강 전 미완.**
+- 구멍: `_supported()`가 profile의 name/width/frac_bits만 봐서, 같은 메타데이터의 다른 반올림 구현이 half-even FX로 오인될 수 있었다(checker가 옳아도 세계에 틀린 raw가 들어가는 witness soundness 문제). binding의 `rounding: half_even`은 확인 없는 문자열이었다.
+- 기록성: WITNESS_RESOLVED에 certificate 본문이 없어 `StepOutcome`만으로 재검증할 수 없다. Proof Cache에서 canonical certificate bytes를 불변 저장(SHA-256은 주소·변조 검사용)하고, canonical 실행에 쓰는 시점부터 content address를 기록한다.
+- hook(`C.impulse`·`C._decide` 전역 교체)의 스레드 비안전은 V0에서 허용, 최종 병렬 world executor 전 정식 hook/callback으로 교체하는 기술부채.
+
+**runtime wrapper profile identity 보강(2026-09-30, wrapper·시험·문서만):** ([9절](docs/active/C1B1_RUNTIME_WRAPPER_V0.md))
+- 지원 조건을 `_canonical_fx`로 교체: `type(p) is FixedPoint`(subclass·look-alike 거부), 인스턴스 속성이 생성자의 5개뿐, 실행기가 부르는 클래스 메서드가 import 시점과 같은 객체, half-even 알려진 답 탐침. position·momentum 둘 다. stop 때 prover 전과 `verify_witness` 맨 앞(바이트 읽기 전) 두 곳.
+- binding에 `profiles_sha256`(`a_numeric/profiles.py` LF SHA-256) 추가, profile 기록에 구현 클래스와 **확인된** rounding(`half_even`/`unverified`). 떠 있던 `rounding` 문자열 필드 삭제.
+- 시험 12개 추가(wrapper 42개): 이름·폭·소수 비트가 같은 위조 7종이 모두 실제 cap-128 STOP에서 UNPROVED(`unsupported_profile`)·prover 0회·run 불변. 결함 주입: V0 메타데이터 게이트 변이체는 half-up 위조에 WITNESS_RESOLVED(원래 결함 재현), `isinstance` 변이체·탐침 제거 변이체는 각각 위조를 prover까지 보냄. `profiles_sha256`만 다른 binding은 stale.
+- 한계: 3·4층은 실행 중 교체에 대한 방어이며 탐침 밖에서만 다른 교체는 못 잡는다(프로세스 내 코드 신뢰 전제). Proof Cache 미착수, A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**.
+- 검증: LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: wrapper(survey_only 계층)·시험·문서만 변경, 실행기·평가기·checker V1/V2·prover·동결 계약 변경 0. **418 passed + 1 xfailed**(기존 strict xfail), 245.59초. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_profile_identity_20260930/`.
+다음 판단(설계자): profile identity 보강 재판정 → Proof Cache 설계(certificate bytes 불변 저장, 매 사용 재검증, prover 탐색만 생략).
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

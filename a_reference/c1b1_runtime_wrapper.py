@@ -14,6 +14,9 @@ W4  During the re-run a witness raw is returned only where the executor ITSELF r
 W5  NOT_A_DECISION / EXHAUSTED / ANOMALY / checker REFUSED: UNPROVED, run unchanged, no progress; an ANOMALY is never
     retried.
 W6  The certificate byte size is bounded BEFORE json parsing (availability only).
+Profile identity: a witness is proven for the canonical half-even a_numeric.profiles.FixedPoint only, so both run
+    profiles must BE that class (type identity, no subclass or look-alike, unchanged methods, tie probe); matching
+    name/width/frac_bits is not enough. The binding records profiles.py's LF SHA-256 and the checked rounding.
 
 The executor's source is not modified: C.impulse and C._decide are wrapped for the duration of one step and restored
 on every exit path (not thread-safe, like the witness prototype). The wrapper never reads or changes the precision cap.
@@ -28,7 +31,7 @@ import a_reference.ar2_lang2024 as L
 import a_reference.c1b1_exact_impulse_checker_v2 as K2
 import a_reference.c1b1_point_prover as P
 import a_reference.c1b1_two_atom as C
-from a_numeric.profiles import VMHalt
+from a_numeric.profiles import FixedPoint, VMHalt
 
 VERSION = "c1b1-runtime-wrapper-v0"
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,8 +43,38 @@ def _lf_sha256(rel):
     return hashlib.sha256((ROOT / rel).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
+_FX_METHODS = {n: FixedPoint.__dict__[n] for n in ("from_exact", "to_exact", "_check")}   # what the executor calls
+_FX_ATTRS = {"width", "frac_bits", "lo", "hi", "name"}
+_HALF = Q(1, 2)
+
+
+def _canonical_fx(p, width, frac_bits):
+    """True only for the real a_numeric.profiles.FixedPoint(width, frac_bits) with half-even rounding: the exact class
+    (no subclass, no look-alike), no instance attribute beyond the constructor's, the class methods the executor calls
+    unchanged since import, and a known-answer tie probe. Matching name/width/frac_bits alone is never enough."""
+    if type(p) is not FixedPoint or set(vars(p)) != _FX_ATTRS:
+        return False
+    if (p.width, p.frac_bits, p.name) != (width, frac_bits, f"FX({width},{frac_bits})"):
+        return False
+    if (p.lo, p.hi) != (-(1 << (width - 1)), (1 << (width - 1)) - 1):
+        return False
+    if any(FixedPoint.__dict__.get(n) is not f for n, f in _FX_METHODS.items()):
+        return False
+    u = Q(1, 1 << frac_bits)
+    try:                                                                # ties go to even, both signs; exact inverse
+        probe = [p.from_exact(s * t * u) for s in (1, -1) for t in (_HALF, 3 * _HALF, 5 * _HALF)]
+        inverse = p.to_exact(3) == 3 * u and p.to_exact(-5) == -5 * u
+    except Exception:
+        return False
+    return probe == [0, 2, 2, 0, -2, -2] and inverse
+
+
 def _profile_id(p):
-    return {"name": p.name, "width": getattr(p, "width", None), "frac_bits": getattr(p, "frac_bits", None)}
+    """The binding's profile record. 'rounding' says half_even only when _canonical_fx checked it, never by default."""
+    width, frac_bits = getattr(p, "width", None), getattr(p, "frac_bits", None)
+    canonical = isinstance(width, int) and isinstance(frac_bits, int) and _canonical_fx(p, width, frac_bits)
+    return {"impl": f"{type(p).__module__}.{type(p).__qualname__}", "name": getattr(p, "name", None),
+            "width": width, "frac_bits": frac_bits, "rounding": "half_even" if canonical else "unverified"}
 
 
 def binding(run):
@@ -52,9 +85,10 @@ def binding(run):
             "executor_sha256": _lf_sha256("a_reference/c1b1_two_atom.py"),
             "model_sha256": _lf_sha256("a_reference/ar2_lang2024.py"),
             "model_fingerprint": L.parameter_fingerprint(),
+            "profiles_sha256": _lf_sha256("a_numeric/profiles.py"),
             "position_profile": _profile_id(run.pos), "momentum_profile": _profile_id(run.mom),
             "dt": str(Q(run.dt)), "dt_kick": str(Q(run.dt) / 2), "drift": run.drift,
-            "retardation": L.WORLD_RETARDATION, "rounding": "half_even"}
+            "retardation": L.WORLD_RETARDATION}
 
 
 def _key(dr, k, dt_kick, profile):
@@ -63,8 +97,8 @@ def _key(dr, k, dt_kick, profile):
 
 
 def _supported(run):
-    return (_profile_id(run.pos) == {"name": "FX(96,48)", "width": 96, "frac_bits": 48}
-            and _profile_id(run.mom) == {"name": "FX(96,80)", "width": 96, "frac_bits": 80})
+    """The certificate format covers only the canonical half-even FX(96,48) position / FX(96,80) momentum."""
+    return _canonical_fx(run.pos, 96, K2.POSITION_FRAC_BITS) and _canonical_fx(run.mom, 96, 80)
 
 
 def _dr_raw(dr):
@@ -115,6 +149,8 @@ def witness_bytes(certificate, run):
 
 def verify_witness(data, key, run, claimed_raw, config):
     """W2: from BYTES. Returns the raw or raises _Reject(reason). Nothing in the bytes is trusted but what is checked."""
+    if not _supported(run):                                             # a look-alike profile is never bound
+        raise _Reject("unsupported_profile")
     if not isinstance(data, (bytes, bytearray)):
         raise _Reject("not_bytes")
     if len(data) > config.max_certificate_bytes:                         # W6: before any parsing

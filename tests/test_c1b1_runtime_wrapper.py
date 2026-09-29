@@ -451,3 +451,157 @@ def test_mutant_whose_hook_prefers_the_witness_overrides_an_executor_decision():
     with mod._hooks(table, [], []):
         got = C.impulse(dr, DT / 2, MOM)
     assert got != honest, "the W4 test must see a hook that overrides a decision the executor makes"
+
+
+# --- profile identity: a look-alike of the canonical half-even FX must never receive a witness --------------------------
+
+import a_numeric.profiles as PR                 # noqa: E402
+
+
+def _half_up(p, value):
+    """Ties away from zero: a different rounding rule behind the same name/width/frac_bits."""
+    x = Q(value) * (1 << p.frac_bits)
+    q = (2 * abs(x.numerator) + x.denominator) // (2 * x.denominator)
+    return p._check(q if x >= 0 else -q)
+
+
+class _HalfUpFX(FixedPoint):
+    """FORGERY FOR THE TEST: a FixedPoint subclass whose from_exact rounds ties away from zero."""
+
+    def from_exact(self, value):
+        return _half_up(self, value)
+
+
+class _OtherToExactFX(FixedPoint):
+    """FORGERY FOR THE TEST: a FixedPoint subclass whose to_exact differs at one raw."""
+
+    def to_exact(self, v):
+        return Q(v, 1 << self.frac_bits) + (Q(1, 1 << 200) if v == 12345 else 0)
+
+
+class _LookAlikeFX:
+    """FORGERY FOR THE TEST: not a FixedPoint at all; same name/width/frac_bits/lo/hi, half-up from_exact."""
+
+    def __init__(self, width, frac_bits):
+        self._real = FixedPoint(width, frac_bits)
+        self.name, self.width, self.frac_bits = self._real.name, width, frac_bits
+        self.lo, self.hi = self._real.lo, self._real.hi
+
+    def from_exact(self, value):
+        return _half_up(self._real, value)
+
+    def __getattr__(self, name):
+        return getattr(self._real, name)
+
+
+def _instance_override(width, frac_bits):
+    p = FixedPoint(width, frac_bits)
+    p.from_exact = types.MethodType(_half_up, p)          # the real class, a forged bound method on the instance
+    return p
+
+
+def _half_up_div_round(num, den):
+    q, r = divmod(abs(num), abs(den))
+    q += 2 * r >= abs(den)
+    return q if (num < 0) == (den < 0) else -q
+
+
+FORGED = {
+    "subclass_from_exact": lambda mp: ("mom", _HalfUpFX(96, 80)),
+    "subclass_to_exact": lambda mp: ("mom", _OtherToExactFX(96, 80)),
+    "look_alike": lambda mp: ("mom", _LookAlikeFX(96, 80)),
+    "instance_override": lambda mp: ("mom", _instance_override(96, 80)),
+    "position_subclass": lambda mp: ("pos", _HalfUpFX(96, 48)),
+    "class_method_patched": lambda mp: (mp.setattr(FixedPoint, "from_exact", lambda self, v: _half_up(self, v)),
+                                        ("mom", FixedPoint(96, 80)))[1],
+    "module_rounding_patched": lambda mp: (mp.setattr(PR, "_div_round", _half_up_div_round),
+                                           ("mom", FixedPoint(96, 80)))[1],
+}
+
+
+def _refusal_state_with(which, profile):
+    """_first_refusal_state with one profile replaced: the forgeries agree with half-even off exact ties, so the
+    trajectory and the cap-128 stop in the 4th step are the same."""
+    st = X.canonical(Q(9), Q(1, 2) * X.RE)
+    pos, mom = (profile, MOM) if which == "pos" else (POS, profile)
+    run = C.new_run(pos, DT, st["r_i"], st["p_i"], st["r_j"], st["p_j"], momentum_profile=mom)
+    for _ in range(3):
+        C.step(run)
+    return run
+
+
+def test_the_canonical_profiles_pass_the_identity_check_and_are_bound_with_their_source():
+    run = _first_refusal_state()
+    assert RW._supported(run)
+    b = RW.binding(run)
+    assert b["profiles_sha256"] == RW._lf_sha256("a_numeric/profiles.py")
+    for key, frac in (("position_profile", 48), ("momentum_profile", 80)):
+        assert b[key] == {"impl": "a_numeric.profiles.FixedPoint", "name": f"FX(96,{frac})", "width": 96,
+                          "frac_bits": frac, "rounding": "half_even"}
+    assert "rounding" not in b, "no free-standing rounding declaration: it comes from the checked profile"
+
+
+@pytest.mark.parametrize("forgery", sorted(FORGED))
+def test_a_forged_profile_with_the_same_metadata_never_reaches_the_prover(monkeypatch, forgery):
+    which, profile = FORGED[forgery](monkeypatch)
+    assert (profile.name, profile.width, profile.frac_bits) == ((MOM if which == "mom" else POS).name, 96,
+                                                               80 if which == "mom" else 48)
+    spy = _ProverSpy(monkeypatch)
+    run = _refusal_state_with(which, profile)
+    before = dict(vars(run))
+    with W.precision_cap(128):
+        o = RW.step(run)
+    assert (o.status, o.reason) == (RW.UNPROVED, "unsupported_profile")
+    assert spy.calls == [] and o.stops and dict(vars(run)) == before
+    assert RW.binding(run)[f"{'momentum' if which == 'mom' else 'position'}_profile"]["rounding"] == "unverified"
+    with pytest.raises(RW._Reject, match="unsupported_profile"):   # the byte path refuses before reading the bytes
+        RW.verify_witness(b"{}", None, run, 0, RW.Config())
+
+
+OLD_GATE = "    return _canonical_fx(run.pos, 96, K2.POSITION_FRAC_BITS) and _canonical_fx(run.mom, 96, 80)\n"
+
+
+def test_mutant_with_the_metadata_only_gate_gives_a_forged_profile_a_half_even_witness(monkeypatch):
+    """The V0 defect: name/width/frac_bits alone let a half-up FX(96,80) receive a raw proven for half-even."""
+    mod = _mutant((OLD_GATE, "    return ((run.pos.name, run.pos.width, run.pos.frac_bits) == ('FX(96,48)', 96, 48)\n"
+                             "            and (run.mom.name, run.mom.width, run.mom.frac_bits) == ('FX(96,80)', 96, 80))\n"))
+    run = _refusal_state_with("mom", _HalfUpFX(96, 80))
+    with W.precision_cap(128):
+        o = mod.step(run)
+    assert o.status == "WITNESS_RESOLVED", "the identity test must see a gate that trusts the metadata"
+    honest = _refusal_state_with("mom", _HalfUpFX(96, 80))
+    with W.precision_cap(128):
+        assert RW.step(honest).reason == "unsupported_profile"
+
+
+def test_a_binding_with_another_profiles_source_is_stale(monkeypatch):
+    real = RW.witness_bytes
+
+    def stale(cert, run):
+        doc = json.loads(real(cert, run))
+        doc["runtime_binding"]["profiles_sha256"] = "0" * 64
+        return json.dumps(doc, sort_keys=True, separators=(",", ":")).encode()
+    monkeypatch.setattr(RW, "witness_bytes", stale)
+    run = _first_refusal_state()
+    before = dict(vars(run))
+    with W.precision_cap(128):
+        o = RW.step(run)
+    assert (o.status, o.reason) == (RW.UNPROVED, "stale_binding") and dict(vars(run)) == before
+
+
+@pytest.mark.parametrize("target,replacement,forgery", (
+    ("    if type(p) is not FixedPoint or set(vars(p)) != _FX_ATTRS:\n",
+     "    if not isinstance(p, FixedPoint) or set(vars(p)) != _FX_ATTRS:\n", "subclass_to_exact"),
+    ("    return probe == [0, 2, 2, 0, -2, -2] and inverse\n", "    return True\n", "module_rounding_patched"),
+), ids=("isinstance_instead_of_type_identity", "no_tie_probe"))
+def test_mutants_of_the_identity_check_let_a_forgery_reach_the_prover(monkeypatch, target, replacement, forgery):
+    """Each layer is load-bearing: isinstance admits a subclass whose to_exact differs (it passes the probe), and
+    without the probe a module-level rounding patch passes every identity check."""
+    mod = _mutant((target, replacement))
+    which, profile = FORGED[forgery](monkeypatch)
+    spy = _ProverSpy(monkeypatch)
+    run = _refusal_state_with(which, profile)
+    with W.precision_cap(128):
+        o = mod.step(run)
+    assert spy.calls, "the identity test must see this mutant send a forged profile to the prover"
+    assert o.reason != "unsupported_profile"

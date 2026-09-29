@@ -1,6 +1,6 @@
 # C1-B1 runtime wrapper V0 — 실제 STOP → prover → 검증된 witness → 같은 step 재실행
 
-**상태:** 계약 + 구현 + 시험(아래 8절). 기준 HEAD `99830f2`. **Proof Cache 없음**(설계자 판정: wrapper를 먼저 단독으로 닫는다).
+**상태:** 계약 + 구현 + 시험(아래 8절), profile identity 보강(9절, 기준 HEAD `1140628`). 기준 HEAD `99830f2`. **Proof Cache 없음**(설계자 판정: wrapper를 먼저 단독으로 닫는다).
 **현재 상태(변경 없음):** A-EV 미해결, ④-Safety Conditional, **④-Liveness NotCertified**, 실행기·평가기·동결 계약·checker V1/V2 변경 0, 실행기 cap 16384.
 **근거:** 설계자 판정 2026-09-30(8개 조건), [Runtime Rounding Contract V1](C1B1_RUNTIME_ROUNDING_CONTRACT_V1_PROPOSAL.md) 1·3·7절, [checker V2](C1B1_EXACT_IMPULSE_CHECKER_V2_DESIGN.md)(신뢰 승인), [point prover V0](C1B1_POINT_PROVER_DESIGN_V0.md).
 
@@ -34,17 +34,17 @@ wrapper는 실행기가 **충격량 성분 하나의 반올림을 cap 안에서 
 
 ## 3. binding (witness가 유효한 조건)
 
-`runtime_binding` = wrapper 버전, checker V2 형식·method·소스 LF SHA-256, 실행기(`c1b1_two_atom.py`)·모델(`ar2_lang2024.py`) 소스 LF SHA-256, 동결 모델 지문, position/momentum profile(이름·폭·소수 비트), dt, dt_kick, drift 규칙, retardation, 반올림 방식(half-even). 하나라도 다르면 `stale_binding`이다. checker V2는 이 필드를 읽지 않으므로(수학적 참/거짓과 무관) **binding 확인은 wrapper의 책임**이다.
+`runtime_binding` = wrapper 버전, checker V2 형식·method·소스 LF SHA-256, 실행기(`c1b1_two_atom.py`)·모델(`ar2_lang2024.py`)·**수 체계(`a_numeric/profiles.py`)** 소스 LF SHA-256, 동결 모델 지문, position/momentum profile(**구현 클래스**·이름·폭·소수 비트·**확인된** 반올림), dt, dt_kick, drift 규칙, retardation. 반올림 필드는 선언 문자열이 아니다: profile이 9절의 canonical 확인을 통과할 때만 `half_even`, 아니면 `unverified`다(9절에서 변경). 하나라도 다르면 `stale_binding`이다. checker V2는 이 필드를 읽지 않으므로(수학적 참/거짓과 무관) **binding 확인은 wrapper의 책임**이다.
 
 ## 4. 지원 범위
 
-- position FX(96,48), momentum FX(96,80)만 지원한다(certificate 형식이 이 둘을 가정). 다른 profile이면 UNPROVED(`unsupported_profile`)다. STOP 입력의 상대 위치가 2^-48 격자의 정수배가 아니어도 같다.
+- position FX(96,48), momentum FX(96,80)만 지원한다(certificate 형식이 이 둘을 가정). **두 profile 모두 진짜 `a_numeric.profiles.FixedPoint`여야 한다**(9절). 이름·폭·소수 비트만 같은 다른 구현은 지원하지 않는다. 다른 profile이면 UNPROVED(`unsupported_profile`)다. STOP 입력의 상대 위치가 2^-48 격자의 정수배가 아니어도 같다.
 - 한 step 안의 재시도는 `max_attempts_per_step`(기본 8)까지다. 한 step은 충격량 최대 2개(첫 step) × 성분 3개라 6을 넘지 않는다. 넘으면 UNPROVED(`attempt_limit`)다.
 
 ## 5. 실행기와의 연결 방식 (먼저 공개)
 
 - **실행기 소스는 바꾸지 않는다.** 대신 `C.impulse`와 `C._decide`를 step 실행 동안에만 감싸고, 모든 종료 경로에서 되돌린다(witness prototype과 같은 방식).
-- 결과: 같은 프로세스 안의 **병렬 스레드에서는 안전하지 않다**(현재 사용 없음). 실행기에 정식 hook을 넣는 것은 실행기 변경이라 이번 범위 밖이다.
+- 결과: 같은 프로세스 안의 **병렬 스레드에서는 안전하지 않다**(현재 사용 없음). 프로세스 병렬(xdist·ProcessPool)은 주소공간이 따로라 괜찮다. 실행기에 정식 hook을 넣는 것은 실행기 변경이라 이번 범위 밖이다. **기술부채(설계자 판정 2026-09-30): V0에서는 허용하되, 최종 병렬 world executor 전에 정식 hook/callback 경로로 교체한다.**
 - `_decide` 감싸기로 성분 번호를 아는 방법: `impulse`는 `dr_k × dt_kick ≠ 0`인 성분마다 순서대로 `_decide`를 한 번 부른다. wrapper는 같은 조건으로 성분 목록을 만들어 호출 순서와 맞춘다. 이 대응이 틀리면 witness가 다른 성분에 들어가겠지만, 그 경우 재실행 결과가 정상 실행과 달라져 차등 시험(W7)이 잡는다.
 - wrapper는 `MAX_PRECISION_BITS`를 읽거나 바꾸지 않는다. cap-128 rehearsal에서 cap을 낮추는 것은 **시험 코드**다.
 
@@ -105,3 +105,36 @@ step의 첫 충격량 입력을 2^-17000 near-tie로, dt를 그 두 배(17,600�
 4. trajectory-completion(Q4)과 `VMHalt`/`ExecutorLimitExceeded` 예외 분류 정리는 이번 범위 밖이다.
 5. Proof Cache 없음. 같은 입력의 STOP이 다른 step에서 다시 나오면 prover와 재검증을 다시 한다.
 
+## 9. profile identity 보강 (설계자 판정 2026-09-30, 기준 HEAD `1140628`)
+
+**판정:** 실행 구조(STOP → prover → V2 검증 → 같은 step 재실행)는 승인. 단, 정식 witness binding은 profile identity 보강 전 미완.
+
+**찾은 구멍(witness soundness):** V0의 `_supported()`는 profile의 `name/width/frac_bits`만 봤다. 같은 메타데이터를 가진 **다른 구현**(예: `from_exact`의 반올림을 바꾼 subclass)도 지원 profile로 통과했고, binding의 `"rounding": "half_even"`은 확인 없이 적은 문자열이었다. 그러면 실행기는 다른 반올림 규칙으로 도는데 wrapper는 **진짜 half-even FX(96,80)로 증명한 raw**를 그 세계에 넣을 수 있었다. checker가 옳아도 세계에 틀린 값이 들어가는 경로다. 결함 주입으로 V0 게이트가 half-up 위조 FX(96,80)에 실제로 WITNESS_RESOLVED를 준다는 것을 확인했다(아래 시험).
+
+**수정(wrapper만, 실행기·checker·prover·물리 계약 변경 0):** `_canonical_fx(p, W, F)`가 참일 때만 지원한다. position·momentum 둘 다 확인한다.
+
+| 층 | 확인 | 막는 것 |
+|---|---|---|
+| 1 | `type(p) is FixedPoint` (`isinstance` 아님) | subclass, 전혀 다른 look-alike 클래스 |
+| 2 | 인스턴스 속성이 생성자가 만드는 5개(`width, frac_bits, lo, hi, name`)뿐이고 값이 W·F에서 계산한 것과 같음 | 인스턴스에 심은 `from_exact` 등 |
+| 3 | 실행기가 부르는 클래스 메서드(`from_exact, to_exact, _check`)가 wrapper import 시점의 함수와 같은 객체 | 실행 중 클래스 메서드 교체 |
+| 4 | 알려진 답 탐침: ±½, ±3/2, ±5/2 ULP가 0, ±2, ±2로(짝수 쪽), `to_exact`가 정확한 역 | 모듈 수준 반올림 함수(`_div_round`) 교체 등 1〜3이 못 보는 변경 |
+
+- 이 확인은 **stop 때 prover를 부르기 전**과 **`verify_witness`의 맨 앞**(바이트를 읽기 전) 두 곳에서 한다. `verify_witness`는 Proof Cache가 재사용할 경로이므로 거기서도 막아 둔다.
+- binding에 `profiles_sha256`(`a_numeric/profiles.py` LF SHA-256)을 추가했다. profile 기록은 `{impl, name, width, frac_bits, rounding}`이고 `rounding`은 위 확인을 통과해야만 `half_even`이다. 따로 떠 있던 `"rounding": "half_even"` 필드는 없앴다.
+- 한계(먼저 공개): 3·4층은 **실행 중 교체**를 잡는 방어이고 완전하지 않다. 탐침이 보는 점 밖에서만 다르게 동작하도록 모듈 함수를 교체하면 4층도 통과한다. 이 경우 막는 것은 소스 해시가 아니라(해시는 파일만 본다) 프로세스 안의 코드를 신뢰한다는 전제다. 파일 변경은 `profiles_sha256`이 stale로 만든다.
+
+**시험(12개 추가, wrapper 시험 30 → 42):**
+- canonical 두 profile은 확인을 통과하고 binding에 `profiles_sha256`·`impl`·`rounding: half_even`이 들어간다.
+- 위조 7종 — subclass(`from_exact` half-up), subclass(`to_exact`가 한 raw에서 다름), look-alike(비 FixedPoint, half-up), 진짜 FixedPoint 인스턴스에 심은 `from_exact`, position 쪽 subclass, 클래스 메서드 교체, 모듈 `_div_round` 교체 — 모두 이름·폭·소수 비트가 진짜와 같다. **모두 실제 cap-128 STOP까지 가서 UNPROVED(`unsupported_profile`), prover 호출 0, run 불변**, binding의 해당 profile은 `rounding: unverified`, `verify_witness`는 바이트를 보기 전에 거부.
+- **결함 주입:** (a) V0의 메타데이터 게이트로 되돌린 변이체 → half-up 위조가 WITNESS_RESOLVED(원래 결함 재현), (b) `type is` 대신 `isinstance` → `to_exact` subclass가 prover까지 감, (c) 탐침 제거 → `_div_round` 교체가 prover까지 감. 각 층이 실제로 일을 한다.
+- `profiles_sha256`만 다른 binding → `stale_binding`.
+
+**Proof Cache 설계 필수 조건(설계자 판정, 아직 구현 안 함):**
+1. hash만 저장하지 않는다. **canonical certificate bytes 자체를 불변 저장**하고 SHA-256은 content address·변조 검사용이다.
+2. 사용할 때마다 bytes → 크기 검사 → parse → binding → 입력 → checker V2 VALID를 **다시** 한다(저장된 witness는 prover 탐색만 생략).
+3. 현재 WITNESS_RESOLVED 기록에는 raw·certificate SHA-256·크기·prover 요약만 있고 **certificate 본문은 없다**. 즉 `StepOutcome`만으로는 그 결정을 다시 검증할 수 없다. survey/prototype인 지금은 세계 정확성 결함이 아니지만, wrapper를 실제 canonical 실행에 쓰기 시작하는 시점부터는 WITNESS_RESOLVED가 저장된 객체의 content address를 반드시 기록해야 한다.
+
+**상태:** Point Prover V0 승인 / Runtime Wrapper V0 구조·동작 승인 / 정식 witness binding은 이 보강으로 profile identity 조건을 채움(설계자 재판정 대기) / Proof Cache 미착수 / ④-Safety Conditional / ④-Liveness NotCertified.
+
+**검증:** LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: wrapper 파일(survey_only 새 계층)과 그 시험·문서만 변경, 실행기·평가기·checker V1/V2·prover·동결 계약 변경 0. wrapper 42 + prover 24 + V2 95 + V1 185 + fail-closed·witness prototype·two_atom = **418 passed + 1 xfailed**(기존 strict xfail), `-n 6`, 245.59초. 기준선 숫자는 갱신하지 않는다. 증거: `runs/c1b1_runtime_wrapper_profile_identity_20260930/{related.log,related.xml}`.
