@@ -594,6 +594,8 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - **inner 약점:** R = 3 셀 폭 1/8에서 V′ 구간 [−721, 602] vs 참 [−0.90, −0.76](감쇠 항 상쇄). [r_min, 20] 적응 부호 지도는 셀 4,000개 예산 초과. inner 전에 상쇄 없는 재정식화가 필요.
 - 채택 후보(설계자 판단): 에너지 기반 운동량 상한(inbound·outgoing 공용), 에너지 장벽 셸 lemma, inner 도함수 재정식화. 상태 변화 없음.
 
+**설계자 판정(2026-09-30, 기준 HEAD `ba46940`): Field Map 조사 성공 종료(새 계층 만들지 않음).** (1) 에너지 기반 운동량 상한 = **진행 승인**, inbound/outgoing 공용 설계(방법 채택 ≠ 정리 승인: 정식 유도 → 코드 → 결함 주입 → 독립 감사). (2) 에너지 장벽 셸 = **같이 진행 승인**, 독립 lemma. D_valid 전체 도달 불가 주장에는 에너지 오차와 step overshoot(한 step 최대 이동 < 장벽 두께)를 포함. (3) inner 도함수 재정식화 = **보류**(장벽으로 R ≲ 5.3이 제거되는지 먼저). 순서: ① 공용 Energy Bound → ② inbound/outgoing 적용 → ③ Energy Barrier lemma → ④ D_valid가 R ≈ 5.3 아래에 못 감을 증명 → ⑤ 독립 감사 → ⑥ inner 필요 영역 확정 → ⑦ 부족하면 그때 재정식화.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
