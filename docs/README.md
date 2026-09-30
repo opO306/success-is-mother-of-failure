@@ -7,7 +7,7 @@ A가 최우선이다. L은 A의 물리 기반이 충분해진 뒤 자연 발생�
 
 | 폴더 | 의미 | 읽는 기준 |
 |---|---|---|
-| [active/](active/README.md) | 현재 활성 A / C1-B1 | outer formal bound ④ 진행. ④ 전체 FROZEN 아님, ⑤ 미착수 |
+| [active/](active/README.md) | 현재 활성 A / C1-B1 | 세 층 분리 기준 C1-B1 종료 조건. ④ 사전 증명은 연구 과제, 공식 ⑤ 미착수 |
 | [frozen/](frozen/README.md) | 동결 계약 및 동결 자산의 원문 안내 | 동결은 “낡아서 버린 문서”가 아니라 현재 지켜야 할 버전별 계약 |
 | [reference/](reference/README.md) | 공통 원칙·실행 구조·검증 기준 | 본문의 승인·초안·보류 범위를 유지. 폴더 배치로 새 승인하지 않음 |
 | [history/](history/README.md) | 과거 설계·철회·실측·점검 기록 | 본문 속 “현재/다음”은 당시 상태. 이 폴더의 문서가 모두 동결됐다는 뜻은 아님 |

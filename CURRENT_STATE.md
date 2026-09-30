@@ -1,6 +1,6 @@
 # 현재 상태
 
-**최종 갱신:** 2026-09-29 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-01 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
 
@@ -15,11 +15,13 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 
 | 현재 진행 | 상태 |
 |---|---|
-| **현재 활성 Gate** | **C1-B1** |
-| **현재 세부 단계** | **outer formal bound ④ 진행 — Liveness = 정성적 finite termination(계약 변경), Lemma A 승인·B 방향 승인(design basis), 독립 checker V1·V2 신뢰 승인(formal certified 아님), point prover V0 승인, runtime wrapper V0·witness profile binding 승인, Proof Cache ↔ Warehouse 관계 판정 Q-PC1~4 반영, Proof Cache V0 = APPROVED(production cap 종단 입고 1건 통과), ④-Liveness 수학 연결 감사 중** |
-| **다음 Gate** | **④-Safety(A-EV 선행) + ④-Liveness → ④ 최종 감사/동결 → ⑤ 독립 실측 교차검증** |
+| **현재 활성 Gate** | **C1-B1** (세 층 분리 기준으로 종료 조건 재정의, 2026-10-01) |
+| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), production independent replay verifier 구현·승인, `_decide` 예외 분류 정리, 증거 등급·확정 계약 최소 시험. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
+| **다음 Gate** | **C1-B1 종료 → 다원자 기체 단계(첫 항목: 적분기 에너지 범위 확장, 강한 O-3 = 희박 Ar 점성) → C1-C 전 N-1 재평가** |
 
-위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 아직 FROZEN이 아니며 ⑤는 시작하지 않았다.**
+위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 FROZEN이 아니며 ⑤는 시작하지 않았다.**
+2026-10-01 세 층 분리 결정으로 ④의 "전 궤적 사전 증명" 부분은 Gate에서 연구 과제로 이동했다(삭제·실패 판정 아님).
+④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결 상태 표기는 그대로 유지한다.
 
 ## C1-B1: 완료된 부분과 남은 의무
 
@@ -34,9 +36,9 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | **④-3** | **R_J + zero discrete impulse + analytic continuous tail 구현** | 실행기 impulse=0과 동일 실제 입구의 연속 tail 잔여 impulse를 구분. L 상한은 유한 입구→R_J만 |
 | **④-4** | **rounding-decision completeness 진행 중** | tail 결정성은 닫음. 일반 pre-tail reachable enclosure의 비영 impulse cover는 미완료 |
 | **④ 전체** | **아직 FROZEN 아님** | ④-2/④-3은 rounding-decision completeness에 조건부 |
-| **⑤** | **아직 시작하지 않음** | ④ 최종 감사/동결 뒤 독립 실측 교차검증 |
+| **⑤** | **공식 실행 미착수** | 자료 확보·봉인 준비는 가능. 공식 O-3는 production replay verifier 승인 뒤 CONFIRMED trajectory만 사용 |
 
-**④가 열려 있는 이유:** 미래의 모든 필요한 impulse 반올림이 기존 평가기의 **MAX_PRECISION_BITS=16384** 안에서 항상 결정되는지 아직 미증명이다.
+**④ 사전 증명 연구가 열려 있는 이유(Gate 재분류 전 기록):** 미래의 모든 필요한 impulse 반올림이 기존 평가기의 **MAX_PRECISION_BITS=16384** 안에서 항상 결정되는지 아직 미증명이다.
 유한 체류 step 수만으로 반올림 경계와의 분리가 보장되지는 않는다. 충분한 증거가 없으면 `NotCertified`이며 실행 중 `ReferenceUndecided` 가능성도 남는다.
 
 현재 닫힌 부분은 **R_J=10240 bohr 이후 모든 legal FX 상대 위치의 tail impulse 결정성**(210 radial cell, 최대 512 bit)이다.
@@ -659,9 +661,30 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - HYBRID인 이유: 실행 전 Liveness·D_valid 전체 명제·R_J 이후 무한 tail은 사후 검증으로 얻지 못한다(끝나지 않으면 REFUSED). 신뢰 기반은 verifier 구현 + mpmath 엄밀성 + 사양 공통 모드(A-EV와 별개 질문, 섞지 않음).
 다음 판단(설계자): ④의 목적이 "모든 허용 입력의 실행 전 보장"인지 "확정되는 모든 결과의 독립 검증"인지. 후자면 실제 궤적 부분은 사후 검증, formal은 tail과 REFUSED 빈도만 남는 구성 — 결정 전 추가 구현 없음.
 
+**설계자 판정(2026-10-01, 기준 HEAD `ac14385`): A 세 층 분리 채택, C1-B1 종료 조건 재정의.** ([A_THREE_LAYER_SEPARATION_V1.md](docs/active/A_THREE_LAYER_SEPARATION_V1.md))
+- 세계 / 검증 / 관측 분리. formal proof의 역할은 "다음 단계 허가증"에서 "필요한 성질을 검증하는 도구"로 바뀐다. 기존 증명 자산은 전부 보존한다.
+- 증거 등급 4단계와 확정 상태 3단계를 분리한다. 표본 감사는 승격하지 않는다.
+- **N-1** C1-B1 CONFIRMED 최소 = `REPLAY_VERIFIED`. 자격은 native J 등 특정 구현이 아니라 **설계자가 승인한 independent replay verifier**에 둔다(C1-B1 한정, C1-C 전 재평가, 측정 항목 고정). 첫 실측값은 위 사후 검증 조사(직렬 경과 시간 4.9〜5.8배, 병렬 wall 0.98〜1.19배, 실제 불일치 0건). scratch verifier는 정식 verifier가 아니다 — production 요건 6개를 고정한 뒤 구현·승인한다. mpmath 구간 엄밀성은 신뢰 기반으로 공개한다.
+- native J 비트 동등성은 **C1-B1 종료 조건에서 제외**하고 별도 이종 실행기 Gate로 유지한다. native J 경로를 실제 세계 실행에 사용하기 전에 통과해야 한다.
+- **A-EV와 replay verifier는 서로 대체하지 않는다. A-EV는 세계 실행기의 판정 방법 자체에 대한 건전성 의무이고, replay verifier는 실제 생성된 세계 역사의 독립 재검증이다. 두 작업에서 같은 증명을 중복 요구하지 않는다.**
+- O-3 자료 확보·봉인·관측 코드 준비는 지금 가능하다. 공식 O-3는 production verifier 승인 뒤 CONFIRMED trajectory만 사용한다. 개발 탐색 결과는 `EXECUTED / NOT OFFICIAL O-3`로 표시한다.
+- **N-2** 불일치 시 자동 재실행 금지, 하드웨어 오류는 독립 근거 필요. **N-3** r_min 실행 guard는 Gate 유지, S4d passing-side δ는 연구 과제로 이동. **N-4** C1-B1 O-3 = Ar-Ar 직접 산란 `O-3 weak`(착수 전 자료·수치화·E-QC·성공 기준 봉인), 희박 Ar 점성은 다원자 기체 단계로 이동. **N-5** 문서 먼저, 코드는 계약 확정 뒤.
+- 위 사후 검증 조사의 "다음 판단(설계자)" 질문(④의 목적)은 이 판정으로 답해졌다: 확정되는 결과의 독립 검증이 Gate이고, 모든 허용 입력의 사전 보장은 연구 과제다.
+- 채택 근거는 S4d 결과와 무관한 R1〜R4로 한정했다. S4d는 실패로도 닫힘으로도 판정하지 않는다.
+- 기존 O-3 조사 추정: 충돌 빈도 가중 ∝ x e⁻ˣ를 적용하면 300 K에서 약 5%, 400 K에서 약 13%가 현재 10 De 범위를 넘는다(온도 모델 추정, 실제 세계 운영 실측 아님). 다원자 기체 단계 전 에너지 범위 확장이 필요하다.
+- 검증: **LOCAL FULL 생략 / 관련 시험으로 대체 / 이유: 문서만 변경, 기존 실행 코드·동결 계약·fixture 변경 없음.** `tests/test_body_contract_freeze.py` 3 passed(이번 실행), 제13·26조 원문 유지 비교·문서 링크 검사·`git diff --check` 확인. 기존 LOCAL FULL 기준선 숫자는 갱신하지 않음.
+
+**설계자 판정(2026-10-01): L 최상위 원칙과 헌법 v0.3 개정.** ([L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md](docs/reference/L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md), [PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md))
+- L은 생명을 만들지 않는다. 현실적 초기 화학 조건에서 A를 실행하고 관측한다. 아무것도 발생하지 않는 결과도 유효하다.
+- 헌법 제5·6·7·8·18·22조 의미 수정, 제21조 "가능성 차단(실패) ≠ 미발생(유효한 결과)" 명시, 제13조 원문·헌법 제목 유지, 목적·제4조 해석 메모. 제21조 예시는 해석 메모로 이동하고 검증된 유효모델의 정당한 경로 제외는 실패가 아님을 명시한다. 개정 전 v0.2는 `ac14385`에 보존.
+- 유효 모델의 희귀 경로 계약: 제외 경로 목록 + 경로별 상한 + 선언 범위 전체의 누적 기여·예상 사건 수 상한.
+- `EVOLUTION_V2_PLAN.md`·`EVOLVABLE_LANGUAGE_PLAN.md`는 L의 근거 문서가 아니다(레거시, 보존). 레거시·동결 확률 세계 코드는 개정 이전 기준선으로 보존하고 수정하지 않는다.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
-**아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
+**아직 남음 (Gate):** A-EV / production independent replay verifier 구현·승인 / `_decide` 예외 분류 정리 / 증거 등급·확정 계약 최소 시험 / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze.
+**별도 Gate:** native J evaluator와 실행기 비트 동등성(이종 실행기, CONFIRMED 전제 아님).
+**연구 과제 (Gate 아님, 보존):** inbound 저에너지 잔여 / inner(④ step 4) / S4d passing-side δ / global shadowing / 전체 산란각 formal proof / E_min 재생성 / 속박 궤도 domain·error proof / 정확 분수 대리식 fast path survey.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
 
 ## 증거 종류: 수치 검증과 별도 수학 증거

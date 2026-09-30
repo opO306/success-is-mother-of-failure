@@ -1,10 +1,12 @@
 # 현재 활성 A — C1-B1
 
-**상태: ACTIVE / C1-B1 / outer formal bound ④ 진행.** A가 최우선이며 L·B의 진행 시점은 [CURRENT_STATE.md](../../CURRENT_STATE.md)를 따른다.
+**상태: ACTIVE / C1-B1 / 세 층 분리 기준 종료 조건(2026-10-01).** A가 최우선이며 L·B의 진행 시점은 [CURRENT_STATE.md](../../CURRENT_STATE.md)를 따른다.
 
 | 문서 | 현재 읽을 범위 |
 |---|---|
 | [C1-B1 설계·결정·검증](A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md) | 23절 D_valid v2 동결, 24절 ④-1, 25절 ④-2/④-3, 26절 rounding 진행. 1~22절은 설계·측정 이력 |
+| [A 세 층 분리 V1](A_THREE_LAYER_SEPARATION_V1.md) | **설계자 승인(2026-10-01).** 세계/검증/관측 분리, 증거 등급·확정 상태, speculative 계약, Gate 재분류(한 걸음 = Gate, 전 궤적 사전 증명 = 연구 과제). CONFIRMED = 승인된 independent replay verifier의 전 step 재검증. native J는 별도 Gate. C1-B1 종료 조건 재정의 |
+| [O-3 직접 산란 vs 점성 조사 v0](C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md) | survey_only. **설계자 판정: C1-B1 O-3 = Ar-Ar 직접 산란 `O-3 weak`**(E ≈ 4.65 De, Lang 맞춤과 독립, 착수 전 봉인). 희박 Ar 점성은 다원자 기체 단계로 이동(적분기 범위 확장 필요) |
 | [원인별 outer 1-step bound](C1B1_OUTER_FORMAL_BOUND_V1.md) | ④-1 구현 완료. 유한 shell·half-step 운동량 cap 아래의 조건부 상한 |
 | [outgoing bootstrap와 tail](C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md) | ④-2 shell induction·유한 체류 상한과 ④-3 R_J·zero discrete impulse·analytic continuous tail 구현. rounding completeness에 조건부 |
 | [rounding-decision completeness](C1B1_ROUNDING_DECISION_V1.md) | tail 결정성은 최대 512 bit로 닫음. 일반 pre-tail reachable enclosure의 비영 impulse cover는 미완료 |

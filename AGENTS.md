@@ -25,7 +25,8 @@ B가 A를 만들거나 바꾸면 자기 답을 자기가 채점하는 꼴이 된
 
 **현재 개발 우선순위(2026-09-27):** A: ACTIVE → L: DEFERRED UNTIL A FOUNDATION IS SUFFICIENT → B: DEFERRED TO LATE STAGE, NOT CANCELLED.
 A의 기반이 충분해진 뒤 L은 A 안에서 자연 발생·진화하는 계통으로 진행한다. A와 L이 어느 정도 완성되어 작은 세계가 돌아가는 단계 뒤 B를 본격적으로 만든다.
-B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 활성 Gate는 C1-B1의 outer formal bound ④다. **④ 전체는 FROZEN 아님, ⑤ 미착수.** 상세·다음 Gate는 `CURRENT_STATE.md`를 본다.
+B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 활성 Gate는 C1-B1이며, 2026-10-01부터 **세계 / 검증 / 관측 세 층 분리** 기준으로 종료 조건을 재정의했다(`docs/active/A_THREE_LAYER_SEPARATION_V1.md`). 한 걸음의 건전성과 승인된 independent replay verifier의 전 step 재검증은 Gate, 전 궤적 사전 증명은 연구 과제다. **④ 전체는 FROZEN 아님, ⑤ 미착수.** 상세·다음 Gate는 `CURRENT_STATE.md`를 본다.
+**L 원칙(헌법 v0.3):** L은 생명을 만들지 않고 관측한다. 가능성 차단은 실패, 미발생은 유효한 결과다(`docs/reference/L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md`).
 
 **현재 정직한 한계:**
 - B는 학습형 신경망이 아니다. 사람이 규칙을 적어준 결정론 어댑터다.
