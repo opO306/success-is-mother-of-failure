@@ -604,6 +604,10 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 검증: 신규 모듈·시험·문서 + 이번 세션의 비공용 모듈(inbound, survey) 수정 → **LOCAL FULL 생략 / 관련 시험으로 대체 / 공용 실행 코드·동결 계약·fixture 변경 없음.**
 다음(설계자 순서 ④): inner 궤적 에너지 예산으로 D_valid의 R ≳ 5.35 유지를 증명하는 설계. 또는 ⑤ 독립 감사를 먼저.
 
+**설계자 판정(2026-09-30, 기준 HEAD `e2613cd`): ⑤ Energy Bound 독립 감사를 먼저 한다. ④를 바로 만들지 않는다.** 이유: ④ 전체가 Energy Bound에 기댄다. 감사는 시험 통과보다 수학 연결(E1 누적, E2 방향, P와 P_h 구분, 교집합·q·P 부호·셸 출구 귀납, 장벽의 V′² 항·실제 저장 이동·호출자 전제, R < 20 도함수의 수학적 유효성)을 본다. 통과하면 ④의 첫 목표는 하나다: **R ≥ 5.35를 유지할 만큼의 E~ 상한과 half-step 운동량 cap을 닫을 수 있는가**(R = 20 → 최근접 → 20 전체를 한 번에 만들지 않는다).
+- 감사 인계 자료: [C1B1_ENERGY_BOUND_AUDIT_HANDOFF_V0.md](docs/active/C1B1_ENERGY_BOUND_AUDIT_HANDOFF_V0.md)(체크리스트 6항목 ↔ 코드 줄, 작성자 주장은 확인 대상으로 분리). 작성자는 감사자가 아니다.
+다음: 설계자가 지정한 감사자의 Energy Bound 감사.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
