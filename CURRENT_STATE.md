@@ -637,6 +637,12 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 실행기 L은 정확 보존이 아님: step당 ≤ 8.9·10⁻¹⁴, 통과당 ≤ 3.7·10⁻¹². 계산 절감은 측정 1〜15배(추정 최대 수십 배). certification에는 shadowing 교량 정리(경계에서 A배 증폭), 보존량 교량, 직접 적분의 엄밀화가 새로 필요.
 - 다음 최소 후보: ④에 필요한 것은 R_min뿐이고 R_min은 가장 둔감한 출력 → **유효 퍼텐셜 전환점 하한 정리**(E ≤ E_hi, 인증된 \|L\| 범위, V 구간 → R_min ≥ r*).
 
+**R_min-only 조사 v0(2026-10-01, 코드 변경 0, 시작 HEAD `80ede0c`): 판정 CIRCULAR.** ([C1B1_RMIN_ONLY_SURVEY_V0.md](docs/active/C1B1_RMIN_ONLY_SURVEY_V0.md))
+- R_min ≥ 5.35는 승인된 장벽 lemma로 "모든 저장 상태 E~ ≤ E_hi" 하나로 줄어든다. L 불필요(금지 판정은 \|P\|² ≥ 0, 정면충돌이 최악. L은 장벽을 높일 뿐), 연속 H 교량 불필요(E2·장벽이 E~로 직접), 전환점 세 종류(반지름 정지·궤도 준정지·정면 완전 정지) 추가 처리 불필요(위치 + 에너지 배제 + 한 step < 두께만 사용).
+- **순환:** 실행기에 정확한 에너지 불변량이 없고, E~ 전 구간 상한은 E~_0 + Σ dE(R_k)라 N이 다시 들어간다. 오래 머무는 것은 R이 아니라 에너지 전제에 영향을 준다. ④ v0와 같은 지점이며 유효 퍼텐셜은 L 항을 더할 뿐이다(L 하한도 N 의존, 다만 N ≲ 10¹³으로 약함, 정면충돌엔 무효).
+- 남는 정보: Safety 조각에 필요한 N은 정확한 체류 시간이 아니라 거친 두 숫자(wall 방문 횟수, [7, 20] 구간별 체류 ≲ 10⁵〜10⁸ step)다. wall 방문 1회는 N 없이 닫힌다(ROUTE B). 같은 거친 체류 상한이 별도 Liveness(유한 시간 outbound)의 핵심 재료이기도 하다(두 명제는 분리 유지).
+다음 판단(설계자): 거친 체류 상한(wall 방문 횟수 + [7, 20] 구간별 체류) 설계로 갈지.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
