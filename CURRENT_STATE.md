@@ -624,6 +624,13 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 개선 후보(구현 안 함): (1) 위치별 예산 + 벽 영역(R < 7) 체류 step 상한(벽 영역은 힘이 바깥쪽이라 셸 귀납 가능성, 단 반복 근접 횟수는 못 묶음), (2) 유효 퍼텐셜 기반 inner 체류 상한(사실상 inner 산란 정리의 일부). 여유 늘리기·장벽 이동은 금지, 셀 세분만으로는 해결 안 됨.
 다음 판단(설계자): 후보 1·2 중 어느 쪽으로, 또는 다른 방향.
 
+**inner 국소 작용·사건 압축 조사 v0(2026-10-01, survey_only, 코드 변경 0):** ([C1B1_INNER_EVENT_SURVEY_V0.md](docs/active/C1B1_INNER_EVENT_SURVEY_V0.md), `runs/c1b1_inner_event_survey_20261001/`)
+- **ROUTE B.** wall [5.35, 7]의 모든 1/64 셀에서 1-step Δw 하한 > 0(반발 kick). 방문 한 번(들어옴 → 전환 → 나감)의 에너지 상한은 [5.35, 6.0]에서 여유의 28%, [5.35, 6.6]에서 83%. R ≳ 7.1(우물·궤도 영역)은 저에너지에서 인력 때문에 국소 progress가 실제로 없다 → 별도 체류 상한(유효 퍼텐셜 + D_valid의 \|ρ\| 하한)과 wall 방문 횟수 상한이 필요.
+- 위치별 1-step dE: [5.35, 7] ≤ 1.5·10⁻⁶, [7, 8] ≤ 9.1·10⁻⁹, [8, 12] ≤ 1.2·10⁻⁹, [12, 20] ≤ 9.0·10⁻¹². Σ N_i·dE_i 형식은 가능.
+- **사건 압축: LIMITED.** 관측 85개 통과 전부 바깥으로 나가고 R_min ≥ 5.75, 실제 \|ΔE~\| ≤ 7.7·10⁻¹⁵ hartree/통과(인증 도구보다 10⁸배 이상 작음). 입력은 E, \|L\| 두 스칼라로 충분(+1 ulp 운동량은 17/17 출력 동일, 30° 회전 영향 ≤ 10⁻⁹). 궤도 경계에서 체류가 자릿수당 약 +4,200 step 로그 발산, 편향각 증폭 약 10⁴(ρ = 10⁻⁴). 사건 **인증**은 통과 전체를 묶는 증명 방법이 필요해 형식만으로는 이득이 없다.
+- 공개: wall 첫 계산(v1)은 넓힌 셀 하나를 써서 잘못된 비관 결론(6.69부터 progress 없음, 방문당 에너지 21〜25배)을 냈다. 같은 해상도의 이웃 셀 극값(v2)으로 고쳤다. 둘 다 보존. 초안에서 E~ 단위(De)를 hartree로 잘못 읽은 것도 고쳤다.
+다음 판단(설계자): wall 방문 lemma 정식화 + 우물/궤도 영역 유효 퍼텐셜 체류 상한 설계로 갈지.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
