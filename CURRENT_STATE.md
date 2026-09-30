@@ -580,6 +580,14 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 
 **설계자 판정(2026-09-30, 기준 HEAD `d58f8bd`): IN-1 승인(1-step bound·envelope·shell/packet·실패 의미 재사용, 정리 재사용 아님, mirror induction 필요), IN-2 inbound V1 먼저, IN-3 승인(선분 전체 R ≥ 20인 step만, handoff R ∈ [20, 20+g), w < 0), IN-4 실행기 변경 없이 기록 — outer inbound에서는 R ≥ 20이라는 기하학적 여유 때문에 무관하다. 전체 D_valid/inner에 대해 무관하다고 아직 일반화하지 않는다(반례는 E ≫ 10 De라는 것만 보였을 뿐 D_valid 궤도가 r_min 한 칸 위에 오지 않는다는 증명이 아니다).** 상세: [inbound V0 7.1절](docs/active/C1B1_INBOUND_V0.md).
 
+**inbound V1(2026-09-30, 기준 HEAD `5861a15`):** ([C1B1_INBOUND_V1.md](docs/active/C1B1_INBOUND_V1.md))
+- 구현: `a_reference/c1b1_inbound_outer.py`(새 파일). (Z) R ≥ R_J 정확 격자 직선(2차식 정수 해) + 거울 shell 귀납(4/5 고정 분할) + handoff packet R ∈ [20, 20+g), w < 0. shell별 cap·w 천장 < 0·g_in > 0·선분 R ≥ 20·overflow를 정확 유리수로 검사, 못 닫으면 NotCertified. outgoing·실행기 코드 변경 없음(재사용만).
+- **공개:** V0 스케치(누적 w 천장)만으로는 P_cap > \|P\|가 가짜 전환 반경 ≈ R0·√(2(P_cap/\|P\| − 1))을 만들어 R_J에서 오는 구간이 닫히지 않았다. **각운동량 항등식 천장**(④-1 1-step L 상한 사용)을 더해 고쳤다(V0에 없던 성분, 판정 요청 V1-1). survey 첫 실행은 전역 force envelope(R = 20에서 약 1.9·10⁷ hartree)로 cap을 정해 무의미한 0-step "인증"이 나왔고(무효, 기록 보존, 이제 cap < \|P\| 거부), 둘째 실행은 cap 여유 부족으로 전부 실패(기록 보존).
+- 시험 16개(기록 재검사 checker, 실제 실행기와의 일치 검사 — 증명 아님, (Z) 380 step 비트 일치, 거부 8종, 결함 주입 3종). survey_only 격자 72개 중 **46개 인증: E ≥ 0.1 De 45/45(R 20000 출발 포함), 0.01 De 1/9, ≤ 1e-4 De 0/18.** 스크래치 비교에서 기존 outgoing chain도 E = 1e-4 De(R 25, b 7)에서 실패. 증거 `runs/c1b1_inbound_v1_survey_20260930/`.
+- **독립 감사 전 — mirror induction은 승인된 정리로 쓰지 않는다.** 저에너지 L 부분은 이 방법으로 NotCertified. ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결 그대로.
+- 검증: 신규 파일만 → **LOCAL FULL 생략 / 관련 시험으로 대체 / 기존 실행 코드·공용 모듈·동결 계약·fixture 변경 없음.**
+다음 판단(설계자): inbound V1의 V1-1(L 천장 승인), V1-2(저에너지: 인력 부호 정밀화 / 에너지 기반 운동량 상한 / 보류하고 inner), V1-3(inner 전 독립 감사).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
