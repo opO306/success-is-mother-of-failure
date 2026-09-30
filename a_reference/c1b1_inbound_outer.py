@@ -220,8 +220,10 @@ def certify_inbound_outer(run, p_cap, energy=False):
             if run.J_cache is not None and run.J_cache != j:
                 raise NotCertified("initial impulse cache mismatch")
             jump, _ = O._jump(run, C._kick(run.mom, run.atoms, j))
+        except C.ReferenceUndecided as error:
+            raise NotCertified("initial impulse precision refused") from error
         except C.ExecutorLimitExceeded as error:
-            raise NotCertified("initial arithmetic overflow or undecided impulse") from error
+            raise NotCertified(f"initial executor limit exceeded: {error}") from error
         if O.radius_squared_increment(q, jump) >= 0:
             raise NotCertified("initial stored drift does not decrease R squared")
         entry_hi, W, kick_sum = B.sqrt_up(r2), w0, Q(0)

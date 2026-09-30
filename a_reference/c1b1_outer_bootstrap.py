@@ -256,8 +256,10 @@ def certify_shell(run,a,b,p_cap,n_cap):
         if run.J_cache is not None and run.J_cache!=j:
             raise NotCertified('initial impulse cache mismatch')
         jump,_ = _jump(run,C._kick(run.mom,run.atoms,j))
+    except C.ReferenceUndecided as error:
+        raise NotCertified('initial impulse precision refused') from error
     except C.ExecutorLimitExceeded as error:
-        raise NotCertified('initial arithmetic overflow') from error
+        raise NotCertified(f'initial executor limit exceeded: {error}') from error
     if radius_squared_increment(q,jump)<=0:
         raise NotCertified('initial stored drift does not increase R squared')
     p0_hi,p0_lo = B.sqrt_up(_norm2(p)),_sqrt_down(_norm2(p))

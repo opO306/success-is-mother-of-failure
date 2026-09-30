@@ -23,6 +23,16 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 2026-10-01 세 층 분리 결정으로 ④의 "전 궤적 사전 증명" 부분은 Gate에서 연구 과제로 이동했다(삭제·실패 판정 아님).
 ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결 상태 표기는 그대로 유지한다.
 
+**`_decide` 예외 분류 후보 STOP(2026-10-01, 기준 `53b73ea`):**
+[호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
+분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
+보존된 7개 입력의 79,087 step raw/J는 비트 동일했다. 그러나 LOCAL FULL은
+**3253 passed / 58 failed / 143 errors / 1 strict xfailed / 실제 skip 0, 687.63초**로 실패했다.
+실패/error 201개는 기존 endpoint 증명 소스 결합 guard 및 진단·그룹 기록의 provenance 불일치다.
+비트 비교만으로 증명 결합을 갱신하지 않고 재감사·재결합 범위의 설계자 결정 전 STOP했다.
+이 후보는 미완료·미commit이며 기존 승인 verifier와 7개 CONFIRMED test history는 변경하지 않았다.
+공식 LOCAL FULL 기준선과 Gate 상태는 갱신하지 않는다. O-1 및 다른 후속 작업도 시작하지 않았다.
+
 ## C1-B1: 완료된 부분과 남은 의무
 
 현재 후보는 두 Ar40, 위치 FX(96,48), 운동량 FX(96,80), Δt = 40 a.u., drift v2(위치에 더하기 전에 변위를 반올림)다.

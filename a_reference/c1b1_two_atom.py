@@ -82,6 +82,11 @@ class ReferenceUndecided(ExecutorLimitExceeded, L.ReferenceUndecided):
     reason = "executor_limit_exceeded"
 
 
+class ContractViolation(ValueError):
+    """Malformed stored input or an invalid evaluator enclosure, not a resource refusal."""
+    reason = "contract_violation"
+
+
 # --- integrator contract (designer 12th / 13th ed.) -------------------------------------------------------------
 DT_DEFAULT = Q(40)                                   # a.u.; 10 and 20 kept for convergence audits, 80 / 160 coarse
 DE_CONTRACT = Q("0.000451995775")                    # the frozen model's well depth, 12 digits (hartree)
@@ -231,17 +236,27 @@ class _Halt:
 
 
 def _decide(profile, value_at):
-    """Round the quantity once: refine the enclosure until both ends round alike."""
+    """Refine one rounding decision. Precision refusal != profile halt != bad enclosure.
+
+    See docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md. A VMHalt from
+    value_at itself is not an endpoint claim and must propagate unchanged.
+    """
     M = START_PRECISION_BITS
     while M <= MAX_PRECISION_BITS:
         lo, hi = value_at(M)
+        if lo > hi:
+            raise ContractViolation("reversed evaluator enclosure")
         try:
             a = profile.from_exact(lo)
         except VMHalt as h:
+            if h.reason != "overflow":
+                raise
             a = _Halt(h.reason)
         try:
             b = profile.from_exact(hi)
         except VMHalt as h:
+            if h.reason != "overflow":
+                raise
             b = _Halt(h.reason)
         if a == b:
             if isinstance(a, _Halt):
@@ -363,10 +378,12 @@ def _kick(mom, atoms, J):
 
 
 def _limit(fn, *args):
-    """Run a profile operation; a range halt is an implementation capability running out."""
+    """Translate range overflow only; retain other VM halt reasons and the original cause."""
     try:
         return fn(*args)
     except VMHalt as h:
+        if h.reason != "overflow":
+            raise
         raise ExecutorLimitExceeded(f"{h.reason} in {getattr(fn, '__name__', fn)}") from h
 
 
@@ -480,6 +497,15 @@ def step(run: Run) -> None:
     pos, mom, dt = run.pos, run.mom, run.dt
     half = dt / 2
     atoms = run.atoms
+    # Validate STORED raws, not the general exact() conversion utility that
+    # research callers also use for rational intermediate values.
+    values = [(pos, a.r) for a in atoms] + [(mom, a.p) for a in atoms]
+    if run.J_cache is not None:
+        values.append((mom, run.J_cache))
+    for profile, raws in values:
+        valid = getattr(profile, "valid_raw", None)
+        if valid is not None and not all(valid(v) for v in raws):
+            raise ContractViolation("invalid stored raw for profile")
     J = run.J_cache if run.J_cache is not None else impulse(relative(pos, *atoms), half, mom)
     atoms = _kick(mom, atoms, J)
     a_old = relative(pos, *atoms)

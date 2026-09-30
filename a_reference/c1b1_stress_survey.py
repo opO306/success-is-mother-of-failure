@@ -187,6 +187,7 @@ def _sqrt_floor(x: Q) -> int:
 # ---------------------------------------------------------------------------------------------------------------------
 
 def classify(exc: BaseException) -> str:
+    # Legacy reason strings overlap: always test the precision subtype first.
     if isinstance(exc, C.ReferenceUndecided):
         return 'reference_undecided'
     if isinstance(exc, C.ExecutorLimitExceeded):
@@ -195,6 +196,12 @@ def classify(exc: BaseException) -> str:
         return 'integrator_domain_exceeded'
     if isinstance(exc, C.PhysicsDomainExceeded):
         return 'physics_domain_exceeded'
+    if isinstance(exc, C.ContractViolation):
+        return 'contract_violation'
+    if isinstance(exc, VMHalt):
+        return 'vm_overflow' if exc.reason == 'overflow' else 'vm_halt:' + exc.reason
+    if isinstance(exc, MemoryError):
+        return 'resource_refused'
     return 'unexpected_exception'
 
 

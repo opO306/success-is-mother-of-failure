@@ -49,8 +49,10 @@ def certify_outgoing_outer(run,p_cap):
             raise O.NotCertified('initial impulse cache mismatch')
         try:
             jump,_ = O._jump(run,C._kick(run.mom,run.atoms,j))
+        except C.ReferenceUndecided as error:
+            raise O.NotCertified('initial arithmetic precision refused') from error
         except C.ExecutorLimitExceeded as error:
-            raise O.NotCertified('initial arithmetic overflow') from error
+            raise O.NotCertified(f'initial executor limit exceeded: {error}') from error
         if O.radius_squared_increment(q,jump)<=0:
             raise O.NotCertified('initial stored drift does not increase R squared')
         p_upper,p_lower = B.sqrt_up(O._norm2(p)),O._sqrt_down(O._norm2(p))
