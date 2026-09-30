@@ -643,6 +643,14 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 남는 정보: Safety 조각에 필요한 N은 정확한 체류 시간이 아니라 거친 두 숫자(wall 방문 횟수, [7, 20] 구간별 체류 ≲ 10⁵〜10⁸ step)다. wall 방문 1회는 N 없이 닫힌다(ROUTE B). 같은 거친 체류 상한이 별도 Liveness(유한 시간 outbound)의 핵심 재료이기도 하다(두 명제는 분리 유지).
 다음 판단(설계자): 거친 체류 상한(wall 방문 횟수 + [7, 20] 구간별 체류) 설계로 갈지.
 
+**S4d Coarse Residence Bootstrap 조사 v0(2026-10-01, 코드 변경 0, 시작 HEAD `2b58882`): 판정 BOOTSTRAP-PARTIAL.** ([C1B1_S4D_COARSE_RESIDENCE_BOOTSTRAP_V0.md](docs/active/C1B1_S4D_COARSE_RESIDENCE_BOOTSTRAP_V0.md), `runs/c1b1_s4d_bootstrap_20261001/`)
+- first-crossing 밴드 가설(E~·\|L\| 밴드, k < n*) → 장벽으로 R ≥ 5.35, E2 → 셀 분류(FORBIDDEN / GAP: \|w\| 하한으로 부호 고정·R 단조 / PROGRESS: Δw ≥ c > 0) + 원심 장벽 차단 → 셀 방문 ≤ 2 → Σ N_i·dE_i ≤ ΔE로 모순. **Liveness도 R ≥ 5.35도 가정하지 않음(순환 없음).** 연속 → 이산 bridge 불필요(이산 w-산술 직접).
+- 대표 18개 중 **14개 닫힘**(정면, 일반, 큰 b, 높은 E, 10⁻⁸ De까지, 궤도 경계 튕기는 쪽 ρ = +0.005〜+0.1, ρ = −0.1). wall 방문 K ≤ 1은 유도됨(튕김은 K = 0). 에너지는 wall이 지배(10⁻⁶〜10⁻⁵), [7, 20]은 ≤ 10⁻⁷.
+- **닫히지 않는 4개 = 궤도 경계의 넘는 쪽**(0.5 De ρ = −0.01, −0.005, 0.15 De ρ = −0.005, 1 De b = 10: H 아래 끝도 경계 근처): 인증 wall 예산 ≈ 10⁻⁵ > 분리선 여유 δ(ρ) ≈ 10⁻⁶〜10⁻⁵. 누적 드리프트가 나갈 때 꼭대기 통과를 막아 갇힘을 배제하지 못함(실제 실행기 드리프트 ≤ 7.7·10⁻¹⁵은 관측일 뿐).
+- 공개: 1차 실행(1/32 셀, 벽 차단 없음)은 경계 사례가 모두 막혔다(보존). 2차 개선은 고정 규칙(전 사례 1/128)과 논리(벽 차단)에서 나왔다. 초안의 사례 수(19/15)를 18/14로 고쳤다.
+- 필요한 새 lemma: 셀 분류 건전성, 한 번 돌기, **넘는 쪽 경계 lemma**(후보: wall 1-step 예산을 δ 아래로, 국소 안장 lemma, D_valid 넘는 쪽 \|ρ\| 하한의 δ 직접 비교).
+다음 판단(설계자): D_valid 실제 넘는 쪽 최소 \|ρ\|와 H 아래 끝의 δ를 재서 wall 예산 부족분이 규칙 고정 세분 한 단계로 메워지는지 확인할지.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
