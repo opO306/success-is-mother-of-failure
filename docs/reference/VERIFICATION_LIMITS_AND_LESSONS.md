@@ -234,6 +234,7 @@ A0 쪽 코드를 직접 읽는 것이 가장 빠르다. 이 경우 `engine/deter
 | 2026-09-21 | `EnvironmentState.resource_totals` | 첫 칸을 빼고 셈 | 잡음 (AssertionError) | — | `test_audit_independent_conservation.py::test_a_state_dependent_miscount_is_caught_by_the_kernel_itself` |
 | 2026-09-21 | `EnvironmentState.total_energy` | 수증기 잠열 항 누락 | 잡음 (AssertionError) | — | (위와 같은 유형, 미영구화) |
 | 2026-09-21 | `EnvironmentState.resource_totals` | **물을 2배로 셈** (상변화 없는 v4 세계) | **통과 (못 잡음)** | 거부, 4건 탐지 (커널 192 vs 실제 112) | `test_audit_independent_conservation.py::test_catches_a_constant_miscount_the_kernel_cannot_see` |
+| 2026-10-01 | C1-B1 사후 검증 scratch verifier (`runs/c1b1_postverify_survey_20261001/faults.py`, 채택 안 된 조사용) | witness 쪽 7종(J ±1 ulp·일관 위조 포함, 위치/운동량 +1 raw, J_z, 잘린 witness) + verifier 모형 쪽 4종(QED 삭제, C6 끝자리, dt/4, 힘 부호) | — | 12/12 거부(대조군 VALID). 일관 위조는 상태 비교가 아니라 J 구간 확인이 잡음 | 미영구화(survey_only) |
 
 **보존 검사에서 배운 것:** 커널의 자기검사가 **아무것도 못 잡는 게 아니다.**
 상태에 따라 변하는 오류(칸을 빼먹어서 물질이 드나들 때마다 누락량이 달라짐)는 전후 비교로 잡힌다.

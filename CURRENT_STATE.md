@@ -651,6 +651,14 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 필요한 새 lemma: 셀 분류 건전성, 한 번 돌기, **넘는 쪽 경계 lemma**(후보: wall 1-step 예산을 δ 아래로, 국소 안장 lemma, D_valid 넘는 쪽 \|ρ\| 하한의 δ 직접 비교).
 다음 판단(설계자): D_valid 실제 넘는 쪽 최소 \|ρ\|와 H 아래 끝의 δ를 재서 wall 예산 부족분이 규칙 고정 세분 한 단계로 메워지는지 확인할지.
 
+**Actual-Trajectory Post-Verification 조사 v0(2026-10-01, 코드 변경 0, 시작 HEAD `5c5d6f8`): 판정 POSTVERIFY-HYBRID.** ([C1B1_POSTVERIFY_SURVEY_V0.md](docs/active/C1B1_POSTVERIFY_SURVEY_V0.md), `runs/c1b1_postverify_survey_20261001/`)
+- 수정 없는 executor로 임시 실행 → 코드 비공유 verifier(a_reference·a_numeric·engine·audit import 0, 상수 전사 + 동결 fingerprint 일치, mpmath 구간 + 자동미분 도함수)가 모든 step의 J 반올림·정확 전이·R ≥ 5.35(drift 선분)·R = 20 출구를 확인. **S4d 미해결 4개 포함 7개 사례 전부 VALID**, 모든 J 128 bit 결정, 새 lemma 0. 결함 주입 12/12 잡음(일관 위조 J, 잘린 witness, 틀린 verifier 모형 포함).
+- **비용은 실행 1회분:** step마다 구간 평가 1회가 필요하고 J 확인과 J 계산은 같은 구간을 요구한다. 직렬 4.9〜5.8배(scratch 구현 상수), 6 작업자 병렬 wall-clock 0.98〜1.19배. 정확 산술 부분은 실행의 약 7%. 저장: 초기 상태 + J 약 22 B/step, streaming 인증서 약 4 KB(재검증 불가, W1 인증서와 동일).
+- **사건 경계만 검증(중간 건너뛰기)은 정확 상태 확정에 불가:** 위치 1 raw 교란 → 출구 운동량 10⁹〜10¹³ ulp 차이. (운동량 1 ulp 교란은 위치 반올림에 흡수되어 출구까지 그대로 2 raw.)
+- **E~(verifier 엄밀 구간, 폭 ≤ 6·10⁻³⁹):** 넘는 쪽 barrier 진입 → 재통과 ΔE~ = 3.1·10⁻¹⁴ / 1.7·10⁻¹⁴ / 4·10⁻¹⁶ hartree vs 수치 δ 6.5·10⁻⁶ / 3.3·10⁻⁶ / 9.8·10⁻⁷. 통과 중 wall에서 ±2.5·10⁻¹⁰ 오르내렸다 되돌아옴 — S4d 예산은 이 상쇄를 모르고 누적. 1 De b 10은 실제로 wall 미진입(R_min 7.07). **이 궤적들에 대해서만** 엄밀.
+- HYBRID인 이유: 실행 전 Liveness·D_valid 전체 명제·R_J 이후 무한 tail은 사후 검증으로 얻지 못한다(끝나지 않으면 REFUSED). 신뢰 기반은 verifier 구현 + mpmath 엄밀성 + 사양 공통 모드(A-EV와 별개 질문, 섞지 않음).
+다음 판단(설계자): ④의 목적이 "모든 허용 입력의 실행 전 보장"인지 "확정되는 모든 결과의 독립 검증"인지. 후자면 실제 궤적 부분은 사후 검증, formal은 tail과 REFUSED 빈도만 남는 구성 — 결정 전 추가 구현 없음.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
