@@ -578,6 +578,8 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 상태 변화 없음: **④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결.**
 다음 판단(설계자): inbound V0의 IN-1〜IN-4(문서 7절). 구현자 권고: inbound V1(거울 귀납 + (Z) 구간 + chain) → inner.
 
+**설계자 판정(2026-09-30, 기준 HEAD `d58f8bd`): IN-1 승인(1-step bound·envelope·shell/packet·실패 의미 재사용, 정리 재사용 아님, mirror induction 필요), IN-2 inbound V1 먼저, IN-3 승인(선분 전체 R ≥ 20인 step만, handoff R ∈ [20, 20+g), w < 0), IN-4 실행기 변경 없이 기록 — outer inbound에서는 R ≥ 20이라는 기하학적 여유 때문에 무관하다. 전체 D_valid/inner에 대해 무관하다고 아직 일반화하지 않는다(반례는 E ≫ 10 De라는 것만 보였을 뿐 D_valid 궤도가 r_min 한 칸 위에 오지 않는다는 증명이 아니다).** 상세: [inbound V0 7.1절](docs/active/C1B1_INBOUND_V0.md).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.

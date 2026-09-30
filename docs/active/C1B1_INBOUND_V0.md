@@ -1,7 +1,7 @@
 # C1-B1 inbound V0 — 시간역전 lemma(TR)와 inbound outer handoff 계약
 
 **문서 분류: 현재 활성 A / C1-B1.** 활성 Gate는 C1-B1, outer formal bound ④ 진행. ④ 전체는 FROZEN이 아니며 ⑤는 미착수다.
-**상태:** 구현자 작성, **설계자 판정 대기, 독립 감사 전.** 날짜 2026-09-30. 기준 HEAD `c3e0e3c`.
+**상태:** 구현자 작성. **설계자 판정 2026-09-30: IN-1 승인, IN-2 inbound V1 먼저, IN-3 승인, IN-4 실행기 변경 없이 기록(문구 제한 부가).** Lemma TR의 독립 감사는 없다. 날짜 2026-09-30. 기준 HEAD `c3e0e3c`.
 **지시(설계자 2026-09-30):** inbound V0. KDK + drift v2 + half-even의 정확한 시간가역성을 lemma와 회귀시험으로 고정하고, outgoing 구조 중 역방향 재사용 가능/불가능을 나누고, inbound handoff의 입력·출력·실패 조건을 적는다. inner·global shadowing·전체 산란각·E_min 재생성은 하지 않는다. 판정 대상은 "inbound outer 구간을 기존 outgoing 구조와 연결할 수 있는가"까지다.
 **코드:** `a_reference/c1b1_time_reversal.py`(새 파일, 실행기 변경 0), 시험 `tests/test_c1b1_time_reversal.py` 7개.
 
@@ -12,7 +12,7 @@
 ## 1. 먼저 공개: 전제 정정 세 가지
 
 1. **조사 문서 R2의 "④-2 귀납 구조를 inbound에도 공유"는 과장이었다.** 공유되는 것은 귀납의 **모양**이지 **정리**가 아니다(3절). 조사 문서에 정정을 달았다.
-2. **조사 문서 6.2의 "drift 선분 domain 검사도 선분 대칭이다"는 틀렸다.** 역방향 step의 선분은 순방향 선분을 drift 반올림 잔차 d(|d_k| ≤ 2^−48)만큼 **평행이동**한 것이다. 그래서 r_min 바로 위(격자 한 칸 안)에서는 순방향은 합법인데 정확한 역방향이 guard에 걸리는 **실제 반례**가 있다(2절 (ii), 시험). 바깥 영역(R ≥ 20)과 D_valid 에너지에서는 무관하지만 실행기 사상의 실제 성질이다.
+2. **조사 문서 6.2의 "drift 선분 domain 검사도 선분 대칭이다"는 틀렸다.** 역방향 step의 선분은 순방향 선분을 drift 반올림 잔차 d(|d_k| ≤ 2^−48)만큼 **평행이동**한 것이다. 그래서 r_min 바로 위(격자 한 칸 안)에서는 순방향은 합법인데 정확한 역방향이 guard에 걸리는 **실제 반례**가 있다(2절 (ii), 시험). **outer inbound에서는 R ≥ 20이라는 기하학적 여유 때문에 무관하다. 전체 D_valid/inner에 대해 무관하다고 아직 일반화하지 않는다(반례는 E ≫ 10 De라는 것만 보였을 뿐 D_valid 궤도가 r_min 한 칸 위에 오지 않는다는 증명이 아니다).** 실행기 사상의 실제 성질이다.
 3. **"inbound"라는 말이 두 가지로 쓰였다.** Runtime Rounding Contract V1은 inbound를 "R 20 → 최근접"(즉 R < 20 안쪽)으로 적었다. 이번 지시의 inbound는 **바깥 영역 R ≥ 20에서 안으로 들어오는 구간**이다. 이 문서는 뒤의 뜻만 다룬다. 앞의 뜻은 inner의 일이다.
    - 코드 확인: D_valid의 L·H 부분은 출발 반지름·방향을 제한하지 않는다(`evaluate_run`의 비-canonical 가지). **R ≈ 28.4에서 안으로 들어오는 상태(E ≈ 4.4 De, b = 5)도, R ≈ 10에서 출발하는 상태도 `numerical_validated`다**(시험에서 확인). 그래서 바깥 inbound 구간은 D_valid에 실제로 있다. canonical F 상태는 R = 20 출발이라 바깥 inbound 구간이 0 step이다.
 
@@ -97,7 +97,15 @@ outgoing과 다른 점: w의 **상한**을 쓰고, drift 항 α\|P_h\|²와 \|δ
 | **IN-1** | 판정: "바깥 inbound는 outgoing과 같은 계약으로 다룰 수 있다, 단 거울 귀납 하나가 새로 필요하다"를 받아들일지 | 받아들이기를 권한다. 시간역전만으로 닫힌다고 쓰면 틀린다 |
 | **IN-2** | 다음 단계를 inbound V1(거울 귀납 + (Z) 구간 + chain, 결함 주입 포함)로 할지, inner로 바로 갈지 | inbound V1이 작고(함수 몇 개) inner의 입구 packet을 확정하므로 먼저 하기를 권한다. 수학 계약이라 강한 모델 |
 | **IN-3** | handoff 위치: 바깥 인증은 선분 전체가 R ≥ 20인 step만 덮고, s_h는 R ∈ [20, 20 + g)에서 넘긴다 | 권장. 대안(R < 20 첫 저장 상태에서 넘김)은 경계를 넘는 step의 1-step 상한을 R < 20에서 요구해 ④-1 범위 밖이 된다 |
-| **IN-4** | TR (ii)의 guard 비대칭 | 실행기는 바꾸지 않고 기록만 하기를 권한다. 바깥과 D_valid 에너지에서는 일어나지 않는다 |
+| **IN-4** | TR (ii)의 guard 비대칭 | 실행기는 바꾸지 않고 기록만 하기를 권한다. ~~바깥과 D_valid 에너지에서는 일어나지 않는다~~ → 설계자 문구 제한: outer inbound에서는 R ≥ 20이라는 기하학적 여유 때문에 무관하다. 전체 D_valid/inner에 대해 무관하다고 아직 일반화하지 않는다(반례는 E ≫ 10 De라는 것만 보였을 뿐 D_valid 궤도가 r_min 한 칸 위에 오지 않는다는 증명이 아니다) |
+
+## 7.1 설계자 판정 (2026-09-30)
+
+- **IN-1 승인.** 바깥 inbound는 outgoing의 1-step bound, force envelope, shell/packet 형식, 실패 의미를 재사용한다. outgoing shell induction **정리 자체**를 재사용하는 것은 아니며 inbound 방향의 별도 mirror induction이 필요하다. 시간역전만으로 inbound infall이 증명됐다고 쓰지 않는다.
+- **IN-2 inbound V1을 inner보다 먼저.** 범위: (Z) R ≥ R_J zero-impulse 직선 + mirror shell induction + R ≈ 20 handoff chain. inner·global shadowing·전체 산란각·E_min은 하지 않는다.
+- **IN-3 승인.** outer formal bound는 선분 전체가 R ≥ 20인 step만 책임진다. 마지막 outer 인증 상태를 R ∈ [20, 20 + g), w < 0 packet으로 inner에 넘긴다. R < 20으로 실제 넘어가는 step은 outer 증명에 넣지 않는다.
+- **IN-4 실행기 변경 없이 반례·비대칭 기록.** outer inbound에서는 R ≥ 20이라는 기하학적 여유 때문에 무관하다. 전체 D_valid/inner에 대해 무관하다고 아직 일반화하지 않는다(반례는 E ≫ 10 De라는 것만 보였을 뿐 D_valid 궤도가 r_min 한 칸 위에 오지 않는다는 증명이 아니다). inner에서는 필요하면 별도로 다룬다.
+- **V1 성공 조건:** shell별 momentum cap, w_ceil < 0, strict g_in > 0, 선분 전체 R ≥ 20, overflow 안전, R_J 직선 구간 exact. 하나라도 못 닫으면 NotCertified. **표본 궤적(3,600 step 시험 포함)을 증명의 대체물로 쓰지 않는다.** executor·D_valid·동결 계약 불변. mirror induction은 구현 후 독립 감사 전에는 승인된 정리로 쓰지 않는다.
 
 ## 8. 검증
 
