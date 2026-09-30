@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** (세 층 분리 기준으로 종료 조건 재정의, 2026-10-01) |
-| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), production independent replay verifier 구현·승인, `_decide` 예외 분류 정리, 증거 등급·확정 계약 최소 시험. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
+| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), production replay verifier V1 설계자 승인, `_decide` 예외 분류 정리. 구현 완료: independent 전 step replay와 증거 등급·확정 최소 구조/시험. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
 | **다음 Gate** | **C1-B1 종료 → 다원자 기체 단계(첫 항목: 적분기 에너지 범위 확장, 강한 O-3 = 희박 Ar 점성) → C1-C 전 N-1 재평가** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -759,3 +759,17 @@ Physics IR/DSL·다중 해상도·계산/메모리/재생 구조는 요구사항
 
 A/B/L 역할과 불변조건은 [RULES.md](RULES.md)·[PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md)를 따른다.
 Git은 2026-09-21 초기화했고 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\`에 봉인했다.
+
+
+**Production independent replay verifier V1(2026-10-01): 구현·검증 완료 / 설계자 승인 대기.**
+([계약·전체 결과·비용·신뢰 기반](docs/active/C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md))
+
+- Git 시작 HEAD/origin/master `ac143855bec21352aaa86241b31baf86d6075eae`, 기존 13개 문서만 `c85beb5`에 별도 commit한 뒤 clean tree에서 신규 `c1b1_replay/` 구현. push 없음. 기존 executor·물리·D_valid·동결 fixture 변경 0.
+- 초기 상태+매 J+무손실 state residual의 witness V1. 매 step의 독립 interval AD J enclosure/반올림, exact kick/drift/overflow/unrounded r_min guard, 12 raw equality를 검증. 금지 import 4계통 모두 0(AST+별도 프로세스+실측 worker).
+- 기존 scratch 7개는 등급 없는 입력으로만 사용. 같은 raw 입력으로 reference executor를 새로 실행해 매 상태/J 동일함 확인. 새 production 검증은 7/7 VALID, 총 79,087 step, J 평가 79,094회 모두 128 bit. stream/full의 verdict·마지막 raw·원본 hash·구현/의존성 fingerprint도 7/7 동일. scratch 등급 자동 승격 0.
+- 같은 4-worker 배치: executor CPU 109.625s / wall 40.952s, stream verifier CPU 304.016s / wall 103.905s. CPU 비율 2.773, 병렬 batch wall 비율 2.537. per-step 병렬화나 단일 executor 대비 수치가 아님. witness 1,757,342 B(22.220 B/step); summary는 재검증 원본 아님. stream worker peak 28.18〜29.95 MiB, 50ms 샘플 aggregate RSS peak 145.64 MiB.
+- 원 scratch 12행(결함11+control1) 모두 유지+AD 미분 결함 추가: 결함12종 기대 판정 일치(11 INVALID, 출구 전 종료 REFUSED). resource/precision cap REFUSED, prefix/root/보존 증거 binding, 승인 없는 VALID 미확정, INVALID 자손 폐기·마지막 CONFIRMED 유지, 자동 재실행 금지를 영구 시험. 실제 세계 commit 0, TEST ONLY approval로 최소 history 성질만 검증.
+- 관련 60 passed 5.25s. **이번 LOCAL FULL: 3433 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, exit 0, 736.56s**(junit3434/skipped1=xfail). 신규 replay 시험49, 기존 코드 순증95로 공식 3289보다144 증가. 공식 AGENTS 기준선은 설계자 판정 대기로 그대로 유지. 기존 native subprocess cp949 경고25건 남음, 원인 미조사·해결 아님.
+- 신뢰 기반: mpmath1.3.0 pure-Python interval enclosure 및 Python 정수/Fraction 의미. spec/implementation/dependency fingerprint에 approval을 결합하며 승인 candidate decision은 빈 값이다. 아직 REPLAY_VERIFIED/CONFIRMED 공식 역사 0. whole-future/형식 인증/many-body/live pipe/운영 rollback은 얻지 않았다.
+- **남은 Gate:** 설계자 verifier 승인, A-EV, `_decide` 예외 분류, O-1/O-3 weak 및 C1-B1 전체 freeze. native J 별도 Gate, 공식 O-3 실행 없음. Energy Bound v0 APPROVED / ④-Liveness NotCertified / ④-Safety Conditional / A-EV unresolved 유지.
+- 증거: `runs/c1b1_production_replay_20261001/`의 `.c1br` 원본·source manifest·stream/full 결과·CPU/메모리 batch·local_full.log/xml·49개 회귀 결과. 원본 없이 summary만으로 재검증 불가. 다음 최소 작업은 해당 fingerprint와 계약/신뢰 가정에 대한 설계자 승인이다.

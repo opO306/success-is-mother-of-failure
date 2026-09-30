@@ -56,7 +56,7 @@ A의 목적은 증명기가 아니라 관측 가능한 세계다(헌법 제3조,
 5. 신뢰 기반 명시: 구간 산술 라이브러리(현재 후보 mpmath interval)가 진짜 enclosure를 준다는 가정
 6. 결함 주입 세트의 영구 시험화(현재 scratch 12종)
 
-**현재 상태:** `POSTVERIFY feasibility = HYBRID(가능)`, `production replay verifier = 미구현`. scratch verifier(`runs/c1b1_postverify_survey_20261001/verifier.py`)를 정식 verifier라고 부르지 않는다.
+**현재 상태:** `POSTVERIFY feasibility = HYBRID(가능)`. [production replay verifier V1](C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md)은 독립 모듈 `c1b1_replay/`로 구현·전 step 검증·LOCAL FULL을 완료했고 설계자 승인 대기다. scratch verifier(`runs/c1b1_postverify_survey_20261001/verifier.py`)와 그 7개 VALID 결과는 자동 승격하지 않는다.
 
 **재평가 측정 항목(N-1, 지금 고정)과 첫 실측값(`ac14385` 사후 검증 조사, scratch verifier, 7개 궤적 79,087 step):**
 
