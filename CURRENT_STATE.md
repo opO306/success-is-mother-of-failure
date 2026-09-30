@@ -608,6 +608,12 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 감사 인계 자료: [C1B1_ENERGY_BOUND_AUDIT_HANDOFF_V0.md](docs/active/C1B1_ENERGY_BOUND_AUDIT_HANDOFF_V0.md)(체크리스트 6항목 ↔ 코드 줄, 작성자 주장은 확인 대상으로 분리). 작성자는 감사자가 아니다.
 다음: 설계자가 지정한 감사자의 Energy Bound 감사.
 
+**Energy Bound v0 독립 감사 결과 → 설계자 판정(2026-09-30, 기준 HEAD `df58aa5`):** E1 modified-energy 누적 PASS, E2 energy → stored momentum PASS, stored P ↔ half-step P_h PASS, inbound `_mirror_shell` 내부 귀납 PASS, outgoing energy shell/composition PASS, Energy Barrier lemma PASS, R < 20 `radial_derivatives` PASS, **inbound `certify_inbound_outer()` 전체 FAIL** → Energy Bound v0 전체 정리는 아직 승인하지 않는다. ④ inner energy budget은 시작하지 않는다.
+- FAIL 원인(수학이 아니라 조립 경계 하나): 시작 R ≥ R_J → zero leg가 q_e로 이동 → 큰 p_cap으로 A = 20 + g ≥ R_e라 셸 0개 → handoff 반지름이 zero leg **이전** r2를 사용. 감사 반례 q0 = (10240, 0, 0), P0 = (−1, 0, 0), p_cap = 10⁷: 실제 R_e ≈ 10239.9989인데 packet [10240, 10240].
+- **수정:** `_handoff_radius`로 세 경로를 명시 분리(셸 있음 → 마지막 셸 출구 / zero leg만 → q_e의 정확한 노름 구간 / 둘 다 없음 → 시작 상태). E1〜E3·outgoing·장벽·p_cap 범위는 바꾸지 않았다.
+- regression: 감사 반례 그대로(옛 조합을 원문 변이로 재현해 packet 밖임을 확인, 수정 후 q_e 포함·셸 0·zero leg 있음·20 ≤ lower·upper ≤ A·q·P < 0·실제 실행기가 그 상태에 도달해 packet 안), energy=False/True 둘 다, 네 경로(zero±, shell±) 행렬. inbound 시험 23 passed.
+- 검증: 이번 세션의 비공용 모듈 한 함수 수정 → **LOCAL FULL 생략 / 관련 시험으로 대체.** 다음: 이 경계 경로 수정만 독립 재감사(귀납·에너지 수학은 건드리지 않음).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.

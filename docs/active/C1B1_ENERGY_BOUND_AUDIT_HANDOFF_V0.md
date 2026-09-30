@@ -3,6 +3,7 @@
 **감사 대상:** 커밋 `e2613cd`의 [Energy Bound v0](C1B1_ENERGY_BOUND_V0.md). 코드: `a_reference/c1b1_energy_bound.py`, `a_reference/c1b1_outgoing_energy.py`, `a_reference/c1b1_inbound_outer.py`(energy 모드).
 **감사자:** 설계자 지정(GPT-5.6 Sol High 또는 Claude Opus 5.5 High). **작성자(Claude)는 감사자가 아니다.** 아래 "작성자 주장"은 확인할 대상이지 감사 결과가 아니다.
 **설계자 판정(2026-09-30):** ④를 만들기 전에 이 감사를 먼저 한다. 시험 통과보다 **수학 연결**을 본다. 통과해야 ④(inner R ≥ 5.35 에너지 예산)로 간다.
+**감사 결과(2026-09-30):** E1·E2·P/P_h·inbound 셸 귀납·outgoing·장벽·R < 20 도함수 **PASS**, inbound `certify_inbound_outer()` 조립 **FAIL**(zero leg 뒤 셸 0개일 때 handoff 반지름이 이동 전 상태를 씀). 수정 커밋 뒤 **그 경계 경로만 재감사 대상**(재감사 범위: `c1b1_inbound_outer._handoff_radius`와 그 호출, regression 시험 `test_audit_counterexample_*`, `test_the_four_composition_paths`).
 **현재 상태:** 방법 채택, 정리 미승인. ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결.
 
 ## 0. 감사할 명제 (한 줄씩)

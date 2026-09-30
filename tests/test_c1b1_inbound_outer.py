@@ -275,3 +275,65 @@ def test_fault_injection_energy_mode_taking_the_momentum_ceiling_as_the_floor_is
         if _dot(q, q) < s["a"] ** 2:
             break
     assert worst > s["w_ceiling"] + s["w_gain_per_step"]
+
+
+# --- the composition boundary (independent audit 2026-09-30: FAIL of certify_inbound_outer, fixed) -----------------
+
+AUDIT_Q, AUDIT_P, AUDIT_CAP = (Q(10240), Q(0), Q(0)), (Q(-1), Q(0), Q(0)), Q(10 ** 7)
+OLD_RADIUS = ('    handoff_lower, handoff_upper = _handoff_radius(shells, zero, r2, A)\n',
+              '    handoff_lower = shells[-1]["exit_enclosure"]["radius"][0] if shells else O._sqrt_down(r2)\n'
+              '    handoff_upper = A if shells else B.sqrt_up(r2)\n')
+
+
+def _in_packet(cert, q, P):
+    hp = cert["handoff_packet"]
+    return (hp["radius"][0] ** 2 <= _dot(q, q) <= hp["radius"][1] ** 2
+            and hp["p_norm"][0] ** 2 <= _dot(P, P) <= hp["p_norm"][1] ** 2
+            and _dot(q, P) <= hp["q_dot_p_upper"] < 0
+            and _dot(_cross(q, P), _cross(q, P)) <= hp["L_norm_upper"] ** 2)
+
+
+@pytest.mark.parametrize("energy", [False, True], ids=["kick", "energy"])
+def test_audit_counterexample_zero_leg_then_no_shell_hands_off_the_real_exit_state(energy):
+    """q0 = (10240, 0, 0), P0 = (-1, 0, 0), p_cap = 10^7: the zero leg moves the state to q_e with R_e < 10240, then
+    A = 20 + g >= R_e so no shell runs. The old composition returned the radius of the ORIGINAL state [10240, 10240]."""
+    old = _mutant(*OLD_RADIUS)
+    bad = old.certify_inbound_outer(_run(AUDIT_Q, AUDIT_P), AUDIT_CAP, energy=energy)
+    qe = bad["zero_impulse_leg"]["exit_q_exact"]
+    assert bad["shells"] == [] and not bad["handoff_packet"]["radius"][0] ** 2 <= _dot(qe, qe)   # the reproduced FAIL
+    cert = IB.certify_inbound_outer(_run(AUDIT_Q, AUDIT_P), AUDIT_CAP, energy=energy)
+    z = cert["zero_impulse_leg"]
+    assert cert["shells"] == [] and z is not None and z["exit_q_exact"] == qe
+    lo, hi = cert["handoff_packet"]["radius"]
+    A = 20 + cert["handoff_width_g"]
+    assert lo >= 20 and hi <= A and lo ** 2 <= _dot(qe, qe) <= hi ** 2 and cert["handoff_packet"]["q_dot_p_upper"] < 0
+    run = _run(AUDIT_Q, AUDIT_P)                                            # the real executor reaches that very state
+    for _ in range(z["steps_exact"]):
+        C.step(run)
+    q, P = _rel(run.atoms)
+    assert q == qe and _in_packet(cert, q, P)
+
+
+@pytest.mark.parametrize("energy", [False, True], ids=["kick", "energy"])
+def test_the_four_composition_paths(energy):
+    cases = {                                                                # (zero leg?, shells?) -> state, cap
+        (True, False): ((AUDIT_Q, AUDIT_P), AUDIT_CAP),
+        (True, True): (FAR, CAP),
+        (False, False): (((Q(20005, 1000), Q(0), Q(0)), (Q(-12), Q(0), Q(0))), CAP),
+        (False, True): (NEAR, CAP),
+    }
+    for (has_zero, has_shells), (state, cap) in cases.items():
+        run = _run(*state)
+        cert = IB.certify_inbound_outer(run, cap, energy=energy)
+        assert (cert["zero_impulse_leg"] is not None, bool(cert["shells"])) == (has_zero, has_shells)
+        lo, hi = cert["handoff_packet"]["radius"]
+        A = 20 + cert["handoff_width_g"]
+        assert 20 <= lo <= hi <= A and cert["handoff_packet"]["q_dot_p_upper"] < 0
+        if has_shells:
+            assert (lo, hi) == (cert["shells"][-1]["exit_enclosure"]["radius"][0], A)
+        elif has_zero:
+            qe = cert["zero_impulse_leg"]["exit_q_exact"]
+            assert lo ** 2 <= _dot(qe, qe) <= hi ** 2
+        else:
+            q, P = _rel(run.atoms)
+            assert lo ** 2 <= _dot(q, q) <= hi ** 2 and _in_packet(cert, q, P)

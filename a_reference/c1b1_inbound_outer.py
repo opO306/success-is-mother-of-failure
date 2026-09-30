@@ -153,6 +153,19 @@ def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap, energy=None):
             **{key: {t: count * v for t, v in step[key].items()} for key in ("energy_hartree", "angular_bohr_momentum")}}
 
 
+def _handoff_radius(shells, zero, r2, A):
+    """The handoff state's radius enclosure, three paths with three meanings (never mixed; 2026-09-30 audit):
+      shells run          -> the last shell's exit enclosure [a - g, a) = [20, A);
+      zero leg, no shell  -> the zero leg's exact exit position q_e (its last kick does not move it);
+      neither             -> the starting stored state itself is the handoff."""
+    if shells:
+        return shells[-1]["exit_enclosure"]["radius"][0], A
+    if zero is not None:
+        r2_e = O._norm2(zero["exit_q"])
+        return O._sqrt_down(r2_e), B.sqrt_up(r2_e)
+    return O._sqrt_down(r2), B.sqrt_up(r2)
+
+
 def _overflow(start_r, start_p, pos, mom, half_kick_sum, steps):
     """Absolute per-atom, per-component margins over the shell steps (as c1b1_outer_bootstrap._check_overflow, from
     the given absolute start)."""
@@ -228,7 +241,7 @@ def certify_inbound_outer(run, p_cap, energy=False):
         total += rec["max_steps"]
         kick_sum += rec["max_steps"] * rec["half_kick_cap"]
         b = a
-    handoff_lower = shells[-1]["exit_enclosure"]["radius"][0] if shells else O._sqrt_down(r2)
+    handoff_lower, handoff_upper = _handoff_radius(shells, zero, r2, A)
     if handoff_lower < R_INNER or W >= 0:
         raise NotCertified("handoff packet is not at R >= 20 with q.P < 0")
     _overflow(start_r, start_p, run.pos, run.mom, kick_sum, total)
@@ -248,7 +261,7 @@ def certify_inbound_outer(run, p_cap, energy=False):
                 "executor_potential_change_cap_hartree": zero["executor_potential_change_cap"],
                 "relative_L_change_before_last_kick_exact": tuple(zero["steps"] * x for x in _cross(zero["delta"], p))},
             "shells": shells, "max_shell_steps": total,
-            "handoff_packet": {"radius": (handoff_lower, A if shells else B.sqrt_up(r2)),
+            "handoff_packet": {"radius": (handoff_lower, handoff_upper),
                                "p_norm": (p_lo, p_hi), "q_dot_p_upper": W, "L_norm_upper": L_hi,
                                "J_cache": "the executor's J at the handoff position (decided when reached)"},
             "finite_shell_energy_hartree": finite["energy_hartree"],
