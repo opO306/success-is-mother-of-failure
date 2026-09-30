@@ -124,6 +124,9 @@ def test_the_zero_impulse_line_is_exact_and_the_far_chain_closes():
         if n + 1 < z["steps_exact"]:
             assert P == P0 and _dot(q, q) >= 10240 ** 2
     assert q == z["exit_q_exact"] and _dot(q, q) < 10240 ** 2
+    L0 = _cross(*_rel(_run(*FAR).atoms))                     # before the last (nonzero) kick L moved exactly n delta x P
+    assert len(z["relative_L_change_before_last_kick_exact"]) == 3    # (a V1 bug stored n copies of the tuple)
+    assert tuple(a + b for a, b in zip(L0, z["relative_L_change_before_last_kick_exact"])) == _cross(q, P0)
     assert _dot(P, P) <= (abs(P0[0]) + z["last_kick_cap"]) ** 2
 
 
@@ -176,7 +179,7 @@ def test_fault_injection_an_exit_radius_without_the_overshoot_is_caught():
 
 
 def test_fault_injection_a_missing_momentum_cap_check_is_caught():
-    mod = _mutant('''        if p_hi + 2 * n * k > p_cap:
+    mod = _mutant('''        if half_cap > p_cap:
             raise NotCertified("momentum induction budget did not close")
 ''', "")
     cert = mod.certify_inbound_outer(_run(*NEAR), Q(12))                    # the honest module refuses this cap
@@ -186,3 +189,89 @@ def test_fault_injection_a_missing_momentum_cap_check_is_caught():
 
 def test_the_module_never_runs_the_trajectory_or_reads_d_valid():
     assert "C.step(" not in SRC and "c1b1_domain_contract" not in SRC and "validation" not in SRC
+
+
+# --- energy mode (Energy Bound v0, docs/active/C1B1_ENERGY_BOUND_V0.md) --------------------------------------------
+
+import math                                                                   # noqa: E402
+
+import a_reference.c1b1_energy_bound as EB                                    # noqa: E402
+
+LOW = None
+
+
+def _low_state():
+    """E = 1e-2 De, b = 7, R0 = 25 inbound: the kick-accumulated V1 mode cannot certify it (survey)."""
+    V = float(C.potential_high(Q(625)))
+    p = math.sqrt(2 * float(IB.B.MU) * (0.01 * float(C.DE_CONTRACT) - V))
+    return _run((Q(math.sqrt(625 - 49)), Q(7), Q(0)), (Q(-p), Q(0), Q(0)))
+
+
+def _low_cap(run):
+    _, P = _rel(run.atoms)
+    return IB.B.sqrt_up(_dot(P, P) + 2 * IB.B.MU * abs(C.potential_high(Q(400)))) * (1 + Q(1, 128))
+
+
+@pytest.fixture(scope="module")
+def low():
+    run = _low_state()
+    return IB.certify_inbound_outer(run, _low_cap(run), energy=True)
+
+
+def _check_energy_record(cert):
+    cap = cert["p_cap"]
+    for s in cert["shells"]:
+        n, k = s["induction_budget"], s["half_kick_cap"]
+        domain = O._covered_shell(s["guard_low"], s["b"])
+        pe = EB.momentum_range(EB.EnergyRange(*s["energy_entry"]).widen(n * s["energy_step_budget"]),
+                               domain.radial[0], domain.force)
+        assert pe == s["energy_momentum_range"]
+        assert min(s["entry_enclosure"]["p_norm"][1] + 2 * n * k, pe[1] + k) <= cap
+        assert s["w_ceiling"] + s["w_gain_per_step"] < 0 and s["g_in"] > 0 and s["guard_low"] >= 20
+    for s, t in zip(cert["shells"], cert["shells"][1:]):
+        assert EB.EnergyRange(*t["energy_entry"]) == EB.EnergyRange(*s["energy_entry"]).widen(
+            s["max_steps"] * s["energy_step_budget"])
+
+
+def test_energy_mode_certifies_a_low_energy_state_that_v1_cannot(low):
+    run = _low_state()
+    with pytest.raises(IB.NotCertified):
+        IB.certify_inbound_outer(run, _low_cap(run))
+    assert low["momentum_bounds"] == "energy_and_kick"
+    _check_energy_record(low)
+
+
+def test_energy_mode_the_executor_stays_inside_every_claim_consistency_only(low):
+    run = _low_state()
+    A = 20 + low["handoff_width_g"]
+    q, P = _rel(run.atoms)
+    steps = 0
+    while _dot(q, q) >= A * A:
+        s = next(x for x in low["shells"] if _dot(q, q) >= x["a"] ** 2)
+        C.step(run)
+        steps += 1
+        q1, P1 = _rel(run.atoms)
+        assert _dot(q1, q1) - _dot(q, q) <= -s["g_in"]
+        assert _dot(q1, P1) <= s["w_ceiling"] + s["w_gain_per_step"]
+        lo, hi = s["energy_momentum_range"]
+        assert lo * lo <= _dot(P1, P1) <= hi * hi
+        q, P = q1, P1
+    hp = low["handoff_packet"]
+    assert steps <= low["max_shell_steps"]
+    assert hp["p_norm"][0] ** 2 <= _dot(P, P) <= hp["p_norm"][1] ** 2 and _dot(q, P) <= hp["q_dot_p_upper"]
+
+
+def test_fault_injection_energy_mode_taking_the_momentum_ceiling_as_the_floor_is_caught():
+    mod = _mutant("            half_cap, pl = min(half_cap, pe[1] + k), max(pl, pe[0])\n",
+                  "            half_cap, pl = min(half_cap, pe[1] + k), max(pl, pe[1])\n")
+    run = _low_state()
+    cert = mod.certify_inbound_outer(run, _low_cap(run), energy=True)
+    s = cert["shells"][0]
+    run, worst = _low_state(), None
+    for _ in range(s["max_steps"]):
+        C.step(run)
+        q, P = _rel(run.atoms)
+        worst = _dot(q, P) if worst is None else max(worst, _dot(q, P))
+        if _dot(q, q) < s["a"] ** 2:
+            break
+    assert worst > s["w_ceiling"] + s["w_gain_per_step"]

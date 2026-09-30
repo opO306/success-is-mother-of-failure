@@ -596,6 +596,14 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 
 **설계자 판정(2026-09-30, 기준 HEAD `ba46940`): Field Map 조사 성공 종료(새 계층 만들지 않음).** (1) 에너지 기반 운동량 상한 = **진행 승인**, inbound/outgoing 공용 설계(방법 채택 ≠ 정리 승인: 정식 유도 → 코드 → 결함 주입 → 독립 감사). (2) 에너지 장벽 셸 = **같이 진행 승인**, 독립 lemma. D_valid 전체 도달 불가 주장에는 에너지 오차와 step overshoot(한 step 최대 이동 < 장벽 두께)를 포함. (3) inner 도함수 재정식화 = **보류**(장벽으로 R ≲ 5.3이 제거되는지 먼저). 순서: ① 공용 Energy Bound → ② inbound/outgoing 적용 → ③ Energy Barrier lemma → ④ D_valid가 R ≈ 5.3 아래에 못 감을 증명 → ⑤ 독립 감사 → ⑥ inner 필요 영역 확정 → ⑦ 부족하면 그때 재정식화.
 
+**Energy Bound v0(①〜③, 2026-09-30, 기준 HEAD `99a2eec`):** ([C1B1_ENERGY_BOUND_V0.md](docs/active/C1B1_ENERGY_BOUND_V0.md))
+- 공용 `a_reference/c1b1_energy_bound.py`: E~ 범위(④-1 1-step 예산 합), 셀 V 범위 → 운동량 범위(kick 누적 없음, 에너지 금지 셀 판정), **에너지 장벽 셸 lemma**(장벽 안 V > 에너지 상한 **그리고** 한 step 최대 이동 < 두께, 두 전제는 호출자 몫으로 기록), R > 0 도함수 구간(outer bound 공식 그대로, guard만 없음, 구문 트리 동일 시험). inbound는 `energy=True` 모드(기본 경로 불변), outgoing은 새 모듈 `c1b1_outgoing_energy.py`(각운동량 항등식 q·P 바닥 포함). 기존 outgoing·outer bound·실행기 변경 없음.
+- 결과(survey_only 격자 72개, 같은 cap 사다리): **inbound 46 → 72/72, outgoing v1 63 → energy 69/72**(energy는 v1 인증 상태를 잃지 않음). 남은 outgoing 3개는 출발 R 25의 극저에너지(1e-8 De b 7·14, 1e-4 De b 14). 장벽 [5.32, 5.35]: 셀 3개로 V ≥ 12.6897 De, \|P_h\| ≤ 20에서 한 step 0.022 < 0.03. 증거 `runs/c1b1_energy_bound_survey_20260930/`.
+- **공개:** inbound V1 기록 필드 `relative_L_change_before_last_kick_exact`가 `steps * tuple`(튜플 반복)이던 결함을 고침(증명 논리 무관, 느린 상태에서 메모리 오류). 처음 넣은 outgoing 결함 주입 하나(loss 부호)는 10 De에서 loss가 0이라 무의미한 변이여서 바꿈.
+- 시험: `test_c1b1_energy_bound.py` 21개 + inbound energy 3개(기록 재검사, 실행기 일치 검사, 결함 주입 4종). **④ D_valid가 R ≈ 5.3 아래에 못 감은 아직 증명하지 않음**(inner 궤적의 에너지 예산 필요). 독립 감사 전 — 방법 채택 ≠ 정리 승인. ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결.
+- 검증: 신규 모듈·시험·문서 + 이번 세션의 비공용 모듈(inbound, survey) 수정 → **LOCAL FULL 생략 / 관련 시험으로 대체 / 공용 실행 코드·동결 계약·fixture 변경 없음.**
+다음(설계자 순서 ④): inner 궤적 에너지 예산으로 D_valid의 R ≳ 5.35 유지를 증명하는 설계. 또는 ⑤ 독립 감사를 먼저.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.

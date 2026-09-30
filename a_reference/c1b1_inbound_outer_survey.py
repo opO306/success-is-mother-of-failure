@@ -30,12 +30,15 @@ IMPACT = (0, 7, 14)
 RADII = (25, 200, 20000)
 
 
+MODE = "inbound_v1"          # or inbound_energy / outgoing_energy / outgoing_v1 (argv[2]); outgoing uses P -> -P
+
+
 def state(e, b, R0):
     mu = float(B.MU)
     V = float(C.potential_high(Q(R0) ** 2))
     p = math.sqrt(2 * mu * (float(e) * float(C.DE_CONTRACT) - V))
     q = (Q(math.sqrt(R0 * R0 - b * b)), Q(b), Q(0))
-    P = (Q(-p), Q(0), Q(0))
+    P = (Q(p if MODE.startswith("outgoing") else -p), Q(0), Q(0))
     return C.new_run(POS, B.H, tuple(-x / 2 for x in q), tuple(-x for x in P), tuple(x / 2 for x in q), P,
                      momentum_profile=MOM, validated_only=False)
 
@@ -54,29 +57,44 @@ def one(args):
     rungs, t = [], time.monotonic()
     for rho in RHO_LADDER:
         try:
-            c = IB.certify_inbound_outer(run, p_cap(run, rho))
-            rungs.append({"rho": str(rho), "status": "certified", "shells": len(c["shells"]),
-                          "max_shell_steps": c["max_shell_steps"],
-                          "zero_leg_steps": c["zero_impulse_leg"] and c["zero_impulse_leg"]["steps_exact"],
-                          "handoff_w_upper": float(c["handoff_packet"]["q_dot_p_upper"])})
+            if MODE.startswith("inbound"):
+                c = IB.certify_inbound_outer(run, p_cap(run, rho), energy=MODE == "inbound_energy")
+                rungs.append({"rho": str(rho), "status": "certified", "shells": len(c["shells"]),
+                              "max_shell_steps": c["max_shell_steps"],
+                              "zero_leg_steps": c["zero_impulse_leg"] and c["zero_impulse_leg"]["steps_exact"],
+                              "handoff_w_upper": float(c["handoff_packet"]["q_dot_p_upper"])})
+            else:
+                from a_reference import c1b1_outer_chain as OC, c1b1_outgoing_energy as OE
+                f = OE.certify_outgoing_outer_energy if MODE == "outgoing_energy" else OC.certify_outgoing_outer
+                c = f(run, p_cap(run, rho))
+                rungs.append({"rho": str(rho), "status": "certified", "shells": len(c["shells"]),
+                              "max_steps_to_R_J": c["max_steps_to_R_J"],
+                              "tail_direction_error_rad": float(c["tail"]["direction_error_radians"])})
             break
-        except IB.NotCertified as err:
+        except (IB.NotCertified, MemoryError) as err:
             rungs.append({"rho": str(rho), "status": "NotCertified", "reason": str(err)})
     return {"E_De": e, "b": b, "R0": R0, "result": rungs[-1]["status"], "rungs": rungs,
             "seconds": round(time.monotonic() - t, 2)}
 
 
-def main(out):
+def _init(mode):
+    global MODE
+    MODE = mode
+
+
+def main(out, mode="inbound_v1"):
+    global MODE
+    MODE = mode
     from multiprocessing import Pool
     grid = [(e, b, R0) for e in ENERGIES for b in IMPACT for R0 in RADII]
-    with Pool(6) as pool:
+    with Pool(6, initializer=_init, initargs=(mode,)) as pool:
         rows = pool.map(one, grid)
     for r in rows:
         print(r, flush=True)
     with open(out, "w", encoding="utf-8") as f:
-        json.dump({"kind": "survey_only", "version": IB.VERSION, "rho_ladder": [str(x) for x in RHO_LADDER],
+        json.dump({"kind": "survey_only", "version": IB.VERSION, "mode": mode, "rho_ladder": [str(x) for x in RHO_LADDER],
                    "rows": rows}, f, indent=1)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], *sys.argv[2:3])

@@ -36,6 +36,7 @@ from __future__ import annotations
 
 from fractions import Fraction as Q
 
+from a_reference import c1b1_energy_bound as EB
 from a_reference import c1b1_outer_bootstrap as O
 from a_reference import c1b1_outer_bound as B
 from a_reference import c1b1_two_atom as C
@@ -93,7 +94,7 @@ def _first_below(quad, lin, const, target):
     return hi
 
 
-def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap):
+def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap, energy=None):
     g = O.ALPHA * p_cap + O.D
     lower = a - g
     if lower < R_INNER:
@@ -104,11 +105,18 @@ def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap):
     dL = step["angular_bohr_momentum"]["total"]                        # |L_(k+1) - L_k| per step (c1b1_outer_bound)
     gain = 2 * b * k + O.ALPHA * p_cap ** 2 + O.D * p_cap
     c0 = 2 * b * O.D + (O.ALPHA * p_cap + O.D) ** 2
-    n = 1
+    dE = step["energy_hartree"]["total"]                               # |E~_(k+1) - E~_k| per step (c1b1_outer_bound)
+    n, pe = 1, None
     for _ in range(MAX_BUDGET_ROUNDS):
-        if p_hi + 2 * n * k > p_cap:
+        half_cap, pl = p_hi + 2 * n * k, max(Q(0), p_lo - 2 * n * k)       # kick-accumulated (V1)
+        if energy is not None:                                         # energy-based (Energy Bound E2), no accumulation
+            pe = EB.momentum_range(energy.widen(n * dE), domain.radial[0], domain.force)
+            if pe is None:
+                raise NotCertified("energy forbids this shell")
+            half_cap, pl = min(half_cap, pe[1] + k), max(pl, pe[0])
+        if half_cap > p_cap:
             raise NotCertified("momentum induction budget did not close")
-        pl, lh = max(Q(0), p_lo - 2 * n * k), L_hi + n * dL
+        lh = L_hi + n * dL
         w_ceil = W + n * gain
         x = a * a * pl * pl - lh * lh
         if x > 0:
@@ -126,6 +134,8 @@ def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap):
     else:
         raise NotCertified("mirror induction budget did not close")
     p_lo_x, p_hi_x, L_hi_x = max(Q(0), p_lo - 2 * count * k), p_hi + 2 * count * k, L_hi + count * dL
+    if pe is not None:                                                 # the exit state is in the domain, E~ within n dE
+        p_lo_x, p_hi_x = max(p_lo_x, pe[0]), min(p_hi_x, pe[1])
     w_exit = w_ceil + gain
     x = lower * lower * p_lo_x * p_lo_x - L_hi_x * L_hi_x
     if x > 0:
@@ -137,7 +147,9 @@ def _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap):
             "entry_enclosure": {"radius_upper": entry_hi, "p_norm": (p_lo, p_hi), "q_dot_p_upper": W, "L_norm_upper": L_hi},
             "exit_enclosure": {"radius": (lower, a), "p_norm": (p_lo_x, p_hi_x), "q_dot_p_upper": w_exit,
                                "L_norm_upper": L_hi_x},
-            "step_budget": step,
+            "step_budget": step, "energy_step_budget": dE,
+            "energy_entry": None if energy is None else (energy.lo, energy.hi),
+            "energy_momentum_range": pe,
             **{key: {t: count * v for t, v in step[key].items()} for key in ("energy_hartree", "angular_bohr_momentum")}}
 
 
@@ -153,7 +165,7 @@ def _overflow(start_r, start_p, pos, mom, half_kick_sum, steps):
                 raise NotCertified("absolute profile overflow margin did not close")
 
 
-def certify_inbound_outer(run, p_cap):
+def certify_inbound_outer(run, p_cap, energy=False):
     """Prove that the exact executor map takes this stored outer inbound state to a handoff state with R in [20, 20+g),
     w < 0, within the recorded step bound -- conditional on the future reference rounding decisions."""
     p_cap = B.exact(p_cap)
@@ -164,6 +176,7 @@ def certify_inbound_outer(run, p_cap):
     if r2 < R_INNER * R_INNER:
         raise NotCertified("state is already inside R < 20 (inner)")
     w0 = O._dot(q, p)
+    E = EB.energy_of_state(q, p) if energy else None
     if w0 >= 0:
         raise NotCertified("state is not inbound (q.P >= 0)")
     if B.sqrt_up(O._norm2(p)) > p_cap:
@@ -183,6 +196,8 @@ def certify_inbound_outer(run, p_cap):
         W = O._dot(q_e, p) + entry_hi * k_z
         L_hi = B.sqrt_up(O._norm2(_cross(q_e, p))) + entry_hi * k_z       # |q_e x J| <= |q_e| |J|
         p_hi, p_lo = p_hi + k_z, max(Q(0), p_lo - k_z)
+        if energy:
+            E = EB.energy_of_packet(O._sqrt_down(O._norm2(q_e)), entry_hi, p_lo, p_hi)
         start_r = [tuple(x + zero["steps"] * d for x, d in zip(r, C.exact(run.pos, j)))
                    for r, j in zip(start_r, zero["atom_jumps"])]
         kick_sum = k_z / 2                                                  # one half kick, counted in 2 * sum below
@@ -202,8 +217,10 @@ def certify_inbound_outer(run, p_cap):
     b = entry_hi
     while b > A:
         a = max(A, b * SHELL_RATIO)
-        rec = _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap)
+        rec = _mirror_shell(a, b, entry_hi, p_hi, p_lo, W, L_hi, p_cap, E)
         shells.append(rec)
+        if E is not None:
+            E = E.widen(rec["max_steps"] * rec["energy_step_budget"])
         ex = rec["exit_enclosure"]
         p_lo, p_hi = ex["p_norm"]
         W, L_hi = ex["q_dot_p_upper"], ex["L_norm_upper"]
@@ -223,11 +240,13 @@ def certify_inbound_outer(run, p_cap):
     return {**O.EXECUTION_SCOPE, "version": VERSION, "evidence": "analytic_inbound_outer_mirror_induction",
             "profile": dict(O.PROFILE), "model_fingerprint": B.FINGERPRINT, "initial_state": snapshot,
             "p_cap": p_cap, "handoff_width_g": g,
+            "momentum_bounds": "energy_and_kick" if energy else "kick_accumulated",
+            "handoff_energy_range": None if E is None else (E.lo, E.hi),
             "zero_impulse_leg": None if zero is None else {
                 "R_J": radius, "steps_exact": zero["steps"], "exit_q_exact": zero["exit_q"],
                 "last_kick_cap": zero["last_kick_cap"],
                 "executor_potential_change_cap_hartree": zero["executor_potential_change_cap"],
-                "relative_L_change_before_last_kick_exact": zero["steps"] * _cross(zero["delta"], p)},
+                "relative_L_change_before_last_kick_exact": tuple(zero["steps"] * x for x in _cross(zero["delta"], p))},
             "shells": shells, "max_shell_steps": total,
             "handoff_packet": {"radius": (handoff_lower, A if shells else B.sqrt_up(r2)),
                                "p_norm": (p_lo, p_hi), "q_dot_p_upper": W, "L_norm_upper": L_hi,
