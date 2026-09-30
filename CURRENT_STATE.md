@@ -614,6 +614,9 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - regression: 감사 반례 그대로(옛 조합을 원문 변이로 재현해 packet 밖임을 확인, 수정 후 q_e 포함·셸 0·zero leg 있음·20 ≤ lower·upper ≤ A·q·P < 0·실제 실행기가 그 상태에 도달해 packet 안), energy=False/True 둘 다, 네 경로(zero±, shell±) 행렬. inbound 시험 23 passed.
 - 검증: 이번 세션의 비공용 모듈 한 함수 수정 → **LOCAL FULL 생략 / 관련 시험으로 대체.** 다음: 이 경계 경로 수정만 독립 재감사(귀납·에너지 수학은 건드리지 않음).
 
+**설계자 판정(2026-10-01, 기준 HEAD `c6bb35c`): 경계 수정 독립 재감사 PASS → Energy Bound v0 APPROVED.** 승인 범위: E1 modified-energy 유한 누적, E2 energy → stored momentum, stored P ↔ half-step P_h, inbound outer energy induction/composition, outgoing outer energy induction/composition, Energy Barrier lemma, 현재 사용 범위의 R < 20 radial derivative enclosure. **inner·global scattering·④-Liveness·A-EV로 넓히지 않는다.**
+**④ 시작(설계자 지시):** 유일한 목표 = inbound handoff 이후 R ≥ 5.35인 동안 장벽 lemma의 두 호출자 전제(모든 저장 상태 E~ ≤ E_hi, 모든 step \|P_h\| ≤ P_half_cap)를 귀납으로 유지할 수 있는가. 결과는 CLOSED / NOT CLOSED / BLOCKED 중 하나. R < 5.35 계산·R ≈ 3 재정식화·새 Field Map·executor/dt/D_valid 변경·장벽 이동·Energy Bound 수학 변경·A-EV 혼합 금지.
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
