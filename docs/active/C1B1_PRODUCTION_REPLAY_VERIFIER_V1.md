@@ -1,6 +1,6 @@
 # C1-B1 independent replay verifier V1
 
-상태: 구현·로컬 검증 완료, 설계자 정식 승인 대기. 설계자 승인 manifest가 없으면 VALID 계산 결과도 공식
+상태: commit `8996aa60`의 지정 fingerprint 조합을 C1-B1 REPLAY_VERIFIED verifier로 설계자 승인. [production approval manifest](C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json)와 [이번 승인 기록](C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md)을 따른다. 승인 전 이력: 설계자 승인 manifest가 없으면 VALID 계산 결과도 공식
 REPLAY_VERIFIED/CONFIRMED로 자동 승격하지 않는다. scratch 결과는 승격하지 않는다.
 
 ## 고정 전이 계약

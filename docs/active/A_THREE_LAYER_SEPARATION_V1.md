@@ -56,17 +56,23 @@ A의 목적은 증명기가 아니라 관측 가능한 세계다(헌법 제3조,
 5. 신뢰 기반 명시: 구간 산술 라이브러리(현재 후보 mpmath interval)가 진짜 enclosure를 준다는 가정
 6. 결함 주입 세트의 영구 시험화(현재 scratch 12종)
 
-**현재 상태:** `POSTVERIFY feasibility = HYBRID(가능)`. [production replay verifier V1](C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md)은 독립 모듈 `c1b1_replay/`로 구현·전 step 검증·LOCAL FULL을 완료했고 설계자 승인 대기다. scratch verifier(`runs/c1b1_postverify_survey_20261001/verifier.py`)와 그 7개 VALID 결과는 자동 승격하지 않는다.
+**현재 상태:** `POSTVERIFY feasibility = HYBRID(가능)`. [production replay verifier V1](C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md)은 독립 모듈 `c1b1_replay/`로 구현·전 step 검증·LOCAL FULL을 완료했고 commit `8996aa60`의 지정 fingerprint 조합이 설계자 승인됐다([production approval manifest](C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json)). scratch verifier(`runs/c1b1_postverify_survey_20261001/verifier.py`)와 그 7개 VALID 결과는 자동 승격하지 않는다.
 
-**재평가 측정 항목(N-1, 지금 고정)과 첫 실측값(`ac14385` 사후 검증 조사, scratch verifier, 7개 궤적 79,087 step):**
+**N-1 공식 첫 비용 자료(설계자 승인, production V1 commit `8996aa60`):**
 
-| 측정 항목 | 첫 실측값 |
+| 측정 항목 | 공식 첫 자료 |
 |---|---|
-| verifier / executor 비용 비율 | 직렬 경과 시간: 4.9〜5.8배(scratch Python 구현 상수). wall(6 작업자 병렬): 0.98〜1.19배. CPU 시간 자체를 측정한 값은 아니며, 서로 다른 병렬 조건의 경과 시간을 CPU 연산 절감으로 해석하지 않는다. 정확 산술 부분은 실행의 약 7%, 나머지는 J 반올림 확인용 구간 평가 |
-| 메모리·저장 | streaming 검증 중 Python 힙 최고치 0.33 MB. witness(초기 상태 + J) 약 22 B/step, streaming 인증서 약 4 KB(재검증 불가) |
-| REPLAY_VERIFIED가 실제로 잡은 불일치 수와 원인 | 실제 실행 불일치 **0건**(7개 궤적 전 step 일치). 결함 주입 12/12 검출은 심은 결함이며 이 항목의 "실제 불일치"로 세지 않는다 |
-| 새 법칙을 양쪽 구현에 넣는 작업량 | 미측정(새 법칙 없음) |
-| 대안 후보별 예상 비용 | 미측정 |
+| verifier / executor CPU | **약 2.773배**. 같은 7개, executor step CPU109.625s / streaming verifier CPU304.016s |
+| 4-worker batch wall | **약 2.537배**. 양쪽 모두4 worker, executor40.952s / verifier103.905s. per-trajectory step 병렬화 수치가 아님 |
+| 메모리·저장 | 원본 witness1,757,342 B(22.220 B/step), stream worker peak28.18〜29.95 MiB, aggregate RSS50ms 표본 peak145.64 MiB. summary는 재검증 원본 아님 |
+| 실제 불일치 | 이전 production 전체 검증에서0건. 승인 후 보존 witness 재검증 결과는 [승인 기록](C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md)에 별도 기록. 심은 결함은 실제 불일치로 세지 않음 |
+| 새 법칙의 양측 구현 작업량·대안 예상 비용 | 미측정. 이번 승인 작업에 새 법칙 없음 |
+
+원 비용 파일의 hash와 지정 fingerprint는 [approval manifest](C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json)에 결합한다.
+`ac14385` scratch의 약1배 wall(0.98〜1.19배)은 역사적 feasibility 자료다.
+**N-1 공식 비용값으로 사용하지 않는다.** 승인 후 재검증의 실행 시간도 이 최초 비용
+자료를 덮어쓰지 않는다. REPLAY_VERIFIED 승인은 CERTIFIED 승인이나 trusted origin
+자동 승인이 아니다.
 
 ## 4. Speculative execution 계약
 

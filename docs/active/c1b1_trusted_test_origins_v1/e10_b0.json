@@ -1,0 +1,97 @@
+{
+  "schema": "c1b1-trusted-test-origin-v1",
+  "origin_id": "C1B1-TEST-ORIGIN-V1-e10_b0",
+  "case": "e10_b0",
+  "scope": "PIPELINE_TEST_ONLY",
+  "independent_history": true,
+  "approval_status": "APPROVED",
+  "authority": "human_designer",
+  "designer_decision": "7개 초기 상태를 각각 독립된 C1-B1 trusted test origin으로 지정하는 것을 승인합니다. 검증 파이프라인 시험용에 한정하며 공식 O-3나 장기 운영 세계로 자동 승격·재사용하지 않습니다.",
+  "initial_raw": [
+    "-2814749767106560",
+    "0",
+    "0",
+    "21939351126630921307163909",
+    "0",
+    "0",
+    "2814749767106560",
+    "0",
+    "0",
+    "-21939351126630921307163909",
+    "0",
+    "0"
+  ],
+  "start_step": 0,
+  "initial_conditions": {
+    "E_nominal_over_De": "10",
+    "b_bohr": "0"
+  },
+  "spec_fingerprint": "87a049429ac8f83f3cf43b1ea8ce745505fc2e0135fd1bc2a125200a88b92209",
+  "verifier_approval_manifest_sha256": "38c32ca311c23a6975d92130218a335521ec2edd89da71784db51ebda8a79b27",
+  "initial_admission": {
+    "verdict": "VALID",
+    "method": "approved independent Model interval J and energy admission + exact raw/radius checks",
+    "E_rel_Hartree_enclosure": [
+      "2639885318035509120693039921636694108881379122502622371182973921/584050883669323926909060162780948461748911140360097273741312000000",
+      "2639885318035509120693039921636694108881480607773812669806973921/584050883669323926909060162780948461748911140360097273741312000000"
+    ],
+    "E_rel_max_Hartree": "18079831/4000000000",
+    "E_rel_le_10_De": true,
+    "radius_squared_bohr2": "400",
+    "r_min_squared_bohr2": "1440000000000000000000000/280028520539078142075409",
+    "r_min_pass": true,
+    "signed96_bounds": [
+      "-39614081257132168796771975168",
+      "39614081257132168796771975167"
+    ],
+    "all_12_raw_in_range": true,
+    "initial_J": [
+      "-7909054713595009367",
+      "0",
+      "0"
+    ],
+    "precision_bits": 128,
+    "trust_assumptions": [
+      "mpmath 1.3.0 pure-Python interval encloses real values",
+      "Python int/Fraction exact semantics"
+    ],
+    "not_D_valid_classification": true
+  },
+  "reconstruction": {
+    "method": "canonical_initial_state(E_nominal_over_De, b_bohr); q=r_j-r_i, P=p_j; new_run(FX(96,48), dt=40, -q/2,-P,+q/2,P, momentum=FX(96,80), validated_only=False); no step executed",
+    "bit_identical_initial_raw": true,
+    "reference_used_only_to_reconstruct_input": true,
+    "source_files": [
+      {
+        "path": "a_reference/c1b1_canonical_state.py",
+        "sha256": "aa912f23711664058be9ea59eb6a8c2c9ac47784cecec32ef6e863619a881f17"
+      },
+      {
+        "path": "a_reference/c1b1_domain_contract.py",
+        "sha256": "3a789a9835bf6ad800e93a8b751a0f18fcb317f2db97bd9d2fcfc273b6412db1"
+      },
+      {
+        "path": "a_reference/c1b1_two_atom.py",
+        "sha256": "e5889e8af2901eaa594b9b593a2c47048c61a4b4811bb0af04fb6c5d25c32c0e"
+      },
+      {
+        "path": "runs/c1b1_postverify_survey_20261001/execute.py",
+        "sha256": "3ff07d794ffdb3c526bcab3a091bd2003c7174a6e86c52585260d7069a10a731"
+      }
+    ]
+  },
+  "retained_source": {
+    "path": "runs/c1b1_postverify_survey_20261001/witness_e10_b0.json",
+    "sha256": "0945282cfcff296b0537967c2aaeab2881eeeb395a6380846b775212fc9f9b42"
+  },
+  "approved_witness_sha256": "acbdb6bc8f96d9691a4c231bac07cdae669043c8ac6918a5257ee2e9d66f25bf",
+  "restrictions": {
+    "merge_with_other_test_histories": false,
+    "automatic_official_O3_reuse": false,
+    "automatic_operating_world_reuse": false,
+    "D_valid_generalization": false,
+    "CERTIFIED": false
+  },
+  "content_hash_rule": "SHA256 of UTF-8 JSON ensure_ascii=False, sort_keys=True, separators=(comma,colon), excluding origin_content_sha256",
+  "origin_content_sha256": "ed1972a3a802e21750786fafd3b3f89e06ee17cbb6c3f8d656f7c0b657e5960c"
+}

@@ -1,0 +1,4 @@
+# Approval/origin artifacts retain the exact UTF-8 LF bytes used by their hashes.
+docs/active/C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json text eol=lf
+docs/active/c1b1_trusted_test_origins_v1/*.json text eol=lf
+docs/active/C1B1_REPLAY_VERIFIER_APPROVED_TEST_HISTORIES_V1.json text eol=lf

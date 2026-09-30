@@ -1,0 +1,56 @@
+{
+  "schema": "c1b1-trusted-test-origin-index-v1",
+  "scope": "PIPELINE_TEST_ONLY",
+  "separate_histories": true,
+  "origins": [
+    {
+      "case": "e0.5_rho-0.01",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e0.5_rho-0.01",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e0.5_rho-0.01.json",
+      "origin_content_sha256": "62dd45ea80e0df092530843cef7bc49d482e5e2da52861add7842ae0bf55f05c",
+      "file_sha256": "9a5d5712dbf6786f27d60c89665c6ca31efd43a0ddd46165a56ce55138516180"
+    },
+    {
+      "case": "e0.5_rho-0.005",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e0.5_rho-0.005",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e0.5_rho-0.005.json",
+      "origin_content_sha256": "08706593dedb92ae79907d98f6ba88240e3359d7e54a2812288476189250dd07",
+      "file_sha256": "43ee01b19b924e6b2375800f637200fc26ffab267298ea1a0eb72be91398e391"
+    },
+    {
+      "case": "e0.15_rho-0.005",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e0.15_rho-0.005",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e0.15_rho-0.005.json",
+      "origin_content_sha256": "dd97a3d4f0c2d2e63ebdb4ff5303ef70c94850d6f659f4da6ac765465b22a752",
+      "file_sha256": "609200651ebf865f5f793f91234b252eba86e5aa7ced2b09192e6fcbe5227809"
+    },
+    {
+      "case": "e1_b10",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e1_b10",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e1_b10.json",
+      "origin_content_sha256": "3600c0226ed634167925b5e8681a4eda77ffab09bc27447499f85fb8b5a4a965",
+      "file_sha256": "bfb87055d8f644c4d7e8171dc9edbcf76b1ff7e6f668a5b52ff59e6d0b1b5401"
+    },
+    {
+      "case": "e0.5_b6",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e0.5_b6",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e0.5_b6.json",
+      "origin_content_sha256": "71ea20c47c7f6a6e2ccb8ee83d31f029ad53c44151c9d53db924bc1bf8231de4",
+      "file_sha256": "5d3d99957721db5a2c1c6ca6aa71cfac9389481ece4c560b48a62d30702788c7"
+    },
+    {
+      "case": "e0.5_rho+0.005",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e0.5_rho+0.005",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e0.5_rho+0.005.json",
+      "origin_content_sha256": "5620d2b594b705a5147e67e48c630e2c6de218d0f71947b2f91b2b8242a72b92",
+      "file_sha256": "df275363a70c3150dd6699adb847714a79a77527426a51e388a2440868aaa146"
+    },
+    {
+      "case": "e10_b0",
+      "origin_id": "C1B1-TEST-ORIGIN-V1-e10_b0",
+      "path": "docs/active/c1b1_trusted_test_origins_v1/e10_b0.json",
+      "origin_content_sha256": "ed1972a3a802e21750786fafd3b3f89e06ee17cbb6c3f8d656f7c0b657e5960c",
+      "file_sha256": "2fd4d4d9e8b97199725f82f4d5b685dd1bfeba8cb3a26cba4423cca63f2bf452"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "allowed_evidence": [
+    "REPLAY_VERIFIED"
+  ],
+  "approval_execution_scope": "Retained seven witnesses re-verification and history evidence only; no physics or architecture work.",
+  "approval_id": "C1B1-RPV1-8996aa60-20261001",
+  "approval_status": "APPROVED",
+  "approved_commit": "8996aa60afbc098e09333ad878184dcc99a58f4d",
+  "authority": "human_designer",
+  "confirmed_requirement": "Exact initial raw state and step binding to separately trusted origin or preceding CONFIRMED final state; verifier approval alone does not approve an origin.",
+  "designer_decision": "Production Independent Replay Verifier V1을 C1-B1의 REPLAY_VERIFIED verifier로 승인합니다. 승인 대상은 commit 8996aa60afbc098e09333ad878184dcc99a58f4d의 명시된 fingerprint 조합입니다.",
+  "fingerprints": {
+    "dependency": "0d0d896374cc7fb36da3398b398b204d2e25fcd5fcea5577924345b28b973ec7",
+    "implementation": "dcaa2214124cee485978dfa9845d35461ae50d3023f9eeececb7a61cb5c1a788",
+    "potential": "ada6153be05af3e582139fdc81b5697fffaf18d12f9f2de6e8d5ac2fdfe0839e",
+    "replay_spec": "87a049429ac8f83f3cf43b1ea8ce745505fc2e0135fd1bc2a125200a88b92209"
+  },
+  "forbidden_upgrade": [
+    "CERTIFIED"
+  ],
+  "official_N1_first_cost": {
+    "cpu_ratio_approx": 2.773,
+    "four_worker_batch_wall_ratio_approx": 2.537,
+    "scratch_wall_ratio_not_official": true,
+    "source_commit": "8996aa60afbc098e09333ad878184dcc99a58f4d",
+    "sources": [
+      {
+        "path": "runs/c1b1_production_replay_20261001/executor_batch.json",
+        "sha256": "b06cb49bded1c78b6302ea3faff33d164e5c5e6549a8ffd61573c96adfd42dfb"
+      },
+      {
+        "path": "runs/c1b1_production_replay_20261001/stream_batch.json",
+        "sha256": "0249655c1cbe40214427ab92faba563e02f3b56cc324b920d3518970727f09ed"
+      }
+    ]
+  },
+  "schema": "c1b1-production-replay-approval-v1",
+  "trust_assumptions": [
+    "mpmath 1.3.0 pure-Python interval encloses real values",
+    "Python int/Fraction exact semantics"
+  ]
+}

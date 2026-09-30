@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** (세 층 분리 기준으로 종료 조건 재정의, 2026-10-01) |
-| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), production replay verifier V1 설계자 승인, `_decide` 예외 분류 정리. 구현 완료: independent 전 step replay와 증거 등급·확정 최소 구조/시험. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
+| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), `_decide` 예외 분류 정리. production replay verifier V1 지정 fingerprint 조합은 설계자 승인 완료(8996aa60). independent 전 step replay와 증거 등급·확정 최소 구조/시험 구현 완료. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
 | **다음 Gate** | **C1-B1 종료 → 다원자 기체 단계(첫 항목: 적분기 에너지 범위 확장, 강한 O-3 = 희박 Ar 점성) → C1-C 전 N-1 재평가** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -664,7 +664,7 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 **설계자 판정(2026-10-01, 기준 HEAD `ac14385`): A 세 층 분리 채택, C1-B1 종료 조건 재정의.** ([A_THREE_LAYER_SEPARATION_V1.md](docs/active/A_THREE_LAYER_SEPARATION_V1.md))
 - 세계 / 검증 / 관측 분리. formal proof의 역할은 "다음 단계 허가증"에서 "필요한 성질을 검증하는 도구"로 바뀐다. 기존 증명 자산은 전부 보존한다.
 - 증거 등급 4단계와 확정 상태 3단계를 분리한다. 표본 감사는 승격하지 않는다.
-- **N-1** C1-B1 CONFIRMED 최소 = `REPLAY_VERIFIED`. 자격은 native J 등 특정 구현이 아니라 **설계자가 승인한 independent replay verifier**에 둔다(C1-B1 한정, C1-C 전 재평가, 측정 항목 고정). 첫 실측값은 위 사후 검증 조사(직렬 경과 시간 4.9〜5.8배, 병렬 wall 0.98〜1.19배, 실제 불일치 0건). scratch verifier는 정식 verifier가 아니다 — production 요건 6개를 고정한 뒤 구현·승인한다. mpmath 구간 엄밀성은 신뢰 기반으로 공개한다.
+- **N-1** C1-B1 CONFIRMED 최소 = `REPLAY_VERIFIED`. 자격은 native J 등 특정 구현이 아니라 **설계자가 승인한 independent replay verifier**에 둔다(C1-B1 한정, C1-C 전 재평가, 측정 항목 고정). **공식 첫 비용은 승인된 production V1 CPU 약2.773배 / 4-worker batch wall 약2.537배**([승인 기록](docs/active/C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md)). 위 scratch 직렬4.9〜5.8배 / 병렬0.98〜1.19배는 역사적 feasibility 자료이며 공식 비용값이 아니다. scratch verifier와 승인 전 결과는 자동 승격하지 않는다. mpmath 구간 엄밀성은 신뢰 기반으로 공개한다.
 - native J 비트 동등성은 **C1-B1 종료 조건에서 제외**하고 별도 이종 실행기 Gate로 유지한다. native J 경로를 실제 세계 실행에 사용하기 전에 통과해야 한다.
 - **A-EV와 replay verifier는 서로 대체하지 않는다. A-EV는 세계 실행기의 판정 방법 자체에 대한 건전성 의무이고, replay verifier는 실제 생성된 세계 역사의 독립 재검증이다. 두 작업에서 같은 증명을 중복 요구하지 않는다.**
 - O-3 자료 확보·봉인·관측 코드 준비는 지금 가능하다. 공식 O-3는 production verifier 승인 뒤 CONFIRMED trajectory만 사용한다. 개발 탐색 결과는 `EXECUTED / NOT OFFICIAL O-3`로 표시한다.
@@ -682,7 +682,7 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
-**아직 남음 (Gate):** A-EV / production independent replay verifier 구현·승인 / `_decide` 예외 분류 정리 / 증거 등급·확정 계약 최소 시험 / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze.
+**아직 남음 (Gate):** A-EV / `_decide` 예외 분류 정리 / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze. production independent replay verifier 구현·승인 및 증거 등급·확정 계약 최소 시험은 완료. 시험 history는 공식 O-3나 운영 세계 역사로 자동 재사용하지 않는다.
 **별도 Gate:** native J evaluator와 실행기 비트 동등성(이종 실행기, CONFIRMED 전제 아님).
 **연구 과제 (Gate 아님, 보존):** inbound 저에너지 잔여 / inner(④ step 4) / S4d passing-side δ / global shadowing / 전체 산란각 formal proof / E_min 재생성 / 속박 궤도 domain·error proof / 정확 분수 대리식 fast path survey.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.
@@ -761,7 +761,7 @@ A/B/L 역할과 불변조건은 [RULES.md](RULES.md)·[PROJECT_CONSTITUTION.md](
 Git은 2026-09-21 초기화했고 이전 상태는 `D:\KiroCrewTraceVault\success-is-mother-of-failure\project-snapshots\20260921_090715_pre_git_init\`에 봉인했다.
 
 
-**Production independent replay verifier V1(2026-10-01): 구현·검증 완료 / 설계자 승인 대기.**
+**Production independent replay verifier V1 구현 기록(2026-10-01): 아래는 승인 전 구현·검증 당시 기록. 지정 fingerprint 조합은 후속 설계자 승인 완료, 신규 증거는 [승인 기록](docs/active/C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md).**
 ([계약·전체 결과·비용·신뢰 기반](docs/active/C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md))
 
 - Git 시작 HEAD/origin/master `ac143855bec21352aaa86241b31baf86d6075eae`, 기존 13개 문서만 `c85beb5`에 별도 commit한 뒤 clean tree에서 신규 `c1b1_replay/` 구현. push 없음. 기존 executor·물리·D_valid·동결 fixture 변경 0.
@@ -772,4 +772,12 @@ Git은 2026-09-21 초기화했고 이전 상태는 `D:\KiroCrewTraceVault\succes
 - 관련 60 passed 5.25s. **이번 LOCAL FULL: 3433 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, exit 0, 736.56s**(junit3434/skipped1=xfail). 신규 replay 시험49, 기존 코드 순증95로 공식 3289보다144 증가. 공식 AGENTS 기준선은 설계자 판정 대기로 그대로 유지. 기존 native subprocess cp949 경고25건 남음, 원인 미조사·해결 아님.
 - 신뢰 기반: mpmath1.3.0 pure-Python interval enclosure 및 Python 정수/Fraction 의미. spec/implementation/dependency fingerprint에 approval을 결합하며 승인 candidate decision은 빈 값이다. 아직 REPLAY_VERIFIED/CONFIRMED 공식 역사 0. whole-future/형식 인증/many-body/live pipe/운영 rollback은 얻지 않았다.
 - **남은 Gate:** 설계자 verifier 승인, A-EV, `_decide` 예외 분류, O-1/O-3 weak 및 C1-B1 전체 freeze. native J 별도 Gate, 공식 O-3 실행 없음. Energy Bound v0 APPROVED / ④-Liveness NotCertified / ④-Safety Conditional / A-EV unresolved 유지.
-- 증거: `runs/c1b1_production_replay_20261001/`의 `.c1br` 원본·source manifest·stream/full 결과·CPU/메모리 batch·local_full.log/xml·49개 회귀 결과. 원본 없이 summary만으로 재검증 불가. 다음 최소 작업은 해당 fingerprint와 계약/신뢰 가정에 대한 설계자 승인이다.
+- 증거: `runs/c1b1_production_replay_20261001/`의 `.c1br` 원본·source manifest·stream/full 결과·CPU/메모리 batch·local_full.log/xml·49개 회귀 결과. 원본 없이 summary만으로 재검증 불가. 당시 다음 최소 작업이었던 fingerprint와 계약/신뢰 가정의 설계자 승인은 완료됐다. 승인 전 결과 파일은 역사적 실행 기록으로 유지한다.
+
+**Production V1 승인·시험 history 봉인(2026-10-01):** commit `8996aa60`의 potential/replay spec/implementation/dependency fingerprint 조합 및 mpmath1.3.0 pure-Python·Python int/Fraction trust를 설계자가 REPLAY_VERIFIED용으로 승인했다. [approval manifest](docs/active/C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json), [7개 trusted test origin](docs/active/c1b1_trusted_test_origins_v1/index.json), [새 history 증거](docs/active/C1B1_REPLAY_VERIFIER_APPROVED_TEST_HISTORIES_V1.json), [상세 기록](docs/active/C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md).
+
+- 보존 witness 7개를 승인 후 새로 재검증했고 origin 봉인 뒤 기존 History gate로 다시 전 step 검증했다. **7/7 VALID, 총79,087 step, 각각 REPLAY_VERIFIED / CONFIRMED test history**, INVALID/REFUSED 0. 시작12 raw/start_step와 승인 origin이 정확히 일치. 승인 전 결과 개명·자동 승격0, 7개를 하나의 세계 역사로 연결하지 않음.
+- origin은 **PIPELINE_TEST_ONLY**. 정확한 초기 raw·E/b/rho·spec·초기 admission·재구성·hash·설계자 승인 봉인. 7개 모두 E_rel≤10De/r_min/raw 범위 통과. 공식 O-3·장기 운영 origin/세계 history로 자동 재사용 금지, D_valid 전체 인증/CERTIFIED 아님. verifier 승인만으로 origin을 자동 신뢰하지 않음.
+- **N-1 공식 첫 비용 CPU약2.773배 / 4-worker batch wall약2.537배**. scratch 약1배 wall은 공식 비용값 아님. 이번 새 History 실행 CPU287.9375s / batch wall104.518s는 승인 재검증 실행 시간이며 공식 비용값 대체 아님.
+- 이번 관련60 passed5.11s, import 위반0. 기존 verifier/executor/물리/계약/fixture 수정0. **LOCAL FULL 생략 / 관련 시험으로 대체**(문서·manifest·신규 증거 및 Git 밖 실행 script만, 기준선 미갱신). 모든 원본 `.c1br` 보존, summary만으로 재검증 불가. push 없음.
+- Energy Bound v0 APPROVED, ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결 유지. unknown-length live pipe·장기 rollback·native J·공식 O-3·새 물리/아키텍처 작업 없음.
