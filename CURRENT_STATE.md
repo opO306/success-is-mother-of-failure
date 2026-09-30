@@ -631,6 +631,12 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 - 공개: wall 첫 계산(v1)은 넓힌 셀 하나를 써서 잘못된 비관 결론(6.69부터 progress 없음, 방문당 에너지 21〜25배)을 냈다. 같은 해상도의 이웃 셀 극값(v2)으로 고쳤다. 둘 다 보존. 초안에서 E~ 단위(De)를 hartree로 잘못 읽은 것도 고쳤다.
 다음 판단(설계자): wall 방문 lemma 정식화 + 우물/궤도 영역 유효 퍼텐셜 체류 상한 설계로 갈지.
 
+**궤도 직접 계산 / Event Map 조사 v0(2026-10-01, survey_only, 코드 변경 0, 시작 HEAD `148cce7`):** ([C1B1_DIRECT_ORBIT_SURVEY_V0.md](docs/active/C1B1_DIRECT_ORBIT_SURVEY_V0.md), `runs/c1b1_direct_orbit_survey_20261001/`)
+- **판정 HYBRID.** (E, L)로 연속 궤도를 직접 계산하면(V_eff 전환점 + Δθ·T 적분) 21개 사례(궤도 경계 ρ = ±10⁻⁴ 포함)에서 실행기와 R_min ≤ 2.2·10⁻⁵ bohr, 편향각 ≤ 5·10⁻⁶ rad(\|ρ\| ≥ 0.005) / ≤ 1.3·10⁻⁴(ρ = ±10⁻⁴), step 수 ±1 일치. Δθ 차이 ≤ 4.8·10⁻⁴는 주로 실행기 출구 넘침.
+- 궤도 경계 = V_eff 꼭대기의 불안정 원궤도(R_b = 9.733), 한 바퀴당 증폭 A ≈ 3.4·10⁵. 예측 0.181(튕김)·0.362(두 번 넘음) 바퀴/자릿수, 관측 0.177〜0.180·0.363〜0.371. 경계 근처 체류는 반복 바퀴가 아니라 쌍곡 안장 통과라 N바퀴 묶기의 이득이 없다(D_valid 산란 ≤ 1.65바퀴).
+- 실행기 L은 정확 보존이 아님: step당 ≤ 8.9·10⁻¹⁴, 통과당 ≤ 3.7·10⁻¹². 계산 절감은 측정 1〜15배(추정 최대 수십 배). certification에는 shadowing 교량 정리(경계에서 A배 증폭), 보존량 교량, 직접 적분의 엄밀화가 새로 필요.
+- 다음 최소 후보: ④에 필요한 것은 R_min뿐이고 R_min은 가장 둔감한 출력 → **유효 퍼텐셜 전환점 하한 정리**(E ≤ E_hi, 인증된 \|L\| 범위, V 구간 → R_min ≥ r*).
+
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
 **아직 남음:** inbound / inner / global shadowing / 전체 산란각 / E_min 재생성 / 속박 궤도 domain·error proof / native J evaluator와 실행기 비트 동등성 / C1-B1 전체 freeze.
