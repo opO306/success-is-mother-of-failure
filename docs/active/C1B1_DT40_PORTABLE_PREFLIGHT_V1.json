@@ -1,0 +1,34 @@
+{
+  "originals": 272,
+  "objects": 277,
+  "bundle_sha256": "352b63b7c8b6cb42eead2d2fa4c81e462cb86665773a55426bfffdded070d30d",
+  "verification": {
+    "originals_verified": 272,
+    "objects_verified": 277,
+    "reference_sha256": "a598057183121b9c928b3a9804c8e2e99afa553bad570a471aa4130f20e6b049",
+    "location_only_transforms": [
+      "c1b1_integrator_benchmark/study.py",
+      "c1b1_o1/model.py",
+      "tools/c1b1_o1_study.py"
+    ],
+    "parent_payload_sha256": "bbe64ed6ad96adf3654a13afea8b9ebec35743243d7fb91f1b7f268edd370232",
+    "execution_payload_sha256": "7df664a9b5ea52f0e45120d90849fad4cd48032e41243b11025f14e5faaebb46"
+  },
+  "probe": "boundary_pass\nC:\\Users\\zun24\\성공은 실패의 어머니\\runs\\c1b1_dt40_portable_v1\\fresh_unpack\\reference\\ar2_lang2024\\S2_ar2_pot.f90\n",
+  "bootstrap_sha256": "d7ee95452910d295218496cf4574a8d4929f121e282e2cfd4ab7555a4e46b4da",
+  "bootstrap_syntax": "PASS",
+  "local_trajectory_count": 0,
+  "local_related_tests": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "22",
+      "time": "14.957",
+      "timestamp": "2026-10-01T15:34:57.234348+09:00",
+      "hostname": "으악"
+    }
+  ],
+  "control_sha256": "cab4e827daf3b3468d11703f76db65b594e5f716ace4ddd7ce9619e14f0c0fc3"
+}

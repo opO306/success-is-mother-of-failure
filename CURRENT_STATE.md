@@ -86,6 +86,30 @@ Vast 시작/제어 시도 3회 실패로 AGENTS 중단 규칙 적용. 첫 두 �
 LOCAL FULL 생략 / 새 독립 진단·시험·문서만 추가, 관련 시험으로 대체 / 기준선 갱신 없음.
 production/기존 O-1 STOP/원인 격리 판정 변경 없음. commit/push 없음.
 
+**SSH 정보 제공 후 재개(2026-10-01, 기준 `130df0d`):**
+[재개 기록](docs/active/C1B1_DT40_INTEGRATOR_BENCHMARK_SSH_RESUME_V1.md).
+9975WX/265K의 새 시작 응답은 resources_unavailable였다. 5950X는 시작했고,
+직접 SSH의 Python 3.12.3/sentinel 및 scp 전송을 확인했다. source 사전 검사에서
+Windows tar의 D: prefix 제거에 따른 Linux alias 복원 누락으로 중단했다.
+archive 272개 hash 대조 불일치 0, 복원 수정안 준비·Linux 실행 미시험.
+수치 궤적/원격 시험/비용 probe 0. 최종 기존 네 노드 exited/stopped.
+기존 봉인·원본·C 판정 불변. 이번 14 passed 재실행 아님. LOCAL FULL 생략(문서·배포 준비만), push 없음.
+
+**플랫폼 독립 배포 및 dt40 수치 비교 완료(2026-10-01, 기준 `130df0d`): C — 전체 비용 판정 불가.**
+[실행·비교 보고서](docs/active/C1B1_DT40_PORTABLE_DEPLOYMENT_V1.md),
+[전체 결과](docs/active/C1B1_DT40_PORTABLE_RESULTS_V2.json).
+`code/`·`reference/` 상대 배치와 원본 272개 보존·위치 변경 별도 봉인으로 경로 장애를 해결했다.
+portable v1은 역사 시험 조회 2개 실패로 궤적 전에 중단·회수·종료했고, v2 실제 복원 시험을 통과한 뒤 재개했다.
+Yoshida outer40은 기존 9개 입력 모두 관측 기준 및 40/60자리 안정성 PASS;
+boundary_pass 각도 오차 6.1096203e-11 rad. Chin 4A는 5.2560113e-13 rad이나 비용 상한으로 첫 단계 탈락.
+같은 노드의 봉인된 kernel 비용은 KDK20 두 step 대비 1.471993배 / 2.174726배다.
+원문 `B_KERNEL_COST`는 측정한 kernel에서 더 비싸다는 결론이며, 동일 노드 전체 KDK20 비용이 없어 전체 질문은 C로 남긴다.
+새 후보 궤적 20회 / 244,266 outer step, 기존 baseline 궤적 재생성 0, 결과/로그 52개 회수·hash 일치.
+원격 exit 0, 사용 노드 stop 및 기존 네 노드 모두 exited/stopped 확인. GPU 계산 없음.
+신선한 관련 시험 로컬 57 passed(18.08초), 복원 package 49 passed(2.23초), 원격 49 passed(1.45초), 모두 failure/error/skip 0.
+LOCAL FULL 생략 / 새 독립 배포 도구·시험·문서만, 기존 source 12·protected 134·O-1 원본 97·원인 격리 원본 27 hash 불변 / 관련 시험 대체·기준선 갱신 없음.
+production·기존 O-1 STOP·D_valid unsupported·원인 격리 판정 유지. O-3 등 금지 작업 미착수, commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,

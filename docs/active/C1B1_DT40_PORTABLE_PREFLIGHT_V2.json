@@ -1,0 +1,22 @@
+{
+  "originals": 272,
+  "objects": 278,
+  "bundle_sha256": "b2ea927b606018018f53a0de427f2c4e03fb3298dc28d96311e4235bb496de14",
+  "verification": {
+    "originals_verified": 272,
+    "objects_verified": 278,
+    "reference_sha256": "a598057183121b9c928b3a9804c8e2e99afa553bad570a471aa4130f20e6b049",
+    "location_only_transforms": [
+      "c1b1_integrator_benchmark/study.py",
+      "c1b1_o1/model.py",
+      "tools/c1b1_o1_study.py"
+    ],
+    "parent_payload_sha256": "bbe64ed6ad96adf3654a13afea8b9ebec35743243d7fb91f1b7f268edd370232",
+    "execution_payload_sha256": "7df664a9b5ea52f0e45120d90849fad4cd48032e41243b11025f14e5faaebb46"
+  },
+  "probe": "boundary_pass\n",
+  "bootstrap_sha256": "d7ee95452910d295218496cf4574a8d4929f121e282e2cfd4ab7555a4e46b4da",
+  "bootstrap_syntax": "PASS",
+  "local_trajectory_count": 0,
+  "restored_related_exit": 0
+}

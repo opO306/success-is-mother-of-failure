@@ -1,0 +1,429 @@
+{
+  "schema": "c1b1-dt40-integrator-benchmark-ssh-resume-v1",
+  "start_head": "130df0d4cf419e349888fe0138d7d3cfc14b8b72",
+  "initial_git_clean": true,
+  "initial_ahead_behind": [
+    0,
+    0
+  ],
+  "original_payload_sha256": "bbe64ed6ad96adf3654a13afea8b9ebec35743243d7fb91f1b7f268edd370232",
+  "numerical_sources_changed": false,
+  "physics_trajectories": 0,
+  "remote_tests": 0,
+  "cost_probe": 0,
+  "conclusion": "C_UNRESOLVED",
+  "stop_reason": "DEPLOYMENT_PREFLIGHT_REFERENCE_ALIAS_MISSING",
+  "control_attempts": [
+    {
+      "instance": 52764050,
+      "start_utc": "2026-10-01T05:56:30Z",
+      "before": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "start_response": {
+        "success": false,
+        "msg": "Required resources are currently unavailable, state change queued.",
+        "error": "resources_unavailable"
+      },
+      "failure": "Vast rejected start request",
+      "stop_exit": 0,
+      "final": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:56:37Z",
+      "elapsed_seconds": 6.730144262313843,
+      "compute_cost_estimate_usd": 0.0005040684180004606,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    },
+    {
+      "instance": 52731349,
+      "start_utc": "2026-10-01T05:57:10Z",
+      "before": {
+        "id": 52731349,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "Core™ Ultra 7 265K",
+        "cpu_cores": 20,
+        "cpu_cores_effective": 20.0,
+        "cpu_ram": 64007,
+        "dph_total": 0.16074074074074074,
+        "ssh_host": "ssh2.vast.ai",
+        "ssh_port": 11348,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 5060 Ti",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "start_response": {
+        "success": false,
+        "msg": "Required resources are currently unavailable, state change queued.",
+        "error": "resources_unavailable"
+      },
+      "failure": "Vast rejected start request",
+      "stop_exit": 0,
+      "final": {
+        "id": 52731349,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "Core™ Ultra 7 265K",
+        "cpu_cores": 20,
+        "cpu_cores_effective": 20.0,
+        "cpu_ram": 64007,
+        "dph_total": 0.16074074074074074,
+        "ssh_host": "ssh2.vast.ai",
+        "ssh_port": 11348,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 5060 Ti",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:57:16Z",
+      "elapsed_seconds": 6.747509479522705,
+      "compute_cost_estimate_usd": 0.0003012776866371249,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    },
+    {
+      "instance": 52763629,
+      "start_utc": "2026-10-01T05:57:31Z",
+      "before": {
+        "id": 52763629,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "start_response": {
+        "success": true
+      },
+      "running": {
+        "id": 52763629,
+        "actual_status": "running",
+        "intended_status": "running",
+        "cur_state": "running",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "ssh_endpoint": {
+        "host": "ssh4.vast.ai",
+        "port": 13629,
+        "source": "user"
+      },
+      "failure": "Command '['scp', '-i', 'C:\\\\Users\\\\zun24\\\\.ssh\\\\vast_ai', '-P', '13629', '-o', 'StrictHostKeyChecking=accept-new', '-o', 'ConnectTimeout=20', 'C:\\\\Users\\\\zun24\\\\성공은 실패의 어머니\\\\runs\\\\c1b1_dt40_integrator_benchmark_20261001_v1\\\\deployment_bundle.tar.gz', 'root@ssh4.vast.ai:/workspace/c1b1_dt40_20261001_bundle.tar.gz']' returned non-zero exit status 255.",
+      "stop_exit": 0,
+      "final": {
+        "id": 52763629,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:58:25Z",
+      "elapsed_seconds": 54.40137839317322,
+      "compute_cost_estimate_usd": 0.0028879744085264793,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    },
+    {
+      "instance": 52763629,
+      "start_utc": "2026-10-01T06:00:38Z",
+      "before": {
+        "id": 52763629,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "start_response": {
+        "success": true
+      },
+      "running": {
+        "id": 52763629,
+        "actual_status": "running",
+        "intended_status": "running",
+        "cur_state": "running",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "ssh_endpoint": {
+        "host": "65.108.94.15",
+        "port": 42811,
+        "source": "live_API_direct_22_mapping_after_proxy_transfer_failure"
+      },
+      "ssh_checks": [
+        {
+          "attempt": 1,
+          "exit": 0,
+          "stdout": "314159\n3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]\n",
+          "stderr": "Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.\nHave fun!\n"
+        }
+      ],
+      "remote_exit": 1,
+      "failure": "result archive unavailable; partial copy attempted",
+      "stop_exit": 0,
+      "final": {
+        "id": 52763629,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+        "cpu_cores": 32,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 64231,
+        "dph_total": 0.19111111111111112,
+        "ssh_host": "ssh4.vast.ai",
+        "ssh_port": 13628,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 3090",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T06:02:44Z",
+      "elapsed_seconds": 126.13470125198364,
+      "compute_cost_estimate_usd": 0.006696039696092959,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    }
+  ],
+  "final_vast_states": {
+    "utc": "2026-10-01T06:05:32Z",
+    "instances": [
+      {
+        "id": 52731349,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped"
+      },
+      {
+        "id": 52763629,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped"
+      },
+      {
+        "id": 52763685,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped"
+      },
+      {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped"
+      }
+    ]
+  },
+  "source_integrity": {
+    "sources": {
+      "checked": 12,
+      "mismatches": 0
+    },
+    "protected_sources": {
+      "checked": 134,
+      "mismatches": 0
+    },
+    "old_O1_artifacts": {
+      "checked": 97,
+      "mismatches": 0
+    },
+    "old_cause_artifacts": {
+      "checked": 27,
+      "mismatches": 0
+    }
+  },
+  "alias_diagnosis": {
+    "files_checked": 272,
+    "mismatches": 0,
+    "aliases": {
+      "D:/reference/ar2_lang2024/S2_ar2_pot.f90": "reference/ar2_lang2024/S2_ar2_pot.f90"
+    },
+    "bundle_sha256": "cb19888ccd6ff47d40a7fbddc8d646b706fea5687a969c7f1360957869e9307d"
+  },
+  "repair_validation": {
+    "offline_archive_entries": 272,
+    "hash_mismatches": 0,
+    "syntax": "PASS",
+    "Windows_no_drive_write_guard": "PASS",
+    "remote_repair_execution": "NOT_RUN"
+  },
+  "rate_times_control_duration_proxy_usd": 0.010389360209257023,
+  "actual_billed_cost_usd": null,
+  "artifacts": {
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/archive_alias_diagnosis.json": {
+      "sha256": "0b216e49807f09bbd527fa7606ede593cba74cc856088ef3fa430431ac22e03d",
+      "bytes": 249
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/bootstrap_failure_observed.txt": {
+      "sha256": "c44231440f1309c425a9b92a3dc7c1d813bc1da3478f14aea640c7060c3e693b",
+      "bytes": 298
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/controller.py": {
+      "sha256": "6f429902c28bf4a09eb298e443c13dd752aeb090d66a11549e3cebbf4ac55985",
+      "bytes": 5976
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/controller_direct.py": {
+      "sha256": "b0d6cc1d37fdd0b20ab05cff8de11fb5516810cf1889c0451dbab64835219a5b",
+      "bytes": 6295
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/controller_user_endpoints.py": {
+      "sha256": "1279a0333da00b066ade3d23070803a983fdd8ec451bb2b2a33a5417ab83e8d6",
+      "bytes": 6091
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/final_vast_states.json": {
+      "sha256": "817761c318eeeb43c195a1a29760bf1003f88edc447558849a25abaee9619a47",
+      "bytes": 618
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/remote_bootstrap_alias_v2.py": {
+      "sha256": "62a845b37c5f1f058553da5cfab9789c84c0eb6c1b95fc06b85d0b3064e0dafe",
+      "bytes": 4596
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/restore_reference_alias.py": {
+      "sha256": "de9104c85e36c005dcf116d87f318c40b656493a11b989886219cf505c9c0488",
+      "bytes": 1128
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/resume2_vast_lifecycle.json": {
+      "sha256": "d642773c357046506a3e21aa02eb18c7ae20d1b1469ab71d3a13ef5770e242e4",
+      "bytes": 1865
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/resume3_vast_lifecycle.json": {
+      "sha256": "69195929f7113d9751c33e66c3b37914c9890c2074e939c5da7165c531dfe345",
+      "bytes": 2841
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/resume_vast_lifecycle.json": {
+      "sha256": "237d75c4e7fd41698e74ed960a7737a353e3d4dc2d635f3dd260175d8c5a67bf",
+      "bytes": 1947
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/ssh_precheck.json": {
+      "sha256": "1d37d51f09b0c7b423ff4e6e0ff559456fb34f3253129800fbf0450247d59aa0",
+      "bytes": 202
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_resume/transfer_recovery_vast_lifecycle.json": {
+      "sha256": "399da2b8053a5c91b163f92a1b2332324fcd289cf61669deaa40c3c3c472e2b5",
+      "bytes": 2844
+    }
+  },
+  "prior_failure_record_preserved": true,
+  "existing_O1": "STOPPED / NOT PASSED",
+  "existing_cause_isolation": "TIME_DISCRETIZATION_SUPPORTED",
+  "LOCAL_FULL": "OMITTED_DOCS_AND_DEPLOYMENT_ONLY",
+  "physical_related_tests_this_resume": "NOT_RUN",
+  "prior_local_unit_result": "14 passed, previous turn; not a fresh test run",
+  "commit": false,
+  "push": false
+}
