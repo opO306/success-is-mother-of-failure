@@ -15,6 +15,7 @@ from a_reference import ar2_lang2024 as L
 from a_reference import c1b1_two_atom as C
 from a_reference import c1b1_outer_bound as B
 from a_reference import c1b1_outer_bootstrap as O
+from a_reference import c1b1_source_binding as S
 
 MATH_BITS = 512
 _SOURCE_HASHES = {
@@ -28,15 +29,22 @@ _BINDINGS = tuple((module, name, getattr(module, name)) for module, names in (
 ) for name in names)
 
 
+SOURCE_BINDING_AUDITOR_SHA256 = '32ea9a1142e49156926556fce1c30e42b35ab8da4653f5c30346557eb8401584'
+_AUDIT_STATE_FUNCTION = S.binding_state
+_AUDIT_BINDING = S.binding_state()
+
+
 def proof_guard():
     O._model_guard()
+    if S.binding_state is not _AUDIT_STATE_FUNCTION or S.binding_state() != _AUDIT_BINDING or sha256(Path(S.__file__).read_bytes().replace(b"\r\n", b"\n")).hexdigest() != SOURCE_BINDING_AUDITOR_SHA256:
+        raise O.NotCertified("source-binding auditor changed")
     if (C.START_PRECISION_BITS, C.MAX_PRECISION_BITS, B.H, B.UX, B.UP, C.LN2_UPPER) != (
             128, 16384, Q(40), Q(1, 1 << 48), Q(1, 1 << 80), Q(6932, 10000)):
         raise O.NotCertified('numeric proof assumptions changed')
     if any(getattr(module, name) is not original for module, name, original in _BINDINGS):
         raise O.NotCertified('live evaluator changed')
     for module, expected in _SOURCE_HASHES.items():
-        if sha256(Path(module.__file__).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != expected:
+        if not S.source_matches(Path(module.__file__), expected):
             raise O.NotCertified('source-bound endpoint error proof needs re-audit')
 
 

@@ -238,5 +238,5 @@ def test_no_trajectory_D_valid_or_subdivision_access(monkeypatch):
 
 
 def test_recorded_report_reproduces_exactly(report):
-    recorded = json.loads((ROOT/'a_reference/fixtures/c1b1_rounding_regions_v1.json').read_text(encoding='utf-8'))
+    recorded = json.loads((ROOT/'a_reference/fixtures/c1b1_rounding_regions_rebound_v1.json').read_text(encoding='utf-8'))
     assert T.serial(report) == recorded

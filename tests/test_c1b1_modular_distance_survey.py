@@ -216,7 +216,7 @@ def test_rational_remainder_must_not_be_used_as_unscaled_congruence():
 
 
 def test_survey_fixture_exact_reproduction(report):
-    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_modular_distance_survey_v1.json').read_text(encoding='utf-8'))
+    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_modular_distance_survey_rebound_v1.json').read_text(encoding='utf-8'))
     assert json.loads(json.dumps(T.serial(report))) == stored
 
 

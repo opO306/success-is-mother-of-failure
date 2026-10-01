@@ -13,6 +13,7 @@ from a_reference import c1b1_family_checker as K
 from a_reference import c1b1_modular_distance_survey as M
 from a_reference import c1b1_rounding_diagnosis as T
 from a_reference import c1b1_outer_bootstrap as O
+from a_reference import c1b1_source_binding as SA
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'c1b1-full-residue-class-survey-v1'
@@ -273,7 +274,7 @@ def example_report():
         raise O.NotCertified('prior exact-distance survey changed')
     prior = json.loads(raw)
     for name, digest in {**prior['source_sha256']}.items():
-        if sha256((ROOT/name).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != digest:
+        if not SA.source_matches(ROOT/name, digest):
             raise O.NotCertified('prior survey source changed')
     # Bind both older fixtures and their sources without redoing the point survey.
     inputs = {}
@@ -283,7 +284,7 @@ def example_report():
             raise O.NotCertified('prior proof foundation changed')
         inputs[name] = json.loads(data)
         for source, expected in inputs[name]['source_sha256'].items():
-            if sha256((ROOT/source).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != expected:
+            if not SA.source_matches(ROOT/source, expected):
                 raise O.NotCertified('prior foundation source changed')
     p, q, terms, d = K.frozen_identity()
     if d[0] != 2**318*5**32:

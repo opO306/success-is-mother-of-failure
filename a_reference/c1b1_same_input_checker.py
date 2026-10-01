@@ -13,6 +13,7 @@ import json
 
 from a_reference import c1b1_family_checker as K
 from a_reference import c1b1_outer_bootstrap as O
+from a_reference import c1b1_source_binding as SA
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'c1b1-same-input-gap-proof-v1'
@@ -46,7 +47,7 @@ def _inputs():
     classes = json.loads((ROOT/CLASSES).read_bytes())
     for obj in (prior, classes):
         for path, digest in obj['source_sha256'].items():
-            require(_hash(path) == digest, 'same-input prior source changed')
+            require(SA.source_matches(ROOT/path, digest), 'same-input prior source changed')
     table = {(g['shell_index'], i): dict(zip(classes['class_row_fields'], row))
              for g in classes['groups'] for i, row in enumerate(g['class_rows'])}
     obligations = {(g['shell_index'], row[0]): (row, g['required_raw_M'])
@@ -60,7 +61,7 @@ def foundation_guard():
     prior, _, _ = _inputs()
     require(_hash(PRIOR) == PRIOR_HASH and _hash(CLASSES) == CLASS_HASH, 'same-input prior fixture changed')
     for path, digest in prior['source_sha256'].items():
-        require(_hash(path) == digest, 'same-input prior source changed')
+        require(SA.source_matches(ROOT/path, digest), 'same-input prior source changed')
 
 
 def _add(*polys):

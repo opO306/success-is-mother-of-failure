@@ -11,7 +11,8 @@
 | [A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md](active/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md) | docs/current/A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md |
 | [C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md](active/C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md) | 신규(2026-10-01). production verifier 계약·구현. 8996aa60 지정 fingerprint 조합 설계자 승인 완료 |
 | [C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md](active/C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md) | 신규(2026-10-01). production 승인 manifest·재검증·독립 시험 origin 기록. 원본 witness 보존 필수 |
-| [C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md](active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md) | 신규(2026-10-01), 수정 후보 / STOP. 분류 계약·호출 감사·LOCAL FULL 실패·증명 소스 결합 재감사 범위의 설계자 결정 대기 |
+| [C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md](active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md) | 신규(2026-10-01). 분류 정리 완료. 초기 STOP·실패와 후속 해결 기록 |
+| [C1B1_SOURCE_BINDING_REAUDIT_V1.md](active/C1B1_SOURCE_BINDING_REAUDIT_V1.md) | 신규(2026-10-01). 이번 예외 변경에 한정한 의미 대조·11개 증거 재생성·소스 결합 감사 완료. LOCAL FULL 통과, A-EV 전체 미해결 유지 |
 | [A_THREE_LAYER_SEPARATION_V1.md](active/A_THREE_LAYER_SEPARATION_V1.md) | 신규(2026-10-01). 세 층 분리·증거 등급·C1-B1 종료 조건 재정의 |
 | [C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md](active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md) | 신규(2026-10-01). O-3 대상 조사, 직접 산란 O-3 weak 채택 |
 | [C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md](active/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md) | docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md |

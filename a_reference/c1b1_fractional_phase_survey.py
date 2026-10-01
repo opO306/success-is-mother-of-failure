@@ -15,6 +15,7 @@ from a_reference import c1b1_outer_bound as B
 from a_reference import c1b1_outer_bootstrap as O
 from a_reference import c1b1_rounding_regions as R
 from a_reference import c1b1_rounding_diagnosis as T
+from a_reference import c1b1_source_binding as SA
 
 VERSION = 'c1b1-fractional-phase-survey-v1'
 RESIDUAL_BITS = 4096
@@ -338,7 +339,7 @@ def example_report():
         raise O.NotCertified('prior formula inventory changed')
     earlier = json.loads(earlier_path.read_text(encoding='utf-8'))
     for path, expected in {**earlier['source_sha256'], **prior['source_sha256']}.items():
-        if sha256((ROOT/path).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != expected:
+        if not SA.source_matches(ROOT/path, expected):
             raise O.NotCertified('prior source provenance changed')
     p, q, terms, common = normal_form()
     groups = tuple({'shell_index': g['shell_index'], **survey_domain(g['certificate']['domain'])}

@@ -16,22 +16,37 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** (세 층 분리 기준으로 종료 조건 재정의, 2026-10-01) |
-| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선), `_decide` 예외 분류 정리. production replay verifier V1 지정 fingerprint 조합은 설계자 승인 완료(8996aa60). independent 전 step replay와 증거 등급·확정 최소 구조/시험 구현 완료. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인). 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
+| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선). `_decide` 예외 분류 및 이번 변경의 source-binding 재감사 완료(LOCAL FULL 통과). production replay verifier V1 지정 fingerprint 조합은 설계자 승인 완료(8996aa60). independent 전 step replay와 증거 등급·확정 최소 구조/시험 구현 완료. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인) 미착수. 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
 | **다음 Gate** | **C1-B1 종료 → 다원자 기체 단계(첫 항목: 적분기 에너지 범위 확장, 강한 O-3 = 희박 Ar 점성) → C1-C 전 N-1 재평가** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 FROZEN이 아니며 ⑤는 시작하지 않았다.**
 2026-10-01 세 층 분리 결정으로 ④의 "전 궤적 사전 증명" 부분은 Gate에서 연구 과제로 이동했다(삭제·실패 판정 아님).
 ④-Liveness NotCertified, ④-Safety Conditional, A-EV 미해결 상태 표기는 그대로 유지한다.
 
-**`_decide` 예외 분류 후보 STOP(2026-10-01, 기준 `53b73ea`):**
+**`_decide` 예외 분류·소스 결합 재감사 완료(2026-10-01):**
+[제한된 재감사 보고서](docs/active/C1B1_SOURCE_BINDING_REAUDIT_V1.md).
+실제 작업 시작 HEAD/origin/master는 `bdc9bfe7c5c763c2900121e4d8f2bcdcf56782e8`, clean이었다.
+기존 예외 분류는 유지하고, `53b73ea`의 정상 proof 입력에서 함수 의미와 수학 본문을 대조했다.
+기존 generator/checker로 증거 11개를 재생성해 certificate/bound/candidate/group/판정 등
+전체 수학적 payload의 동일성을 확인했다. 원래 기대 hash·고정 parent inventory 8개와
+역사 원본 20개를 보존하고, 감사한 변환만 허용하는 소스 결합을 추가했다.
+관련 **364 passed(80.21초)**, 최종 **LOCAL FULL 3483 passed + 1 strict xfailed,
+실제 skip 0, failure/error 0, exit 0, 25 warnings, 684.98초**. 기존 native 출력 해독 경고는
+해결하지 않았다. 공식 AGENTS 기준선은 설계자 판정 없이 갱신하지 않는다.
+새 bound/lemma/Certified region 0개. A-EV·D_valid·④ 전체 재증명 아님.
+승인 replay verifier와 7개 CONFIRMED test history, 기존 네 상태는 그대로다.
+O-1/O-3/native J/live pipe/rollback controller·새 물리는 시작하지 않았다. push 없음.
+
+**초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
 보존된 7개 입력의 79,087 step raw/J는 비트 동일했다. 그러나 LOCAL FULL은
 **3253 passed / 58 failed / 143 errors / 1 strict xfailed / 실제 skip 0, 687.63초**로 실패했다.
 실패/error 201개는 기존 endpoint 증명 소스 결합 guard 및 진단·그룹 기록의 provenance 불일치다.
 비트 비교만으로 증명 결합을 갱신하지 않고 재감사·재결합 범위의 설계자 결정 전 STOP했다.
-이 후보는 미완료·미commit이며 기존 승인 verifier와 7개 CONFIRMED test history는 변경하지 않았다.
-공식 LOCAL FULL 기준선과 Gate 상태는 갱신하지 않는다. O-1 및 다른 후속 작업도 시작하지 않았다.
+당시 후보는 미완료·미commit이었다. 이후 분류 변경은 `bdc9bfe7`에 보존됐고,
+설계자가 변경 유지·제한된 재감사를 승인해 위 결과로 STOP을 해소했다.
+초기 실패 로그는 보존하며 공식 통과 실행으로 세지 않는다.
 
 ## C1-B1: 완료된 부분과 남은 의무
 
@@ -692,7 +707,7 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
-**아직 남음 (Gate):** A-EV / `_decide` 예외 분류 정리 / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze. production independent replay verifier 구현·승인 및 증거 등급·확정 계약 최소 시험은 완료. 시험 history는 공식 O-3나 운영 세계 역사로 자동 재사용하지 않는다.
+**아직 남음 (Gate):** A-EV / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze. `_decide` 예외 분류·제한된 소스 결합 재감사, production independent replay verifier 구현·승인 및 증거 등급·확정 계약 최소 시험은 완료. 시험 history는 공식 O-3나 운영 세계 역사로 자동 재사용하지 않는다.
 **별도 Gate:** native J evaluator와 실행기 비트 동등성(이종 실행기, CONFIRMED 전제 아님).
 **연구 과제 (Gate 아님, 보존):** inbound 저에너지 잔여 / inner(④ step 4) / S4d passing-side δ / global shadowing / 전체 산란각 formal proof / E_min 재생성 / 속박 궤도 domain·error proof / 정확 분수 대리식 fast path survey.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

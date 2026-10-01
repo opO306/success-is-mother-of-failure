@@ -1,0 +1,251 @@
+{
+  "version": "c1b1-source-binding-reaudit-v1",
+  "scope": "exception classification only; no new mathematical bounds or coverage",
+  "old_origin_commit": "53b73ea59fb27a5f29b33fce49751dd621a46696",
+  "classification_commit": "bdc9bfe7c5c763c2900121e4d8f2bcdcf56782e8",
+  "source_sha256": {
+    "a_reference/c1b1_two_atom.py": "c09c080775768c27ae77deeabb7a55ddc136095138d06bddb7efaf8ac8b21591",
+    "a_reference/c1b1_axis_decision_bounds.py": "3741da990f0f8af9aec48a5d163f75a9af63d4fd2064848473190153d965e3ae",
+    "a_reference/c1b1_family_checker.py": "4860a0281ec5dfa1685002acb9ef6a3be1fdc34755c5b4d62ac320b9ee743332",
+    "a_reference/c1b1_half_ulp_boundaries.py": "1c1029572abed4c4086160d5bd823ebf23c8bf5684425d385ffa14051b70c271",
+    "a_reference/c1b1_fractional_phase_survey.py": "db610775d47907aad4a78de15510edf322a1a582d3fe9bc2f3bee1f600918c4e",
+    "a_reference/c1b1_modular_distance_survey.py": "b81d7a1c5e6c0e975e55a3f3c0099c9166e0171840a3195b14561cf31639dc3d",
+    "a_reference/c1b1_residue_class_survey.py": "17a8910d42f67563e999dcc7c5edd490b60cd4011dcabd96d242cccc4053d8ce",
+    "a_reference/c1b1_quotient_gap_survey.py": "3dd08c0103caec70d80529311af8c3cfe166df4604b4ea21d5f317588ee15370",
+    "a_reference/c1b1_same_input_checker.py": "85bfb00f644a638e8632139d7c192cd7cda125b89863900cb46e2bc61bf2c0c2",
+    "a_reference/c1b1_source_binding.py": "32ea9a1142e49156926556fce1c30e42b35ab8da4653f5c30346557eb8401584",
+    "a_numeric/profiles.py": "ef15c24330cec5b2ca8db28b072d12dcc46d35c15afcbb2d3f89977140bd9aec",
+    "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b",
+    "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+    "tools/c1b1_source_binding_reaudit.py": "7cffc640589b68244872cc4285f19b6bf24eac5762bf740c39a82f1995fd8241"
+  },
+  "source_ast_transport": {
+    "a_reference/c1b1_two_atom.py": true,
+    "a_reference/c1b1_axis_decision_bounds.py": true,
+    "a_reference/c1b1_family_checker.py": true,
+    "a_reference/c1b1_half_ulp_boundaries.py": true,
+    "a_reference/c1b1_fractional_phase_survey.py": true,
+    "a_reference/c1b1_modular_distance_survey.py": true,
+    "a_reference/c1b1_residue_class_survey.py": true,
+    "a_reference/c1b1_quotient_gap_survey.py": true,
+    "a_reference/c1b1_same_input_checker.py": true
+  },
+  "original_foundation_sha256": {
+    "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+    "a_reference/c1b1_axis_decision_bounds.py": "3ff1590322cd9dbb7c34b345a56cac35ad649a5c3881661fb3a1ec8bebd7c68c",
+    "a_reference/c1b1_rounding_regions.py": "3a3e0223bde14795fb8d3da02ff3bd1816595b20d63bb6b2ec227ef909f49f58",
+    "a_reference/c1b1_two_atom.py": "e5889e8af2901eaa594b9b593a2c47048c61a4b4811bb0af04fb6c5d25c32c0e",
+    "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b"
+  },
+  "endpoint_math_bodies_unchanged": true,
+  "premises": [
+    "ordered finite Fraction enclosure",
+    "canonical FixedPoint profile",
+    "legal stored raw state and legal cached impulse",
+    "existing domain/overflow/precision schedule unchanged"
+  ],
+  "new_normal_input_premises": [],
+  "regenerated": [
+    {
+      "kind": "outer_bootstrap_example",
+      "historical_path": "a_reference/fixtures/c1b1_outer_bootstrap_example_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_outer_bootstrap_example_v1.json",
+      "old_artifact_sha256": "50c9d09dce15195c34629b2a38f7770f487ad893ad6401ac0f505bf08e13e666",
+      "new_artifact_sha256": "55ab50707594911c3b58fceb0d51617ae4ecd98d9996adf53e0d97f0b15dd698",
+      "mathematical_payload_sha256": "268b728d3da0f9df9157e38ef66ab58eba68a4b368a09ecddb0c1178fb5b195b",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_outer_chain.py": "7d6ff65ef209b4e9842da6b255d98a88d03fba72b6a0c22d2d4e3312e02a9007",
+          "a_reference/c1b1_outer_bootstrap.py": "f15af5a1333c65c24b1a98208aa0f22e1e8324d649b999071d0dfd97c3ad8757",
+          "a_reference/c1b1_outer_bound.py": "a1859a729c5a840490667173da42845cffaf7567b2886d425bd5cf98612715b0",
+          "a_reference/c1b1_two_atom.py": "c09c080775768c27ae77deeabb7a55ddc136095138d06bddb7efaf8ac8b21591",
+          "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+          "a_numeric/profiles.py": "ef15c24330cec5b2ca8db28b072d12dcc46d35c15afcbb2d3f89977140bd9aec",
+          "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b"
+        }
+      },
+      "generator": "a_reference.c1b1_outer_chain.example_report"
+    },
+    {
+      "kind": "rounding_decision_examples",
+      "historical_path": "a_reference/fixtures/c1b1_rounding_decision_examples_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_rounding_decision_examples_v1.json",
+      "old_artifact_sha256": "68436ee99a8046468c425e3c0fab8ec116ff64f64eb3156b027368f2407dee7d",
+      "new_artifact_sha256": "ebf5630efcdc2a0fdd0b5efb1a291543769b788b40551f61549a73664357b9a0",
+      "mathematical_payload_sha256": "714f20d9cbf6e5bb056e6b4663d990f88fe8d010b353658ee64f9bc2fe659178",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_rounding_completeness.py": "c952cb7b801412bee7730114012bd5981bb6e87bfe7ac821b8d219486ae60419",
+          "a_reference/c1b1_reachable_geometry.py": "48f81530fdf464f75d3426e99fb48f203858a6ad317e0dcfb41789fc9c1dba04",
+          "a_reference/c1b1_two_atom.py": "c09c080775768c27ae77deeabb7a55ddc136095138d06bddb7efaf8ac8b21591",
+          "a_reference/c1b1_outer_bootstrap.py": "f15af5a1333c65c24b1a98208aa0f22e1e8324d649b999071d0dfd97c3ad8757",
+          "a_reference/c1b1_outer_chain.py": "7d6ff65ef209b4e9842da6b255d98a88d03fba72b6a0c22d2d4e3312e02a9007",
+          "a_reference/c1b1_outer_bound.py": "a1859a729c5a840490667173da42845cffaf7567b2886d425bd5cf98612715b0",
+          "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+          "a_numeric/profiles.py": "ef15c24330cec5b2ca8db28b072d12dcc46d35c15afcbb2d3f89977140bd9aec",
+          "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b"
+        }
+      },
+      "generator": "a_reference.c1b1_rounding_completeness.example_report"
+    },
+    {
+      "kind": "rounding_diagnosis",
+      "historical_path": "a_reference/fixtures/c1b1_rounding_diagnosis_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_rounding_diagnosis_v1.json",
+      "old_artifact_sha256": "c8a14b5e1990a86f072011fa6f9684c666a1c49e39713219ef8a131d7d950d27",
+      "new_artifact_sha256": "4c365afa9350d4b7e0d446c6c4955cf685e419a8730e3a5c4322bbcc61870b31",
+      "mathematical_payload_sha256": "d6998232cab9cccf1bb7c696e01001c64a0ad08977af034a2f8e5570bb845d20",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_rounding_diagnosis.py": "933f35027850a06347569e01f1fd2996ecf8cf9e1ebcc80c0f8a15d3875824f5",
+          "a_reference/c1b1_rounding_completeness.py": "c952cb7b801412bee7730114012bd5981bb6e87bfe7ac821b8d219486ae60419",
+          "a_reference/c1b1_reachable_geometry.py": "48f81530fdf464f75d3426e99fb48f203858a6ad317e0dcfb41789fc9c1dba04",
+          "a_reference/c1b1_two_atom.py": "c09c080775768c27ae77deeabb7a55ddc136095138d06bddb7efaf8ac8b21591",
+          "a_reference/c1b1_outer_bootstrap.py": "f15af5a1333c65c24b1a98208aa0f22e1e8324d649b999071d0dfd97c3ad8757",
+          "a_reference/c1b1_outer_bound.py": "a1859a729c5a840490667173da42845cffaf7567b2886d425bd5cf98612715b0",
+          "a_reference/c1b1_outer_chain.py": "7d6ff65ef209b4e9842da6b255d98a88d03fba72b6a0c22d2d4e3312e02a9007",
+          "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+          "a_numeric/profiles.py": "ef15c24330cec5b2ca8db28b072d12dcc46d35c15afcbb2d3f89977140bd9aec",
+          "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b"
+        }
+      },
+      "generator": "a_reference.c1b1_rounding_diagnosis.example_report"
+    },
+    {
+      "kind": "rounding_regions",
+      "historical_path": "a_reference/fixtures/c1b1_rounding_regions_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_rounding_regions_rebound_v1.json",
+      "old_artifact_sha256": "41d2259c7981b6d9fb9b1c50cf15f25acefae7ac14fb56cf7ec9b75f6d490e8f",
+      "new_artifact_sha256": "a4fdc7b0aba60738e7073df4682965eada11deea18bf9823ff05e47489cc7615",
+      "mathematical_payload_sha256": "5ad0f07c4d2e293949fbfb861cc4264de82f97e6167523c8cac2ac3de4ed9d38",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_rounding_regions.py": "3a3e0223bde14795fb8d3da02ff3bd1816595b20d63bb6b2ec227ef909f49f58",
+          "a_reference/c1b1_axis_decision_bounds.py": "3741da990f0f8af9aec48a5d163f75a9af63d4fd2064848473190153d965e3ae",
+          "a_reference/c1b1_two_atom.py": "c09c080775768c27ae77deeabb7a55ddc136095138d06bddb7efaf8ac8b21591",
+          "a_numeric/exp.py": "33522adcb4cc07cac5c65ec26187993d0b43efd214a7b846c2a207605108d58b"
+        },
+        "diagnosis_sha256": "4c365afa9350d4b7e0d446c6c4955cf685e419a8730e3a5c4322bbcc61870b31"
+      },
+      "generator": "a_reference.c1b1_rounding_regions.example_report"
+    },
+    {
+      "kind": "half_ulp_boundaries",
+      "historical_path": "a_reference/fixtures/c1b1_half_ulp_boundaries_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_half_ulp_boundaries_rebound_v1.json",
+      "old_artifact_sha256": "5874f229e5f87783c90713b6c0342ddf1e2290ae73753c02e3527624e928fd1f",
+      "new_artifact_sha256": "29914fd50f25ba276b1565ec70d569633fe81b12486d37cdddf7684b49cf432e",
+      "mathematical_payload_sha256": "452adec885e0c3843dea0f6452eb45780bc6dae1d6b4f47ee12424e4ad9355cf",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_half_ulp_boundaries.py": "1c1029572abed4c4086160d5bd823ebf23c8bf5684425d385ffa14051b70c271"
+        },
+        "prior_fixture_sha256": "41d2259c7981b6d9fb9b1c50cf15f25acefae7ac14fb56cf7ec9b75f6d490e8f"
+      },
+      "generator": "a_reference.c1b1_half_ulp_boundaries.example_report"
+    },
+    {
+      "kind": "fractional_phase_survey",
+      "historical_path": "a_reference/fixtures/c1b1_fractional_phase_survey_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_fractional_phase_survey_rebound_v1.json",
+      "old_artifact_sha256": "fb670f1d0b7c5245442e323aaa9b76e05f658b149ae3f2a304e4422d37e38d41",
+      "new_artifact_sha256": "9a21358855defa2a6e989cbef02401429a7eecc2412c3a92f968ad276e6003a2",
+      "mathematical_payload_sha256": "91e0ad4a2fa38f79e8e0e0ff40a9426e3fe6cd3aa44924b06020b61b25f5359d",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_fractional_phase_survey.py": "db610775d47907aad4a78de15510edf322a1a582d3fe9bc2f3bee1f600918c4e"
+        }
+      },
+      "generator": "a_reference.c1b1_fractional_phase_survey.example_report"
+    },
+    {
+      "kind": "family_certificates",
+      "historical_path": "a_reference/fixtures/c1b1_family_certificates_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_family_certificates_rebound_v1.json",
+      "old_artifact_sha256": "1336591ec474670e1ab6a70056d4b3454191db1fd3613e2f229d7466a5a1a1d6",
+      "new_artifact_sha256": "9ede9dc2ff752898bdd6f95f0eb119c01d02c953766154bbee51123d109be8d5",
+      "mathematical_payload_sha256": "473906d6d432e8c8438785358deecfa8f0c51a1fd9a840842019ed6ef383a222",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_family_checker.py": "4860a0281ec5dfa1685002acb9ef6a3be1fdc34755c5b4d62ac320b9ee743332",
+          "a_reference/c1b1_fractional_phase_survey.py": "db610775d47907aad4a78de15510edf322a1a582d3fe9bc2f3bee1f600918c4e",
+          "a_reference/c1b1_family_certificates.py": "aa193ddac9e22590e1cce91ace1f9dfa0f4e80297a86266fe76a078bd3357826"
+        }
+      },
+      "generator": "a_reference.c1b1_family_certificates.example_report"
+    },
+    {
+      "kind": "modular_distance_survey",
+      "historical_path": "a_reference/fixtures/c1b1_modular_distance_survey_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_modular_distance_survey_rebound_v1.json",
+      "old_artifact_sha256": "3676aa17727aaeae6a2e199628ded4cb087c37b5bb86bfc2cf410f843ef62ace",
+      "new_artifact_sha256": "3e35857daa5f1a6ddca93309e6331b5bdd3ef8ac3fd6a7bb3f09bd78d6c4a77b",
+      "mathematical_payload_sha256": "e7acdad146ad4af78453b7e5c3fb78f5e0a31c6716724c1d2b67ba598512d443",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_modular_distance_survey.py": "b81d7a1c5e6c0e975e55a3f3c0099c9166e0171840a3195b14561cf31639dc3d"
+        }
+      },
+      "generator": "a_reference.c1b1_modular_distance_survey.example_report"
+    },
+    {
+      "kind": "residue_class_survey",
+      "historical_path": "a_reference/fixtures/c1b1_residue_class_survey_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_residue_class_survey_rebound_v1.json",
+      "old_artifact_sha256": "f209b3d32fffb2e2807f22b7099fbfcf55cc2499836437328e6b35c855368c3d",
+      "new_artifact_sha256": "3b52c95f8f8dd8b18b9a4bc14049160498fbd6085d8841e1170b2d6e5ad553f9",
+      "mathematical_payload_sha256": "61db2f657e7c39bd4835dc381e2161a72a220dea79afae4b04ab370baf77553e",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_residue_class_survey.py": "17a8910d42f67563e999dcc7c5edd490b60cd4011dcabd96d242cccc4053d8ce"
+        }
+      },
+      "generator": "a_reference.c1b1_residue_class_survey.example_report"
+    },
+    {
+      "kind": "quotient_gap_survey",
+      "historical_path": "a_reference/fixtures/c1b1_quotient_gap_survey_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_quotient_gap_survey_rebound_v1.json",
+      "old_artifact_sha256": "33492859bb776a72aa47df768451417595dd8f8773c89f87e2e36819a5c32594",
+      "new_artifact_sha256": "b6451d396587a39128b4ef4adcebd13e1d1030c306847fe515665e4d10c8cb8e",
+      "mathematical_payload_sha256": "613c96205f7666ebc225b4579e1d93f7f757c5bbbfd7f26925765bc6b55d4d92",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_quotient_gap_survey.py": "3dd08c0103caec70d80529311af8c3cfe166df4604b4ea21d5f317588ee15370"
+        }
+      },
+      "generator": "a_reference.c1b1_quotient_gap_survey.example_report"
+    },
+    {
+      "kind": "same_input_survey",
+      "historical_path": "a_reference/fixtures/c1b1_same_input_survey_v1.json",
+      "current_path": "a_reference/fixtures/c1b1_same_input_survey_rebound_v1.json",
+      "old_artifact_sha256": "508109d77b9c2dd9e5b304aa6846e0abc4ebe87a7e6daaff80aadad5b8d81aa8",
+      "new_artifact_sha256": "6819fdb9cdd773ab7d3c34a3a6e177ea1c54046775733fef7c5389de2789eb70",
+      "mathematical_payload_sha256": "5cc38282a2e6a414da0a709184444e3600034ea62d36f66f62fa062267f41e99",
+      "mathematical_payload_identical": true,
+      "provenance": {
+        "source_sha256": {
+          "a_reference/c1b1_same_input_filter.py": "ef4e47ce4a3a48768812c803d45600bba8df3c8061feb60185112f4440add78b",
+          "a_reference/c1b1_same_input_checker.py": "85bfb00f644a638e8632139d7c192cd7cda125b89863900cb46e2bc61bf2c0c2"
+        }
+      },
+      "generator": "a_reference.c1b1_same_input_filter.example_report"
+    }
+  ],
+  "original_half_ulp_inventory_unchanged": true,
+  "all_original_parent_inventories_unchanged": true,
+  "new_certified_region_count": 0,
+  "A_EV_closed": false,
+  "LOCAL_FULL": "separate test evidence required; not inferred by this receipt"
+}

@@ -292,5 +292,8 @@ def test_no_replay_D_valid_or_prior_point_list_interpolation(monkeypatch):
 
 
 def test_recorded_report_reproduces_exactly(report):
-    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_half_ulp_boundaries_v1.json').read_text(encoding='utf-8'))
+    # The original file remains the hash-pinned inventory of later proofs.
+    # Current provenance comes from a fresh generator execution, with the
+    # entire mathematical payload compared to that original by the re-audit.
+    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_half_ulp_boundaries_rebound_v1.json').read_text(encoding='utf-8'))
     assert T.serial(report) == stored

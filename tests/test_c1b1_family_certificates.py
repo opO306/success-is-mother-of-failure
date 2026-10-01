@@ -250,5 +250,5 @@ def test_json_proof_objects_are_self_contained_and_reproducible(report):
     wire = json.loads(json.dumps(T.serial(report)))
     for group in wire['groups']:
         K.verify_certificate(group['certificate'], group['expected_domain'])
-    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_family_certificates_v1.json').read_text(encoding='utf-8'))
+    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_family_certificates_rebound_v1.json').read_text(encoding='utf-8'))
     assert wire == stored

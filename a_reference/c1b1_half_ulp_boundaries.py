@@ -16,6 +16,7 @@ from a_reference import c1b1_axis_decision_bounds as A
 from a_reference import c1b1_rounding_regions as R
 from a_reference import c1b1_rounding_diagnosis as T
 from a_reference import c1b1_rounding_completeness as D
+from a_reference import c1b1_source_binding as SA
 from a_numeric import FixedPoint
 
 VERSION = 'c1b1-half-ulp-boundaries-v1'
@@ -314,7 +315,7 @@ def example_report():
     prior_path = root/'a_reference/fixtures/c1b1_rounding_regions_v1.json'
     prior = json.loads(prior_path.read_text(encoding='utf-8'))
     for path, expected in prior['source_sha256'].items():
-        if sha256((root/path).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != expected:
+        if not SA.source_matches(root/path, expected):
             raise O.NotCertified('prior group proof provenance changed')
     groups = []
     for group in prior['groups']:

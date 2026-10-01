@@ -15,6 +15,7 @@ from a_reference import c1b1_modular_distance_survey as M
 from a_reference import c1b1_family_checker as K
 from a_reference import c1b1_outer_bootstrap as O
 from a_reference import c1b1_rounding_diagnosis as T
+from a_reference import c1b1_source_binding as SA
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'c1b1-normalized-quotient-gap-survey-v1'
@@ -221,7 +222,7 @@ def example_report(raw_path=None):
     def bound_chain(obj):
         for name, digest in obj.get('source_sha256', {}).items():
             actual = (ROOT/name).read_bytes().replace(b'\r\n', b'\n')
-            _require(sha256(actual).hexdigest() == digest, 'prior source changed')
+            _require(SA.source_matches(ROOT/name, digest), 'prior source changed')
         parents = obj.get('prior_fixture_sha256', {})
         if isinstance(parents, str):
             legacy_parents = {

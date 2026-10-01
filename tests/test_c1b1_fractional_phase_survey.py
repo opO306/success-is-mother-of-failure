@@ -274,5 +274,5 @@ def test_wrong_axis_domain_is_refused():
 
 
 def test_fixture_is_exactly_reproducible(report):
-    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_fractional_phase_survey_v1.json').read_text(encoding='utf-8'))
+    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_fractional_phase_survey_rebound_v1.json').read_text(encoding='utf-8'))
     assert json.loads(json.dumps(T.serial(report))) == stored

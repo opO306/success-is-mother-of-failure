@@ -17,6 +17,7 @@ from a_reference import c1b1_rounding_diagnosis as T
 from a_reference import c1b1_axis_decision_bounds as A
 from a_reference import c1b1_outer_bound as B
 from a_reference import c1b1_outer_bootstrap as O
+from a_reference import c1b1_source_binding as SA
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'c1b1-exact-modular-distance-survey-v1'
@@ -260,7 +261,7 @@ def example_report(raw_path=None):
             raise O.NotCertified('prior survey/certification fixture changed')
         fixtures[name] = json.loads(data)
         for source, digest in fixtures[name]['source_sha256'].items():
-            if sha256((ROOT/source).read_bytes().replace(b'\r\n', b'\n')).hexdigest() != digest:
+            if not SA.source_matches(ROOT/source, digest):
                 raise O.NotCertified('prior source binding changed')
     old_survey, family = (fixtures[name] for name in PRIOR_HASHES)
     p, q, terms, _ = S.normal_form()

@@ -118,7 +118,7 @@ def test_odd_condition_fault_changes_result_and_is_detected(monkeypatch):
 
 @pytest.fixture(scope='module')
 def stored():
-    return json.loads((ROOT/'a_reference/fixtures/c1b1_quotient_gap_survey_v1.json').read_text())
+    return json.loads((ROOT/'a_reference/fixtures/c1b1_quotient_gap_survey_rebound_v1.json').read_text())
 
 
 def test_real_inventory_and_evidence_boundaries(stored):

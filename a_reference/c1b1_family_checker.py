@@ -15,6 +15,7 @@ from a_reference import ar2_lang2024 as L
 from a_reference import c1b1_axis_decision_bounds as A
 from a_reference import c1b1_outer_bootstrap as O
 from a_reference import c1b1_rounding_regions as R
+from a_reference import c1b1_source_binding as S
 
 VERSION = 'c1b1-rational-spacing-family-v1'
 SCOPE = 'declared_positive_axis_lattice_domain_only'
@@ -61,7 +62,7 @@ def foundation_guard():
     _require(A.MATH_BITS == 512 and all(vars(owner).get(name) is original for owner, name, original in _HELPER_BINDINGS),
              'live numeric helper foundation changed')
     for path, expected in FOUNDATION_HASHES.items():
-        _require(sha256((ROOT/path).read_bytes().replace(b'\r\n', b'\n')).hexdigest() == expected,
+        _require(S.source_matches(ROOT/path, expected),
                  'family foundation source changed')
 
 

@@ -1,0 +1,86 @@
+{
+  "origin_commit": "53b73ea59fb27a5f29b33fce49751dd621a46696",
+  "scope": "read-only historical originals, not current proof binding",
+  "files": {
+    "a_reference/c1b1_two_atom.py": {
+      "sha256": "e5889e8af2901eaa594b9b593a2c47048c61a4b4811bb0af04fb6c5d25c32c0e",
+      "bytes": 25390
+    },
+    "a_reference/c1b1_axis_decision_bounds.py": {
+      "sha256": "3ff1590322cd9dbb7c34b345a56cac35ad649a5c3881661fb3a1ec8bebd7c68c",
+      "bytes": 12428
+    },
+    "a_reference/c1b1_family_checker.py": {
+      "sha256": "bb6a39be7f58eb4fc317bd0f74c94f47534f1dd21528f995b12320dcac7ed9d0",
+      "bytes": 14591
+    },
+    "a_reference/fixtures/c1b1_rounding_diagnosis_v1.json": {
+      "sha256": "c8a14b5e1990a86f072011fa6f9684c666a1c49e39713219ef8a131d7d950d27",
+      "bytes": 678834
+    },
+    "a_reference/fixtures/c1b1_rounding_regions_v1.json": {
+      "sha256": "41d2259c7981b6d9fb9b1c50cf15f25acefae7ac14fb56cf7ec9b75f6d490e8f",
+      "bytes": 164952
+    },
+    "a_reference/fixtures/c1b1_half_ulp_boundaries_v1.json": {
+      "sha256": "5874f229e5f87783c90713b6c0342ddf1e2290ae73753c02e3527624e928fd1f",
+      "bytes": 202421
+    },
+    "a_reference/fixtures/c1b1_outer_bootstrap_example_v1.json": {
+      "sha256": "50c9d09dce15195c34629b2a38f7770f487ad893ad6401ac0f505bf08e13e666",
+      "bytes": 604673
+    },
+    "a_reference/fixtures/c1b1_rounding_decision_examples_v1.json": {
+      "sha256": "68436ee99a8046468c425e3c0fab8ec116ff64f64eb3156b027368f2407dee7d",
+      "bytes": 2174201
+    },
+    "a_reference/fixtures/c1b1_family_certificates_v1.json": {
+      "sha256": "1336591ec474670e1ab6a70056d4b3454191db1fd3613e2f229d7466a5a1a1d6",
+      "bytes": 429563
+    },
+    "a_reference/c1b1_half_ulp_boundaries.py": {
+      "sha256": "c71886bb6de0c69aad829f3d3c817c567e1981308ac7f0d2a2d9718d0fd8f4ed",
+      "bytes": 18599
+    },
+    "a_reference/c1b1_fractional_phase_survey.py": {
+      "sha256": "b6eab332e14238a0f8ee91eb9ab14c2062c04ef42e38e93e964049ab843fb7e1",
+      "bytes": 17743
+    },
+    "a_reference/c1b1_modular_distance_survey.py": {
+      "sha256": "3b31d8bbc270a52dbb4e51d09bed5960c9536c69dfd1342fa1662758dc57b50e",
+      "bytes": 17155
+    },
+    "a_reference/c1b1_residue_class_survey.py": {
+      "sha256": "2b76285a45b37b58a2320b650643b551f617b73e47f35c114cd47f6fd52ddb7f",
+      "bytes": 22224
+    },
+    "a_reference/c1b1_quotient_gap_survey.py": {
+      "sha256": "f90bf0e1bc1ecec5197e62e9a66ffee6c4d67e1ec8118d6f0f56ad0f1a8d350d",
+      "bytes": 16591
+    },
+    "a_reference/c1b1_same_input_checker.py": {
+      "sha256": "02586d548bce8fe25b2b8d1083ab0435d9cf490feab8e263fcde9c6f8f9340bf",
+      "bytes": 12571
+    },
+    "a_reference/fixtures/c1b1_fractional_phase_survey_v1.json": {
+      "sha256": "fb670f1d0b7c5245442e323aaa9b76e05f658b149ae3f2a304e4422d37e38d41",
+      "bytes": 3315048
+    },
+    "a_reference/fixtures/c1b1_modular_distance_survey_v1.json": {
+      "sha256": "3676aa17727aaeae6a2e199628ded4cb087c37b5bb86bfc2cf410f843ef62ace",
+      "bytes": 1706379
+    },
+    "a_reference/fixtures/c1b1_residue_class_survey_v1.json": {
+      "sha256": "f209b3d32fffb2e2807f22b7099fbfcf55cc2499836437328e6b35c855368c3d",
+      "bytes": 5315177
+    },
+    "a_reference/fixtures/c1b1_quotient_gap_survey_v1.json": {
+      "sha256": "33492859bb776a72aa47df768451417595dd8f8773c89f87e2e36819a5c32594",
+      "bytes": 3720357
+    },
+    "a_reference/fixtures/c1b1_same_input_survey_v1.json": {
+      "sha256": "508109d77b9c2dd9e5b304aa6846e0abc4ebe87a7e6daaff80aadad5b8d81aa8",
+      "bytes": 2664813
+    }
+  }
+}

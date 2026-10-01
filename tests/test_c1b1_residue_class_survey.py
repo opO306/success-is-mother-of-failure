@@ -207,7 +207,7 @@ def test_real_normalization_hashes_and_pairwise_coprimality(report):
 
 
 def test_lossless_fixture_reproduction(report):
-    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_residue_class_survey_v1.json').read_text(encoding='utf-8'))
+    stored = json.loads((ROOT/'a_reference/fixtures/c1b1_residue_class_survey_rebound_v1.json').read_text(encoding='utf-8'))
     assert V.packed_report(report) == stored
     assert V.unpacked_report(stored) == T.serial(report)
 

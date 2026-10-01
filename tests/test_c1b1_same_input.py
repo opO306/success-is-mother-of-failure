@@ -140,7 +140,7 @@ def test_wrong_same_j_range_helper_changes_output_and_checker_detects(monkeypatc
 
 @pytest.fixture(scope='module')
 def stored():
-    return json.loads((ROOT/'a_reference/fixtures/c1b1_same_input_survey_v1.json').read_bytes())
+    return json.loads((ROOT/'a_reference/fixtures/c1b1_same_input_survey_rebound_v1.json').read_bytes())
 
 
 def test_real_inventory_keeps_every_original_obligation(stored):

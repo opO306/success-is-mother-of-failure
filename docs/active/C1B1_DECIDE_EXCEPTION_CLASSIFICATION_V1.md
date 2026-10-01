@@ -2,7 +2,11 @@
 
 2026-10-01. 시작 HEAD/origin/master `53b73ea59fb27a5f29b33fce49751dd621a46696`, 시작 작업 트리 clean.
 이 분류 계약을 실행 코드 수정 전에 고정했다. 새 물리·영역·반올림·정밀도 cap을 정의하지 않는다.
-현재 상태는 **수정 후보 / STOP / 작업 미완료**다. LOCAL FULL이 실패했으며 commit/push하지 않았다.
+현재 상태는 **예외 분류 정리 및 제한된 source-binding 재감사 완료**다.
+초기 STOP 뒤 설계자가 변경 유지·제한된 재감사를 승인했고, 분류 코드는 `bdc9bfe7`에 보존됐다.
+[재감사·증거 재결합 보고서](C1B1_SOURCE_BINDING_REAUDIT_V1.md)의 최종 LOCAL FULL은
+**3483 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, 684.98초**로 통과했다.
+아래 초기 실패와 STOP 근거는 당시 기록으로 보존한다. push하지 않았다.
 
 ## 분류 계약
 
@@ -79,7 +83,7 @@ C1-A 자체 evaluator는 별도 동결 경로이므로 수정하지 않는다. �
 기존 ReferenceUndecided 상속·reason, impulse VMHalt와 kick/drift ExecutorLimitExceeded의
 차이는 충돌을 해결한다며 합치지 않는다. 정상 입력의 수식·raw 결과는 바꾸지 않는다.
 
-## 검증 결과
+## 초기 분류 변경의 검증 결과 — 역사 기록
 
 수정 후보는 아래 13개 파일이다. commit/push하지 않았으며 소스 결합 guard는 수정하지 않았다.
 
@@ -120,7 +124,7 @@ JUnit의 실패/error 201개를 분류하면 다음과 같다.
 내용이 기존과 정확히 같음을 확인하여 provenance만 재생성했다. 이 두 기록의 갱신으로
 아래의 소스 결합 증명이 갱신되는 것은 아니다.
 
-## STOP 사유와 남은 결정
+## 초기 STOP 사유와 후속 해결
 
 [endpoint proof_guard](../../a_reference/c1b1_axis_decision_bounds.py)는 `_decide`를 포함한
 실행기 함수 binding과 `c1b1_two_atom.py` 전체 소스 hash를 검사한다.
@@ -129,12 +133,12 @@ JUnit의 실패/error 201개를 분류하면 다음과 같다.
 guard는 `source-bound endpoint error proof needs re-audit`로 정상 거부했다.
 정상 궤적의 비트 비교만으로 기존 수학 증명의 소스 결합을 변경할 근거가 되지는 않는다.
 
-재감사·재결합 또는 소스 결합 계약의 설계 변경 없이 이 후보를 공식 완료할 수 없다.
-이번 요청은 A-EV 작업 시작과 임의 설계 변경을 금지하고 있으므로 여기서 STOP했다.
-guard의 기대 hash를 교체하거나 guard를 우회하지 않았다. 그 재감사가 A-EV 전체를 닫는다는
-의미도 아니다. 후속 실행기 소스 재감사·결합 갱신의 별도 범위를 설계자가 결정해야 한다.
-대안은 실행기 소스 후보를 철회하고 문서·기록 분류만으로 범위를 줄이는 것이며,
-이 경우 역전 enclosure와 malformed 저장 raw의 새 실행 guard는 이번에 도입되지 않는다.
+당시 재감사 범위의 설계자 결정 전 STOP했다. 후속 지시는 변경을 유지하고 이번 변경의
+provenance에 한정하여 재감사하라는 것이었다. 정상 입력 의미를 함수별로 대조하고 기존
+generator/checker로 기록 11개를 새 소스에서 재생성하여 수학적 payload 전체의 동일성을 확인했다.
+원래 기대 hash와 고정 inventory는 보존하고 지정된 소스 변환만 감사하는 결합 검사를 추가했다.
+guard를 우회하거나 원본 JSON의 source_sha256만 교체하지 않았다.
+최종 LOCAL FULL 통과로 이 STOP을 해소했다. A-EV 전체를 닫는다는 의미는 아니다.
 
 남은 모호성: legacy `ReferenceUndecided.reason`은 executor_limit_exceeded이므로 클래스 우선
 분류가 필요하다. 일반 `ExecutorLimitExceeded`는 cause 없이 overflow로 단정할 수 없다.
