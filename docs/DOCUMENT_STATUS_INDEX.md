@@ -24,6 +24,9 @@
 | [C1B1_DT40_PORTABLE_RESULTS_V2.json](active/C1B1_DT40_PORTABLE_RESULTS_V2.json) | 신규(2026-10-01). 20 궤적·9-input 비교·52 artifact 해시·환경·비용·원문 B_KERNEL_COST와 전체 비용 C의 범위 구분 |
 | [C1B1_KDK20_YOSHIDA40_COST_V1.md](active/C1B1_KDK20_YOSHIDA40_COST_V1.md) | 신규(2026-10-01). 동일 노드 전체 비용 하네스 준비/복원 PASS, 원격 upload SCP exit 1로 C STOP. 성능 미실행·노드 종료 |
 | [C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md](active/C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md) | 신규(2026-10-01). warm-up/3회 median/9-input, 동일 observer/출력 정책, 실행 전 오차·변동·A/B/C 기준 |
+| [C1B1_KDK20_YOSHIDA40_COST_LOCAL_V1.md](active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_V1.md) | 신규(2026-10-01). 로컬 26 궤적 완료, 양쪽 9-input PASS·Yoshida CPU/wall 1.396210/1.449380배로 B. production 미채택·O-1 STOP 유지 |
+| [C1B1_KDK20_YOSHIDA40_COST_LOCAL_RESULTS_V1.json](active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_RESULTS_V1.json) | 로컬 입력/26 run/환경/85 artifact hash/관련 시험 70 passed 증거 |
+| [C1B1_KDK20_YOSHIDA40_COST_LOCAL_SEAL_V1.json](active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_SEAL_V1.json) | 실행 전 로컬 adapter·기존 package hash·affinity·precision 봉인. 기존 원격 봉인 보존 |
 | [A_THREE_LAYER_SEPARATION_V1.md](active/A_THREE_LAYER_SEPARATION_V1.md) | 신규(2026-10-01). 세 층 분리·증거 등급·C1-B1 종료 조건 재정의 |
 | [C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md](active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md) | 신규(2026-10-01). O-3 대상 조사, 직접 산란 O-3 weak 채택 |
 | [C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md](active/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md) | docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md |

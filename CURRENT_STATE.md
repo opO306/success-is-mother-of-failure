@@ -121,6 +121,18 @@ production·기존 O-1 STOP·D_valid unsupported·원인 격리 판정 유지. O
 LOCAL FULL 생략 / 사용자 14절 및 독립 benchmark·도구·시험·문서만 추가, 기존 source/fixture 불변 / 관련 시험 대체·기준선 갱신 없음.
 기존 O-1 STOP 및 다른 Gate 상태 유지. Chin/새 방법/force 최적화/production 수정 미착수, commit/push 없음.
 
+**KDK20 vs Yoshida40 로컬 전체 비용 완료(2026-10-01, 기준 `2c17350`): B / YOSHIDA_ACCURATE_BUT_COSTLIER.**
+[로컬 보고서](docs/active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_V1.md), [전체 수치·환경·해시](docs/active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_RESULTS_V1.json).
+사용자의 로컬 실행 지시에 따라 Ryzen 5 5600/Windows/Python 3.12.7/mpmath 1.3.0/60자리/CPU 11 affinity/worker 1개로 순차 비교했다.
+warm-up 2회 제외, 문제 입력 K/Y 혼합 각 3회와 기존 9-input 방법별 1회를 완료했다(총 26 궤적, exit 0).
+문제 입력 median CPU/wall Yoshida/KDK 비율 1.405998/1.409347, 반복 변동은 사전 1.2 상한 안이다.
+9-input 합계 KDK CPU/wall 297.625/301.430784초, Yoshida 415.546875/436.887645초: 1.396210/1.449380배.
+양쪽 관측 기준 9/9 PASS. 기존 Yoshida 9개와 KDK boundary_pass 재현 PASS; 나머지 KDK 8개는 이전 method 결과가 없어 재현 주장하지 않는다.
+26 trace hash/CRC/step 순서·521,975 records와 결과/log 85개 hash 확인. 기존 수치 source 12/보호 대상 134/O-1 97/원인 격리 27개 불변.
+관련 시험 70 passed(19.36초), failure/error/skip 0. LOCAL FULL 생략 / 사용자 14절·독립 도구/시험/문서만 추가 / 관련 시험 대체·기준선 갱신 없음.
+로컬 다른 부하 미통제, panel 방법별 1회, peak memory는 checksum 준비를 포함한 worker 전체 값이다. 내부 negative-stage 위험·production 미채택·기존 O-1 STOP 유지.
+Vast 시작/SSH 없음. 기존 원격 실패·봉인 보존, production/공용/동결 source 수정 없음, commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,

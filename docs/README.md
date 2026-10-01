@@ -38,6 +38,8 @@ AGREE 8 / DISAGREE 1 / UNRESOLVED 0이며 O-1 전체 통과가 아니다. O-3는
 현재 수치 비교는 완료됐고 Yoshida 9-input 관측/정밀도 PASS, Chin 비용 탈락이다. 측정한 kernel은 두 후보 모두 더 비싸며 전체 실행 비용 질문은 C로 남긴다. [전체 결과](active/C1B1_DT40_PORTABLE_RESULTS_V2.json).
 [KDK20/Yoshida40 동일 노드 전체 비용](active/C1B1_KDK20_YOSHIDA40_COST_V1.md)은 공통 성능 하네스와 로컬 복원 검사를 준비했으나, 원격 SCP 연결 실패로 C / INCONCLUSIVE STOP했다. 성능 실행 0회, 모든 노드 종료 확인. 이전 수치 결과는 유지한다.
 
+[KDK20/Yoshida40 로컬 전체 비용 최종 비교](active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_V1.md)는 사용자 로컬 지시로 26 궤적을 완료했다. 양쪽 기존 9-input 관측 기준 PASS지만 Yoshida CPU/wall 합계 1.396210/1.449380배로 B / YOSHIDA_ACCURATE_BUT_COSTLIER. 관련 시험 70 passed, LOCAL FULL 생략. 로컬 부하 미통제·panel 1회·production 미채택·기존 O-1 STOP 유지, 이전 원격 실패 기록 보존.
+
 ## 보존 및 경로 예외
 
 58개 문서를 실제로 분류 폴더로 이동했고, 코드·도구·규칙이 참조하던 옛 경로에는 원문으로 연결하는 짧은 안내를 남겼다. 계약이나 설계 본문을 두 군데 복사해 관리하지 않는다.
