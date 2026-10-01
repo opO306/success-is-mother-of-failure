@@ -16,7 +16,7 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 | 현재 진행 | 상태 |
 |---|---|
 | **현재 활성 Gate** | **C1-B1** (세 층 분리 기준으로 종료 조건 재정의, 2026-10-01) |
-| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선). `_decide` 예외 분류 및 이번 변경의 source-binding 재감사 완료(LOCAL FULL 통과). production replay verifier V1 지정 fingerprint 조합은 설계자 승인 완료(8996aa60). independent 전 step replay와 증거 등급·확정 최소 구조/시험 구현 완료. 관측: O-1 수치 재현, O-3 weak(Ar-Ar 직접 산란, 착수 전 봉인) 미착수. 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명 항목(④ step 4, S4d δ, global shadowing 등)은 연구 과제로 이동** |
+| **현재 세부 단계** | **Gate 잔여: A-EV(별도 작업선). `_decide` 예외 분류 및 source-binding 재감사 완료. production replay verifier V1 지정 fingerprint 조합 승인 완료(8996aa60). 관측 O-1 V1: AGREE 8 / DISAGREE 1 / UNRESOLVED 0, rho=-0.001의 절대 각도 기준 초과로 STOP; O-1 전체 통과 아님. O-3 weak 미착수. 별도 Gate: native J 비트 동등성. 전 궤적 사전 증명(④ step 4, S4d δ, global shadowing 등)은 연구 과제** |
 | **다음 Gate** | **C1-B1 종료 → 다원자 기체 단계(첫 항목: 적분기 에너지 범위 확장, 강한 O-3 = 희박 Ar 점성) → C1-C 전 N-1 재평가** |
 
 위 순서는 앞으로 통과해야 할 관문이다. **④ 전체는 FROZEN이 아니며 ⑤는 시작하지 않았다.**
@@ -36,6 +36,26 @@ L은 별도로 생명 행동을 명령해 만드는 대상이 아니다. A의 �
 새 bound/lemma/Certified region 0개. A-EV·D_valid·④ 전체 재증명 아님.
 승인 replay verifier와 7개 CONFIRMED test history, 기존 네 상태는 그대로다.
 O-1/O-3/native J/live pipe/rollback controller·새 물리는 시작하지 않았다. push 없음.
+
+**O-1 독립 수치 재현 V1(2026-10-01, 기준 `f03fb30`): DISAGREE / STOP.**
+[보고서](docs/active/C1B1_O1_INDEPENDENT_NUMERICAL_REPRODUCTION_V1.md),
+[사전 프로토콜](docs/active/C1B1_O1_PROTOCOL_V1.md),
+[입력 봉인](docs/active/C1B1_O1_INPUTS_V1.json),
+[전체 수치·비용·원본 해시](docs/active/C1B1_O1_RESULTS_V1.json).
+입력 10개 봉인 → 새 궤적 9개/104,843 step 전부 approved production replay로
+REPLAY_VERIFIED / CONFIRMED → 별도 공개 PES 파서·40/60/80자리 연속 radial quadrature와
+Cartesian DOP853 보조 확인. reference step/force/rounding을 독립 계산기에 재사용하지 않았다.
+**AGREE 8 / DISAGREE 1 / UNRESOLVED 0 / 미실행 1**.
+E=0.5 De, rho=-0.001, b=11.707286169880804 bohr(기존 D_valid unsupported)의
+각도 차이 1.30928186e-5 rad > 사전 절대 1e-5. 독립 60→80자리 각도 차이
+8.40e-51 rad, 별도 ODE와 7.93e-11 rad 차이. 다음 rho=-0.0001은 실행하지 않았다.
+최접근 거리·에너지 기준은 만족. 어느 계산기가 틀렸다고 자동 판정하지 않는다.
+O-1 전체 통과/전체 D_valid 인증 아님; 시간 이산화 등 원인별 분리는 후속 설계자 판단 전 미실행.
+기존 7개 PIPELINE_TEST_ONLY history 재사용·의미 변경 없음. 물리/PES/dt/r_min/D_valid/승인 verifier 변경 0.
+LOCAL FULL **3501 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, exit 0,
+25 기존 cp949 warnings, 669.38초**. 공식 AGENTS 기준선은 갱신하지 않았다.
+순차 campaign wall 1176.569초; 기록 단계 CPU 합 1084.484초. 원본 runs 보존.
+O-3·A-EV·native J·live pipe·rollback controller·④ 재증명 미착수, commit/push 없음.
 
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
@@ -707,7 +727,7 @@ Git 사실: 원격 `master`는 `4f81898`(reflog push 08:37:27). 로컬과 같다
 
 **작업선 분리(설계자 지시 2026-09-30):** A-C1B1 Core(wrapper·Proof Cache·rounding-decision completeness·④-Liveness)는 이 저장소의 현재 작업선에서 계속한다. **A-EV independent evaluator audit는 별도 병렬 작업선(worktree/branch `a-ev-audit`, `audit/independent_physics/` 중심)에서 진행될 예정이며 이 작업선에서는 구현하지 않는다.** 그 작업이 끝났다는 기록은 없다 — A-EV는 계속 미해결이고 ④-Safety Conditional을 승격하지 않는다. Proof Cache와 A-EV는 하나의 증명으로 섞지 않으며, 두 작업선이 합쳐지기 전에는 evidence level을 따로 유지한다.
 
-**아직 남음 (Gate):** A-EV / O-1 / O-3 weak(직접 산란) / C1-B1 전체 freeze. `_decide` 예외 분류·제한된 소스 결합 재감사, production independent replay verifier 구현·승인 및 증거 등급·확정 계약 최소 시험은 완료. 시험 history는 공식 O-3나 운영 세계 역사로 자동 재사용하지 않는다.
+**아직 남음 (Gate):** A-EV / O-1(독립 수치 V1에서 불일치 STOP, 전체 통과 아님) / O-3 weak(직접 산란) / C1-B1 전체 freeze. `_decide` 예외 분류·제한된 소스 결합 재감사, production independent replay verifier 구현·승인 및 증거 등급·확정 계약 최소 시험은 완료. 시험 history는 공식 O-3나 운영 세계 역사로 자동 재사용하지 않는다.
 **별도 Gate:** native J evaluator와 실행기 비트 동등성(이종 실행기, CONFIRMED 전제 아님).
 **연구 과제 (Gate 아님, 보존):** inbound 저에너지 잔여 / inner(④ step 4) / S4d passing-side δ / global shadowing / 전체 산란각 formal proof / E_min 재생성 / 속박 궤도 domain·error proof / 정확 분수 대리식 fast path survey.
 무한시간 균일 L 상한과 무한 FX 실행도 인증 범위가 아니다. 이번 문서 정리에서 E_min을 재생성하거나 새로운 물리 규칙을 추가하지 않는다.

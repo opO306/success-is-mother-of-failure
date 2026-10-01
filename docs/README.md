@@ -29,6 +29,9 @@ A가 최우선이다. L은 A의 물리 기반이 충분해진 뒤 자연 발생�
 
 D_valid evidence는 `numerical_validated` / `unsupported`다. 별도 analytic outer certificate와 자동 승격·연결하지 않는다.
 
+O-1 독립 수치 재현 V1은 [불일치 STOP 보고서](active/C1B1_O1_INDEPENDENT_NUMERICAL_REPRODUCTION_V1.md)를 본다.
+AGREE 8 / DISAGREE 1 / UNRESOLVED 0이며 O-1 전체 통과가 아니다. O-3는 착수하지 않았다.
+
 ## 보존 및 경로 예외
 
 58개 문서를 실제로 분류 폴더로 이동했고, 코드·도구·규칙이 참조하던 옛 경로에는 원문으로 연결하는 짧은 안내를 남겼다. 계약이나 설계 본문을 두 군데 복사해 관리하지 않는다.
