@@ -1,0 +1,202 @@
+{
+  "schema": "c1b1-kdk20-yoshida40-whole-cost-results-v1",
+  "conclusion": "C",
+  "status": "INCONCLUSIVE",
+  "reason": "SCP exited 1: remote host closed connection / broken pipe during package upload; no remote hash/test/benchmark stage reached.",
+  "cause_confirmed": false,
+  "start_head": "63e5b953c643e4da6cb26a4dd32aabbcaecc5703",
+  "end_head": "63e5b953c643e4da6cb26a4dd32aabbcaecc5703",
+  "start_dirty": false,
+  "end_dirty": true,
+  "commit": false,
+  "push": false,
+  "lifecycle": {
+    "instance": 52763629,
+    "before": {
+      "id": 52763629,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped",
+      "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_cores_effective": 32.0,
+      "cpu_ram": 64231,
+      "dph_total": 0.19111111111111112
+    },
+    "start_utc": "2026-10-01T07:34:14Z",
+    "bundle_sha256": "82e41c01d15b01c0d22ca0d638b96bfdfa143984d74743928f2e55ab25a2cf3c",
+    "bootstrap_sha256": "3ada5c0f0c9a38958779a97dfa5691c8c39b27af557c0b0732f632ae82f66427",
+    "compute_gpu": false,
+    "started_request": true,
+    "retrieved": false,
+    "push": false,
+    "start_response": {
+      "success": true
+    },
+    "running": {
+      "id": 52763629,
+      "actual_status": "running",
+      "intended_status": "running",
+      "cur_state": "running",
+      "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_cores_effective": 32.0,
+      "cpu_ram": 64231,
+      "dph_total": 0.19111111111111112
+    },
+    "endpoint": {
+      "host": "65.108.94.15",
+      "port": 42811,
+      "source": "live direct 22/tcp mapping"
+    },
+    "ssh_probe": {
+      "exit": 0,
+      "stdout": "314159\n3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]\n",
+      "stderr": "Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.\nHave fun!\n"
+    },
+    "failure": "Command '['scp', '-O', '-i', 'C:\\\\Users\\\\zun24\\\\.ssh\\\\vast_ai', '-P', '42811', '-o', 'BatchMode=yes', '-o', 'StrictHostKeyChecking=accept-new', '-o', 'ConnectTimeout=15', 'C:\\\\Users\\\\zun24\\\\성공은 실패의 어머니\\\\runs\\\\c1b1_cost_deployment_v3\\\\portable_package.tar.gz', 'root@65.108.94.15:/workspace/c1b1_cost_package_v1.tar.gz']' returned non-zero exit status 1.",
+    "stop_exit": 0,
+    "final": {
+      "id": 52763629,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped",
+      "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+      "cpu_cores_effective": 32.0,
+      "cpu_ram": 64231,
+      "dph_total": 0.19111111111111112
+    },
+    "stopped_confirmed": true,
+    "end_utc": "2026-10-01T07:36:57Z",
+    "elapsed_seconds": 163.375,
+    "rate_duration_proxy_usd": 0.008672993827160495,
+    "cost_note": "Not an invoice; full control interval times API compute rate; transfer/storage excluded."
+  },
+  "final_instances": [
+    {
+      "id": 52731349,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cpu_name": "Core™ Ultra 7 265K",
+      "dph_total": 0.16074074074074074
+    },
+    {
+      "id": 52763629,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cpu_name": "AMD Ryzen 9 5950X 16-Core Processor",
+      "dph_total": 0.19111111111111112
+    },
+    {
+      "id": 52763685,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cpu_name": "AMD Ryzen Threadripper PRO 3975WX 32-Cores",
+      "dph_total": 0.2696296296296296
+    },
+    {
+      "id": 52764050,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+      "dph_total": 0.2696296296296296
+    }
+  ],
+  "local_preflight": {
+    "originals": 272,
+    "objects": 286,
+    "bundle_sha256": "82e41c01d15b01c0d22ca0d638b96bfdfa143984d74743928f2e55ab25a2cf3c",
+    "verification": {
+      "originals_verified": 272,
+      "objects_verified": 286,
+      "reference_sha256": "a598057183121b9c928b3a9804c8e2e99afa553bad570a471aa4130f20e6b049",
+      "location_only_transforms": [
+        "c1b1_integrator_benchmark/study.py",
+        "c1b1_o1/model.py",
+        "tools/c1b1_o1_study.py"
+      ],
+      "parent_payload_sha256": "bbe64ed6ad96adf3654a13afea8b9ebec35743243d7fb91f1b7f268edd370232",
+      "execution_payload_sha256": "7df664a9b5ea52f0e45120d90849fad4cd48032e41243b11025f14e5faaebb46"
+    },
+    "probe": "9\n",
+    "bootstrap_sha256": "3ada5c0f0c9a38958779a97dfa5691c8c39b27af557c0b0732f632ae82f66427",
+    "restored_related_exit": 0,
+    "local_Ar_trajectory_count": 0
+  },
+  "local_related": {
+    "passed": 68,
+    "seconds": 24.42,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "restored_related": {
+    "passed": 60,
+    "seconds": 2.51,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "remote_related": null,
+  "warmup_runs": 0,
+  "single_measurements": 0,
+  "panel_runs": 0,
+  "local_Ar_trajectories": 0,
+  "single_input": {
+    "kdk20": null,
+    "yoshida4": null
+  },
+  "panel_aggregate": {
+    "kdk20": null,
+    "yoshida4": null
+  },
+  "prior_results_reused_as_new_performance": false,
+  "original_statuses_unchanged": true,
+  "protected_counts": {
+    "sources": 12,
+    "protected": 134,
+    "O1_artifacts": 97,
+    "cause_artifacts": 27
+  },
+  "local_full": "OMITTED: independent benchmark/tools/tests/documents only; existing production/common/frozen source unchanged; user section 14 requests related tests.",
+  "failed_local_preflights": [
+    {
+      "version": 1,
+      "reason": "new packaging tool dependency missing",
+      "remote_started": false
+    },
+    {
+      "version": 2,
+      "reason": "included historical packaging dependency contains Windows path literals and active-code guard refused",
+      "remote_started": false
+    }
+  ],
+  "artifacts": {
+    "runs/c1b1_cost_deployment_v3/lifecycle.json": {
+      "sha256": "01c3c65b3a0c30a742cdd49e79bede141bb9ed7cf33d6d52432e66c6031d5754",
+      "bytes": 2346
+    },
+    "runs/c1b1_cost_deployment_v3/local_preflight.json": {
+      "sha256": "e32667acc380630918e04321749762089a29c6ae0ad0bedb26c78acb4f799619",
+      "bytes": 836
+    },
+    "runs/c1b1_cost_deployment_v3/local_related.xml": {
+      "sha256": "97d2fd7b4ec491def0a3749f17c9d7dd52d39071909a14e8310fd21fc7e27e2f",
+      "bytes": 8785
+    },
+    "runs/c1b1_cost_deployment_v3/restored_related.xml": {
+      "sha256": "a67ae04859b66dff032fd01e8a64f50402f460e230e6f21333f3ca6ad59fb826",
+      "bytes": 7802
+    },
+    "runs/c1b1_cost_deployment_v3/restored_related.log": {
+      "sha256": "db9e4089bc207b0b6b636d5878e275e8887a6ffc7294ba1c19e915c09666f918",
+      "bytes": 101
+    },
+    "runs/c1b1_cost_deployment_v3/scp_failure.txt": {
+      "sha256": "e499cec6eb6dc8a985c37160d7f02b40761594df2cbe695dbcf348ef7b52ec17",
+      "bytes": 144
+    },
+    "runs/c1b1_cost_deployment_v3/portable_package.tar.gz": {
+      "sha256": "82e41c01d15b01c0d22ca0d638b96bfdfa143984d74743928f2e55ab25a2cf3c",
+      "bytes": 64583314
+    }
+  }
+}

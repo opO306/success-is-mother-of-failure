@@ -22,6 +22,8 @@
 | [C1B1_DT40_INTEGRATOR_BENCHMARK_SSH_RESUME_V1.md](active/C1B1_DT40_INTEGRATOR_BENCHMARK_SSH_RESUME_V1.md) | 신규(2026-10-01). 제공 SSH 주소로 재개. 직접 SSH/전송 확인, Windows tar reference alias 누락으로 사전 검사 중단. 수치 미실행·C 유지 |
 | [C1B1_DT40_PORTABLE_DEPLOYMENT_V1.md](active/C1B1_DT40_PORTABLE_DEPLOYMENT_V1.md) | 신규(2026-10-01). 원본 보존·위치 변경 별도 봉인, 실제 복원 시험, 원격 수치 비교 완료. Yoshida 9-input PASS·Chin 비용 탈락, 전체 비용 C |
 | [C1B1_DT40_PORTABLE_RESULTS_V2.json](active/C1B1_DT40_PORTABLE_RESULTS_V2.json) | 신규(2026-10-01). 20 궤적·9-input 비교·52 artifact 해시·환경·비용·원문 B_KERNEL_COST와 전체 비용 C의 범위 구분 |
+| [C1B1_KDK20_YOSHIDA40_COST_V1.md](active/C1B1_KDK20_YOSHIDA40_COST_V1.md) | 신규(2026-10-01). 동일 노드 전체 비용 하네스 준비/복원 PASS, 원격 upload SCP exit 1로 C STOP. 성능 미실행·노드 종료 |
+| [C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md](active/C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md) | 신규(2026-10-01). warm-up/3회 median/9-input, 동일 observer/출력 정책, 실행 전 오차·변동·A/B/C 기준 |
 | [A_THREE_LAYER_SEPARATION_V1.md](active/A_THREE_LAYER_SEPARATION_V1.md) | 신규(2026-10-01). 세 층 분리·증거 등급·C1-B1 종료 조건 재정의 |
 | [C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md](active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md) | 신규(2026-10-01). O-3 대상 조사, 직접 산란 O-3 weak 채택 |
 | [C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md](active/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md) | docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md |

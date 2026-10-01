@@ -36,6 +36,7 @@ AGREE 8 / DISAGREE 1 / UNRESOLVED 0이며 O-1 전체 통과가 아니다. O-3는
 [SSH 정보 제공 후 재개 기록](active/C1B1_DT40_INTEGRATOR_BENCHMARK_SSH_RESUME_V1.md)은 직접 SSH/전송 성공 및 Linux reference alias 사전 검사 실패를 보존한다. 당시 수치 실험은 미실행이었다.
 [플랫폼 독립 배포 재개](active/C1B1_DT40_PORTABLE_DEPLOYMENT_V1.md)는 `code/`·`reference/` 상대 배치, 원본 272개 보존과 별도 실행 봉인, 실제 복원된 코드의 사전 검사 및 원격 수치 결과를 기록한다. 앞선 실패 기록을 대체하지 않는다.
 현재 수치 비교는 완료됐고 Yoshida 9-input 관측/정밀도 PASS, Chin 비용 탈락이다. 측정한 kernel은 두 후보 모두 더 비싸며 전체 실행 비용 질문은 C로 남긴다. [전체 결과](active/C1B1_DT40_PORTABLE_RESULTS_V2.json).
+[KDK20/Yoshida40 동일 노드 전체 비용](active/C1B1_KDK20_YOSHIDA40_COST_V1.md)은 공통 성능 하네스와 로컬 복원 검사를 준비했으나, 원격 SCP 연결 실패로 C / INCONCLUSIVE STOP했다. 성능 실행 0회, 모든 노드 종료 확인. 이전 수치 결과는 유지한다.
 
 ## 보존 및 경로 예외
 

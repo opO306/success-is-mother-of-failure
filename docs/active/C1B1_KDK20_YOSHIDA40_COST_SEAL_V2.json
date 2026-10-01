@@ -1,0 +1,58 @@
+{
+  "payload": {
+    "schema": "c1b1-kdk20-yoshida40-whole-cost-seal-v1",
+    "head": "63e5b953c643e4da6cb26a4dd32aabbcaecc5703",
+    "parent_payload_sha256": "7df664a9b5ea52f0e45120d90849fad4cd48032e41243b11025f14e5faaebb46",
+    "prior_results": "docs/active/C1B1_DT40_PORTABLE_RESULTS_V2.json",
+    "precision": 60,
+    "input_order": [
+      "ordinary",
+      "small_b",
+      "large_b",
+      "low_energy",
+      "high_energy",
+      "s4d_passing",
+      "s4d_no_wall",
+      "boundary_reflect",
+      "boundary_pass"
+    ],
+    "single_order": [
+      "kdk20",
+      "yoshida4",
+      "yoshida4",
+      "kdk20",
+      "kdk20",
+      "yoshida4"
+    ],
+    "warmup_order": [
+      "kdk20",
+      "yoshida4"
+    ],
+    "processes": 1,
+    "affinity": "minimum available logical CPU; identical all workers",
+    "max_runtime_spread": 1.2,
+    "reproduction_absolute": 1e-20,
+    "near_equivalent_ratio": 1.1,
+    "source_paths": [
+      "c1b1_cost_benchmark.py",
+      "tests/test_c1b1_cost_benchmark.py",
+      "tools/c1b1_cost_package.py",
+      "tools/c1b1_cost_remote.py",
+      "tools/c1b1_cost_vast.py",
+      "tools/c1b1_dt40_package.py",
+      "docs/active/C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md",
+      "docs/active/C1B1_DT40_PORTABLE_RESULTS_V2.json"
+    ],
+    "sources": {
+      "c1b1_cost_benchmark.py": "c74ad37be629098da748eb9c54292a729b450525da3c63f82585a2f6eabead39",
+      "tests/test_c1b1_cost_benchmark.py": "c3ff838a780cb846cd5e510a4868364960e91e9b32a18678b9759fc3be6b7ce8",
+      "tools/c1b1_cost_package.py": "eb199f952d2a1bed6ed8096326f9a957c1dc6fa322213d83bc5f77081f8d2f3f",
+      "tools/c1b1_cost_remote.py": "3ada5c0f0c9a38958779a97dfa5691c8c39b27af557c0b0732f632ae82f66427",
+      "tools/c1b1_cost_vast.py": "5d5a264143c3ceaa8209138afbb375bb5bf1192dd593875c0e80fbec5a68de55",
+      "tools/c1b1_dt40_package.py": "68881febc2619d733d69382e4a3c601ce7f3eea2669c7609bb8855641098ebef",
+      "docs/active/C1B1_KDK20_YOSHIDA40_COST_PROTOCOL_V1.md": "ef1b05c66e26d972407f32dd4be8cfe40cced2353f4951d53d4919e319cb5ceb",
+      "docs/active/C1B1_DT40_PORTABLE_RESULTS_V2.json": "dcd7b8fab04e1fff2b139a0a3e62ffde5c691bdfad2a9aeffc37f930eddc9ef7"
+    }
+  },
+  "payload_sha256": "4a7dee61554fefeef6520d1e6f120290db5c6ae8d61c7969da4e169b84513d90"
+}

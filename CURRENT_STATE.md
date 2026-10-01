@@ -110,6 +110,17 @@ boundary_pass 각도 오차 6.1096203e-11 rad. Chin 4A는 5.2560113e-13 rad이�
 LOCAL FULL 생략 / 새 독립 배포 도구·시험·문서만, 기존 source 12·protected 134·O-1 원본 97·원인 격리 원본 27 hash 불변 / 관련 시험 대체·기준선 갱신 없음.
 production·기존 O-1 STOP·D_valid unsupported·원인 격리 판정 유지. O-3 등 금지 작업 미착수, commit/push 없음.
 
+**KDK20 vs Yoshida40 동일 노드 전체 비용 준비(2026-10-01, 기준 `63e5b95`): C / INCONCLUSIVE.**
+[실행 보고서](docs/active/C1B1_KDK20_YOSHIDA40_COST_V1.md), [실패·환경·해시](docs/active/C1B1_KDK20_YOSHIDA40_COST_RESULTS_V1.json).
+같은 60자리/observer/저장 정책의 순차 성능 하네스와 warm-up/혼합 3회/9-input 계획을 봉인했다.
+로컬 새 폴더 복원 원본 272/객체 286 hash 일치, 복원 시험 60 passed(2.51초), 로컬 관련 68 passed(24.42초), failure/error/skip 0.
+5950X 시작·직접 SSH는 성공했으나 SCP package upload 중 remote host connection closed / Broken pipe / exit 1로 실패했다.
+원격 hash/시험/성능 실행 미착수: warm-up 0 / single 0 / panel 0. 원인 미확정, 두 방법의 비용 우열 미측정.
+사용자 12절 infrastructure 오류 STOP에 따라 추가 유료 시도 없이 종료했고 네 노드 모두 exited/stopped 확인.
+제어 구간 163.375초·가격×시간 참고값 $0.00867299(청구액 아님). 이전 시간을 새 성능 결과로 사용하지 않았다.
+LOCAL FULL 생략 / 사용자 14절 및 독립 benchmark·도구·시험·문서만 추가, 기존 source/fixture 불변 / 관련 시험 대체·기준선 갱신 없음.
+기존 O-1 STOP 및 다른 Gate 상태 유지. Chin/새 방법/force 최적화/production 수정 미착수, commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
