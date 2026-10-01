@@ -1,0 +1,657 @@
+{
+  "schema": "c1b1-dt40-integrator-benchmark-blocked-v1",
+  "start_head": "508bba4fd01826aa6fb52f91c5011413a114f1aa",
+  "status": "STOPPED_CONTROL_FAILURE",
+  "conclusion": "C_UNRESOLVED",
+  "physical_trajectories_this_task": 0,
+  "remote_tests_this_task": 0,
+  "local_scattering_trajectories_this_task": 0,
+  "cost_probes_this_task": 0,
+  "first_stage_executed": false,
+  "panel_executed": false,
+  "inputs": [
+    {
+      "id": "ordinary",
+      "E_De": "0.5",
+      "b_bohr": "6",
+      "rho": null
+    },
+    {
+      "id": "small_b",
+      "E_De": "0.5",
+      "b_bohr": "1/10",
+      "rho": null
+    },
+    {
+      "id": "large_b",
+      "E_De": "0.5",
+      "b_bohr": "14",
+      "rho": null
+    },
+    {
+      "id": "low_energy",
+      "E_De": "0.01",
+      "b_bohr": "7",
+      "rho": null
+    },
+    {
+      "id": "high_energy",
+      "E_De": "9.9",
+      "b_bohr": "0",
+      "rho": null
+    },
+    {
+      "id": "s4d_passing",
+      "E_De": "0.15",
+      "b_bohr": "15279681818529564298786884869226202452288593/1088903574147003083082798743781658276659200",
+      "rho": "-0.005"
+    },
+    {
+      "id": "s4d_no_wall",
+      "E_De": "1",
+      "b_bohr": "10",
+      "rho": null
+    },
+    {
+      "id": "boundary_reflect",
+      "E_De": "0.5",
+      "b_bohr": "63868137435930587940260504383979609985648253/5444517870735015415413993718908291383296000",
+      "rho": "0.001"
+    },
+    {
+      "id": "boundary_pass",
+      "E_De": "0.5",
+      "b_bohr": "63740528769724932419900343536059570804857747/5444517870735015415413993718908291383296000",
+      "rho": "-0.001"
+    }
+  ],
+  "coefficients": {
+    "yoshida4": {
+      "kick": [
+        "0.675603595979828817023843904485730413460999688108572414164353",
+        "-0.175603595979828817023843904485730413460999688108572414164353",
+        "-0.175603595979828817023843904485730413460999688108572414164353",
+        "0.675603595979828817023843904485730413460999688108572414164353"
+      ],
+      "drift": [
+        "1.35120719195965763404768780897146082692199937621714482832871",
+        "-1.70241438391931526809537561794292165384399875243428965665741",
+        "1.35120719195965763404768780897146082692199937621714482832871"
+      ]
+    },
+    "chin4a": {
+      "kick": [
+        "0.166666666666666666666666666666666666666666666666666666666667",
+        "0.666666666666666666666666666666666666666666666666666666666667",
+        "0.166666666666666666666666666666666666666666666666666666666667"
+      ],
+      "drift": [
+        "0.5",
+        "0.5"
+      ],
+      "gradient": "0.0208333333333333333333333333333333333333333333333333333333333"
+    }
+  },
+  "criteria": {
+    "angle": 1e-05,
+    "r_min_relative": 1e-05,
+    "energy_De": 0.001,
+    "L": 1e-20,
+    "precision_absolute": 1e-20,
+    "kernel_cost_max": 2,
+    "kernel_cost_spread_max": 1.2,
+    "gain_if_slower_min": 10
+  },
+  "baseline_reused": [
+    {
+      "chi": "-0.123619255645015006965403965382875950449755399071489558691773",
+      "direction": "2.39433949315654149678503068617627515681689773643612875781551",
+      "sweep": "8.05397267367825315095459119514839404455912367796621821322369",
+      "r_min_chord": "6.8818807993774414254260355550023941459735415732551009625302",
+      "r_min_stored": "6.88188083908495605013526614921612163599506986858665585101563",
+      "r_exit": "20.0023070308170174892374879443927780015041373649114681971046",
+      "time": "691360.0",
+      "H0": "0.000225997887500000000000000011977203502505855960388098461801099",
+      "L0": "47.5022482046646174558308739354663808142700820447146270453231",
+      "energy_max_change_De": "0.000000784810117792101010052660252741081035778731124415100931503319",
+      "energy_final_change_De": "-0.00000000000021460290973614123145701853386126443529773695355390505370281",
+      "angular_max_change": "5.52603756674069383594392887975675032564414392582439641419379e-58",
+      "angular_final_change": "1.39395542224089574240027034804674782989221648579354143781465e-58",
+      "q_out": [
+        "-3.97366929801337050375163564952953153126059227991952499852691",
+        "19.6036282066636281509604933941967039016653701798620369490461"
+      ],
+      "p_out": [
+        "-2.9834145485074503858354541581489634093659450854769984572645",
+        "2.76407032566043018429215672679505640892766535524970791605953"
+      ],
+      "dt": 40,
+      "dps": 60,
+      "steps": 17284,
+      "trace_sha256": "6a2a95e2f7e3f0b164b49bb606fec885b72694a54780c7fcfcf3e394e2400a5d",
+      "trace_path": "runs\\c1b1_o1_cause_isolation_20261001_v1\\hp_kdk_dt40_dps60.jsonl.gz",
+      "cpu_seconds": 28.21875,
+      "wall_seconds": 28.359743100008927,
+      "matched_continuous": {
+        "chi": "-0.123632348441520739059892888924510357427826844297356362675903",
+        "direction": "2.39432640036003576469054176263464074983882629121026195383138",
+        "sweep": "8.05395958088190105551249691173065238791983402330478482888391",
+        "time": "691359.056574378940821409028621226455973451935974613225350614",
+        "r_min": "6.8818805163810469892003108036451686329539417956291563212384512190939733984916569",
+        "outlet_direction_correction": "0.0000000000000753217157483875096638924897123881950586953050893306737495528",
+        "local_quad_error": "1.0e-66"
+      },
+      "differences": {
+        "chi": "0.000013092796505732094488923541634406978071445225866803984129998",
+        "direction": "0.0000130927965057320944889235416344069780714452258668039841299883",
+        "r_min": "0.000000282996394436225724751357225513019599777625944641291748557704"
+      },
+      "evidence": "REUSED_PRIOR_LOCAL_DIAGNOSTIC",
+      "measured_force_evaluations": null
+    },
+    {
+      "chi": "-0.123629042054850026450873503181964325257798892191747705562835",
+      "direction": "2.39432970674670647729956114837718678200885424331587061094445",
+      "sweep": "8.05396516049805640331806725973836918152884551170948294797815",
+      "r_min_chord": "6.88188061336467345832900747393415380504881636756431002005621",
+      "r_min_stored": "6.88188063982467519899156691815646709998859061718924614157019",
+      "r_exit": "20.0023711697063174596998907576080996663911657668209278765142",
+      "time": "691360.0",
+      "H0": "0.000225997887500000000000000011977203502505855960388098461801099",
+      "L0": "47.5022482046646174558308739354663808142700820447146270453231",
+      "energy_max_change_De": "0.000000196202313540548538610233273117184042747904308376460576085999",
+      "energy_final_change_De": "-0.0000000000000551416270941625202113065630428030362244695835499647148392274",
+      "angular_max_change": "3.58445680004801762331498089497735156257998524918339226866624e-58",
+      "angular_final_change": "-1.44373954446378487605742286047698882381693850314331077487946e-58",
+      "q_out": [
+        "-3.9735347537046770015162630927075623244947578437426565692566",
+        "19.603720921595460889249698561971153516560005370424423187085"
+      ],
+      "p_out": [
+        "-2.98338736032387453764850424647123440737203966435748632495611",
+        "2.76409939485237474925529796191934505193605852217987857207873"
+      ],
+      "dt": 20,
+      "dps": 60,
+      "steps": 34568,
+      "trace_sha256": "92b933133d3c474cb8a8f83c7489653081a9b143174dfa9526c84d5de3e2d746",
+      "trace_path": "runs\\c1b1_o1_cause_isolation_20261001_v1\\hp_kdk_dt20_dps60.jsonl.gz",
+      "cpu_seconds": 45.46875,
+      "wall_seconds": 45.59363340001437,
+      "matched_continuous": {
+        "chi": "-0.123632315238672834734695747545190017564056174852450503281517",
+        "direction": "2.39432643356288366901573890401396108970259696065516781322576",
+        "sweep": "8.05396188731427307136362256921779056407555952835128225361581",
+        "time": "691359.7641447142480305026086344081108968198551062754438539",
+        "r_min": "6.8818805163810469892003108036451686329539417956291563212384512190939733984916569",
+        "outlet_direction_correction": "0.0000000332029232260409455288889842323534830576399645546994751495186",
+        "local_quad_error": "1.0e-66"
+      },
+      "differences": {
+        "chi": "0.00000327318382280828382224436322569230625728266070279771868199669",
+        "direction": "0.00000327318382280828382224436322569230625728266070279771869017412",
+        "r_min": "0.0000000969836264691286966702889851720948745719351536988177587123254"
+      },
+      "evidence": "REUSED_PRIOR_LOCAL_DIAGNOSTIC",
+      "measured_force_evaluations": null
+    },
+    {
+      "chi": "-0.123631488643146535347067679296841911857073693624847965344422",
+      "direction": "2.39432726015840996840336697226230919540957944188277035116286",
+      "sweep": "8.05396328221162307978272360057648247077941916987864749769757",
+      "r_min_chord": "6.8818805337247049118024582463578133958211132406420608795565",
+      "r_min_stored": "6.8818805360574777114632787955599869247813717359961996474164",
+      "r_exit": "20.0023872043494284936206237683912483621942416522558008837288",
+      "time": "691360.0",
+      "H0": "0.000225997887500000000000000011977203502505855960388098461801099",
+      "L0": "47.5022482046646174558308739354663808142700820447146270453231",
+      "energy_max_change_De": "0.0000000490505622085265556744553283646105982306288196873028216188863",
+      "energy_final_change_De": "-0.0000000000000138785861257332639136802852551874323321451846146683439174754",
+      "angular_max_change": "1.15001322334873898748022303713856695966107860077967168619709e-57",
+      "angular_final_change": "0.0",
+      "q_out": [
+        "-3.97350111759803568428281673043146859401408008168800158526498",
+        "19.6037441000735598529561529087368240470091031073112291716065"
+      ],
+      "p_out": [
+        "-2.98338056327354017738525062161926734564490400046921532542775",
+        "2.764106662066944399241988450965071543565877974427073742537"
+      ],
+      "dt": 10,
+      "dps": 60,
+      "steps": 69136,
+      "trace_sha256": "1a50dbd4b26f9eea09b62900e94d335188911146f0cd2c23d415134f743e0d02",
+      "trace_path": "runs\\c1b1_o1_cause_isolation_20261001_v1\\hp_kdk_dt10_dps60.jsonl.gz",
+      "cpu_seconds": 89.609375,
+      "wall_seconds": 89.81029239998315,
+      "matched_continuous": {
+        "chi": "-0.123632306938145768488372563431427120683981318577056985021607",
+        "direction": "2.39432644186341073526206208812772398658267181693056133148567",
+        "sweep": "8.05396246391663378241992004132472787473272291174264634228892",
+        "time": "691359.941036248530998834689889190921539394360689968264935049",
+        "r_min": "6.8818805163810469892003108036451686329539417956291563212384512190939733984916569",
+        "outlet_direction_correction": "0.0000000415034502922872687130027471292335579139153580729593855435289",
+        "local_quad_error": "1.0e-66"
+      },
+      "differences": {
+        "chi": "0.000000818294999233141304884134585208826907624952209019677185002114",
+        "direction": "0.000000818294999233141304884134585208826907624952209019677190136102",
+        "r_min": "0.0000000173436579226021474427126447628671714450129045583180489983386"
+      },
+      "evidence": "REUSED_PRIOR_LOCAL_DIAGNOSTIC",
+      "measured_force_evaluations": null
+    },
+    {
+      "chi": "-0.12363210028933552946039609861807443261789607456194969742936",
+      "direction": "2.39432664851222097429003855294107667464875706094566861907792",
+      "sweep": "8.05396281264055323696578244811122222106758207270127791211307",
+      "r_min_chord": "6.88188052325841268729209749814364763410674455318983656922329",
+      "r_min_stored": "6.88188052572695146014561109879351105745258275488655494571318",
+      "r_exit": "20.0023912130052554133523921782416648586420577849472868150565",
+      "time": "691360.0",
+      "H0": "0.000225997887500000000000000011977203502505855960388098461801099",
+      "L0": "47.5022482046646174558308739354663808142700820447146270453231",
+      "energy_max_change_De": "0.0000000122626425711785164795313642078640856471377693787601638061445",
+      "energy_final_change_De": "-0.00000000000000347547021162454742473880094130481680567011330059575496584806",
+      "angular_max_change": "1.02057450556922723997162650481994037545680135567027140982858e-57",
+      "angular_final_change": "-3.98272977783113069257220099441927951397776138798154696518471e-58",
+      "q_out": [
+        "-3.97349270856953368845159671715167866729658946411963525151499",
+        "19.6037498946771559717770784270300232775463451045503781606407"
+      ],
+      "p_out": [
+        "-2.98337886401067908611225592837246014493002672899754546251167",
+        "2.76410847886537332233606790844481488115967112447221760829638"
+      ],
+      "dt": 5,
+      "dps": 60,
+      "steps": 138272,
+      "trace_sha256": "c7a415dc7f355f72964fc0aae44e3586f0f8a24dd5e5fc3d8f8e20d4067621bb",
+      "trace_path": "runs\\c1b1_o1_cause_isolation_20261001_v1\\hp_kdk_dt5_dps60.jsonl.gz",
+      "cpu_seconds": 180.125,
+      "wall_seconds": 180.57174029998714,
+      "matched_continuous": {
+        "chi": "-0.123632304863025558556627210141778170269873295558553838805637",
+        "direction": "2.39432644393853094519380744141737293699677983994906447770165",
+        "sweep": "8.05396260806686569598265935981355326141842344849922450001032",
+        "time": "691359.985259066505802903650207795985104632175647995594974145",
+        "r_min": "6.8818805163810469892003108036451686329539417956291563212384512190939733984916569",
+        "outlet_direction_correction": "0.0000000435785705022190140662923960796476659369338612191753557480957",
+        "local_quad_error": "1.0e-66"
+      },
+      "differences": {
+        "chi": "0.000000204573690029096231111523703737651977220996604141376277003274",
+        "direction": "0.000000204573690029096231111523703737651977220996604141376270264915",
+        "r_min": "0.0000000068773656980917866944984790011528027575606802479848386260263"
+      },
+      "evidence": "REUSED_PRIOR_LOCAL_DIAGNOSTIC",
+      "measured_force_evaluations": null
+    }
+  ],
+  "candidates": [
+    {
+      "method": "yoshida4",
+      "outer_dt": 40,
+      "status": "NOT_RUN_REMOTE",
+      "chi": null,
+      "chi_error": null,
+      "direction": null,
+      "R_min": null,
+      "outer_steps": null,
+      "force_evaluations": null,
+      "PES_evaluations": null,
+      "cpu_seconds": null,
+      "wall_seconds": null,
+      "peak_memory": null,
+      "energy_deviation": null,
+      "angular_momentum_deviation": null,
+      "precision_convergence": "NOT_TESTED"
+    },
+    {
+      "method": "chin4a",
+      "outer_dt": 40,
+      "status": "NOT_RUN_REMOTE",
+      "chi": null,
+      "chi_error": null,
+      "direction": null,
+      "R_min": null,
+      "outer_steps": null,
+      "force_evaluations": null,
+      "PES_evaluations": null,
+      "cpu_seconds": null,
+      "wall_seconds": null,
+      "peak_memory": null,
+      "energy_deviation": null,
+      "angular_momentum_deviation": null,
+      "precision_convergence": "NOT_TESTED"
+    }
+  ],
+  "control_attempts": [
+    {
+      "instance": 52731349,
+      "start_utc": "2026-10-01T05:33:23Z",
+      "before": {
+        "id": 52731349,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "Core™ Ultra 7 265K",
+        "cpu_cores": 20,
+        "cpu_cores_effective": 20.0,
+        "cpu_ram": 64007,
+        "dph_total": 0.16074074074074074,
+        "ssh_host": "ssh2.vast.ai",
+        "ssh_port": 11348,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 5060 Ti",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "failure": "node did not become running",
+      "stop_exit": 0,
+      "final": {
+        "id": 52731349,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "Core™ Ultra 7 265K",
+        "cpu_cores": 20,
+        "cpu_cores_effective": 20.0,
+        "cpu_ram": 64007,
+        "dph_total": 0.16074074074074074,
+        "ssh_host": "ssh2.vast.ai",
+        "ssh_port": 11348,
+        "inet_down_cost": 0.0026041666666666665,
+        "inet_up_cost": 0.00390625,
+        "disk_space": 8.0,
+        "gpu_name": "RTX 5060 Ti",
+        "internet_down_cost_per_tb": 2.6666666666666665,
+        "internet_up_cost_per_tb": 4.0
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:36:04Z",
+      "elapsed_seconds": 161.75926876068115,
+      "compute_cost_estimate_usd": 0.00722258463396457,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    },
+    {
+      "instance": 52764050,
+      "start_utc": "2026-10-01T05:38:00Z",
+      "before": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "start_response_format": "not JSON; state polling required",
+      "failure": "node did not become running",
+      "stop_exit": 0,
+      "final": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:40:38Z",
+      "elapsed_seconds": 157.99909448623657,
+      "compute_cost_estimate_usd": 0.011833677035594672,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    },
+    {
+      "instance": 52764050,
+      "start_utc": "2026-10-01T05:41:35Z",
+      "before": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "started": true,
+      "retrieved": false,
+      "push": false,
+      "compute_gpu": false,
+      "failure": "'NoneType' object has no attribute 'raise_for_status'",
+      "stop_exit": 0,
+      "final": {
+        "id": 52764050,
+        "actual_status": "exited",
+        "intended_status": "stopped",
+        "cur_state": "stopped",
+        "cpu_name": "AMD Ryzen Threadripper PRO 9975WX 32-Cores",
+        "cpu_cores": 64,
+        "cpu_cores_effective": 32.0,
+        "cpu_ram": 160318,
+        "dph_total": 0.2696296296296296,
+        "ssh_host": "ssh9.vast.ai",
+        "ssh_port": 14050,
+        "inet_down_cost": 0.013333333333333334,
+        "inet_up_cost": 0.013333333333333334,
+        "disk_space": 8.0,
+        "gpu_name": "Titan RTX",
+        "internet_down_cost_per_tb": 13.653333333333334,
+        "internet_up_cost_per_tb": 13.653333333333334
+      },
+      "stopped_confirmed": true,
+      "end_utc": "2026-10-01T05:41:41Z",
+      "elapsed_seconds": 5.712072372436523,
+      "compute_cost_estimate_usd": 0.0004278177661660277,
+      "cost_note": "rate times lifecycle duration estimate; excludes transfer charges and retained stopped-instance storage; invoice not inspected"
+    }
+  ],
+  "control_note": "started=true in lifecycle means control attempted, not confirmed running. Third retry=0 caused zero HTTP requests in installed SDK. First two start responses were not preserved; failure cause unresolved.",
+  "final_vast_states": [
+    {
+      "id": 52731349,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped"
+    },
+    {
+      "id": 52763629,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped"
+    },
+    {
+      "id": 52763685,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped"
+    },
+    {
+      "id": 52764050,
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "cur_state": "stopped"
+    }
+  ],
+  "budget_approved": {
+    "hourly_usd": 1,
+    "total_usd": 1,
+    "max_seconds": 3600
+  },
+  "rate_times_control_duration_proxy_usd": 0.01948407943572527,
+  "actual_billed_cost_usd": null,
+  "cost_note": "No running state observed. Rate-duration proxy is not an invoice or measured compute charge; transfer and retained stopped storage excluded.",
+  "verification": {
+    "local_unit_passed": 14,
+    "local_unit_failed": 0,
+    "local_unit_skipped": 0,
+    "pytest_seconds": 0.65,
+    "exit": 0,
+    "LOCAL_FULL": "OMITTED_RELATED_TESTS_ONLY",
+    "reason": "New independent observer/test/docs only; no old executable/shared/frozen source changed; no official baseline update."
+  },
+  "source_integrity": {
+    "sources": {
+      "checked": 12,
+      "mismatches": 0
+    },
+    "protected_sources": {
+      "checked": 134,
+      "mismatches": 0
+    },
+    "old_O1_artifacts": {
+      "checked": 97,
+      "mismatches": 0
+    },
+    "old_cause_artifacts": {
+      "checked": 27,
+      "mismatches": 0
+    },
+    "public_source": {
+      "checked": 1,
+      "mismatches": 0
+    }
+  },
+  "payload_sha256": "bbe64ed6ad96adf3654a13afea8b9ebec35743243d7fb91f1b7f268edd370232",
+  "seal_file_sha256": "acde613a68359b2afe6d3d819bf0a14bfa97a5b0008515c52bfd901970ef33c3",
+  "prepared_bundle": {
+    "bytes": 64353518,
+    "sha256": "cb19888ccd6ff47d40a7fbddc8d646b706fea5687a969c7f1360957869e9307d",
+    "uploaded": false
+  },
+  "artifacts": {
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt2_controller.exit": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt2_controller.log": {
+      "sha256": "1c4ebd05f2875839afceaec2a3f89072e11de87d5ddd187bf86bf1f26108bcb8",
+      "bytes": 1853
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt2_vast_lifecycle.json": {
+      "sha256": "ed00e33b67115966691b25275b40cf4e7966cbd8accac5ee781664f4fe7b26cf",
+      "bytes": 1839
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt3_controller.exit": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt3_controller.log": {
+      "sha256": "9380bd0a68ec7a6e54822ff9bf70964b7c7a9ae8238d2607842e79a5882f37fd",
+      "bytes": 1815
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/attempt3_vast_lifecycle.json": {
+      "sha256": "2842ea983fbe285ed6c088c885deae98cc3fed7bd012951d0aa58f5d56ae6dd0",
+      "bytes": 1801
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/bundle_manifest.json": {
+      "sha256": "302810b210b6905b231d6c8892e00cf7f8f123c9b0cee277de4acdf35b818d3d",
+      "bytes": 45122
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/controller.exit": {
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+      "bytes": 3
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/controller.log": {
+      "sha256": "8646446e7224895e889f4198cb86daace4c8786413d4bf6e7ab1d86bd60a5956",
+      "bytes": 1706
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/deployment_bundle.tar.gz": {
+      "sha256": "cb19888ccd6ff47d40a7fbddc8d646b706fea5687a969c7f1360957869e9307d",
+      "bytes": 64353518
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/final_vast_states.json": {
+      "sha256": "dfe1ae2fe574f32bf180821bc22f34b740e263b465490db147f1db26ee88b1cd",
+      "bytes": 618
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/finalize_blocked.py": {
+      "sha256": "60ad094a21b92eab00a725dde2fadeefd613322fd921d39ace3a57522df97a4d",
+      "bytes": 6113
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/local_unit_junit.xml": {
+      "sha256": "925176858561c487af89b2760bb4f2fcb2adc0308fab1dbdf56417f3cde7ecd1",
+      "bytes": 2091
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/prepare_bundle.py": {
+      "sha256": "5213cf01bc672867509408b8cb2cf110e79cb6c3376d019404e760c29bdddbba",
+      "bytes": 1784
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/remote_bootstrap.py": {
+      "sha256": "cf0f3e0b8e760044f548fa72cd67e7634edad57eff1135e7b3d2a636f6f107c3",
+      "bytes": 3441
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/vast_controller.py": {
+      "sha256": "ef5dcec97cb0fecd54c29fa8259ed86b453693f0bb92e4de2d6a56ea8a00759e",
+      "bytes": 5539
+    },
+    "runs/c1b1_dt40_integrator_benchmark_20261001_v1/vast_lifecycle.json": {
+      "sha256": "aee64284499208853f66ea5c6249243030dc07cea89747bad70697da84b0bf33",
+      "bytes": 1692
+    }
+  },
+  "protocol_erratum": {
+    "location": "candidate A prose approximate negative drift",
+    "printed": "-68.0976568",
+    "correct_approximation": "-68.09657535677261",
+    "governing_definition": "40*(-2**(1/3)/(2-2**(1/3)))",
+    "seal_or_coefficients_changed": false,
+    "numerical_execution_occurred": false
+  },
+  "existing_status": {
+    "Energy Bound v0": "APPROVED",
+    "Liveness": "NotCertified",
+    "Safety": "Conditional",
+    "A-EV": "unresolved",
+    "Production Replay Verifier V1": "APPROVED",
+    "O-1": "STOPPED / NOT PASSED",
+    "cause_isolation": "TIME_DISCRETIZATION_SUPPORTED"
+  },
+  "production_changed": false,
+  "physics_changed": false,
+  "formal_certified": false,
+  "production_adoption_decided": false,
+  "commit": false,
+  "push": false
+}

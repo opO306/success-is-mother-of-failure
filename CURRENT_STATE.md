@@ -73,6 +73,19 @@ production dt/profile/PES/허용오차/D_valid/승인 verifier를 변경하지 �
 LOCAL FULL 생략 / 독립 관측 코드·시험·문서만 추가, 기존 protected 소스 불변 확인 및 관련 시험으로 대체 / 기준선 갱신 없음.
 O-3·A-EV·native J·adaptive dt·substep 등 금지 작업 미착수. commit/push 없음.
 
+**outer dt40 적분기 비교 V1(2026-10-01, 기준 `508bba4`): C — 아직 판정 불가.**
+[원격 제어 실패 보고서](docs/active/C1B1_DT40_INTEGRATOR_BENCHMARK_V1.md),
+[실행 전 프로토콜](docs/active/C1B1_DT40_INTEGRATOR_BENCHMARK_PROTOCOL_V1.md),
+[봉인](docs/active/C1B1_DT40_INTEGRATOR_BENCHMARK_SEAL_V1.json),
+[결과·실패 기록](docs/active/C1B1_DT40_INTEGRATOR_BENCHMARK_RESULTS_V1.json).
+Yoshida4/Chin4A 두 독립 후보·기존 9개 입력·기준을 실행 전에 봉인했다.
+Vast 시작/제어 시도 3회 실패로 AGENTS 중단 규칙 적용. 첫 두 원인 미확정,
+세 번째는 SDK retry=0 사용 실수로 start HTTP 요청 미전송. Ar-Ar 궤적·원격 시험·비용 probe 0건.
+사용한 노드 및 최종 기존 네 인스턴스 exited/stopped 확인. 후보 정확도·수렴·비용은 미측정이다.
+관련 작은 대수 시험 14 passed(0.65초), 기존 protected 134 및 기존 원본 97+27 hash 불변.
+LOCAL FULL 생략 / 새 독립 진단·시험·문서만 추가, 관련 시험으로 대체 / 기준선 갱신 없음.
+production/기존 O-1 STOP/원인 격리 판정 변경 없음. commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
