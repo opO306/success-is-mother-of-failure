@@ -4,6 +4,7 @@
 
 | 문서 | 현재 읽을 범위 |
 |---|---|
+| [Small-world reachable domain 감사 V1](C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md) | **SMALL_WORLD_ENVELOPE_UNDEFINED**. 목표 세계 초기 집합·총에너지·크기·운영 시간 미정. O-1 문제 입력은 UNDECIDABLE_FROM_CURRENT_WORLD_SPEC. 기존 observed 두 원자 입력을 자연 생성 증거로 승격하지 않음. production/상태 변경·probe 없음 |
 | [C1-B1 설계·결정·검증](A_MICRO_V6_C1B1_TWO_ATOM_DYNAMICS_DESIGN_V1.md) | 23절 D_valid v2 동결, 24절 ④-1, 25절 ④-2/④-3, 26절 rounding 진행. 1~22절은 설계·측정 이력 |
 | [production independent replay verifier V1](C1B1_PRODUCTION_REPLAY_VERIFIER_V1.md) | witness V1·독립 interval AD·전 step 정수 전이·3 verdict·증거 보존·최소 history. 8996aa60 지정 fingerprint 조합 승인 완료. scratch 승격 없음 |
 | [production 승인·보존 witness 재검증 기록](C1B1_REPLAY_VERIFIER_APPROVAL_RECORD_V1.md) | [verifier 승인 manifest](C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json)와 [독립 trusted test origin 7개](c1b1_trusted_test_origins_v1/index.json). 공식 N-1 CPU2.773배 / 4-worker wall2.537배. origin은 파이프라인 시험 전용 |

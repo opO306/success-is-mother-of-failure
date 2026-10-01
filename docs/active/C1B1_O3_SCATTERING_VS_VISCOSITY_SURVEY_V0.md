@@ -137,6 +137,8 @@ A → χ(E, b)
 
 → 현재 계약으로 300 K Ar 기체 세계를 돌리면 충돌 몇 %마다 `IntegratorDomainExceeded`로 **세계가 멈춘다**. 다원자 기체 단계 전에 범위 확장이 필수다.
 
+**2026-10-01 reachable-domain 감사의 해석 제한:** 위 문장은 온도 모델과 같은 충돌 admission을 다원자 세계에 적용한다는 가정 아래의 운영 예상이다. 현재 구현의 `check_integrator_domain()`은 두 원자 `new_run(validated_only=True)`에서 초기 에너지를 검사하며 `step()`마다 검사하지 않는다. 다원자 admission 조립은 아직 구현되지 않았다. 따라서 위 5%/13%와 “몇 %마다 중단”을 특정 유한 결정론 작은 세계의 실측 빈도·필수 사건·reachable bound로 읽지 않는다. 그 세계의 명세는 아직 충분히 정의되지 않았다([별도 감사](C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md)). 기존 O-3 이동 결정이나 표의 추정값을 변경한 것은 아니다.
+
 ---
 
 ## 5. 이 문서가 주장하지 않는 것

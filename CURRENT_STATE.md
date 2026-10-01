@@ -142,6 +142,13 @@ negative internal stage 위험은 r_min/hard domain/many-body/충돌/화학/불�
 구현·harness·시험·coefficients/input seals·기존 JSON/보고서·로컬/원격 결과·실패 배포 기록 보존. production/Gate/기존 O-1 STOP 변경 없음.
 이번 단계는 문서만 변경, 새 수치 실험·Vast 계산 없음. 관련 단위 시험 새 실행 27 passed(0.62초), failure/error/skip 0. LOCAL FULL 생략 / 사용자 10절·관련 시험 대체 / 기준선 갱신 없음. commit/push 없음.
 
+**Small-world reachable domain 감사 V1(2026-10-01, 기준 `a1685e5`): C / SMALL_WORLD_ENVELOPE_UNDEFINED.**
+[감사 보고서](docs/active/C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md).
+일반 주기/저장소 경계 방향과 두 Ar40 산란 계약은 있지만 목표 작은 세계의 N·공간 치수·초기 위치/운동량 집합·전체 에너지/구동·운영 시간이 미정이다.
+사양 없이 reachable envelope를 만들지 않았다. O-1 E=0.5 De/rho=-0.001 입력은 기존 직접 준비된 observed 두 원자 사례이며 목표 세계 판정은 **UNDECIDABLE_FROM_CURRENT_WORLD_SPEC**다.
+D_valid는 초기 상태 수치 evidence이며 궤적 중간 상태의 불변 영역이 아니다. R1/R2/R3와 지원 gap 크기는 미판정, 새 bound/probe/sweep/Vast 0.
+production/dt/profile/PES/r_min/D_valid/verifier/Energy Bound/기존 O-1 STOP/④-Liveness/④-Safety/A-EV/Yoshida 상태 유지. 검증은 보고서 9절을 따른다. commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
