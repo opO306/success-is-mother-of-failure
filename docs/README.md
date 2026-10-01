@@ -31,6 +31,7 @@ D_valid evidence는 `numerical_validated` / `unsupported`다. 별도 analytic ou
 
 O-1 독립 수치 재현 V1은 [불일치 STOP 보고서](active/C1B1_O1_INDEPENDENT_NUMERICAL_REPRODUCTION_V1.md)를 본다.
 AGREE 8 / DISAGREE 1 / UNRESOLVED 0이며 O-1 전체 통과가 아니다. O-3는 착수하지 않았다.
+후속 [단일 불일치 원인 격리 진단](active/C1B1_O1_CAUSE_ISOLATION_V1.md)은 HP-KDK40과 production A의 차이를 별도로 조사한다. 기존 O-1 STOP 판정을 유지하며 production 계약을 변경하지 않는다.
 
 ## 보존 및 경로 예외
 

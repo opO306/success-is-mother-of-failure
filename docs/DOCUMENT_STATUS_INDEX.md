@@ -15,6 +15,8 @@
 | [C1B1_SOURCE_BINDING_REAUDIT_V1.md](active/C1B1_SOURCE_BINDING_REAUDIT_V1.md) | 신규(2026-10-01). 이번 예외 변경에 한정한 의미 대조·11개 증거 재생성·소스 결합 감사 완료. LOCAL FULL 통과, A-EV 전체 미해결 유지 |
 | [C1B1_O1_PROTOCOL_V1.md](active/C1B1_O1_PROTOCOL_V1.md) | 신규(2026-10-01). 실행 전 입력·오차 배분·판정·STOP 봉인. 결과 뒤 변경 금지 |
 | [C1B1_O1_INDEPENDENT_NUMERICAL_REPRODUCTION_V1.md](active/C1B1_O1_INDEPENDENT_NUMERICAL_REPRODUCTION_V1.md) | 신규(2026-10-01). AGREE 8 / DISAGREE 1 / UNRESOLVED 0 / 미실행 1, 불일치 STOP. O-1 전체 통과 아님 |
+| [C1B1_O1_CAUSE_ISOLATION_PROTOCOL_V1.md](active/C1B1_O1_CAUSE_ISOLATION_PROTOCOL_V1.md) | 신규(2026-10-01). 단일 raw HP-KDK40 원인 분리·조건부 dt 축소 기준의 실행 전 봉인 |
+| [C1B1_O1_CAUSE_ISOLATION_V1.md](active/C1B1_O1_CAUSE_ISOLATION_V1.md) | 신규(2026-10-01). 독립 HP-KDK numerical diagnostic. production 계약·기존 O-1 STOP·unsupported 범위 유지 |
 | [A_THREE_LAYER_SEPARATION_V1.md](active/A_THREE_LAYER_SEPARATION_V1.md) | 신규(2026-10-01). 세 층 분리·증거 등급·C1-B1 종료 조건 재정의 |
 | [C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md](active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md) | 신규(2026-10-01). O-3 대상 조사, 직접 산란 O-3 weak 채택 |
 | [C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md](active/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md) | docs/current/C1B1_OUTER_BOOTSTRAP_AND_TAIL_V1.md |

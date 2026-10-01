@@ -50,12 +50,28 @@ E=0.5 De, rho=-0.001, b=11.707286169880804 bohr(기존 D_valid unsupported)의
 각도 차이 1.30928186e-5 rad > 사전 절대 1e-5. 독립 60→80자리 각도 차이
 8.40e-51 rad, 별도 ODE와 7.93e-11 rad 차이. 다음 rho=-0.0001은 실행하지 않았다.
 최접근 거리·에너지 기준은 만족. 어느 계산기가 틀렸다고 자동 판정하지 않는다.
-O-1 전체 통과/전체 D_valid 인증 아님; 시간 이산화 등 원인별 분리는 후속 설계자 판단 전 미실행.
+O-1 전체 통과/전체 D_valid 인증 아님. V1 종료 당시 원인별 분리는 미실행이었으며, 후속 사용자 지시에 따른 진단은 아래 별도 기록이다.
 기존 7개 PIPELINE_TEST_ONLY history 재사용·의미 변경 없음. 물리/PES/dt/r_min/D_valid/승인 verifier 변경 0.
 LOCAL FULL **3501 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, exit 0,
 25 기존 cp949 warnings, 669.38초**. 공식 AGENTS 기준선은 갱신하지 않았다.
 순차 campaign wall 1176.569초; 기록 단계 CPU 합 1084.484초. 원본 runs 보존.
 O-3·A-EV·native J·live pipe·rollback controller·④ 재증명 미착수, commit/push 없음.
+
+**O-1 단일 불일치 원인 격리 V1(2026-10-01, 기준 `504e837`): numerical diagnostic.**
+[진단 보고서](docs/active/C1B1_O1_CAUSE_ISOLATION_V1.md),
+[실행 전 프로토콜](docs/active/C1B1_O1_CAUSE_ISOLATION_PROTOCOL_V1.md),
+[입력·소스·원본 해시 봉인](docs/active/C1B1_O1_CAUSE_ISOLATION_SEAL_V1.json),
+[전체 결과](docs/active/C1B1_O1_CAUSE_ISOLATION_RESULTS_V1.json).
+같은 boundary_pass raw의 별도 HP-KDK40과 production A 각도 차이는 2.20133e-11 rad,
+HP-KDK40과 연속 기준의 차이는 1.30928e-5 rad다. 40→60자리 변화 4.96446e-38 rad.
+사전 원인 분리 기준은 TIME_DISCRETIZATION_SUPPORTED이며 dt20/10/5 관측 진단을 허용했다.
+dt20/10/5의 출구 반경을 맞춘 각도 오차는 3.27318e-6 / 8.18295e-7 / 2.04574e-7 rad,
+실측 수렴률은 세 구간 모두 약 2차다. 진단 5회(precision 비교 포함)/276,544 step 보존.
+기존 O-1 DISAGREE / STOPPED / NOT PASSED, 기존 D_valid unsupported, 9개 CONFIRMED 의미를 유지한다.
+production dt/profile/PES/허용오차/D_valid/승인 verifier를 변경하지 않았다. 형식 인증이나 Gate 승격이 아니다.
+관련 140 passed + 1 strict xfailed, 실제 skip 0, failure/error 0, 37.33초.
+LOCAL FULL 생략 / 독립 관측 코드·시험·문서만 추가, 기존 protected 소스 불변 확인 및 관련 시험으로 대체 / 기준선 갱신 없음.
+O-3·A-EV·native J·adaptive dt·substep 등 금지 작업 미착수. commit/push 없음.
 
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
