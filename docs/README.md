@@ -40,6 +40,8 @@ AGREE 8 / DISAGREE 1 / UNRESOLVED 0이며 O-1 전체 통과가 아니다. O-3는
 
 [KDK20/Yoshida40 로컬 전체 비용 최종 비교](active/C1B1_KDK20_YOSHIDA40_COST_LOCAL_V1.md)는 사용자 로컬 지시로 26 궤적을 완료했다. 양쪽 기존 9-input 관측 기준 PASS지만 Yoshida CPU/wall 합계 1.396210/1.449380배로 B / YOSHIDA_ACCURATE_BUT_COSTLIER. 관련 시험 70 passed, LOCAL FULL 생략. 로컬 부하 미통제·panel 1회·production 미채택·기존 O-1 STOP 유지, 이전 원격 실패 기록 보존.
 
+[Yoshida40 후보 상태](active/C1B1_YOSHIDA40_CANDIDATE_STATUS_V1.md)는 VALIDATED NUMERICAL CANDIDATE / NOT PRODUCTION / NOT FORMALLY CERTIFIED로 보존한다. implemented / numerically validated on sealed C1-B1 O-1 panel / cost benchmarked locally 수준이다. 더 엄격한 관측 오차 또는 KDK timestep 축소 비용 증가 시 재검토하며, negative internal stage 위험·기존 O-1 STOP·모든 실패 기록을 유지한다.
+
 ## 보존 및 경로 예외
 
 58개 문서를 실제로 분류 폴더로 이동했고, 코드·도구·규칙이 참조하던 옛 경로에는 원문으로 연결하는 짧은 안내를 남겼다. 계약이나 설계 본문을 두 군데 복사해 관리하지 않는다.

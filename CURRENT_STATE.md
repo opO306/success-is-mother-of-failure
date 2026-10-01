@@ -133,6 +133,15 @@ warm-up 2회 제외, 문제 입력 K/Y 혼합 각 3회와 기존 9-input 방법�
 로컬 다른 부하 미통제, panel 방법별 1회, peak memory는 checksum 준비를 포함한 worker 전체 값이다. 내부 negative-stage 위험·production 미채택·기존 O-1 STOP 유지.
 Vast 시작/SSH 없음. 기존 원격 실패·봉인 보존, production/공용/동결 source 수정 없음, commit/push 없음.
 
+**Yoshida40 후보 보존 결정(2026-10-01, 기준 `9e794a8`): VALIDATED NUMERICAL CANDIDATE / NOT PRODUCTION / NOT FORMALLY CERTIFIED.**
+[후보 상태·재검토 조건·보존 자산](docs/active/C1B1_YOSHIDA40_CANDIDATE_STATUS_V1.md).
+증거 등급: implemented / numerically validated on sealed C1-B1 O-1 panel / cost benchmarked locally / not production / not formally certified.
+YOSHIDA_ACCURATE_BUT_COSTLIER 유지. 봉인된 9개 입력에서 KDK20도 현재 1e-5 rad 관측 기준을 만족하므로 추가 정확도의 비용을 이유로 production 채택 보류, 후보 폐기 없음.
+더 엄격한 관측 오차 요구, KDK timestep 축소 비용 증가, 고정밀 reference 필요 시 재평가하되 자동 승인하지 않는다.
+negative internal stage 위험은 r_min/hard domain/many-body/충돌/화학/불연속·조건부 모델에 별도 검증 필요. 표본 성공은 formal proof나 A 전체 안전성 증거가 아니다.
+구현·harness·시험·coefficients/input seals·기존 JSON/보고서·로컬/원격 결과·실패 배포 기록 보존. production/Gate/기존 O-1 STOP 변경 없음.
+이번 단계는 문서만 변경, 새 수치 실험·Vast 계산 없음. 관련 단위 시험 새 실행 27 passed(0.62초), failure/error/skip 0. LOCAL FULL 생략 / 사용자 10절·관련 시험 대체 / 기준선 갱신 없음. commit/push 없음.
+
 **초기 `_decide` 예외 분류 후보 STOP — 당시 기록(기준 `53b73ea`):**
 [호출·예외 흐름 및 분류 계약](docs/active/C1B1_DECIDE_EXCEPTION_CLASSIFICATION_V1.md)을 고정하고
 분류/guard 수정 후보와 직접 시험 21개를 만들었다. 관련 경계 시험 44개 통과,
