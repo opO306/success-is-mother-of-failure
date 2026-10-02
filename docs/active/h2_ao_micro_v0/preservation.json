@@ -1,0 +1,47 @@
+{
+  "historical": {
+    "h2_static_pilot_v2": {
+      "manifest_sha256": "4087f14e8431fedceeba6e666edc4a326ff4f74152eaecb40f78aa8490f3f695",
+      "checked": 265,
+      "missing": [],
+      "changed": []
+    },
+    "h2_numerical_cause_v1": {
+      "manifest_sha256": "d518280b1d5627a9cfe09ae42cf589d4085b54ce0a52b66261d004438e054c80",
+      "checked": 145,
+      "missing": [],
+      "changed": []
+    }
+  },
+  "executed_source_versions": {
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/prepare.py@f0381e93979eca5a86a6202dca3db962e54757d87ed4bef6f74defa70789babb": "electronic_pilot\\ao_micro_v0\\prepare.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/protocol.json@02229a1a0a9e587d36b1626debdb75de31c8008badafe9752ec21a47cbfa01e7": "electronic_pilot\\ao_micro_v0\\protocol.json",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/__init__.py@dfd4a0aeb70feaa65ff68dd0a94f3031905045f9c2780ba4e9a7fde4239058a1": "electronic_pilot\\ao_micro_v0\\__init__.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/gaussian.py@aed7358f29fb871cbbd070aaa8476b19944ba80542845296fa43699d2e85b3f9": "electronic_pilot\\ao_micro_v0\\gaussian.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/spot.py@8e2253b810807fe319941308ce06f4b508783d4cdb8d542bd9c8d9a510c20511": "runs\\h2_ao_micro_v0\\test_failure_v0\\spot_executed.py.txt",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/campaign.py@08d74cd8fdc5f6adde37636c0aa3930133117c098669e6678c605de30e709b9d": "runs\\h2_ao_micro_v0\\implementation_mismatch_v0\\campaign_executed.py.txt",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/reuse.py@71ef7171e1ee2e086c96879db47d4579889fe75879f781ee7582b05725a87c15": "runs\\h2_ao_micro_v0\\implementation_mismatch_v0\\reuse_executed.py.txt",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/analyze.py@299fae1219f9258450f4c5ff347c7a7083227d95a3b0a3228624b84dbfaac8a2": "runs\\h2_ao_micro_v0\\implementation_mismatch_v0\\analyze_executed.py.txt",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/campaign.py@63ba5353cbe4a2f49a6f8c3af4183804f1a360b2045e7cf02023af946758482a": "electronic_pilot\\ao_micro_v0\\campaign.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/package.py@304f7d4ddd2ab940e9eb64e8e5c8b5fe12bb96fedaa486d60538af2488aaf82f": "runs\\h2_ao_micro_v0\\implementation_mismatch_v0\\package_executed.py.txt",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/reuse.py@d3a9db91303df54ccca7172c83ca8ce0bfe9ccd6a79c99071e4e4fe47ecd25f3": "electronic_pilot\\ao_micro_v0\\reuse.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/spot.py@724b03207389ebbaafb697596982fc7d4910fc7bc11c21d90e993f35c411d120": "electronic_pilot\\ao_micro_v0\\spot.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/test_integration.py@fc03ec64424900d9f35e0d5f23bd38e6725607f6cfe2b1b2d2c24e8241668026": "electronic_pilot\\ao_micro_v0\\test_integration.py",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/ao_micro_v0/analyze.py@7fe55b05bf82f09a39c09bfff58fdc563a65f401821ed70fa8a63f8a493b2b9b": "electronic_pilot\\ao_micro_v0\\analyze.py"
+  },
+  "raw_manifest_count": 118,
+  "source_sha256": {
+    "electronic_pilot\\ao_micro_v0\\analyze.py": "7fe55b05bf82f09a39c09bfff58fdc563a65f401821ed70fa8a63f8a493b2b9b",
+    "electronic_pilot\\ao_micro_v0\\campaign.py": "63ba5353cbe4a2f49a6f8c3af4183804f1a360b2045e7cf02023af946758482a",
+    "electronic_pilot\\ao_micro_v0\\gaussian.py": "aed7358f29fb871cbbd070aaa8476b19944ba80542845296fa43699d2e85b3f9",
+    "electronic_pilot\\ao_micro_v0\\package.py": "a32b97166eadd6cfe2d329188b419c3a5ad97625a392ca73bf5887e784c8d474",
+    "electronic_pilot\\ao_micro_v0\\prepare.py": "f0381e93979eca5a86a6202dca3db962e54757d87ed4bef6f74defa70789babb",
+    "electronic_pilot\\ao_micro_v0\\protocol.json": "02229a1a0a9e587d36b1626debdb75de31c8008badafe9752ec21a47cbfa01e7",
+    "electronic_pilot\\ao_micro_v0\\reuse.py": "d3a9db91303df54ccca7172c83ca8ce0bfe9ccd6a79c99071e4e4fe47ecd25f3",
+    "electronic_pilot\\ao_micro_v0\\spot.py": "724b03207389ebbaafb697596982fc7d4910fc7bc11c21d90e993f35c411d120",
+    "electronic_pilot\\ao_micro_v0\\test_integration.py": "fc03ec64424900d9f35e0d5f23bd38e6725607f6cfe2b1b2d2c24e8241668026",
+    "electronic_pilot\\ao_micro_v0\\__init__.py": "dfd4a0aeb70feaa65ff68dd0a94f3031905045f9c2780ba4e9a7fde4239058a1"
+  },
+  "tests_sha256": "3fb6cbf7680d560c14d3491809ab28331b6b9548c1ddb492aca81bfcca11d791",
+  "git_parent": "6c53eec71e981cef35f850095da76b965457866c"
+}

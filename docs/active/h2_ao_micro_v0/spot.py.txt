@@ -1,0 +1,67 @@
+"""Independent AO class check; no energies and no reuse implemented here."""
+import argparse
+import hashlib
+import json
+import time
+from pathlib import Path
+import mpmath as mp
+from .gaussian import eri,overlap
+
+
+def evidence_gate(row):
+    return (float(row['independent_ERI_permutation_max'])<1e-45 and
+            float(row['independent_S_permutation_max'])<1e-45 and
+            float(row['precision_60_80_max'])<1e-45 and
+            float(row['libcint_ERI_permutation_spread'])>0 and
+            abs(row['selected_class_propagation'])>=1e-12)
+
+
+def check(source):
+    import resource  # Linux-only runtime metric; pure evidence gate is portable.
+    started=time.perf_counter()
+    data=json.loads(source.read_text());orbitals=data['orbitals'];calc={}
+    for digits in (60,80):
+        with mp.workdps(digits):
+            values=[]
+            for item in data['ERI_class']['raw_values']:
+                indices=item['indices'];v=eri(*(orbitals[i] for i in indices))
+                values.append(dict(indices=indices,independent=mp.nstr(v,digits),libcint=item['value'],
+                    error=mp.nstr(mp.mpf(item['value'])-v,digits)))
+            i,j=data['S_class']['indices']
+            sv=[overlap(orbitals[a],orbitals[b]) for a,b in ((i,j),(j,i))]
+            calc[str(digits)]=dict(ERI=values,S=[mp.nstr(v,digits) for v in sv])
+    with mp.workdps(90):
+        v=[mp.mpf(x['independent']) for x in calc['80']['ERI']]
+        s=[mp.mpf(x) for x in calc['80']['S']]
+        stability=max([abs(mp.mpf(a['independent'])-mp.mpf(b['independent'])) for a,b in zip(calc['60']['ERI'],calc['80']['ERI'])]+[abs(mp.mpf(a)-mp.mpf(b)) for a,b in zip(calc['60']['S'],calc['80']['S'])])
+        spread=max(x['libcint'] for x in calc['80']['ERI'])-min(x['libcint'] for x in calc['80']['ERI'])
+        result=dict(R_bohr=data['R_bohr'],selected_class_propagation=data['ERI_class']['selected_class_signed_contribution'],
+            independent_ERI_permutation_max=str(max(v)-min(v)),independent_S_permutation_max=str(max(s)-min(s)),
+            precision_60_80_max=str(stability),libcint_ERI_permutation_spread=spread,
+            libcint_ERI_max_abs_error=str(max(abs(mp.mpf(x['error'])) for x in calc['80']['ERI'])),
+            S_indices=data['S_class']['indices'],libcint_S=data['S_class']['values'],
+            libcint_S_max_abs_error=str(max(abs(mp.mpf(a)-b) for a,b in zip(data['S_class']['values'],s))),calculations=calc,
+            input_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),wall_seconds=time.perf_counter()-started,
+            peak_rss_bytes=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024,
+            limitation='Independent integration of the shared rounded AO representation. Not an independent basis specification, not all AO entries, not a rigorous enclosure.')
+    result['stage_B_gate_supported']=evidence_gate(result)
+    return result
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--selection',required=True);p.add_argument('--output',required=True);args=p.parse_args()
+    target=Path(args.output);target.mkdir(parents=True,exist_ok=False)
+    source=Path(args.selection)
+    seal=dict(selection_sha256=hashlib.sha256((source/'results.json').read_bytes()).hexdigest(),
+        source_sha256={str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in Path(__file__).parent.glob('*') if x.is_file()},
+        protocol=json.loads(Path(__file__).with_name('protocol.json').read_text()))
+    (target/'seal.json').write_text(json.dumps(seal,indent=2)+'\n')
+    rows=[];started=time.perf_counter()
+    for r in seal['protocol']['R_bohr']:
+        row=check(source/f'R_{r:g}.json');rows.append(row)
+        (target/f'R_{r:g}.json').write_text(json.dumps(row,indent=2)+'\n')
+        (target/'results.json').write_text(json.dumps(dict(rows=rows,wall_seconds=time.perf_counter()-started,
+            stage_B_gate_supported=all(x['stage_B_gate_supported'] for x in rows)),indent=2)+'\n')
+        print(r,'HP error',row['libcint_ERI_max_abs_error'],'spread',row['libcint_ERI_permutation_spread'],'gate',row['stage_B_gate_supported'],flush=True)
+
+if __name__=='__main__': main()

@@ -1,0 +1,8 @@
+{
+  "stage": "evidence packaging after completed numerical computations",
+  "error": "FileNotFoundError for /mnt/c/Users/zun24/.../electronic_pilot/ao_micro_v0/prepare.py on Windows",
+  "cause": "Source seal records __file__ absolute WSL paths; Windows reader needs a representation-only path adapter",
+  "partial_compact": "partial_compact subdirectory, preserved",
+  "numerical_result_changed": false,
+  "raw_trace": "Original tool traceback preserved in conversation; this is a structured transcription"
+}

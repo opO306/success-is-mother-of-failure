@@ -1,0 +1,53 @@
+{
+  "control_difference_hartree": -5.773159728050814e-15,
+  "same_physics_numerical_path_supported": true,
+  "local_minimum_resolved": true,
+  "local_minimum_R_bohr": 1.4,
+  "left_gap_hartree": 0.002163460214160917,
+  "right_gap_hartree": 0.0015940128781477547,
+  "stop_without_expansion": false,
+  "status": "QZ LOCAL MINIMUM RESOLVED",
+  "not_certified": true,
+  "whole_curve_recomputed": false,
+  "numerical_cause_supported": true,
+  "old_right_R_bohr": 1.5,
+  "old_right_energy": -1.1722017793714454,
+  "old_right_provenance": {
+    "path": "runs\\h2_numerical_cause_v1\\qz_curve\\results.json",
+    "sha256": "f2d97fe252e4ae156e02f4c809293617a74e1a81c43e56698503a0b743e482aa",
+    "accepted": true
+  },
+  "Stage_A_class_80digit": {
+    "0.7": "0.000000041097908031284598972285884874157897938567820310214660106652559708273978199389432",
+    "1.0": "-0.0000000023773242558757693847342233087394322643671532254598805795521061324500490828643025",
+    "1.3": "-0.000000000044283807867409097675862829339173683795464646833309473205369441510638354772753861",
+    "1.4": "-0.000000000014112637284107336021223111014218751741155916419275778197660547956092906871993"
+  },
+  "wall_seconds": {
+    "selection": 9.377407808999976,
+    "spot": 0.07910870899999978,
+    "B": 11.12267,
+    "C": 9.571150614
+  },
+  "stage_C_max_rss_bytes": 524582912,
+  "narrow_scope": "Only the four authorized QZ geometries. Archived 1.5 used only in post-analysis. No physical reference in evaluator.",
+  "unresolved": "MO ERI pair-interchange roundoff remains. Small H/eigen residual is not a rigorous forward energy error or formal certificate.",
+  "preservation": {
+    "protected_count": 89,
+    "changed": [],
+    "verified_npz": {
+      "runs\\h2_ao_micro_v0\\selection\\R_0.7.npz": "ea9bab8012aa461f89db09195b2206709117a151c52c2da8847c6ea5512cb660",
+      "runs\\h2_ao_micro_v0\\selection\\R_1.npz": "5b88e0d0d0e001f30bce01483f013646ee0073c85ff96c3df863bffdfca89c87",
+      "runs\\h2_ao_micro_v0\\selection\\R_1.3.npz": "f65b67378f7b9522a3958ec3a97ad778e6750d7d57e5efd66fd5c9f654b25187",
+      "runs\\h2_ao_micro_v0\\selection\\R_1.4.npz": "899fd50c2bab492d895ac64cf882699dec44b48e19578e3840bb246458ba1139",
+      "runs\\h2_ao_micro_v0\\B\\R_0.7.npz": "8d92897f114446bdc37e357ab62263bb2a335cef42e1924206584d7700b7cdf0",
+      "runs\\h2_ao_micro_v0\\B\\R_1.npz": "7768f70ea0ef75b7e96d25a48187d889d38f1e3dbc6ce5ea8dd2c07a712af10c",
+      "runs\\h2_ao_micro_v0\\B\\R_1.3.npz": "886bd99a8c0a3084cdfd72f3b88a31075695fd11f2d5b0ca691734982d356b30",
+      "runs\\h2_ao_micro_v0\\B\\R_1.4.npz": "ab79e4dc2dc1af86833e63b8f91dd0902e65392547f9ac7ecce2b0cf83bb2c66",
+      "runs\\h2_ao_micro_v0\\C\\R_0.7.npz": "8d92897f114446bdc37e357ab62263bb2a335cef42e1924206584d7700b7cdf0",
+      "runs\\h2_ao_micro_v0\\C\\R_1.npz": "7768f70ea0ef75b7e96d25a48187d889d38f1e3dbc6ce5ea8dd2c07a712af10c",
+      "runs\\h2_ao_micro_v0\\C\\R_1.3.npz": "886bd99a8c0a3084cdfd72f3b88a31075695fd11f2d5b0ca691734982d356b30",
+      "runs\\h2_ao_micro_v0\\C\\R_1.4.npz": "ab79e4dc2dc1af86833e63b8f91dd0902e65392547f9ac7ecce2b0cf83bb2c66"
+    }
+  }
+}

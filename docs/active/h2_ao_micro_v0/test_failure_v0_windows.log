@@ -1,0 +1,21 @@
+......F..................................................                [100%]
+================================== FAILURES ===================================
+_______________________ test_spot_evidence_gate_faults ________________________
+
+    def test_spot_evidence_gate_faults():
+>       from electronic_pilot.ao_micro_v0.spot import evidence_gate
+
+tests\test_h2_ao_micro_v0.py:59:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    """Independent AO class check; no energies and no reuse implemented here."""
+    import argparse
+    import hashlib
+    import json
+>   import resource
+E   ModuleNotFoundError: No module named 'resource'
+
+electronic_pilot\ao_micro_v0\spot.py:5: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_h2_ao_micro_v0.py::test_spot_evidence_gate_faults - ModuleNotFoundError: No module named 'resource'
+1 failed, 56 passed in 1.83s

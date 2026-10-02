@@ -1,0 +1,9 @@
+{
+  "command": "python -m electronic_pilot.ao_micro_v0.analyze --root runs/h2_ao_micro_v0",
+  "stage": "post-calculation selected-class contraction",
+  "error": "TypeError: list indices must be integers or slices, not tuple",
+  "location": "analyze.py line 38",
+  "cause": "Python list accessed with NumPy-style tuple indexing",
+  "solver_results_changed": false,
+  "raw_tool_trace": "Preserved in conversation; this is a structured failure transcription. The executed source is archived beside this record."
+}

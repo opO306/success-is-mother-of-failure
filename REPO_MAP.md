@@ -20,6 +20,12 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/ao_micro_v0/`는 독립 Gaussian AO spot-check 및 canonical integral reuse
+실험이다. [Micro-pilot 보고서](docs/active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md),
+`tests/test_h2_ao_micro_v0.py`, WSL 전용 `electronic_pilot/ao_micro_v0/test_integration.py`.
+raw `runs/h2_ao_micro_v0/`, compact `docs/active/h2_ao_micro_v0/`.
+full QZ 네 점만 재계산, sampled local minimum bracket / NOT CERTIFIED / world 미통합.
+
 **독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet
 Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
 `tests/test_h2_static_pilot.py`는 dependency-light 구조/결함 주입 시험,

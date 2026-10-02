@@ -1,8 +1,19 @@
 # 현재 상태
 
-**최종 갱신:** 2026-10-01 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-02 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
+
+**H₂ High-Precision AO Micro-Pilot V0(2026-10-02):**
+[네 점 결과·실패·한계](docs/active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md).
+독립 60/80자리 AO spot에서 permutation error 기여를 지지했고, 같은 full QZ basis의
+canonical AO/MO integral reuse 경로로 R=0.7/1.0/1.3/1.4가 기존 guard를 통과했다.
+R=1.4 control 차이 5.33e-15 hartree, 1.3/1.4/기존1.5의 sampled local minimum bracket.
+NUMERICAL CAUSE SUPPORTED / SAME-PHYSICS NUMERICAL PATH SUPPORTED / QZ LOCAL MINIMUM RESOLVED.
+MO ERI pair-interchange 잔차, 전체 QZ44점/정확성 상한/NOT CERTIFIED/production 미승인은 유지한다.
+초기 triangle 구현 불일치 결과는 invalid 표시로 보존, 최종 B_v1/C_v1만 판정에 사용한다.
+Windows67/WSL77 passed, skip0. LOCAL FULL 생략 / 새 독립 실험·시험·문서 / 기준선 불변.
+기존 source·원본 증거 불변, Verified Superoptimizer 트랙 미수정, push 없음.
 
 **H₂ same-basis numerical 원인 분리 후속(2026-10-02):**
 [수치 원인·미해결 범위](docs/active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md).

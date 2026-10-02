@@ -1,5 +1,10 @@
 # 프로젝트 문서 안내
 
+[H₂ High-Precision AO Micro-Pilot V0](active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md)는
+독립 AO spot-check와 같은 basis의 canonical integral reuse로 네 점 guard 통과 및
+R=1.4 sampled local minimum bracket을 기록한다. 전체44점/정확성 상한/인증은 별도 미해결이다.
+초기 대표 규칙 구현 불일치는 보존하며 최종 B_v1/C_v1만 판정에 사용한다.
+
 [고정 핵 H₂ static reference pilot](active/H2_STATIC_REFERENCE_PILOT_V1.md)은
 2026-10-02의 독립 numerical research다. DZ/TZ 표본 minimum·해리 방향 및 부분
 external comparison, QZ short-R refusal/최소점 미해결을 함께 기록한다.

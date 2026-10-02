@@ -1,0 +1,65 @@
+"""Preserve raw evidence, executed source versions and historical hashes."""
+import hashlib
+import json
+import shutil
+import subprocess
+from pathlib import Path
+
+
+def sha(path):
+    result=hashlib.sha256()
+    with Path(path).open('rb') as stream:
+        for chunk in iter(lambda:stream.read(1024*1024),b''): result.update(chunk)
+    return result.hexdigest()
+
+
+def source_path(file):
+    normalized=file.replace('\\','/')
+    return Path('electronic_pilot')/normalized.split('electronic_pilot/',1)[1]
+
+
+def main():
+    root=Path('runs/h2_ao_micro_v0');target=Path('docs/active/h2_ao_micro_v0')
+    target.mkdir(exist_ok=False)
+    (target/'.gitattributes').write_text('* -text\n')
+    historical={}
+    for name in ('h2_static_pilot_v2','h2_numerical_cause_v1'):
+        manifest=Path('docs/active')/name/'raw_manifest.json'
+        data=json.loads(manifest.read_text())
+        missing=[];changed=[]
+        for file,record in data.items():
+            path=Path(file.replace('\\','/'))
+            if not path.exists(): missing.append(file)
+            elif sha(path)!=record['sha256']: changed.append(file)
+        historical[name]=dict(manifest_sha256=sha(manifest),checked=len(data),missing=missing,changed=changed)
+        if missing or changed: raise ValueError(f'historical evidence drift: {name}')
+    source_versions={}
+    for stage in ('selection','spot','B','C','B_v1','C_v1'):
+        for name in ('seal.json','results.json'):
+            shutil.copyfile(root/stage/name,target/f'{stage}_{name}')
+        seal=json.loads((root/stage/'seal.json').read_text())
+        for file,digest in seal.get('source_sha256',seal.get('sources',{})).items():
+            path=source_path(file)
+            if sha(path)!=digest:
+                versions=[p for p in root.rglob('*.txt') if p.is_file() and sha(p)==digest]
+                if not versions: raise ValueError(f'unavailable executed source {file}')
+                path=versions[0]
+            source_versions[file+'@'+digest]=str(path)
+    for path in Path('electronic_pilot/ao_micro_v0').iterdir():
+        if path.is_file(): shutil.copyfile(path,target/(path.name+'.txt'))
+    shutil.copyfile('tests/test_h2_ao_micro_v0.py',target/'test_h2_ao_micro_v0.py.txt')
+    for folder in ('test_failure_v0','analysis_failure_v0','package_failure_v0','implementation_mismatch_v0'):
+        for path in (root/folder).iterdir():
+            if path.is_file(): shutil.copyfile(path,target/(folder+'_'+path.name))
+    for name in ('tests_windows_final.log','tests_wsl_final.log','tests_windows_v2.log','tests_wsl_v2.log','tests_windows_v3.log','tests_wsl_v3.log','tests_windows_v4.log','tests_wsl_v4.log','tests_lower_representation.log'):
+        shutil.copyfile(root/name,target/name)
+    shutil.copyfile(root/'analysis_v1/summary.json',target/'summary.json')
+    shutil.copyfile(root/'analysis/summary.json',target/'INVALID_v0_summary.json')
+    manifest={str(path):dict(sha256=sha(path),bytes=path.stat().st_size) for path in root.rglob('*') if path.is_file()}
+    (target/'raw_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    (target/'preservation.json').write_text(json.dumps(dict(historical=historical,executed_source_versions=source_versions,
+        raw_manifest_count=len(manifest),source_sha256={str(p):sha(p) for p in Path('electronic_pilot/ao_micro_v0').glob('*') if p.is_file()},
+        tests_sha256=sha('tests/test_h2_ao_micro_v0.py'),git_parent=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()),indent=2)+'\n')
+    print(json.dumps(dict(historical=historical,raw_count=len(manifest),compact_files=len(list(target.iterdir()))),indent=2))
+
+if __name__=='__main__': main()

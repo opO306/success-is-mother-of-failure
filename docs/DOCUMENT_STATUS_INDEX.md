@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md](active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md):
+독립 AO spot-check / 같은 full basis canonical integral reuse / 네 점 guard 통과 /
+sampled local minimum bracket / NOT CERTIFIED. 전체44점·MO forward-error 미해결,
+초기 triangle mismatch invalid 증거와 기존 원본 보존. C1-B1/production 승인 아님.
+
 후속 [H2_NUMERICAL_CAUSE_ISOLATION_V1.md](active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md):
 같은 physics/basis/tolerance의 numerical diagnostic, 원래 실패 재현·AO/변환 오차 분리,
 fresh QZ 34/44 INCOMPLETE, minimum UNRESOLVED / NOT CERTIFIED. 원본 증거 보존.

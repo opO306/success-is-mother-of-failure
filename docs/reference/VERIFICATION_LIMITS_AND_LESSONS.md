@@ -662,6 +662,16 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 
 ### H₂ same-finite-basis numerical diagnostic (2026-10-02)
 
+후속 [High-Precision AO Micro-Pilot V0](../active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md)의
+신규 dependency-light24/integration4 시험은 독립 quadrature/closed formula/center derivative,
+direct einsum/product projection 대조와 함께 precision/permutation/significance,
+overlap/orth/H/eigen/norm/nonfinite, control energy, dimension deletion, incomplete panel,
+nonminimum 결함 주입을 검사한다. 실제 canonical lower representatives의 raw lower 일치도 검사한다.
+초기 `hermi=1` triangle이 사전 lower rule과 다르다는 byte audit finding은 invalid로 보존했다.
+같은 energy와 guard 통과만으로 사전 representative rule 준수를 검사할 수 없다는 사례다.
+AO/MO within-pair residual 0은 stored exact identity이고 전체 accuracy 0이나 인증이 아니다.
+MO pair-interchange roundoff는 남아 있으며 작은 eigen residual도 forward-error bound가 아니다.
+
 [원인 분리 보고서](../active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md).
 신규 시험은 `tests/test_h2_numerical_cause.py`, 별도 로컬 WSL integration은
 `electronic_pilot/numerical_cause/test_integration.py`다. 신규 18+4개를 포함한

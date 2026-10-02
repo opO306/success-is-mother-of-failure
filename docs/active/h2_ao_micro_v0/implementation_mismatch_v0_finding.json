@@ -1,0 +1,9 @@
+{
+  "status": "INVALID_MEASUREMENT_FOR_PREDECLARED_REPRESENTATIVE_RULE",
+  "affected": ["B", "C", "analysis", "initial compact package"],
+  "finding": "PySCF hermi=1 computes/reuses a triangle that differs from the protocol lower-triangle representative. Post-run byte comparisons show lower-triangle differences matching original antisymmetry.",
+  "repair": "Explicit lower-shell intor_by_shell calls and lower AO index reuse. Protocol and every numerical threshold unchanged. Fresh B_v1/C_v1 folders.",
+  "Stage_A_affected": false,
+  "historical_H2_evidence_affected": false,
+  "previous_energies_preserved": true
+}
