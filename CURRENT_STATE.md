@@ -1,8 +1,21 @@
 # 현재 상태
 
-**최종 갱신:** 2026-10-01 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-02 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
+
+
+**별도 C1-B1 Candidate B 최적화 승격(2026-10-02):**
+[최종 결과·범위](docs/active/C1B1_CANDIDATE_B_PROMOTION_V1.md),
+[독립 primitive 감사](docs/active/C1B1_CANDIDATE_B_PRIMITIVE_AUDIT_V1.md).
+PRODUCTION FAST-PATH CANDIDATE / NOT FORMALLY CERTIFIED.
+같은 source/input의 fresh run에서 evidence·audit·endpoint/raw·fault·LOCAL FULL·trajectory·benchmark PASS.
+LOCAL FULL 3713 passed + 1 strict xfailed / 실패·error·실제 skip 0, 774.77초; 공식 AGENTS 기준선은 불변.
+실제 3개 산란 34,305 step와 거부 4개에서 REF/FAST raw·상태·예외 일치.
+로컬 CPU median impulse 1.880× / step 1.475× / 선정한 R20 출구까지 3개 완주 trajectory 합계 1.400761×(28.61% 절감).
+slow generic model·energy·potential·step 보존, 별도 impulse/step_fast 제공, 기본 경로 자동 변경 없음.
+최초 FULL의 historical artifact 누락 2개 실패 및 cp949 경고 25건을 보존했다.
+A-EV·native J·전체 C1-B1 Gate·H2/foundation 상태 승격 없음. local commit만, push 없음.
 
 **H₂ same-basis numerical 원인 분리 후속(2026-10-02):**
 [수치 원인·미해결 범위](docs/active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md).

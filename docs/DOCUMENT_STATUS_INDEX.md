@@ -6,6 +6,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Candidate B 승격](active/C1B1_CANDIDATE_B_PROMOTION_V1.md)·[독립 감사](active/C1B1_CANDIDATE_B_PRIMITIVE_AUDIT_V1.md):
+PRODUCTION FAST-PATH CANDIDATE, 모든 지정 gate PASS, NOT FORMALLY CERTIFIED / 기존 C1-B1 Gate 보존.
+
 후속 [H2_NUMERICAL_CAUSE_ISOLATION_V1.md](active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md):
 같은 physics/basis/tolerance의 numerical diagnostic, 원래 실패 재현·AO/변환 오차 분리,
 fresh QZ 34/44 INCOMPLETE, minimum UNRESOLVED / NOT CERTIFIED. 원본 증거 보존.
