@@ -1,0 +1,2 @@
+# Preserve the downloaded CIF bytes, including CRLF, under core.autocrlf.
+1541541.cif -text
