@@ -2,6 +2,8 @@
 
 현재 활성 Gate는 [C1-B1](../active/README.md)이다. 이 폴더의 제안을 근거로 scheduler·region·학습 관리자나 새 물리 규칙을 구현하지 않는다.
 
+- [C1-C / Small-A Foundation v0](C1C_MULTIPARTICLE_GAS_FOUNDATION_V0.md): 최초 다원자 Ar 기체의 계약·온도/에너지·반올림 합산·periodic images·현실성·검증/기록 비용 설계. **DESIGN ONLY / 미구현 / 미승인 / 미동결.** N·박스·dt·GPU·경계·검증 전략은 설계자 미결이며 C1-B1 상태를 바꾸지 않는다.
+
 - [A 실행 증명서 제안](A_RUNTIME_CERTIFICATE_PROPOSAL.md): 장기 후보. 전역 증명과 한 실행의 증거를 구분하는 제안이며 구현·동결 아님.
 - [A 계산·메모리·기록 아키텍처 제안](A_COMPUTE_MEMORY_RECORD_ARCHITECTURE_PROPOSAL.md): 요구사항·후보이며 구현·동결 아님.
 - [A 증명 조립 아키텍처](A_PROOF_COMPOSITION_ARCHITECTURE_V1.md): 장기 구조 제안. 현재 C1-B1 최소 proof/checker 구현과 전체 구조 완료는 구별한다.
