@@ -1,0 +1,21 @@
+{
+  "version": "h2-qz44-sealed-v1",
+  "base_commit": "0e9e454246d700efd0303c59eb9120ef9bc78f2e",
+  "expected_branch": "codex/h2-ao-micro-v0",
+  "grid_source": "electronic_pilot/protocol_v2.json",
+  "numerical_config_source": "electronic_pilot/ao_micro_v0/protocol.json",
+  "frozen_mode": "AO_and_MO_integral_reuse",
+  "basis": "cc-pVQZ",
+  "guard_policy": "Use V0 guards byte-for-byte; no new integral residual acceptance threshold",
+  "reference_source": "electronic_pilot/reference_pachucki_v2.csv",
+  "reference_checker": "electronic_pilot/check_reference.py",
+  "control_criterion_source": "electronic_pilot/ao_micro_v0/protocol.json:control_energy_max_difference",
+  "controls": ["docs/active/h2_static_pilot_v2/results.json", "docs/active/h2_numerical_cause_v1/qz_curve_results.json", "docs/active/h2_ao_micro_v0/C_v1_results.json"],
+  "failure_policy": "One execution per geometry, no retries or numerical changes; preserve refusals and continue the other independent grid points",
+  "gate": "44/44 accepted AND every absolute Pachucki difference <= original 0.001 hartree AND R=1.4 and all previous accepted overlaps agree within existing 1e-9 hartree AND full dimension/source seal preserved",
+  "failed_point_diagnostic": "Only failed/refused/reference-exceeding/control-disagreeing points; same saved AO and C, inspect first layer and one worst MO ERI pair-interchange class. Multiprecision contraction at 60/80 decimal digits is diagnostic only and cannot change acceptance/energy/gate. Refused orthogonality may use fixed-C high-precision full-S residual and existing MP Cholesky as diagnostics only.",
+  "unresolved": ["MO ERI pair-interchange accuracy", "all solver/integral accuracy", "formal certification", "production foundation"],
+  "threads": 1,
+  "scope_override": "User-authorized extension from V0 four points to original full QZ44 grid; V0 protocol file including prior scope text remains unchanged",
+  "forbidden": ["numerical path adjustment", "tolerance change", "canonical rule change", "basis change", "reference criterion change", "formation", "forces", "nuclear dynamics", "complex atoms", "world integration", "production choice", "push"]
+}

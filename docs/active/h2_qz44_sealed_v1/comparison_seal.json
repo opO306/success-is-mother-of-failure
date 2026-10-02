@@ -1,0 +1,16 @@
+{
+  "checker_sha256": "348c74e2d3a4e8aee2e2ce23799e74935e9bebd676e7968e4fd61452cf8a79b3",
+  "decision_sha256": "0891727ae4146296554e8cfa2761005774b585e138e546c73017429b9cebe547",
+  "criteria": {
+    "P1": "sampled interior local minimum below 2*isolated-H in same basis; bracket from neighboring samples only",
+    "P2_fragment_abs_E20_minus_2EH_max_hartree": 1e-06,
+    "P2_tail": "absolute E(R)-2EH decreases on R=10,12,16,20; finite-range evidence, no infinity proof",
+    "P3_curve_max_abs_error_hartree": 0.001,
+    "P3_sampled_min_location_abs_difference_bohr": 0.1,
+    "P3_binding_depth_abs_error_hartree": 0.001,
+    "meaning": "predeclared pilot diagnostic thresholds, not measured reference uncertainties or final accuracy requirements"
+  },
+  "fresh_results_sha256": "9564be2e8e23c2dbbb39bd0a9f5eb854ce888a2337ce398c5927a003a5dc0baf",
+  "reference_sha256": "9576b17e1dbea93b1010d15068fdf83a6a54aeb7923a88ffe9898f7be08f66a2",
+  "atomic_reference_source": "docs/active/h2_static_pilot_v2/results.json"
+}

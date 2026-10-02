@@ -1,0 +1,34 @@
+{
+  "historical": {
+    "h2_static_pilot_v2": {
+      "checked": 265,
+      "manifest_sha256": "4087f14e8431fedceeba6e666edc4a326ff4f74152eaecb40f78aa8490f3f695",
+      "changed": []
+    },
+    "h2_numerical_cause_v1": {
+      "checked": 145,
+      "manifest_sha256": "d518280b1d5627a9cfe09ae42cf589d4085b54ce0a52b66261d004438e054c80",
+      "changed": []
+    },
+    "h2_ao_micro_v0": {
+      "checked": 118,
+      "manifest_sha256": "9bf1862e3f0a5c425a70dc8d83a83c643d7caa2924c59c3e92557c8a44090653",
+      "changed": []
+    }
+  },
+  "new_NPZ_verified": 44,
+  "frozen_base_files": 152,
+  "source_sha256": {
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\compare.py": "0891727ae4146296554e8cfa2761005774b585e138e546c73017429b9cebe547",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\failure_diagnostic.py": "933eb93d4b42829352231c2f4c01adbef353bcba91028977619873a64845c78c",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\package.py": "2c74524e80a46cb0559a1a39aba2a03e883ea1005738f195f61c42b4fc015549",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\protocol.json": "30f7349693eb31ec66e7878fa46c7b9c70e2cb2b490b6b8b585312767431e13a",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\run.py": "d5dceaac8fb4d0a885c99bbae36a03e1050d3a6d4ea74a647091202385f91a73",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\seal.py": "79769f1f9a987a9f3a06e5ac94cfc548289d7e61dbd6aec211e39fca64294157",
+    "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\electronic_pilot\\qz44_sealed_v1\\__init__.py": "f28c2ebecfdbe54b93f22f8921dd0936ad3989265ed51c77ca2f921521fec21e"
+  },
+  "test_sha256": {
+    "tests/test_h2_qz44_sealed_v1.py": "c71a3e92165597092adfb024e83d169dca89232d2c192b1e85706d4c98d55aeb",
+    "tests/test_h2_qz44_failure_diagnostic.py": "62f2104678b8dd404de6bef50f559ba98d08744793d750e2d430f4b3e4483700"
+  }
+}

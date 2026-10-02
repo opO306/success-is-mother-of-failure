@@ -20,6 +20,14 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/qz44_sealed_v1/`는 변경 없는 V0 최종 경로의 봉인·fresh QZ44 실행·
+독립 reference 비교·실패점만의 진단 harness다. 기존 numerical kernel을 수정하지 않았다.
+[Sealed QZ44 보고서](docs/active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md),
+`tests/test_h2_qz44_sealed_v1.py`, WSL 전용 `tests/test_h2_qz44_failure_diagnostic.py`.
+raw `runs/h2_qz44_sealed_v1/`, compact `docs/active/h2_qz44_sealed_v1/`.
+44 attempted / 43 accepted / 1 refused, reference 초과 4점으로 Gate NUMERICAL FAIL.
+sampled minimum R=1.4 유지 / MO ERI UNRESOLVED / NOT CERTIFIED / world 미통합.
+
 `electronic_pilot/ao_micro_v0/`는 독립 Gaussian AO spot-check 및 canonical integral reuse
 실험이다. [Micro-pilot 보고서](docs/active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md),
 `tests/test_h2_ao_micro_v0.py`, WSL 전용 `electronic_pilot/ao_micro_v0/test_integration.py`.

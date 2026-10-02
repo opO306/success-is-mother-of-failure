@@ -1,0 +1,8 @@
+{
+  "command": "python -m pytest tests/test_h2_qz44_sealed_v1.py -q",
+  "result": "1 failed, 17 passed in 1.21s",
+  "failure": "UnicodeDecodeError: cp949 cannot decode UTF-8 source containing H2 subscript symbol in the import-independence AST test",
+  "repair": "Specify UTF-8 for source read in the test",
+  "numerical_path_changed": false,
+  "before_numerical_seal": true
+}

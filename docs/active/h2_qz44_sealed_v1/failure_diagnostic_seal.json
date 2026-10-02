@@ -1,0 +1,38 @@
+{
+  "gate_sha256": "02c5b4625f835f46aa247b7bd53d2909d1c92c212d74199cdd98507ee4b27ed0",
+  "source_sha256": "933eb93d4b42829352231c2f4c01adbef353bcba91028977619873a64845c78c",
+  "selected_failure_points": [
+    {
+      "R_bohr": 0.4,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.5,
+      "reasons": [
+        "REFUSED: orthonormalization"
+      ]
+    },
+    {
+      "R_bohr": 0.6,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.7,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.8,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    }
+  ],
+  "arithmetic": "60/80 decimal digits MPFR; existing MP Cholesky diagnostic only",
+  "policy": "No numerical path edits or curve replacements"
+}

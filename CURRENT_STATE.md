@@ -4,6 +4,18 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ sealed QZ44 fresh validation V1(2026-10-02):**
+[전체 결과·실패점 진단](docs/active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md).
+`0e9e454`의 최종 V0 numerical path/source/config/rule을 실행 전 봉인한 뒤 44점 전체를 새로 계산했다.
+**44 attempted / 43 accepted / 1 refused(R=0.5 orthonormalization)**.
+R=0.4/0.6/0.7/0.8이 기존 Pachucki 0.001 hartree 기준을 초과해
+**H₂ STATIC QZ 44-POINT REFERENCE-COMPARISON GATE = NUMERICAL FAIL**.
+기존 accepted/control 72 비교 모순 0, V0 4점 energy bit 일치, sampled minimum R=1.4 유지.
+R=0.5 guard 평가 roundoff 기여와 실패 5점의 선택 MO 변환 오차를 진단했으나 판정·curve 불변.
+MO ERI pair-interchange 및 전체 energy 오차 원인/상한 UNRESOLVED / NOT CERTIFIED.
+Windows85/WSL96 passed, skip0. LOCAL FULL 생략 / 새 분석·시험·문서, 관련 시험 대체 / 기준선 불변.
+기존 원본·kernel·C1-B1/production 상태 보존, 후속 physics 자동 확장·push 없음.
+
 **H₂ High-Precision AO Micro-Pilot V0(2026-10-02):**
 [네 점 결과·실패·한계](docs/active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md).
 독립 60/80자리 AO spot에서 permutation error 기여를 지지했고, 같은 full QZ basis의

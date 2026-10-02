@@ -1,5 +1,10 @@
 # 프로젝트 문서 안내
 
+[H₂ sealed QZ44 fresh validation V1](active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md)은
+V0 최종 source/config/rule을 봉인한 44점 전체 재실행이다. 43 accepted / 1 refused,
+reference 0.001 hartree 초과 4점으로 Gate NUMERICAL FAIL. 실패점 진단·control 일치·
+MO ERI UNRESOLVED를 함께 기록하며 계산법 조정이나 production 승인은 하지 않는다.
+
 [H₂ High-Precision AO Micro-Pilot V0](active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md)는
 독립 AO spot-check와 같은 basis의 canonical integral reuse로 네 점 guard 통과 및
 R=1.4 sampled local minimum bracket을 기록한다. 전체44점/정확성 상한/인증은 별도 미해결이다.

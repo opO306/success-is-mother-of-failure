@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_STATIC_QZ44_SEALED_VALIDATION_V1.md](active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md):
+V0 최종 경로 봉인·44점 fresh attempted / 43 accepted / 1 refused /
+reference 초과 4점으로 NUMERICAL FAIL. 실패점만 진단, rule/tolerance 불변,
+MO ERI 정확성 UNRESOLVED / NOT CERTIFIED / C1-B1·production 승인 아님.
+
 [H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md](active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md):
 독립 AO spot-check / 같은 full basis canonical integral reuse / 네 점 guard 통과 /
 sampled local minimum bracket / NOT CERTIFIED. 전체44점·MO forward-error 미해결,

@@ -662,6 +662,16 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 
 ### H₂ same-finite-basis numerical diagnostic (2026-10-02)
 
+후속 [sealed QZ44 validation V1](../active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md)은
+봉인된 V0 경로를 수정하지 않고 전체 44점을 새로 실행했다. 43 accepted / 1 refused,
+기존 reference 0.001 hartree 초과 4점으로 NUMERICAL FAIL을 보존한다.
+Windows85/WSL96 passed는 분석·결함 주입·integration 시험 결과이며 numerical Gate PASS가 아니다.
+누락/중복·source drift·canonical provenance·dimensions·guard·control·reference 경계값을 검사한다.
+R=0.5의 같은 C/S 고정밀 residual은 guard 평가 roundoff 기여를 지지하나 refusal을 덮지 않는다.
+실패 5점의 선택 MO entry에서 transformation error가 확인돼도 전체 BO energy 오차 상한이 아니다.
+작은 H asymmetry와 eigen residual 또는 V0 4점의 bit 일치로 전체 integral 정확성을 인증할 수 없다.
+MO pair-interchange/전체 편차 원인은 UNRESOLVED, 고정밀 연산은 binary64 AO를 고정밀로 만들지 않는다.
+
 후속 [High-Precision AO Micro-Pilot V0](../active/H2_HIGH_PRECISION_AO_MICRO_PILOT_V0.md)의
 신규 dependency-light24/integration4 시험은 독립 quadrature/closed formula/center derivative,
 direct einsum/product projection 대조와 함께 precision/permutation/significance,

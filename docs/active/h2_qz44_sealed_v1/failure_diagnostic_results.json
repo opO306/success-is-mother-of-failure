@@ -1,0 +1,308 @@
+{
+  "rows": [
+    {
+      "R_bohr": 0.4,
+      "first_numerical_failure": null,
+      "accepted_in_original_fresh_run": true,
+      "original_BO_energy": -0.11803113362157003,
+      "original_orthogonality_l2": 5.342868746822731e-11,
+      "original_Smin": 5.503865871698124e-07,
+      "original_condition": 9844457.367554333,
+      "worst_MO_pair_interchange": {
+        "indices": [
+          50,
+          50,
+          50,
+          56
+        ],
+        "swapped": [
+          50,
+          56,
+          50,
+          50
+        ],
+        "value": -0.02419710341804182,
+        "counterpart": -0.024167291937962406,
+        "difference": -2.9811480079414837e-05
+      },
+      "recomputed_pair_residual_matches_original": true,
+      "input_sha256": {
+        "record": "40502785bdb6a9d1620d6ce6f3eab650ee90f45ee704600840153c97a6b0c04c",
+        "canonical_AO_and_C": "40fcefcb1c2f190f7690e1ac018287e26217b482908200f55a8eac9dce521997"
+      },
+      "MP": {
+        "60": {
+          "value": "-0.024122108432481598160740653876132450438384983254859673098670547598984931",
+          "counterpart": "-0.024122108432481598160740653876132450438384983254859673097692708772318357",
+          "pair_difference": "-9.77838826666573999999999999999999998920785080134419747840520739172929310764112572368981839e-58",
+          "forward_difference_from_binary64": "-0.0000749949855602228050707853607264092198562887177965769013294524010150690000000000000000000012",
+          "cost": {
+            "left_nonzero_pair_densities": 190,
+            "right_nonzero_pair_densities": 209,
+            "products": 39710,
+            "bits": 231
+          }
+        },
+        "80": {
+          "value": "-0.02412210843248159816074065387613245043838498325485967309794586993370760188420681962391109253",
+          "counterpart": "-0.02412210843248159816074065387613245043838498325485967309794586993370760188420661721371058251",
+          "pair_difference": "-2.02410200510018375448953094086645152804351592485783196187254769692130883591123779319246704e-79",
+          "forward_difference_from_binary64": "-0.0000749949855602228050707853607264092198562887177965769020541300662923981157931803760889074704",
+          "cost": {
+            "left_nonzero_pair_densities": 190,
+            "right_nonzero_pair_densities": 209,
+            "products": 39710,
+            "bits": 297
+          }
+        }
+      },
+      "caveat": "Selected transformed integral contraction of rounded canonical AO with fixed saved C. It is not an all-entry bound, eigenenergy error bound, independent AO generator, or alternate accepted curve.",
+      "wall_seconds": 0.8713467379999997,
+      "peak_rss_bytes": 424005632
+    },
+    {
+      "R_bohr": 0.5,
+      "first_numerical_failure": "orthonormalization",
+      "accepted_in_original_fresh_run": false,
+      "original_BO_energy": null,
+      "original_orthogonality_l2": 1.5495072148621564e-10,
+      "original_Smin": 4.942509508629897e-07,
+      "original_condition": 10927664.624610187,
+      "worst_MO_pair_interchange": {
+        "indices": [
+          50,
+          50,
+          56,
+          56
+        ],
+        "swapped": [
+          56,
+          56,
+          50,
+          50
+        ],
+        "value": 0.4650210540075828,
+        "counterpart": 0.4646928718725978,
+        "difference": 0.00032818213498503335
+      },
+      "recomputed_pair_residual_matches_original": true,
+      "input_sha256": {
+        "record": "7e6161cdd1775b9d81d996ffaef80f2644ea568008853a432f99110362464621",
+        "canonical_AO_and_C": "93f9d766be827096d85b611d0606ac77428f97eb4ba65a69b0711d51236d595c"
+      },
+      "MP": {
+        "60": {
+          "value": "0.46494146366564094869672477811720343333777311576579895329668651231478566",
+          "counterpart": "0.46494146366564094869672477811720343333777311576579895329814182439015434",
+          "pair_difference": "-1.45531207536867999999999999999999999390179342215035054558784179327911693775193756905635546e-57",
+          "forward_difference_from_binary64": "0.0000795903419418638094470984037627463311302350642791717033134876852143400000000000000000000057",
+          "cost": {
+            "left_nonzero_pair_densities": 190,
+            "right_nonzero_pair_densities": 210,
+            "products": 39900,
+            "bits": 231
+          }
+        },
+        "80": {
+          "value": "0.4649414636656409486967247781172034333377731157657989532980823121667875995221601130887805828",
+          "counterpart": "0.4649414636656409486967247781172034333377731157657989532980823121667875995221603787521687522",
+          "pair_difference": "-2.65663388169347821585267844510090781844853698390149200068053385113161341768473102909025438e-79",
+          "forward_difference_from_binary64": "0.0000795903419418638094470984037627463311302350642791717019176878332124004778398869112194171739",
+          "cost": {
+            "left_nonzero_pair_densities": 190,
+            "right_nonzero_pair_densities": 210,
+            "products": 39900,
+            "bits": 297
+          }
+        }
+      },
+      "caveat": "Selected transformed integral contraction of rounded canonical AO with fixed saved C. It is not an all-entry bound, eigenenergy error bound, independent AO generator, or alternate accepted curve.",
+      "fixed_binary64_C_80digit_orthogonality_frobenius_upper": "0.00000000001063401199388338169880164127127743293067670874584654457691615051313172964897757",
+      "diagnostic_80digit_Cholesky_orthogonality_frobenius_upper": "1.5067379032943293614413849385943544605164399899975795963665880727483175427889439e-75",
+      "coordinate_refinement_used_in_curve": false,
+      "wall_seconds": 2.6580956190000506,
+      "peak_rss_bytes": 424824832
+    },
+    {
+      "R_bohr": 0.6,
+      "first_numerical_failure": null,
+      "accepted_in_original_fresh_run": true,
+      "original_BO_energy": -0.7680645543359941,
+      "original_orthogonality_l2": 6.914554652894015e-11,
+      "original_Smin": 1.8843338947755944e-06,
+      "original_condition": 2855413.8983643996,
+      "worst_MO_pair_interchange": {
+        "indices": [
+          42,
+          56,
+          56,
+          56
+        ],
+        "swapped": [
+          56,
+          56,
+          42,
+          56
+        ],
+        "value": -0.02909389761273032,
+        "counterpart": -0.02909822901962622,
+        "difference": 4.331406895902168e-06
+      },
+      "recomputed_pair_residual_matches_original": true,
+      "input_sha256": {
+        "record": "acf540d1827ae973802f0d6b8377fe26a3849caca0e3fe4493f0be2a32b75c6c",
+        "canonical_AO_and_C": "08f1225e1c352aa5847107702172bb82806d403fe8920d4588fb494674c09097"
+      },
+      "MP": {
+        "60": {
+          "value": "-0.029096095963739191674815300361226858892212678886566548694371062669454841",
+          "counterpart": "-0.0290960959637391916748153003612268588922126788865665486943517843388848",
+          "pair_difference": "-1.92783305700410000000000000000000013744903583178789062486783191787598540930184353572000438e-59",
+          "forward_difference_from_binary64": "0.000002198351008873294301350655880837090979387260589986194371062669454841000000000000000000001",
+          "cost": {
+            "left_nonzero_pair_densities": 204,
+            "right_nonzero_pair_densities": 210,
+            "products": 42840,
+            "bits": 231
+          }
+        },
+        "80": {
+          "value": "-0.02909609596373919167481530036122685889221267888656654869435252308034028822589839991951260694",
+          "counterpart": "-0.02909609596373919167481530036122685889221267888656654869435252308034028822589841714118127826",
+          "pair_difference": "1.72216686713204023192559145426972765415363616991324797435157054968250141900785782829225103e-80",
+          "forward_difference_from_binary64": "0.00000219835100887329430135065588083709097938726058998619435252308034028822589839991951260694052",
+          "cost": {
+            "left_nonzero_pair_densities": 204,
+            "right_nonzero_pair_densities": 210,
+            "products": 42840,
+            "bits": 297
+          }
+        }
+      },
+      "caveat": "Selected transformed integral contraction of rounded canonical AO with fixed saved C. It is not an all-entry bound, eigenenergy error bound, independent AO generator, or alternate accepted curve.",
+      "wall_seconds": 0.6832315550000203,
+      "peak_rss_bytes": 424833024
+    },
+    {
+      "R_bohr": 0.7,
+      "first_numerical_failure": null,
+      "accepted_in_original_fresh_run": true,
+      "original_BO_energy": -0.9207565303731988,
+      "original_orthogonality_l2": 1.925116913124466e-11,
+      "original_Smin": 8.718641041705988e-06,
+      "original_condition": 614405.805639002,
+      "worst_MO_pair_interchange": {
+        "indices": [
+          42,
+          56,
+          50,
+          50
+        ],
+        "swapped": [
+          50,
+          50,
+          42,
+          56
+        ],
+        "value": -0.018041517720978905,
+        "counterpart": -0.018041100435410434,
+        "difference": -4.1728556847073217e-07
+      },
+      "recomputed_pair_residual_matches_original": true,
+      "input_sha256": {
+        "record": "51c3306ec9a1a4ecea60edcc27d5684255a6731663d6d180c0ca1c6a20b9b709",
+        "canonical_AO_and_C": "6fa9735ce3fa924c4a4afec0b4eca758a59ab2eca3ce05caf96c6ca1d05c52e1"
+      },
+      "MP": {
+        "60": {
+          "value": "-0.018041339305980388238121211608534110689414201765483901692377511680618634",
+          "counterpart": "-0.018041339305980388238121211608534110689414201765483901692378685860315308",
+          "pair_difference": "1.17417969667400000000000000000000097363014201127555209952722737285498945460901478278242342e-60",
+          "forward_difference_from_binary64": "-0.000000178414998516782435625649038513677316249818378402995122488319381365999999999999999999999278",
+          "cost": {
+            "left_nonzero_pair_densities": 204,
+            "right_nonzero_pair_densities": 190,
+            "products": 38760,
+            "bits": 231
+          }
+        },
+        "80": {
+          "value": "-0.01804133930598038823812121160853411068941420176548390169237794257085625703344077707277408914",
+          "counterpart": "-0.01804133930598038823812121160853411068941420176548390169237794257085625703344077792932767203",
+          "pair_difference": "8.56553582891315241248085490535295116216267390163515625562958440762780121389095392850594339e-82",
+          "forward_difference_from_binary64": "-0.000000178414998516782435625649038513677316249818378402995122057429143742966559222927225910859643",
+          "cost": {
+            "left_nonzero_pair_densities": 204,
+            "right_nonzero_pair_densities": 190,
+            "products": 38760,
+            "bits": 297
+          }
+        }
+      },
+      "caveat": "Selected transformed integral contraction of rounded canonical AO with fixed saved C. It is not an all-entry bound, eigenenergy error bound, independent AO generator, or alternate accepted curve.",
+      "wall_seconds": 1.1353014559999792,
+      "peak_rss_bytes": 424845312
+    },
+    {
+      "R_bohr": 0.8,
+      "first_numerical_failure": null,
+      "accepted_in_original_fresh_run": true,
+      "original_BO_energy": -1.0189864733406209,
+      "original_orthogonality_l2": 8.188996264699659e-12,
+      "original_Smin": 2.5413526769334934e-05,
+      "original_condition": 209712.87071087534,
+      "worst_MO_pair_interchange": {
+        "indices": [
+          42,
+          50,
+          50,
+          50
+        ],
+        "swapped": [
+          50,
+          50,
+          42,
+          50
+        ],
+        "value": 0.029818268821901833,
+        "counterpart": 0.02981841014904152,
+        "difference": -1.413271396855098e-07
+      },
+      "recomputed_pair_residual_matches_original": true,
+      "input_sha256": {
+        "record": "923da27e2f00cbc83077b84af7695ecb29a5daf7988e469f87102199df96b037",
+        "canonical_AO_and_C": "9fc97b9dd22e99fd729ef3870e978c340bb61c4cc2035110edd30b0ca7f03a06"
+      },
+      "MP": {
+        "60": {
+          "value": "0.029818331955864033551586801633331668871612122198313484464161901638678493",
+          "counterpart": "0.029818331955864033551586801633331668871612122198313484464161760953162797",
+          "pair_difference": "1.40685515695999999999999999999996700328180718951316066609603751585726936778136584546055402e-61",
+          "forward_difference_from_binary64": "-0.0000000631339622002973136729739254576444335485899150469641619016386784929999999999999999999983336",
+          "cost": {
+            "left_nonzero_pair_densities": 187,
+            "right_nonzero_pair_densities": 190,
+            "products": 35530,
+            "bits": 231
+          }
+        },
+        "80": {
+          "value": "0.02981833195586403355158680163333166887161212219831348446416161978703609089799108921173399127",
+          "counterpart": "0.02981833195586403355158680163333166887161212219831348446416161978703609089799108868462409411",
+          "pair_difference": "5.27109897161526161217428702563500950385498069118425377503888151255407214548487979612518769e-82",
+          "forward_difference_from_binary64": "-0.0000000631339622002973136729739254576444335485899150469641616197870360908979910892117339912714184",
+          "cost": {
+            "left_nonzero_pair_densities": 187,
+            "right_nonzero_pair_densities": 190,
+            "products": 35530,
+            "bits": 297
+          }
+        }
+      },
+      "caveat": "Selected transformed integral contraction of rounded canonical AO with fixed saved C. It is not an all-entry bound, eigenenergy error bound, independent AO generator, or alternate accepted curve.",
+      "wall_seconds": 1.0278270179999822,
+      "peak_rss_bytes": 424816640
+    }
+  ],
+  "wall_seconds": 10.893474303999994
+}

@@ -1,0 +1,707 @@
+{
+  "gate": "H\u2082 STATIC QZ 44-POINT REFERENCE-COMPARISON GATE = NUMERICAL FAIL",
+  "numerical_pass": false,
+  "attempted": 44,
+  "accepted": 43,
+  "refused": 1,
+  "pointwise_reference": [
+    {
+      "R_bohr": 0.4,
+      "signed_error_hartree": "0.00219920755725297",
+      "within_original_reference_criterion": false
+    },
+    {
+      "R_bohr": 0.6,
+      "signed_error_hartree": "0.0015708751499151",
+      "within_original_reference_criterion": false
+    },
+    {
+      "R_bohr": 0.7,
+      "signed_error_hartree": "0.0012709311542648",
+      "within_original_reference_criterion": false
+    },
+    {
+      "R_bohr": 0.8,
+      "signed_error_hartree": "0.0010701930198942",
+      "within_original_reference_criterion": false
+    },
+    {
+      "R_bohr": 0.9,
+      "signed_error_hartree": "0.0009436912510113",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.0,
+      "signed_error_hartree": "0.0008625892298299",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.1,
+      "signed_error_hartree": "0.0008048053689238",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.2,
+      "signed_error_hartree": "0.0007567487690809",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.3,
+      "signed_error_hartree": "0.0007148170026646",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.4,
+      "signed_error_hartree": "0.0006799219708507",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.5,
+      "signed_error_hartree": "0.0006533002071344",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.6,
+      "signed_error_hartree": "0.0006351417654090",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.7,
+      "signed_error_hartree": "0.0006245561818564",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.8,
+      "signed_error_hartree": "0.0006201670473696",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 1.9,
+      "signed_error_hartree": "0.0006207060125387",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.0,
+      "signed_error_hartree": "0.0006252605119222",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.1,
+      "signed_error_hartree": "0.0006331966114089",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.2,
+      "signed_error_hartree": "0.0006439603923823",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.3,
+      "signed_error_hartree": "0.0006569329614723",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.4,
+      "signed_error_hartree": "0.0006713990748452",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.5,
+      "signed_error_hartree": "0.000686598512949",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.6,
+      "signed_error_hartree": "0.0007018002724691",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.7,
+      "signed_error_hartree": "0.0007163546226277",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.8,
+      "signed_error_hartree": "0.0007297058861975",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 2.9,
+      "signed_error_hartree": "0.0007413717715145",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.0,
+      "signed_error_hartree": "0.0007509087087757",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.1,
+      "signed_error_hartree": "0.0007578859902448",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.2,
+      "signed_error_hartree": "0.0007618847451786",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.3,
+      "signed_error_hartree": "0.0007625245099651",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.4,
+      "signed_error_hartree": "0.0007595072321915",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.5,
+      "signed_error_hartree": "0.0007526621121561",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.6,
+      "signed_error_hartree": "0.0007419764208291",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.7,
+      "signed_error_hartree": "0.0007276044391553",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.8,
+      "signed_error_hartree": "0.0007098544092936",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 3.9,
+      "signed_error_hartree": "0.0006891587094053",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 4.0,
+      "signed_error_hartree": "0.0006660345458391",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 5.0,
+      "signed_error_hartree": "0.0004080202710994",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 6.0,
+      "signed_error_hartree": "0.0002392773616986",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 8.0,
+      "signed_error_hartree": "0.0001295476731754",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 10.0,
+      "signed_error_hartree": "0.0001129331557911",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 12.0,
+      "signed_error_hartree": "0.0001101143232061",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 16.0,
+      "signed_error_hartree": "0.0001090666313897",
+      "within_original_reference_criterion": true
+    },
+    {
+      "R_bohr": 20.0,
+      "signed_error_hartree": "0.0001089132601175",
+      "within_original_reference_criterion": true
+    }
+  ],
+  "reference_exceeding_R_bohr": [
+    0.4,
+    0.6,
+    0.7,
+    0.8
+  ],
+  "previous_accepted_comparisons": [
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 1.5,
+      "difference_hartree": "-8.477E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 1.6,
+      "difference_hartree": "4.055E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 1.7,
+      "difference_hartree": "-8.224E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 1.8,
+      "difference_hartree": "-2.982E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 1.9,
+      "difference_hartree": "-1.571E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.0,
+      "difference_hartree": "1.834E-13",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.1,
+      "difference_hartree": "-2.7E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.2,
+      "difference_hartree": "8.77E-14",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.3,
+      "difference_hartree": "1.82E-14",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.4,
+      "difference_hartree": "9E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.5,
+      "difference_hartree": "1.34E-14",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.6,
+      "difference_hartree": "-1.8E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.7,
+      "difference_hartree": "-1.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.8,
+      "difference_hartree": "3E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 2.9,
+      "difference_hartree": "3.5E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.0,
+      "difference_hartree": "-3.5E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.1,
+      "difference_hartree": "-4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.2,
+      "difference_hartree": "-1.8E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.3,
+      "difference_hartree": "2.6E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.4,
+      "difference_hartree": "3.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.5,
+      "difference_hartree": "8E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.6,
+      "difference_hartree": "4.9E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.7,
+      "difference_hartree": "-2.3E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.8,
+      "difference_hartree": "-2.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 3.9,
+      "difference_hartree": "3.6E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 4.0,
+      "difference_hartree": "-1.2E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 5.0,
+      "difference_hartree": "-5E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 6.0,
+      "difference_hartree": "-6.2E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 8.0,
+      "difference_hartree": "2.0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 10.0,
+      "difference_hartree": "-6E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 12.0,
+      "difference_hartree": "3.7E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 16.0,
+      "difference_hartree": "-6.5E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_static_pilot_v2/results.json",
+      "R_bohr": 20.0,
+      "difference_hartree": "-1.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.4,
+      "difference_hartree": "-5.3E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.5,
+      "difference_hartree": "-4.0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.6,
+      "difference_hartree": "2.0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.7,
+      "difference_hartree": "1.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.8,
+      "difference_hartree": "3.7E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 1.9,
+      "difference_hartree": "-6.2E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.0,
+      "difference_hartree": "-4.0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.1,
+      "difference_hartree": "1.8E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.2,
+      "difference_hartree": "-4.5E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.3,
+      "difference_hartree": "-8E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.4,
+      "difference_hartree": "-1.6E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.5,
+      "difference_hartree": "-1.7E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.6,
+      "difference_hartree": "5E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.7,
+      "difference_hartree": "-5E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.8,
+      "difference_hartree": "1.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 2.9,
+      "difference_hartree": "-3.1E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.0,
+      "difference_hartree": "1.9E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.1,
+      "difference_hartree": "-1.8E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.2,
+      "difference_hartree": "-4E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.3,
+      "difference_hartree": "1.7E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.4,
+      "difference_hartree": "1.4E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.5,
+      "difference_hartree": "-5E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.6,
+      "difference_hartree": "9E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.7,
+      "difference_hartree": "-2.3E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.8,
+      "difference_hartree": "1.3E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 3.9,
+      "difference_hartree": "0E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 4.0,
+      "difference_hartree": "-4.3E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 5.0,
+      "difference_hartree": "-4.0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 6.0,
+      "difference_hartree": "0E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 8.0,
+      "difference_hartree": "3.5E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 10.0,
+      "difference_hartree": "-4.2E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 12.0,
+      "difference_hartree": "2.2E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 16.0,
+      "difference_hartree": "-1.1E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_numerical_cause_v1/qz_curve_results.json",
+      "R_bohr": 20.0,
+      "difference_hartree": "-3E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_ao_micro_v0/C_v1_results.json",
+      "R_bohr": 0.7,
+      "difference_hartree": "0E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_ao_micro_v0/C_v1_results.json",
+      "R_bohr": 1.0,
+      "difference_hartree": "0E-15",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_ao_micro_v0/C_v1_results.json",
+      "R_bohr": 1.3,
+      "difference_hartree": "0E-16",
+      "consistent": true
+    },
+    {
+      "source": "docs/active/h2_ao_micro_v0/C_v1_results.json",
+      "R_bohr": 1.4,
+      "difference_hartree": "0E-16",
+      "consistent": true
+    },
+    {
+      "source": "explicit original R=1.4 control",
+      "R_bohr": 1.4,
+      "difference_hartree": "-5.3E-15",
+      "consistent": true
+    }
+  ],
+  "control_inconsistency_count": 0,
+  "max_control_abs_difference_hartree": "8.477E-13",
+  "failed_points": [
+    {
+      "R_bohr": 0.4,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.5,
+      "reasons": [
+        "REFUSED: orthonormalization"
+      ]
+    },
+    {
+      "R_bohr": 0.6,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.7,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    },
+    {
+      "R_bohr": 0.8,
+      "reasons": [
+        "REFERENCE_ERROR_EXCEEDS_0.001_HARTREE"
+      ]
+    }
+  ],
+  "reference_threshold_hartree": 0.001,
+  "control_threshold_hartree": 1e-09,
+  "unresolved": [
+    "MO ERI pair-interchange accuracy",
+    "all solver/integral accuracy",
+    "formal certification",
+    "production foundation approval"
+  ],
+  "not_certified": true
+}

@@ -1,0 +1,19 @@
+{
+  "version": "h2-high-precision-ao-micro-v0",
+  "R_bohr": [0.7, 1.0, 1.3, 1.4],
+  "basis": "cc-pVQZ",
+  "physics": "fixed-nuclei nonrelativistic two-proton two-electron Coulomb; full spatial singlet; EBO=Ee+1/R",
+  "guards": {"Smin_floor": 1e-10, "orth_l2_max": 1e-10, "H_asym_max": 1e-10, "eigen_l2_max": 1e-9, "norm_max": 1e-10},
+  "control_R": 1.4,
+  "control_EBO": -1.1737957922495874,
+  "control_energy_max_difference": 1e-9,
+  "stage_A": "independent Cartesian Hermite Gaussian recurrence at 60/80 decimal digits; same stored binary64 exponents, radial coefficients and real-solid-harmonic polynomial coefficients, integrated independently; largest weighted AO antisymmetry term class at the worst Cholesky/common-AO singlet coupling, plus largest raw S antisymmetry class",
+  "stage_B_gate": "Independent permutations agree to 1e-45, 60/80 evaluations agree to 1e-45, libcint permutation differences nonzero, and the chosen class contributes at least 1 percent of the 1e-10 H guard. This is a diagnostic significance gate, not a relaxed numerical guard.",
+  "canonical_rule": "AO pair (max(i,j),min(i,j)); pair index i*(i+1)/2+j. ERI canonical quartet has descending pair indices. No averaging or value-dependent choice. Unique lower-triangle one-electron quantities are evaluated once and copied. PySCF s8 integral driver stores one ERI representative per eightfold class; compact=True transform evaluates one MO within-pair representative and restores its equal within-pair permutations. MO pair interchange is NOT averaged or enforced.",
+  "stage_B": "diagnose AO reuse with full uncompressed transformation, then symmetry-aware compact transformation. Both fixed here before evaluation. Cholesky full dimension only. Transformed h lower-triangle bilinear quantity is evaluated once and reused by its exact transpose identity, separately labelled.",
+  "stage_C": "only if A gate passes and B supports symmetry-aware representation; four points only; full original singlet assembly and original guards, no H averaging",
+  "minimum": "Use accepted new 1.3/1.4 and archived accepted 1.5. Resolve 0.1 bohr sampled LOCAL minimum only if both neighbours have greater energy. If 1.3<=1.4 stop without expanding.",
+  "threads": 1,
+  "forbidden": ["threshold relaxation", "matrix averaging", "basis deletion", "eigen cutoff", "reference in executor", "new physics", "44-point rerun", "world integration", "dynamics", "push"],
+  "status": "EXPERIMENTAL_NOT_CERTIFIED"
+}
