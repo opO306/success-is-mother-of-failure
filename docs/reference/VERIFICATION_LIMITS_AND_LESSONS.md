@@ -662,6 +662,17 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 
 ### H₂ same-finite-basis numerical diagnostic (2026-10-02)
 
+후속 [Failure Cause Separation V0](../active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md)(2026-10-03):
+동일 저장 C/S의 exact dyadic residual 상한으로 R=0.5 guard 측정 오류를 분리했다.
+fraction 대조·outward sqrt/interval inclusion·threshold 양쪽/ambiguous STOP·nonfinite·
+singlet projector norm·별도 product matrix·full transform sum·hash drift를 시험했다.
+Windows99/WSL15 passed는 numerical Stage C 통과가 아니다.
+symmetry-complete synthetic 입력을 통과한 determinant CI 후보가 실제 asymmetric MO 입력에서는
+별도 singlet action/eigen residual 검증을 실패했다. invalid reference를 basis-limit 증거로 쓸 수 없다.
+adaptive prototype은 입력 한 점에서만 검증, binary64 threshold boundary semantics·production 미승인.
+정확한 입력 한정 residual enclosure를 전체 AO/solver/formal certification으로 확대하지 않는다.
+환경 실패 2회와 C1 invalid 뒤 3회 중단 규칙 적용, 네 short-R 비교는 UNRESOLVED로 보존했다.
+
 후속 [sealed QZ44 validation V1](../active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md)은
 봉인된 V0 경로를 수정하지 않고 전체 44점을 새로 실행했다. 43 accepted / 1 refused,
 기존 reference 0.001 hartree 초과 4점으로 NUMERICAL FAIL을 보존한다.

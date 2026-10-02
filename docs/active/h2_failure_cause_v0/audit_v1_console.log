@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 126, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 106, in main
+    sealed=seal(target,Path(args.evidence_root));bound=sealed['protected_sha256']|sealed['source_sha256']|sealed['input_sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 46, in seal
+    if hashlib.sha256(subprocess.check_output(['git','show',BASE+':'+p])).hexdigest()!=v: raise ValueError('base byte drift '+p)
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: base byte drift tests/test_h2_ao_micro_v0.py

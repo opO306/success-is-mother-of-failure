@@ -1,0 +1,188 @@
+{
+  "rows": [
+    {
+      "stage": "A",
+      "R_bohr": 0.5,
+      "binary64_operator_residual": 1.5495072148621564e-10,
+      "frozen_binary64_residual": 1.5495072148621564e-10,
+      "binary64_bit_identical": true,
+      "exact": {
+        "operator_norm_lower": "0.0000000000064438151402393377732039452515",
+        "operator_norm_upper": "0.0000000000106340119938833816988016412713",
+        "frobenius_enclosure": [
+          "0.0000000000106340119938833816988016412712",
+          "0.0000000000106340119938833816988016412713"
+        ],
+        "exact_lower_squared": [
+          "1842062086666138600695999783549679082681899759500701546592071619081273249334869763413250009478207566719438137",
+          "44362715105933037753254626946289339254982993206013065202727673289833940924890009968639590497666233249558259375382457149263586525184"
+        ],
+        "exact_upper_squared": [
+          "3936240180889488465882510656831984742558674434525875650638523488169323843124325454423448495618560094566166069309089469636733939789371557270569412754994937921757645225",
+          "34808659497239648579720852704622583960672214563358764118798771041101647699040812580153753748454066465596331097210650690541753423472407821641942301328447068696990926165468330002463334596608"
+        ],
+        "threshold": "1e-10",
+        "relation": "BELOW",
+        "dimension": 60,
+        "exact_residual_denominator_bits": 323,
+        "scope": "exact binary64 stored-input residual only; integer/Fraction implementation trusted; no solver or AO certification"
+      },
+      "exact_seconds": 0.02517469699999708,
+      "classification": "MEASUREMENT_ERROR",
+      "original_refusal_unchanged": true,
+      "wall_seconds": 0.13414090599999895,
+      "peak_rss_bytes": 49836032
+    },
+    {
+      "stage": "B",
+      "R_bohr": 0.5,
+      "prototype": {
+        "cheap": {
+          "operator_norm_lower": "0",
+          "operator_norm_upper": "134924799741788175/302231454903657293676544",
+          "relation": "UNRESOLVED",
+          "scope": "outward nextafter after each binary64 multiplication/addition; IEEE round-to-nearest, gradual underflow, no FTZ assumed"
+        },
+        "exact_fallback": {
+          "operator_norm_lower": "0.0000000000064438151402393377732039452515",
+          "operator_norm_upper": "0.0000000000106340119938833816988016412713",
+          "frobenius_enclosure": [
+            "0.0000000000106340119938833816988016412712",
+            "0.0000000000106340119938833816988016412713"
+          ],
+          "exact_lower_squared": [
+            "1842062086666138600695999783549679082681899759500701546592071619081273249334869763413250009478207566719438137",
+            "44362715105933037753254626946289339254982993206013065202727673289833940924890009968639590497666233249558259375382457149263586525184"
+          ],
+          "exact_upper_squared": [
+            "3936240180889488465882510656831984742558674434525875650638523488169323843124325454423448495618560094566166069309089469636733939789371557270569412754994937921757645225",
+            "34808659497239648579720852704622583960672214563358764118798771041101647699040812580153753748454066465596331097210650690541753423472407821641942301328447068696990926165468330002463334596608"
+          ],
+          "threshold": "1e-10",
+          "relation": "BELOW",
+          "dimension": 60,
+          "exact_residual_denominator_bits": 323,
+          "scope": "exact binary64 stored-input residual only; integer/Fraction implementation trusted; no solver or AO certification"
+        },
+        "relation": "BELOW",
+        "cheap_seconds": 0.013931731999996089,
+        "fallback_seconds": 0.023051617000000135,
+        "production_applied": false,
+        "changes_original_QZ44": false
+      },
+      "wall_seconds": 0.1353934979999991,
+      "peak_rss_bytes": 49180672
+    },
+    {
+      "stage": "C1",
+      "R_bohr": 0.4,
+      "reference": {
+        "path": "frozen_C_and_compact_transform",
+        "basis_size": 60,
+        "singlet_dimension": 1830,
+        "orthogonality_l2": 5.342868746822731e-11,
+        "H_asymmetry": 2.220446049250313e-16,
+        "MO_pair_interchange": 2.9811480079414837e-05,
+        "transformation_seconds": 0.23908706400000312,
+        "energy": -2.6180307466528507,
+        "eigen_residual": 5.286950910592781e-07,
+        "arithmetic": "binary64",
+        "failure_stage": "independent_eigen_residual",
+        "not_certified": true,
+        "determinant_vs_pair_action_l2": [
+          3.113311479853293e-06,
+          3.339991356062226e-06
+        ],
+        "determinant_residual": 5.292977744207676e-07,
+        "eigenvector_norm_error": 4.440892098500626e-16,
+        "operator_calls": 124,
+        "eigensolver_seconds": 146.691157853,
+        "wavefunction_spin_square": 2.1094237467877974e-15,
+        "wall_seconds": 158.82873665199998
+      },
+      "orthogonality_exact": {
+        "operator_norm_lower": "0.0000000000496904108930227406911341424223",
+        "operator_norm_upper": "0.0000000000592111789682484686127504305795",
+        "frobenius_enclosure": [
+          "0.0000000000592111789682484686127504305794",
+          "0.0000000000592111789682484686127504305795"
+        ],
+        "exact_lower_squared": [
+          "6846101149525391492226773227427430384592718208107432587334280199859973699660015285855118252536392894708084225",
+          "2772669694120814859578414184143083703436437075375816575170479580614621307805625623039974406104139578097391210961403571828974157824"
+        ],
+        "exact_upper_squared": [
+          "122037897158496957324395012884200879798589648728683568805846441906729360813382875381445068246745553902677498157344756690810174952591907606289383334743958152459143798505",
+          "34808659497239648579720852704622583960672214563358764118798771041101647699040812580153753748454066465596331097210650690541753423472407821641942301328447068696990926165468330002463334596608"
+        ],
+        "threshold": "1e-10",
+        "relation": "BELOW",
+        "dimension": 60,
+        "exact_residual_denominator_bits": 325,
+        "scope": "exact binary64 stored-input residual only; integer/Fraction implementation trusted; no solver or AO certification"
+      },
+      "reference_validated": false,
+      "original_BO_energy": -0.11803113362157003,
+      "BO_energy": -0.11803074665285074,
+      "artifact_sha256": "2133e5d7f7606a00ead77be1c282a8d0d89b0352626a2fdacaf819adf0a1a1ab",
+      "wall_seconds": 159.635321718,
+      "peak_rss_bytes": 792653824
+    },
+    {
+      "stage": "C1",
+      "R_bohr": 0.4,
+      "reference": {
+        "path": "generalized_h_C_and_four_leg_numpy_transform",
+        "basis_size": 60,
+        "singlet_dimension": 1830,
+        "orthogonality_l2": 1.3400178552038733e-10,
+        "H_asymmetry": 5.551115123125783e-17,
+        "MO_pair_interchange": 4.60572483541033e-05,
+        "transformation_seconds": 0.464011677000002,
+        "energy": -2.6180312901110043,
+        "eigen_residual": 1.9047846256647038e-06,
+        "arithmetic": "binary64",
+        "failure_stage": "independent_eigen_residual",
+        "not_certified": true,
+        "determinant_vs_pair_action_l2": [
+          7.971017449040279e-06,
+          1.564212895669927e-05
+        ],
+        "determinant_residual": 1.9041325314332892e-06,
+        "eigenvector_norm_error": 1.1102230246251565e-15,
+        "operator_calls": 124,
+        "eigensolver_seconds": 144.34901122099998,
+        "wavefunction_spin_square": 1.2989609388114332e-14,
+        "wall_seconds": 156.006956043
+      },
+      "orthogonality_exact": {
+        "operator_norm_lower": "0.0000000000273351722797113678896186101639",
+        "operator_norm_upper": "0.0000000000397715966096492455615930352874",
+        "frobenius_enclosure": [
+          "0.0000000000397715966096492455615930352873",
+          "0.0000000000397715966096492455615930352874"
+        ],
+        "exact_lower_squared": [
+          "1106319041640261169030689317261186903704001931911819584933394640985427630015187841709769243367779486025240650524637366466158512476454693160937343086526322363542899557266180531766853051260226106940910030057",
+          "1480596630383213935040454376661779933220754639736839877261211431528140022932412039118650826290747144651878100106364319997951107067217649833149230265656644000248389221211290269422784124023054547143233298486439198256390425542656"
+        ],
+        "exact_upper_squared": [
+          "149886591061082738406621517551318446901995107172445912653248044386137341414278381220231011141161028856448978487786483189426920140145926148839698145175640476377966939550775708032480969593381600849071759738233",
+          "94758184344525691842589080106353915726128296943157752144717531617800961467674370503593652882607817257720198406807316479868870852301929589321550737002025216015896910157522577243058183937475491017166931103132108688408987234729984"
+        ],
+        "threshold": "1e-10",
+        "relation": "BELOW",
+        "dimension": 60,
+        "exact_residual_denominator_bits": 423,
+        "scope": "exact binary64 stored-input residual only; integer/Fraction implementation trusted; no solver or AO certification"
+      },
+      "reference_validated": false,
+      "original_BO_energy": -0.11803113362157003,
+      "BO_energy": -0.11803129011100433,
+      "artifact_sha256": "a5783c90b35da107620a05579b70acc4a78499886111bcec5822d837b0c9f98a",
+      "wall_seconds": 156.456609191,
+      "peak_rss_bytes": 794955776
+    }
+  ],
+  "wall_seconds": 320.642602227
+}

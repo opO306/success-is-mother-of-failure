@@ -1,0 +1,14 @@
+A 0.5 None MEASUREMENT_ERROR
+B 0.5 None None
+C 0.4 frozen_C_and_compact_transform -0.11803074665285074
+C 0.4 generalized_h_C_and_four_leg_numpy_transform -0.11803129011100433
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 126, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 118, in main
+    if job.exitcode or not output.exists(): raise RuntimeError('worker failed, STOP without retry')
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: worker failed, STOP without retry

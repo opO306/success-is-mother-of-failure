@@ -1,0 +1,19 @@
+fatal: not a git repository: /mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/C:/Users/zun24/성공은 실패의 어머니/.git/worktrees/성공은-실패의-어머니2
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 126, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 106, in main
+    sealed=seal(target,Path(args.evidence_root));bound=sealed['protected_sha256']|sealed['source_sha256']|sealed['input_sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/failure_cause_v0/run.py", line 37, in seal
+    head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.

@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ QZ Failure Cause Separation V0](active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md)는
+R=0.5 guard 평가 오류를 exact residual enclosure로 분리했다. adaptive prototype만 구현,
+R=0.4 독립 CI reference 후보는 invalid, 네 short-R 원인은 UNRESOLVED다.
+3회 실패 중단 규칙에 따라 추가 numerical 실행 중단 / DESIGNER DECISION REQUIRED.
+기존 QZ44 FAIL·source·기준은 보존하며 production에 통합하지 않는다.
+
 [H₂ sealed QZ44 fresh validation V1](active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md)은
 V0 최종 source/config/rule을 봉인한 44점 전체 재실행이다. 43 accepted / 1 refused,
 reference 0.001 hartree 초과 4점으로 Gate NUMERICAL FAIL. 실패점 진단·control 일치·

@@ -1,0 +1,11 @@
+{
+  "reason": "First determinant-path reference invalid against independent singlet operator; remaining expensive identical candidate stopped; frozen QZ44 unchanged",
+  "children": [
+    {
+      "pid": 748,
+      "status": "Name:\tpython\nUmask:\t0022\nState:\tR (running)\nTgid:\t748\nNgid:\t0\nPid:\t748\nPPid:\t302\nTracerPid:\t0\nUid:\t1000\t1000\t1000\t1000\nGid:\t1000\t1000\t1000\t1000\nFDSize:\t64\nGroups:\t4 24 27 30 46 100 1000 \nNStgid:\t748\nNSpid:\t748\nNSpgid:\t302\nNSsid:\t302\nKthread:\t0\nVmPeak:\t  637768 kB\nVmSize:\t  574688 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t  362604 kB\nVmRSS:\t  265052 kB\nRssAnon:\t  218204 kB\nRssFile:\t   46848 kB\nRssShmem:\t       0 kB\nVmData:\t  390828 kB\nVmStk:\t     136 kB\nVmExe:\t    2956 kB\nVmLib:\t  135364 kB\nVmPTE:\t     764 kB\nVmSwap:\t       0 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t1/63773\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000000000\nSigIgn:\t0000000001001000\nSigCgt:\t0000000000000002\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t000001ffffffffff\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t0\nSeccomp_filters:\t0\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tfff\nCpus_allowed_list:\t0-11\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t655\nnonvoluntary_ctxt_switches:\t32\n",
+      "cmd": "/home/otherside123/.venvs/h2-reference-pilot/bin/python -c from multiprocessing.spawn import spawn_main; spawn_main(tracker_fd=4, pipe_handle=6) --multiprocessing-fork "
+    }
+  ],
+  "time": 1790953922.4797292
+}

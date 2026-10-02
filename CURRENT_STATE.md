@@ -1,8 +1,19 @@
 # 현재 상태
 
-**최종 갱신:** 2026-10-02 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-03 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
+
+**H₂ QZ Failure Cause Separation V0(2026-10-03, 부분 중단):**
+[원인 분리·실패·설계자 결정](docs/active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md).
+R=0.5의 동일 C/S exact operator residual 상한 1.0634011994e-11 < 기존 guard1e-10,
+binary64 1.5495072149e-10과 bit 일치: MEASUREMENT_ERROR. 원래 refusal 유지.
+adaptive interval→exact prototype만, production 미적용·경계 semantics 한계 공개.
+R=0.4 독립 determinant CI 두 후보는 eigen residual 기준 실패로 invalid이며 reference로 인정하지 않는다.
+네 short-R same-basis 비교는 UNRESOLVED / Stage C 미완료 / NOT CERTIFIED.
+봉인 전 환경 실패 2회와 C1 검증 실패 후 AGENTS 3회 중단 규칙 적용, 추가 numerical 실행 멈춤.
+Windows99/WSL15 passed, skip0. LOCAL FULL 생략 / 새 독립 분석·시험·문서 / 기준선 불변.
+기존 QZ44 FAIL·source·646 raw 기록·C1-B1/production 상태 보존. DESIGNER DECISION REQUIRED, push 없음.
 
 **H₂ sealed QZ44 fresh validation V1(2026-10-02):**
 [전체 결과·실패점 진단](docs/active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md).

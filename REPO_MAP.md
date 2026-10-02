@@ -20,6 +20,14 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+새 독립 분석 `electronic_pilot/failure_cause_v0/`는 저장된 C/S의 exact dyadic residual
+감사·adaptive interval guard prototype·same-basis determinant CI 후보다.
+`failure_cause_summary_v0.py`는 중단된 실행을 수정 없이 포장하는 postprocessor다.
+[원인 분리 V0](docs/active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md): R=0.5 MEASUREMENT_ERROR,
+R=0.4 reference 후보 invalid / short-R 네 점 UNRESOLVED / Stage C 중단 / NOT CERTIFIED.
+`tests/test_h2_failure_cause_v0.py`, 별도 WSL `failure_cause_v0/test_integration.py`.
+raw `runs/h2_failure_cause_v0/`, compact `docs/active/h2_failure_cause_v0/`; production 미적용.
+
 `electronic_pilot/qz44_sealed_v1/`는 변경 없는 V0 최종 경로의 봉인·fresh QZ44 실행·
 독립 reference 비교·실패점만의 진단 harness다. 기존 numerical kernel을 수정하지 않았다.
 [Sealed QZ44 보고서](docs/active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md),

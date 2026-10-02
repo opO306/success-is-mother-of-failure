@@ -1,0 +1,16 @@
+{
+  "attempts": [
+    {
+      "output": "audit_v0",
+      "numerical_started": false,
+      "failure": "WSL Git cannot interpret Windows worktree gitdir path",
+      "resolution": "Explicit mapped GIT_DIR/GIT_WORK_TREE, no source edit"
+    },
+    {
+      "output": "audit_v1",
+      "numerical_started": false,
+      "failure": "Windows checkout CRLF differs from Git blob for old tests",
+      "resolution": "Verified five CRLF-only differences, restored exact Git blob bytes; no test semantics/numerical source changes"
+    }
+  ]
+}

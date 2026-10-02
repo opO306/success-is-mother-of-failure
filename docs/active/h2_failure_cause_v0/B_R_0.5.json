@@ -1,0 +1,40 @@
+{
+  "stage": "B",
+  "R_bohr": 0.5,
+  "prototype": {
+    "cheap": {
+      "operator_norm_lower": "0",
+      "operator_norm_upper": "134924799741788175/302231454903657293676544",
+      "relation": "UNRESOLVED",
+      "scope": "outward nextafter after each binary64 multiplication/addition; IEEE round-to-nearest, gradual underflow, no FTZ assumed"
+    },
+    "exact_fallback": {
+      "operator_norm_lower": "0.0000000000064438151402393377732039452515",
+      "operator_norm_upper": "0.0000000000106340119938833816988016412713",
+      "frobenius_enclosure": [
+        "0.0000000000106340119938833816988016412712",
+        "0.0000000000106340119938833816988016412713"
+      ],
+      "exact_lower_squared": [
+        "1842062086666138600695999783549679082681899759500701546592071619081273249334869763413250009478207566719438137",
+        "44362715105933037753254626946289339254982993206013065202727673289833940924890009968639590497666233249558259375382457149263586525184"
+      ],
+      "exact_upper_squared": [
+        "3936240180889488465882510656831984742558674434525875650638523488169323843124325454423448495618560094566166069309089469636733939789371557270569412754994937921757645225",
+        "34808659497239648579720852704622583960672214563358764118798771041101647699040812580153753748454066465596331097210650690541753423472407821641942301328447068696990926165468330002463334596608"
+      ],
+      "threshold": "1e-10",
+      "relation": "BELOW",
+      "dimension": 60,
+      "exact_residual_denominator_bits": 323,
+      "scope": "exact binary64 stored-input residual only; integer/Fraction implementation trusted; no solver or AO certification"
+    },
+    "relation": "BELOW",
+    "cheap_seconds": 0.013931731999996089,
+    "fallback_seconds": 0.023051617000000135,
+    "production_applied": false,
+    "changes_original_QZ44": false
+  },
+  "wall_seconds": 0.1353934979999991,
+  "peak_rss_bytes": 49180672
+}

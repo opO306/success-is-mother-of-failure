@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md](active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md):
+부분 원인 분리 / R=0.5 MEASUREMENT_ERROR / 독립 reference 후보 invalid /
+Stage C 미완료·네 short-R UNRESOLVED / NOT CERTIFIED / DESIGNER DECISION REQUIRED.
+기존 QZ44 FAIL, source/guard/physical 기준 불변, production 미적용.
+
 [H2_STATIC_QZ44_SEALED_VALIDATION_V1.md](active/H2_STATIC_QZ44_SEALED_VALIDATION_V1.md):
 V0 최종 경로 봉인·44점 fresh attempted / 43 accepted / 1 refused /
 reference 초과 4점으로 NUMERICAL FAIL. 실패점만 진단, rule/tolerance 불변,

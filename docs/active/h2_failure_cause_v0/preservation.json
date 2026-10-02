@@ -1,0 +1,15 @@
+{
+  "protected_count": 200,
+  "source_count": 7,
+  "input_count": 10,
+  "original_raw_checked": {
+    "h2_static_pilot_v2": 265,
+    "h2_numerical_cause_v1": 145,
+    "h2_ao_micro_v0": 118,
+    "h2_qz44_sealed_v1": 118
+  },
+  "original_raw_changed": [],
+  "old_QZ44_gate_sha256": "02c5b4625f835f46aa247b7bd53d2909d1c92c212d74199cdd98507ee4b27ed0",
+  "original_QZ44_results_sha256": "9564be2e8e23c2dbbb39bd0a9f5eb854ce888a2337ce398c5927a003a5dc0baf",
+  "postprocessor_sha256": "4f18e8e158f9f540365f08cfb92ca611890ff6c37577ae9d93d8c9a9fa2fb65d"
+}
