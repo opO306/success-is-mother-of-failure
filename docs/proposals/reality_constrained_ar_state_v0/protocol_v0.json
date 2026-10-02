@@ -1,0 +1,35 @@
+{
+  "schema": "reality_constrained_ar_protocol_v0",
+  "stage": "SEALED_BEFORE_FIRST_GENERATION",
+  "N_candidates": [4, 8, 16, 32, 64],
+  "position_candidates": ["Q1_GRID", "Q2_HALTON", "Q4_RANK1"],
+  "position_rules": {
+    "Q1_GRID": "ceil_cube_root(N) grid cell centers; first N lexicographic triples; disclose incomplete slab for noncubic N",
+    "Q2_HALTON": "radical inverse bases 2,3,5; indices 1..N; no scramble or seed",
+    "Q4_RANK1": "centered rank-1 rational points (k+1/2, (3k mod N)+1/2, (5k mod N)+1/2)/N",
+    "Q3": "REFUSED: same-state experimental g(r)/S(q) and uncertainties unavailable; no ideal gas curve relabelled as measured structure"
+  },
+  "momentum_candidates": ["P1_CARTESIAN_QUANTILES", "P2_RADIAL_SPHERE_ANTIPODAL"],
+  "momentum_rules": {
+    "P1_CARTESIAN_QUANTILES": "positive normal midpoint quantiles (1/2+(j+1/2)/N), three fixed bijections of N/2 entries, then exact negative pairs",
+    "P2_RADIAL_SPHERE_ANTIPODAL": "Maxwell speed midpoint quantiles (j+1/2)/(N/2); Fibonacci upper-hemisphere directions rationally projected to unit sphere, then exact negative pairs",
+    "position_assignment": "sort generated geometry lexicographically; attach momentum list before any storage labels; no supplied atom ID is an algorithm input",
+    "energy_policy": "no after-generation rescaling, no residual dumped on last particle; record K and Tkin using 3(N-1) COM-free degrees of freedom",
+    "exact_energy_shell_candidate": "discuss separately only; not executed or approved"
+  },
+  "arithmetic": "Fraction plus local Decimal precision 70; fixed 240-term erf series and 128 bisections; coefficient representatives on a predeclared 10^-30 rational grid; symbolic cube/square roots for physical q/p scales",
+  "sphere_rule": "z=(j+1/2)/(N/2); phi=j*pi*(3-sqrt(5)); fixed Taylor cos/sin, stereographic rational projection; both poles and antipodes have explicit ties",
+  "diagnostics": ["pair squared-distance CDF in finite cube", "nearest distances", "coordinate cross covariance", "speed/component CDF discrepancy", "speed fourth moment", "direction tensor", "q-p covariance", "repeated speeds and antipodal counts", "total P and K", "label permutation", "N dependence", "FX96_48 and FX96_80 changes"],
+  "spatial_proxy_reference": "32^3 fixed midpoint quadrature of independent uniform points in a finite cube; not experimental g(r), not PBC",
+  "pair_distance_squared_bins_fractional": ["1/64", "1/16", "1/4", "9/16", "1", "2", "3"],
+  "minimum_separation_angstrom": "1.2",
+  "minimum_separation_interpretation": "compatibility diagnostic with current undefined PES floor, not a physical hard-core law",
+  "success_criteria": {
+    "technical": "repeat bytes identical; exact sum p=0; no source mutation accepted; no ID-dependent assignment; unsupported inputs/ties follow fixed rule; no repair or forward dynamics",
+    "reality_feasibility_A": "requires same-point experimental density/EOS and structural statistics with uncertainties, isotope mapping and a justified preparation law; no missing field/ASSUMED proxy may be silently upgraded",
+    "proxy_statistics": "report raw discrepancy, anisotropy and N trends for all candidates; no pass threshold chosen to make a candidate win; no winner selected"
+  },
+  "forbidden": ["random_or_seed", "source_statistic_invention", "configuration_repair", "adaptive_generator_selection", "posthoc_temperature_rescale", "forward_dynamics", "production_export", "PBC_contract", "official_N", "Vast", "GPU"],
+  "final_verdict_policy": "E if bounded survey cannot close reality-only inputs; keep conditional numerical experiments separately labelled",
+  "scope": "SURVEY_ONLY; NOT AN OBSERVED MICROSTATE; C1-C D5 PENDING"
+}

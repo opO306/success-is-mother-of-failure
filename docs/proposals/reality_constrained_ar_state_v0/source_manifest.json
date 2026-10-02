@@ -1,0 +1,35 @@
+{
+  "schema": "reality_constrained_ar_source_v0",
+  "source": {
+    "url": "https://arxiv.org/pdf/2409.10140",
+    "title": "Updated determination of the molar gas constant R by acoustic measurements in argon at UVa-CEM",
+    "authors": "Segovia et al.",
+    "pdf_sha256": "664f76a44a38b8428e6581e3d120d080374407da694a28c3bde1cd0268be3c87",
+    "access_date": "2026-10-02",
+    "selection_rule": "Lowest listed Table 1 pressure within the stated 60-600 kPa acoustic range; selected before generation.",
+    "point_locator": "Table 1, PDF page 22; sections 2.2 and 2.3, PDF pages 7-10"
+  },
+  "temperature_K": {"value": "273.16", "status": "DERIVED_FROM_MEASUREMENT", "interpretation": "TPW reference isotherm; measurements are corrected to this reference, not each instantaneous thermometer reading"},
+  "pressure_Pa": {"value": "80900", "status": "DERIVED_FROM_MEASUREMENT", "interpretation": "0.08090 MPa tabulated pressure; not raw gauge samples"},
+  "uncertainty": {
+    "pressure_standard_uncertainty_formula_Pa": "3.75e-5*p_Pa+100",
+    "temperature_calibration_standard_uncertainty_K": "0.0001",
+    "temperature_maximum_stability_range_K": "0.0006",
+    "temperature_combined_state_point_standard_uncertainty_K": null,
+    "EOS_proxy_density_uncertainty": null,
+    "status": "DERIVED_FROM_MEASUREMENT"
+  },
+  "species": {"element": "Ar", "status": "DERIVED_FROM_MEASUREMENT", "supplier_molar_purity": "0.999999", "isotope_composition": null, "isotope_status": "UNAVAILABLE"},
+  "number_density_m3": {"value": null, "status": "UNAVAILABLE"},
+  "structure_statistics": {"g_r": null, "S_q": null, "uncertainty": null, "status": "UNAVAILABLE"},
+  "individual_positions": {"value": null, "status": "UNAVAILABLE"},
+  "individual_momenta": {"value": null, "status": "UNAVAILABLE"},
+  "conditional_survey_assumptions": {
+    "density_relation": "n_proxy=p/(k_B*T); Z=1 is ASSUMED, not a measured density or verified EOS",
+    "species_mapping": "pure Ar40 proxy is ASSUMED; the sample isotope composition is unknown",
+    "momentum_law": "classical equilibrium Maxwell-Boltzmann proxy is ASSUMED, not a measured velocity distribution",
+    "boundary": "cube is an initial placement frame only; no walls, PBC or dynamics",
+    "status": "ASSUMED"
+  },
+  "classification": "INPUT_INSUFFICIENT_FOR_REALITY_ONLY_STATE"
+}

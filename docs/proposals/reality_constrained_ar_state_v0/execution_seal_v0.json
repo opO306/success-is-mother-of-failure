@@ -1,0 +1,19 @@
+{
+  "algorithm_adjusted_from_results": false,
+  "clarifications": [
+    "Full source seals quantile bracket [0,8], 128 bisections, midpoint return and 1e-30 ROUND_HALF_EVEN coefficients; local Decimal precision70.",
+    "P1 axis bijections (j, 3j+1 mod M, 5j+1 mod M); P1 is known two-octant artificial baseline, not independent MB components.",
+    "P2 golden-angle upper hemisphere, 120-term trig, source-pinned PI, stereographic projection; every direction has exact rational norm1.",
+    "p list interleaves each v_j,-v_j; it is not positive-half then negative-half. Lexicographic adjacent assignment can create local q-p covariance.",
+    "Raw source protocol retained unchanged; this source seal makes its algorithm details concrete before any generated result.",
+    "Uniform cube difference-domain quadrature: d=(2j+1)/64 for j=0..31, weight=(63-2j)/1024, product weights; continuous independent reference, no atom self pairs.",
+    "FX projection uses exact integer rational square/cube root comparison; nearest ties to even, odd sign reflection; no p residual correction.",
+    "Direction and q-p moment diagnostics rounded to25 decimal digits for output; P,K and candidate coefficients remain exact relative to rational representatives.",
+    "Independent review identified two-octant P1, smallN slabs and planes, P2 speed-direction correlation, forced pairing/DOF issues; retain all as uncorrected baselines."
+  ],
+  "first_generation_has_not_run": true,
+  "generator_source_LF_normalized_sha256": "bd695b1a63c058c1e6db000bed6be6d20f269ffa6537a723ca631af5ba6afddf",
+  "protocol_sha256": "bca5c3f3505cfa71688909fff98e90e4b440dad6a6846abd1a3d3e14a2c83f35",
+  "source_sha256": "6015bbcd25d556ad2246b095b940fe51341d21ca0a02825bea8cc2c2a5c3094d",
+  "stage": "BEFORE_FIRST_CANDIDATE_GENERATION"
+}

@@ -4,6 +4,7 @@
 
 - [C1-C / Small-A Foundation v0](C1C_MULTIPARTICLE_GAS_FOUNDATION_V0.md): 최초 다원자 Ar 기체의 계약·온도/에너지·반올림 합산·periodic images·현실성·검증/기록 비용 설계. **DESIGN ONLY / 미구현 / 미승인 / 미동결.** N·박스·dt·GPU·경계·검증 전략은 설계자 미결이며 C1-B1 상태를 바꾸지 않는다.
 - [Reality-Anchored Small-A Initial State Pilot V0](REALITY_ANCHORED_SMALL_A_INITIAL_STATE_PILOT_V0.md): 공개 고체 Ar CIF의 평균 구조를 네 자리로 재구성한 **SURVEY + ISOLATED PROTOTYPE**. R2 / B / MISSING_DYNAMIC_STATE, forward 0 step. 순간 q,p·순수 40Ar 자료 확보가 아니며 Small-A N·밀도·PBC·C1-C 계약을 확정하지 않는다.
+- [Reality-Constrained Deterministic Initial State Pilot V0](REALITY_CONSTRAINED_DETERMINISTIC_INITIAL_STATE_V0.md): 희박 Ar의 실험 T/p와 조건부 가정을 이용한 q,p 후보 30개 비교. **E / REALITY_DATA_INSUFFICIENT / CONDITIONAL_ASSUMED_PROXY_ONLY**, 현실 전용 경로 REFUSED, forward 0 step. 인공 구조·방향 및 q-p 편향을 보존하며 production·C1-C 계약 확정이 아니다.
 
 - [A 실행 증명서 제안](A_RUNTIME_CERTIFICATE_PROPOSAL.md): 장기 후보. 전역 증명과 한 실행의 증거를 구분하는 제안이며 구현·동결 아님.
 - [A 계산·메모리·기록 아키텍처 제안](A_COMPUTE_MEMORY_RECORD_ARCHITECTURE_PROPOSAL.md): 요구사항·후보이며 구현·동결 아님.

@@ -139,6 +139,7 @@ D_valid v2의 생성기·계약·fixture는 코드와 데이터 위치를 그대
 [장기 제안](proposals/README.md)은 구현·동결 상태와 구분한다.
 [C1-C / Small-A Foundation v0](proposals/C1C_MULTIPARTICLE_GAS_FOUNDATION_V0.md)는 2026-10-01 추가한 **DESIGN ONLY / 미구현 / 미승인 / 미동결** 설계안이다. 최초 다원자 Ar 계약과 설계자 결정 목록이며 N·박스·dt·GPU·PBC를 확정하거나 C1-B1 Gate 상태를 바꾸지 않는다.
 [Reality-Anchored Small-A Initial State Pilot V0](proposals/REALITY_ANCHORED_SMALL_A_INITIAL_STATE_PILOT_V0.md)는 2026-10-02의 **SURVEY + ISOLATED PROTOTYPE** 결과다. 공개 Ar 평균 결정 구조 R2를 재구성했으나 MISSING_DYNAMIC_STATE로 forward 0 step이며 production·C1-C 계약·N·밀도·PBC 결정이 아니다.
+[Reality-Constrained Deterministic Initial State Pilot V0](proposals/REALITY_CONSTRAINED_DETERMINISTIC_INITIAL_STATE_V0.md)는 2026-10-02의 **SURVEY + ISOLATED PROTOTYPE / E / REALITY_DATA_INSUFFICIENT** 결과다. 조건부 q,p 후보 30개의 생성·통계·FX 투영을 비교했으나 현실 전용 경로는 REFUSED이고 forward 0 step이다. production·N·PBC·C1-C 계약 확정이 아니다.
 [A 증명 조립 아키텍처](proposals/A_PROOF_COMPOSITION_ARCHITECTURE_V1.md)와
 [로드맵](proposals/A_PROOF_COMPOSITION_ROADMAP_V1.md)은 장기 제안이다.
 [Warehouse 아키텍처](proposals/A_PROOF_COMPUTE_WAREHOUSE_ARCHITECTURE_V1.md)도 PROPOSAL·미구현이다(2026-09-30 문서만 편입, Q9〜Q11 미판정). Runtime Proof Cache와 별개다.

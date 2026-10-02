@@ -1,0 +1,15 @@
+{
+  "all_30_examples_and_envelope_byte_identical": true,
+  "candidate_algorithms_changed": false,
+  "changes_after_first_generation": [
+    "reject unsupported quantile probabilities",
+    "reject unsealed minimum-separation override; extract fault-testable separation validator",
+    "preserve candidate-level REFUSED records",
+    "correct docstring Decimal arithmetic scope"
+  ],
+  "current_generator_LF_sha256": "9fb102f6835924cc719bca15e8579d285cfee564506c36d05086a4d9253a2e88",
+  "first_generator_snapshot": "runs/reality_constrained_ar_state_20261002_v0/generator_first_sealed.py",
+  "first_sealed_generator_LF_sha256": "bd695b1a63c058c1e6db000bed6be6d20f269ffa6537a723ca631af5ba6afddf",
+  "generated_artifact_sha256": "f01f2fa6603a0ea71d7e1ed82b1da44c667aa923a6cc1e33677348c6d22bbc3e",
+  "original_protocol_and_execution_seal_preserved": true
+}

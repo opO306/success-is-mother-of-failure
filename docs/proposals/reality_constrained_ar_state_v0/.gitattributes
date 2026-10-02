@@ -1,0 +1,2 @@
+# Keep hash-bound JSON inputs/results in their canonical LF form.
+*.json text eol=lf
