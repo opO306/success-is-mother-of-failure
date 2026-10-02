@@ -1,0 +1,74 @@
+{
+  "status": "NUMERICAL_CAUSE_IDENTIFIED_FOR_SAMPLED_DIAGNOSTICS_NOT_CERTIFIED",
+  "controls_count": 10,
+  "control_calculations": 60,
+  "max_control_energy_difference_hartree": 2.3496760093166813e-12,
+  "max_control_coordinate_map_orthogonality": 1.0344274595520214e-12,
+  "max_control_coordinate_reconstruction_relative_norm": 3.155289618311962e-13,
+  "reproduced_original_failures": 16,
+  "reproduction_failure_stages": {
+    "singlet_hermiticity": 13,
+    "orthonormalization": 3
+  },
+  "new_QZ_curve_computed": 34,
+  "new_QZ_curve_attempted": 44,
+  "new_QZ_failure_stages": {
+    "singlet_hermiticity": 9,
+    "orthonormalization": 1
+  },
+  "high_precision_decomposition": [
+    {
+      "R_bohr": 0.7,
+      "binary64_measured_signed_asymmetry": "-3.2224092438859486E-7",
+      "AO_input_propagated_with_fixed_binary64_C": "-2.956705689598715844756755831768438491896262078541256905717249796672315189850005944604933875E-8",
+      "remaining_binary64_transform_and_assembly_component": "-2.9267386749260770155243244168231561508103737921458743094282750203327684810149994055395066125E-7",
+      "high_precision_coordinate_effect_on_AO_component": "8.736265493085883219848609383482922699739323804363610918454071351239103555749698E-20",
+      "coordinate_60_to_80_digit_change": "-1.8276306586846418498766841049184177E-64",
+      "high_precision_raw_S_orth_error_frobenius_upper": "0.0000000000022922259455770337231085257318560646856313346589084873927359668421790844432178257",
+      "scope": "one original worst Cholesky/common-AO singlet coupling; not full-matrix enclosure"
+    },
+    {
+      "R_bohr": 1.0,
+      "binary64_measured_signed_asymmetry": "-9.073336824927392E-9",
+      "AO_input_propagated_with_fixed_binary64_C": "-1.102757203472748881924640947318883983492896494314624707139944975115802119419209311925447283E-9",
+      "remaining_binary64_transform_and_assembly_component": "-7.970579621454643118075359052681116016507103505685375292860055024884197880580790688074552717E-9",
+      "high_precision_coordinate_effect_on_AO_component": "1.378912448599426720711198505259432762972236816531595299648768633131561750950091E-21",
+      "coordinate_60_to_80_digit_change": "-1.645494860659150786077750174497192E-66",
+      "high_precision_raw_S_orth_error_frobenius_upper": "0.00000000000064962686170904602164447113340423221941548136082533718418642276948133446448416061",
+      "scope": "one original worst Cholesky/common-AO singlet coupling; not full-matrix enclosure"
+    },
+    {
+      "R_bohr": 1.4,
+      "binary64_measured_signed_asymmetry": "-9.464675571058123E-11",
+      "AO_input_propagated_with_fixed_binary64_C": "-4.076968613653734296987087816511072463526569369623025327973141502673547711647601997946745089E-12",
+      "remaining_binary64_transform_and_assembly_component": "-9.0569787096927495703012912183488927536473430630376974672026858497326452288352398002053254911E-11",
+      "high_precision_coordinate_effect_on_AO_component": "8.13503643487975856805250517173927190269454498352499309290255305994060011570944E-25",
+      "coordinate_60_to_80_digit_change": "1.46918393350143658392062064825855E-70",
+      "high_precision_raw_S_orth_error_frobenius_upper": "0.00000000000011727402195535941566295396013500794336161184454089766738574817633653967650247",
+      "scope": "one original worst Cholesky/common-AO singlet coupling; not full-matrix enclosure"
+    }
+  ],
+  "stage_wall_seconds": {
+    "controls": 34.48450628399999,
+    "reproduce": 33.05849492500005,
+    "compare": 79.98795636600005,
+    "qz_curve": 121.837728113,
+    "high_precision_v2": 19.230058801
+  },
+  "sequential_stage_wall_sum_seconds": 288.59874448900007,
+  "cost_scope": "completed stage execution only; initial HP/adapter failures, preparation, tests, atom diagnostics excluded",
+  "stage_peak_rss_bytes": {
+    "controls": 597569536,
+    "reproduce": 596398080,
+    "compare": 597467136,
+    "qz_curve": 539594752,
+    "high_precision_v2": 538148864
+  },
+  "input_sha256": {
+    "controls": "4ba3151d509fa1d2a1bfed218ab4e4c8a187507d6026c3eebda18ccb78aac5bd",
+    "reproduce": "e19737d567f1450a435b91341404cdb4f06e5d4ee4314c3a3f7aff97e5729fc8",
+    "compare": "cb471f95d1a60d9f1381a270459cb54243684be119a4a01a3e9155a0d3a5f619",
+    "qz_curve": "f2d97fe252e4ae156e02f4c809293617a74e1a81c43e56698503a0b743e482aa",
+    "high_precision_v2": "2ec523a94e7420b95a678261b5c84f64e7a77ef068572a26fd8ceba28ca42f7a"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "version": "h2-same-basis-numerical-cause-v1",
+  "parent_protocol": "electronic_pilot/protocol_v2.json",
+  "parent_executed_source": "docs/active/h2_static_pilot_v2/solver_executed.py.txt",
+  "controls": {"cc-pVDZ": [0.4, 1.4, 2.0, 20.0], "cc-pVTZ": [1.4, 2.0, 20.0], "cc-pVQZ": [1.5, 2.0, 20.0]},
+  "reproduction": {"cc-pVTZ": [0.4, 0.5, 0.6, 0.7, 0.8], "cc-pVQZ": [0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4]},
+  "paths": ["symmetric", "cholesky", "generalized_h"],
+  "transform_backends": ["original_outcore", "common_ao_incore"],
+  "comparison_energy_abs_max_hartree": 1e-9,
+  "overlap_min_eigenvalue_floor": 1e-10,
+  "orthonormalization_max_norm": 1e-10,
+  "hermitian_max_asymmetry": 1e-10,
+  "eigen_residual_max_l2_hartree": 1e-9,
+  "vector_norm_error_max": 1e-10,
+  "selection": "Only paths agreeing with original accepted control energies within 1e-9 and preserving full dimension qualify. Prefer greater original-failure acceptance count; ties cholesky before generalized_h before symmetric. Backend changes require their own control equivalence. Freeze selected path/backend before a fresh 44-point QZ run. Preserve every refusal.",
+  "high_precision_gate": "Only if multiple binary64 coordinates all refuse or differ in energy by more than 1e-9; representative QZ 0.7, 1.0, 1.4 only. Higher precision linear algebra on binary64 AO data is not higher precision libcint integrals.",
+  "forbidden": ["basis deletion", "eigenvalue cutoff", "tolerance relaxation", "matrix averaging symmetrization", "new physics or basis", "reference in executor", "dynamics", "production integration"],
+  "threads": 1,
+  "status": "DIAGNOSTIC_NOT_CERTIFIED"
+}

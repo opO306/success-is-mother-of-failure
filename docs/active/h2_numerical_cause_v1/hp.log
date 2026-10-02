@@ -1,0 +1,20 @@
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/high_precision.py", line 113, in worker
+    cm,orth,det=mp_cholesky_coordinates(s,digits)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/high_precision.py", line 28, in mp_cholesky_coordinates
+    raise ValueError("AO overlap is asymmetric; cannot use Hermitian factorization")
+ValueError: AO overlap is asymmetric; cannot use Hermitian factorization
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/high_precision.py", line 154, in <module>
+    main()
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/high_precision.py", line 148, in main
+    raise RuntimeError(f"HP worker failed {job.exitcode}; no retry")
+RuntimeError: HP worker failed 1; no retry

@@ -1,0 +1,322 @@
+{
+  "status": "NUMERICALLY_COMPARED_NOT_CERTIFIED",
+  "summaries": {
+    "cc-pVQZ": {
+      "sampled_min_R_bohr": null,
+      "sampled_min_total_hartree": null,
+      "lowest_computed_R_bohr": 1.4,
+      "lowest_computed_total_hartree": -1.1737957922495874,
+      "computed_points": 34,
+      "expected_points": 44,
+      "refused_R_bohr": [
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3
+      ],
+      "sampled_min_bracket_bohr": null,
+      "P1_sampled_minimum": false,
+      "P1_status": "UNRESOLVED",
+      "minimum_note": "lowest available point is at computed support boundary; minimum location/depth unresolved",
+      "binding_to_same_basis_atoms_hartree": null,
+      "binding_to_exact_atoms_hartree": null,
+      "twice_H_energy_hartree": -0.9998911371659767,
+      "twice_H_basis_error_hartree": 0.00010886283402334,
+      "tail_R_bohr": [
+        10,
+        12,
+        16,
+        20
+      ],
+      "tail_minus_same_basis_atoms_hartree": [
+        -4.68542427954e-06,
+        -1.29448034794e-06,
+        -2.1578894474e-07,
+        -5.631403384e-08
+      ],
+      "P2_tail_decreases": true,
+      "P2_fragment_tolerance_pass": true,
+      "curve_max_abs_error_hartree": 0.0007625245099634,
+      "curve_rms_error_hartree": 0.0006262779191784967,
+      "max_abs_error_R_bohr": 3.3,
+      "basis_size": 60,
+      "singlet_dimension": 1830,
+      "total_solve_wall_seconds": 77.21178578400003,
+      "max_process_peak_rss_bytes": 539594752,
+      "max_residual_l2": 1.5612043922401908e-13,
+      "P3_curve_tolerance_pass": false,
+      "P3_computed_subset_tolerance_pass": true,
+      "sampled_min_location_difference_bohr": null,
+      "binding_depth_difference_hartree": null,
+      "P3_min_location_tolerance_pass": null,
+      "P3_depth_tolerance_pass": null
+    }
+  },
+  "errors": [
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.4,
+      "signed_error_hartree": 0.000679921970856
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.5,
+      "signed_error_hartree": 0.0006533002071384
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.6,
+      "signed_error_hartree": 0.000635141765407
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.7,
+      "signed_error_hartree": 0.000624556181855
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.8,
+      "signed_error_hartree": 0.0006201670473659
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.9,
+      "signed_error_hartree": 0.0006207060125449
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.0,
+      "signed_error_hartree": 0.0006252605119262
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.1,
+      "signed_error_hartree": 0.0006331966114071
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.2,
+      "signed_error_hartree": 0.0006439603923868
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.3,
+      "signed_error_hartree": 0.0006569329614731
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.4,
+      "signed_error_hartree": 0.0006713990748468
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.5,
+      "signed_error_hartree": 0.0006865985129507
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.6,
+      "signed_error_hartree": 0.0007018002724686
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.7,
+      "signed_error_hartree": 0.0007163546226282
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.8,
+      "signed_error_hartree": 0.0007297058861961
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.9,
+      "signed_error_hartree": 0.0007413717715176
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.0,
+      "signed_error_hartree": 0.0007509087087738
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.1,
+      "signed_error_hartree": 0.0007578859902466
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.2,
+      "signed_error_hartree": 0.000761884745179
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.3,
+      "signed_error_hartree": 0.0007625245099634
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.4,
+      "signed_error_hartree": 0.0007595072321901
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.5,
+      "signed_error_hartree": 0.0007526621121566
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.6,
+      "signed_error_hartree": 0.0007419764208282
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.7,
+      "signed_error_hartree": 0.0007276044391576
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.8,
+      "signed_error_hartree": 0.0007098544092923
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.9,
+      "signed_error_hartree": 0.0006891587094053
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 4.0,
+      "signed_error_hartree": 0.0006660345458434
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 5.0,
+      "signed_error_hartree": 0.0004080202711034
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 6.0,
+      "signed_error_hartree": 0.0002392773616986
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 8.0,
+      "signed_error_hartree": 0.0001295476731719
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 10.0,
+      "signed_error_hartree": 0.0001129331557953
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 12.0,
+      "signed_error_hartree": 0.0001101143232039
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 16.0,
+      "signed_error_hartree": 0.0001090666313908
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 20.0,
+      "signed_error_hartree": 0.0001089132601178
+    }
+  ],
+  "refused_points": [
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.4,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.5,
+      "error": "REFUSED: orthonormalization; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.6,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.7,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.8,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.9,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.0,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.1,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.2,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.3,
+      "error": "REFUSED: singlet_hermiticity; diagnostics retained in fresh curve"
+    }
+  ],
+  "ghost_basis_diagnostics": [
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.0,
+      "atom_energy_change_hartree": -4.7113379417e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.0,
+      "atom_energy_change_hartree": -4.9122368197e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 6.0,
+      "atom_energy_change_hartree": -5.8104036807e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 20.0,
+      "atom_energy_change_hartree": -1.1e-16
+    }
+  ],
+  "reference_missing_explicit_uncertainty_R_bohr": [
+    16,
+    20
+  ],
+  "independence": "published exponential explicitly-correlated calculation distinct from Gaussian integral/dense solver; shared-integral FCI is secondary only",
+  "scope": "fresh QZ-only record view; original parent thresholds unchanged; no old curve values used",
+  "original_criteria": {
+    "P1": "sampled interior local minimum below 2*isolated-H in same basis; bracket from neighboring samples only",
+    "P2_fragment_abs_E20_minus_2EH_max_hartree": 1e-06,
+    "P2_tail": "absolute E(R)-2EH decreases on R=10,12,16,20; finite-range evidence, no infinity proof",
+    "P3_curve_max_abs_error_hartree": 0.001,
+    "P3_sampled_min_location_abs_difference_bohr": 0.1,
+    "P3_binding_depth_abs_error_hartree": 0.001,
+    "meaning": "predeclared pilot diagnostic thresholds, not measured reference uncertainties or final accuracy requirements"
+  }
+}

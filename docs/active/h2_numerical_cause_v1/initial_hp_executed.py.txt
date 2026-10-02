@@ -1,0 +1,154 @@
+"""Narrow multiprecision diagnosis of AO-data antisymmetry amplification.
+
+Only selected worst singlet couplings, not an HP curve or HP libcint integrals.
+Exact binary64 AO inputs are promoted. No integral/matrix is symmetrized.
+The antisymmetric part is contracted as a diagnostic, never as a Hamiltonian.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import multiprocessing as process
+import subprocess
+import time
+from pathlib import Path
+
+import numpy as np
+from scipy.linalg import eigh
+from .core import ao_data, coordinates, digest, symmetry
+from electronic_pilot.solver import singlet_matrix
+
+
+def mp_cholesky_coordinates(s, digits):
+    import mpmath as mp
+    with mp.workdps(digits):
+        a=mp.matrix([[mp.mpf(float(v)) for v in row] for row in s])
+        if a!=a.T:
+            raise ValueError("AO overlap is asymmetric; cannot use Hermitian factorization")
+        c=mp.inverse(mp.cholesky(a).T)
+        error=c.T*a*c-mp.eye(len(s))
+        # Frobenius norm is an upper bound for the operator 2-norm.
+        return [[mp.nstr(c[i,j],digits) for j in range(len(s))] for i in range(len(s))],str(mp.norm(error)),mp.nstr(mp.det(c),digits)
+
+
+def propagated_asymmetry(s,h,eri,c,pair_a,pair_b,digits,coefficients_are_strings):
+    """P^T [C^T(h-h^T)C, C^4(g-g^(qp,sr))] P, one coupling.
+
+    Every nonzero coefficient is retained, however small. Exact zero products
+    are skipped solely to avoid pointless arithmetic, without deleting AOs.
+    """
+    import gmpy2 as gp
+    i,j=pair_a
+    k,l=pair_b
+    with gp.context(gp.get_context(),precision=int(digits*3.322)+32):
+        cc=[[gp.mpfr(v if coefficients_are_strings else float(v)) for v in row] for row in c]
+        cols={a:[row[a] for row in cc] for a in (i,j,k,l)}
+        n=len(s)
+        left=[]
+        right=[]
+        for p in range(n):
+            for q in range(n):
+                a=cols[i][p]*cols[k][q]
+                b=cols[i][p]*cols[l][q]
+                d=cols[j][p]*cols[k][q]
+                e=cols[j][p]*cols[l][q]
+                if a or b or d or e:
+                    left.append((p,q,a,b,d,e))
+                    right.append((p,q,e,d,b,a))
+        total=gp.mpfr(0)
+        delta_nonzero=0
+        products=0
+        for p,q,a,b,d,e in left:
+            for r,t,aa,bb,dd,ee in right:
+                weight=a*aa+b*bb+d*dd+e*ee
+                if not weight:
+                    continue
+                products+=1
+                delta=gp.mpfr(float(eri[p,q,r,t]))-gp.mpfr(float(eri[q,p,t,r]))
+                if delta:
+                    delta_nonzero+=1
+                    total+=weight*delta
+        def dh(a,b):
+            result=gp.mpfr(0)
+            for p in range(n):
+                for q in range(n):
+                    result+=cols[a][p]*cols[b][q]*(gp.mpfr(float(h[p,q]))-gp.mpfr(float(h[q,p])))
+            return result
+        ht=gp.mpfr(0)
+        for a,b in ((i,j),(j,i)):
+            for u,v in ((k,l),(l,k)):
+                ht+=dh(a,u)*(b==v)+(a==u)*dh(b,v)
+        norm=gp.sqrt(2*(1+(i==j)))*gp.sqrt(2*(1+(k==l)))
+        return dict(eri_contribution=str(total/norm),h_contribution=str(ht/norm),total=str((total+ht)/norm),
+                    nonzero_weight_products=products,nonzero_AO_antisymmetry_terms=delta_nonzero,
+                    bits=gp.get_context().precision)
+
+
+def worker(r,output):
+    started=time.perf_counter()
+    import resource
+    from pyscf import ao2mo
+    mol,s,h,eri=ao_data("cc-pVQZ",r)
+    c=coordinates(s,h,"cholesky")
+    gh=ao2mo.kernel(eri,c,compact=False).reshape(eri.shape)
+    hh=c.T@h@c
+    mat,ii,jj,_=singlet_matrix(hh,gh)
+    a,b=np.unravel_index(np.abs(mat-mat.T).argmax(),mat.shape)
+    pair_a=(int(ii[a]),int(jj[a]))
+    pair_b=(int(ii[b]),int(jj[b]))
+    row=dict(R_bohr=r,basis="cc-pVQZ",path="cholesky",backend="common_ao_incore",
+             binary64_worst_coupling=dict(row=int(a),col=int(b),pair_a=pair_a,pair_b=pair_b,
+                 upper=float(mat[a,b]),lower=float(mat[b,a]),asymmetry=float(mat[a,b]-mat[b,a])),
+             AO_symmetry=symmetry(eri),AO_h_asymmetry=float(abs(h-h.T).max()),
+             AO_sha256={"s":digest(s),"h":digest(h),"eri_s1":digest(eri)},
+             binary64_orth_error=float(np.linalg.norm(c.T@s@c-np.eye(len(s)),ord=2)),
+             diagnostic_only=True,energy_calculated=False,not_certified=True)
+    artifact=Path(output).with_suffix(".npz")
+    np.savez_compressed(artifact,s=s,h=h,eri=eri,c_binary64=c)
+    row["AO_artifact_sha256"]=hashlib.sha256(artifact.read_bytes()).hexdigest()
+    row["fixed_binary64_C_80digit_contraction"]=propagated_asymmetry(s,h,eri,c,pair_a,pair_b,80,False)
+    row["high_precision_coordinates"]={}
+    for digits in (60,80):
+        cm,orth,det=mp_cholesky_coordinates(s,digits)
+        result=propagated_asymmetry(s,h,eri,cm,pair_a,pair_b,digits,True)
+        row["high_precision_coordinates"][str(digits)]=dict(orth_error_frobenius_upper=orth,det_C=det,propagated_asymmetry=result)
+        print("HP",r,digits,result["total"],flush=True)
+    row["wall_seconds"]=time.perf_counter()-started
+    row["process_peak_rss_bytes"]=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024
+    Path(output).write_text(json.dumps(row,indent=2)+"\n",encoding="utf-8")
+
+
+def main():
+    p=argparse.ArgumentParser()
+    p.add_argument("--root",required=True)
+    args=p.parse_args()
+    root=Path(args.root)
+    comparison=json.loads((root/"compare/results.json").read_text())
+    allowed=[r["R_bohr"] for r in comparison["rows"] if r["basis"]=="cc-pVQZ" and not any(x["accepted"] for x in r["paths"])]
+    if not {0.7,1.0}.issubset(allowed):
+        raise ValueError("narrow high precision gate not met")
+    target=root/"high_precision"
+    target.mkdir(exist_ok=False)
+    seal=dict(gate="all six binary64 path/backend combinations refused at 0.7 and 1.0; 1.4 accepted boundary control",
+              R_bohr=[.7,1.,1.4],precision_decimal_digits=[60,80],scope="selected worst Cholesky same-AO coupling; no full HP tensor/eigenproblem",
+              input_sha256=hashlib.sha256((root/"compare/results.json").read_bytes()).hexdigest(),
+              sources={str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in Path(__file__).parent.glob("*.py")},
+              packages=subprocess.check_output([__import__("sys").executable,"-m","pip","freeze"],text=True),
+              caveat="High precision linear algebra and selected contractions of binary64 AO inputs do not improve libcint integral precision.")
+    (target/"seal.json").write_text(json.dumps(seal,indent=2)+"\n",encoding="utf-8")
+    rows=[]
+    started=time.perf_counter()
+    for r in seal["R_bohr"]:
+        output=target/f"R_{r:g}.json"
+        job=process.get_context("spawn").Process(target=worker,args=(r,str(output)))
+        job.start()
+        job.join()
+        if job.exitcode!=0 or not output.exists():
+            raise RuntimeError(f"HP worker failed {job.exitcode}; no retry")
+        rows.append(json.loads(output.read_text()))
+        (target/"results.json").write_text(json.dumps(dict(rows=rows,wall_seconds=time.perf_counter()-started),indent=2)+"\n",encoding="utf-8")
+
+
+if __name__=="__main__":
+    main()

@@ -1,0 +1,10 @@
+{
+  "original_outcore_AO_digest_scope": "snapshot for diagnostics; outcore recomputes integrals on the fly, not a byte-identity assertion for its internal packed buffers",
+  "common_ao_incore_scope": "all three coordinates at a geometry use the identical full s1 ndarray",
+  "initial_hp_source": "reconstructed from the limited repair diff; byte hash matches its pre-failure seal",
+  "physical_adapter_initial_failure": "missing outer-process RSS field in checker view; original failed records retained; fixed adapter did not alter curve data",
+  "initial_hp_failures": "NumPy integer type in a unit test; initial worker correctly refused raw asymmetric overlap; later lower-triangle diagnostic validates against full unmodified S",
+  "original_protected_files_checked": 27,
+  "original_raw_JSONs_checked": 149,
+  "not_certified": true
+}

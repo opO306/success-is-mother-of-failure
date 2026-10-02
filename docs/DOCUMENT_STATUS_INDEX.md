@@ -6,6 +6,10 @@
 
 ## 현재 활성 A / C1-B1
 
+후속 [H2_NUMERICAL_CAUSE_ISOLATION_V1.md](active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md):
+같은 physics/basis/tolerance의 numerical diagnostic, 원래 실패 재현·AO/변환 오차 분리,
+fresh QZ 34/44 INCOMPLETE, minimum UNRESOLVED / NOT CERTIFIED. 원본 증거 보존.
+
 별도 승인된 연구 실행: [H2_STATIC_REFERENCE_PILOT_V1.md](active/H2_STATIC_REFERENCE_PILOT_V1.md),
 [사전 사양](active/H2_STATIC_REFERENCE_PILOT_PROTOCOL_V1.md),
 [compact evidence](active/h2_static_pilot_v2/results.json).

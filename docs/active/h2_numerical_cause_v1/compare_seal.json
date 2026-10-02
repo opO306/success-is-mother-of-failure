@@ -1,0 +1,403 @@
+{
+  "protocol": {
+    "version": "h2-same-basis-numerical-cause-v1",
+    "parent_protocol": "electronic_pilot/protocol_v2.json",
+    "parent_executed_source": "docs/active/h2_static_pilot_v2/solver_executed.py.txt",
+    "controls": {
+      "cc-pVDZ": [
+        0.4,
+        1.4,
+        2.0,
+        20.0
+      ],
+      "cc-pVTZ": [
+        1.4,
+        2.0,
+        20.0
+      ],
+      "cc-pVQZ": [
+        1.5,
+        2.0,
+        20.0
+      ]
+    },
+    "reproduction": {
+      "cc-pVTZ": [
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8
+      ],
+      "cc-pVQZ": [
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4
+      ]
+    },
+    "paths": [
+      "symmetric",
+      "cholesky",
+      "generalized_h"
+    ],
+    "transform_backends": [
+      "original_outcore",
+      "common_ao_incore"
+    ],
+    "comparison_energy_abs_max_hartree": 1e-09,
+    "overlap_min_eigenvalue_floor": 1e-10,
+    "orthonormalization_max_norm": 1e-10,
+    "hermitian_max_asymmetry": 1e-10,
+    "eigen_residual_max_l2_hartree": 1e-09,
+    "vector_norm_error_max": 1e-10,
+    "selection": "Only paths agreeing with original accepted control energies within 1e-9 and preserving full dimension qualify. Prefer greater original-failure acceptance count; ties cholesky before generalized_h before symmetric. Backend changes require their own control equivalence. Freeze selected path/backend before a fresh 44-point QZ run. Preserve every refusal.",
+    "high_precision_gate": "Only if multiple binary64 coordinates all refuse or differ in energy by more than 1e-9; representative QZ 0.7, 1.0, 1.4 only. Higher precision linear algebra on binary64 AO data is not higher precision libcint integrals.",
+    "forbidden": [
+      "basis deletion",
+      "eigenvalue cutoff",
+      "tolerance relaxation",
+      "matrix averaging symmetrization",
+      "new physics or basis",
+      "reference in executor",
+      "dynamics",
+      "production integration"
+    ],
+    "threads": 1,
+    "status": "DIAGNOSTIC_NOT_CERTIFIED"
+  },
+  "parent_protocol": {
+    "version": "h2-static-reference-pilot-v2",
+    "scope": "ISOLATED_STATIC_NUMERICAL_RESEARCH_NOT_A_WORLD",
+    "nuclei": [
+      {
+        "Z": 1
+      },
+      {
+        "Z": 1
+      }
+    ],
+    "electrons": 2,
+    "sector": "lowest spatial-symmetric singlet; no imposed gerade/orbital occupation",
+    "units": "bohr, hartree, atomic units",
+    "Hamiltonian": "He = -0.5 sum_i Laplacian_i - sum_iA 1/r_iA + 1/r12; ENN = 1/R; Etotal = Ee + ENN",
+    "boundary": "isolated open-space molecular integrals; clamped nuclei; no field",
+    "bases": [
+      "cc-pVDZ",
+      "cc-pVTZ",
+      "cc-pVQZ"
+    ],
+    "representation": "standard contracted real spherical Gaussian AO; full symmetric two-spatial-orbital product space",
+    "integrals": "PySCF 2.12.1 / libcint; no ECP, density fitting, screening cutoff modification, or fitted pair potential",
+    "solver": "canonical S^-1/2, explicit singlet Hamiltonian, SciPy LAPACK evr lowest two eigenpairs",
+    "threads": 1,
+    "arithmetic": "binary64; no rigorous interval or bit-parity certification",
+    "overlap_min_eigenvalue_floor": 1e-10,
+    "orthonormalization_max_norm": 1e-10,
+    "eigen_residual_max_l2_hartree": 1e-09,
+    "R_grid_bohr": [
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2.0,
+      2.1,
+      2.2,
+      2.3,
+      2.4,
+      2.5,
+      2.6,
+      2.7,
+      2.8,
+      2.9,
+      3.0,
+      3.1,
+      3.2,
+      3.3,
+      3.4,
+      3.5,
+      3.6,
+      3.7,
+      3.8,
+      3.9,
+      4.0,
+      5.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      16.0,
+      20.0
+    ],
+    "grid_reason": "uniform 0.1 bohr over 0.4-4, followed by fixed stretched points; no geometry optimization or known minimum in executor",
+    "sanity_R_bohr": [
+      0.4,
+      2.0,
+      20.0
+    ],
+    "ghost_R_bohr": [
+      1.0,
+      2.0,
+      6.0,
+      20.0
+    ],
+    "crosscheck_R_bohr": [
+      1.0,
+      2.0,
+      6.0,
+      20.0
+    ],
+    "independent_reference": "Pachucki 2010 arXiv:1007.0322v2, Eq.2, Table IV; external postprocessing only",
+    "comparison_basis": "cc-pVQZ",
+    "criteria": {
+      "P1": "sampled interior local minimum below 2*isolated-H in same basis; bracket from neighboring samples only",
+      "P2_fragment_abs_E20_minus_2EH_max_hartree": 1e-06,
+      "P2_tail": "absolute E(R)-2EH decreases on R=10,12,16,20; finite-range evidence, no infinity proof",
+      "P3_curve_max_abs_error_hartree": 0.001,
+      "P3_sampled_min_location_abs_difference_bohr": 0.1,
+      "P3_binding_depth_abs_error_hartree": 0.001,
+      "meaning": "predeclared pilot diagnostic thresholds, not measured reference uncertainties or final accuracy requirements"
+    },
+    "failure_policy": "Stop each refused point without retry or tolerance/model change. Continue only the other independent geometries once each. Preserve failures; incomplete grid cannot pass full-curve comparison.",
+    "excluded": [
+      "nuclear dynamics",
+      "electronic time history",
+      "formation capture",
+      "excitation",
+      "ionization continuum",
+      "radiation",
+      "quantum nuclei",
+      "relativity",
+      "QED",
+      "production foundation",
+      "formal certification"
+    ],
+    "continue_independent_points_after_refusal": true,
+    "amendment": "After V1 sanity stopped at cc-pVTZ R=0.4: diagnostic showed AO transformation cancellation/overlap conditioning. No basis, Hamiltonian, tolerance, grid or arithmetic changed. V2 changes failure collection policy and adds numeric details to refusal messages only."
+  },
+  "source_sha256": {
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/core.py": "8432d2e5023c846c5af3fba38993b81cc5ac564efff5b7f5befad79838db950a",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/protocol.json": "da6e36bbd9ea96c478cabc4cf30fbd342f5211e16f8beeceec8734d272f79a5d",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/study.py": "62a797d8664f84308f3a47261651cc5093a93b2c8b315c8847cb8c9428511e4c",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/__init__.py": "8572eb589ff7f7b02397d3706d7e130bf030a8b0b0aca22b109f8e94fe1007b4"
+  },
+  "protected_sha256": {
+    "electronic_pilot/campaign.py": "9b33ede5bd6f9f004383ae1ce1ce589d38eb566d015fc98d8af875fac4d1a7c2",
+    "electronic_pilot/check_reference.py": "348c74e2d3a4e8aee2e2ce23799e74935e9bebd676e7968e4fd61452cf8a79b3",
+    "electronic_pilot/diagnose_integrals.py": "04a726ecb1141cca1374cb17f433b950bc3debedf2657ba4e66034a9cebaf562",
+    "electronic_pilot/package_evidence.py": "2ad8defabe6824cc63472b1ab2e78c23a62ac2cf1eeb1a817bcb67bb0def4b83",
+    "electronic_pilot/plot_results.py": "2b2041d5e0d46a53fef32b69d13e300e782cfbc44dca0944fecfcda6f938ebe9",
+    "electronic_pilot/solver.py": "af4448202196910949f9f0c60241a8d96d6b119d7c6c4115a9e5847c656786ac",
+    "electronic_pilot/test_integration.py": "d59dc90f95aa085c4baee63b506973aff3c90a0fda0936c145329433cd3189e7",
+    "electronic_pilot/verify_reference_transcription.py": "36bbf4d2e3cf824f584de3f4418071ea56bab6add0441fd9e844eaa3571bc1e2",
+    "electronic_pilot/__init__.py": "b017720307c5a5ec5596a77206c5fd2439ba7aafba98103f8ff66b57838bf7b4",
+    "docs/active/h2_static_pilot_v2/.gitattributes": "b23bb1dd327aafe256f463f668d7f4c98cb4113db410ade554f920ccc93d7b1a",
+    "docs/active/h2_static_pilot_v2/campaign.log": "79ee3769ee30ee90fe543c4e63b759572fc7cec2b3ecf76e54f12c184406baa8",
+    "docs/active/h2_static_pilot_v2/comparison.json": "88ab0d9f1cf2b551dd5183241517cbbe8f291599adc85d12e082d3015cf3f352",
+    "docs/active/h2_static_pilot_v2/curve.png": "4db3ec4bdeb7f6bd346b337ac13721eb0844874af593bda020d7f4d2f20270e5",
+    "docs/active/h2_static_pilot_v2/curve.svg": "60a50738419b2c2f0e3cbe2e1356d5380578a926b544318a8f810e07577c90fb",
+    "docs/active/h2_static_pilot_v2/orthogonality_message_diagnostic.json": "b8d921cc9215cdc39769cfcf0ab98dc51ab31e682803bdb04dc3750a979a756f",
+    "docs/active/h2_static_pilot_v2/postrun_source_note.json": "a2a6c0d60c964072995c5438f5b26358c974bc6d72944e5c3d6328c9dae77942",
+    "docs/active/h2_static_pilot_v2/raw_manifest.json": "4087f14e8431fedceeba6e666edc4a326ff4f74152eaecb40f78aa8490f3f695",
+    "docs/active/h2_static_pilot_v2/reference_transcription.json": "406df184a68fdf8dd27652044d7e4362d3b7b819b4523de77e2a15699d2cc349",
+    "docs/active/h2_static_pilot_v2/results.json": "60a00e8dc2d9d9bdcf8466a5e09a81375e8bc1c3dbc02fb1887d1c2d0da35505",
+    "docs/active/h2_static_pilot_v2/sanity_results.json": "01d1aba4e34b8fb331dd963c6ab94e7f0b0cb4a6badd129681f1b7c9965efe45",
+    "docs/active/h2_static_pilot_v2/sanity_seal.json": "d4f24b6505eb85d8fde0925ec33f1a54fe8f3ba6df9743c349358f5a2b6b48e2",
+    "docs/active/h2_static_pilot_v2/seal.json": "886a0a4b25cae664b66da2a47e8467a93be665159050a4a5ffbdb00bbdcba4fd",
+    "docs/active/h2_static_pilot_v2/solver_executed.py.txt": "08c7a3f05a2ffde6a179ab31de11fdade4925f63826bab58f1846b66850405a0",
+    "docs/active/h2_static_pilot_v2/windows_tests.log": "51d2ae5b12f14bfa13d9c87b2065365b9788f97f3e4ac81d5f615ed7f8d540b6",
+    "docs/active/h2_static_pilot_v2/windows_tests.xml": "4bb954e7a2eda568b434a48ad83226b533f336572917203346f29a45168785b5",
+    "docs/active/h2_static_pilot_v2/wsl_tests.log": "258b3fe8c00adfb15350c1cff0af0f877144ce246b908aa49f8aa04dc82d7edd",
+    "docs/active/h2_static_pilot_v2/wsl_tests.xml": "cf526d6471fec078614481a50ad7cebfd28a2cf1670d6afb7dc7e0b6f814dbc1"
+  },
+  "archived_source_sha256": "08c7a3f05a2ffde6a179ab31de11fdade4925f63826bab58f1846b66850405a0",
+  "git_start": "164ecdeb2dac13bbee7f829596a5d40c43f0b64e",
+  "stage": "compare",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": "h5py==3.16.0\niniconfig==2.3.0\nnumpy==2.5.3\npackaging==26.3\npluggy==1.6.0\npsutil==7.2.2\nPygments==2.21.0\npyscf==2.12.1\npytest==9.1.1\nscipy==1.18.1\nsetuptools==84.0.0\n",
+  "hydrogen_basis_data": {
+    "cc-pVDZ": [
+      [
+        0,
+        [
+          13.01,
+          0.019685
+        ],
+        [
+          1.962,
+          0.137977
+        ],
+        [
+          0.4446,
+          0.478148
+        ]
+      ],
+      [
+        0,
+        [
+          0.122,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.727,
+          1.0
+        ]
+      ]
+    ],
+    "cc-pVTZ": [
+      [
+        0,
+        [
+          33.87,
+          0.006068
+        ],
+        [
+          5.095,
+          0.045308
+        ],
+        [
+          1.159,
+          0.202822
+        ]
+      ],
+      [
+        0,
+        [
+          0.3258,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.1027,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          1.407,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.388,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          1.057,
+          1.0
+        ]
+      ]
+    ],
+    "cc-pVQZ": [
+      [
+        0,
+        [
+          82.64,
+          0.002006
+        ],
+        [
+          12.41,
+          0.015343
+        ],
+        [
+          2.824,
+          0.075579
+        ]
+      ],
+      [
+        0,
+        [
+          0.7977,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.2581,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.08989,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          2.292,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.838,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.292,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          2.062,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          0.662,
+          1.0
+        ]
+      ],
+      [
+        3,
+        [
+          1.397,
+          1.0
+        ]
+      ]
+    ]
+  }
+}

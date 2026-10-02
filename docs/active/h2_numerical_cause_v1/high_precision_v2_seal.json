@@ -1,0 +1,25 @@
+{
+  "gate": "all six binary64 path/backend combinations refused at 0.7 and 1.0; 1.4 accepted boundary control",
+  "R_bohr": [
+    0.7,
+    1.0,
+    1.4
+  ],
+  "precision_decimal_digits": [
+    60,
+    80
+  ],
+  "scope": "selected worst Cholesky same-AO coupling; no full HP tensor/eigenproblem",
+  "input_sha256": "cb471f95d1a60d9f1381a270459cb54243684be119a4a01a3e9155a0d3a5f619",
+  "sources": {
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/core.py": "8432d2e5023c846c5af3fba38993b81cc5ac564efff5b7f5befad79838db950a",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/high_precision.py": "0f2e2313b71ef3f066845863500d601d2452761479ed7cf7d6232950cae98558",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/select.py": "f5f75456f4e030709d7a9e257cbe7885dd21ef6dd8ba832c11016d71820eb5ff",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/study.py": "62a797d8664f84308f3a47261651cc5093a93b2c8b315c8847cb8c9428511e4c",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/test_integration.py": "2a059064f323ae454568b5b556e6e8e021cd190677b8694af131d48a0c11c589",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/numerical_cause/__init__.py": "8572eb589ff7f7b02397d3706d7e130bf030a8b0b0aca22b109f8e94fe1007b4"
+  },
+  "packages": "gmpy2==2.2.2\nh5py==3.16.0\niniconfig==2.3.0\nmpmath==1.3.0\nnumpy==2.5.3\npackaging==26.3\npluggy==1.6.0\npsutil==7.2.2\nPygments==2.21.0\npyscf==2.12.1\npytest==9.1.1\nscipy==1.18.1\nsetuptools==84.0.0\n",
+  "overlap_factorization": "lower-triangle recurrence identical in meaning to historical LAPACK; raw nonsymmetric S used for the residual; no matrix averaging",
+  "caveat": "High precision linear algebra and selected contractions of binary64 AO inputs do not improve libcint integral precision."
+}

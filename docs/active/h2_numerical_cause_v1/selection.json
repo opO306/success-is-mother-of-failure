@@ -1,0 +1,66 @@
+{
+  "status": "SAME_FINITE_BASIS_ANALYTIC_AND_CONTROL_NUMERICAL_EVIDENCE_NOT_CERTIFIED",
+  "path": "cholesky",
+  "backend": "common_ao_incore",
+  "qualified": true,
+  "max_control_energy_difference_hartree": 8.43769498715119e-13,
+  "original_refusal_points_accepted": 1,
+  "full_dimension": true,
+  "ranking": [
+    {
+      "path": "symmetric",
+      "backend": "original_outcore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 0.0,
+      "original_refusal_points_accepted": 0,
+      "full_dimension": true
+    },
+    {
+      "path": "symmetric",
+      "backend": "common_ao_incore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 2.3496760093166813e-12,
+      "original_refusal_points_accepted": 0,
+      "full_dimension": true
+    },
+    {
+      "path": "cholesky",
+      "backend": "original_outcore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 8.43769498715119e-13,
+      "original_refusal_points_accepted": 0,
+      "full_dimension": true
+    },
+    {
+      "path": "cholesky",
+      "backend": "common_ao_incore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 8.43769498715119e-13,
+      "original_refusal_points_accepted": 1,
+      "full_dimension": true
+    },
+    {
+      "path": "generalized_h",
+      "backend": "original_outcore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 8.499867476530198e-13,
+      "original_refusal_points_accepted": 1,
+      "full_dimension": true
+    },
+    {
+      "path": "generalized_h",
+      "backend": "common_ao_incore",
+      "qualified": true,
+      "max_control_energy_difference_hartree": 8.486544800234697e-13,
+      "original_refusal_points_accepted": 1,
+      "full_dimension": true
+    }
+  ],
+  "qualification_scope": "all 10 accepted controls; other geometries retain guards; no universal equivalence certificate",
+  "reference_used": false,
+  "input_sha256": {
+    "controls": "4ba3151d509fa1d2a1bfed218ab4e4c8a187507d6026c3eebda18ccb78aac5bd",
+    "comparison": "cb471f95d1a60d9f1381a270459cb54243684be119a4a01a3e9155a0d3a5f619",
+    "protocol": "da6e36bbd9ea96c478cabc4cf30fbd342f5211e16f8beeceec8734d272f79a5d"
+  }
+}

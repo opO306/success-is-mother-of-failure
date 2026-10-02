@@ -1,0 +1,58 @@
+{
+  "cc-pVQZ": {
+    "sampled_min_R_bohr": null,
+    "sampled_min_total_hartree": null,
+    "lowest_computed_R_bohr": 1.4,
+    "lowest_computed_total_hartree": -1.1737957922495874,
+    "computed_points": 34,
+    "expected_points": 44,
+    "refused_R_bohr": [
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3
+    ],
+    "sampled_min_bracket_bohr": null,
+    "P1_sampled_minimum": false,
+    "P1_status": "UNRESOLVED",
+    "minimum_note": "lowest available point is at computed support boundary; minimum location/depth unresolved",
+    "binding_to_same_basis_atoms_hartree": null,
+    "binding_to_exact_atoms_hartree": null,
+    "twice_H_energy_hartree": -0.9998911371659767,
+    "twice_H_basis_error_hartree": 0.00010886283402334,
+    "tail_R_bohr": [
+      10,
+      12,
+      16,
+      20
+    ],
+    "tail_minus_same_basis_atoms_hartree": [
+      -4.68542427954e-06,
+      -1.29448034794e-06,
+      -2.1578894474e-07,
+      -5.631403384e-08
+    ],
+    "P2_tail_decreases": true,
+    "P2_fragment_tolerance_pass": true,
+    "curve_max_abs_error_hartree": 0.0007625245099634,
+    "curve_rms_error_hartree": 0.0006262779191784967,
+    "max_abs_error_R_bohr": 3.3,
+    "basis_size": 60,
+    "singlet_dimension": 1830,
+    "total_solve_wall_seconds": 77.21178578400003,
+    "max_process_peak_rss_bytes": 539594752,
+    "max_residual_l2": 1.5612043922401908e-13,
+    "P3_curve_tolerance_pass": false,
+    "P3_computed_subset_tolerance_pass": true,
+    "sampled_min_location_difference_bohr": null,
+    "binding_depth_difference_hartree": null,
+    "P3_min_location_tolerance_pass": null,
+    "P3_depth_tolerance_pass": null
+  }
+}

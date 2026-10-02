@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/physical_compare.py", line 62, in <module>
+    main()
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/numerical_cause/physical_compare.py", line 54, in main
+    result=compare(record,view,list(csv.DictReader(f)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/check_reference.py", line 97, in compare
+    max_process_peak_rss_bytes=max(x["process_peak_rss_bytes"] for x in rows),
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/성공은 실패의 어머니/electronic_pilot/check_reference.py", line 97, in <genexpr>
+    max_process_peak_rss_bytes=max(x["process_peak_rss_bytes"] for x in rows),
+                                   ~^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'process_peak_rss_bytes'

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="1.450" timestamp="2026-10-02T20:38:00.039352+09:00" hostname="localhost"><testcase classname="electronic_pilot.numerical_cause.test_integration" name="test_multiprecision_antisymmetry_contraction_matches_independent_tensor" time="0.030"><failure message="TypeError: sqrt() argument type not supported">def test_multiprecision_antisymmetry_contraction_matches_independent_tensor():
+        s=np.eye(3)
+        h=np.array([[1,.2,.1],[.3,2,.4],[.1,.4,3.]])
+        g=np.arange(81,dtype=float).reshape((3,)*4)/128
+        c=np.array([[1,.1,.2],[.3,1,.4],[.2,.1,1.]])
+        transformed=np.einsum("pqrs,pi,qj,rk,sl-&gt;ijkl",g,c,c,c,c,optimize=False)
+        m,ii,jj,_=singlet_matrix(c.T@h@c,transformed)
+        for a,b in ((0,3),(1,5),(2,4)):
+&gt;           row=propagated_asymmetry(s,h,g,c,(ii[a],jj[a]),(ii[b],jj[b]),80,False)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+electronic_pilot/numerical_cause/test_integration.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+h = array([[1. , 0.2, 0.1],
+       [0.3, 2. , 0.4],
+       [0.1, 0.4, 3. ]])
+eri = array([[[[0.       , 0.0078125, 0.015625 ],
+         [0.0234375, 0.03125  , 0.0390625],
+         [0.046875 , 0.0546875...5   , 0.5703125, 0.578125 ],
+         [0.5859375, 0.59375  , 0.6015625],
+         [0.609375 , 0.6171875, 0.625    ]]]])
+c = array([[1. , 0.1, 0.2],
+       [0.3, 1. , 0.4],
+       [0.2, 0.1, 1. ]])
+pair_a = (np.int64(0), np.int64(0)), pair_b = (np.int64(1), np.int64(1))
+digits = 80, coefficients_are_strings = False
+
+    def propagated_asymmetry(s,h,eri,c,pair_a,pair_b,digits,coefficients_are_strings):
+        """P^T [C^T(h-h^T)C, C^4(g-g^(qp,sr))] P, one coupling.
+    
+        Every nonzero coefficient is retained, however small. Exact zero products
+        are skipped solely to avoid pointless arithmetic, without deleting AOs.
+        """
+        import gmpy2 as gp
+        i,j=pair_a
+        k,l=pair_b
+        with gp.context(gp.get_context(),precision=int(digits*3.322)+32):
+            cc=[[gp.mpfr(v if coefficients_are_strings else float(v)) for v in row] for row in c]
+            cols={a:[row[a] for row in cc] for a in (i,j,k,l)}
+            n=len(s)
+            left=[]
+            right=[]
+            for p in range(n):
+                for q in range(n):
+                    a=cols[i][p]*cols[k][q]
+                    b=cols[i][p]*cols[l][q]
+                    d=cols[j][p]*cols[k][q]
+                    e=cols[j][p]*cols[l][q]
+                    if a or b or d or e:
+                        left.append((p,q,a,b,d,e))
+                        right.append((p,q,e,d,b,a))
+            total=gp.mpfr(0)
+            delta_nonzero=0
+            products=0
+            for p,q,a,b,d,e in left:
+                for r,t,aa,bb,dd,ee in right:
+                    weight=a*aa+b*bb+d*dd+e*ee
+                    if not weight:
+                        continue
+                    products+=1
+                    delta=gp.mpfr(float(eri[p,q,r,t]))-gp.mpfr(float(eri[q,p,t,r]))
+                    if delta:
+                        delta_nonzero+=1
+                        total+=weight*delta
+            def dh(a,b):
+                result=gp.mpfr(0)
+                for p in range(n):
+                    for q in range(n):
+                        result+=cols[a][p]*cols[b][q]*(gp.mpfr(float(h[p,q]))-gp.mpfr(float(h[q,p])))
+                return result
+            ht=gp.mpfr(0)
+            for a,b in ((i,j),(j,i)):
+                for u,v in ((k,l),(l,k)):
+                    ht+=dh(a,u)*(b==v)+(a==u)*dh(b,v)
+&gt;           norm=gp.sqrt(2*(1+(i==j)))*gp.sqrt(2*(1+(k==l)))
+                 ^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: sqrt() argument type not supported
+
+electronic_pilot/numerical_cause/high_precision.py:82: TypeError</failure></testcase><testcase classname="electronic_pilot.numerical_cause.test_integration" name="test_high_precision_coordinates_retain_full_dimension" time="0.049" /><testcase classname="electronic_pilot.numerical_cause.test_integration" name="test_three_real_AO_coordinates_agree_without_orbital_truncation" time="0.500" /></testsuite></testsuites>

@@ -659,3 +659,19 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | **해시 체인의 꼬리 한계(실제 발견)** | 첫 시험에서 색인 줄 변조가 체인에 걸리지 않았다(마지막 줄을 가리키는 줄이 없음). 색인 줄 해시를 입고 event에 교차 기록해 막음. **events 마지막 줄 변조와 index·events 꼬리의 일관된 재작성은 여전히 못 잡는다**(시험으로 확인, `corrupt = None`) | 로그 무결성은 audit/provenance 한계이며 formal tamper-proof가 아니다. 물리 correctness는 로그가 아니라 사용 때마다의 재검증에 기댄다. 위조 로그가 못 하는 것(검증 안 된 raw를 세계에 넣기)은 일관된 꼬리 재작성 4종으로 확인 |
 | **원격 검증 환경 설정 오류(실제 발생)** | 새 Vast 노드의 참조 파일 링크 이름이 틀려 `two_atom` 시험 2건이 실패(527 passed, 2 failed). 코드 문제가 아님을 실패 메시지(파일 없음)로 확인하고 링크 수정 뒤 전체 묶음을 깨끗이 재실행 529 passed | 원격 환경이 로컬과 같다는 확인은 시험 통과와 소스 해시 대조에 기댐. 첫 실행 로그 보존 |
 | **종단 시험 스크립트의 자기 오류(실제 발생)** | production cap 종단 시험 조건 14개 중 1개(raw = mpmath 기대값)가 false로 나와 exit 1. 기록값을 열어 보니 witness raw는 int, 기대값은 문자열이라 `int == str`이 항상 false였다. 값은 같았다. 스크립트를 고치고 다시 실행하지 않고 기록값을 재평가함(`--recheck`) | 그 조건 하나는 실행 중 판정이 아니라 기록값 재평가다. 나머지 13개는 실행 그대로. 검사기가 스스로 틀릴 수 있다는 유형 A·D의 반복이며, 로그를 보존한 것이 원인 분리를 가능하게 했다 |
+
+### H₂ same-finite-basis numerical diagnostic (2026-10-02)
+
+[원인 분리 보고서](../active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md).
+신규 시험은 `tests/test_h2_numerical_cause.py`, 별도 로컬 WSL integration은
+`electronic_pilot/numerical_cause/test_integration.py`다. 신규 18+4개를 포함한
+최종 Windows 43 passed / WSL 49 passed, 실제 skip/failure/error 0. 중복 수 합산 없음.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 작은 overlap 또는 eigenvector normalization 결함 주입 | overlap/orthogonality guard에서 energy 인정 전에 거부 | synthetic 입력과 표본 진단, 모든 condition/domain 인증 아님 |
+| h/ERI 비대칭 주입 | 최종 singlet Hermiticity에서 거부, null energy 유지 | integral backend 자체의 정확성을 증명하지 않음 |
+| 좌표변환 동안 AO 변경·energy 차이 확대·singlet dimension 축소·controls 누락 | 선택 함수가 불동등/불완전 후보를 거부 | qualification은 sealed control panel과 full-span 구조에 한정 |
+| raw nonsymmetric overlap을 정확히 symmetric인 것처럼 취급 | 첫 HP run STOP 보존; 후속 lower-triangle recurrence를 full raw S로 검사해 잔여 오차 공개, asymmetric S 주입 시험 | 고정밀 linear algebra가 binary64 AO data를 고정밀 물리 integral로 바꾸지 않음 |
+| MP antisymmetry contraction의 index/normalization 결함 | 별도로 만든 작은 full tensor contraction의 여러 coupling과 대조 | 실제 QZ HP는 대표 coupling만, full spectrum/행렬 오차 상한 아님 |
+| 새 QZ 34점만으로 minimum/full curve PASS 선언 | 기존 checker가 left-support boundary minimum/depth를 null, incomplete curve를 false로 유지 | 44점의 실제 supported 계산·물리 일치까지 인증하는 checker 아님 |

@@ -1,0 +1,4 @@
+# Keep sealed source snapshots and copied research evidence byte-identical.
+* -text
+# Original pytest traceback spacing is evidence, retained byte-for-byte.
+initial_hp_failed_tests.xml -whitespace

@@ -4,6 +4,8 @@
 2026-10-02의 독립 numerical research다. DZ/TZ 표본 minimum·해리 방향 및 부분
 external comparison, QZ short-R refusal/최소점 미해결을 함께 기록한다.
 NOT CERTIFIED / foundation 미승인, 기존 C1-B1 Gate 상태와 구별한다.
+[같은 basis의 수치 원인 분리 후속](active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md)은
+16점 실패 재현·AO/변환 오차 분리와 fresh QZ 34/44를 기록한다. 전체 곡선·최소점은 미해결이다.
 
 **현재 상태 정본:** [CURRENT_STATE.md](../CURRENT_STATE.md). **구현 위치:** [REPO_MAP.md](../REPO_MAP.md).
 A가 최우선이다. L은 A의 물리 기반이 충분해진 뒤 자연 발생·진화 계통으로 진행한다. B 본격 개발은 A·L 기반의 작은 세계가 돌아가는 후기 단계로 보류하며 취소·폐기하지 않는다.

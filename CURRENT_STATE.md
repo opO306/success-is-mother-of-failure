@@ -4,6 +4,16 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ same-basis numerical 원인 분리 후속(2026-10-02):**
+[수치 원인·미해결 범위](docs/active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md).
+원래 누락 16점 재현, 3 coordinates/2 backends의 기존 accepted controls 60개 통과.
+동일 AO의 대표 coupling에서 AO 비대칭 전파와 binary64 변환·행렬 구성 오차를 분리했다.
+선택 봉인 뒤 fresh QZ 44-point 실행은 34 accepted / 10 refused, QZ minimum·전체 curve 미해결.
+NUMERICAL CAUSE IDENTIFIED(조사 범위) / SAME-FINITE-BASIS 표본 동등성 / NOT CERTIFIED.
+Windows 관련 43 passed, 별도 WSL 49 passed, failure/error/skip 0.
+LOCAL FULL 생략 / 새 독립 진단·시험·문서, 기존 source/fixture 불변 및 관련 시험 대체 / 기준선 불변.
+기존 H₂ 원본과 C1-B1/production/foundation 상태 보존, push 없음.
+
 **별도 고정 핵 H₂ static reference pilot(2026-10-02):**
 [결과·한계](docs/active/H2_STATIC_REFERENCE_PILOT_V1.md).
 IMPLEMENTED / TESTED / NUMERICALLY COMPARED / NOT CERTIFIED.

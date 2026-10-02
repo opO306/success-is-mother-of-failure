@@ -26,6 +26,9 @@ Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
 `electronic_pilot/test_integration.py`는 PySCF가 있는 로컬 WSL의 별도 integration이다.
 [실측 보고서](docs/active/H2_STATIC_REFERENCE_PILOT_V1.md): 일부 수치 결과/거부 보존,
 QZ minimum·전체 curve 미해결, NOT CERTIFIED / production foundation 미승인.
+후속 `electronic_pilot/numerical_cause/`는 원래 누락 재현·세 full-span 좌표 비교·좁은 HP 진단이다.
+[원인 분리 보고서](docs/active/H2_NUMERICAL_CAUSE_ISOLATION_V1.md): fresh QZ 34/44,
+AO/변환 수치 원인 분리(대표 coupling), minimum·full physical comparison은 미해결.
 
 이 저장소에는 **서로 다른 시기의 계통**이 공존한다. 섞어서 읽으면 혼란스럽다.
 
