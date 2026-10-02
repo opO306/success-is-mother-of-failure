@@ -1,8 +1,22 @@
 # 현재 상태
 
-**최종 갱신:** 2026-10-02 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-03 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
+
+**C1-B1 Candidate B master 통합·runtime 활성화(2026-10-03):**
+[단계별 결과·한계·새 병목](docs/active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md).
+master는 6c53eec→951b076 fast-forward. 실제 production replay producer에 별도
+`c1b1_runtime` 선택기를 연결해 FAST 기본 / 명시적 reference mode를 제공한다.
+slow REF·generic model·proof/checker·historical O-1/witness wrapper·물리 계약은 보존했다.
+master FULL 3713+1 strict xfail(717.36초), activation FULL 3744+1 strict xfail(702.25초),
+양쪽 fail/error/actual skip0, 기존 warnings25. 공식 AGENTS 기준선은 불변.
+새 source/input closure 및 6개 산란55,845 step / 거부·실제 cap STOP5건 차등 PASS.
+실제 producer의 preserved 입력1491 step도 REF/FAST 동일. 새 CONFIRMED history는 아니다.
+로컬 CPU median impulse1.600× / step1.410× / 기존3개궤적1.385× / 전체6개1.410×.
+FAST6개 완주 profile의 자기 CPU 상위5개와 이론상 상한을 기록했으며 다음 대상 미선정.
+정식 증명·전체 물리 영역·무한 궤적·cap 내 보편적 결정·A-EV/native J는 미해결/별도 Gate다.
+local commit, push 없음. 아래 10-02 후보 승격은 기본 경로 변경 전의 당시 기록이다.
 
 
 **별도 C1-B1 Candidate B 최적화 승격(2026-10-02):**

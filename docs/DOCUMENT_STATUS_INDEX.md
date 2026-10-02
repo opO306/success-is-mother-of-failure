@@ -6,6 +6,10 @@
 
 ## 현재 활성 A / C1-B1
 
+[Candidate B master runtime 활성화](active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md):
+slow REF 보존 / FAST 기본 / reference mode, master 및 activation FULL·6개 차등·성능·profile PASS.
+정식 증명·전체 물리 영역 승인은 별도이며 기존 C1-B1 Gate와 구별한다.
+
 [Candidate B 승격](active/C1B1_CANDIDATE_B_PROMOTION_V1.md)·[독립 감사](active/C1B1_CANDIDATE_B_PRIMITIVE_AUDIT_V1.md):
 PRODUCTION FAST-PATH CANDIDATE, 모든 지정 gate PASS, NOT FORMALLY CERTIFIED / 기존 C1-B1 Gate 보존.
 

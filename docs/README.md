@@ -9,6 +9,9 @@ NOT CERTIFIED / foundation 미승인, 기존 C1-B1 Gate 상태와 구별한다.
 
 **C1-B1 Candidate B:** [승격 결과](active/C1B1_CANDIDATE_B_PROMOTION_V1.md)·[독립 감사](active/C1B1_CANDIDATE_B_PRIMITIVE_AUDIT_V1.md). 별도 production fast-path candidate, formal/A 전체 인증 아님.
 
+[master runtime 활성화](active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md)는 후속 결과다.
+실제 producer의 FAST 기본/REF mode, 두 FULL, 확장 차등 검사·성능·새 병목을 기록한다.
+
 **현재 상태 정본:** [CURRENT_STATE.md](../CURRENT_STATE.md). **구현 위치:** [REPO_MAP.md](../REPO_MAP.md).
 A가 최우선이다. L은 A의 물리 기반이 충분해진 뒤 자연 발생·진화 계통으로 진행한다. B 본격 개발은 A·L 기반의 작은 세계가 돌아가는 후기 단계로 보류하며 취소·폐기하지 않는다.
 

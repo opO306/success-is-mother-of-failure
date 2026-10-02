@@ -1,6 +1,7 @@
 """Local fixed seven-case evidence/cost harness. No world commit, no random sweep."""
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import asdict
+from functools import partial
 import hashlib
 import json
 from pathlib import Path
@@ -52,11 +53,13 @@ def prepare():
     (OUT/'witness_manifest.json').write_text(json.dumps(rows,indent=2)+'\n')
     return rows
 
-def execute(label):
+def execute(label, mode='fast'):
     # Producer-side imports only; none of these modules enter the verifier worker.
     from fractions import Fraction as Q
     from a_numeric import FixedPoint
     from a_reference import c1b1_two_atom as c
+    from a_reference import c1b1_runtime as runtime
+    runtime.select(mode)  # reject unsupported modes before constructing a run
     w=json.loads((OLD/f'witness_{label}.json').read_bytes())
     initial=w['states'][0]
     run=c.new_run(FixedPoint(96,48),Q(40),tuple(Q(v,1<<48) for v in initial[0]),
@@ -66,12 +69,12 @@ def execute(label):
     whole=time.perf_counter()
     for i in range(1,w['steps']+1):
         tc,tw=time.process_time(),time.perf_counter()
-        c.step(run)
+        runtime.step(run, mode=mode)
         cpu+=time.process_time()-tc;wall+=time.perf_counter()-tw
         a,b=run.atoms
         if (tuple(a.r),tuple(a.p),tuple(b.r),tuple(b.p))!=tuple(tuple(x) for x in w['states'][i]) or tuple(run.J_cache)!=tuple(w['J'][i]):
             raise AssertionError(f'fresh reference differs at {label} step {i}')
-    return {'label':label,'steps':run.t_steps,'cpu_seconds':cpu,'step_wall_seconds':wall,
+    return {'label':label,'runtime_mode':mode,'steps':run.t_steps,'cpu_seconds':cpu,'step_wall_seconds':wall,
             'worker_wall_seconds':time.perf_counter()-whole,'peak_working_set_bytes':peak_memory(),
             'all_states_equal_old_raw_inputs':True}
 
@@ -89,7 +92,7 @@ def replay(args):
     assert result.verdict.value=='VALID',row
     return row
 
-def batch(kind):
+def batch(kind, runtime_mode='fast'):
     import threading
     import psutil
     parent=psutil.Process()
@@ -107,7 +110,7 @@ def batch(kind):
     monitor.start()
     start,cpu=time.perf_counter(),time.process_time()
     with ProcessPoolExecutor(max_workers=4) as pool:
-        rows=list(pool.map(execute,LABELS)) if kind=='executor' else list(pool.map(replay,[(x,kind=='full') for x in LABELS]))
+        rows=list(pool.map(partial(execute,mode=runtime_mode),LABELS)) if kind=='executor' else list(pool.map(replay,[(x,kind=='full') for x in LABELS]))
     elapsed=time.perf_counter()-start
     stop.set();monitor.join()
     output={'kind':kind,'workers':4,'batch_wall_seconds':elapsed,
@@ -116,11 +119,20 @@ def batch(kind):
             'worker_peak_sum_upper_bound_bytes':sum(r['peak_working_set_bytes'] for r in rows),'rows':rows}
     output['aggregate_rss_peak_sampled_bytes']=rss_peak[0]
     output['aggregate_rss_sampling_seconds']=0.05
-    (OUT/f'{kind}_batch.json').write_text(json.dumps(output,indent=2)+'\n')
+    if kind == 'executor':
+        # Runtime activation must not overwrite the original cost evidence.
+        from uuid import uuid4
+        destination=ROOT/'runs/c1b1_runtime_producer_batches'/str(uuid4())
+        destination.mkdir(parents=True,exist_ok=False)
+        output['runtime_mode']=runtime_mode
+        output['historical_input_directory']=str(OLD)
+    else:
+        destination=OUT
+    (destination/f'{kind}_batch.json').write_text(json.dumps(output,indent=2)+'\n')
     print(kind,output['batch_wall_seconds'],output['worker_cpu_seconds_sum'],flush=True)
 
 if __name__=='__main__':
     mode=sys.argv[1]
     if mode=='prepare':print(json.dumps(prepare(),indent=2))
-    elif mode in ('executor','stream','full'):batch(mode)
+    elif mode in ('executor','stream','full'):batch(mode,sys.argv[2] if len(sys.argv)>2 else 'fast')
     else:raise SystemExit('prepare|executor|stream|full')
