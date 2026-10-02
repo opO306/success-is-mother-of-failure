@@ -371,3 +371,192 @@ Git 시작 확인: `git status`, HEAD/origin/master, ahead/behind, dirty 파일,
 | R8 Carrier–Greengard–Rokhlin, [A Fast Adaptive Multipole Algorithm for Particle Simulations (1988)](https://math.nyu.edu/~greengar/cgr_88.pdf) | 앞선 roadmap 조사에서 abstract/2차원 모델/expansion 경계·비용 부분 확인. 일반 3D joint model exact rounding/GPU 속도 보장 아님 |
 
 스킬 scientific-critical-thinking 및 scientific-brainstorming을 근거 범위·대안·비용·독립 개념 리뷰에 적용했다. 절차 출처로 [Kassis, Agarwal, He, Patel, Brueckner, Scientific Agent Skills (2026)](https://doi.org/10.48550/arXiv.2609.00065)를 최신 arXiv record(이번 조회 v2)에 따라 포함했다. 이 절차 문헌은 Stage 1 물리의 타당성 증거가 아니다.
+
+## 13. Stage 1 First Material Model Selection — 선택 기록 V0
+
+2026-10-02 추가. **DESIGN / RESEARCH ONLY, IMPLEMENTER RECOMMENDATION, DESIGNER APPROVAL PENDING.** 앞 절의 지원 지도와 역사적 작업 기록을 보존하고 첫 공동 물질 모델 후보를 좁힌다. 새 roadmap, production 모델 채택, Stage 1 전체 지원 선언이 아니다. 기존 `E — REALITY_DATA_INSUFFICIENT`, M1–M4 미승인, C1-B1 `NotCertified`와 기존 Gate를 유지한다.
+
+### 13.1 설계자가 먼저 판단할 여덟 가지
+
+1. **추천 후보:** 공식 **CHARMM Drude 2023 배포의 SWM4-NDP + 같은 배포의 SOD/POT/CLA/CAL** 공동 모델. 첫 reference 방향은 질량 없는 Drude 변위의 정적 에너지/분극 해 평가를 제안한다. 이 제안 자체가 승인된 A 상태·전이 규칙은 아니다.
+2. **구성:** rigid water/가상 charge site, Na/K/Cl/Ca core와 Drude site, Coulomb·Lennard-Jones·spring·배포의 screening/교차 보정. 경계·장거리 합·dispersion 처리·외부 장은 PENDING이다.
+3. **현실 근거:** 물 원 논문은 상온 물성, ion 원 논문은 주로 무한 희석 hydration/확산·배위, 배포 파일은 공동 parameter의 실제 존재를 뒷받침한다. fitting 데이터와 독립 예측 검증은 구분한다. 네 ion이 함께 있는 농축 용액·막·강한 장·장기 실행의 지원 증명은 확보하지 못했다.
+4. **알려진 범위/미지:** 특정 물성·조건의 논문 결과가 있으며 모든 상태점의 error envelope는 없다. Ca 배위·확산의 일치도도 관측/조건별 문제다. 논문의 simulation 길이는 A가 허용받은 시간 범위가 아니다.
+5. **빠진 물리:** rigid/nonreactive 모델은 결합 생성/파괴, 물 자동이온화, proton 이동, protonation, redox, ionization, 전자 여기, 일반 반응을 지원하지 않는다. 해당 현실 rate를 0으로 판정하지 않는다.
+6. **먼저 시험할 이유:** 필수 종과 명시적 환경 반응 분극을 같은 배포에서 추적할 수 있어, 공동 energy와 독립 reference를 작은 component부터 감사하기에 적합하다. pure-water 정확성의 전체 순위나 가장 싼 모델이라는 판단이 아니다.
+7. **규모 확대의 첫 장애:** 분극 해 판정과 장거리 합의 비용, Ca 혼합/막의 교차 검증, 작은 수치 오차의 긴 실행 누적, 미지원 반응의 누적 영향이다. 작은 물–ion 사례가 통과해도 공동 Small-A 승격 근거는 별도다.
+8. **설계자 결정:** 이 후보/버전, 질량 없는 분극 또는 추가 자유도를 갖는 동적 분극, 공동 상태/단위, 경계/장/총전하의 출처, 지원 조건/오차·미지원 경로 처리, 첫 reference의 범위를 승인해야 한다. dt·PBC·rounding·production N을 여기서 대신 정하지 않는다.
+
+### 13.2 CONFIRMED FROM SOURCES — 관측·모델·배포를 구분
+
+| 확인한 사실 | 근거와 해석 한계 |
+|---|---|
+| SWM4-NDP는 rigid polarizable water이며 영구 charge와 변위하는 음전하 Drude site를 사용한다 | S1. 상온 density/기화 enthalpy/정적 dielectric/self diffusion 등이 parameter화 근거다. 모두 held-out 검증이거나 전 온도/압력/phase에 맞는다는 뜻은 아니다 |
+| SWM4-NDP용 monovalent 및 Ca를 포함한 divalent Drude ion parameter가 발표됐다 | S2. 주된 대상은 무한 희석이다. 논문은 고농도 ion–ion 문제를 이후 작업으로 남긴다. 상대 hydration/중성 salt와 절대 single-ion hydration convention을 구별한다 |
+| Ca 모델의 당시 배위수는 6이며, 그 논문이 인용한 실험 배위수 범위는 넓다 | S2. 6을 현재 현실의 유일한 정답으로 승인하지 않는다. Table 5의 CaCl2 확산 1.25 대 실험 1.20(단위 10^-5 cm²/s)은 단일 ion 확산에서 구성한 무한 희석 effective salt 값이다. 혼합 용액 collective transport/전도도 검증이 아니다 |
+| Drude 2023 archive에 SWM4와 SOD/POT/CLA/CAL, Na–Cl·K–Cl NBFIX, 물–Ca THOLE 항이 있다 | S3의 실제 파일 관련 절을 읽었다. 항의 존재는 parameter provenance 증거이며 accuracy/혼합 Ca 지원 증명이 아니다. 일부 Ca–유기물 보정은 주석으로 남아 있다 |
+| Madrid-2019는 TIP4P/2005와 Na/K/Cl/Ca를 함께 다룬다 | S4. monovalent ±0.85e, Ca +1.7e의 scaled charge와 종별/cross parameter를 쓴다. 298.15 K, 0.1 MPa의 농도별 연구 및 일부 ternary density 검증이 있다. 모든 네 ion의 joint property 검증은 아니다 |
+| Madrid-2019의 Ca 고농도/transport에는 한계가 보고된다 | S4. CaCl2 viscosity의 고농도 오차, KCl에서 물 확산의 실험과 다른 농도 경향, crystal/melt 범위 문제가 있다. 물 density를 잘 맞춰도 dielectric·전기 응답까지 해결되지 않는다 |
+| 명시적 분극은 모든 관측량의 더 좋은 일치를 보장하지 않는다 | S5의 특정 막/ion 조건 비교에서 시험한 polarizable 모델이 여러 막 관측량에서 더 좋은 nonpolarizable 모델보다 불리했다. 이를 모든 물질·모델·새 parameter에 일반화하지 않는다 |
+| SWM4-HLJ라는 후속 water 모델이 있다 | S6. 논문은 SWM4-NDP의 한계와 물성 개선을 보고한다. 본 조사에서 HLJ와 필수 네 ion의 승인 가능한 공동 inventory는 확인하지 못했다. 물만 자동 교체하지 않는다 |
+| Drude의 SCF와 extended-Lagrangian 구현은 서로 다른 준비/상태 구조다 | S7. 전자는 변위를 에너지 해로 구하고 후자는 질량/추가 동역학을 쓴다. 기존 software의 thermostat·hard-wall·기본 허용오차를 A 물리로 가져오지 않는다 |
+
+**현실 데이터 ≠ 모델 fitting ≠ 배포 파일 ≠ A 인증.** 통계와 양립하는 generated microstate도 실제 관측 microstate가 아니며, 이번 모델 추천은 초기 준비 계약의 미결 문제를 닫지 않는다.
+
+### 13.3 MODEL COMBINATION CANDIDATES — 단일 총점 없이 비교
+
+| 후보 | 공동 구성 및 ion–water 계약 | Ca/교차 항의 현재 판단 | 전기·분극 및 첫 한계 |
+|---|---|---|---|
+| A: Madrid-2019 | TIP4P/2005 + 같은 모델의 Na/K/Cl/Ca. 논문의 cross table를 함께 사용해야 함 | Ca 고유 parameter가 있음. Na parameter의 charge만 2배로 만드는 방법 아님. 일부 혼합 density 근거, 필요한 전체 mixture 미폐쇄 | pair Coulomb/LJ 및 effective polarization의 scaled charge. 환경별 induced response 없음. 에너지 charge·formal ionic charge·전기장 work/current의 정합성을 별도 정의해야 함 |
+| B: water에 맞춘 JC + 12-6-4 Ca | 비교 예시는 **TIP4P-Ew** + 해당 water용 Joung–Cheatham Na/K/Cl + Li–Merz의 해당 water용 Ca. TIP4P/2005와 이름이 비슷하다는 이유로 섞지 않음 | Ca의 C4 ion–water 유도 항과 cross prescription 출처 필요. Na/K/Ca/Cl 혼합 전체의 검증 확보 못함 | fixed charge + pairwise -C4/r^4의 effective induction. self-consistent collective polarization과 다름. Drude/HIPPO 위에 C4를 덧붙이면 이중 계산 위험 |
+| C: CHARMM Drude 2023 **추천** | SWM4-NDP + 같은 archive의 SOD/POT/CLA/CAL, 실제 active NBFIX/THOLE 포함 | 물–Ca screening 확인. 고농도 Ca 혼합·막 결합 미폐쇄. 기본 mixing도 물리 가정이므로 검증 대상 | finite-charge displacement의 명시적 Drude 분극. 장거리/경계/dispersion과 비선형 해 branch·잔차 계약이 먼저 필요 |
+| D: AMOEBA 공동 family | water의 multipole/induced dipole + 같은 버전의 Na/K/Cl/Ca ion/cross 항을 고정해야 함 | Ca/Mg의 modified AMOEBA 원 연구 존재(S8). AMOEBA14 water/후속 monovalent/과거 Ca를 임의 조합한 공동 계약은 확보 못함 | explicit induced dipole, local multipole frame·damping·buffered 14-7 등의 geometry/energy/force 독립 검증 비용. 물/Ca 정확성의 가능성을 비용만으로 탈락시키지 않음 |
+| E: HIPPO 기반 공동 family | R2의 water + **HIPPO용** 네 ion의 완전한 joint inventory 필요 | 이번 제한 조사에서 필수 Ca/ion–ion/혼합 묶음까지 출처를 닫지 못함. 다른 family의 ion parameter를 삽입해 완료 처리 금지 | density-based electrostatics/penetration·exchange·분극·charge-transfer energy의 장점. 그 energy 항은 실제 proton/redox 반응 구현이 아님 |
+| F: MB-pol + MB-nrg | R3의 water와 Na/K/Cl–water용 MB-nrg가 출발점(S9). 필요한 ion–ion/혼합/다체 항 포함 여부 확인 필요 | 요구한 Ca까지의 joint inventory를 이번 조사에서 확보 못함. 전 세계에 모델이 없다는 주장이 아님 | many-body fit/PIP·switch·분극 및 큰 coefficient inventory. quantum nuclei를 포함한 논문 성능을 classical A에 그대로 귀속할 수 없음 |
+
+| 분리 평가 축 | A / B | C — 추천의 범위 | D / E / F |
+|---|---|---|---|
+| 물 구조·density/EOS·phase | A의 water 근거 R1과 salt 연구. B는 실제 선택 water의 별도 자료 필요 | S1의 물성 calibration, rigid 한계·phase 전 범위 error 미확보 | water 연구 강점은 각각의 조건에서만. joint ion 지원으로 전이 불가 |
+| diffusion·dielectric·heat | diffusion/concentration·dielectric/heat 각각 검증. scaled charge가 모든 관측을 고치는 것 아님 | 물 dielectric/diffusion 근거, heat transport·strong field·전체 T/p 미폐쇄 | property별 독립 protocol 필요. nuclear quantum/rigid/flexible 차이 분리 |
+| Na/K/Cl hydration·배위·diffusion | water별 HFE convention·pairing·활동도/농도 조건 필요 | S2 무한 희석 근거 + 배포 mono cross 보정. 농도별 혼합 held-out 필요 | 버전별 mono 문헌과 실제 joint inventory 연결 필요 |
+| Ca hydration·배위·pairing | A의 Ca data; B는 C4 pair induction과 joint mixing 감사 필요 | Ca 전용 항은 확인, 배위/혼합/농도/induced 응답 오차 미폐쇄 | Ca라는 이름만으로 물/ion/막 버전 호환 보장 없음 |
+| 분극/다체 | effective 항으로 제한; 환경 응답의 누락을 별도 표시 | charge 변위가 joint 환경에 반응. 해 판정·강한 장 안정성 미해결 | D/E explicit, F many-body. 높은 표현력과 검증된 적용 범위는 다른 축 |
+| 장거리·boundary | direct 또는 승인된 field/계층적 계산, 각 모델의 energy와 일치해야 함 | Ewald self/exclusion·총전하·표면/dispersion 항을 새로 고정해야 함 | 모두 필요. field/Poisson을 고르면 source·grid 오차·particle coupling을 공동 정의 |
+| 반응 제외·조건/공간/시간/오차 | 모두 nonreactive 제한 및 누적 제외 영향 필요 | 같은 제한. 논문 시간/N은 production 허용 범위가 아님 | F의 flexible water도 일반 chemistry 지원과 동의어 아님 |
+| independent reference·verifier | pair 형태는 상대적으로 단순. cross/C4·제약/virtual site 여전히 새 검증 필요 | archive→energy·solver→force→witness를 독립 구현해야 함 | D의 frame, E의 density 항, F의 PIP/다체별 독립 reference 필요 |
+| 엄밀 수치·GPU/메모리 | 고정 pair는 구조가 단순; 검증된 가속/rounding은 별도 | 비선형 solver와 bound가 추가. GPU 구현/성능 측정 없음 | 모두 성능 수치 미측정. 모델별 polynomial/exp/multipole·해의 enclosure 비용 비교 필요 |
+| 막 확장·유지보수 | 새로운 lipid/cross family가 필요. scaled charge 경계의 정합성 문제 | 같은 family의 lipid 자산이 있으나 S5의 한계와 미완료 Ca cross 공개 | family별 막 parameter/실험 validation·version 연결을 먼저 확인 |
+
+이 표는 순위표가 아니다. A는 실제 공동 salt 연구가 있는 값싼 대안, B는 Ca effective induction 비교군, D는 명시적 분극의 중요한 대안이다. E/F는 pure-water 장점을 보존하되 **필수 공동 inventory 미확보**로 첫 complete bundle 추천을 보류한다. 정확성 열위라고 판정하지 않았다.
+
+### 13.4 IMPLEMENTER RECOMMENDATION — 한 후보의 구체적 출처
+
+**RECOMMENDED IMPLEMENTATION CANDIDATE: C / CHARMM Drude 2023 공동 묶음.** 모델/분극 해·상태·경계 최종 승인 전이다.
+
+| 항목 | 제안 및 승인 경계 |
+|---|---|
+| Water | **SWM4-NDP**, S3 archive의 `RESI SWM4`; rigid geometry/virtual site/Drude. HLJ로 교체하지 않음 |
+| Na/K/Cl | 같은 파일의 `RESI SOD/POT/CLA`, atom type `SODD/POTD/CLAD`; active mono NBFIX와 source-defined mixing 포함 |
+| Ca | 같은 파일의 `RESI CAL`, `CALD`; 전용 alpha/LJ와 `ODW CALD` THOLE. Ca–유기물의 commented proposal을 활성화하지 않음 |
+| Electrostatic interaction | permanent/virtual/core/Drude charge의 **하나의 공동 Coulomb energy** 및 배포 screening correction. 최종 total charge·exclusions·self/boundary/dispersion 처리 승인 필요 |
+| Polarization | 정적 reference에서는 **massless SCF/BO 해**를 제안. 해 존재/선택/안정성/오차가 정의된 조건에서만 사용. 동적 Drude는 별도 대안이며 추가 상태·heat/전이 계약 필요 |
+| Boundary | **PENDING**. PBC·open·slab·reservoir 중 어느 것도 확정하지 않음. 외부 장/전위의 발생원과 에너지 소유자도 PENDING |
+| Unsupported chemistry | §13.6의 경로. 현실 rate/누적 상한을 검증하지 못한 조건은 지원 선언 불가 |
+| 왜 먼저인가 | 필수 종과 분극을 실제 한 배포에서 추적하고, 물–물/ion–물/ion–ion부터 교차 항과 해의 실패를 드러낼 수 있음 |
+| 왜 다른 후보가 즉시 대체는 아닌가 | A/B의 effective 응답과 C의 환경별 분극은 서로 다른 physics; D의 공동 버전 연결, E/F의 필수 inventory가 추가 과제. 비용만을 이유로 더 정확할 가능성을 제거하지 않음 |
+
+문헌의 extended-Lagrangian/thermostat 조건에서 얻은 diffusion·transport 값을 massless A 전이의 성능으로 귀속하지 않는다. finite cluster reference의 성공도 periodic PME/LJ-PME bulk 물성 재현을 뜻하지 않는다. 정적 energy 검증 뒤 상태·전이·현실 validation의 별도 Gate가 필요하다.
+
+**배포를 읽어 확인한 것:** `drude_toppar_2023.tgz`, 1,309,830 bytes, SHA-256 `fe1c3204a5775781ccabacb1ed6c6c2026deb52cd0c43216f89108d879036f1a`. 관련 member `drude_toppar_2023/toppar_drude_main_protein_2023a.str`, SHA-256 `083fa30a7bb00fdf0737a0bcfceb687c4939da0fb53047ab23054ca1016836ab`. readme와 main 파일의 water/ion·NONBONDED/NBFIX/THOLE 관련 절만 정적으로 조사했다. 전체 archive/8,308줄 main 전체를 감사한 것이 아니며 hash를 새 frozen 계약으로 승인한 것도 아니다. 재취득 파일이 다르면 동일 후보로 자동 승인하지 않는다.
+
+읽은 atom 입력의 ALPHA는 ODW −0.97825258, SODD −0.157, POTD −0.830, CLAD −3.969, CALD −0.490이다. **음수는 CHARMM input convention이며 음의 물리 polarizability라는 뜻이 아니다.** `ATOM`의 charge는 Drude 생성 전 residue accounting과 생성 후 core/Drude charge를 구분해야 한다. q_D/spring 및 generation default의 정확한 binding은 아직 감사하지 못했다. 이 상태에서 source 값만 복사해 reference force를 구현하면 안 된다.
+
+물–Ca THOLE 값 1.50877과 `TCUT 5.0 / MAXNBTHOLE 5000` 구문도 읽었다. 각각의 단위·pair membership·screening correction·cutoff가 물리 law인지 실행 제어인지 실제 의미를 확인해야 한다. readme의 periodic PME/LJ-PME 권고 및 lipid 재parameter화는 출처 조건으로 보존하며, A의 PBC/격자/cutoff 승인으로 취급하지 않는다. main active 절에서 Ca–Cl 전용 override는 확인하지 못했다. default mixing을 쓰는 경우도 mixed Ca 검증 과제로 남긴다.
+
+### 13.5 공동 energy, charge, 분극 해와 수치 계약
+
+정의해야 할 후보 energy의 구조는 `U(q,d) = U_LJ + U_Coulomb + U_spring + U_screening_correction + U_boundary/external`이다. `q`는 물리 좌표, `d`는 Drude 변위; constrained geometry/virtual site를 적용한 하나의 energy로 gradient·force·torque·virial을 만들어야 한다. harmonic spring self energy와 electrostatic self correction은 서로 다른 항이다. excluded/intramolecular pair, core–자기 Drude pair, screening correction의 적용 집합을 source와 대조한다. 이 식은 정확한 pair 목록과 경계 항이 아직 빠진 **구조 제안**이다.
+
+* 영구 charge+Drude charge의 interaction에서 이미 나오는 분극을 별도의 induced-dipole Coulomb energy나 12-6-4 C4로 다시 더하지 않는다. 이중 계산 제거는 항을 임의 삭제하는 것이 아니라 원 모델 정의를 재구성하는 일이다.
+* rigid O/H/H geometry와 M site의 Jacobian을 통해 가상/Drude site force를 물리 좌표에 돌려야 한다. constraint impulse와 net momentum/torque를 전이 계약에서 정의한다. 기존 Ar의 두 원자 ±J 규칙이 multi-site 보존 계약을 대신하지 않는다.
+* C 후보는 형식 Na+/K+/Cl−/Ca2+의 residue 총전하를 보존하되 물과 core/Drude partial charge의 합을 감사한다. 외부 장의 work/field source까지 동일 charge ownership으로 연결한다. A 후보를 선택한다면 scaled PES charge와 formal charge/DMS/current를 다르게 쓰는 정당한 공동 모델을 설계자가 승인해야 한다; 관측만 formal charge로 바꿔 정합성을 주장할 수 없다.
+* particle direct sum은 작은 reference의 후보다. field/Poisson·Ewald·FMM은 해당 **동일 energy/boundary**를 계산하는 후보이며, source·self·neutrality·surface·field energy와 error bound가 필요하다. net-neutral을 자동으로 강제하거나 임의 background를 넣지 않는다.
+
+**Drude SCF는 일반적인 선형 induced-dipole 문제로 간주할 수 없다.** finite-charge 변위와 Coulomb/screening 때문에 joint energy가 비선형이며, 가까운 접근/강한 장에서 안정된 해나 유일성을 당연시할 수 없다. 단순 convergence flag·낮은 energy·기존 package residual만으로 검증되지 않는다. 해가 없거나 여러 해가 남으면 `UNRESOLVED/REFUSED`; warm start·atom ID·loop order로 physical branch를 선택하지 않는다.
+
+예를 들어 **볼록한 승인 변위 영역 전체**에서 energy Hessian이 `H_dd ≥ m I, m > 0`이고, 근사값도 그 영역 안에 있으며 stationarity 해가 영역 내부에 존재함을 따로 입증했다면, residual enclosure `||∂_d U|| ≤ r`로 변위 오차 `≤ r/m`, energy gap `≤ r²/(2m)`를 제한할 수 있다. 같은 영역의 `∂_q∂_d U` norm 상한 L을 갖추면 stationarity 미달에 따른 force 차이 `≤ Lr/m`에 직접 force 계산 오차를 더한다. 서로 분리된 안정 영역의 양의 Hessian만으로 전역 유일성이나 이 bound를 주장하지 않는다. **조건부 수학 경로이며 m/L/r의 수치·영역·존재 증명은 아직 없다.** 경계에서의 constrained 해는 이 unconstrained 식으로 승인하지 않는다.
+
+정확한 encoded parameter와 물리 parameter uncertainty, 산술 enclosure, 분극 residual, 장거리 근사, 전이 truncation, 현실 model error는 별도로 기록한다. transcendental/거리 계산은 exact rational input이라고 결과까지 rational이 되는 것이 아니다. interval/high-precision comparison만으로 rigorous enclosure나 reality certificate를 주장하지 않는다. verifier는 executor와 다른 계산 경로로 geometry·pair inventory·energy/force enclosure·해의 조건·physical support guard를 확인해야 한다.
+
+### 13.6 UNSUPPORTED / UNRESOLVED — chemistry와 범위
+
+| 빠진 경로 | 지원 판정에 미치는 영향 |
+|---|---|
+| 물/solute bond break/form, 일반 chemistry | nonreactive topology는 이 경로를 표현하지 못함. 실제 rate=0의 근거가 아님 |
+| water autoionization, proton transfer, acid/base protonation | H+/OH− inventory와 reaction/전자·proton 상태가 없음. pH 대응을 갖췄다고 말하지 않음 |
+| redox, ionization, electronic excitation | 고정 종/총전하와 classical polarization으로 실제 전자 상태 변화 지원 불가 |
+| Ca–막/단백질/유기 ligand 결합과 혼합 ion 고농도 | parameter의 존재/주석/단일 hydration만으로 joint support 확정 불가 |
+| 강한 장·희귀 close encounter·긴 시간 | 분극 해 안정성과 누락 경로의 누적 영향 미폐쇄. 실패 state를 목표 온도/구조로 snap하지 않음 |
+
+현실 rate를 모르면 **UNSUPPORTED RATE / UNRESOLVED**로 둔다. 상태/시간 범위에서 무시 가능한 누적 영향의 독립 근거가 없으면 **MODEL RANGE INSUFFICIENT**다. 일정 시간 동안 simulation에서 반응이 없었다는 것은 그 근거가 아니다. C를 먼저 component 검증하더라도 이 지원 요구를 삭제하지 않는다.
+
+### 13.7 규모가 커질 때의 파손 지점과 비용
+
+| 후보 | 그 후보에서 먼저 깨질 수 있는 전제 | 막/다음 physics에서 재작성 위험 |
+|---|---|---|
+| A | 농축 Ca/ion transport·전기 응답에서 scaled charge의 유효성, 국소 field에서 induced response 부재 | lipid와 scaled-charge cross/field 계약 새 검증. 명시적 분극이 필수라면 물/ion parameter와 energy를 교체할 가능성; geometry/출처/산술 기반만 조건부 재사용 |
+| B | JC mono와 C4 Ca의 혼합 교차 근거, collective polarization이 중요한 Ca/계면 | 같은 water용 막 family/cross 검증 필요. C4에 explicit polarization을 더하는 방식으로 확장 불가; 분극 family 변경 시 energy/parameter 재작성 |
+| C | close approach/강한 장의 Drude 안정 해, 농축 Ca 혼합의 출처 범위 | 같은 family의 막 inventory는 출발점이나 cross/field/support는 새 검증. SCF·site/charge/gradient 기반의 재사용 가능성은 있으나 실제 막 결과 보장 없음 |
+| D | water/mono/Ca 버전 조합의 joint compatibility가 먼저 미폐쇄 | 호환 lipid family와 local frame/분극 조건을 새로 검증. 동일 term이면 backend 재사용 가능하나 parameter version 단절 시 공동 재검증 |
+| E | water→필수 ion/Ca에서 완전한 공동 parameter와 cross 근거 미확보 | 막 계면에서 density/penetration/분극 cross inventory 필요. 새 fit/term을 요구할 수 있어 water-only 구현의 재사용 범위 제한 |
+| F | water/alkali/halide→Ca·ion–ion·mixed many-body inventory의 미확보와 tuple 증가 | lipid에 대한 short-range many-body/charge 상태 연결은 별도. 기존 PIP 평가기는 재사용할 수 있어도 새로운 energy/fit/검증 비용이 큼 |
+
+모든 후보에서 proton/반응이 중요해지면 고정 topology/charge가 먼저 깨진다. 첫 모델 때문에 **막 단계 전체를 반드시 다시 쓴다거나 그대로 쓸 수 있다고 단정할 근거는 없다.** 수치/출처/geometry 도구의 재사용과 공동 physics/parameter의 재검증 비용을 분리한다.
+
+| 확장 | 먼저 검증해야 할 것 / 실패할 수 있는 지점 |
+|---|---|
+| pure water → Na/K/Cl | 물 calibration에서 ion cross/혼합 농도/charge convention으로 이동. geometry·virtual force와 pairing 오류가 새로 생김 |
+| monovalent → Ca | charge 밀도·screening·배위·ion pairing·강한 polarization. Na charge 변경으로 대체 불가 |
+| bulk → 막/경계 | lipid/ion/water cross, slab electrostatics, dielectric interface, 표면 charge source. 배포 lipid 존재는 충분하지 않음 |
+| weak → strong field | 선형 응답 범위·분극 branch/안정성·누락 reaction. field 값을 넣을 수 있다는 것과 현실 지원은 다름 |
+| short → long time | 전이/solver 누적 error와 누락 rare pathway 누적 영향; 논문 run 길이만으로 닫을 수 없음 |
+| N 증가 | long-range와 분극 iteration·witness·독립 replay 비용 증가. 작은 reference 통과로 production N 승인 불가 |
+| fixed/effective → explicit polarization | 기존 energy에 pol만 더하는 방식 금지. parameter/fitting/field coupling과 verifier 변경 필요 |
+| nonreactive → reactive | topology/charge/에너지·electron/proton 모델 자체가 변경될 수 있음. 기존 정적 backend 재사용과 물리 계약 재검증을 분리 |
+
+W개 water, J개 ion의 C 후보는 대략 `n_site = 5W + 2J`, Drude 변위 성분 `d_dim = 3(W+J)`의 구조다(실제 generation·constraints 확인 전 계획 산식). 물리 원자 수와 electrostatic site 수를 혼동하지 않는다. 전부 direct로 계산하면 energy/gradient 한 번은 O(n_site²) pair work, matrix-free SCF가 I번이면 O(I n_site²) work; streaming pair memory는 O(n_site), 전체 pair witness를 저장하면 O(n_site²)다. dense d_dim Hessian을 선택할 경우 저장 O(d_dim²), 일반 dense factorization O(d_dim³)의 별도 비용이 발생한다. 그 방법을 채택한 것은 아니다.
+
+| 비용 축 | 구체적으로 늘어나는 일 |
+|---|---|
+| CPU / GPU | pair 항·비선형 iteration·다중 정밀도/interval. GPU의 pair 병렬성과 전역 reduction/solver barrier를 구분; 속도/메모리 실측 없음 |
+| 증명 / independent verifier | 해 존재/안정성·유일성/branch, residual→U/F bound, long-range enclosure, constraint/virtual gradient. float package와 일치만으로 완료 불가 |
+| reference / witness / 기록 | 별도 parameter 해독·energy path, 실패 사례, input/model fingerprint, 모든 step 지원 guard·재검증. S개 상태/K개 검사라면 비용도 원칙적으로 그 수에 비례 |
+| parameter / cross 유지 | t개 interaction type의 pair class 후보는 t(t+1)/2, screening/exclusion/many-body는 추가. 새 종 하나에도 기존 t종과의 새 cross 검증 필요 |
+| version / source 관리 | water·ions·NBFIX·THOLE·boundary·단위·generation default를 함께 fingerprint. comment를 active로 바꾸거나 upstream 갱신은 별도 모델 변경 |
+| 확장 유지보수 | membrane cross/지원 guard·reaction 모델 추가·새 species reference/오차·범위 재검증. 파일을 읽는 비용보다 공동 validity를 다시 확인하는 비용이 큼 |
+
+A/B는 분극 solve가 없어서 component reference가 싸지만 C가 포함하는 환경 응답을 동일하게 보존하는 대체는 아니다. D는 multipole/frame/induced solve, E는 density/exp 및 분극, F는 다체 tuple/PIP/많은 coefficient의 새 비용이 있다. 동일 hardware·정밀도·입력에서 측정하지 않았으므로 초/GB/GPU 수나 전체 순위를 제시하지 않는다.
+
+더 싼 첫 단계는 **동일 C 모델의 component vector를 분리 검증**하고 direct streaming·재사용 가능한 geometry/출처/단위 checker를 쓰는 것이다. 검증된 hierarchy/FMM/field 또는 interval refinement는 같은 energy/rounding 결정을 보존할 때 후보가 된다. pair cutoff·물성 보정·분극 삭제·임의 damping·post-solve clipping·목표 상태 snap으로 비용을 줄이지 않는다. source-defined Thole screening은 임의 damping과 구분하되 항 자체의 출처/범위를 감사한다.
+
+### 13.8 DESIGNER DECISION REQUIRED — D0–D4와 첫 reference의 경계
+
+| 항목 | 이번에 좁힌 것 | 여전히 결정/확인해야 할 것 |
+|---|---|---|
+| D0 joint model | C의 배포/필수 종을 단일 추천으로 제시 | 설계자 모델/버전 승인, HLJ·다른 family 혼합 금지 여부, 비교군 범위. 아직 FINAL 아님 |
+| D1 상태/단위/geometry/owner | rigid/virtual/core/Drude 요소를 식별 | 단위·parameter decoding·core split/spring, 물리 좌표와 constraints, massless 또는 dynamic Drude, charge/energy 소유자 |
+| D2 boundary/source/support | 장거리·field와 지원 근거의 별도 gate 명시 | finite/open/PBC/slab/외부 source·총전하·self/exclusion/dispersion, T/p/농도/field/공간/시간/오차 및 chemistry 누적 허용 근거 |
+| D3 joint energy/cross/gradient/pol | 실제 active NBFIX/물–Ca THOLE 출처를 확인 | 정확한 term/pair/THOLE syntax, mixing, virtual Jacobian·forces, 해 영역/안정성/branch/잔차 bound, Ca 혼합 held-out plan |
+| D4 rounding/transition/rejection | 전이를 구현하지 않고 범위 밖/해 실패를 보존할 원칙 | 다입자 보존·rounding·분극/constraint 전이·독립 replay·REFUSED semantics. 기존 dt/D_valid/적분기 계약 변경 없음 |
+
+**첫 정적 reference 전 필요한 최소 승인:** D0 후보/버전과 D1의 parameter/geometry/charge 정의, 작은 비주기 finite cluster를 *reference 연구 입력*으로 사용할지의 D2 결정(세계 boundary 확정 아님), D3의 해당 component energy/pair/gradient. 해를 아직 풀지 않는 `U(q,d)` vector부터 시작할 수 있으나, 완결된 분극 평가로 부를 수 없다. SCF reference에는 해 계약이 추가로 필요하다. D4가 미정인 동안 static energy/gradient 연구는 가능하지만 forward transition/production 실행은 불가하다. 승인된 reference 과제를 이유로 unresolved chemistry 지원을 닫지 않는다.
+
+### 13.9 NEXT IMPLEMENTATION STEP — 승인 뒤의 최소 과제
+
+1. 승인된 S3 bundle을 별도 provenance inventory로 고정하고 units·generation defaults·active/commented 항·pair membership을 독립 해독한다. 원 파일/기존 hash-pinned 근거를 수정하지 않는다.
+2. 물–물, Na/K/Cl/Ca–물, Na–Cl/K–Cl/Ca–Cl 및 작은 혼합 cluster의 **정적 energy/gradient** reference를 만든다. no solver vector와 승인된 polarization vector를 구분한다. production initializer/세계에 연결하지 않는다.
+3. 물/ion pair, Ca와 한 물/여러 물, virtual site와 screening boundary, close approach/strong field/해 거부 사례를 작은 exact encoded input + high-precision/rigorous enclosure 경로로 대조한다. 하나의 executor 함수를 가져다 independent verifier로 포장하지 않는다.
+4. atom ID/ordering·translation/rotation 변환, net force/torque, virtual-site chain rule, core split, screening 중복/부호, C4 오삽입, commented parameter 활성화 등을 fault injection으로 검사한다. deterministic reduction/rounding 때문에 exact 회전 불변이 성립하는 범위와 연속 모델의 공변성을 구분한다.
+5. 실제 혼합/농도/막 hold-out validation 계획과 physical support guard를 별도 산출한다. 이 단계에서도 dynamics/production N/chemistry 승격은 다음 설계자 결정이다.
+
+이 목록은 **다음 과제의 제안**이다. 이번 작업에서는 reference/force/solver/test/world code와 dynamics를 작성·실행하지 않았다.
+
+### 13.10 추가 문헌·읽기 수준·이번 검토 기록
+
+| 출처 | 실제 확인 범위 |
+|---|---|
+| S1 Lamoureux 등, [A polarizable model of water for molecular dynamics simulations of biomolecules (2006)](https://doi.org/10.1016/j.cplett.2005.10.135) | primary abstract/모델 정의 발췌. 전 물성/error/supplement 전수 감사 아님 |
+| S2 Yu 등, [Simulating Monovalent and Divalent Ions in Aqueous Solution Using a Drude Polarizable Force Field (2010)](https://pmc.ncbi.nlm.nih.gov/articles/PMC2838399/) | primary indexed 본문의 §2.4.3–4, §3.4–5, Table 5 관련 발췌. PMC open challenge/대체 본문 취득 실패; 논문 전체를 읽었다고 주장하지 않음 |
+| S3 [MacKerell laboratory official Drude distribution](https://mackerell.umaryland.edu/charmm_drude_ff.shtml), [2023 archive](https://mackerell.umaryland.edu/download.php?filename=CHARMM_ff_params_files%2Fdrude_toppar_2023.tgz) | 공식 page 및 HTTPS archive를 메모리 안에서 hash/관련 parameter 절·readme 조사. 파일 추출/모델 실행 없음. 최초 Python TLS 취득 실패 후 시스템 인증서 검증을 쓰는 PowerShell 취득 성공; TLS 우회 없음 |
+| S4 Zeron–Abascal–Vega, [Madrid-2019, JCP 151, 134504](https://doi.org/10.1063/1.5121392), [저자 공개 원고](https://arxiv.org/html/2401.13164v1) | abstract, model/Table 1/3/4, methods, mono/Ca·혼합 관련 결과/표/결론. 원고 전체 supplementary inventory/모든 수치 재현 아님 |
+| S5 Antila 등, [Evaluating Polarizable Biomembrane Simulations against Experiments (2024)](https://pubmed.ncbi.nlm.nih.gov/38718349/), [기관의 원문 PDF](https://juser.fz-juelich.de/record/1037179/files/antila-et-al-2024-evaluating-polarizable-biomembrane-simulations-against-experiments.pdf) | abstract·indexed methods/결론 및 PDF 초기 텍스트. 추가 PDF 본문 접근 실패; 전체 trajectory·수치 재검증 아님 |
+| S6 Teng–Yu–MacKerell, [SWM4-HLJ (2024), JCTC 20, 10034–10044](https://pubmed.ncbi.nlm.nih.gov/39536452/) | primary abstract/서지. 새로운 water–네 ion parameter 전체는 확인하지 않음 |
+| S7 [OpenMM Drude plugin documentation](https://docs.openmm.org/latest/userguide/library/10_drude_plugin.html) | SCF/extended-Lagrangian의 공식 정의. software 지원은 A 결정론/엄밀 해 판정의 증거가 아님 |
+| S8 Piquemal 등, [Towards a force field for bioinorganic chemistry (2006), JCP 125, 054511](https://doi.org/10.1063/1.2234774) | primary 원고 indexed abstract의 modified AMOEBA Ca/Mg. 본문 접근 실패; 현재 모든 AMOEBA 버전과의 joint 호환은 미확인 |
+| S9 [Paesani group MB-nrg models](https://paesanigroup.ucsd.edu/many-body-potentials/mb-nrg.html), [MBX repository](https://github.com/paesanilab/MBX) | 공식 모델/software 안내의 alkali/halide–water와 energy/force 역할. Ca를 포함한 요구 joint inventory 전수 src 감사 아님 |
+
+R1–R5와 §12의 절차 문헌도 재사용한다. 추가 조사는 joint family/Ca/물 버전/막 적용·분극 의미에 한정했다. 확보하지 못한 parameter/조건은 **미확인**이며 부재 증명으로 바꾸지 않는다. 독립 개념 리뷰는 출처의 새로운 실험 검증이나 설계자 승인과 구분한다.
+
+이번 선택 작업 시작: HEAD/origin/master 모두 `5b90d54607acfd3933fea9a5aac8c500357d3047`, master ahead/behind 0/0, clean; fetch 후 같았다. 이전 §11의 Git/검사 기록은 support map 최초 작성 때의 역사다. 이번 변경은 **이 문서에 §13 추가만**이며 commit/push하지 않는다. LOCAL FULL은 문서만 변경하므로 생략하고 문서 구조·링크 대상·변경 범위·whitespace 및 독립 정적 개념 리뷰로 대체한다. pytest/forward dynamics/전체 기준선 갱신 없음. 완료 시 검사 결과와 끝 Git 상태를 별도로 기록한다.
+
+완료 검토: 독립 reviewer가 §13 전체와 첨부 요청을 대조했다. residual bound의 볼록 영역 조건 보완을 반영했고, static SCF와 문헌 transport·finite cluster와 periodic bulk의 차이도 명시했다. 추천의 승인 승격/미지원 경로 은폐에 해당하는 중대한 충돌은 발견하지 못했다. 이는 정적 개념·요청 일치성 리뷰이며 문헌 수치의 독립 검증/전체 archive 감사/수치 인증이 아니다. 기존 HEAD 본문 보존, 로컬 링크 12개 대상 존재, table 열 수와 필수 여섯 상태, 문서만 변경, `git diff --check`를 확인했다. Git의 LF→CRLF working-copy 안내가 있었으며 whitespace error는 없었다. 끝 HEAD/origin/master는 시작과 같고 ahead/behind 0/0; dirty/changed는 이 문서 한 개다. tests run: 없음(문서 정적 검사만), LOCAL FULL 생략, commit/push 없음.
