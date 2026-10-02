@@ -4,6 +4,18 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 고정 핵 H₂ static reference pilot(2026-10-02):**
+[결과·한계](docs/active/H2_STATIC_REFERENCE_PILOT_V1.md).
+IMPLEMENTED / TESTED / NUMERICALLY COMPARED / NOT CERTIFIED.
+132 point 중 116 numerical result, 13 numerical refusal, 3 refusal-message errors 보존.
+DZ/TZ의 R=1.4 bohr 내부 표본 최소와 세 basis의 같은-basis 2H 해리 방향은 관측됐다.
+QZ 0.4–1.4 미계산으로 QZ minimum·전체 곡선 비교 미해결.
+QZ supported 33점 max difference 0.000762525 hartree는 전체 PASS가 아니다.
+production foundation/전자·핵 dynamics/formation/기존 C1-B1 Gate 상태 승격 없음.
+Windows 관련 25 passed, 별도 로컬 WSL 27 passed, skip/failure/error 0.
+LOCAL FULL 생략 / 새 독립 pilot·시험·문서만, 관련 시험 대체 / 공식 기준선 갱신 없음.
+commit 허용 작업, push 없음.
+
 | 계통 | 상태 | 진행 기준 |
 |---|---|---|
 | **A** | **ACTIVE** | 최우선. 세계의 물리 기반을 먼저 검증한다 |

@@ -1,0 +1,9 @@
+{
+  "pdf_sha256": "55bc19137751110a2162f1aaa2268ff8577d2282dad77e9e89f7872743d3dd6e",
+  "checked_rows": 44,
+  "extracted_rows": 82,
+  "problems": [],
+  "source": "https://arxiv.org/pdf/1007.0322v2",
+  "pdf_page_1based": 12,
+  "uncertainty_note": "No parenthesized uncertainty printed for R=16,20; not treated as zero"
+}

@@ -1,0 +1,148 @@
+"""Two-electron clamped-proton finite-basis FCI, without bond inputs.
+
+PySCF/libcint supplies Gaussian integrals, not a fitted molecular potential.
+The singlet spatial Hamiltonian is assembled here and diagonalized by LAPACK.
+No SCF, warm start, reference energies, or equilibrium geometry is used.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+import time
+from pathlib import Path
+
+import numpy as np
+from scipy.linalg import eigh
+
+BASES = ("cc-pVDZ", "cc-pVTZ", "cc-pVQZ")
+
+
+def validate(positions, basis, electrons=2, sector="singlet"):
+    q = np.asarray(positions, dtype=float)
+    if q.shape != (2, 3) or not np.isfinite(q).all():
+        raise ValueError("two finite proton coordinates required")
+    if electrons != 2 or sector != "singlet" or basis not in BASES:
+        raise ValueError("unsupported electrons, sector, or basis")
+    distance = float(np.linalg.norm(q[0] - q[1]))
+    if not math.isfinite(distance) or distance <= 0:
+        raise ValueError("distinct finite proton positions required")
+    return q, distance
+
+
+def singlet_matrix(h, eri):
+    """<ij|H|kl> = h_ik delta_jl + delta_ik h_jl + (ik|jl).
+
+Project onto (|ij>+|ji>)/sqrt(2*(1+delta_ij)), i<=j.
+An antisymmetric spin singlet makes the total state antisymmetric.
+"""
+    n = len(h)
+    eye = np.eye(n)
+    product = (np.einsum("ik,jl->ijkl", h, eye)
+               + np.einsum("ik,jl->ijkl", eye, h)
+               + eri.transpose(0, 2, 1, 3)).reshape(n*n, n*n)
+    i, j = np.triu_indices(n)
+    a, b = i*n+j, j*n+i
+    norms = np.sqrt(2.0 * (1.0 + (i == j)))
+    matrix = (product[np.ix_(a, a)] + product[np.ix_(a, b)]
+              + product[np.ix_(b, a)] + product[np.ix_(b, b)])
+    matrix /= norms[:, None] * norms[None, :]
+    return matrix, i, j, norms
+
+
+def integrals(atom, basis, spin=0):
+    from pyscf import gto, ao2mo, lib
+    lib.num_threads(1)
+    mol = gto.M(atom=atom, basis=basis, unit="Bohr", charge=0,
+                spin=spin, symmetry=False, cart=False, verbose=0)
+    overlap = mol.intor("int1e_ovlp")
+    values, vectors = eigh(overlap)
+    if values[0] <= 1e-10:
+        raise ValueError("REFUSED: ill-conditioned overlap; no basis deletion")
+    c = vectors @ np.diag(values**-0.5) @ vectors.T
+    orth_error = float(np.linalg.norm(c.T @ overlap @ c - np.eye(len(c)), ord=2))
+    if orth_error > 1e-10:
+        raise ValueError(f"REFUSED: orthonormalization error={orth_error:.17g}, Smin={values[0]:.17g}, condition={values[-1]/values[0]:.17g}")
+    h = c.T @ (mol.intor("int1e_kin") + mol.intor("int1e_nuc")) @ c
+    eri = ao2mo.kernel(mol, c, compact=False).reshape((len(c),)*4)
+    return mol, h, eri, c, float(values[0]), float(values[-1]/values[0]), orth_error
+
+
+def solve(positions, basis, *, electrons=2, sector="singlet", crosscheck=False,
+          driver="evr", artifact=None):
+    q, distance = validate(positions, basis, electrons, sector)
+    wall, cpu = time.perf_counter(), time.process_time()
+    mol, h, eri, c, smin, cond, orth = integrals([("H", x) for x in q], basis)
+    integral_seconds = time.perf_counter() - wall
+    mat, i, j, norms = singlet_matrix(h, eri)
+    assembly_seconds = time.perf_counter() - wall - integral_seconds
+    asymmetry = float(np.max(np.abs(mat-mat.T)))
+    if asymmetry > 1e-10:
+        raise ValueError(f"REFUSED: non-Hermitian matrix asymmetry={asymmetry:.17g}, Smin={smin:.17g}, condition={cond:.17g}")
+    start = time.perf_counter()
+    if driver == "evd":
+        energies, vectors = eigh(mat, driver=driver)
+    else:
+        energies, vectors = eigh(mat, subset_by_index=(0, 1), driver=driver)
+    diagonalize_seconds = time.perf_counter() - start
+    e = float(energies[0])
+    v = vectors[:, 0]
+    residual = float(np.linalg.norm(mat @ v - e*v))
+    norm_error = float(abs(v @ v-1))
+    if residual > 1e-9 or norm_error > 1e-10 or not np.isfinite(e):
+        raise ValueError("REFUSED: numerical solve diagnostics")
+    row = dict(R_bohr=distance, positions_bohr=q.tolist(), basis=basis,
+               electrons=2, sector="singlet", status="NUMERICAL_RESULT_NOT_CERTIFIED",
+               electronic_energy_hartree=e, nuclear_repulsion_hartree=1/distance,
+               total_energy_hartree=e+1/distance, basis_size=len(h),
+               singlet_dimension=len(mat), overlap_min_eigenvalue=smin,
+               overlap_condition=cond, orthonormalization_error=orth,
+               hermitian_asymmetry=asymmetry, eigen_residual_l2=residual,
+               vector_norm_error=norm_error, next_singlet_gap=float(energies[1]-e),
+               numerical_tolerance_hartree=1e-9, driver=driver,
+               iteration_count=None, iteration_note="direct LAPACK eigensolve; not iterative",
+               integral_seconds=integral_seconds, assembly_seconds=assembly_seconds,
+               diagonalize_seconds=diagonalize_seconds,
+               eri_bytes=eri.nbytes, singlet_matrix_bytes=mat.nbytes,
+               arithmetic="IEEE binary64; no rigorous enclosure")
+    if crosscheck:
+        from pyscf import fci
+        ci = np.zeros((len(h), len(h)))
+        np.add.at(ci, (i, j), v/norms)
+        np.add.at(ci, (j, i), v/norms)
+        other = fci.direct_spin0.FCI(mol)
+        other.conv_tol = 1e-12
+        other.conv_tol_residual = 1e-9
+        other.max_cycle = 200
+        ec, vc = other.kernel(h, eri, len(h), (1, 1), ci0=ci)
+        row["shared_integral_crosscheck"] = dict(
+            converged=bool(other.converged), electronic_energy_hartree=float(ec),
+            difference_hartree=float(ec-e),
+            note="PySCF FCI contraction shares integrals; not independent physics reference")
+    if artifact is not None:
+        path = Path(artifact)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(path, h=h, eri=eri, ao_orthonormalizer=c,
+                            singlet_vector=v, positions=q)
+        row["artifact_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        row["artifact_file"] = str(path)
+    row["wall_seconds"] = time.perf_counter()-wall
+    row["cpu_seconds"] = time.process_time()-cpu
+    return row
+
+
+def atom_energy(basis, ghost_distance=None):
+    """One-electron H; optional second-center ghost basis, no ghost charge."""
+    from pyscf import gto, lib
+    lib.num_threads(1)
+    atom = [("H", (0, 0, 0))]
+    if ghost_distance is not None:
+        if not math.isfinite(ghost_distance) or ghost_distance <= 0:
+            raise ValueError("positive ghost distance required")
+        atom.append(("ghost-H", (0, 0, ghost_distance)))
+    mol = gto.M(atom=atom, basis=basis, unit="Bohr", spin=1, verbose=0)
+    s = mol.intor("int1e_ovlp")
+    if eigh(s, eigvals_only=True)[0] <= 1e-10:
+        raise ValueError("REFUSED: ill-conditioned atomic overlap")
+    h = mol.intor("int1e_kin") + mol.intor("int1e_nuc")
+    return float(eigh(h, s, subset_by_index=(0, 0))[0][0])

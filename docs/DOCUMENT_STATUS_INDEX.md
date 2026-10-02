@@ -6,6 +6,12 @@
 
 ## 현재 활성 A / C1-B1
 
+별도 승인된 연구 실행: [H2_STATIC_REFERENCE_PILOT_V1.md](active/H2_STATIC_REFERENCE_PILOT_V1.md),
+[사전 사양](active/H2_STATIC_REFERENCE_PILOT_PROTOCOL_V1.md),
+[compact evidence](active/h2_static_pilot_v2/results.json).
+IMPLEMENTED / TESTED / 부분 NUMERICALLY COMPARED / NOT CERTIFIED.
+전자 foundation 및 기존 C1-B1 Gate 승인 아님. 아래 역사 문서 이동 표와 구별한다.
+
 | 실제 원문 | 이전 위치 |
 |---|---|
 | [C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md](active/C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md) | 신규(2026-10-01). reachable/domain 감사: SMALL_WORLD_ENVELOPE_UNDEFINED. 필요한 최소 세계 명세 결정 목록. production/기존 상태 변경·새 수치 probe 없음 |

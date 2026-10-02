@@ -1,5 +1,11 @@
 # Atomic / Electronic Matter Foundation V0
 
+**후속 구현 기록(2026-10-02):** 사용자가 §8의 고정 핵 H₂ pilot 실행을 지시하여
+[독립 static pilot 보고서](../active/H2_STATIC_REFERENCE_PILOT_V1.md)를 추가했다.
+DZ/TZ 표본 안정점·해리 방향과 일부 수치 비교가 있으며 QZ 최소점/전체 curve는
+수치 거부로 미해결이다. 본 연구 원문의 "실행 없음"은 이 조사 당시 기록이고,
+후속 결과로 concrete foundation/BO/world state/dynamics를 승인하지 않는다.
+
 **상태: FOUNDATION SELECTION RESEARCH / DESIGN ONLY.** 2026-10-02. 설계자가 변경한 것은 Drude의 위치와 아래 층에서 chemistry를 계산한다는 방향이다. 이 문서는 concrete authoritative state, reactive/ML/electronic model, 양자/고전 경계, 측정 법칙을 승인하지 않는다. 새 코드·계산 실행·production 선택은 없다.
 
 기존 [Support Map §13](STAGE1_PHYSICS_SUPPORT_MAP_V0.md#13-stage-1-first-material-model-selection--선택-기록-v0)은 **SUPERSEDED AS PRIMARY FOUNDATION / RETAINED AS EFFECTIVE / COMPARISON MODEL CANDIDATE**다. 조사 원문·출처를 보존한다. 기존 `E — REALITY_DATA_INSUFFICIENT`, 준비 M1–M4 미승인, C1-B1 `NotCertified`/활성 Gate/기존 STOP 상태를 승격하지 않는다. 이번 설계는 [CURRENT_STATE](../../CURRENT_STATE.md)의 Gate를 통과한 것으로 세지 않는다.

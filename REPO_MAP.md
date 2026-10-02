@@ -20,6 +20,13 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+**독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet
+Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
+`tests/test_h2_static_pilot.py`는 dependency-light 구조/결함 주입 시험,
+`electronic_pilot/test_integration.py`는 PySCF가 있는 로컬 WSL의 별도 integration이다.
+[실측 보고서](docs/active/H2_STATIC_REFERENCE_PILOT_V1.md): 일부 수치 결과/거부 보존,
+QZ minimum·전체 curve 미해결, NOT CERTIFIED / production foundation 미승인.
+
 이 저장소에는 **서로 다른 시기의 계통**이 공존한다. 섞어서 읽으면 혼란스럽다.
 
 | 계통 | 위치 | 상태 | 수정 |

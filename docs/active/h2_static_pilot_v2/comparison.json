@@ -1,0 +1,888 @@
+{
+  "status": "NUMERICALLY_COMPARED_NOT_CERTIFIED",
+  "summaries": {
+    "cc-pVDZ": {
+      "sampled_min_R_bohr": 1.4,
+      "sampled_min_total_hartree": -1.1633987319971428,
+      "lowest_computed_R_bohr": 1.4,
+      "lowest_computed_total_hartree": -1.1633987319971428,
+      "computed_points": 44,
+      "expected_points": 44,
+      "refused_R_bohr": [],
+      "sampled_min_bracket_bohr": [
+        1.3,
+        1.5
+      ],
+      "P1_sampled_minimum": true,
+      "P1_status": "SAMPLED_MINIMUM_FOUND",
+      "minimum_note": "sampled interior point only",
+      "binding_to_same_basis_atoms_hartree": 0.16484192515797666,
+      "binding_to_exact_atoms_hartree": 0.1633987319971428,
+      "twice_H_energy_hartree": -0.9985568068391661,
+      "twice_H_basis_error_hartree": 0.00144319316083386,
+      "tail_R_bohr": [
+        10,
+        12,
+        16,
+        20
+      ],
+      "tail_minus_same_basis_atoms_hartree": [
+        -1.36632909446e-06,
+        -1.5370704516e-07,
+        -2.488143206e-08,
+        -6.52250256e-09
+      ],
+      "P2_tail_decreases": true,
+      "P2_fragment_tolerance_pass": true,
+      "curve_max_abs_error_hartree": 0.09683371193456544,
+      "curve_rms_error_hartree": 0.023762294168000974,
+      "max_abs_error_R_bohr": 0.4,
+      "basis_size": 10,
+      "singlet_dimension": 55,
+      "total_solve_wall_seconds": 9.231083083000101,
+      "max_process_peak_rss_bytes": 100798464,
+      "max_residual_l2": 6.065274971067904e-13
+    },
+    "cc-pVTZ": {
+      "sampled_min_R_bohr": 1.4,
+      "sampled_min_total_hartree": -1.172334593544404,
+      "lowest_computed_R_bohr": 1.4,
+      "lowest_computed_total_hartree": -1.172334593544404,
+      "computed_points": 39,
+      "expected_points": 44,
+      "refused_R_bohr": [
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8
+      ],
+      "sampled_min_bracket_bohr": [
+        1.3,
+        1.5
+      ],
+      "P1_sampled_minimum": true,
+      "P1_status": "SAMPLED_MINIMUM_FOUND",
+      "minimum_note": "sampled interior point only",
+      "binding_to_same_basis_atoms_hartree": 0.1727149709407182,
+      "binding_to_exact_atoms_hartree": 0.172334593544404,
+      "twice_H_energy_hartree": -0.9996196226036858,
+      "twice_H_basis_error_hartree": 0.0003803773963142,
+      "tail_R_bohr": [
+        10,
+        12,
+        16,
+        20
+      ],
+      "tail_minus_same_basis_atoms_hartree": [
+        -3.372418016e-06,
+        -7.688484325e-07,
+        -1.275157521e-07,
+        -3.33711969e-08
+      ],
+      "P2_tail_decreases": true,
+      "P2_fragment_tolerance_pass": true,
+      "curve_max_abs_error_hartree": 0.0037276332338701,
+      "curve_rms_error_hartree": 0.001941281462164128,
+      "max_abs_error_R_bohr": 0.9,
+      "basis_size": 28,
+      "singlet_dimension": 406,
+      "total_solve_wall_seconds": 17.028632042000197,
+      "max_process_peak_rss_bytes": 133406720,
+      "max_residual_l2": 2.1686620555091352e-11
+    },
+    "cc-pVQZ": {
+      "sampled_min_R_bohr": null,
+      "sampled_min_total_hartree": null,
+      "lowest_computed_R_bohr": 1.5,
+      "lowest_computed_total_hartree": -1.1722017793706017,
+      "computed_points": 33,
+      "expected_points": 44,
+      "refused_R_bohr": [
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4
+      ],
+      "sampled_min_bracket_bohr": null,
+      "P1_sampled_minimum": false,
+      "P1_status": "UNRESOLVED",
+      "minimum_note": "lowest available point is at computed support boundary; minimum location/depth unresolved",
+      "binding_to_same_basis_atoms_hartree": null,
+      "binding_to_exact_atoms_hartree": null,
+      "twice_H_energy_hartree": -0.9998911371659767,
+      "twice_H_basis_error_hartree": 0.00010886283402334,
+      "tail_R_bohr": [
+        10,
+        12,
+        16,
+        20
+      ],
+      "tail_minus_same_basis_atoms_hartree": [
+        -4.68542428314e-06,
+        -1.29448034944e-06,
+        -2.1578893934e-07,
+        -5.631403274e-08
+      ],
+      "P2_tail_decreases": true,
+      "P2_fragment_tolerance_pass": true,
+      "curve_max_abs_error_hartree": 0.0007625245099625,
+      "curve_rms_error_hartree": 0.0006245804217097833,
+      "max_abs_error_R_bohr": 3.3,
+      "basis_size": 60,
+      "singlet_dimension": 1830,
+      "total_solve_wall_seconds": 129.47172312800018,
+      "max_process_peak_rss_bytes": 463757312,
+      "max_residual_l2": 8.110823384030453e-12,
+      "P3_curve_tolerance_pass": false,
+      "P3_computed_subset_tolerance_pass": true,
+      "sampled_min_location_difference_bohr": null,
+      "binding_depth_difference_hartree": null,
+      "P3_min_location_tolerance_pass": null,
+      "P3_depth_tolerance_pass": null
+    }
+  },
+  "errors": [
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.4,
+      "signed_error_hartree": 0.09683371193456544
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.5,
+      "signed_error_hartree": 0.0750170696455274
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.6,
+      "signed_error_hartree": 0.0578146068767261
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.7,
+      "signed_error_hartree": 0.0447019440588617
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.8,
+      "signed_error_hartree": 0.0348770899401405
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 0.9,
+      "signed_error_hartree": 0.0275578546937559
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.0,
+      "signed_error_hartree": 0.0221098956930681
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.1,
+      "signed_error_hartree": 0.018050572335867
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.2,
+      "signed_error_hartree": 0.0150205857588079
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.3,
+      "signed_error_hartree": 0.0127583439777786
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.4,
+      "signed_error_hartree": 0.0110769822233006
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.5,
+      "signed_error_hartree": 0.0098420815568881
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.6,
+      "signed_error_hartree": 0.0089528443130267
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.7,
+      "signed_error_hartree": 0.008329301841211
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.8,
+      "signed_error_hartree": 0.0079053836229047
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.9,
+      "signed_error_hartree": 0.0076259532718849
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.0,
+      "signed_error_hartree": 0.007445772125481
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.1,
+      "signed_error_hartree": 0.0073289660128232
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.2,
+      "signed_error_hartree": 0.0072482791291568
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.3,
+      "signed_error_hartree": 0.0071839248790093
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.4,
+      "signed_error_hartree": 0.0071221383524498
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.5,
+      "signed_error_hartree": 0.007053645676907
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.6,
+      "signed_error_hartree": 0.0069722636037167
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.7,
+      "signed_error_hartree": 0.0068737879551997
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.8,
+      "signed_error_hartree": 0.0067552561549942
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.9,
+      "signed_error_hartree": 0.0066145909694406
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.0,
+      "signed_error_hartree": 0.0064505578692371
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.1,
+      "signed_error_hartree": 0.0062629102740441
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.2,
+      "signed_error_hartree": 0.0060525726928224
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.3,
+      "signed_error_hartree": 0.0058217315104616
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.4,
+      "signed_error_hartree": 0.0055737594644782
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.5,
+      "signed_error_hartree": 0.005312969209633
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.6,
+      "signed_error_hartree": 0.0050442470859066
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.7,
+      "signed_error_hartree": 0.0047726442301521
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.8,
+      "signed_error_hartree": 0.0045029982403069
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 3.9,
+      "signed_error_hartree": 0.0042396356573102
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 4.0,
+      "signed_error_hartree": 0.0039861772209837
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 5.0,
+      "signed_error_hartree": 0.0022818169338374
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 6.0,
+      "signed_error_hartree": 0.0017001886584679
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 8.0,
+      "signed_error_hartree": 0.0014731539198573
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 10.0,
+      "signed_error_hartree": 0.0014505825777909
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 12.0,
+      "signed_error_hartree": 0.0014455854233172
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 16.0,
+      "signed_error_hartree": 0.001443587865714
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 20.0,
+      "signed_error_hartree": 0.0014432933784596
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.9,
+      "signed_error_hartree": 0.0037276332338701
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.0,
+      "signed_error_hartree": 0.0030996679584452
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.1,
+      "signed_error_hartree": 0.0026845538579525
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.2,
+      "signed_error_hartree": 0.0024173026069043
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.3,
+      "signed_error_hartree": 0.0022481681305289
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.4,
+      "signed_error_hartree": 0.0021411206760394
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.5,
+      "signed_error_hartree": 0.0020719796500103
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.6,
+      "signed_error_hartree": 0.0020258428940968
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.7,
+      "signed_error_hartree": 0.0019945243395485
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.8,
+      "signed_error_hartree": 0.0019741905416438
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.9,
+      "signed_error_hartree": 0.0019633318124409
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.0,
+      "signed_error_hartree": 0.0019612682688002
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.1,
+      "signed_error_hartree": 0.0019672386117179
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.2,
+      "signed_error_hartree": 0.0019799710236344
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.3,
+      "signed_error_hartree": 0.0019976002048745
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.4,
+      "signed_error_hartree": 0.0020178038237455
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.5,
+      "signed_error_hartree": 0.0020380439552014
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.6,
+      "signed_error_hartree": 0.0020558204252491
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.7,
+      "signed_error_hartree": 0.0020688773217987
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.8,
+      "signed_error_hartree": 0.0020753408913232
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.9,
+      "signed_error_hartree": 0.0020737939182795
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.0,
+      "signed_error_hartree": 0.0020633031439224
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.1,
+      "signed_error_hartree": 0.0020434151844948
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.2,
+      "signed_error_hartree": 0.0020141297013946
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.3,
+      "signed_error_hartree": 0.001975852660739
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.4,
+      "signed_error_hartree": 0.001929330636279
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.5,
+      "signed_error_hartree": 0.0018755691025745
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.6,
+      "signed_error_hartree": 0.0018157413487105
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.7,
+      "signed_error_hartree": 0.0017510975309032
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.8,
+      "signed_error_hartree": 0.0016828838939382
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 3.9,
+      "signed_error_hartree": 0.001612280050078
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 4.0,
+      "signed_error_hartree": 0.0015403582110922
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 5.0,
+      "signed_error_hartree": 0.0009009359474448
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 6.0,
+      "signed_error_hartree": 0.0005710272737201
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 8.0,
+      "signed_error_hartree": 0.0004060705804773
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 10.0,
+      "signed_error_hartree": 0.0003857607243497
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 12.0,
+      "signed_error_hartree": 0.0003821545174102
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 16.0,
+      "signed_error_hartree": 0.0003806694668743
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 20.0,
+      "signed_error_hartree": 0.0003804507652456
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.5,
+      "signed_error_hartree": 0.0006533002079821
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.6,
+      "signed_error_hartree": 0.0006351417650035
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.7,
+      "signed_error_hartree": 0.0006245561826788
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.8,
+      "signed_error_hartree": 0.0006201670476678
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.9,
+      "signed_error_hartree": 0.0006207060126958
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.0,
+      "signed_error_hartree": 0.0006252605117388
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.1,
+      "signed_error_hartree": 0.0006331966114116
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.2,
+      "signed_error_hartree": 0.0006439603922946
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.3,
+      "signed_error_hartree": 0.0006569329614541
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.4,
+      "signed_error_hartree": 0.0006713990748443
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.5,
+      "signed_error_hartree": 0.0006865985129356
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.6,
+      "signed_error_hartree": 0.0007018002724709
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.7,
+      "signed_error_hartree": 0.0007163546226291
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.8,
+      "signed_error_hartree": 0.0007297058861972
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.9,
+      "signed_error_hartree": 0.000741371771511
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.0,
+      "signed_error_hartree": 0.0007509087087792
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.1,
+      "signed_error_hartree": 0.0007578859902488
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.2,
+      "signed_error_hartree": 0.0007618847451804
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.3,
+      "signed_error_hartree": 0.0007625245099625
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.4,
+      "signed_error_hartree": 0.0007595072321881
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.5,
+      "signed_error_hartree": 0.0007526621121553
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.6,
+      "signed_error_hartree": 0.0007419764208242
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.7,
+      "signed_error_hartree": 0.0007276044391576
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.8,
+      "signed_error_hartree": 0.000709854409296
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 3.9,
+      "signed_error_hartree": 0.0006891587094017
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 4.0,
+      "signed_error_hartree": 0.0006660345458403
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 5.0,
+      "signed_error_hartree": 0.0004080202710999
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 6.0,
+      "signed_error_hartree": 0.0002392773617048
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 8.0,
+      "signed_error_hartree": 0.0001295476731734
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 10.0,
+      "signed_error_hartree": 0.0001129331557917
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 12.0,
+      "signed_error_hartree": 0.0001101143232024
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 16.0,
+      "signed_error_hartree": 0.0001090666313962
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 20.0,
+      "signed_error_hartree": 0.0001089132601189
+    }
+  ],
+  "refused_points": [
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.4,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=2.1247048738459728e-09, Smin=9.0694504089094843e-05, condition=49587.447638744612')"
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.5,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=6.1581855240189221e-10, Smin=0.00012368231277625806, condition=36250.387862885254')"
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.6,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=1.1763554505495044e-09, Smin=0.00015343104526343483, condition=29112.909868396771')"
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.7,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=4.6140284301610102e-10, Smin=0.00018279564391759709, condition=24328.407164129861')"
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 0.8,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=8.1676409385833537e-10, Smin=0.00022188692015108385, condition=19939.607928543741')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.4,
+      "error": "NameError(\"name 'orth' is not defined\")"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.5,
+      "error": "NameError(\"name 'orth' is not defined\")"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.6,
+      "error": "NameError(\"name 'orth' is not defined\")"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.7,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=1.9754450182422889e-07, Smin=8.7186410417364443e-06, condition=614405.80563685612')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.8,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=4.6005179533958884e-08, Smin=2.5413526769242632e-05, condition=209712.87071163699')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 0.9,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=1.8386365971401197e-08, Smin=4.3360018356685019e-05, condition=122201.96448946664')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.0,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=4.9307609106818973e-09, Smin=6.1477116064329569e-05, condition=85626.321504344814')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.1,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=1.3827732292526207e-09, Smin=9.0296502317815724e-05, condition=57871.320464099364')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.2,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=4.1208761403233041e-10, Smin=0.00013925900101650896, condition=37219.558528925496')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.3,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=4.0119140475025628e-10, Smin=0.00021541278620061403, condition=23846.126040595889')"
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.4,
+      "error": "ValueError('REFUSED: non-Hermitian matrix asymmetry=1.8268209167615623e-10, Smin=0.00032224384028947445, condition=15784.278317720347')"
+    }
+  ],
+  "ghost_basis_diagnostics": [
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 1.0,
+      "atom_energy_change_hartree": -1.58080902546e-06
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 2.0,
+      "atom_energy_change_hartree": -1.14896771009e-06
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 6.0,
+      "atom_energy_change_hartree": -7.14671415159e-06
+    },
+    {
+      "basis": "cc-pVDZ",
+      "R_bohr": 20.0,
+      "atom_energy_change_hartree": 1.1e-16
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 1.0,
+      "atom_energy_change_hartree": -6.4544458e-07
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 2.0,
+      "atom_energy_change_hartree": -1.1449883559e-06
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 6.0,
+      "atom_energy_change_hartree": -1.9187661485e-06
+    },
+    {
+      "basis": "cc-pVTZ",
+      "R_bohr": 20.0,
+      "atom_energy_change_hartree": -4e-16
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 1.0,
+      "atom_energy_change_hartree": -4.7113379417e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 2.0,
+      "atom_energy_change_hartree": -4.9122368197e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 6.0,
+      "atom_energy_change_hartree": -5.8104036807e-07
+    },
+    {
+      "basis": "cc-pVQZ",
+      "R_bohr": 20.0,
+      "atom_energy_change_hartree": -1.1e-16
+    }
+  ],
+  "reference_missing_explicit_uncertainty_R_bohr": [
+    16,
+    20
+  ],
+  "independence": "published exponential explicitly-correlated calculation distinct from Gaussian integral/dense solver; shared-integral FCI is secondary only",
+  "input_sha256": {
+    "results": "60a00e8dc2d9d9bdcf8466a5e09a81375e8bc1c3dbc02fb1887d1c2d0da35505",
+    "protocol": "ac82927f3d14685bf8cee6aad8803f0403780ec07fbe12451d5f90bef410a757",
+    "reference": "9576b17e1dbea93b1010d15068fdf83a6a54aeb7923a88ffe9898f7be08f66a2"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "executed_solver_sha256": "08c7a3f05a2ffde6a179ab31de11fdade4925f63826bab58f1846b66850405a0",
+  "final_solver_sha256": "af4448202196910949f9f0c60241a8d96d6b119d7c6c4115a9e5847c656786ac",
+  "changed": "one f-string variable in the orthonormalization refusal message; no accepted-value calculation changes",
+  "original_failures": "13 numerical refusals; 3 NameError in refusal message; all preserved",
+  "curve_rerun_after_fix": false
+}

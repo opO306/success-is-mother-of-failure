@@ -1,0 +1,303 @@
+{
+  "protocol": {
+    "version": "h2-static-reference-pilot-v2",
+    "scope": "ISOLATED_STATIC_NUMERICAL_RESEARCH_NOT_A_WORLD",
+    "nuclei": [
+      {
+        "Z": 1
+      },
+      {
+        "Z": 1
+      }
+    ],
+    "electrons": 2,
+    "sector": "lowest spatial-symmetric singlet; no imposed gerade/orbital occupation",
+    "units": "bohr, hartree, atomic units",
+    "Hamiltonian": "He = -0.5 sum_i Laplacian_i - sum_iA 1/r_iA + 1/r12; ENN = 1/R; Etotal = Ee + ENN",
+    "boundary": "isolated open-space molecular integrals; clamped nuclei; no field",
+    "bases": [
+      "cc-pVDZ",
+      "cc-pVTZ",
+      "cc-pVQZ"
+    ],
+    "representation": "standard contracted real spherical Gaussian AO; full symmetric two-spatial-orbital product space",
+    "integrals": "PySCF 2.12.1 / libcint; no ECP, density fitting, screening cutoff modification, or fitted pair potential",
+    "solver": "canonical S^-1/2, explicit singlet Hamiltonian, SciPy LAPACK evr lowest two eigenpairs",
+    "threads": 1,
+    "arithmetic": "binary64; no rigorous interval or bit-parity certification",
+    "overlap_min_eigenvalue_floor": 1e-10,
+    "orthonormalization_max_norm": 1e-10,
+    "eigen_residual_max_l2_hartree": 1e-09,
+    "R_grid_bohr": [
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.4,
+      1.5,
+      1.6,
+      1.7,
+      1.8,
+      1.9,
+      2.0,
+      2.1,
+      2.2,
+      2.3,
+      2.4,
+      2.5,
+      2.6,
+      2.7,
+      2.8,
+      2.9,
+      3.0,
+      3.1,
+      3.2,
+      3.3,
+      3.4,
+      3.5,
+      3.6,
+      3.7,
+      3.8,
+      3.9,
+      4.0,
+      5.0,
+      6.0,
+      8.0,
+      10.0,
+      12.0,
+      16.0,
+      20.0
+    ],
+    "grid_reason": "uniform 0.1 bohr over 0.4-4, followed by fixed stretched points; no geometry optimization or known minimum in executor",
+    "sanity_R_bohr": [
+      0.4,
+      2.0,
+      20.0
+    ],
+    "ghost_R_bohr": [
+      1.0,
+      2.0,
+      6.0,
+      20.0
+    ],
+    "crosscheck_R_bohr": [
+      1.0,
+      2.0,
+      6.0,
+      20.0
+    ],
+    "independent_reference": "Pachucki 2010 arXiv:1007.0322v2, Eq.2, Table IV; external postprocessing only",
+    "comparison_basis": "cc-pVQZ",
+    "criteria": {
+      "P1": "sampled interior local minimum below 2*isolated-H in same basis; bracket from neighboring samples only",
+      "P2_fragment_abs_E20_minus_2EH_max_hartree": 1e-06,
+      "P2_tail": "absolute E(R)-2EH decreases on R=10,12,16,20; finite-range evidence, no infinity proof",
+      "P3_curve_max_abs_error_hartree": 0.001,
+      "P3_sampled_min_location_abs_difference_bohr": 0.1,
+      "P3_binding_depth_abs_error_hartree": 0.001,
+      "meaning": "predeclared pilot diagnostic thresholds, not measured reference uncertainties or final accuracy requirements"
+    },
+    "failure_policy": "Stop each refused point without retry or tolerance/model change. Continue only the other independent geometries once each. Preserve failures; incomplete grid cannot pass full-curve comparison.",
+    "excluded": [
+      "nuclear dynamics",
+      "electronic time history",
+      "formation capture",
+      "excitation",
+      "ionization continuum",
+      "radiation",
+      "quantum nuclei",
+      "relativity",
+      "QED",
+      "production foundation",
+      "formal certification"
+    ],
+    "continue_independent_points_after_refusal": true,
+    "amendment": "After V1 sanity stopped at cc-pVTZ R=0.4: diagnostic showed AO transformation cancellation/overlap conditioning. No basis, Hamiltonian, tolerance, grid or arithmetic changed. V2 changes failure collection policy and adds numeric details to refusal messages only."
+  },
+  "protocol_sha256": "ac82927f3d14685bf8cee6aad8803f0403780ec07fbe12451d5f90bef410a757",
+  "sources": {
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/campaign.py": "9b33ede5bd6f9f004383ae1ce1ce589d38eb566d015fc98d8af875fac4d1a7c2",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/check_reference.py": "02bc8879459b482d7a9fd324d65b1dfe363318de8cd7895c114921c59b617302",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/diagnose_integrals.py": "04a726ecb1141cca1374cb17f433b950bc3debedf2657ba4e66034a9cebaf562",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/solver.py": "08c7a3f05a2ffde6a179ab31de11fdade4925f63826bab58f1846b66850405a0",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/__init__.py": "b017720307c5a5ec5596a77206c5fd2439ba7aafba98103f8ff66b57838bf7b4"
+  },
+  "hydrogen_basis_data": {
+    "cc-pVDZ": [
+      [
+        0,
+        [
+          13.01,
+          0.019685
+        ],
+        [
+          1.962,
+          0.137977
+        ],
+        [
+          0.4446,
+          0.478148
+        ]
+      ],
+      [
+        0,
+        [
+          0.122,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.727,
+          1.0
+        ]
+      ]
+    ],
+    "cc-pVTZ": [
+      [
+        0,
+        [
+          33.87,
+          0.006068
+        ],
+        [
+          5.095,
+          0.045308
+        ],
+        [
+          1.159,
+          0.202822
+        ]
+      ],
+      [
+        0,
+        [
+          0.3258,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.1027,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          1.407,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.388,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          1.057,
+          1.0
+        ]
+      ]
+    ],
+    "cc-pVQZ": [
+      [
+        0,
+        [
+          82.64,
+          0.002006
+        ],
+        [
+          12.41,
+          0.015343
+        ],
+        [
+          2.824,
+          0.075579
+        ]
+      ],
+      [
+        0,
+        [
+          0.7977,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.2581,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.08989,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          2.292,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.838,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.292,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          2.062,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          0.662,
+          1.0
+        ]
+      ],
+      [
+        3,
+        [
+          1.397,
+          1.0
+        ]
+      ]
+    ]
+  },
+  "packages": "h5py==3.16.0\niniconfig==2.3.0\nnumpy==2.5.3\npackaging==26.3\npluggy==1.6.0\npsutil==7.2.2\nPygments==2.21.0\npyscf==2.12.1\npytest==9.1.1\nscipy==1.18.1\nsetuptools==84.0.0\n",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "x86_64",
+  "git_start": "f7c2c8dc2f46bc510b8399aadb3b690ef8fef313",
+  "mode": "full",
+  "utc": "2026-10-02T10:41:24Z"
+}

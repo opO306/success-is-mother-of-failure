@@ -1,0 +1,198 @@
+{
+  "seal_sha256": "d4f24b6505eb85d8fde0925ec33f1a54fe8f3ba6df9743c349358f5a2b6b48e2",
+  "rows": [
+    {
+      "kind": "atom",
+      "basis": "cc-pVDZ",
+      "energy_hartree": -0.49927840341958307,
+      "ghost_distance": null,
+      "wall_seconds": 0.21159101000000646,
+      "process_peak_rss_bytes": 95047680,
+      "memory_scope": "fresh Linux worker process high-water RSS; imports/solve/artifact included",
+      "worker_wall_with_startup_seconds": 0.5559149489999982
+    },
+    {
+      "R_bohr": 0.4,
+      "positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.2
+        ],
+        [
+          0.0,
+          0.0,
+          0.2
+        ]
+      ],
+      "basis": "cc-pVDZ",
+      "electrons": 2,
+      "sector": "singlet",
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -2.5233966292442576,
+      "nuclear_repulsion_hartree": 2.5,
+      "total_energy_hartree": -0.02339662924425756,
+      "basis_size": 10,
+      "singlet_dimension": 55,
+      "overlap_min_eigenvalue": 0.003371049189348327,
+      "overlap_condition": 993.226316266656,
+      "orthonormalization_error": 8.191556943624778e-14,
+      "hermitian_asymmetry": 1.1177725411926076e-12,
+      "eigen_residual_l2": 5.833617628808091e-13,
+      "vector_norm_error": 4.440892098500626e-16,
+      "next_singlet_gap": 0.7469586316691148,
+      "numerical_tolerance_hartree": 1e-09,
+      "driver": "evr",
+      "iteration_count": null,
+      "iteration_note": "direct LAPACK eigensolve; not iterative",
+      "integral_seconds": 0.2017731539999943,
+      "assembly_seconds": 0.0006900180000002365,
+      "diagonalize_seconds": 0.00027482299998382587,
+      "eri_bytes": 80000,
+      "singlet_matrix_bytes": 24200,
+      "arithmetic": "IEEE binary64; no rigorous enclosure",
+      "artifact_sha256": "bce486e5e048cb046b452e13b38f5da2be1023c845831e5998a9094a13ca1eef",
+      "artifact_file": "runs/h2_static_pilot_v1/sanity/cc-pVDZ_0.4.npz",
+      "wall_seconds": 0.22411209599999893,
+      "cpu_seconds": 0.19512758900000002,
+      "kind": "curve",
+      "process_peak_rss_bytes": 99864576,
+      "memory_scope": "fresh Linux worker process high-water RSS; imports/solve/artifact included",
+      "worker_wall_with_startup_seconds": 0.5453556239999955
+    },
+    {
+      "R_bohr": 2.0,
+      "positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "basis": "cc-pVDZ",
+      "electrons": 2,
+      "sector": "singlet",
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.630687185007167,
+      "nuclear_repulsion_hartree": 0.5,
+      "total_energy_hartree": -1.130687185007167,
+      "basis_size": 10,
+      "singlet_dimension": 55,
+      "overlap_min_eigenvalue": 0.12038927823751064,
+      "overlap_condition": 23.619395950562456,
+      "orthonormalization_error": 3.3741559008495542e-15,
+      "hermitian_asymmetry": 8.23126289350995e-16,
+      "eigen_residual_l2": 8.930860457677007e-16,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_singlet_gap": 0.4233015423592783,
+      "numerical_tolerance_hartree": 1e-09,
+      "driver": "evr",
+      "iteration_count": null,
+      "iteration_note": "direct LAPACK eigensolve; not iterative",
+      "integral_seconds": 0.18383745400001317,
+      "assembly_seconds": 0.00045321599998260353,
+      "diagonalize_seconds": 0.0002629109999929824,
+      "eri_bytes": 80000,
+      "singlet_matrix_bytes": 24200,
+      "arithmetic": "IEEE binary64; no rigorous enclosure",
+      "shared_integral_crosscheck": {
+        "converged": true,
+        "electronic_energy_hartree": -1.6306871850071678,
+        "difference_hartree": -8.881784197001252e-16,
+        "note": "PySCF FCI contraction shares integrals; not independent physics reference"
+      },
+      "artifact_sha256": "3ca038c98e58d995bbd254a6fd518ac5992076d7a24a8d60567b9f24cfd75a87",
+      "artifact_file": "runs/h2_static_pilot_v1/sanity/cc-pVDZ_2.npz",
+      "wall_seconds": 0.22016184100002079,
+      "cpu_seconds": 0.19312336700000002,
+      "kind": "curve",
+      "process_peak_rss_bytes": 100491264,
+      "memory_scope": "fresh Linux worker process high-water RSS; imports/solve/artifact included",
+      "worker_wall_with_startup_seconds": 0.5184512179999956
+    },
+    {
+      "R_bohr": 20.0,
+      "positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "basis": "cc-pVDZ",
+      "electrons": 2,
+      "sector": "singlet",
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.0485568133616687,
+      "nuclear_repulsion_hartree": 0.05,
+      "total_energy_hartree": -0.9985568133616687,
+      "basis_size": 10,
+      "singlet_dimension": 55,
+      "overlap_min_eigenvalue": 0.31513974849459775,
+      "overlap_condition": 5.346390798221655,
+      "orthonormalization_error": 5.172137304858798e-13,
+      "hermitian_asymmetry": 2.220446049250313e-16,
+      "eigen_residual_l2": 6.715178906556678e-16,
+      "vector_norm_error": 3.3306690738754696e-16,
+      "next_singlet_gap": 0.478696965465949,
+      "numerical_tolerance_hartree": 1e-09,
+      "driver": "evr",
+      "iteration_count": null,
+      "iteration_note": "direct LAPACK eigensolve; not iterative",
+      "integral_seconds": 0.1772629970000139,
+      "assembly_seconds": 0.00031053999998675863,
+      "diagonalize_seconds": 0.00027069499998333413,
+      "eri_bytes": 80000,
+      "singlet_matrix_bytes": 24200,
+      "arithmetic": "IEEE binary64; no rigorous enclosure",
+      "shared_integral_crosscheck": {
+        "converged": true,
+        "electronic_energy_hartree": -1.048556813361669,
+        "difference_hartree": -2.220446049250313e-16,
+        "note": "PySCF FCI contraction shares integrals; not independent physics reference"
+      },
+      "artifact_sha256": "c8542010a3fc559ab5a62e55bef5aed38393da78fe4d02d1146d5c395b1e6bd3",
+      "artifact_file": "runs/h2_static_pilot_v1/sanity/cc-pVDZ_20.npz",
+      "wall_seconds": 0.20494896499999982,
+      "cpu_seconds": 0.183962363,
+      "kind": "curve",
+      "process_peak_rss_bytes": 100384768,
+      "memory_scope": "fresh Linux worker process high-water RSS; imports/solve/artifact included",
+      "worker_wall_with_startup_seconds": 0.5031670700000177
+    },
+    {
+      "kind": "atom",
+      "basis": "cc-pVTZ",
+      "energy_hartree": -0.4998098113018429,
+      "ghost_distance": null,
+      "wall_seconds": 0.1704268669999749,
+      "process_peak_rss_bytes": 95002624,
+      "memory_scope": "fresh Linux worker process high-water RSS; imports/solve/artifact included",
+      "worker_wall_with_startup_seconds": 0.4606531359999906
+    },
+    {
+      "status": "FAILED_PRESERVED",
+      "job": {
+        "kind": "curve",
+        "basis": "cc-pVTZ",
+        "R": 0.4,
+        "crosscheck": false,
+        "artifact": "runs/h2_static_pilot_v1/sanity/cc-pVTZ_0.4.npz"
+      },
+      "error": "ValueError('REFUSED: non-Hermitian matrix')",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/campaign.py\", line 28, in worker\n    row = solve([[0, 0, -r/2], [0, 0, r/2]], job[\"basis\"],\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/solver.py\", line 81, in solve\n    raise ValueError(\"REFUSED: non-Hermitian matrix\")\nValueError: REFUSED: non-Hermitian matrix\n",
+      "worker_wall_with_startup_seconds": 0.5533350360000213
+    }
+  ],
+  "wall_seconds": 3.178839202000006
+}

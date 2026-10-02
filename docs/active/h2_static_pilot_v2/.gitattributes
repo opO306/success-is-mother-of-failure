@@ -1,0 +1,2 @@
+# Preserve copied evidence exactly, including source snapshots and test logs.
+* -text
