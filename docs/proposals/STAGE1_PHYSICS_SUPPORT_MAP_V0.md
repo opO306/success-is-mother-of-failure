@@ -374,6 +374,8 @@ Git 시작 확인: `git status`, HEAD/origin/master, ahead/behind, dirty 파일,
 
 ## 13. Stage 1 First Material Model Selection — 선택 기록 V0
 
+**2026-10-02 설계자 방향 변경: SUPERSEDED AS PRIMARY FOUNDATION / RETAINED AS EFFECTIVE / COMPARISON MODEL CANDIDATE.** 아래 추천은 당시의 기록으로 보존한다. Drude를 A의 가장 근본적인 물질 법칙으로 채택하지 않으며, [Atomic / Electronic Matter Foundation V0](ATOMIC_ELECTRONIC_MATTER_FOUNDATION_V0.md)의 하위 비반응 유효·비교 모델 후보로 둔다. 기존 조사·출처와 미결 사항은 유지하고 Drude B0 구현으로 자동 진행하지 않는다.
+
 2026-10-02 추가. **DESIGN / RESEARCH ONLY, IMPLEMENTER RECOMMENDATION, DESIGNER APPROVAL PENDING.** 앞 절의 지원 지도와 역사적 작업 기록을 보존하고 첫 공동 물질 모델 후보를 좁힌다. 새 roadmap, production 모델 채택, Stage 1 전체 지원 선언이 아니다. 기존 `E — REALITY_DATA_INSUFFICIENT`, M1–M4 미승인, C1-B1 `NotCertified`와 기존 Gate를 유지한다.
 
 ### 13.1 설계자가 먼저 판단할 여덟 가지
