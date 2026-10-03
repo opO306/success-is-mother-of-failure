@@ -1,0 +1,13 @@
+{
+  "seal_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\h2_reconstruction_v0\\evidence\\execution_seal.json",
+  "seal_sha256": "6a62796006ff9d2c6409848eeff12e00ebbc5629ed896db782c843bd3a3961d1",
+  "parent_root": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+  "main_root": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+  "checked_bindings_before": 1269,
+  "checked_bindings_after": 1269,
+  "parent_tracked_status_after": "",
+  "new_numerical_executions": 0,
+  "copied_designer_instruction_sha256": "67cad00c004e4c86945cb6739c033b52730ac5ee28ca910f5e625c172624d770",
+  "raw_packaging_script": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\package_feasibility_v0.py",
+  "raw_packaging_script_sha256": "f8da4263295ee0f3f3264cb1dd6ba37d36205aef4117b42d528830fc8ec34879"
+}

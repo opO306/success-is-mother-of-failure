@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "source": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_adversarial_v0\\reference_acquisition_v1\\h2solv.pdf",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\h2solv.pdf",
+      "sha256": "145ae5c7aa9a30ee378dd7f093d73178bc6c5be84dd7be9e7cda5a74bd77f306",
+      "fresh_acquisition": false
+    },
+    {
+      "source": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_adversarial_v0\\reference_acquisition_v1\\h2solv.txt",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\h2solv.txt",
+      "sha256": "b0b135da5d78a20d27a02c567f08487780681300f1ea4c49890d820f11d537fc",
+      "fresh_acquisition": false
+    },
+    {
+      "source": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_adversarial_v0\\reference_acquisition_v1\\Ndeke_primary.pdf",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\Ndeke_primary.pdf",
+      "sha256": "c452896dd1f637cf5298c2a439c5a2a96b1bec75b480806a1bc123d39759232d",
+      "fresh_acquisition": false
+    }
+  ]
+}

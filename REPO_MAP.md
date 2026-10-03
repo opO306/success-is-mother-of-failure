@@ -20,6 +20,13 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+docs/active/h2_representation_pilot1/은 별도 표현 방식 비교 Pilot 1의
+feasibility·제한 라이선스·접근 실패·과거 Gaussian 비교 자료·봉인 증거다.
+Raw metadata는 runs/h2_representation_pilot1/feasibility_v0/에 보존한다.
+B numerical implementation과 SMALL/MEDIUM/LARGE 실행은 없다.
+tests/h2_representation_pilot1/은 증거/hash·STOP 의미만 검사하며 물리 검증이 아니다.
+기존 QZ44 FAIL / reconstruction UNRESOLVED / production 미승인 유지.
+
 `electronic_pilot/reconstruction_v0/`는 R=.4 same-basis 두-arm reconstruction audit다.
 `protocol.json`/`execution.json`은 설계자 보완 여덟 조건과 사전 precision/guard 일정,
 `measure.py`는 exact-dyadic orth bound/retained rank와 state symmetry,

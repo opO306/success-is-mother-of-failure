@@ -1,0 +1,126 @@
+{
+  "status": "REPRESENTATION_PILOT1_FEASIBILITY_UNRESOLVED",
+  "STOP": true,
+  "candidate": "H2SOLV AFBA_v1_0, symmetric James-Coolidge subset of Kolos-Wolniewicz",
+  "software_DOI": "10.17632/835yrp4rww.1",
+  "paper_DOI": "10.1016/j.cpc.2016.07.024",
+  "source_archive_acquired": false,
+  "local_source_hash": null,
+  "source_audited": false,
+  "compiled": false,
+  "integral_evaluator": "Described in primary paper; executable recurrence source not acquired",
+  "license": {
+    "name": "Computer Physics Communications non-profit use license",
+    "authority": "Versioned DataCite deposit and current Elsevier CPC license",
+    "preprint_discrepancy": "Preprint page2 says None; distributed-program metadata says CPC",
+    "identified": true,
+    "OSI_permissive_assumed": false,
+    "third_party_code_redistributed": false,
+    "commercial_or_proprietary_permission_assumed": false,
+    "future_use_scope_decision": "Keep CPC restrictions; author permission required for uses outside granted scope"
+  },
+  "dependencies_paper": [
+    "Fortran90 compiler",
+    "OpenMP",
+    "MPFUN2015 MPFR-backed v04",
+    "GNU MPFR",
+    "GNU GMP"
+  ],
+  "platform": {
+    "paper": "Linux/Unix",
+    "WSL_B_build_tested": false,
+    "native_Windows_tested": false
+  },
+  "precision": {
+    "paper_arithmetic": "Variable precision MPFUN2015, MPFR-backed",
+    "paper_defaults_integrals_decimal_digits": 80,
+    "paper_defaults_linear_algebra_decimal_digits": 60,
+    "actual_local_arithmetic_verified": false
+  },
+  "representation_paper": {
+    "radial_form": "exp(-y*(r1A-r1B)-x*(r2A-r2B)-u*(r1A+r1B)-w*(r2A+r2B))*r12^n0*(r1A-r1B)^n1*(r2A-r2B)^n2*(r1A+r1B)^n3*(r2A+r2B)^n4",
+    "overall_R_scaling": "Primary Eq6 includes R^(-sum(n)-3); verify actual source before input seal",
+    "integer_order": "sum(n0..n4)<=Omega; all n nonnegative",
+    "symmetric_JC_parameters": "x=y=0, u=w>0",
+    "symmetry": "IE=+1, IAB=+1; Sigma+ supported",
+    "basis_restrictions": "Paper describes symmetry/duplicate restrictions; actual retained list not acquired"
+  },
+  "nonlinear_parameters": {
+    "literature_result_or_seed_used": false,
+    "paper_requires_optimization_for_best_given_size": true,
+    "paper_allows_fixed_parameters_with_basis_enlargement": true,
+    "generic_initialization": null,
+    "optimizer": null,
+    "termination": null,
+    "reference_in_objective": false
+  },
+  "physical_contract": {
+    "system": "H2",
+    "nuclei": 2,
+    "charges": [
+      1,
+      1
+    ],
+    "electrons": 2,
+    "fixed_nuclei": true,
+    "nonrelativistic_Coulomb": true,
+    "target_sector": "singlet 1Sigma_g+ ground state",
+    "R_nominal_bohr": "0.4",
+    "units": "atomic units, energy hartree",
+    "BO_definition": "electronic eigenvalue + 1/R",
+    "H2SOLV_paper_Hamiltonian_already_includes_nuclear_repulsion": true,
+    "double_addition_of_1_over_R_forbidden": true,
+    "actual_B_input_numeric_parsing": "UNVERIFIED_SOURCE_NOT_ACQUIRED"
+  },
+  "execution_contract": {
+    "status": "NOT_SEALED_FEASIBILITY_BLOCKED",
+    "small_medium_large": null,
+    "P1_P2_P3": null,
+    "nested": null,
+    "native_guards": null,
+    "lowest_root_check": null,
+    "integral_series_convergence_rule": null,
+    "nonlinear_optimization_contract": null
+  },
+  "required_before_execution": [
+    "Acquire the actual AFBA_v1_0 archive via authorized access or designer-provided local archive",
+    "Verify archive/source/license/dependency hashes and applicable usage terms",
+    "Audit recurrences, exact-zero parameter special cases, retained quintuple restrictions, and numeric parsing",
+    "Verify BO output meaning and a lowest-root check independent of the inverse-iteration energy hint",
+    "Define and seal three sizes, three arithmetic precisions, series convergence, native guards and parameter policy",
+    "No reference-valued initialization or fitting; generic seed provenance and optimization cost must be explicit"
+  ],
+  "other_candidates": [
+    {
+      "name": "Sims-Hagstrom modified James-Coolidge",
+      "status": "Primary published R04 calculation readable; runnable code/license not acquired in scoped search",
+      "paper_DOI": "10.1063/1.2173250"
+    },
+    {
+      "name": "Pachucki2010 symmetric JC/generalized Heitler-London",
+      "status": "Primary numerical method/reference, not an acquired executable distribution",
+      "paper_DOI": "10.1103/PhysRevA.82.032509"
+    },
+    {
+      "name": "Ndeke2024 H2SOLV calculation",
+      "status": "Shared H2SOLV lineage; published value is not a new local execution",
+      "paper_DOI": "10.18452/29340"
+    }
+  ],
+  "B_numerical_runs": 0,
+  "B_solver_implemented": false,
+  "R04_target": "NOT_EVALUATED_FEASIBILITY_STOP",
+  "representation_convergence": "NOT_EVALUATED",
+  "arithmetic_convergence": "NOT_EVALUATED",
+  "R14_R60_extension": "NOT_AUTHORIZED_BY_CONDITIONAL_GATE_BECAUSE_R04_UNEXECUTED",
+  "cost_comparison": "COST_COMPARISON_NOT_COMPARABLE",
+  "generalization": "GENERALIZATION_UNRESOLVED",
+  "certification": "NOT_CERTIFIED",
+  "production": "NOT_PRODUCTION_APPROVED",
+  "old_audit": {
+    "QZ44": "NUMERICAL FAIL",
+    "same_basis_reconstruction": "UNRESOLVED / NOT CERTIFIED",
+    "finite_cardinal_limitation": "SUPPORTED UNDER CHECKED ASSUMPTIONS",
+    "MO_ERI_and_upstream_uncertainty": "UNRESOLVED"
+  }
+}

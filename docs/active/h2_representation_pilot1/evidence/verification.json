@@ -1,0 +1,82 @@
+{
+  "scope": "Evidence integrity and existing related unit/audit tests; not B energy/precision validation",
+  "final_suites": [
+    {
+      "label": "pilot",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/h2_representation_pilot1",
+        "-q",
+        "--junitxml",
+        "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\verification_v1\\pilot.xml"
+      ],
+      "cwd": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+      "exit_code": 0,
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_time_seconds": 0.3
+    },
+    {
+      "label": "parent",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "tests/h2_reconstruction_v0",
+        "tests/h2_adversarial_v0",
+        "tests/h2_frontend_reference_v0",
+        "-q",
+        "--junitxml",
+        "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\verification_v1\\parent.xml"
+      ],
+      "cwd": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+      "exit_code": 0,
+      "tests": 90,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_time_seconds": 4.21
+    }
+  ],
+  "final_total_passed": 97,
+  "initial_attempt": {
+    "exit_code": 1,
+    "passed": 91,
+    "failed": 3,
+    "errors": 3,
+    "reason": "Historical tests executed in fresh worktree where ignored parent raw files were absent",
+    "log": "initial_missing_raw.log",
+    "resolution": "No tests/source/guards modified; run historical suites in actual parent checkout and new suite in pilot checkout",
+    "not_counted_as_pass": true
+  },
+  "logs": [
+    {
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\verification_v0\\windows.log",
+      "compact_path": "initial_missing_raw.log",
+      "sha256": "a3a9865b17c964e5dc3ea9137c41773c59cc418a91dd21372062000368c80d1f"
+    },
+    {
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\verification_v1\\pilot.log",
+      "compact_path": "pilot.log",
+      "sha256": "4989ebc6f6ea4e6d99ca0c6f7da6f139c77262ecff7743a6243e33d389c86543"
+    },
+    {
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\verification_v1\\parent.log",
+      "compact_path": "parent.log",
+      "sha256": "de8a8c2dee204019e172f78fd168213050e322419e6cf97d9ce0e12ae7f8623d"
+    }
+  ],
+  "LOCAL_FULL": {
+    "executed": false,
+    "reason": "Only new documentation/evidence/tests and dashboard entries; old executable/common/frozen source/fixture unchanged",
+    "official_baseline_updated": false
+  },
+  "parent_protected_bindings": 1269,
+  "content_seal_verified_files": 15,
+  "B_H2_numerical_runs": 0,
+  "push": false
+}

@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H₂ Representation Comparison Pilot 1](active/h2_representation_pilot1/REPORT.md):
+별도 연구 후보 feasibility. Source 미확보로 B 구현·계산 전 STOP,
+REPRESENTATION_PILOT1_FEASIBILITY_UNRESOLVED / COST_NOT_COMPARABLE /
+GENERALIZATION_UNRESOLVED / NOT_CERTIFIED / production 미승인. 기존 QZ 판정 보존.
+
 [H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md](active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md):
 보완된 same-space contract/source/input 봉인 뒤 fresh L/I 실제 계산. Guard accepted2,
 1e-9 same-basis energy band 초과로 equivalence 미통과. 기준/space 변경 없음,

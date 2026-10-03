@@ -4,6 +4,16 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ Representation Comparison Pilot 1(2026-10-03, 별도 연구):**
+[Feasibility 조사와 STOP](docs/active/h2_representation_pilot1/REPORT.md).
+H2SOLV AFBA_v1_0의 논문·배포 DOI·CPC 제한 라이선스 확인, source bytes 미확보.
+Windows403 / IAB timeout / WSL file API401, 세 경로 뒤 B 구현·계산 전 STOP.
+REPRESENTATION_PILOT1_FEASIBILITY_UNRESOLVED / COST_COMPARISON_NOT_COMPARABLE /
+GENERALIZATION_UNRESOLVED / NOT_CERTIFIED / NOT_PRODUCTION_APPROVED.
+과거 QZ/V5Z 원본 hash 대조, 이번 fresh run 아님. SMALL/MEDIUM/LARGE·P1/P2/P3 미봉인.
+R=.4/1.4/6.0 B 미실행. 아래 기존 QZ 감사 판정 보존, 정식 source 확보에 설계자 결정 필요.
+Push 없음.
+
 **H₂ R=0.4 Same-Basis Independent Reconstruction V0(2026-10-03):**
 [보완 계약·실제 두 arm·공통 표현·state 영향 진단](docs/active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md).
 실제 retained AO60/full singlet1830, 두 engine 자체 C, threshold 불변으로 fresh reconstruction.

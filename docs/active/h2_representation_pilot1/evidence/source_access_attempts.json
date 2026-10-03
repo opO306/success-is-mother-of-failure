@@ -1,0 +1,61 @@
+{
+  "routes": [
+    {
+      "route": "Windows standard HTTP",
+      "evidence_origin": "transcribed from current-turn tool results",
+      "observed": [
+        {
+          "url": "https://data.mendeley.com/research-data/?search=H2SOLV",
+          "HTTP": 403
+        },
+        {
+          "url": "https://data.mendeley.com/public-api/search?query=H2SOLV",
+          "HTTP": 403
+        },
+        {
+          "url": "https://api.data.mendeley.com/datasets/835yrp4rww?version=1",
+          "HTTP": 403
+        },
+        {
+          "url": "https://api.data.mendeley.com/datasets/835yrp4rww/files?version=1",
+          "HTTP": 403
+        },
+        {
+          "url": "https://data.mendeley.com/datasets/835yrp4rww/1",
+          "HTTP": 403
+        },
+        {
+          "url": "https://cpc.cs.qub.ac.uk/summaries/AFBA_v1_0.html",
+          "error": "DNS getaddrinfo failed"
+        }
+      ],
+      "source_archive_acquired": false
+    },
+    {
+      "route": "Codex in-app browser official dataset page",
+      "url": "https://data.mendeley.com/datasets/835yrp4rww/1",
+      "evidence_origin": "transcribed from current-turn cua_repl result",
+      "elapsed_wall_seconds_reported_by_tool": 30.116,
+      "error": "js execution timed out; kernel reset",
+      "source_archive_acquired": false
+    },
+    {
+      "route": "Ubuntu-24.04 WSL curl, TLS verification enabled",
+      "url": "https://api.data.mendeley.com/datasets/publics/835yrp4rww/files?version=1",
+      "evidence_origin": "transcribed from current-turn exec stdout",
+      "HTTP": 401,
+      "body": {
+        "message": "Unauthorized (no suitable authorization credentials were provided)"
+      },
+      "source_archive_acquired": false
+    }
+  ],
+  "three_unsuccessful_access_routes_then_STOP": true,
+  "authentication_bypass_attempted": false,
+  "source_unavailable_scope": "Unavailable in tested acquisition routes, not a claim that the code does not exist",
+  "web_indexed_dataset_metadata_readable": true,
+  "additional_preserved_packaging_errors": [
+    "author papers.html extraction: nested list join TypeError; not a download failure",
+    "CPC license terminal display: cp949 UnicodeEncodeError; HTTP acquisition succeeded"
+  ]
+}

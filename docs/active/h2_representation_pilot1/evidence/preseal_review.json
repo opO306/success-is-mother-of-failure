@@ -1,0 +1,17 @@
+{
+  "concept_alignment": {
+    "separate_from_QZ_audit": true,
+    "same_physical_target": true,
+    "B_space_not_forced_to_Gaussian": true,
+    "source_missing_STOP": true,
+    "reference_tuning_absent": true,
+    "old_comparator_not_fresh": true,
+    "no_cost_winner": true,
+    "no_production_or_dynamics": true
+  },
+  "preseal_correction": "Eq6 normalization includes R^(-sum(n)-3); corrected metadata before final content seal; original raw packaging script preserved",
+  "preserved_tool_wrapper_failures": [
+    "Two JavaScript template-literal SyntaxErrors before report patch execution; no files changed by failed calls"
+  ],
+  "parent_bindings_reverified": 1269
+}

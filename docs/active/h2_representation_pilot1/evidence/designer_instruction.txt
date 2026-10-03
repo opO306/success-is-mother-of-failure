@@ -1,0 +1,957 @@
+좋아. 이번 건은 **기존 QZ 감사의 후속 수리가 아니라 별도의 “표현 방식 비교 Pilot 1”**로 분리하는 게 맞아. 심층 리서치에서도 Gaussian orbital FCI는 유한 공간 안에서의 FCI일 뿐이고, 명시적 \(r_{12}\) 표현은 전자 cusp를 직접 담는다는 구조적 차이가 확인됐다. 다만 R=0.4에서 표준 QZ 오차가 정확히 2.199 mEh라는 직접 문헌 근거는 아직 없으므로, 실제 비교 실험으로 확인해야 한다. h2_bo_r04_audit_ko
+
+방금 원격도 확인했고 현재 기준은 `codex/h2-qz-cause-v0 = 982e6d80ed37ab118bc68c3191952b934361202a`다.
+
+아래 그대로 구현자에게 넘기면 된다.
+
+---
+
+# H₂ Representation Comparison Pilot 1 구현 지시
+
+이번 작업은 기존 `H₂ QZ cause audit`를 수정하거나 PASS로 만들기 위한 작업이 아닙니다.
+
+**별도의 표현 방식 비교 실험**입니다.
+
+현재 기준 commit:
+
+```text
+982e6d80ed37ab118bc68c3191952b934361202a
+```
+
+현재 기존 QZ 관련 상태:
+
+```text
+QZ44
+= NUMERICAL FAIL 유지
+
+same-basis reconstruction
+= UNRESOLVED / NOT CERTIFIED
+
+finite cardinal limitation
+= SUPPORTED UNDER CHECKED ASSUMPTIONS
+
+AO/conditioning/transform numerical issue
+= 실제 존재 확인
+
+production electronic foundation
+= NOT APPROVED
+```
+
+새 Pilot의 성공 여부와 관계없이 이 기존 판정을 소급 변경하지 마십시오.
+
+가능하면 현재 branch를 계속 확장하지 말고 다음과 같은 **별도 branch**를 만들어 격리하십시오.
+
+```text
+codex/h2-representation-pilot1
+```
+
+기준 parent는 위 `982e6d80...`로 합니다.
+
+---
+
+## 0. Pilot의 핵심 질문
+
+이번 질문은:
+
+> **“Gaussian basis를 계속 크게 만드는 방법과, 전자-전자 거리 \(r_{12}\)를 표현에 직접 포함하는 방법 중 어느 쪽이 같은 H₂ 정적 정확도 목표에 더 효율적으로 도달하는가?”**
+
+입니다.
+
+이번 질문은 다음이 아닙니다.
+
+```text
+QZ의 버그를 고쳐라                X
+Pachucki 숫자에 맞춰라             X
+James–Coolidge를 production으로 채택하라 X
+Gaussian을 폐기하라                X
+```
+
+이번 Pilot에서는 **표현 방식 자체의 효율**을 비교합니다.
+
+---
+
+# 1. 비교할 두 계열
+
+## A — 기존 Gaussian orbital + FCI
+
+기존 자산을 그대로 사용합니다.
+
+R=0.4에서 최소한 다음 두 결과를 비교 기준으로 보존합니다.
+
+```text
+cc-pVQZ
+BO ≈ -0.1180311336 Eh
+reference gap ≈ +0.002199 Eh
+
+cc-pV5Z
+BO ≈ -0.1195969946 Eh
+reference gap ≈ +0.000633 Eh
+```
+
+QZ는 현재 위치를 보여주는 baseline입니다.
+
+V5Z는 현재 한 점에서 기존 physical criterion:
+
+```text
+0.001 Eh
+```
+
+을 만족한 Gaussian-side comparator입니다.
+
+따라서 비용 비교를 단순히:
+
+```text
+QZ vs James–Coolidge
+```
+
+로 하지 마십시오.
+
+주요 질문은:
+
+> **Gaussian 계열이 0.001 Eh에 도달하기 위해 사용한 비용과 explicit-\(r_{12}\) 계열이 같은 기준에 도달하기 위해 사용하는 비용을 비교한다.**
+
+입니다.
+
+---
+
+## B — explicit-\(r_{12}\) representation
+
+첫 후보는 **James–Coolidge 계열**입니다.
+
+핵심 구조는 일반 orbital Gaussian처럼 전자 상관을 간접적으로 수많은 orbital 함수로 표현하는 것과 달리, 전자 사이 거리:
+
+```text
+r12
+```
+
+를 wavefunction representation에 직접 포함하는 것입니다.
+
+이번 Pilot은 James–Coolidge 계열이 최종 foundation이라고 전제하지 않습니다.
+
+단지:
+
+> **H₂라는 문제의 구조를 직접 표현하는 방식이 같은 정확도에 훨씬 적은 계산량으로 도달할 가능성이 있는가?**
+
+를 조사합니다.
+
+---
+
+# 2. 먼저 B의 구현 가능성 조사
+
+바로 코딩하지 마십시오.
+
+먼저 다음을 조사하고 기록하십시오.
+
+```text
+사용 가능한 James–Coolidge / explicit-r12 구현
+
+원 논문 알고리즘
+
+integral evaluator 존재 여부
+
+소스 공개 여부
+
+라이선스
+
+arbitrary/high precision 지원 여부
+
+Linux/Windows 실행 가능성
+
+필요 dependency
+
+representation parameter 정의
+
+nonlinear parameter 최적화 필요 여부
+
+재현 가능한 입력/출력 계약
+
+R=0.4를 실제 계산할 수 있는가
+```
+
+특히 논문에 계산이 존재한다는 이유만으로:
+
+```text
+우리가 바로 실행 가능한 구현이 있다
+```
+
+고 가정하지 마십시오.
+
+### Feasibility STOP
+
+다음 중 하나면 구현으로 넘어가지 말고 보고하십시오.
+
+```text
+필요 수식/적분 방법을 재현할 근거 부족
+
+라이선스 불명확
+
+코드를 사용할 수 없음
+
+R=0.4 ground-state total BO 계산 의미를 복원할 수 없음
+
+필수 parameter가 논문 결과에 fit된 값인지 구분 불가능
+```
+
+이 경우 Pilot 상태:
+
+```text
+REPRESENTATION_PILOT1_FEASIBILITY_UNRESOLVED
+```
+
+로 종료하십시오.
+
+---
+
+# 3. 같은 물리만 비교
+
+A와 B에서 다음은 동일해야 합니다.
+
+```text
+H₂
+
+R
+
+두 proton
+
+두 electron
+
+clamped nuclei
+
+nonrelativistic Coulomb Hamiltonian
+
+singlet ground electronic state
+
+target spatial state = ¹Σg⁺
+
+total BO energy
+= electronic energy + nuclear repulsion 1/R
+
+atomic units
+```
+
+바꾸는 것은:
+
+```text
+전자 wavefunction의 finite representation
+```
+
+뿐입니다.
+
+---
+
+# 4. B에 Gaussian의 조건을 강제하지 말 것
+
+B에는 다음을 강제하면 안 됩니다.
+
+```text
+60 AO
+1830 singlet dimension
+cc-pVQZ contraction
+Gaussian orbital count
+```
+
+이것들은 A 표현의 내부 조건입니다.
+
+B는 자기 방식에 맞는 representation size를 사용합니다.
+
+다만 모든 representation size와 구조를 정확히 기록하십시오.
+
+---
+
+# 5. R=0.4를 첫 Pilot point로 고정
+
+처음에는:
+
+```text
+R = 0.4 bohr
+```
+
+한 점만 계산하십시오.
+
+이유:
+
+현재 discrepancy가 가장 뚜렷하고, Gaussian basis/conditioning 문제가 실제 관측된 지점이기 때문입니다.
+
+처음부터 전체 curve를 계산하지 마십시오.
+
+---
+
+# 6. B의 representation size를 최소 세 단계로 고정
+
+B는 최소:
+
+```text
+SMALL
+MEDIUM
+LARGE
+```
+
+세 표현 크기로 실행하십시오.
+
+James–Coolidge 구현이 `Ω`, polynomial order, basis count 등으로 크기를 정의한다면 해당 native parameter를 사용하십시오.
+
+가장 중요한 규칙:
+
+> **세 단계의 정의는 numerical 결과를 보기 전에 결정하고 봉인합니다.**
+
+가능하면 nested representation을 사용하십시오.
+
+nested가 아니면:
+
+```text
+nested = false
+```
+
+라고 명시하고 단순 monotonic convergence를 자동 가정하지 마십시오.
+
+각 단계에서 실제 함수 개수와 Hamiltonian dimension 등을 기록합니다.
+
+---
+
+# 7. reference에 맞춰 parameter를 조정하지 말 것
+
+다음은 금지입니다.
+
+```text
+Pachucki energy를 보고 nonlinear exponent 조절
+
+reference와 가까워질 때까지 basis size 변경
+
+결과를 본 뒤 SMALL/MEDIUM/LARGE 경계 변경
+
+실패 후 optimizer tolerance 변경
+```
+
+허용되는 것은:
+
+> **같은 representation 내부에서 자기 variational energy를 최소화하는 사전 정의된 최적화**
+
+입니다.
+
+단 최적화 알고리즘, 초기값, 종료 조건은 **실행 전에 봉인**하십시오.
+
+---
+
+# 8. Published optimized parameter 사용 시 별도 처리
+
+James–Coolidge 문헌의 이미 최적화된 nonlinear parameter를 가져다 사용할 경우:
+
+```text
+WARM-START / LITERATURE-SEEDED
+```
+
+라고 반드시 표시하십시오.
+
+이 경우 parameter를 찾는 비용이 이미 논문 연구 과정에 외부화되어 있으므로 **주 비용 비교에서 공짜로 취급하면 안 됩니다.**
+
+가능하면 두 비용을 분리하십시오.
+
+```text
+A. literature-seeded cost
+
+B. from predefined generic initialization cost
+```
+
+Primary comparison은 가능한 한 B 쪽입니다.
+
+---
+
+# 9. representation convergence와 arithmetic convergence를 분리
+
+이 Pilot의 핵심 중 하나입니다.
+
+두 축을 절대로 섞지 마십시오.
+
+## Representation convergence
+
+```text
+SMALL
+↓
+MEDIUM
+↓
+LARGE
+```
+
+에서 energy가 어떻게 변하는지 봅니다.
+
+## Arithmetic convergence
+
+**같은 representation을 고정한 채**:
+
+```text
+precision P1
+↓
+precision P2
+↓
+precision P3
+```
+
+에서 결과가 어떻게 변하는지 봅니다.
+
+즉:
+
+```text
+함수 공간을 늘려서 좋아진 것
+```
+
+과
+
+```text
+같은 함수를 더 정확하게 계산해서 좋아진 것
+```
+
+을 분리합니다.
+
+심층 리서치에서도 precision 변경과 공간 변경을 섞지 않는 것이 중요하다고 정리했습니다. h2_bo_r04_audit_ko
+
+---
+
+# 10. precision ladder
+
+B implementation이 arbitrary precision을 지원하면 최소 세 precision level을 사전 고정하십시오.
+
+정확한 bit/digit 수는 사용하는 구현의 자연스러운 precision 단위에 맞춰 정할 수 있습니다.
+
+예를 들어 구현이 decimal arbitrary precision이라면:
+
+```text
+P1
+P2
+P3
+```
+
+를 사전에 정하고 기록합니다.
+
+단:
+
+```text
+Pachucki 값에 맞을 때까지 precision 증가
+```
+
+는 금지입니다.
+
+종료 조건은 reference가 아니라 **자기 계산의 수렴 기준**이어야 합니다.
+
+---
+
+# 11. numerical guard
+
+가능한 범위에서 각 B 계산에 대해 다음을 기록하십시오.
+
+```text
+Hermiticity
+
+overlap / metric condition
+
+linear dependence
+
+normalization
+
+eigen residual
+
+state symmetry
+
+variational behavior
+
+precision sensitivity
+```
+
+James–Coolidge representation에 Gaussian의 orthogonality 계약이 그대로 적용되지 않는다면 억지로 복사하지 마십시오.
+
+대신 **동일한 목적을 가진 representation-native guard**를 정의하고 그 수학적 의미를 기록하십시오.
+
+---
+
+# 12. reference는 계산 후에만 사용
+
+가능하면 worker 계산 과정에는 high-precision reference를 넣지 마십시오.
+
+구조:
+
+```text
+representation 계산
+↓
+energy 확정
+↓
+결과 봉인
+↓
+그 후 별도 checker에서
+문헌 reference와 비교
+```
+
+로 유지하십시오.
+
+Pachucki/Sims 값은 optimizer 종료 조건으로 사용하지 않습니다.
+
+---
+
+# 13. R=0.4 성공 판정
+
+기존 physical criterion은 그대로:
+
+```text
+abs(E - reference) <= 0.001 Eh
+```
+
+입니다.
+
+단 이 기준 통과는:
+
+```text
+REPRESENTATION_PILOT_PHYSICAL_TARGET_MET
+```
+
+일 뿐입니다.
+
+다음을 뜻하지 않습니다.
+
+```text
+reference formally certified
+representation formally certified
+A foundation approved
+```
+
+---
+
+# 14. R=0.4에서 다음 단계로 갈 조건
+
+B의 가장 큰 representation이 다음을 만족하는 경우에만:
+
+```text
+필수 numerical guard 통과
+
+arithmetic precision 수렴 확인
+
+representation convergence의 방향/상태 설명 가능
+
+physical criterion 0.001 Eh 만족
+```
+
+R=1.4 / R=6.0으로 확장하십시오.
+
+하나라도 실패하면 자동 확장하지 말고 보고하십시오.
+
+---
+
+# 15. 추가 test points
+
+R=0.4 통과 후:
+
+```text
+R = 1.4 bohr
+R = 6.0 bohr
+```
+
+를 같은 protocol로 실행합니다.
+
+역할:
+
+```text
+R=0.4
+compressed / difficult
+
+R=1.4
+near equilibrium
+
+R=6.0
+separated regime
+```
+
+세 지점에서 동일 절차가 작동하는지 봅니다.
+
+세 점 성공은:
+
+```text
+전체 curve 인증
+```
+
+이 아닙니다.
+
+---
+
+# 16. Gaussian comparator
+
+비교에는 최소 다음을 포함하십시오.
+
+```text
+A-QZ
+A-V5Z
+B-small
+B-medium
+B-large
+```
+
+QZ와 V5Z 기존 결과는 보존합니다.
+
+가능하면 같은 하드웨어에서 기존 **변경 없는 Gaussian QZ/V5Z**를 한 번 fresh benchmark하여 wall/RSS 비교를 정렬할 수 있습니다.
+
+단 그것 때문에 기존 QZ audit 결과를 수정하지 마십시오.
+
+같은 환경에서 공정한 fresh run이 불가능하면 기존 비용 자료를 사용하고:
+
+```text
+NOT SAME-RUN COST COMPARISON
+```
+
+이라고 명시하십시오.
+
+---
+
+# 17. 비용 장부
+
+함수 개수 하나로 효율을 판단하지 마십시오.
+
+최소 다음을 분리합니다.
+
+```text
+전체 wall time
+
+peak memory
+
+representation size
+
+Hamiltonian dimension
+
+integral generation
+
+basis / parameter generation
+
+nonlinear optimization
+
+matrix build
+
+eigensolve
+
+validation/checking
+
+precision overhead
+
+failed/retry cost
+```
+
+B 방식은 복잡한 basis function 하나가 Gaussian 여러 개보다 훨씬 비쌀 수 있습니다.
+
+따라서:
+
+```text
+number of functions
+```
+
+만으로 비교하지 마십시오.
+
+---
+
+# 18. 구현 성숙도 비용을 별도로 기록
+
+Gaussian/PySCF는 이미 매우 성숙한 구현입니다.
+
+새 James–Coolidge prototype은 그렇지 않을 수 있습니다.
+
+따라서 wall time이 느리더라도:
+
+```text
+representation 자체가 느린지
+prototype implementation이 덜 최적화된 것인지
+```
+
+구분할 수 있도록 기록하십시오.
+
+가능하면:
+
+```text
+observed implementation cost
+
+algorithmic/scaling observations
+```
+
+를 별도로 작성하십시오.
+
+---
+
+# 19. 기존 QZ 미해결과 절대 섞지 말 것
+
+B가 매우 정확한 값을 얻더라도:
+
+```text
+기존 QZ numerical issue 해결
+```
+
+이라고 쓰지 마십시오.
+
+기존 QZ의:
+
+```text
+AO arithmetic
+MO transform
+same-basis disagreement
+reference uncertainty
+```
+
+는 그대로 별도 트랙입니다.
+
+B는 새로운 표현 후보입니다.
+
+---
+
+# 20. reference 독립성도 과장하지 말 것
+
+James–Coolidge 계열은 우리가 comparison reference로 보는 고정밀 H₂ 연구와 **수학적 계보를 공유할 수 있습니다.**
+
+따라서 B가 Pachucki/Sims 값과 매우 잘 맞아도:
+
+```text
+independent reference replication
+```
+
+이라고 자동 표현하지 마십시오.
+
+정확한 표현:
+
+```text
+representation candidate reproduces published high-precision value
+```
+
+정도로 제한합니다.
+
+---
+
+# 21. 이번 Pilot에서 금지
+
+다음은 하지 마십시오.
+
+```text
+production foundation 선택
+
+Gaussian 폐기
+
+QZ FAIL 소급 변경
+
+전체 H₂ curve 계산
+
+force
+
+nuclear dynamics
+
+H + H formation
+
+다전자 일반화
+
+다른 분자 일반화
+
+world integration
+```
+
+---
+
+# 22. 성공 기준
+
+이번 Pilot에서 최종적으로 알고 싶은 것은 두 가지입니다.
+
+첫 번째:
+
+> **같은 0.001 Eh 기준에 도달하는 데 Gaussian orbital FCI와 explicit-r12 representation 중 어느 쪽이 실제 구현에서 더 적은 총 자원을 사용하는가?**
+
+두 번째:
+
+> **표현 크기를 늘릴 때 어느 방식이 더 안정적이고 예측 가능한 convergence를 보이는가?**
+
+단 하나의 “승자”를 억지로 정할 필요는 없습니다.
+
+예:
+
+```text
+B가 H₂에서는 압도적으로 효율적
+하지만 generalization cost가 매우 큼
+```
+
+같은 결론도 유효합니다.
+
+---
+
+# 23. 확장성 경고
+
+Pilot 결과 보고서에는 반드시 별도 항목으로:
+
+```text
+H₂ 2-electron에서의 효율
+≠
+many-electron efficiency
+
+static electronic energy efficiency
+≠
+time-dependent dynamics efficiency
+```
+
+를 명시하십시오.
+
+특히 explicit correlation 방식이 전자 수 증가 시 어디서 계산량이 커지는지 조사하십시오.
+
+H₂에 특화된 매우 좋은 방법을 **A 전체 foundation**으로 착각하면 안 됩니다.
+
+---
+
+# 24. 최종 상태 분류
+
+가능하면 다음을 사용하십시오.
+
+```text
+REPRESENTATION_PILOT1_FEASIBILITY_PASS
+
+REPRESENTATION_PILOT1_FEASIBILITY_UNRESOLVED
+
+R04_REPRESENTATION_CONVERGENCE_SUPPORTED
+
+R04_TARGET_ACCURACY_MET
+
+R04_TARGET_ACCURACY_NOT_MET
+
+MULTI_R_POINT_REPRODUCTION_SUPPORTED
+
+COST_COMPARISON_AVAILABLE
+
+COST_COMPARISON_NOT_COMPARABLE
+
+GENERALIZATION_UNRESOLVED
+
+NOT_CERTIFIED
+
+NOT_PRODUCTION_APPROVED
+```
+
+---
+
+# 25. 최종 보고 형식
+
+보고서에는 최소한 다음 구조를 사용하십시오.
+
+```text
+GIT STATE
+
+B IMPLEMENTATION FEASIBILITY
+- source
+- method
+- license
+- dependencies
+- reproducibility
+- precision capability
+
+PHYSICAL CONTRACT
+- A/B 동일 물리 확인
+
+REPRESENTATION DEFINITIONS
+A-QZ
+A-V5Z
+B-small
+B-medium
+B-large
+
+PARAMETER OPTIMIZATION CONTRACT
+- initial values
+- optimizer
+- stop condition
+- reference leakage 여부
+
+R=0.4 RESULTS
+- representation size
+- precision
+- energy
+- numerical residuals
+- symmetry
+- wall
+- peak memory
+
+REPRESENTATION CONVERGENCE
+
+ARITHMETIC CONVERGENCE
+
+PHYSICAL REFERENCE COMPARISON
+
+R=1.4 RESULTS
+(조건 충족 시)
+
+R=6.0 RESULTS
+(조건 충족 시)
+
+COST COMPARISON
+
+SCALING / HIDDEN COST
+
+WHAT THIS PILOT SHOWS
+
+WHAT THIS PILOT DOES NOT SHOW
+
+FINAL CLASSIFICATION
+
+DESIGNER DECISION REQUIRED
+```
+
+---
+
+# 26. Git / 테스트
+
+작업 시작 전에:
+
+```text
+HEAD
+branch
+origin/master
+origin/codex/h2-qz-cause-v0
+dirty
+untracked
+```
+
+확인.
+
+현재 기대 기준:
+
+```text
+origin/master
+6c53eec71e981cef35f850095da76b965457866c
+
+parent audit commit
+982e6d80ed37ab118bc68c3191952b934361202a
+```
+
+새 branch 권장:
+
+```text
+codex/h2-representation-pilot1
+```
+
+기존 공용/production/frozen code를 수정하면:
+
+```bash
+pytest -n 6
+```
+
+LOCAL FULL.
+
+독립 pilot 코드와 문서만 추가하고 기존 계약이 불변이면 관련 시험으로 대체 가능합니다.
+
+commit 가능.
+
+**push는 하지 마십시오.**
+
+---
+
+## 모델 추천
+
+**GPT: GPT-5.6 Sol High**
+
+이유: 전자구조 representation 자체가 달라지고, variational optimization·수렴·비용 비교를 동시에 설계해야 합니다.
+
+적분 공식이나 James–Coolidge basis 구성 자체를 논문에서 재유도해야 해서 High에서 막힐 경우에만 **Extra High**를 고려하십시오.
+
+**Claude: Opus 5.5 High**
+
+이유: 새로운 representation의 수학적 의미, 구현 가능성, hidden cost까지 함께 봐야 합니다.
+
+구조가 고정된 뒤 단순 구현·시험·문서 단계에서는 **Sonnet 5.5 Medium~High**로 낮추는 게 낫습니다.
+
+---
+
+핵심만 한 줄로 다시 쓰면:
+
+> **“Gaussian 붓을 계속 수백 개 추가하는 것과, \(r_{12}\)라는 필요한 모양을 직접 표현하는 도구를 쓰는 것 중 어느 쪽이 같은 정확도에 더 효율적으로 도달하는지 실제 계산으로 비교하라. 단, 물리는 같게 하고 reference에 맞춘 튜닝은 금지한다.”**
+
+이게 이번 Pilot 1의 목적이다.

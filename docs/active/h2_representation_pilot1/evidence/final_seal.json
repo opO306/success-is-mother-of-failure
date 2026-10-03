@@ -1,0 +1,29 @@
+{
+  "purpose": "Feasibility evidence/documentation content seal; NOT a numerical execution contract",
+  "captured_UTC": "2026-10-03T07:37:13.376979+00:00",
+  "parent_commit": "982e6d80ed37ab118bc68c3191952b934361202a",
+  "B_numerical_calls": 0,
+  "bound_sha256": {
+    "worktree:docs/active/h2_representation_pilot1/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "worktree:docs/active/h2_representation_pilot1/evidence/cost_comparison.json": "8e1b1eca57d23ffe973437c6dfbe62ac3d78391a88b108f8ef32e3376def7c06",
+    "worktree:docs/active/h2_representation_pilot1/evidence/designer_instruction.txt": "67cad00c004e4c86945cb6739c033b52730ac5ee28ca910f5e625c172624d770",
+    "worktree:docs/active/h2_representation_pilot1/evidence/feasibility.json": "4b55314029adab9b6e87927b9be9d9bf25c8da282e8802630cc53d0d997a3942",
+    "worktree:docs/active/h2_representation_pilot1/evidence/git_start.json": "d5d8d643bbf3de9af4129be9f65ba38d29ffd96ed4b381c591c6cc48394b9a1b",
+    "worktree:docs/active/h2_representation_pilot1/evidence/historical_provenance.json": "646bb88238e09f1f24c13648baeb9b7b51e4b31129220362e48b367c098f03b7",
+    "worktree:docs/active/h2_representation_pilot1/evidence/historical_QZ_result.json": "e525c862c8b637b85a7617c2dee7ee518c478327345e548a78ff76425dbdc784",
+    "worktree:docs/active/h2_representation_pilot1/evidence/historical_V5Z_result.json": "980b2526ef9f930149fceb07d6bfd075f54b541178c5b518f7d5a28a8560989a",
+    "worktree:docs/active/h2_representation_pilot1/evidence/parent_protection.json": "c86d0f4848cc15e03d4d9408f5d928231097960749037ae21464521a05860325",
+    "worktree:docs/active/h2_representation_pilot1/evidence/primary_metadata_acquisition.json": "5c3bb7c9857ff8a2d43aa7de5cc2691e710ed06f0143056333d00cef0e55cbc4",
+    "worktree:docs/active/h2_representation_pilot1/evidence/reused_primary_provenance.json": "660427648bfcf75dcc81045b280189e09e4752d99f838082169a4426dbdb5d36",
+    "worktree:docs/active/h2_representation_pilot1/evidence/source_access_attempts.json": "de17acfe12502f2116c3c2e847797c0c75f84750adedd8df1ab1a1c68a7c0ec4",
+    "worktree:docs/active/h2_representation_pilot1/REPORT.md": "32459fdaed811d978eb643d8b52d1054fa28482ea44646e08a5927666845a619",
+    "worktree:tests/h2_representation_pilot1/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "worktree:tests/h2_representation_pilot1/test_evidence.py": "dacb9407f6f9308db0ec70b3d97e648eb0b310cd5313acd4239cc4ba92baa0df"
+  },
+  "parent_protected_bindings": 1269,
+  "post_seal_supplements": [
+    "verification.json",
+    "validation_seal.json"
+  ],
+  "STOP": true
+}

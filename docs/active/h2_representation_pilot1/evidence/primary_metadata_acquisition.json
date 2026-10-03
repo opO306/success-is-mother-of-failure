@@ -1,0 +1,44 @@
+{
+  "records": [
+    {
+      "name": "datacite_H2SOLV",
+      "url": "https://api.datacite.org/dois?query=H2SOLV",
+      "status": 200,
+      "final_url": "https://api.datacite.org/dois?query=H2SOLV",
+      "bytes": 6445,
+      "sha256": "c6764dde4a8f254feb8126033798f4d47b564f4bf4f858923d3f9ce78be0c872",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\datacite_H2SOLV.raw",
+      "evidence_origin": "fresh HTTP response bytes"
+    },
+    {
+      "name": "crossref_H2SOLV",
+      "url": "https://api.crossref.org/works/10.1016/j.cpc.2016.07.024",
+      "status": 200,
+      "final_url": "https://api.crossref.org/works/10.1016/j.cpc.2016.07.024",
+      "bytes": 6948,
+      "sha256": "a3f659b2f7716fe9ba3d56a2f2c8c4176d149a0a8d5269022b197e4c87869751",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\crossref_H2SOLV.raw",
+      "evidence_origin": "fresh HTTP response bytes"
+    },
+    {
+      "name": "author_code_listing",
+      "url": "https://users.fuw.edu.pl/~krp/codes.html",
+      "status": 200,
+      "final_url": "https://users.fuw.edu.pl/~krp/codes.html",
+      "bytes": 1673,
+      "sha256": "9b0297b81a333833502d51260b271716ee945ba0df404054bd2d1123993ee617",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\author_code_listing.raw",
+      "evidence_origin": "fresh HTTP response bytes"
+    },
+    {
+      "name": "CPC_license",
+      "url": "https://www.elsevier.com/about/policies-and-standards/open-access-licenses/elsevier-user/cpc",
+      "status": 200,
+      "final_url": "https://www.elsevier.com/about/policies-and-standards/open-access-licenses/elsevier-user/cpc",
+      "bytes": 191307,
+      "sha256": "dc73ce3ddb38af8c64d3094e36ed6c19a4f3d04dc60ef9b48617753a99249ebf",
+      "raw_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\feasibility_v0\\CPC_license.raw",
+      "evidence_origin": "fresh HTTP response bytes"
+    }
+  ]
+}

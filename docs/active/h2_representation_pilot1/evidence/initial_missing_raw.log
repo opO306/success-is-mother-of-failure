@@ -1,0 +1,135 @@
+...............................................F........F.FEEE.......... [ 74%]
+.........................                                                [100%]
+=================================== ERRORS ====================================
+__________ ERROR at setup of test_full_native_overlap_function_norms __________
+
+    @pytest.fixture(scope='module')
+    def data():
+>       assert (ROOT/'postcheck.json').is_file(), 'actual independent native run evidence required'
+E       AssertionError: actual independent native run evidence required
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = (WindowsPath('runs/h2_adversarial_v0/libint_v0') / 'postcheck.json').is_file
+
+tests\h2_adversarial_v0\test_native_analytic.py:10: AssertionError
+_ ERROR at setup of test_single_primitive_kinetic_against_analytic_harmonics __
+
+    @pytest.fixture(scope='module')
+    def data():
+>       assert (ROOT/'postcheck.json').is_file(), 'actual independent native run evidence required'
+E       AssertionError: actual independent native run evidence required
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = (WindowsPath('runs/h2_adversarial_v0/libint_v0') / 'postcheck.json').is_file
+
+tests\h2_adversarial_v0\test_native_analytic.py:10: AssertionError
+___ ERROR at setup of test_single_primitive_s_nuclear_and_coulomb_analytic ____
+
+    @pytest.fixture(scope='module')
+    def data():
+>       assert (ROOT/'postcheck.json').is_file(), 'actual independent native run evidence required'
+E       AssertionError: actual independent native run evidence required
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = (WindowsPath('runs/h2_adversarial_v0/libint_v0') / 'postcheck.json').is_file
+
+tests\h2_adversarial_v0\test_native_analytic.py:10: AssertionError
+================================== FAILURES ===================================
+_________ test_all_previous_and_executed_phase_source_bytes_unchanged _________
+
+    def test_all_previous_and_executed_phase_source_bytes_unchanged():
+        seal=read(BASE/'conditioning_and_symmetry_diagnostic_v0_seal.json')
+>       assert verify(seal['bound_sha256'],Path.cwd(),main_root())==1178
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\h2_adversarial_v0\test_evidence.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+bindings = {'worktree:docs/active/h2_ao_micro_v0/.gitattributes': '8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca1549...docs/active/h2_ao_micro_v0/B_v1_results.json': 'affe33299baab3b1167a3726f7103ec3427127ee9f82d0d6a0ab17340e0d7311', ...}
+root = WindowsPath('C:/Users/zun24/.codex/worktrees/h2-representation-pilot1/성공은 실패의 어머니')
+main = WindowsPath('C:/Users/zun24/성공은 실패의 어머니')
+
+    def verify(bindings, root, main):
+        for key, expected in bindings.items():
+            kind, relative = key.split(':', 1)
+            if kind not in ('worktree', 'main'):
+                raise ValueError('unsupported binding ' + key)
+            path = Path(root if kind == 'worktree' else main) / relative
+            if not path.is_file() or sha(path) != expected:
+>               raise ValueError('BYTE DRIFT ' + key)
+E               ValueError: BYTE DRIFT worktree:tests/test_h2_ao_micro_v0.py
+
+electronic_pilot\frontend_reference_v0\audit.py:43: ValueError
+___ test_reference_primary_inventory_and_lineage_not_counted_as_independent ___
+
+    def test_reference_primary_inventory_and_lineage_not_counted_as_independent():
+        ledger=read(BASE/'reference_ledger.json');assert ledger['status']=='REFERENCE_SIDE_UNRESOLVED'
+        ndeke=ledger['sources'][2];path='runs/h2_adversarial_v0/reference_acquisition_v1/Ndeke_primary.pdf'
+>       assert ndeke['primary_pdf_sha256']==sha(path)
+                                            ^^^^^^^^^
+
+tests\h2_adversarial_v0\test_evidence.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+electronic_pilot\frontend_reference_v0\audit.py:30: in sha
+    with Path(path).open('rb') as stream:
+         ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('runs/h2_adversarial_v0/reference_acquisition_v1/Ndeke_primary.pdf')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'runs\\h2_adversarial_v0\\reference_acquisition_v1\\Ndeke_primary.pdf'
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError
+____________ test_packaged_summary_reconciles_with_actual_workers _____________
+
+    def test_packaged_summary_reconciles_with_actual_workers():
+        row=read(BASE/'summary.json')
+        for key in ('DZ','TZ','QZ','V5Z','uncontracted_QZ'):
+>           assert row['cardinal'][key]==read('runs/h2_adversarial_v0/cardinal_v0/'+key+'/result.json')
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\h2_adversarial_v0\test_evidence.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+electronic_pilot\frontend_reference_v0\audit.py:17: in read
+    return json.loads(Path(path).read_text(encoding='utf-8'))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('runs/h2_adversarial_v0/cardinal_v0/DZ/result.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'runs\\h2_adversarial_v0\\cardinal_v0\\DZ\\result.json'
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/h2_adversarial_v0/test_evidence.py::test_all_previous_and_executed_phase_source_bytes_unchanged
+FAILED tests/h2_adversarial_v0/test_evidence.py::test_reference_primary_inventory_and_lineage_not_counted_as_independent
+FAILED tests/h2_adversarial_v0/test_evidence.py::test_packaged_summary_reconciles_with_actual_workers
+ERROR tests/h2_adversarial_v0/test_native_analytic.py::test_full_native_overlap_function_norms
+ERROR tests/h2_adversarial_v0/test_native_analytic.py::test_single_primitive_kinetic_against_analytic_harmonics
+ERROR tests/h2_adversarial_v0/test_native_analytic.py::test_single_primitive_s_nuclear_and_coulomb_analytic
+3 failed, 91 passed, 3 errors in 2.96s

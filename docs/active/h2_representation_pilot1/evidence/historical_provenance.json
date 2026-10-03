@@ -1,0 +1,19 @@
+{
+  "parent_commit": "982e6d80ed37ab118bc68c3191952b934361202a",
+  "copies": [
+    {
+      "arm": "A-QZ",
+      "source_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_adversarial_v0\\cardinal_v0\\QZ\\result.json",
+      "copy": "historical_QZ_result.json",
+      "sha256": "e525c862c8b637b85a7617c2dee7ee518c478327345e548a78ff76425dbdc784",
+      "fresh_run": false
+    },
+    {
+      "arm": "A-V5Z",
+      "source_path": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_adversarial_v0\\cardinal_v0\\V5Z\\result.json",
+      "copy": "historical_V5Z_result.json",
+      "sha256": "980b2526ef9f930149fceb07d6bfd075f54b541178c5b518f7d5a28a8560989a",
+      "fresh_run": false
+    }
+  ]
+}

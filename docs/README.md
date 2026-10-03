@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ Representation Comparison Pilot 1](active/h2_representation_pilot1/REPORT.md)는
+기존 QZ 감사와 분리된 explicit-r12 후보 feasibility 조사다.
+배포/제한 라이선스 확인, source 접근 세 경로 실패 뒤 B 구현·계산 전 STOP.
+FEASIBILITY_UNRESOLVED / COST_NOT_COMPARABLE / NOT_CERTIFIED / production 미승인.
+과거 QZ/V5Z 원본 hash를 확인했으며 이번 numerical run은 없다.
+
 [H₂ R=0.4 Same-Basis Independent Reconstruction V0](active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md)는
 설계자 보완 계약을 먼저 봉인한 실제 두-arm 실행이다. 같은 AO60/singlet1830, 자체 C,
 113-bit direct 경로의 mandatory guards는 accepted2. 그러나 L–I1.12513e-9>기존1e-9로

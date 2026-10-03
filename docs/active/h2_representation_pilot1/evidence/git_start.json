@@ -1,0 +1,16 @@
+{
+  "HEAD": "982e6d80ed37ab118bc68c3191952b934361202a",
+  "branch": "codex/h2-representation-pilot1",
+  "origin_master": "6c53eec71e981cef35f850095da76b965457866c",
+  "origin_parent_branch": "982e6d80ed37ab118bc68c3191952b934361202a",
+  "live_remote_verified_in_tool_output": {
+    "master": "6c53eec71e981cef35f850095da76b965457866c",
+    "codex/h2-qz-cause-v0": "982e6d80ed37ab118bc68c3191952b934361202a"
+  },
+  "dirty": false,
+  "untracked": [],
+  "push_authorized": false,
+  "parent_worktree": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+  "pilot_worktree": "C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+  "captured_UTC": "2026-10-03T07:22:44.522529+00:00"
+}
