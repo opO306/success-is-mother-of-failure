@@ -1,0 +1,15 @@
+{
+  "vector": {
+    "shape": [
+      1830
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+    "array_sha256": "a3495c5f03cdefe3c82175490e463928386d134fd5c5d48875599b2808cc381a",
+    "array_nbytes": 14640
+  },
+  "basis_mapping_sha256": "a76581efbad63cbd119f83a200f1bad07b18f71cdaecff3cad420a24a68b2523",
+  "input_seal_sha256": "57eb664224626a4ac3cdbb6da16963bde87bdde8fbf8a233d1c450bd98652485",
+  "no_vector_adjustment": true
+}

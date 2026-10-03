@@ -1,0 +1,27 @@
+{
+  "h": {
+    "shape": [
+      60,
+      60
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "01861527c9839e6a357d3eb389278dff162e96c5c09220476d8405255cc822c4",
+    "array_sha256": "052e348a12072c6b598e3f9972ca7bca4b0a4d3aa6853c878d5ab3ed838e160a",
+    "array_nbytes": 28800
+  },
+  "g": {
+    "shape": [
+      60,
+      60,
+      60,
+      60
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "3d9b5c196e0fddbdd56eeee0748dd53ebec520281266b334372d218d5f3129ff",
+    "array_sha256": "27f16faaef7bffdaf35e8ba6a2e5767126eca9a14459692d7919e1ab1f4b5026",
+    "array_nbytes": 103680000
+  },
+  "source": "unchanged preceding audit saved MO"
+}

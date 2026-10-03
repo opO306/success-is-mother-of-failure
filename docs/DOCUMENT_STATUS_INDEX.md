@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md](active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md):
+R=0.4 same-MO full1830 ground-state action/eigensolve SUPPORTED, reproduced sealed-replay vector.
+AO/MO/basis physical accuracy UNRESOLVED / NOT CERTIFIED / QZ44 NUMERICAL FAIL 유지.
+성공 후 STOP / DESIGNER DECISION REQUIRED / production 미적용.
+
 [H2_R04_CI_LAYER_MICRO_AUDIT_V0.md](active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md):
 R=0.4 only, CI state/element/action 감사. Original direct-pair vs independent SC 검사 범위
 SUPPORTED, 이전 determinant action packing 반례 CONFIRMED. 첫 mismatch에서 STOP,

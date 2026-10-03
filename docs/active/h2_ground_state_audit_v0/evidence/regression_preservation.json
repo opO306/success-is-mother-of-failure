@@ -1,0 +1,22 @@
+{
+  "source": "docs\\active\\h2_ci_layer_audit_v0\\evidence\\counterexample.json",
+  "source_sha256": "5b83f96032a696a060be049ef80b81c420f9d25f90c719bb37c449bfa791c414",
+  "immutable_prior_values": {
+    "bra": [
+      39,
+      50
+    ],
+    "ket": [
+      50,
+      50
+    ],
+    "existing_direct_pair": -4.231303534059128,
+    "independent_SC": -4.231303534059129,
+    "prior_action": -4.231297967351358,
+    "absolute_difference": 5.566707771187396e-06
+  },
+  "new_batch_SC_value": -4.231303534059128,
+  "new_minus_frozen_SC": 8.881784197001252e-16,
+  "prior_counterexample_not_overwritten": true,
+  "old_invalid_action_not_repaired": true
+}

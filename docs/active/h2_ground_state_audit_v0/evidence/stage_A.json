@@ -1,0 +1,67 @@
+{
+  "l2": 2.3684997045187707e-14,
+  "linf": 9.992007221626409e-15,
+  "maximum_index": 2,
+  "maximum_state": {
+    "pair": [
+      0,
+      2
+    ],
+    "occupation": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "S": 0,
+    "Ms": 0,
+    "normalization": "open_1_over_sqrt2",
+    "determinants": [
+      {
+        "occupied": [
+          0,
+          5
+        ],
+        "sign": 1
+      },
+      {
+        "occupied": [
+          1,
+          4
+        ],
+        "sign": -1
+      }
+    ]
+  },
+  "H_SC_v": -0.7461649959642097,
+  "E_v": -0.7461649959641997,
+  "difference": -9.992007221626409e-15,
+  "vector_l2": 1.0000000000000002,
+  "vector_norm_error": 4.440892098500626e-16,
+  "rayleigh_quotient": -2.6180311336215683,
+  "hamiltonian_asymmetry": 2.220446049250313e-16,
+  "guards": {
+    "Smin_floor": 1e-10,
+    "orth_l2_max": 1e-10,
+    "H_asym_max": 1e-10,
+    "eigen_l2_max": 1e-09,
+    "norm_max": 1e-10
+  },
+  "assembly_seconds": 21.873066915000003,
+  "matrix_array_sha256": "cc2c1f58f47cb3bb35957b7fdff17f69a098bded635e81596cbc251dca4a958c",
+  "canonical_vector": {
+    "shape": [
+      1830
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+    "array_sha256": "a3495c5f03cdefe3c82175490e463928386d134fd5c5d48875599b2808cc381a",
+    "array_nbytes": 14640
+  },
+  "classification": "GROUND_STATE_ACTION_EQUIVALENCE_SUPPORTED"
+}

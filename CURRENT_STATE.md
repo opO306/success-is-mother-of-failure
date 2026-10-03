@@ -4,6 +4,19 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ R=0.4 Ground-State Independent Validation V0(2026-10-03):**
+[전체 ground-state 독립 검증·설계자 결정](docs/active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md).
+기존 QZ44가 원래 vector를 저장하지 않았음을 공개하고 설계자 허용 후 동일 저장 MO/봉인된
+direct builder/evr로 energy bitwise 재현. v_direct_reproduced를 별도 hash 봉인했다.
+Full1830 독립 raw-MO SC action residual2.3685e-14≤기존1e-9:
+GROUND_STATE_ACTION_EQUIVALENCE_SUPPORTED. A 통과 뒤 힌트 없는 NumPy full-spectrum
+eigh(_syevd) energy 차이4.4409e-15≤기존1e-9, residual2.2289e-14:
+INDEPENDENT_GROUND_STATE_ENERGY_SUPPORTED. Physical reference 차이0.00219921>기존0.001 유지.
+같은 MO 공유: AO/MO/변환/finite-basis physical 원인 UNRESOLVED / NOT CERTIFIED.
+기존 packed 반례·QZ44 FAIL·원본972 bindings 불변, numerical 연구 STOP.
+Windows147/WSL150 passed, failure/error/skip0. LOCAL FULL 생략 / 새 분석·시험·문서,
+관련 시험 대체 / 공식 기준선 불변. DESIGNER DECISION REQUIRED, production 미승인, push 없음.
+
 **H₂ R=0.4 CI-Layer Micro-Audit V0(2026-10-03):**
 [단일 action 반례·원인·설계자 결정](docs/active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md).
 요청한 ab0d3f2/기존 H₂ worktree에서 같은 저장 MO로 basis1830 대응, 선택8 원소,

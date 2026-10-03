@@ -1,0 +1,9 @@
+/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/numpy/__config__.py:155: UserWarning: Install `pyyaml` for better output
+  warnings.warn("Install `pyyaml` for better output", stacklevel=1)
+/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/scipy/__config__.py:167: UserWarning: Install `pyyaml` for better output
+  warnings.warn("Install `pyyaml` for better output", stacklevel=1)
+REPLAY INPUT ACCEPTED; energy bitwise equality; vector sealed
+independent SC rows 1248 / 1830
+independent SC rows 1830 / 1830
+STAGE A GROUND_STATE_ACTION_EQUIVALENCE_SUPPORTED L2 2.3684997045187707e-14
+STAGE B INDEPENDENT_GROUND_STATE_ENERGY_SUPPORTED E -2.6180311336215656 difference 4.440892098500626e-15

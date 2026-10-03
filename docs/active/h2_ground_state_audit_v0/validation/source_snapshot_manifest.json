@@ -1,0 +1,13 @@
+{
+  "electronic_pilot__ground_state_audit_v0____init__.py.txt": "e936740f1b02dc5d88a4a104a77eafd070753b6e1b71346d020a706e9ea78f2b",
+  "electronic_pilot__ground_state_audit_v0__DERIVATION.md.txt": "44d7ad688c7c635e6cec941ab3bedc1a425bdcfb7426308971d84261cd6cd70a",
+  "electronic_pilot__ground_state_audit_v0__io.py.txt": "25ddcf04d5d23a190f131bf4808a2c60e9b8d6bbfa808f1767ecd496890bbfac",
+  "electronic_pilot__ground_state_audit_v0__operator.py.txt": "4784f94215bcd956d93cfd16a65a31c93211bcdd64329a0e30924165bfd0ef60",
+  "electronic_pilot__ground_state_audit_v0__postprocess.py.txt": "75cff97804397ddb8734ce696057fc2ada532496710f9301723608fbea7c8a59",
+  "electronic_pilot__ground_state_audit_v0__protocol.json.txt": "6592953e3c19646cc989deeba2604d129fc48d950c3cf5a4b20cf5dad59aed42",
+  "electronic_pilot__ground_state_audit_v0__replay.py.txt": "b4d6ebfcf993b643dac532392fe0d245f4a204e0314d3117b50ced6bd3aacec9",
+  "electronic_pilot__ground_state_audit_v0__run.py.txt": "4707bd03bac092a29a32758f26fc5d6bd17c2019529ef782b9f81981a8b2a258",
+  "electronic_pilot__ground_state_audit_v0__seal.py.txt": "838e11e0543307cd449bea12a0d08021bed4283ddc88faa5cc3465e7d913dccd",
+  "tests__h2_ground_state_audit_v0__test_evidence.py.txt": "54cb693577e1e5505ea99c4c15766b614e06821931302a6d74c82aa255bdab25",
+  "tests__h2_ground_state_audit_v0__test_operator.py.txt": "ce4669f6f77e236bd8f40317174c825f226a7bb5fc642135ba3d13cb9a047a99"
+}

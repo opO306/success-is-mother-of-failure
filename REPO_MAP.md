@@ -20,6 +20,16 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/ground_state_audit_v0/`는 R=0.4의 저장 MO에서 실제 ground-state 전체를
+독립 raw-MO Slater–Condon action과 NumPy full-spectrum eigensolve로 확인하는 분석이다.
+`replay.py`만 기존 direct builder/evr를 써 누락 vector를 재현하고, 독립 `operator.py`는
+기존 CI builder/action/packed FCI를 사용하지 않는다. `seal.py`는 전후 byte 기준,
+`postprocess.py`는 A/B 뒤 physical 비교·증거 포장이다. 새 분석이며 production 경로가 아니다.
+[전체 ground-state 검증](docs/active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md),
+`tests/h2_ground_state_audit_v0/`, raw `runs/h2_ground_state_audit_v0/`, compact
+`docs/active/h2_ground_state_audit_v0/`. CI/action/eigen SUPPORTED, AO/MO/basis UNRESOLVED.
+기존 `electronic_pilot/ci_layer_audit_v0/`의 독립 fermion 정의와 frozen 반례는 보존한다.
+
 새 독립 분석 `electronic_pilot/failure_cause_v0/`는 저장된 C/S의 exact dyadic residual
 감사·adaptive interval guard prototype·same-basis determinant CI 후보다.
 `failure_cause_summary_v0.py`는 중단된 실행을 수정 없이 포장하는 postprocessor다.

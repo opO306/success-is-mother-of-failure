@@ -1,0 +1,20 @@
+{
+  "classification": "INDEPENDENT_GROUND_STATE_ENERGY_SUPPORTED",
+  "R_bohr": 0.4,
+  "stage_A": "GROUND_STATE_ACTION_EQUIVALENCE_SUPPORTED",
+  "wall_seconds": 26.929067189,
+  "cpu_seconds": 24.080868044000002,
+  "peak_rss_bytes": 365113344,
+  "scope": "replay export plus independent full CI action/conditional eigensolve; same saved MO; 1 valid approach",
+  "critical_bindings_checked": 14,
+  "not_certified": true,
+  "designer_decision_required": true,
+  "unresolved": [
+    "AO precision",
+    "AO-to-MO transformation",
+    "MO accuracy including pair interchange",
+    "finite-basis physical accuracy"
+  ],
+  "QZ44_gate": "NUMERICAL FAIL unchanged",
+  "stop": true
+}

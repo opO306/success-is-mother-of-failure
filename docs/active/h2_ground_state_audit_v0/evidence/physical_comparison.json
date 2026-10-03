@@ -1,0 +1,16 @@
+{
+  "R_bohr": 0.4,
+  "nuclear_repulsion_hartree": 2.5,
+  "direct_BO": -0.11803113362157003,
+  "independent_BO": -0.11803113362156559,
+  "Pachucki_BO": "-0.120230341178823",
+  "published_uncertainty_hartree": "0.000000000000015",
+  "direct_signed_difference": "0.00219920755725297",
+  "independent_signed_difference": "0.00219920755725741",
+  "original_criterion": "0.001",
+  "direct_within_criterion": false,
+  "independent_within_criterion": false,
+  "classification": "PHYSICAL_COMPARISON_FAIL_AT_R04; cause UNRESOLVED; prior QZ44 NUMERICAL FAIL unchanged",
+  "no_basis_cause_inference": true,
+  "performed_only_after_AB": true
+}

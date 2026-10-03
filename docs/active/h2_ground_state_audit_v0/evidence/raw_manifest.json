@@ -1,0 +1,122 @@
+{
+  "source": "runs\\h2_ground_state_audit_v0\\validation_v0",
+  "files": {
+    "basis_mapping.json": {
+      "sha256": "a76581efbad63cbd119f83a200f1bad07b18f71cdaecff3cad420a24a68b2523",
+      "bytes": 1025126,
+      "committed_as_compact_evidence": true
+    },
+    "canonical_vector_seal.json": {
+      "sha256": "f559784b5af5f3793d7492a4339c7dd59e03446a15f5c884407e4d7529812e4b",
+      "bytes": 521,
+      "committed_as_compact_evidence": true
+    },
+    "direct_state_order.npy": {
+      "sha256": "4ac593314a03a75706a4dd87497875782a66b395f8aaa4a397905d9851761711",
+      "bytes": 29408,
+      "committed_as_compact_evidence": true
+    },
+    "E_independent_all.npy": {
+      "sha256": "ddd1270d941f7e7ed9d1511115a8520422738121d36ef3e18c73eec6c5734978",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "execution_seal.json": {
+      "sha256": "9a9d8b3de16372c78a92e1730d720bf893389c534f451d41fc147dfa593825f5",
+      "bytes": 134451,
+      "committed_as_compact_evidence": true
+    },
+    "H_SC.npy": {
+      "sha256": "8c96b0a559078dcfb5c02e55073c33645e31e558869f15f915d58ee5e35fa956",
+      "bytes": 26791328,
+      "committed_as_compact_evidence": false
+    },
+    "H_SC_v_direct.npy": {
+      "sha256": "774541619fd31b9b3466da73c12d4bfecadd3b321e099ab211663d43ea632f50",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "MO_input.json": {
+      "sha256": "b99a2e2adfd4e9425735aa896b4f3fdf8dc4a4ff35c355bdb7848f72911e88e4",
+      "bytes": 685,
+      "committed_as_compact_evidence": true
+    },
+    "physical_comparison.json": {
+      "sha256": "79bcaf36ea841c307ebca1095cba9f4be8bc71d96d4c29e48df51cb45e0dd425",
+      "bytes": 632,
+      "committed_as_compact_evidence": true
+    },
+    "postcomparison_seal.json": {
+      "sha256": "78aef719500c327f41269e22805987b3dc023ffd88c8a5cca8457b86c1bbe1aa",
+      "bytes": 516,
+      "committed_as_compact_evidence": true
+    },
+    "preservation.json": {
+      "sha256": "173617bebac9c0392367790481fdd3e5d8e7f2e5961a5bcec09f77086a03a362",
+      "bytes": 158,
+      "committed_as_compact_evidence": true
+    },
+    "regression_preservation.json": {
+      "sha256": "4b6fa27981a26979aabde64a6fbbecc62b40289084c833515291d3790cea22a7",
+      "bytes": 646,
+      "committed_as_compact_evidence": true
+    },
+    "replay.json": {
+      "sha256": "dc28fd3bca32542dd14eeb9aeb314e80420e2c770b195afa800c9fa8e8e247ef",
+      "bytes": 1436,
+      "committed_as_compact_evidence": true
+    },
+    "runtime.json": {
+      "sha256": "97e23f500f914c4f00c8dd74a05ed65d1783e3e346d4c8631927427fe60e6dd4",
+      "bytes": 5253,
+      "committed_as_compact_evidence": true
+    },
+    "stage_A.json": {
+      "sha256": "4c0b9c54fbc8ac759fa97905881b7c60215cc58e7b5a3ef0edc0cf5d12289479",
+      "bytes": 1470,
+      "committed_as_compact_evidence": true
+    },
+    "stage_A_residual.npy": {
+      "sha256": "67e5489bc0b2ae56b0d3951fdc7c5439b1e00718e6b3ee373989ea9d5161c0b0",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "stage_B.json": {
+      "sha256": "78d0e57d3f13b7e6c0a26c7f332e4e778745a8f9dc829422a68a2007eb1af35d",
+      "bytes": 1963,
+      "committed_as_compact_evidence": true
+    },
+    "stage_B_residual.npy": {
+      "sha256": "bb698ee281e0d68cffb38980a32ad5e8671ab8a4a0887778f0fe9039b39f7ef0",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "summary.json": {
+      "sha256": "b0428461533cfa7dbacb058c097d86b6286501b0e38ee74e7e3c170604b40fae",
+      "bytes": 673,
+      "committed_as_compact_evidence": true
+    },
+    "v_direct_canonical.npy": {
+      "sha256": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "v_direct_reproduced.npy": {
+      "sha256": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "v_independent.npy": {
+      "sha256": "7b1794f05965da13700648c570988925f0cac2a71cebd13012dac9bc220d8789",
+      "bytes": 14768,
+      "committed_as_compact_evidence": true
+    },
+    "vector_input_seal.json": {
+      "sha256": "57eb664224626a4ac3cdbb6da16963bde87bdde8fbf8a233d1c450bd98652485",
+      "bytes": 730,
+      "committed_as_compact_evidence": true
+    }
+  },
+  "raw_matrix_retained_outside_git": true,
+  "saved_MO_inputs_retained_in_preceding_raw_audit": true
+}

@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ R=0.4 Ground-State Independent Validation V0](active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md)는
+누락된 direct vector의 sealed replay/bitwise energy 재현, full1830 independent SC action,
+힌트 없는 full-spectrum 최저 energy 일치를 기록한다. CI ground-state 계층 SUPPORTED;
+같은 MO를 공유하므로 AO/MO/finite-basis 원인 UNRESOLVED, QZ44 FAIL/NOT CERTIFIED 유지.
+수치 연구 STOP / DESIGNER DECISION REQUIRED, production 승인 아님.
+
 [H₂ R=0.4 CI-Layer Micro-Audit V0](active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md)는
 original direct-pair와 독립 Slater–Condon의 검사 범위 일치, 이전 determinant action의
 단일 반례를 보존한다. h1e 흡수 뒤 fourfold packing 정보 손실을 분리했고 첫 mismatch에서

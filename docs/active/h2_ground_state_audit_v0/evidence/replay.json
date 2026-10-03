@@ -1,0 +1,39 @@
+{
+  "provenance": "REPRODUCED_FROM_SEALED_REPLAY; original QZ44 vector was not archived",
+  "driver": "scipy.linalg.eigh subset_by_index=(0,1), driver=evr",
+  "E_direct": -2.61803113362157,
+  "E_replayed": -2.61803113362157,
+  "archived_energy_hex": "-0x1.4f1ba4e9683fep+1",
+  "replayed_energy_hex": "-0x1.4f1ba4e9683fep+1",
+  "energy_bitwise_equal": true,
+  "matrix_array_sha256": "962728b4eb767976d19cdbe8147bc5d36a755f807e4aa99ece53de57bd7b5124",
+  "matrix_asymmetry": 1.7763568394002505e-15,
+  "residual_l2": 2.3698840968310653e-14,
+  "vector_norm_error": 4.440892098500626e-16,
+  "next_singlet_gap": 0.7168930839894299,
+  "archived_next_singlet_gap": null,
+  "gap_comparison": "UNAVAILABLE: QZ44 path did not record its second eigenvalue or gap",
+  "seconds": 0.5841199020000003,
+  "status": "REPLAY_INPUT_ACCEPTED",
+  "vector": {
+    "shape": [
+      1830
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+    "array_sha256": "a3495c5f03cdefe3c82175490e463928386d134fd5c5d48875599b2808cc381a",
+    "array_nbytes": 14640
+  },
+  "ordering": {
+    "shape": [
+      1830,
+      2
+    ],
+    "dtype": "<i8",
+    "byte_order": "little",
+    "file_sha256": "4ac593314a03a75706a4dd87497875782a66b395f8aaa4a397905d9851761711",
+    "array_sha256": "d38db6292a55d4e1bf906f3faaed0bc26bf7f59fbd129243c7618258e925d810",
+    "array_nbytes": 29280
+  }
+}

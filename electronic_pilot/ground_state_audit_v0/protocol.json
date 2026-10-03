@@ -1,0 +1,23 @@
+{
+  "version": "h2-r04-ground-state-independent-validation-v0",
+  "priority": "most important uncertainty, information value, dependencies, then cost among equals",
+  "base_commit": "fad6df112a6b9351c577831a3980f38332053858",
+  "branch": "codex/h2-qz-cause-v0",
+  "origin_master": "6c53eec71e981cef35f850095da76b965457866c",
+  "R_bohr": 0.4,
+  "basis": "cc-pVQZ spherical; all 60 MO/AO; 2-electron full singlet dimension 1830",
+  "input": "runs/h2_ci_layer_audit_v0/audit_v0/h.npy and g.npy, bound by preceding execution_seal.json; no integral rebuild",
+  "vector_provenance": "original QZ44 vector was not stored. User authorized exact sealed replay extraction, with bitwise archived E equality and unchanged builder/evr/guards. Name v_direct_reproduced; never claim archived original vector",
+  "guards_source": "electronic_pilot/ao_micro_v0/protocol.json:guards",
+  "energy_agreement_source": "electronic_pilot/numerical_cause/protocol.json:comparison_energy_abs_max_hartree",
+  "stage_A": "full independent raw-MO SC ladder-operator matrix action on unchanged reproduced direct eigenpair; existing eigen, norm and Hermiticity guards; preserve maximum residual; failed A prevents every B eigen call",
+  "stage_B": "only after A pass; independent SC dense matrix, NumPy linalg.eigh UPLO=L full spectrum (_syevd), no hints, no direct-pair builder/action, no h1e absorption, no packed FCI",
+  "degeneracy": "record first gap, compare gap with existing energy agreement band descriptively; isolated lowest eigenvalue permits sign-invariant normalized overlap; otherwise report subspace overlap within existing band",
+  "physical_comparison": "separate process after A/B ended; unchanged Pachucki 0.001 hartree rule; never feed reference to replay/action/eigensolve",
+  "regression": "preceding (50,50) to (39,50) raw-SC/direct vs invalid packed counterexample preserved byte-for-byte",
+  "threads": 1,
+  "max_valid_approaches": 3,
+  "stop": "on any replay condition mismatch, A mismatch, B mismatch, or success; report DESIGNER DECISION REQUIRED, no expansion",
+  "not_certified": true,
+  "forbidden": ["old source/fixture edits", "guard change", "vector adjustment", "integral rebuild", "integral or H averaging", "basis deletion", "other R", "QZ44 rerun", "basis expansion", "dynamics", "formation", "world", "production", "push"]
+}

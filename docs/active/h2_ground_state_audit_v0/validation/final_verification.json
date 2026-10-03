@@ -1,0 +1,29 @@
+{
+  "status": "VERIFIED",
+  "protected_bindings": 972,
+  "source_snapshots": 11,
+  "raw_and_compact_byte_equality": true,
+  "tests": {
+    "related_windows": {
+      "passed": 147,
+      "failure_error_skip": 0,
+      "junit_sha256": "500cbb2d57ed01916dc0998ea6c0a9700d0d06a85dfd6287c2f3ca03ff3c1faa"
+    },
+    "related_wsl": {
+      "passed": 150,
+      "failure_error_skip": 0,
+      "junit_sha256": "dba0e65e706e0d66804b4ccaaf7c9e8962a141d8da0aafbba8e3692aac7e6d47"
+    }
+  },
+  "preexisting_changed_files": [
+    "CURRENT_STATE.md",
+    "REPO_MAP.md",
+    "docs/DOCUMENT_STATUS_INDEX.md",
+    "docs/README.md"
+  ],
+  "existing_execution_shared_contract_fixture_changed": false,
+  "document_links": "MATCH",
+  "LOCAL_FULL": "omitted; related tests substitute; new isolated analysis/tests/documents only",
+  "certification": "NOT CERTIFIED",
+  "designer_decision_required": true
+}

@@ -1,0 +1,11 @@
+{
+  "input_sha256": {
+    "Stage_A": "4c0b9c54fbc8ac759fa97905881b7c60215cc58e7b5a3ef0edc0cf5d12289479",
+    "Stage_B": "78d0e57d3f13b7e6c0a26c7f332e4e778745a8f9dc829422a68a2007eb1af35d",
+    "reference": "9576b17e1dbea93b1010d15068fdf83a6a54aeb7923a88ffe9898f7be08f66a2",
+    "protocol": "ac82927f3d14685bf8cee6aad8803f0403780ec07fbe12451d5f90bef410a757",
+    "postprocess": "75cff97804397ddb8734ce696057fc2ada532496710f9301723608fbea7c8a59"
+  },
+  "after_stage_A_and_B": true,
+  "reference_not_used_in_CI": true
+}

@@ -1,0 +1,76 @@
+{
+  "l2": 2.2289114448212103e-14,
+  "linf": 9.57155361913653e-15,
+  "maximum_index": 1539,
+  "maximum_state": {
+    "pair": [
+      36,
+      45
+    ],
+    "occupation": [
+      [
+        36,
+        1
+      ],
+      [
+        45,
+        1
+      ]
+    ],
+    "S": 0,
+    "Ms": 0,
+    "normalization": "open_1_over_sqrt2",
+    "determinants": [
+      {
+        "occupied": [
+          72,
+          91
+        ],
+        "sign": 1
+      },
+      {
+        "occupied": [
+          73,
+          90
+        ],
+        "sign": -1
+      }
+    ]
+  },
+  "H_SC_v": 0.0003211687536761635,
+  "E_v": 0.00032116875368573506,
+  "difference": -9.57155361913653e-15,
+  "vector_l2": 1.0,
+  "vector_norm_error": 0.0,
+  "rayleigh_quotient": -2.6180311336215683,
+  "E_direct": -2.61803113362157,
+  "E_independent": -2.6180311336215656,
+  "absolute_difference": 4.440892098500626e-15,
+  "energy_agreement_max": 1e-09,
+  "direct_independent_action_residual_l2": 2.3684997045187707e-14,
+  "next_singlet_gap": 0.7168930839894379,
+  "lowest_cluster_dimension_at_existing_band": 1,
+  "overlap_absolute": 1.0000000000000004,
+  "normalized_overlap": 1.0000000000000002,
+  "subspace_overlap": 1.0000000000000002,
+  "eigensolve_seconds": 0.7954407980000013,
+  "eigenvalues_returned": 1830,
+  "driver": "numpy.linalg.eigh UPLO=L, full spectrum _syevd",
+  "hint_vector_used": false,
+  "shift_or_energy_target_used": false,
+  "classification": "INDEPENDENT_GROUND_STATE_ENERGY_SUPPORTED",
+  "status": "EXECUTED",
+  "matrix_sha256": "8c96b0a559078dcfb5c02e55073c33645e31e558869f15f915d58ee5e35fa956",
+  "canonical_input_unchanged_after_solve": true,
+  "independent_vector": {
+    "shape": [
+      1830
+    ],
+    "dtype": "<f8",
+    "byte_order": "little",
+    "file_sha256": "7b1794f05965da13700648c570988925f0cac2a71cebd13012dac9bc220d8789",
+    "array_sha256": "d1d5770d362433b6c8ff1542c46b31e7d6ce8a8ac07ef30c14a8aade35ea62ea",
+    "array_nbytes": 14640
+  },
+  "peak_rss_bytes": 365113344
+}

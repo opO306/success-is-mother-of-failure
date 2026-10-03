@@ -1,0 +1,54 @@
+{
+  "kind": "AUTHOR DESIGN-ALIGNMENT REVIEW; separate from automated tests, not external independent approval",
+  "date": "2026-10-03",
+  "checks": [
+    {
+      "requirement": "Most important uncertainty first",
+      "finding": "Full actual eigenpair action, then unhinted full-spectrum ground state; no extra selected-only survey",
+      "evidence": "stage_A.json / stage_B.json"
+    },
+    {
+      "requirement": "Missing original vector disclosed and designer authorized replay",
+      "finding": "REPRODUCED_FROM_SEALED_REPLAY; archived energy bitwise equality; no vector adjustment",
+      "evidence": "replay.json / vector_input_seal.json"
+    },
+    {
+      "requirement": "Same physical finite-basis sector and stored integral bytes",
+      "finding": "Same h/g hashes, all60 orbitals and1830 singlets; no AO or MO generation",
+      "evidence": "MO_input.json / execution_seal.json / basis_mapping.json"
+    },
+    {
+      "requirement": "Independent CI implementation",
+      "finding": "Operator imports validated fermion only; baseline replay adapter isolated; no historical builder/action or packed FCI in independent operator",
+      "evidence": "source/electronic_pilot__ground_state_audit_v0__operator.py.txt / import-boundary test"
+    },
+    {
+      "requirement": "No hidden symmetry repair",
+      "finding": "Both ordered raw operator terms retained with physical one-half coefficient; no input folding, no H averaging; whole matrix asymmetry and action residual checked",
+      "evidence": "DERIVATION.md / stage_A.json"
+    },
+    {
+      "requirement": "Stage A gate before independent eigen call; no hints",
+      "finding": "Persist A first; independent solver argument is only matrix; fault injection proves A failure blocks B",
+      "evidence": "run.py source / operator.py source / test_operator.py"
+    },
+    {
+      "requirement": "Same tolerance and independent physical comparison afterward",
+      "finding": "Original guards and1e-9 agreement band unchanged; postcomparison seal precedes reference read after A/B",
+      "evidence": "execution_seal.json / postcomparison_seal.json / physical_comparison.json"
+    },
+    {
+      "requirement": "Preserve historical failures and counterexample",
+      "finding": "972 byte bindings unchanged; old invalid packed action untouched; QZ44 NUMERICAL FAIL unchanged",
+      "evidence": "preservation.json / regression_preservation.json"
+    },
+    {
+      "requirement": "Do not certify AO/MO/basis or expand after success",
+      "finding": "UNRESOLVED remains separately in four layers; numerical STOP and designer decision; no other R/basis/dynamics/world/production",
+      "evidence": "summary.json / final report"
+    }
+  ],
+  "concept_alignment": "SUPPORTED WITHIN REQUESTED R04 SAME-MO CI GROUND-STATE SCOPE",
+  "not_certified": true,
+  "designer_decision_required": true
+}
