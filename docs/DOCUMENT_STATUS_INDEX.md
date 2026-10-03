@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[Pilot2 prepared drift / raw 정수 산술](active/C1B1_PREPARED_DRIFT_PILOT2_V1.md):
+독립 브랜치 opt-in 분석·최적화 후보, production NOT_APPLIED. 원래 REF/current FAST 비교와
+exact-vs-rounded 분리, component/trajectory/FULL, 비용과 실패 기록을 유지한다.
+[정수 항등식과 rounding 논증](active/C1B1_PILOT2_EXACT_ARITHMETIC_ARGUMENT_V1.md)은 canonical FX 조건부 범위다.
+
 [Candidate B master runtime 활성화](active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md):
 slow REF 보존 / FAST 기본 / reference mode, master 및 activation FULL·6개 차등·성능·profile PASS.
 정식 증명·전체 물리 영역 승인은 별도이며 기존 C1-B1 Gate와 구별한다.

@@ -12,6 +12,11 @@ NOT CERTIFIED / foundation 미승인, 기존 C1-B1 Gate 상태와 구별한다.
 [master runtime 활성화](active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md)는 후속 결과다.
 실제 producer의 FAST 기본/REF mode, 두 FULL, 확장 차등 검사·성능·새 병목을 기록한다.
 
+[Pilot2 prepared drift / raw 정수 산술](active/C1B1_PREPARED_DRIFT_PILOT2_V1.md)은 별도
+브랜치의 opt-in 후보다. REF와 기존 production을 보존하며 exact packet·raw drift/kick,
+차등 검사·FULL·분리 성능·Fraction/gcd/bigint 측정과 실패 기록을 함께 보존한다.
+Production 적용은 NOT_APPLIED이며 [산술 논증](active/C1B1_PILOT2_EXACT_ARITHMETIC_ARGUMENT_V1.md)의 조건부 범위와 구별한다.
+
 **현재 상태 정본:** [CURRENT_STATE.md](../CURRENT_STATE.md). **구현 위치:** [REPO_MAP.md](../REPO_MAP.md).
 A가 최우선이다. L은 A의 물리 기반이 충분해진 뒤 자연 발생·진화 계통으로 진행한다. B 본격 개발은 A·L 기반의 작은 세계가 돌아가는 후기 단계로 보류하며 취소·폐기하지 않는다.
 

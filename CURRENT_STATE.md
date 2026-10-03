@@ -4,6 +4,21 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 C1-B1 Pilot2 prepared drift / raw 정수 산술(2026-10-03):**
+[결과와 보존된 실패](docs/active/C1B1_PREPARED_DRIFT_PILOT2_V1.md),
+[조건부 exact 산술 논증](docs/active/C1B1_PILOT2_EXACT_ARITHMETIC_ARGUMENT_V1.md).
+독립 `codex/c1b1-pilot2-prepared-drift` worktree의 opt-in 분석·후보이며 production 미적용.
+기존 slow REF·현재 FAST impulse·step code·rounding·guard·cap·proof/checker 보존.
+같은 d=p*dt/m을 성분당2회에서1회로 준비하고, B는 약분하지 않은 정수 쌍,
+C는 같은 momentum 격자의 raw kick을 사용한다. 실제 guard에는 exact endpoint를 전달한다.
+새121시험/관련199시험 및 FULL3865+1 strict xfail, 실패·error·실제 skip0; 기존 경고25.
+측정 첫 closure의 짧은 CPU0초 샘플을 보존하고 배치를1e6회로 늘려 새 source/input 실행.
+새 benchmark Combined CPU step1.086x / 여섯 궤적1.128x; profile/전체 source-input closure PASS.
+Fraction 두 생성 경로 합계27.5010% / gcd 호출27.4606% 감소. 실제 raw drift bigint
+132/139/180bit이며 분모 누적 성장 없음. A/B 단독 step CPU 개선은 미충족/미확정이다.
+Combined는 측정 조건에서 승격 검토 가치가 있지만 production NOT_APPLIED. local commit만 보존한다.
+공식 AGENTS 기준선·기존 C1-B1 Gate·A-EV/native J·새 CONFIRMED history는 갱신하지 않는다.
+
 **C1-B1 Candidate B master 통합·runtime 활성화(2026-10-03):**
 [단계별 결과·한계·새 병목](docs/active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md).
 master는 6c53eec→951b076 fast-forward. 실제 production replay producer에 별도
