@@ -16,7 +16,10 @@ def select(mode='fast'):
     if mode == 'fast_combined':
         from . import c1b1_combined_arithmetic as combined
         return fast.impulse, combined.step
-    raise ValueError("runtime mode must be 'fast', 'reference' or 'fast_combined'")
+    if mode == 'fast_pilot3':
+        from . import c1b1_pilot3_impulse as pilot3
+        return pilot3.impulse, pilot3.step
+    raise ValueError("runtime mode must be 'fast', 'reference', 'fast_combined' or 'fast_pilot3'")
 
 
 def impulse(dr, dt_kick, profile, *, mode='fast'):
@@ -42,4 +45,7 @@ def bind(run, *, mode='fast'):
     if mode == 'fast_combined':
         from .c1b1_combined_arithmetic import CombinedRuntime
         return CombinedRuntime(run)
+    if mode == 'fast_pilot3':
+        from .c1b1_pilot3_impulse import Runtime
+        return Runtime(run,'ABCD')
     return BoundRuntime(run,function)
