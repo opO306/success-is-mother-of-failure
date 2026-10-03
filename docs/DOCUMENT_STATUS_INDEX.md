@@ -1,5 +1,8 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[C1-B1 Pilot3 opt-in 승격 결과](active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md)·[baseline 실제 Fraction map](active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md)·[exact 산술 논증](active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md): ABCD만 fast_pilot3 opt-in PRODUCTION FAST-PATH CANDIDATE, current-source closure/FULL4074+1 PASS. 기본fast 유지; 측정한 비용 증가와 한계도 결과 문서에 기록한다. 기존 REF/Candidate B/Combined는 보존한다.
+
+
 [Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
 
 현재 상태는 [CURRENT_STATE.md](../CURRENT_STATE.md), 읽는 순서는 [문서 안내](README.md)를 본다.

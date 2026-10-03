@@ -4,6 +4,24 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**C1-B1 Pilot3 ABCD production opt-in 후보 승격(2026-10-03):**
+[결과·한계·CPU 측정](docs/active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md),
+[실제 Fraction 주소 map](docs/active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md),
+[exact 산술 논증](docs/active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md).
+ABCD만 실제 runtime의 fast_pilot3 opt-in으로 연결, reference/기본fast/fast_combined 보존.
+baseline6개55845step 실제 주소24(function/line)/19물리line,world4/run1.
+같은 CPU campaign Combined33.4375→ABCD27.75초,trajectory17.0093% CPU 감소/1.204955배.
+A 대비 추가3.3206%;raw relative 준비는 더 느리고 R²의 일부 실제 allocation은 증가한다.
+actual21case59171step 차등과 기존producer7witness79087step 네mode 상태/J 동일.
+첫 FULL4052+1 strictxfail/실패·error·실제skip0/720.28초/warnings32.
+최종 current-source closure PASS, PRODUCTION FAST-PATH CANDIDATE.
+최종 FULL4074+1 strictxfail/실패·error·실제skip0/823.89초/process825.819696초/warnings25.
+Fraction 생성63.8570%/gcd59.2863% 감소;현재production profileTop10별도보존.
+prepared model self13.6386%/1위,다음대상미선정. primaryallocation5입력새source재현/무결성gatePASS.
+새 계산·benchmark는CPUonly,기존FULL의CUDA/GPU회귀는 포함. 공식AGENTS기준선 불변.
+작업 기준9ad2ed7;rootmaster/origin은 외부0f7b744 문서commit으로 이동(이번작업push없음).
+외부commit의FULL로 세지 않고 Pilot3 branch만 보존, H2/새CONFIRMED/Pilot4선정 없음.
+
 **C1-B1 Combined production opt-in 승격(2026-10-03):**
 [최종 gate·성능·production Top10](docs/active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md),
 [독립 산술 promotion 감사](docs/active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md).
@@ -16,10 +34,10 @@ REF/B/Combined6개55845step 및 기존거부4/실제STOP1/추가악성9 차등·
 production step만의 profileTop10 별도완료, 기존FAST derivative11.9468% 최상위; 다음대상미선정.
 Fraction routes27.5010%/gcd27.4606% 감소는 동일R20 연구용stop 포함 비교profile 범위다.
 정상bigint132/139/180bit, 분모누적없음. 더큰scope/정식증명/A-EV/native J/replay승인은 별도.
-로컬promotion브랜치 보존, rootmaster4160557 유지, mainline merge/push/새CONFIRMED 없음.
+후속 Pilot3 시작 Gate에서 root master를 9ad2ed7로 fast-forward했다. 새 master FULL3903+1 / 실패·error·실제skip0 /753.62초. Combined 로컬 브랜치와 기존 evidence 보존, push/새CONFIRMED 없음.
 
 
-**별도 C1-B1 Pilot2 prepared drift / raw 정수 산술(2026-10-03):**
+**C1-B1 Pilot2 최초 pilot — Combined 승격 전 기록(2026-10-03):**
 [결과와 보존된 실패](docs/active/C1B1_PREPARED_DRIFT_PILOT2_V1.md),
 [조건부 exact 산술 논증](docs/active/C1B1_PILOT2_EXACT_ARITHMETIC_ARGUMENT_V1.md).
 독립 `codex/c1b1-pilot2-prepared-drift` worktree의 opt-in 분석·후보이며 production 미적용.
@@ -31,7 +49,7 @@ C는 같은 momentum 격자의 raw kick을 사용한다. 실제 guard에는 exac
 새 benchmark Combined CPU step1.086x / 여섯 궤적1.128x; profile/전체 source-input closure PASS.
 Fraction 두 생성 경로 합계27.5010% / gcd 호출27.4606% 감소. 실제 raw drift bigint
 132/139/180bit이며 분모 누적 성장 없음. A/B 단독 step CPU 개선은 미충족/미확정이다.
-Combined는 측정 조건에서 승격 검토 가치가 있지만 production NOT_APPLIED. local commit만 보존한다.
+당시 Combined는 승격 검토 후보/production NOT_APPLIED였으며, 위의 후속 Combined gate에서 opt-in 승격했다.
 공식 AGENTS 기준선·기존 C1-B1 Gate·A-EV/native J·새 CONFIRMED history는 갱신하지 않는다.
 
 **C1-B1 Candidate B master 통합·runtime 활성화(2026-10-03):**
