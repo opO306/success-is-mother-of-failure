@@ -1,0 +1,1 @@
+Windows preflight v0: collection ERROR, ModuleNotFoundError resource at run.py module import. No physical R=0.4 evaluation. Moved Linux-only accounting import into Linux main; same audit approach.

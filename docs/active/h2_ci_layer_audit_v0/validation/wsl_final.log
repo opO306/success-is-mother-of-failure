@@ -1,0 +1,32 @@
+..........................F..                                            [100%]
+=================================== FAILURES ===================================
+________ test_physical_sealed_source_and_compact_record_bytes_unchanged ________
+
+>   ???
+
+C:\Users\zun24\.codex\worktrees\h2-qz-cause-v0\성공은 실패의 어머니\tests\test_h2_ci_layer_audit_evidence_v0.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/pathlib.py:1021: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('docs/active/h2_ci_layer_audit_v0/evidence/preflight\\synthetic_probe.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'docs/active/h2_ci_layer_audit_v0/evidence/preflight\\synthetic_probe.py'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_h2_ci_layer_audit_evidence_v0.py::test_physical_sealed_source_and_compact_record_bytes_unchanged
+1 failed, 28 passed in 4.42s

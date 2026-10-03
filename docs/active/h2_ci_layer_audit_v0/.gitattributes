@@ -1,0 +1,4 @@
+* -text
+# Preserve raw CRLF and original pytest trace whitespace as evidence bytes.
+evidence/** whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof
+validation/** whitespace=cr-at-eol,-blank-at-eol,-blank-at-eof

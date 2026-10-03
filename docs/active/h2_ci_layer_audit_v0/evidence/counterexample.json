@@ -1,0 +1,1378 @@
+{
+  "bra": [
+    39,
+    50
+  ],
+  "ket": [
+    50,
+    50
+  ],
+  "existing_direct_pair": -4.231303534059128,
+  "independent_SC": -4.231303534059129,
+  "prior_action": -4.231297967351358,
+  "absolute_difference": 5.566707771187396e-06,
+  "first_lexicographic_counterexample": {
+    "bra": [
+      0,
+      50
+    ],
+    "ket": [
+      50,
+      50
+    ],
+    "existing_direct_pair": -0.010100309891357039,
+    "independent_SC": -0.010100309891357039,
+    "prior_action": -0.010100193517049019
+  },
+  "independent_breakdown": {
+    "value": -4.231303534059129,
+    "decimal100": "-4.231303534059128979962830882303509454238891036039077887567238574363505645198090594481471907784382229",
+    "contribution": {
+      "one_electron": "-4.203441344428791417739639301675814536395627780539551703499959718615350986967157128261654616216359139",
+      "Coulomb": "-0.01393109481516878111159579031384745892163162774976309203363942787407732911546673310990864578401154462",
+      "exchange": "-0.01393109481516878111159579031384745892163162774976309203363942787407732911546673310990864578401154462"
+    },
+    "exact_dyadic_numerators_before_radical": {
+      "one_electron": "-418311486329659/70368744177664",
+      "Coulomb": "-2839291607445307/144115188075855872",
+      "exchange": "-2839291607445307/144115188075855872"
+    },
+    "normalization_denominator": "sqrt(2)^1",
+    "terms": [
+      {
+        "kind": "one_electron",
+        "indices": [
+          39,
+          50
+        ],
+        "input": -2.9722818789654966,
+        "input_hex": "-0x1.7c73bb8c533b0p+1",
+        "coefficient": "1",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": 1,
+        "bra_sign": 1,
+        "ket_sign": 1
+      },
+      {
+        "kind": "Coulomb",
+        "indices": [
+          39,
+          50,
+          50,
+          50
+        ],
+        "input": -0.019703027152886028,
+        "input_hex": "-0x1.42d07c503f012p-6",
+        "coefficient": "1/2",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": 1,
+        "bra_sign": 1,
+        "ket_sign": 1
+      },
+      {
+        "kind": "Coulomb",
+        "indices": [
+          50,
+          50,
+          39,
+          50
+        ],
+        "input": -0.019700059299748364,
+        "input_hex": "-0x1.42c4099afccdap-6",
+        "coefficient": "1/2",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": 1,
+        "bra_sign": 1,
+        "ket_sign": 1
+      },
+      {
+        "kind": "one_electron",
+        "indices": [
+          39,
+          50
+        ],
+        "input": -2.9722818789654966,
+        "input_hex": "-0x1.7c73bb8c533b0p+1",
+        "coefficient": "1",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": -1,
+        "bra_sign": -1,
+        "ket_sign": 1
+      },
+      {
+        "kind": "exchange",
+        "indices": [
+          50,
+          50,
+          39,
+          50
+        ],
+        "input": -0.019700059299748364,
+        "input_hex": "-0x1.42c4099afccdap-6",
+        "coefficient": "1/2",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": -1,
+        "bra_sign": -1,
+        "ket_sign": 1
+      },
+      {
+        "kind": "exchange",
+        "indices": [
+          39,
+          50,
+          50,
+          50
+        ],
+        "input": -0.019703027152886028,
+        "input_hex": "-0x1.42d07c503f012p-6",
+        "coefficient": "1/2",
+        "sqrt2_denominator_power": 1,
+        "fermion_sign": -1,
+        "bra_sign": -1,
+        "ket_sign": 1
+      }
+    ],
+    "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+  },
+  "spin_free_unpacked_value": -4.231303534059129,
+  "spin_free_packed_value": -4.231297967351359,
+  "spin_free_unpacked_minus_raw_SC": 0.0,
+  "spin_free_packed_minus_PySCF": -8.881784197001252e-16,
+  "unpacked_terms": [
+    {
+      "indices": [
+        39,
+        0,
+        0,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0011539405669539378
+    },
+    {
+      "indices": [
+        39,
+        1,
+        1,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008827136164225748
+    },
+    {
+      "indices": [
+        39,
+        2,
+        2,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.00296449148002184
+    },
+    {
+      "indices": [
+        39,
+        3,
+        3,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.00038223623506254445
+    },
+    {
+      "indices": [
+        39,
+        4,
+        4,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00033735481989591304
+    },
+    {
+      "indices": [
+        39,
+        5,
+        5,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00033735481989591304
+    },
+    {
+      "indices": [
+        39,
+        6,
+        6,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0054213691285189955
+    },
+    {
+      "indices": [
+        39,
+        7,
+        7,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006674178279827279
+    },
+    {
+      "indices": [
+        39,
+        8,
+        8,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006674178279827279
+    },
+    {
+      "indices": [
+        39,
+        9,
+        9,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003611199167663692
+    },
+    {
+      "indices": [
+        39,
+        10,
+        10,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0033796298212174242
+    },
+    {
+      "indices": [
+        39,
+        11,
+        11,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0033796298212174242
+    },
+    {
+      "indices": [
+        39,
+        12,
+        12,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.004293241785555025
+    },
+    {
+      "indices": [
+        39,
+        13,
+        13,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0007260814746486155
+    },
+    {
+      "indices": [
+        39,
+        14,
+        14,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003152021562225757
+    },
+    {
+      "indices": [
+        39,
+        15,
+        15,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0030150696876238003
+    },
+    {
+      "indices": [
+        39,
+        16,
+        16,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003152021562225757
+    },
+    {
+      "indices": [
+        39,
+        17,
+        17,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0007260814665547635
+    },
+    {
+      "indices": [
+        39,
+        18,
+        18,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00034551360523975944
+    },
+    {
+      "indices": [
+        39,
+        19,
+        19,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010287047974569927
+    },
+    {
+      "indices": [
+        39,
+        20,
+        20,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0006694313521607767
+    },
+    {
+      "indices": [
+        39,
+        21,
+        21,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010287047974283931
+    },
+    {
+      "indices": [
+        39,
+        22,
+        22,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00034551358347205527
+    },
+    {
+      "indices": [
+        39,
+        23,
+        23,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008599064637366367
+    },
+    {
+      "indices": [
+        39,
+        24,
+        24,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001427012208987482
+    },
+    {
+      "indices": [
+        39,
+        25,
+        25,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014028800431708374
+    },
+    {
+      "indices": [
+        39,
+        26,
+        26,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0026322643063035056
+    },
+    {
+      "indices": [
+        39,
+        27,
+        27,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001402880043164856
+    },
+    {
+      "indices": [
+        39,
+        28,
+        28,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001427012208845755
+    },
+    {
+      "indices": [
+        39,
+        29,
+        29,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008599064637366367
+    },
+    {
+      "indices": [
+        39,
+        30,
+        30,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.011549764266083434
+    },
+    {
+      "indices": [
+        39,
+        31,
+        31,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003942354314520852
+    },
+    {
+      "indices": [
+        39,
+        32,
+        32,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008808388942757768
+    },
+    {
+      "indices": [
+        39,
+        33,
+        33,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0032791617821722463
+    },
+    {
+      "indices": [
+        39,
+        34,
+        34,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0021683886484029826
+    },
+    {
+      "indices": [
+        39,
+        35,
+        35,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.002168388648502998
+    },
+    {
+      "indices": [
+        39,
+        36,
+        36,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.002396707196649755
+    },
+    {
+      "indices": [
+        39,
+        37,
+        37,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0009152577995597301
+    },
+    {
+      "indices": [
+        39,
+        38,
+        38,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0009152577994783655
+    },
+    {
+      "indices": [
+        39,
+        39,
+        39,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.7419690122063146
+    },
+    {
+      "indices": [
+        39,
+        40,
+        40,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -4.96077335715309e-06
+    },
+    {
+      "indices": [
+        39,
+        41,
+        41,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -4.960042419500021e-06
+    },
+    {
+      "indices": [
+        39,
+        42,
+        42,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.008308801395413734
+    },
+    {
+      "indices": [
+        39,
+        43,
+        43,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00100859256676511
+    },
+    {
+      "indices": [
+        39,
+        44,
+        44,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0051046159791677155
+    },
+    {
+      "indices": [
+        39,
+        45,
+        45,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0004197958619198104
+    },
+    {
+      "indices": [
+        39,
+        46,
+        46,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.005104603392502301
+    },
+    {
+      "indices": [
+        39,
+        47,
+        47,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010085930701937127
+    },
+    {
+      "indices": [
+        39,
+        48,
+        48,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.001285655573075477
+    },
+    {
+      "indices": [
+        39,
+        49,
+        49,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0022255118779689856
+    },
+    {
+      "indices": [
+        39,
+        50,
+        50,
+        50
+      ],
+      "integer_coefficient": 4,
+      "input": -0.7346679057206719
+    },
+    {
+      "indices": [
+        39,
+        51,
+        51,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0022255294635670116
+    },
+    {
+      "indices": [
+        39,
+        52,
+        52,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0012856558658214893
+    },
+    {
+      "indices": [
+        39,
+        53,
+        53,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014924682738343097
+    },
+    {
+      "indices": [
+        39,
+        54,
+        54,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008529755980033237
+    },
+    {
+      "indices": [
+        39,
+        55,
+        55,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006282810896791613
+    },
+    {
+      "indices": [
+        39,
+        56,
+        56,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003201312233340109
+    },
+    {
+      "indices": [
+        39,
+        57,
+        57,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006282815415238271
+    },
+    {
+      "indices": [
+        39,
+        58,
+        58,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008529760872291667
+    },
+    {
+      "indices": [
+        39,
+        59,
+        59,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014924682738351978
+    },
+    {
+      "indices": [
+        50,
+        50,
+        39,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.734666421794103
+    }
+  ],
+  "packed_terms": [
+    {
+      "indices": [
+        39,
+        0,
+        0,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0011539405669539378
+    },
+    {
+      "indices": [
+        39,
+        1,
+        1,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008827136164225748
+    },
+    {
+      "indices": [
+        39,
+        2,
+        2,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.00296449148002184
+    },
+    {
+      "indices": [
+        39,
+        3,
+        3,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.00038223623506254445
+    },
+    {
+      "indices": [
+        39,
+        4,
+        4,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00033735481989591304
+    },
+    {
+      "indices": [
+        39,
+        5,
+        5,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00033735481989591304
+    },
+    {
+      "indices": [
+        39,
+        6,
+        6,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0054213691285189955
+    },
+    {
+      "indices": [
+        39,
+        7,
+        7,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006674178279827279
+    },
+    {
+      "indices": [
+        39,
+        8,
+        8,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006674178279827279
+    },
+    {
+      "indices": [
+        39,
+        9,
+        9,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003611199167663692
+    },
+    {
+      "indices": [
+        39,
+        10,
+        10,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0033796298212174242
+    },
+    {
+      "indices": [
+        39,
+        11,
+        11,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0033796298212174242
+    },
+    {
+      "indices": [
+        39,
+        12,
+        12,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.004293241785555025
+    },
+    {
+      "indices": [
+        39,
+        13,
+        13,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0007260814746486155
+    },
+    {
+      "indices": [
+        39,
+        14,
+        14,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003152021562225757
+    },
+    {
+      "indices": [
+        39,
+        15,
+        15,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0030150696876238003
+    },
+    {
+      "indices": [
+        39,
+        16,
+        16,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003152021562225757
+    },
+    {
+      "indices": [
+        39,
+        17,
+        17,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0007260814665547635
+    },
+    {
+      "indices": [
+        39,
+        18,
+        18,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00034551360523975944
+    },
+    {
+      "indices": [
+        39,
+        19,
+        19,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010287047974569927
+    },
+    {
+      "indices": [
+        39,
+        20,
+        20,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0006694313521607767
+    },
+    {
+      "indices": [
+        39,
+        21,
+        21,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010287047974283931
+    },
+    {
+      "indices": [
+        39,
+        22,
+        22,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00034551358347205527
+    },
+    {
+      "indices": [
+        39,
+        23,
+        23,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008599064637366367
+    },
+    {
+      "indices": [
+        39,
+        24,
+        24,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001427012208987482
+    },
+    {
+      "indices": [
+        39,
+        25,
+        25,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014028800431708374
+    },
+    {
+      "indices": [
+        39,
+        26,
+        26,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0026322643063035056
+    },
+    {
+      "indices": [
+        39,
+        27,
+        27,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001402880043164856
+    },
+    {
+      "indices": [
+        39,
+        28,
+        28,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.001427012208845755
+    },
+    {
+      "indices": [
+        39,
+        29,
+        29,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008599064637366367
+    },
+    {
+      "indices": [
+        39,
+        30,
+        30,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.011549764266083434
+    },
+    {
+      "indices": [
+        39,
+        31,
+        31,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003942354314520852
+    },
+    {
+      "indices": [
+        39,
+        32,
+        32,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008808388942757768
+    },
+    {
+      "indices": [
+        39,
+        33,
+        33,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0032791617821722463
+    },
+    {
+      "indices": [
+        39,
+        34,
+        34,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0021683886484029826
+    },
+    {
+      "indices": [
+        39,
+        35,
+        35,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.002168388648502998
+    },
+    {
+      "indices": [
+        39,
+        36,
+        36,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.002396707196649755
+    },
+    {
+      "indices": [
+        39,
+        37,
+        37,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0009152577995597301
+    },
+    {
+      "indices": [
+        39,
+        38,
+        38,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0009152577994783655
+    },
+    {
+      "indices": [
+        39,
+        39,
+        39,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.7419680281421114
+    },
+    {
+      "indices": [
+        39,
+        40,
+        40,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -4.96077335715309e-06
+    },
+    {
+      "indices": [
+        39,
+        41,
+        41,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -4.960042419500021e-06
+    },
+    {
+      "indices": [
+        39,
+        42,
+        42,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.008308801395413734
+    },
+    {
+      "indices": [
+        39,
+        43,
+        43,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.00100859256676511
+    },
+    {
+      "indices": [
+        39,
+        44,
+        44,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0051046159791677155
+    },
+    {
+      "indices": [
+        39,
+        45,
+        45,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0004197958619198104
+    },
+    {
+      "indices": [
+        39,
+        46,
+        46,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.005104603392502301
+    },
+    {
+      "indices": [
+        39,
+        47,
+        47,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0010085930701937127
+    },
+    {
+      "indices": [
+        39,
+        48,
+        48,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.001285655573075477
+    },
+    {
+      "indices": [
+        39,
+        49,
+        49,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0022255118779689856
+    },
+    {
+      "indices": [
+        39,
+        50,
+        50,
+        50
+      ],
+      "integer_coefficient": 4,
+      "input": -0.7346669216564686
+    },
+    {
+      "indices": [
+        39,
+        51,
+        51,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0022255294635670116
+    },
+    {
+      "indices": [
+        39,
+        52,
+        52,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": 0.0012856558658214893
+    },
+    {
+      "indices": [
+        39,
+        53,
+        53,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014924682738343097
+    },
+    {
+      "indices": [
+        39,
+        54,
+        54,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008529755980033237
+    },
+    {
+      "indices": [
+        39,
+        55,
+        55,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006282810896791613
+    },
+    {
+      "indices": [
+        39,
+        56,
+        56,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.003201312233340109
+    },
+    {
+      "indices": [
+        39,
+        57,
+        57,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0006282815415238271
+    },
+    {
+      "indices": [
+        39,
+        58,
+        58,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0008529760872291667
+    },
+    {
+      "indices": [
+        39,
+        59,
+        59,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.0014924682738351978
+    },
+    {
+      "indices": [
+        50,
+        50,
+        39,
+        50
+      ],
+      "integer_coefficient": 2,
+      "input": -0.7346654377298998
+    }
+  ],
+  "trace_asymmetry": 3.0811661721308337e-05,
+  "absorbed_f_asymmetry": 7.702915430340962e-06,
+  "f_bra_orbital_ket_orbital": [
+    [
+      -1.4496327842884578,
+      -1.4496308161600513
+    ],
+    [
+      3.12142399215218,
+      3.12142399215218
+    ]
+  ],
+  "no_repair_applied": true
+}

@@ -1,0 +1,212 @@
+{
+  "basis": {
+    "status": "MATCH",
+    "dimensions": {
+      "A": 1830,
+      "prior": 1830,
+      "independent": 1830
+    },
+    "unique": {
+      "A": 1830,
+      "prior": 1830,
+      "independent": 1830
+    },
+    "duplicates": {
+      "A": 0,
+      "prior": 0,
+      "independent": 0
+    },
+    "missing": {
+      "A": [],
+      "prior": []
+    },
+    "extra": {
+      "A": [],
+      "prior": []
+    },
+    "unmappable": []
+  },
+  "matrix_elements": [
+    {
+      "class": "closed diagonal",
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        0
+      ],
+      "existing": 2.2773287179377686,
+      "independent": 2.2773287179377686,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0
+    },
+    {
+      "class": "open diagonal; Coulomb and exchange; normalization",
+      "bra": [
+        0,
+        1
+      ],
+      "ket": [
+        0,
+        1
+      ],
+      "existing": 2.9171524472352304,
+      "independent": 2.917152447235231,
+      "absolute_difference": 4.440892098500626e-16,
+      "relative_difference": 1.522338026149281e-16
+    },
+    {
+      "class": "nonzero off-diagonal; different orbitals",
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        1,
+        1
+      ],
+      "existing": 0.1276275653359597,
+      "independent": 0.1276275653359597,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0
+    },
+    {
+      "class": "expected zero: odd x parity",
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        4
+      ],
+      "existing": 0.0,
+      "independent": 0.0,
+      "absolute_difference": 0.0,
+      "relative_difference": null
+    },
+    {
+      "class": "closed-open; sqrt2; one-electron and two-electron",
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        1
+      ],
+      "existing": -3.849484126852614,
+      "independent": -3.849484126852614,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0
+    },
+    {
+      "class": "double change; independent exchange sign; expected zero parity",
+      "bra": [
+        0,
+        1
+      ],
+      "ket": [
+        4,
+        5
+      ],
+      "existing": 0.0,
+      "independent": 0.0,
+      "absolute_difference": 0.0,
+      "relative_difference": null
+    },
+    {
+      "class": "prior worst pair-interchange quartet (50,50,50,56)",
+      "bra": [
+        50,
+        50
+      ],
+      "ket": [
+        50,
+        56
+      ],
+      "existing": 1.0022580229449902,
+      "independent": 1.0022580229449902,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0
+    },
+    {
+      "class": "reverse prior candidate; ERI ordering",
+      "bra": [
+        50,
+        56
+      ],
+      "ket": [
+        50,
+        50
+      ],
+      "existing": 1.0022580229449902,
+      "independent": 1.0022580229449902,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0
+    }
+  ],
+  "matrix_elements_max": 4.440892098500626e-16,
+  "submatrix": {
+    "size": 12,
+    "max_absolute_difference": 3.552713678800501e-15,
+    "mismatch_count": 0,
+    "largest_pair": [
+      [
+        50,
+        56
+      ],
+      [
+        50,
+        56
+      ]
+    ],
+    "existing_symmetry_residual": 1.1102230246251565e-16,
+    "independent_symmetry_residual": 0.0
+  },
+  "protected_source_count": 235,
+  "prior_raw_count": 665,
+  "sealed_new_source_count": 8,
+  "MO_input": {
+    "h_shape": [
+      60,
+      60
+    ],
+    "g_shape": [
+      60,
+      60,
+      60,
+      60
+    ],
+    "h_array_sha256": "052e348a12072c6b598e3f9972ca7bca4b0a4d3aa6853c878d5ab3ed838e160a",
+    "g_array_sha256": "27f16faaef7bffdaf35e8ba6a2e5767126eca9a14459692d7919e1ab1f4b5026",
+    "pair_interchange": 2.9811480079414837e-05,
+    "within_first_pair": 0.0,
+    "within_second_pair": 0.0,
+    "mode": "unchanged frozen C and compact transform; saved once before CI audit"
+  },
+  "preparation_materialization_seconds": 2.815260739999985,
+  "whole_run": {
+    "classification": "CI_CONSTRUCTION_MISMATCH_CONFIRMED",
+    "failure_stage": "prior_determinant_action",
+    "A_vs_independent": "CI_LAYER_EQUIVALENCE_SUPPORTED on selected elements/submatrix and one full column",
+    "seconds": 51.46041634100001,
+    "R_bohr": 0.4,
+    "not_certified": true,
+    "designer_decision_required": true,
+    "valid_approaches": 1,
+    "wall_seconds": 164.35056901899998,
+    "cpu_seconds": 17.850031003,
+    "peak_rss_bytes": 440602624,
+    "peak_scope": "whole process including Git hashing, MO materialization and diagnostic intermediate; not full CI solver"
+  },
+  "peak_rss_MiB": 420.19140625,
+  "precision_scope": "Saved binary64 MO; exact selected coefficients and trace sums do not upgrade AO accuracy",
+  "raw_MO_not_committed": true,
+  "raw_MO_paths": [
+    "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\성공은 실패의 어머니\\runs\\h2_ci_layer_audit_v0\\audit_v0\\h.npy",
+    "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\성공은 실패의 어머니\\runs\\h2_ci_layer_audit_v0\\audit_v0\\g.npy"
+  ]
+}

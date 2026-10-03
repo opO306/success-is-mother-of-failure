@@ -1,0 +1,19 @@
+{
+  "binding_count": 910,
+  "changed": [],
+  "postprocess_source_unchanged": true,
+  "tests": {
+    "windows_passed": 123,
+    "wsl_passed": 126
+  },
+  "report_local_links": 11,
+  "head": "ab0d3f2520bb631793bdb08c8e96d8bc95db3b3e",
+  "changed_tracked": [
+    "CURRENT_STATE.md",
+    "docs/DOCUMENT_STATUS_INDEX.md",
+    "docs/README.md"
+  ],
+  "no_physical_rerun": true,
+  "no_eigensolver": true,
+  "no_push": true
+}

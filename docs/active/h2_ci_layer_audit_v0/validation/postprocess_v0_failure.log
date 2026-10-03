@@ -1,0 +1,1 @@
+Postprocessor first invocation: cp949 default failed decoding UTF-8 execution seal before postprocess seal or numerical reduction. Physical run untouched. Explicit UTF-8 reads added to new postprocessor; empty first output directory preserved. Final package uses evidence child.

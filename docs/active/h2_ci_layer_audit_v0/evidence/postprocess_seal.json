@@ -1,0 +1,10 @@
+{
+  "source_sha256": "d14d6a6cec4776e8f4d4f85619061ef93107c7d1cfbda55d425a0df4a40aff45",
+  "input_sha256": {
+    "runs\\h2_ci_layer_audit_v0\\audit_v0\\h.npy": "01861527c9839e6a357d3eb389278dff162e96c5c09220476d8405255cc822c4",
+    "runs\\h2_ci_layer_audit_v0\\audit_v0\\g.npy": "3d9b5c196e0fddbdd56eeee0748dd53ebec520281266b334372d218d5f3129ff",
+    "runs\\h2_ci_layer_audit_v0\\audit_v0\\counterexample.json": "5b83f96032a696a060be049ef80b81c420f9d25f90c719bb37c449bfa791c414",
+    "runs\\h2_ci_layer_audit_v0\\audit_v0\\summary.json": "de94bb86eee7e5b89fedcc3d6fed5cbe258d93bb593c4c2d4e42bb1a992e6ef1"
+  },
+  "protocol": "Localized exact dyadic trace sum and fixed observed-state K loss; no new physical entry selection or eigensolver"
+}

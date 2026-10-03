@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_R04_CI_LAYER_MICRO_AUDIT_V0.md](active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md):
+R=0.4 only, CI state/element/action 감사. Original direct-pair vs independent SC 검사 범위
+SUPPORTED, 이전 determinant action packing 반례 CONFIRMED. 첫 mismatch에서 STOP,
+QZ44 FAIL/physical UNRESOLVED/NOT CERTIFIED 유지, production 미적용.
+
 [H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md](active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md):
 부분 원인 분리 / R=0.5 MEASUREMENT_ERROR / 독립 reference 후보 invalid /
 Stage C 미완료·네 short-R UNRESOLVED / NOT CERTIFIED / DESIGNER DECISION REQUIRED.

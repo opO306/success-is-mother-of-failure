@@ -1,0 +1,29 @@
+{
+  "files": {
+    "basis_mapping.json": "12fe21513d0cf4b6cfb74945d503e5e21affd44de7699aaf31c867300f97745e",
+    "counterexample.json": "5b83f96032a696a060be049ef80b81c420f9d25f90c719bb37c449bfa791c414",
+    "counterexample_reduction.json": "2681ee996778cc4d2245965a90f004d2a4db987d10f6b675c544bbdf548b7127",
+    "DERIVATION.md": "85e749c4bcfab2641bc507494b196f7d93c4609d71465ca3e6dc9b6c34863e74",
+    "eigensolver.json": "fdea91b5a296ace916ec55cd543d33c438ad47087a0d71a05c1e014ea70ba7f2",
+    "execution_seal.json": "a7ac8f00b4877a0e3932e721dc007bb4b45442a3a2afe51aa417545fc03e92f1",
+    "matrix_elements.json": "9017fe142c2f5a081317035c85022049f600197e00b90f88565b4624d747bc82",
+    "matvec.json": "7ae2faec55f3043384b355f76090adee6e3cb923e4cd4e1f5ed6c9675f0521bb",
+    "matvec_single.npz": "eb4eec2a052b30ef975844dfec0825b7e474545bbbf53253cfc46c935df3b808",
+    "physical_v0.log": "bda1c5958361374c2a19eaf92243b7abfeacbd21b157ea45510f76aefe534094",
+    "postprocess_seal.json": "9439d4a399626f7ffe151080a0ef99f0a64d2c450c19c0b7675e4df5f82bdde1",
+    "preparation_seal.json": "252f53055ce87139f07bf4cf29052a02d06e329012957de9e51dcedd94751f50",
+    "preservation.json": "68404f11032df4987ccd5cd77c6085f738b80746bc98a22c3a9a66fb08447740",
+    "protocol.json": "787f8021145558c90f670c03e646011ac51d7b3cc522d814d70a049c4b7e6939",
+    "report_metrics.json": "db59de0ca4d95c040dab30b79da4b7cd8c480074ea54be66003a1a32aca69933",
+    "runtime_source.json": "b8a73059e76a3fbcf348b28a50b2c97941e6376af1088f976798533946c1a4eb",
+    "submatrix.json": "d3629f02357df41e2ad6de86ddad90f40586ba00f15fcd291b153d0c18204762",
+    "summary.json": "de94bb86eee7e5b89fedcc3d6fed5cbe258d93bb593c4c2d4e42bb1a992e6ef1",
+    "preflight\\synthetic_probe.py": "f80f8d677db762de57896b06f7618190d958656f1e50cfe27525368a6eb02a83",
+    "preflight\\windows_v0.log": "3825e564e726c988239c7284dbd3e37b379fbf74f0d13afee29c491dce2df919",
+    "preflight\\windows_v1.log": "09b1f11cc252b997a78d1f7e05809603cee869a69975e53eff80afd713b1c28f",
+    "preflight\\wsl_v0.log": "975fdd34ace0b60f50aadc96d0865507e9f18c1a2db5b118c808716d6fc4665f",
+    "preflight\\wsl_v1.log": "63e758803ede5783951382b14469a89f6dfa53b0a820894fa518b4e652e0dccf"
+  },
+  "reproducibility": "Compact records include source/input hashes, full basis map, raw selected terms and action outputs. Large h/g arrays remain in the local run; reconstruct from original sealed AO/C by the unchanged transform.",
+  "original_physical_run_not_repeated": true
+}

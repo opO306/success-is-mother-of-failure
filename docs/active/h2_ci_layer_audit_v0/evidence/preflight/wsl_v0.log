@@ -1,0 +1,1 @@
+WSL preflight v0: 18 passed / 1 failed. Synthetic asymmetric pair test incorrectly assumed e_(0,0) exposes packing loss; its selected column agreed. All nine tiny synthetic entries inspected without physical data: e_(0,1) exposes discrepancy. Corrected synthetic test selection only; physical protocol unchanged.

@@ -1,0 +1,45 @@
+..........................F............................................. [ 58%]
+...................................................F                     [100%]
+================================== FAILURES ===================================
+_______ test_physical_sealed_source_and_compact_record_bytes_unchanged ________
+
+    def test_physical_sealed_source_and_compact_record_bytes_unchanged():
+        seal=read('preparation_seal.json')
+        for name,digest in seal['source_sha256'].items():
+>           assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==digest
+                                  ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_h2_ci_layer_audit_evidence_v0.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/������ ������ ��Ӵ�/electronic_pilot/ci_layer_audit_v0/baseline.py')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '\\mnt\\c\\Users\\zun24\\.codex\\worktrees\\h2-qz-cause-v0\\������ ������ ��Ӵ�\\electronic_pilot\\ci_layer_audit_v0\\baseline.py'
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\pathlib.py:1013: FileNotFoundError
+______ test_sparse_pair_contraction_against_full_four_index_contraction _______
+
+    def test_sparse_pair_contraction_against_full_four_index_contraction():
+>       from pyscf import ao2mo
+E       ModuleNotFoundError: No module named 'pyscf'
+
+tests\test_h2_qz44_failure_diagnostic.py:7: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_h2_ci_layer_audit_evidence_v0.py::test_physical_sealed_source_and_compact_record_bytes_unchanged
+FAILED tests/test_h2_qz44_failure_diagnostic.py::test_sparse_pair_contraction_against_full_four_index_contraction
+2 failed, 122 passed in 5.66s

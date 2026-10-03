@@ -1,5 +1,10 @@
 # 프로젝트 문서 안내
 
+[H₂ R=0.4 CI-Layer Micro-Audit V0](active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md)는
+original direct-pair와 독립 Slater–Condon의 검사 범위 일치, 이전 determinant action의
+단일 반례를 보존한다. h1e 흡수 뒤 fourfold packing 정보 손실을 분리했고 첫 mismatch에서
+다른 벡터·eigen/energy 비교를 중단했다. 기존 QZ44 FAIL·physical UNRESOLVED·NOT CERTIFIED 유지.
+
 [H₂ QZ Failure Cause Separation V0](active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md)는
 R=0.5 guard 평가 오류를 exact residual enclosure로 분리했다. adaptive prototype만 구현,
 R=0.4 독립 CI reference 후보는 invalid, 네 short-R 원인은 UNRESOLVED다.

@@ -4,6 +4,20 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ R=0.4 CI-Layer Micro-Audit V0(2026-10-03):**
+[단일 action 반례·원인·설계자 결정](docs/active/H2_R04_CI_LAYER_MICRO_AUDIT_V0.md).
+요청한 ab0d3f2/기존 H₂ worktree에서 같은 저장 MO로 basis1830 대응, 선택8 원소,
+canonical12×12, e_(50,50)의 full1830 output을 감사했다. original direct-pair와
+독립 fermion Slater–Condon은 검사 범위 일치: CI_LAYER_EQUIVALENCE_SUPPORTED.
+이전 PySCF determinant action은 19 component 불일치, 최대5.5667e-6:
+CI_CONSTRUCTION_MISMATCH_CONFIRMED(이전 후보 action). 비대칭 MO의 h1e 흡수 후
+fourfold packing이 서로 다른 f를 재사용하는 지점과 세 K 항까지 반례 축소.
+첫 mismatch에서 sparse/mixed-sign·eigensolver·energy/reference 비교 STOP.
+R=0.4 physical 원인 및 MO 전체 정확성 UNRESOLVED / NOT CERTIFIED.
+기존 QZ44 FAIL·R=0.5 MEASUREMENT_ERROR·production 미승인·원본 불변.
+Windows123/WSL126 passed, failure/error/skip0. LOCAL FULL 생략 / 관련 시험 대체 /
+새 분석·시험·문서만, 공식 기준선 불변. DESIGNER DECISION REQUIRED, push 없음.
+
 **H₂ QZ Failure Cause Separation V0(2026-10-03, 부분 중단):**
 [원인 분리·실패·설계자 결정](docs/active/H2_QZ_FAILURE_CAUSE_SEPARATION_V0.md).
 R=0.5의 동일 C/S exact operator residual 상한 1.0634011994e-11 < 기존 guard1e-10,

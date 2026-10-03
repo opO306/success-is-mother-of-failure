@@ -1,0 +1,38 @@
+{
+  "version": "h2-r04-ci-layer-micro-audit-v0",
+  "base_commit": "ab0d3f2520bb631793bdb08c8e96d8bc95db3b3e",
+  "branch": "codex/h2-qz-cause-v0",
+  "R_bohr": 0.4,
+  "basis": "cc-pVQZ spherical, all 60 AO and MO retained",
+  "electrons": 2,
+  "singlet_dimension": 1830,
+  "Hamiltonian": "sum h[p,q] a+(p,sigma) a(q,sigma) + 1/2 sum g[p,q,r,s] a+(p,sigma) a+(r,tau) a(s,tau) a(q,sigma); chemists ERI",
+  "input": "Re-materialize frozen-C compact MO once from original R_0.4 AO/C bytes by unchanged V0 transform, save, hash, then all CI paths consume the same stored h/g. No new AO, coordinates, averaging or integral precision.",
+  "identity": "sorted orbital pair; occupation; S=0, Ms=0; closed-shell determinant or open-shell spin-adapted singlet; positive spatial convention",
+  "independent_spin_orbital_order": "interleaved: 2*p alpha, 2*p+1 beta; ascending creation order",
+  "comparison_abs_max": 1e-10,
+  "comparison_rule": "Use unchanged H_asym_max magnitude as a predeclared element/action component significance threshold. Relative difference is descriptive only. This does not alter any acceptance guard.",
+  "stage_A": [
+    {"bra": [0,0], "ket": [0,0], "class": "closed diagonal"},
+    {"bra": [0,1], "ket": [0,1], "class": "open diagonal; Coulomb and exchange; normalization"},
+    {"bra": [0,0], "ket": [1,1], "class": "nonzero off-diagonal; different orbitals"},
+    {"bra": [0,0], "ket": [0,4], "class": "expected zero: odd x parity"},
+    {"bra": [0,0], "ket": [0,1], "class": "closed-open; sqrt2; one-electron and two-electron"},
+    {"bra": [0,1], "ket": [4,5], "class": "double change; independent exchange sign; expected zero parity"},
+    {"bra": [50,50], "ket": [50,56], "class": "prior worst pair-interchange quartet (50,50,50,56)"},
+    {"bra": [50,56], "ket": [50,50], "class": "reverse prior candidate; ERI ordering"}
+  ],
+  "stage_B_states": [[0,0],[0,1],[0,4],[0,50],[1,1],[1,4],[4,4],[4,5],[5,5],[50,50],[50,56],[56,56]],
+  "stage_C_vectors": [
+    {"name": "single", "entries": [{"state": [50,50], "weight": 1}]},
+    {"name": "few_sparse", "entries": [{"state": [0,0], "weight": 1}, {"state": [0,1], "weight": 0.5}, {"state": [50,56], "weight": 0.25}]},
+    {"name": "mixed_sign", "entries": [{"state": [0,0], "weight": 1}, {"state": [4,4], "weight": -0.5}, {"state": [50,50], "weight": -0.25}, {"state": [50,56], "weight": 0.125}]}
+  ],
+  "stage_C": "Compare full 1830 output coordinates for each sparse vector. A columns exported by unchanged original builder on the union of each output/input state's orbital labels; B columns computed with independent fermion operations. Separately compare the prior PySCF direct_spin1 action using independently derived determinant permutation mapping. Stop at first action vector mismatch; later vectors NOT_EXECUTED.",
+  "counterexample": "On first mismatch, reduce to one input basis state and one output component, preserve exact raw-MO Slater-Condon terms. A localized spin-free E_pq E_rs diagnostic may isolate h1e absorption/packing; it is not a new solver or repaired integral input.",
+  "stage_eigen": "Only after all A/B/C comparisons agree; never run on a CI/action mismatch. No energy or Pachucki comparison before that gate.",
+  "max_valid_approaches": 3,
+  "threads": 1,
+  "forbidden": ["old evaluator edits", "guard relaxation", "MO pair averaging", "H averaging", "basis deletion", "other R", "QZ44 rerun", "production", "dynamics", "push"],
+  "status": "EXPERIMENTAL_NOT_CERTIFIED"
+}

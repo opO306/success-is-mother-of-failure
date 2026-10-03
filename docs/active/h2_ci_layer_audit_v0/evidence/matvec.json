@@ -1,0 +1,38 @@
+{
+  "status": "STOP",
+  "vectors": [
+    {
+      "name": "single",
+      "entries": [
+        {
+          "state": [
+            50,
+            50
+          ],
+          "weight": 1
+        }
+      ],
+      "output_dimension": 1830,
+      "A_vs_independent_max": 8.881784197001252e-16,
+      "A_vs_independent_L2": 1.0023081188196293e-15,
+      "prior_action_vs_independent_max": 5.566707771187396e-06,
+      "prior_action_vs_independent_L2": 7.731971076104452e-06,
+      "mismatch_count": 19,
+      "largest_output_state": [
+        39,
+        50
+      ],
+      "first_mismatch_state": [
+        0,
+        50
+      ],
+      "seconds": 1.5743703299999652,
+      "status": "STOP"
+    }
+  ],
+  "not_executed": [
+    "few_sparse",
+    "mixed_sign"
+  ],
+  "reason": "first mismatch; no further campaign"
+}

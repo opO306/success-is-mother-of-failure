@@ -1,0 +1,1066 @@
+{
+  "status": "AGREE",
+  "rows": [
+    {
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        0
+      ],
+      "class": "closed diagonal",
+      "existing": 2.2773287179377686,
+      "independent": 2.2773287179377686,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0,
+      "mismatch": false,
+      "prior_direct_pair": 2.2773287179377686,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 2.2773287179377686,
+        "decimal100": "2.2773287179377685873760128743015229701995849609375",
+        "contribution": {
+          "one_electron": "0.1295239420310139166758744977414608001708984375",
+          "Coulomb": "2.1478047759067546707001383765600621700286865234375",
+          "exchange": "0"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "9114437141663/70368744177664",
+          "Coulomb": "1209106598554779/562949953421312",
+          "exchange": "0"
+        },
+        "normalization_denominator": "sqrt(2)^0",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              0
+            ],
+            "input": 0.06476197101550696,
+            "input_hex": "0x1.0943d93893e00p-4",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              0
+            ],
+            "input": 0.06476197101550696,
+            "input_hex": "0x1.0943d93893e00p-4",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "input": 2.1478047759067547,
+            "input_hex": "0x1.12eb44535b26cp+1",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              0,
+              0
+            ],
+            "input": 2.1478047759067547,
+            "input_hex": "0x1.12eb44535b26cp+1",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        0,
+        1
+      ],
+      "ket": [
+        0,
+        1
+      ],
+      "class": "open diagonal; Coulomb and exchange; normalization",
+      "existing": 2.9171524472352304,
+      "independent": 2.917152447235231,
+      "absolute_difference": 4.440892098500626e-16,
+      "relative_difference": 1.522338026149281e-16,
+      "mismatch": false,
+      "prior_direct_pair": 2.9171524472352304,
+      "prior_difference": 4.440892098500626e-16,
+      "breakdown": {
+        "value": 2.917152447235231,
+        "decimal100": "2.917152447235230983135778615178423933684825897216796874999999999999999999999999999999999999999999998",
+        "contribution": {
+          "one_electron": "1.689993182416933859002483586664311587810516357421874999999999999999999999999999999999999999999999999",
+          "Coulomb": "1.099531699482337421258648646471556276082992553710937499999999999999999999999999999999999999999999999",
+          "exchange": "0.1276275653359597028746463820425560697913169860839843749999999999999999999999999999999999999999999999"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "3805526333295791/1125899906842624",
+          "Coulomb": "4951850552070703/2251799813685248",
+          "exchange": "2299133822756927/9007199254740992"
+        },
+        "normalization_denominator": "sqrt(2)^2",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              0
+            ],
+            "input": 0.06476197101550696,
+            "input_hex": "0x1.0943d93893e00p-4",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              1,
+              1
+            ],
+            "input": 1.625231211401427,
+            "input_hex": "0x1.a00f27156857ep+0",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "input": 1.0995316994823374,
+            "input_hex": "0x1.197ae8d23122fp+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              1,
+              1,
+              0,
+              0
+            ],
+            "input": 1.0995316994823374,
+            "input_hex": "0x1.197ae8d23122fp+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              1,
+              0,
+              0,
+              1
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              1,
+              1,
+              0
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              1,
+              0,
+              0,
+              1
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              1,
+              1,
+              0
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              0
+            ],
+            "input": 0.06476197101550696,
+            "input_hex": "0x1.0943d93893e00p-4",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              1,
+              1
+            ],
+            "input": 1.625231211401427,
+            "input_hex": "0x1.a00f27156857ep+0",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              1,
+              1
+            ],
+            "input": 1.0995316994823374,
+            "input_hex": "0x1.197ae8d23122fp+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              1,
+              1,
+              0,
+              0
+            ],
+            "input": 1.0995316994823374,
+            "input_hex": "0x1.197ae8d23122fp+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        1,
+        1
+      ],
+      "class": "nonzero off-diagonal; different orbitals",
+      "existing": 0.1276275653359597,
+      "independent": 0.1276275653359597,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0,
+      "mismatch": false,
+      "prior_direct_pair": 0.1276275653359597,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 0.1276275653359597,
+        "decimal100": "0.127627565335959702874646382042556069791316986083984375",
+        "contribution": {
+          "one_electron": "0",
+          "Coulomb": "0.127627565335959702874646382042556069791316986083984375",
+          "exchange": "0"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "0",
+          "Coulomb": "2299133822756927/18014398509481984",
+          "exchange": "0"
+        },
+        "normalization_denominator": "sqrt(2)^0",
+        "terms": [
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              1,
+              0,
+              1
+            ],
+            "input": 0.1276275653359597,
+            "input_hex": "0x1.056199d97d07ep-3",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 0,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        4
+      ],
+      "class": "expected zero: odd x parity",
+      "existing": 0.0,
+      "independent": 0.0,
+      "absolute_difference": 0.0,
+      "relative_difference": null,
+      "mismatch": false,
+      "prior_direct_pair": 0.0,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 0.0,
+        "decimal100": "0",
+        "contribution": {
+          "one_electron": "0E+99",
+          "Coulomb": "0E+99",
+          "exchange": "0E+99"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "0",
+          "Coulomb": "0",
+          "exchange": "0"
+        },
+        "normalization_denominator": "sqrt(2)^1",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              4,
+              0,
+              0
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              0,
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              4,
+              0,
+              0
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        0,
+        0
+      ],
+      "ket": [
+        0,
+        1
+      ],
+      "class": "closed-open; sqrt2; one-electron and two-electron",
+      "existing": -3.849484126852614,
+      "independent": -3.849484126852614,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0,
+      "mismatch": false,
+      "prior_direct_pair": -3.849484126852614,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": -3.849484126852614,
+        "decimal100": "-3.849484126852613931524409910908968251561396345411670502736376013657277021374714943784494307722439591",
+        "contribution": {
+          "one_electron": "-3.359344299008102776851850282382149861169075168632907196357746367252878806829756637906716454454373161",
+          "Coulomb": "-0.2450699139222555773362798142634091951961605883893816531893148232021991072724791529388889266340332148",
+          "exchange": "-0.2450699139222555773362798142634091951961605883893816531893148232021991072724791529388889266340332148"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "-5348959356546869/1125899906842624",
+          "Coulomb": "-1560862945152289/4503599627370496",
+          "exchange": "-1560862945152289/4503599627370496"
+        },
+        "normalization_denominator": "sqrt(2)^1",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              1
+            ],
+            "input": -2.3754151341689984,
+            "input_hex": "-0x1.300d9a65d6f35p+1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "input": -0.3465811959984608,
+            "input_hex": "-0x1.62e62e58e3484p-2",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              1,
+              0,
+              0
+            ],
+            "input": -0.3465811959984608,
+            "input_hex": "-0x1.62e62e58e3484p-2",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              0,
+              1
+            ],
+            "input": -2.3754151341689984,
+            "input_hex": "-0x1.300d9a65d6f35p+1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "input": -0.3465811959984608,
+            "input_hex": "-0x1.62e62e58e3484p-2",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              1,
+              0,
+              0
+            ],
+            "input": -0.3465811959984608,
+            "input_hex": "-0x1.62e62e58e3484p-2",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        0,
+        1
+      ],
+      "ket": [
+        4,
+        5
+      ],
+      "class": "double change; independent exchange sign; expected zero parity",
+      "existing": 0.0,
+      "independent": 0.0,
+      "absolute_difference": 0.0,
+      "relative_difference": null,
+      "mismatch": false,
+      "prior_direct_pair": 0.0,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 0.0,
+        "decimal100": "0",
+        "contribution": {
+          "one_electron": "0E+99",
+          "Coulomb": "0E+99",
+          "exchange": "0E+99"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "0",
+          "Coulomb": "0",
+          "exchange": "0"
+        },
+        "normalization_denominator": "sqrt(2)^2",
+        "terms": [
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              4,
+              1,
+              5
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              1,
+              5,
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              1,
+              4,
+              0,
+              5
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              5,
+              1,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              1,
+              4,
+              0,
+              5
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              0,
+              5,
+              1,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              0,
+              4,
+              1,
+              5
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              1,
+              5,
+              0,
+              4
+            ],
+            "input": 0.0,
+            "input_hex": "0x0.0p+0",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 2,
+            "fermion_sign": 1,
+            "bra_sign": -1,
+            "ket_sign": -1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        50,
+        50
+      ],
+      "ket": [
+        50,
+        56
+      ],
+      "class": "prior worst pair-interchange quartet (50,50,50,56)",
+      "existing": 1.0022580229449902,
+      "independent": 1.0022580229449902,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0,
+      "mismatch": false,
+      "prior_direct_pair": 1.0022580229449902,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 1.0022580229449902,
+        "decimal100": "1.002258022944990207403426247794134677195390888457066207196795638829134892555289637566505659044570945",
+        "contribution": {
+          "one_electron": "1.036456814869207963669412440777133177251177084900352918733722652236605525565066219312024051338681723",
+          "Coulomb": "-0.01709939596210887813299309649149925002789309822164335576846350670373531650488829087275919614705538858",
+          "exchange": "-0.01709939596210887813299309649149925002789309822164335576846350670373531650488829087275919614705538858"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "825155876280433/562949953421312",
+          "Coulomb": "-13940087865811199/576460752303423488",
+          "exchange": "-13940087865811199/576460752303423488"
+        },
+        "normalization_denominator": "sqrt(2)^1",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              50,
+              56
+            ],
+            "input": 0.732885642201027,
+            "input_hex": "0x1.773cc971ec388p-1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              50,
+              50,
+              50,
+              56
+            ],
+            "input": -0.02419710341804182,
+            "input_hex": "-0x1.8c7201f5a8aa0p-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              50,
+              56,
+              50,
+              50
+            ],
+            "input": -0.024167291937962406,
+            "input_hex": "-0x1.8bf4f8206965fp-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              50,
+              56
+            ],
+            "input": 0.732885642201027,
+            "input_hex": "0x1.773cc971ec388p-1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              50,
+              50,
+              50,
+              56
+            ],
+            "input": -0.02419710341804182,
+            "input_hex": "-0x1.8c7201f5a8aa0p-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              50,
+              56,
+              50,
+              50
+            ],
+            "input": -0.024167291937962406,
+            "input_hex": "-0x1.8bf4f8206965fp-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": 1,
+            "ket_sign": -1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    },
+    {
+      "bra": [
+        50,
+        56
+      ],
+      "ket": [
+        50,
+        50
+      ],
+      "class": "reverse prior candidate; ERI ordering",
+      "existing": 1.0022580229449902,
+      "independent": 1.0022580229449902,
+      "absolute_difference": 0.0,
+      "relative_difference": 0.0,
+      "mismatch": false,
+      "prior_direct_pair": 1.0022580229449902,
+      "prior_difference": 0.0,
+      "breakdown": {
+        "value": 1.0022580229449902,
+        "decimal100": "1.002258022944990207403426247794134677195390888457066207196795638829134892555289637566505659044570945",
+        "contribution": {
+          "one_electron": "1.036456814869207963669412440777133177251177084900352918733722652236605525565066219312024051338681723",
+          "Coulomb": "-0.01709939596210887813299309649149925002789309822164335576846350670373531650488829087275919614705538858",
+          "exchange": "-0.01709939596210887813299309649149925002789309822164335576846350670373531650488829087275919614705538858"
+        },
+        "exact_dyadic_numerators_before_radical": {
+          "one_electron": "825155876280433/562949953421312",
+          "Coulomb": "-13940087865811199/576460752303423488",
+          "exchange": "-13940087865811199/576460752303423488"
+        },
+        "normalization_denominator": "sqrt(2)^1",
+        "terms": [
+          {
+            "kind": "one_electron",
+            "indices": [
+              56,
+              50
+            ],
+            "input": 0.732885642201027,
+            "input_hex": "0x1.773cc971ec388p-1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              50,
+              50,
+              56,
+              50
+            ],
+            "input": -0.02419710341804182,
+            "input_hex": "-0x1.8c7201f5a8aa0p-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "Coulomb",
+            "indices": [
+              56,
+              50,
+              50,
+              50
+            ],
+            "input": -0.024167291937962406,
+            "input_hex": "-0x1.8bf4f8206965fp-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": 1,
+            "bra_sign": 1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "one_electron",
+            "indices": [
+              56,
+              50
+            ],
+            "input": 0.732885642201027,
+            "input_hex": "0x1.773cc971ec388p-1",
+            "coefficient": "1",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              56,
+              50,
+              50,
+              50
+            ],
+            "input": -0.024167291937962406,
+            "input_hex": "-0x1.8bf4f8206965fp-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          },
+          {
+            "kind": "exchange",
+            "indices": [
+              50,
+              50,
+              56,
+              50
+            ],
+            "input": -0.02419710341804182,
+            "input_hex": "-0x1.8c7201f5a8aa0p-6",
+            "coefficient": "1/2",
+            "sqrt2_denominator_power": 1,
+            "fermion_sign": -1,
+            "bra_sign": -1,
+            "ket_sign": 1
+          }
+        ],
+        "precision_scope": "Exact dyadic term accumulation; 100-digit radical display; rounded binary64 MO input is not HP AO."
+      }
+    }
+  ],
+  "max_absolute_difference": 4.440892098500626e-16
+}

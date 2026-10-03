@@ -1,0 +1,3 @@
+# Only new H2 micro-audit tests retain their physically sealed source bytes.
+test_h2_ci_layer_audit_v0.py -text
+test_h2_ci_layer_audit_evidence_v0.py -text

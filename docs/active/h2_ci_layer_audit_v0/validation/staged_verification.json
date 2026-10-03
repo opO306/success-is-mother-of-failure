@@ -1,0 +1,13 @@
+{
+  "staged_sealed_source_and_compact_record_count": 32,
+  "mismatches": [],
+  "old_modified_only_navigation_docs": [
+    "CURRENT_STATE.md",
+    "docs/DOCUMENT_STATUS_INDEX.md",
+    "docs/README.md"
+  ],
+  "base_commit": "ab0d3f2520bb631793bdb08c8e96d8bc95db3b3e",
+  "artifact_CRLF_and_trace_whitespace_preserved": true,
+  "git_diff_check": true,
+  "numerical_source_or_guards_changed": false
+}

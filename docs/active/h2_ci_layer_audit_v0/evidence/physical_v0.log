@@ -1,0 +1,14 @@
+{
+  "classification": "CI_CONSTRUCTION_MISMATCH_CONFIRMED",
+  "failure_stage": "prior_determinant_action",
+  "A_vs_independent": "CI_LAYER_EQUIVALENCE_SUPPORTED on selected elements/submatrix and one full column",
+  "seconds": 51.46041634100001,
+  "R_bohr": 0.4,
+  "not_certified": true,
+  "designer_decision_required": true,
+  "valid_approaches": 1,
+  "wall_seconds": 164.35056901899998,
+  "cpu_seconds": 17.850031003,
+  "peak_rss_bytes": 440602624,
+  "peak_scope": "whole process including Git hashing, MO materialization and diagnostic intermediate; not full CI solver"
+}
