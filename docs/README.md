@@ -1,5 +1,9 @@
 # 프로젝트 문서 안내
 
+[H₂ internal convergence audit V0](active/h2_internal_convergence_v0/REPORT.md):
+Vendor/AUDIT 출력·WF불변5/5, 실제 수렴 종료5/5, exit0/ierror0 MAXIT mutant 소진 탐지.
+독립 residual160자리 MEASURED/acceptance미승인, root/integral미확인, R=.4/B2미착수/STOP.
+
 [H₂ vendor build 재개 V2](active/h2_vendor_build_resume_v2/REPORT.md):
 README static build성공/배포5예제 출력byte동일5/5. 원본불변, default make 실패보존.
 Native convergence미출력→guard qualification UNRESOLVED. R=.4/B2 미착수, STOP/NOT_CERTIFIED.

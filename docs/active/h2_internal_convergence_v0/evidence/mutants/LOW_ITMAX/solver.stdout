@@ -1,0 +1,71 @@
+ input nuclear charge A
+ input nuclear charge B
+ input A <-> B symmetry (1:gerade, -1:ungerade, 0:nosym)
+ input r1 <-> r2 symmetry (1:sym, -1:asym)
+ input internuclear distance
+ input basis restriction type 1 (=-1..2; -1:auto)
+ input basis restriction type 2 (=-1..2; -1:auto)
+ input basis rank OMEGA
+ input length of Taylor series NMAX
+ input working precision for linear algebra in digits  (max:  80)
+ input approximate energy EN, below a true energy
+ input nonlinear parameter Y
+ input nonlinear parameter X
+ input nonlinear parameter U
+ input nonlinear parameter W
+ Auto selection: RESTRICT1 =            1
+ Auto selection: RESTRICT2 =            1
+
+ ======================================================
+ H2SOLV: 
+ Calculating nonrelativistic energy of H2-like molecule
+ James-Coolidge SYM basis: X = Y = 0; U = W                              
+ Input parameters:
+ ZA  =              1
+ ZB  =              1
+ IAB =              1
+ IE  =              1
+ R  =          3.0000
+ RESTRICT1 =        1
+ RESTRICT2 =        1
+ OMEGA =            7
+ NMAX  =           80
+ NDIGITS =         60
+ NELM  =          228
+
+ Calculating...
+ integrals, direct
+ integrals completed
+ Hamitonian matrix completed
+
+ ==========================================
+
+ Nonrelativistic energy of H2-like molecule
+
+ James-Coolidge SYM basis: X = Y = 0; U = W                              
+
+ Nuclear charge A:                 1
+ Nuclear charge B:                 1
+ A <-> B symmetry:            GERADE
+ r1 <-> r2 symmetry:             SYM
+ Internuclear distance:       3.0000
+
+ Work. prec. for integr.:         80
+ Work. prec. for lin. alg.:       60
+
+ Basis parameters:          
+ Rank (OMEGA):                     7
+ Type 1 of restriction:            1
+ Type 2 of restriction:            1
+ Length of Taylor series:         80
+ Basis size:                     228
+
+ Non-linear parameters: 
+ Y =         0.000000000000000000e-1                 
+ X =         0.000000000000000000e-1                 
+ U =         6.532000000000000000e-1                 
+ W =         6.532000000000000000e-1                 
+
+ Resulting energy: 
+ EN =        -1.057313000373947143e0                 
+  

@@ -1,0 +1,10 @@
+{
+  "HEAD": "1a3c1264f5e3e4cd1d5b52726e7d49e845606816",
+  "branch": "codex/h2-representation-pilot1",
+  "start_clean_verified_before_implementation": true,
+  "prepare_status": "## codex/h2-representation-pilot1...origin/codex/h2-representation-pilot1 [ahead 2]\n?? docs/active/h2_internal_convergence_v0/\n?? electronic_pilot/h2_internal_convergence_v0/\n?? tests/h2_internal_convergence_v0/\n",
+  "origin_live_refs": "264f5880ee1dedd5a97b008c29dd8d67057664b9\trefs/heads/codex/h2-representation-pilot1\n0f7b744cf754450424a63c47f305e0327c5b37c1\trefs/heads/master\n",
+  "ahead_behind": "2\t0",
+  "auto_merge_rebase": false,
+  "push": false
+}

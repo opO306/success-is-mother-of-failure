@@ -1,0 +1,128 @@
+{
+  "label": "LOW_ITMAX",
+  "process": {
+    "solver": {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutants/LOW_ITMAX",
+        "--",
+        "/usr/bin/env",
+        "OMP_NUM_THREADS=1",
+        "OMP_DYNAMIC=FALSE",
+        "/usr/bin/time",
+        "-f",
+        "%e %U %S %M %x",
+        "-o",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutants/LOW_ITMAX/solver.time",
+        "/usr/bin/timeout",
+        "--kill-after=5s",
+        "600s",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutant_low_itmax_build/h2solv/f/h2solv"
+      ],
+      "exit": 0,
+      "wall_windows_seconds": 9.406000000002678,
+      "stdout_sha256": "f0ce6ad42d653dbc2dcd5acf5cfed69c6ce92b39eb44890d8c02f6004ca8110e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 8.54,
+      "cpu_user_seconds": 9.03,
+      "cpu_system_seconds": 0.24,
+      "peak_RSS_KiB": 199296
+    },
+    "example": {
+      "command": [
+        "wsl.exe",
+        "-d",
+        "Ubuntu-24.04",
+        "--cd",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutants/LOW_ITMAX",
+        "--",
+        "/usr/bin/env",
+        "OMP_NUM_THREADS=1",
+        "OMP_DYNAMIC=FALSE",
+        "/usr/bin/time",
+        "-f",
+        "%e %U %S %M %x",
+        "-o",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutants/LOW_ITMAX/example.time",
+        "/usr/bin/timeout",
+        "--kill-after=5s",
+        "600s",
+        "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutant_low_itmax_build/h2solv/f/example"
+      ],
+      "exit": 0,
+      "wall_windows_seconds": 0.1409999999887077,
+      "stdout_sha256": "1a72ee31531ba7cdf22f90df0e8f9a2f638bcbdf1cc360d281599725e23c5ead",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 0.01,
+      "cpu_user_seconds": 0.0,
+      "cpu_system_seconds": 0.0,
+      "peak_RSS_KiB": 3072
+    },
+    "combined_output_sha256": "d1f870525463f1796f27bab88767938ff6afa26ca715f6e58a663c782187e7e5",
+    "wavefunction_sha256": "b7d5edfba97f2693bae21cac4f6a310792a67b0a2e4adc8a616f42e2f5103a09"
+  },
+  "observation": {
+    "iterations": [
+      {
+        "index": 1,
+        "previous": "-1.057300000000000000000000000000000099999999999999999999999999999999999999999999999999999999999999725175311129650546717613157793517317396482644328660607648339101",
+        "previous_precision_bits": 320,
+        "updated": "-1.057313000373947143022800031273781136356084518181816571459750198317327954565114847044202843804477354263427225692298321448712232245054815089579838727994848884859",
+        "updated_precision_bits": 384,
+        "signed_delta": "-0.00001300037394714302280003127378103635608451818181657145975019831732795456511484704420284380447762908811609604175160383555443872773741860693551006738720054575811832",
+        "signed_delta_precision_bits": 384,
+        "abs_delta": "0.00001300037394714302280003127378103635608451818181657145975019831732795456511484704420284380447762908811609604175160383555443872773741860693551006738720054575811832",
+        "abs_delta_precision_bits": 384,
+        "threshold": "3.857077825364159177747174514086753585426996322327266852685168723461612378253538962017251974198733388352982519325504241134949154651312388705241818860693286106346e-61",
+        "threshold_precision_bits": 384,
+        "eigenvalue_test_true": false
+      }
+    ],
+    "leq1s": [
+      {
+        "job": 1,
+        "iteration": 0,
+        "error": 0
+      },
+      {
+        "job": 2,
+        "iteration": 1,
+        "error": 0
+      }
+    ],
+    "maxit_exhausted": true,
+    "converged_by_eigenvalue_test": false,
+    "structure_errors": [],
+    "dimension": 228,
+    "OMEGA": 7,
+    "NMAX": 80,
+    "NDIGITS": 60,
+    "ITMAX": 1,
+    "ijob": 0,
+    "exhausted_maxit": 1,
+    "actual_iteration_count": 1,
+    "normalization_ier": 0,
+    "termination_reason": "MAXIT_EXHAUSTED",
+    "final_ierror": 0,
+    "solver_factorization_error_free": true,
+    "number_of_eigenvalues_below_initial_EN_source_reported": 1,
+    "inverse_iteration_supported": false,
+    "initial_EN": "-1.057300000000000000000000000000000099999999999999999999999999999999999999999999999999999999999999725175311129650546717613157793517317396482644328660607648339101",
+    "initial_EN_precision_bits": 320,
+    "EPSKOR": "0.0",
+    "EPSKOR_precision_bits": 320,
+    "errest": "3.647999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999994703628135307905455756515287968364002954481e-61",
+    "errest_precision_bits": 384,
+    "factor_negative_count": "1.0",
+    "factor_negative_count_precision_bits": 384,
+    "final_EN": "-1.057313000373947143022800031273781136356084518181816571459750198317327954565114847044202843804477354263427225692298321448712232245054815089579838727994848884859",
+    "final_EN_precision_bits": 384,
+    "wa1": "1.0",
+    "wa1_precision_bits": 384
+  },
+  "physical_result_eligible": false,
+  "detected": true
+}

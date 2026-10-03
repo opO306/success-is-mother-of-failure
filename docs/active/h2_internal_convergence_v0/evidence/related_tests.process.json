@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-m",
+    "pytest",
+    "tests/h2_internal_convergence_v0",
+    "tests/h2_vendor_resume_v2",
+    "tests/h2solv_resume_v1",
+    "tests/h2_representation_pilot1",
+    "tests/h2_frontend_reference_v0",
+    "-q",
+    "--junitxml=runs\\h2_representation_pilot1\\internal_convergence_v0_20261003\\related_tests.xml"
+  ],
+  "exit": 0
+}

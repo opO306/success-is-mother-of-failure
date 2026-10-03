@@ -1,0 +1,30 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/cases/H2.1.1.2.6_general/AUDIT",
+    "--",
+    "/usr/bin/env",
+    "OMP_NUM_THREADS=1",
+    "OMP_DYNAMIC=FALSE",
+    "/usr/bin/time",
+    "-f",
+    "%e %U %S %M %x",
+    "-o",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/cases/H2.1.1.2.6_general/AUDIT/solver.time",
+    "/usr/bin/timeout",
+    "--kill-after=5s",
+    "600s",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/audit_build/h2solv/f/h2solv"
+  ],
+  "exit": 0,
+  "wall_windows_seconds": 135.32799999999406,
+  "stdout_sha256": "b564e9042d87908949435580ebcc12589ae7a01e359cf92872da61637937e2fe",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "elapsed_seconds": 135.49,
+  "cpu_user_seconds": 134.09,
+  "cpu_system_seconds": 0.79,
+  "peak_RSS_KiB": 531072
+}

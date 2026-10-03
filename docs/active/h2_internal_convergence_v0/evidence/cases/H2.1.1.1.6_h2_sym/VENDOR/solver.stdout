@@ -1,0 +1,70 @@
+ input nuclear charge A
+ input nuclear charge B
+ input A <-> B symmetry (1:gerade, -1:ungerade, 0:nosym)
+ input r1 <-> r2 symmetry (1:sym, -1:asym)
+ input internuclear distance
+ input basis restriction type 1 (=-1..2; -1:auto)
+ input basis restriction type 2 (=-1..2; -1:auto)
+ input basis rank OMEGA
+ input length of Taylor series NMAX
+ input working precision for linear algebra in digits  (max:  80)
+ input approximate energy EN, below a true energy
+ input nonlinear parameter Y
+ input nonlinear parameter X
+ input nonlinear parameter U
+ input nonlinear parameter W
+
+ ======================================================
+ H2SOLV: 
+ Calculating nonrelativistic energy of H2-like molecule
+ H2 SYM basis: X = -Y; U = W                                             
+ Input parameters:
+ ZA  =              1
+ ZB  =              1
+ IAB =              1
+ IE  =              1
+ R  =          6.0000
+ RESTRICT1 =        0
+ RESTRICT2 =        1
+ OMEGA =            7
+ NMAX  =          140
+ NDIGITS =         60
+ NELM  =          416
+
+ Calculating...
+ integrals, direct
+ integrals, r1 <-> r2
+ integrals completed
+ Hamitonian matrix completed
+
+ ==========================================
+
+ Nonrelativistic energy of H2-like molecule
+
+ H2 SYM basis: X = -Y; U = W                                             
+
+ Nuclear charge A:                 1
+ Nuclear charge B:                 1
+ A <-> B symmetry:            GERADE
+ r1 <-> r2 symmetry:             SYM
+ Internuclear distance:       6.0000
+
+ Work. prec. for integr.:         80
+ Work. prec. for lin. alg.:       60
+
+ Basis parameters:          
+ Rank (OMEGA):                     7
+ Type 1 of restriction:            0
+ Type 2 of restriction:            1
+ Length of Taylor series:        140
+ Basis size:                     416
+
+ Non-linear parameters: 
+ Y =         1.045800000000000000e-1                 
+ X =         -1.045800000000000000e-1                
+ U =         5.171670000000000000e-1                 
+ W =         5.171670000000000000e-1                 
+
+ Resulting energy: 
+ EN =        -1.000835673013415305e0                 
+  

@@ -1,0 +1,8 @@
+mpinterface.c: In function ‘mpfrroot’:
+mpinterface.c:66:2: warning: ‘mpfr_root’ is deprecated [-Wdeprecated-declarations]
+   66 |  mpfr_root (r2, r1, n1, n2);
+      |  ^~~~~~~~~
+In file included from mpinterface.c:2:
+/usr/include/mpfr.h:763:21: note: declared here
+  763 | __MPFR_DECLSPEC int mpfr_root (mpfr_ptr, mpfr_srcptr, unsigned long,
+      |                     ^~~~~~~~~

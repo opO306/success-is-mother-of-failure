@@ -1,0 +1,898 @@
+좋아. 이번 단계는 **H2SOLV가 같은 숫자를 뱉는다는 사실에서 한 단계 더 들어가서, 진짜 정상 종료했는지 내부를 감사하는 작업**으로 잡는 게 맞아.
+
+특히 소스를 직접 보면 `invsg`는 최대 반복 `ITMAX=40`이고, 수렴하면 빠져나오지만 **40회를 다 써도 같은 종료 지점으로 흘러가서 별도 실패 표시 없이 결과를 만들 수 있는 구조**야. 그러니 이걸 먼저 닫아야 R=0.4 계산값을 믿을 최소 조건이 생긴다.
+
+아래 그대로 구현자한테 넘기면 됨.
+
+---
+
+# H2SOLV Internal Convergence Audit V0
+## Vendor 원본 불변 + 계측 사본 + 독립 residual 검사
+
+현재까지 확인된 상태:
+
+```text
+공식 H2SOLV archive provenance
+PASS
+
+README-supported static build
+PASS
+
+공식 vendor examples
+5 / 5 byte-identical reproduction
+
+H2SOLV 실행 가능성
+PASS
+
+내부 solver convergence
+UNRESOLVED
+
+integral truncation convergence
+UNRESOLVED
+
+R=0.4 B1
+NOT EXECUTED
+
+B2 independent James–Coolidge
+NOT STARTED
+
+NOT CERTIFIED
+NOT PRODUCTION APPROVED
+```
+
+이번 작업의 목적은 하나입니다.
+
+> **공식 H2SOLV가 결과를 출력했을 때 inverse iteration이 실제 수렴 조건으로 종료했는지, 단순히 최대 반복 횟수를 소진하고도 정상 출력된 것인지 독립적으로 구분할 수 있게 만든다.**
+
+이번 단계에서는 **R=0.4 계산을 아직 시작하지 않습니다.**
+
+---
+
+# 0. Git / 기준 상태
+
+설계자 보고 기준 최신 로컬 commit:
+
+```text
+1a3c126
+```
+
+현재 원격 `codex/h2-representation-pilot1`에는 아직 이 commit이 없을 수 있습니다.
+
+작업 시작 전에 반드시 직접 확인:
+
+```text
+HEAD
+branch
+origin/master
+origin/codex/h2-representation-pilot1
+ahead / behind
+dirty
+untracked
+```
+
+원격 변화 때문에 자동 merge/rebase하지 마십시오.
+
+현재 Pilot의 로컬 계보를 유지합니다.
+
+**Push 금지.**
+
+---
+
+# 1. 공식 vendor source는 절대 수정하지 말 것
+
+두 실행물을 명확히 분리하십시오.
+
+## VENDOR
+
+```text
+정식 H2SOLV source
+정식 build path
+원본 executable
+```
+
+역할:
+
+> 저자 배포본 그대로의 authoritative vendor execution
+
+원본 source/hash는 이전 봉인값과 byte-identical이어야 합니다.
+
+---
+
+## AUDIT
+
+공식 source를 별도 디렉터리에 복사하여 만든:
+
+```text
+H2SOLV instrumented audit copy
+```
+
+역할:
+
+> 계산 결과를 고치는 것이 아니라 내부 상태를 관측하기 위한 계측판
+
+원본과 명확히 다른 hash 및 경로를 사용하십시오.
+
+---
+
+# 2. 계측판에서 계산식을 변경하지 말 것
+
+AUDIT copy에서 허용되는 수정은 **관측값 저장**뿐입니다.
+
+금지:
+
+```text
+수렴 threshold 변경
+ITMAX 증가
+EPSKOR 변경
+EN 변경
+basis 변경
+NMAX 변경
+NDIGITS 변경
+recurrence 변경
+matrix 대칭화
+root 선택 변경
+precision 변경
+```
+
+즉:
+
+```text
+원래 계산
++
+관찰 로그
+```
+
+만 허용합니다.
+
+---
+
+# 3. 특히 `invsg`를 감사할 것
+
+현재 source에서 직접 재확인해야 할 사항:
+
+```text
+ITMAX = 40
+
+EPSKOR = 0
+
+inverse iteration 사용
+
+initial EN을 받아 desired eigenvalue 탐색
+
+수렴 조건은 successive eigenvalue 변화 기반
+
+max iteration 소진과 정상 convergence가
+현재 외부 출력에서 구별되지 않음
+```
+
+현재 소스에는 대략:
+
+```text
+abs(eprev - eig) < errest * abs(eig)
+```
+
+형태의 종료 조건이 있습니다.
+
+그리고 `maxit`를 다 돌면 별도 convergence error 없이 정상화 단계로 내려갑니다.
+
+**구현자는 실제 source에서 이 흐름을 다시 확인하고 정확한 식과 변수명을 보고서에 기록하십시오.**
+
+내 설명을 source보다 우선하지 마십시오.
+
+---
+
+# 4. AUDIT copy가 반드시 기록할 항목
+
+각 `invsg` 실행마다 sidecar audit file에 최소 다음을 기록하십시오.
+
+```text
+initial EN
+
+final EN
+
+ITMAX
+
+actual iteration count
+
+converged_by_eigenvalue_test
+true / false
+
+maxit_exhausted
+true / false
+
+errest
+
+각 iteration의:
+  iteration index
+  previous eigenvalue
+  updated eigenvalue
+  signed delta
+  abs delta
+  convergence threshold
+
+leq1s/factorization error status
+
+final ierror
+
+wa(1)의 의미와 실제 값
+```
+
+가능하면 모든 iteration 기록을 남기십시오.
+
+40개밖에 안 됩니다. 여기서 로그 몇 줄 아끼겠다고 우주를 구할 필요는 없습니다.
+
+---
+
+# 5. Vendor stdout을 오염시키지 말 것
+
+계측 정보는 stdout에 추가하지 않는 것을 권장합니다.
+
+예:
+
+```text
+vendor scientific output
+→ 기존 출력 그대로
+
+audit diagnostics
+→ 별도 sidecar
+```
+
+예:
+
+```text
+audit_invsg.json
+audit_invsg.log
+```
+
+또는 동등한 구조.
+
+목적은 **instrumentation이 계산 결과를 바꾸지 않았는지 byte 비교를 가능하게 하는 것**입니다.
+
+---
+
+# 6. H와 S를 solver 호출 전에 보존
+
+`invsg`는 matrix를 파괴적으로 변경할 수 있으므로 AUDIT copy에서는 solver 호출 전에:
+
+```text
+H_original
+S_original
+```
+
+을 별도로 보존하십시오.
+
+이 복사는 계산 입력 변경이 아니라 감사용 snapshot입니다.
+
+가능하면 Git에는 대형 matrix 자체를 넣지 말고:
+
+```text
+binary file
+→ runs/
+
+Git
+→ hash / dimension / format / provenance
+```
+
+만 기록하십시오.
+
+---
+
+# 7. solver 종료 후 독립 generalized residual 계산
+
+반환된:
+
+```text
+E
+v
+```
+
+와 보존한 원래:
+
+```text
+H
+S
+```
+
+를 이용하여 독립적으로:
+
+```text
+r = H v - E S v
+```
+
+를 계산하십시오.
+
+최소:
+
+```text
+||r||₂
+
+||r||∞
+
+vᵀ S v
+
+|vᵀ S v - 1|
+```
+
+기록.
+
+가능하면:
+
+```text
+E_RQ = (vᵀ H v) / (vᵀ S v)
+```
+
+도 독립 계산하여:
+
+```text
+E_RQ - E_invsg
+```
+
+를 기록하십시오.
+
+---
+
+# 8. residual 계산은 invsg 내부 routine을 재사용하지 말 것
+
+감사 residual path는 가능하면 별도로 구현하십시오.
+
+즉:
+
+```text
+invsg의 avms 결과 재사용
+X
+
+invsg 내부 dot-product 상태 재사용
+X
+```
+
+대신 보존된 H/S와 최종 vector를 읽어서 별도 코드로 계산하십시오.
+
+가능하면 Python/mpmath 또는 다른 명확한 고정밀 경로를 사용하십시오.
+
+목적은:
+
+> solver가 자기 숙제를 자기 채점하지 않게 하는 것
+
+입니다.
+
+---
+
+# 9. arithmetic precision
+
+공식 예제는 현재:
+
+```text
+integral precision = 80 decimal digits
+linear algebra = 60 decimal digits
+```
+
+로 출력됩니다.
+
+독립 residual 검사는 최소한 solver linear algebra precision보다 낮지 않은 정밀도로 수행하십시오.
+
+권장:
+
+```text
+80 decimal digits 이상
+```
+
+단, 저장된 matrix/vector precision보다 계산 precision을 올린다고 잃어버린 정보를 복구했다고 주장하지 마십시오.
+
+---
+
+# 10. lowest-root 문제도 기록
+
+H2SOLV source 설명상 `EN`은 원하는 eigenvalue에 대한 초기 approximation입니다.
+
+또 `invsg` 문서에서는 work array의 특정 값이 **초기 EN 아래에 존재하는 eigenvalue 수**와 관련됩니다.
+
+이 의미를 source에서 정확히 확인하고 기록하십시오.
+
+가능하면 각 vendor example에서:
+
+```text
+number_of_eigenvalues_below_initial_EN
+```
+
+을 audit sidecar에 남기십시오.
+
+### 중요한 판정
+
+만약:
+
+```text
+initial EN 아래 eigenvalue 수 = 0
+```
+
+이고 solver가 그 위 첫 root에 안정적으로 수렴한다는 source 의미가 확인되면 ground-root 주장에 유용한 증거입니다.
+
+하지만 이것만으로 formal ground-state certificate라고 부르지는 마십시오.
+
+---
+
+# 11. 가능하면 별도 numerical root 진단
+
+행렬 크기가 허용되는 vendor example에서는 보존된 H/S를 별도 numerical eigensolver로 읽어:
+
+```text
+lowest root
+second root
+```
+
+를 진단적으로 비교하십시오.
+
+단:
+
+```text
+binary64 generalized eigensolver
+```
+
+를 arbitrary-precision truth로 부르지 마십시오.
+
+용도는:
+
+> H2SOLV가 전혀 다른 root로 간 것은 아닌가?
+
+를 확인하는 보조 증거입니다.
+
+---
+
+# 12. 계측이 결과를 바꾸지 않았음을 먼저 증명
+
+5개 vendor example을:
+
+```text
+VENDOR binary
+AUDIT binary
+```
+
+둘 다 실행하십시오.
+
+각 예제에서:
+
+```text
+original scientific output
+vs
+instrumented scientific output
+```
+
+가 **byte-identical**인지 확인하십시오.
+
+기존에는 vendor reference와 vendor binary가 5/5 byte-identical했습니다.
+
+이번에는 추가로:
+
+```text
+vendor binary output
+==
+audit binary scientific output
+```
+
+이어야 합니다.
+
+audit sidecar만 추가되어야 합니다.
+
+---
+
+# 13. 5개 example 내부 수렴 판정
+
+각 예제에 대해 별도로:
+
+```text
+printed output reproduced
+
+inverse iteration converged by intended criterion
+
+maxit not exhausted
+
+factorization/solver error 없음
+
+independent residual acceptable
+
+B-norm acceptable
+
+Rayleigh quotient consistency
+
+root diagnostic
+```
+
+를 기록하십시오.
+
+---
+
+# 14. 아직 tolerance를 즉석에서 만들지 말 것
+
+residual PASS threshold가 기존 계약에 없다면 결과를 본 뒤 숫자를 정하지 마십시오.
+
+먼저:
+
+1. source가 의도하는 arithmetic precision
+2. 기존 numerical contract와 dimensional scale
+3. vendor output precision
+
+을 근거로 threshold를 **실행 전 문서에 봉인**하십시오.
+
+엄밀한 기준을 정하기 어렵다면:
+
+```text
+MEASURED
+```
+
+로만 기록하고 PASS/FAIL 승격을 보류하십시오.
+
+---
+
+# 15. 핵심 fault injection
+
+이번 감사가 실제로 max-iteration 실패를 잡을 수 있는지 확인해야 합니다.
+
+**테스트 전용 mutant copy**에서만:
+
+```text
+ITMAX = 1
+```
+
+또는 확실히 너무 작은 값으로 강제하십시오.
+
+그 실행에서 observer/wrapper가:
+
+```text
+MAXIT_EXHAUSTED
+```
+
+를 반드시 탐지해야 합니다.
+
+원본 및 authoritative AUDIT binary와 분리하십시오.
+
+이 mutant의 에너지는 물리 결과로 사용하지 않습니다.
+
+---
+
+# 16. 또 하나의 fault injection
+
+가능하면 별도 test copy에서:
+
+```text
+EN을 의도적으로 나쁜 값으로 변경
+```
+
+하여:
+
+```text
+다른 root 접근
+또는
+eigenvalues-below count 변화
+```
+
+를 observer가 구별하는지 확인하십시오.
+
+단 이것도 **observer 검증용**입니다.
+
+공식 예제 결과 판정에 섞지 마십시오.
+
+---
+
+# 17. integral convergence는 이번에 과장하지 말 것
+
+현재 `NMAX`는 Taylor expansion 길이이며, 프로그램 자체가:
+
+```text
+NMAX가 충분히 컸는가
+```
+
+를 독립 certificate로 출력하는 구조는 아닌 것으로 보입니다.
+
+따라서 이번 V0에서:
+
+```text
+inverse iteration convergence
+```
+
+를 닫았다고 해서:
+
+```text
+integral truncation convergence까지 인증
+```
+
+했다고 쓰면 안 됩니다.
+
+상태를 분리하십시오.
+
+```text
+SOLVER_ITERATION_CONVERGENCE
+INTEGRAL_TRUNCATION_CONVERGENCE
+```
+
+---
+
+# 18. NMAX는 이번에는 변경하지 말 것
+
+vendor 5 examples 내부 solver audit 단계에서는 기존 input의 NMAX를 그대로 유지합니다.
+
+NMAX ladder는 다음 R=0.4 B1 단계에서 representation/precision과 분리하여 검사합니다.
+
+이번에는 dependency 하나씩 닫습니다.
+
+---
+
+# 19. 이번 단계 성공 조건
+
+5개 모두 다음 조건을 만족하면:
+
+```text
+vendor scientific output unchanged
+
+audit scientific output unchanged
+
+converged_by_eigenvalue_test = true
+
+maxit_exhausted = false
+
+solver/factorization error 없음
+
+independent generalized residual 정상
+
+normalization 정상
+
+root 진단에서 모순 없음
+```
+
+다음 상태 후보:
+
+```text
+H2SOLV_VENDOR_INTERNAL_SOLVER_CONVERGENCE_SUPPORTED
+```
+
+입니다.
+
+주의:
+
+```text
+H2SOLV scientifically certified
+```
+
+가 아닙니다.
+
+---
+
+# 20. 실패 조건
+
+예제 하나라도:
+
+```text
+maxit exhausted
+
+ierror != 0
+
+output은 정상인데 residual 이상
+
+Rayleigh quotient 불일치
+
+instrumentation 때문에 scientific output 변경
+
+root 모순
+```
+
+이면:
+
+```text
+H2SOLV_VENDOR_INTERNAL_CONVERGENCE_UNRESOLVED
+STOP
+```
+
+하고 최초 반례를 축소합니다.
+
+**R=0.4로 진행하지 마십시오.**
+
+---
+
+# 21. 성공해도 이번 task에서는 R=0.4 실행 금지
+
+이번 작업은:
+
+```text
+내부 solver convergence 관측 가능성
++
+vendor examples 내부 정상성
+```
+
+까지만입니다.
+
+성공한 뒤 STOP하십시오.
+
+다음 단계에서 별도로:
+
+```text
+R=0.4 B1
+OMEGA / NMAX / NDIGITS
+nonlinear parameter / EN
+```
+
+계약을 봉인합니다.
+
+이 순서를 지키는 이유는 단순합니다.
+
+지금 우리가 검증할 자가 제대로 작동하는지 모르는데 새로운 길이를 재기 시작할 이유가 없습니다.
+
+---
+
+# 22. B2도 아직 시작 금지
+
+독립 James–Coolidge B2는 아직 시작하지 마십시오.
+
+현재 순서:
+
+```text
+vendor build          PASS
+        ↓
+vendor examples       PASS
+        ↓
+internal convergence  ← 이번 작업
+        ↓
+B1 R=0.4
+        ↓
+B2 independent JC
+```
+
+입니다.
+
+---
+
+# 23. 기존 결과 보존
+
+다음 기존 상태는 변경하지 마십시오.
+
+```text
+QZ44 FAIL
+
+same-basis reconstruction UNRESOLVED
+
+finite-basis limitation SUPPORTED UNDER CHECKED ASSUMPTIONS
+
+MO ERI unresolved
+
+H2SOLV vendor outputs 5/5 reproduced
+
+NOT_CERTIFIED
+
+NOT_PRODUCTION_APPROVED
+```
+
+---
+
+# 24. 최종 상태 이름
+
+최소 다음을 사용하십시오.
+
+```text
+H2SOLV_VENDOR_OUTPUT_REPRODUCTION_PASS
+
+H2SOLV_INSTRUMENTATION_NONINTERFERENCE_PASS
+
+H2SOLV_INVERSE_ITERATION_CONVERGENCE_SUPPORTED
+
+H2SOLV_MAXIT_EXHAUSTION_DETECTION_SUPPORTED
+
+H2SOLV_GENERALIZED_RESIDUAL_SUPPORTED
+
+H2SOLV_ROOT_SELECTION_SUPPORTED
+또는
+H2SOLV_ROOT_SELECTION_UNRESOLVED
+
+H2SOLV_INTEGRAL_TRUNCATION_CONVERGENCE_UNRESOLVED
+
+NOT_CERTIFIED
+
+NOT_PRODUCTION_APPROVED
+```
+
+---
+
+# 25. 최종 보고 형식
+
+최소:
+
+```text
+GIT STATE
+
+SOURCE PROVENANCE
+
+VENDOR / AUDIT / MUTANT 분리
+
+INSTRUMENTATION PATCH
+- 정확히 어느 줄/변수 관측
+- 계산식 변경 없음 증거
+
+INVSG TERMINATION CONTRACT
+- ITMAX
+- errest
+- 실제 stop condition
+- maxit fallthrough 동작
+- ierror 의미
+
+VENDOR EXAMPLES
+각 5개:
+- iterations
+- convergence reason
+- initial/final EN
+- last delta
+- threshold
+- error status
+
+INDEPENDENT RESIDUAL
+- ||Hv-ESv||2
+- ||Hv-ESv||inf
+- vTSv
+- Rayleigh E
+- solver E와 차이
+
+ROOT DIAGNOSTIC
+
+FAULT INJECTION
+- low ITMAX
+- 필요하면 bad EN
+
+OUTPUT NONINTERFERENCE
+- vendor vs audit byte comparison
+
+WHAT IS NOW SUPPORTED
+
+WHAT REMAINS UNRESOLVED
+- integral NMAX convergence 포함
+
+FINAL CLASSIFICATION
+
+NEXT DESIGNER DECISION
+```
+
+---
+
+# 26. Git / 테스트
+
+원본 third-party archive/source는 Git에 넣지 않습니다.
+
+우리 쪽에 저장할 것:
+
+```text
+patch/diff 또는 instrumentation spec
+wrapper
+audit code
+tests
+hash
+small logs / compact evidence
+report
+```
+
+대형 matrix/vector는 `runs/` 등 Git 외부에 두고 hash만 기록하십시오.
+
+기존 A physics/common/frozen source가 불변이면 관련 시험으로 대체 가능.
+
+기존 공용 실행 코드를 변경하면:
+
+```bash
+pytest -n 6
+```
+
+LOCAL FULL.
+
+commit 가능.
+
+**push 금지.**
+
+---
+
+## 모델 추천
+
+이번 작업은 **GPT-5.6 Sol High**를 권장.
+
+단순 로그 추가가 아니라 Fortran inverse iteration의 종료 의미, generalized eigenproblem residual, root 선택 의미까지 같이 감사해야 하기 때문입니다.
+
+Claude는 **Opus 5.5 High** 권장.
+
+구현이 확정된 뒤 wrapper/test만 만드는 부분은 **Sol Medium / Sonnet 5.5 Medium~High**로 낮춰도 됩니다.
+
+---
+
+한 문장으로 요약하면:
+
+> **이번에는 H2SOLV가 “답을 출력했다”가 아니라 “정말 수렴해서 그 답을 출력했다”는 것을 확인한다. 원본은 손대지 않고, 별도 계측 사본으로 내부 종료 이유를 기록하고 원래 H·S로 residual을 독립 계산한다. 5개 예제가 모두 이 검사를 통과해야 R=0.4로 넘어간다.**

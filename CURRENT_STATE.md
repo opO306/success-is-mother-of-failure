@@ -1,5 +1,15 @@
 # 현재 상태
 
+**H₂ internal convergence audit V0(2026-10-03):**
+[실제 종료 분기·독립 residual·MAXIT fault](docs/active/h2_internal_convergence_v0/REPORT.md).
+Vendor/AUDIT scientific output·WF byte동일5/5, 원래 수렴 조건 종료18/16/12/22/26회,
+maxit 소진0·factor/solver error0. ITMAX1 및 별도 EN−2 mutant의 exit0/ierror0 소진을 실제 탐지.
+160자리 독립 residual/normalization/RQ는 사전 tolerance 미승인으로 MEASURED, 전체 qualification 미승격.
+Native inertia12/1/0/1/2, binary64 root 진단 미확인으로 ROOT_SELECTION_UNRESOLVED.
+INTEGRAL_TRUNCATION_UNRESOLVED, R=.4/B2미착수/STOP/NOT_CERTIFIED/production미승인.
+과거 봉인·원본183bindings 불변, 관련129시험PASS/LOCAL FULL생략/기준선유지, push없음.
+아래 V2/V1은 당시 증거 상태를 그대로 보존한 기록이다.
+
 **H₂ vendor build 재개 V2(2026-10-03):**
 [README build·5예제 출력 재현·수렴 상태 사각지대](docs/active/h2_vendor_build_resume_v2/REPORT.md).
 원본 불변의 README static MPFR/GMP 연결1회 성공, 배포5예제 solver+example 출력 byte동일5/5.

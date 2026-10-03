@@ -1,0 +1,13 @@
+{
+  "status": "NATIVE_DYADIC_EXPORT_CALIBRATION_PASS",
+  "records": 6,
+  "sha256": "c757978842fecf6de2957db86b4243480ef8c325c4b01ecc4f5ebb1aa839ead4",
+  "precision_bits": [
+    384,
+    384,
+    384,
+    384,
+    384,
+    320
+  ]
+}

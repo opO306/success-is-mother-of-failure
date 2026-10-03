@@ -1,0 +1,32 @@
+{
+  "command": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutant_low_itmax_build/h2solv/f",
+    "--",
+    "/usr/bin/env",
+    "OMP_NUM_THREADS=1",
+    "OMP_DYNAMIC=FALSE",
+    "/usr/bin/time",
+    "-f",
+    "%e %U %S %M %x",
+    "-o",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/internal_convergence_v0_20261003/mutant_build.time",
+    "/usr/bin/timeout",
+    "--kill-after=5s",
+    "600s",
+    "make",
+    "LD=gfortran -fopenmp",
+    "MPFR=/usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a"
+  ],
+  "exit": 0,
+  "wall_windows_seconds": 9.14100000000326,
+  "stdout_sha256": "6e4e18e7b4d6d81b506e600e7d016b4fcf1a48b43f753a642530cc34a2f5d155",
+  "stderr_sha256": "28949b5296bff2af3a81aba0f3ba0711fb8456d2d6166e373db12ec4f18d8f44",
+  "elapsed_seconds": 5.9,
+  "cpu_user_seconds": 4.19,
+  "cpu_system_seconds": 0.58,
+  "peak_RSS_KiB": 145600
+}

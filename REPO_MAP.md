@@ -1,5 +1,13 @@
 # 저장소 지도
 
+`electronic_pilot/h2_internal_convergence_v0/`는 별도 계측판 생성·native branch sidecar·
+원래 H/S·반환 E/v의 exact dyadic 저장/복원·160자리 독립 residual/root 진단 코드다.
+원본 source는 불변이며 `observer.f`는 관측만 추가한다. matrix/vector·제3자 source/executable은
+runs/h2_representation_pilot1/internal_convergence_v0_20261003/의 Git 밖 자료다.
+`docs/active/h2_internal_convergence_v0/`는 종료 분기5/5·실제 MAXIT mutant 탐지 증거와
+잔차 acceptance/root/integral 미확인을 분리한다. `tests/h2_internal_convergence_v0/`가 검사한다.
+R=.4/B2미착수, NOT_CERTIFIED/STOP.
+
 `electronic_pilot/h2_vendor_resume_v2/`는 README 정적 연결1회와 vendor5예제를
 격리 실행·time/RSS·stdout hash·Decimal/token 비교하는 standalone audit wrapper다.
 `docs/active/h2_vendor_build_resume_v2/`는 buildPASS/출력byte동일5/5 기록이다.

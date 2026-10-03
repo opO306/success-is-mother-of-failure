@@ -1,0 +1,51 @@
+{
+  "grade": "STATIC_SOURCE_REVIEW_PARTIAL_NOT_FORMAL_PROOF",
+  "source_sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d",
+  "ITMAX": 40,
+  "EPSKOR": "zero",
+  "ijob": 0,
+  "reps_source_literal": "1e-64",
+  "errest_source": "max(sixtn*n*reps,abs(eps))",
+  "sixtn_source": "16",
+  "updated_eigenvalue_source": "eig=eold+one/sm",
+  "stop_condition_source": "abs(eprev-eig).lt.errest*abs(eig)",
+  "convergence_branch": "goto 100 at original line2607",
+  "maxit_behavior": "natural end of do it=1,maxit falls through to label100 without error assignment",
+  "original_ierror_behavior": "CALCEN prints nonzero error but returns; main continues scientific output",
+  "leq1s_errors": {
+    "65": "algorithmically singular warning, invsg treats any nonzero as early return",
+    "129": "exactly singular pivot/block, early return"
+  },
+  "wa1_source_flow": [
+    "leq1s wa(n+1) counts negative 1x1 pivots and one per negative-determinant 2x2 pivot",
+    "invsg wa(ndet+n), ndet=2*n+1",
+    "after normalization wa(1)=wa(ndet+n)"
+  ],
+  "wa1_semantic_condition": "number below initial EN only under positive definite S and trustworthy numerical factorization; otherwise shifted-matrix inertia observation, not a ground-root certificate",
+  "destroyed_inputs": {
+    "H": "shifted and factored in-place",
+    "S": "scaled in-place by wa(nsc+i)*wa(nsc+j)"
+  },
+  "snapshot_location": "CALCEN immediately before invsg, after NDIGITS reduction",
+  "returned_vector_coordinates": "invsg final normalization multiplies v by saved diagonal scaling factors; independently use pre-invsg H/S",
+  "precision_source": {
+    "default_integral_bits": 384,
+    "NDIGITS60_reduced_matrix_bits": 320,
+    "MPFUN_binary_operation_precision": "max(input precisions), capped at384; therefore returned E/v can be384bits"
+  },
+  "layout_source": "mp_real integer8 mpr(0:mpwds+5); 0 length,1 bits,2 sign,3 exponent,4 address,5.. limbs; address and spare/unused limbs excluded from export",
+  "read_scope": [
+    "h2solv.f1-280,397-433,478-569,selected HAMLNORM666-737",
+    "invsg2468-2626 complete",
+    "dot_product/avms2630-2676 complete",
+    "leq1s2680-3064 complete",
+    "MPFUN mp_real/type/init/fixloc/assignment/add/mul/wprec/output selected sections",
+    "README/Makefile"
+  ],
+  "whole_source_read": false,
+  "integral_recurrence_independently_proved": false,
+  "instrumentation_blocks": 8,
+  "calculation_line_replacements_AUDIT": 0,
+  "mutant_exception": "ITMAX=1 in isolated test-only source; separate BAD_EN input has only EN=-2.0",
+  "proof_limit": "stripping added blocks reproduces source bytes; byte-identical scientific output/WF is observed noninterference, not a formal whole-machine-state proof"
+}

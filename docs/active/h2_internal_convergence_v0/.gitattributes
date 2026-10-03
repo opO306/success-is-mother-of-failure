@@ -1,0 +1,8 @@
+* -text whitespace=cr-at-eol
+*.log whitespace=-trailing-space
+*.stdout whitespace=-trailing-space
+*.stderr whitespace=-trailing-space
+*.out whitespace=-trailing-space
+*.txt whitespace=-trailing-space
+*.patch whitespace=-trailing-space
+*.xml whitespace=-trailing-space

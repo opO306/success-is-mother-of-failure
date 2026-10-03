@@ -1,5 +1,9 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H₂ internal convergence audit V0](active/h2_internal_convergence_v0/REPORT.md):
+별도 vendor/observer 감사. 수렴 분기·출력불변·native MAXIT 탐지 지원,
+독립 residual acceptance/root/integral미확인. R=.4/B2미착수/NOT_CERTIFIED/STOP.
+
 [H₂ vendor build 재개 V2](active/h2_vendor_build_resume_v2/REPORT.md):
 별도 vendor감사, README buildPASS/5출력 exact재현. Native convergence미확인/strict guard미통과.
 R=.4/B2미착수, NOT_CERTIFIED/production미승인/사용자 범위의 보고후STOP.
