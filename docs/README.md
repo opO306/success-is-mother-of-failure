@@ -1,5 +1,7 @@
 # 프로젝트 문서 안내
 
+[Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
+
 [고정 핵 H₂ static reference pilot](active/H2_STATIC_REFERENCE_PILOT_V1.md)은
 2026-10-02의 독립 numerical research다. DZ/TZ 표본 minimum·해리 방향 및 부분
 external comparison, QZ short-R refusal/최소점 미해결을 함께 기록한다.

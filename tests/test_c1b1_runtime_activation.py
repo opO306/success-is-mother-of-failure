@@ -35,7 +35,7 @@ def test_unknown_mode_fails_before_any_state_change(mode):
         r.step(object(), mode=mode)
 
 
-@pytest.mark.parametrize('mode', ['fast', 'reference'])
+@pytest.mark.parametrize('mode', ['fast', 'reference', 'fast_combined'])
 def test_real_production_producer_dispatches_selected_runtime(mode, tmp_path, monkeypatch):
     r = runtime()
     from a_reference import c1b1_two_atom as c
@@ -51,12 +51,20 @@ def test_real_production_producer_dispatches_selected_runtime(mode, tmp_path, mo
     (tmp_path/'witness_unit.json').write_text(json.dumps(dict(states=states, J=js, steps=3)))
     monkeypatch.setattr(producer, 'OLD', tmp_path)
     calls = []
-    actual = r.step
+    actual = r.bind
+    bindings = []
     def observed(run, *, mode='fast'):
-        calls.append(mode)
-        return actual(run, mode=mode)
-    monkeypatch.setattr(r, 'step', observed)
-    result = producer.execute('unit') if mode == 'fast' else producer.execute('unit', mode='reference')
+        ex = actual(run, mode=mode)
+        bindings.append(mode)
+        step = ex.step
+        def traced():
+            calls.append(mode)
+            return step()
+        ex.step = traced
+        return ex
+    monkeypatch.setattr(r, 'bind', observed)
+    result = producer.execute('unit') if mode == 'fast' else producer.execute('unit', mode=mode)
+    assert bindings == [mode]
     assert calls == [mode]*3
     assert result['runtime_mode'] == mode
     assert result['all_states_equal_old_raw_inputs']

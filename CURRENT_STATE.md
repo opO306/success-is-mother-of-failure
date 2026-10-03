@@ -4,6 +4,21 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**C1-B1 Combined production opt-in 승격(2026-10-03):**
+[최종 gate·성능·production Top10](docs/active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md),
+[독립 산술 promotion 감사](docs/active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md).
+Combined만 PRODUCTION FAST-PATH CANDIDATE, 실제 producer에 fast_combined opt-in 연결.
+기본 fast(Candidate B)와 slow reference/기존 Fraction/proof/checker 보존, 원래 step code 사용.
+REF/B/Combined6개55845step 및 기존거부4/실제STOP1/추가악성9 차등·source closure PASS.
+독립 산술감사 및 FULL3903+1 strict xfail, 실패·error·실제skip0,742.24초, 기존warnings25.
+같은Ryzen5600/worker1/affinity11/3repeat CPU: drift1.514x,kick4.364x,step1.147x,
+6trajectory1.122x(B대비), 누적REF대비1.584x 직접 측정. CPU10.9076% 감소.
+production step만의 profileTop10 별도완료, 기존FAST derivative11.9468% 최상위; 다음대상미선정.
+Fraction routes27.5010%/gcd27.4606% 감소는 동일R20 연구용stop 포함 비교profile 범위다.
+정상bigint132/139/180bit, 분모누적없음. 더큰scope/정식증명/A-EV/native J/replay승인은 별도.
+로컬promotion브랜치 보존, rootmaster4160557 유지, mainline merge/push/새CONFIRMED 없음.
+
+
 **별도 C1-B1 Pilot2 prepared drift / raw 정수 산술(2026-10-03):**
 [결과와 보존된 실패](docs/active/C1B1_PREPARED_DRIFT_PILOT2_V1.md),
 [조건부 exact 산술 논증](docs/active/C1B1_PILOT2_EXACT_ARITHMETIC_ARGUMENT_V1.md).

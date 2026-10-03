@@ -1,5 +1,7 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
+
 현재 상태는 [CURRENT_STATE.md](../CURRENT_STATE.md), 읽는 순서는 [문서 안내](README.md)를 본다.
 **58개 원문을 실제 이동했다.** 폴더 분류는 새 물리 규칙·승인·동결 판정이 아니다.
 동결·역사·초안·후기 자산은 서로 다른 상태다. 코드·fixture·D_valid·시험 의미는 변경하지 않는다.

@@ -66,10 +66,11 @@ def execute(label, mode='fast'):
         tuple(Q(v,1<<80) for v in initial[1]),tuple(Q(v,1<<48) for v in initial[2]),
         tuple(Q(v,1<<80) for v in initial[3]),momentum_profile=FixedPoint(96,80),validated_only=False)
     cpu=wall=0.0
+    executor=runtime.bind(run,mode=mode)
     whole=time.perf_counter()
     for i in range(1,w['steps']+1):
         tc,tw=time.process_time(),time.perf_counter()
-        runtime.step(run, mode=mode)
+        executor.step()
         cpu+=time.process_time()-tc;wall+=time.perf_counter()-tw
         a,b=run.atoms
         if (tuple(a.r),tuple(a.p),tuple(b.r),tuple(b.p))!=tuple(tuple(x) for x in w['states'][i]) or tuple(run.J_cache)!=tuple(w['J'][i]):
