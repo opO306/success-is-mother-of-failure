@@ -1,0 +1,12 @@
+{
+  "reason": "Windows case-insensitive filename collision, one-body h.bin was overwritten by full singlet H.bin. No eigensolver reached. Original sealed source and failed output preserved.",
+  "changes": "I/O filenames and new version output paths only; mathematical expressions, inputs, precisions, guards, canonical rule and full space unchanged",
+  "original_sources": {
+    "numeric.cpp": "eebefea91028ec3a782c70d911d278a030223301d3c4fa721291be5b25db0f18",
+    "run.py": "d9626723acdff791294f5b5993eb547dc7bb3a71cde2a999a86c3d6243841f62"
+  },
+  "new_sources": {
+    "numeric_io_v1.cpp": "fb5d2ca5649f33fbf3b9bc8e2533e0d62802f4e16e23b760b6089ac2af0f704f",
+    "run_io_v1.py": "505cbf58f103b50b3ca3120438c2e06376729e941551a3dca01f3e89964730fd"
+  }
+}

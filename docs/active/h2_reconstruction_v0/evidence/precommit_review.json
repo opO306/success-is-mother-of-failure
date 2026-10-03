@@ -1,0 +1,28 @@
+{
+  "protected_bindings_unchanged": 1269,
+  "physics_sources_modified": false,
+  "concept_alignment": {
+    "same_contracted_span": true,
+    "actual_full_dimensions_checked": true,
+    "own_C_per_engine": true,
+    "pre_and_post_guards_separate": true,
+    "no_energy_from_failed_pre_guard": true,
+    "three_precision_layers_separate": true,
+    "unaligned_MO_subtraction": false,
+    "canonical_zero_not_independent_accuracy": true,
+    "reference_used_as_numerical_target": false,
+    "accepted_count_forced": false,
+    "signed_uncertainty_retained": true,
+    "post_execution_method_or_threshold_adjustment": false
+  },
+  "limitations": [
+    "full upstream energy bound unavailable",
+    "only selected cross-arm MO entries compared",
+    "64-bit energy convergence unavailable because guard failed",
+    "binary64 full-spectrum plus 113-bit refinement is not a formal lowest-root certificate",
+    "Libint Cartesian spherical mapping error not separated from engine error",
+    "peak Python RSS is process cumulative high-water, not isolated arm measure"
+  ],
+  "local_report_links_missing": [],
+  "STOP": true
+}

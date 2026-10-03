@@ -1,0 +1,24 @@
+{
+  "actually_executed": true,
+  "related": {
+    "windows": {
+      "tests": 237,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 10.719,
+      "passed": 237
+    },
+    "wsl": {
+      "tests": 242,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "elapsed_seconds": 38.151,
+      "passed": 242
+    }
+  },
+  "LOCAL_FULL": "OMITTED_REPLACED_BY_RELATED_TESTS",
+  "reason": "new isolated audit/tests/docs only, existing production physics/common/frozen source and fixture unchanged",
+  "official_full_baseline_unchanged": "3289 passed + 1 strict xfailed"
+}

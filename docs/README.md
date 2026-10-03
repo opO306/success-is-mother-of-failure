@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ R=0.4 Same-Basis Independent Reconstruction V0](active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md)는
+설계자 보완 계약을 먼저 봉인한 실제 두-arm 실행이다. 같은 AO60/singlet1830, 자체 C,
+113-bit direct 경로의 mandatory guards는 accepted2. 그러나 L–I1.12513e-9>기존1e-9로
+동등성 미통과. Common representation/state-weighted AO 영향·독립 narrow AO spots를 보존한다.
+전체 AO/energy bounds 미확보, UNRESOLVED / NOT CERTIFIED / QZ44 FAIL / production 미승인 / STOP.
+
 [H₂ R=0.4 Open-Hypothesis Adversarial Audit V0](active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md)는
 설계자 추가 승인 뒤 실제 spatial symmetry, BSE coefficient span, cardinal one-points,
 Libint2 independentAO/directMO connected experiment를 기록한다. Cardinal approach는 강한 조건부 증거;

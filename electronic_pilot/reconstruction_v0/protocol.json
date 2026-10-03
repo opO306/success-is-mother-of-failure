@@ -1,0 +1,92 @@
+{
+  "version": "h2-r04-same-basis-independent-reconstruction-v0-supplement-1",
+  "status": "PRE_EXECUTION_CONTRACT_NOT_NUMERICAL_RESULT",
+  "base_commit": "251a7f395ca1e13cf41fe4b434399fec3bb1af95",
+  "branch": "codex/h2-qz-cause-v0",
+  "origin_master": "6c53eec71e981cef35f850095da76b965457866c",
+  "precedence": "Designer eight supplements override conflicting attachment sections 9, 10, 18 and 21; historical results remain immutable",
+  "question": "Does independent reconstruction of exactly the same contracted QZ span reproduce the old energy, and what are the limits of that judgment? Neither baseline nor reference is a target or truth",
+  "space": {
+    "R_label_bohr": "0.4",
+    "centers_bohr": [[0, 0, -0.2], [0, 0, 0.2]],
+    "charges": [1, 1],
+    "electrons": 2,
+    "Hamiltonian": "clamped-nuclei nonrelativistic Coulomb",
+    "basis": "contracted cc-pVQZ hydrogen, spherical real AO",
+    "expected_AO_dimension": 60,
+    "expected_full_singlet_dimension": 1830,
+    "actual_retained_rank": "MUST_VERIFY_NOT_INFER_FROM_NAME_OR_COUNT",
+    "input_interpretation": "Stored binary64 dyadics of exponents, coefficients, centers, radial normalization and spherical polynomial map are the baseline reproduction input; decimal source strings and their conversion are retained separately",
+    "BO_definition": "Ee + existing binary64 1/float(0.4), equal to 2.5; distinguish the exact reciprocal of the dyadic coordinate separation",
+    "required_manifest": ["coordinates", "units", "charges", "primitive exponents", "contraction coefficients", "decimal source strings", "binary64 hex or integer ratios", "primitive and contraction normalization", "real spherical polynomial coefficients", "AO order and phase", "basis source and version", "input file SHA256", "baseline actual C and H shapes", "retained rank proof", "no deletion or cutoff"]
+  },
+  "arms": {
+    "L": "Fresh libcint raw AO, own C_L from S_L, same full singlet space",
+    "I": "Fresh Libint2 raw AO, own C_I from S_I, same full singlet space",
+    "independence_disclosure": "Independent integral implementations may share basis metadata, canonical rule, downstream mathematics and arithmetic libraries; agreement does not exclude shared errors",
+    "engine_manifest": ["engine version", "build or binary hash", "linked libraries", "compiler", "actual scalar type and significand bits", "screening configuration", "normalization configuration", "Cartesian-to-spherical mapping and its error"]
+  },
+  "alignment": {
+    "AO": "Verify physical representation mapping before comparisons; preserve raw S_L-S_I and its propagation independently",
+    "MO": "No cross-arm elementwise subtraction of unaligned C_L/C_I tensors. Compare only after verified common representation, with alignment residual and uncertainty reported",
+    "within_arm": "Compact/direct comparison must use byte-identical AO input and C; otherwise algorithm-only attribution is invalid"
+  },
+  "precision_layers": {
+    "1_guard": "Remeasure guard on unchanged stored S/C at higher precision; no new integrals or orbitals",
+    "2_fixed_AO": "Higher-precision orthogonalization, transformation and diagonalization of fixed binary64 AO values; lost AO digits are not recovered",
+    "3_recomputed_AO": "Recompute integrals more accurately from the sealed primitive basis definition; report incomplete coverage or unavailability explicitly",
+    "Libint2_set_precision": "Screening/accuracy request is not the scalar arithmetic bit count",
+    "schedule": "Execution-specific precision levels, internal convergence tolerances, cost cap and maximum three valid approaches must be sealed before numerical execution; convergence must use internal error and energy change, never reference proximity",
+    "basis_and_retained_space": "Identical at every precision level"
+  },
+  "guards": {
+    "Smin_floor": 1e-10,
+    "orth_l2_max": 1e-10,
+    "H_asym_max": 1e-10,
+    "eigen_l2_max": 1e-9,
+    "norm_max": 1e-10,
+    "same_basis_energy_abs_max_hartree": 1e-9,
+    "physical_reference_abs_max_hartree": 0.001,
+    "orth_norm": "absolute spectral/operator 2-norm of C^T S C-I, dimensionless; certified Frobenius upper bound can establish PASS, no relative normalization",
+    "H_norm": "absolute entrywise maximum of H-H^T, Eh; no relative normalization",
+    "integral_norm": "absolute entrywise maximum for each separately specified permutation; AO and MO units stated; diagnostic only unless an existing mandatory guard explicitly applies",
+    "eigen_norm": "absolute Euclidean norm of H v-E v, Eh, with separately checked |v^T v-1|; no division by ||H||",
+    "state_symmetry_norm": "absolute two-electron AO S-metric wavefunction norm for inversion, reflection, axial generator/rotations and exchange; spin ladder Euclidean norms; existing norm_max",
+    "safe_boundary": "Binary64 alone is not a safe enclosure. Use higher-precision measurement or exact/interval enclosure when threshold relation is uncertain; distinguish convergence from rigorous enclosure",
+    "separate_accuracy": "Guard PASS does not bound upstream energy error or prove lowest root. Submit full-root evidence, precision convergence and upstream energy influence separately"
+  },
+  "canonical_reuse": {
+    "AO_one_body": "lower triangle (max(i,j),min(i,j)), independent raw ordered values retained before reuse",
+    "AO_ERI": "within-pair descending indices, pair p=i*(i+1)/2+j, descending pair indices; fixed independent of observed values",
+    "MO_candidate": "Any MO representative rule must be execution-sealed in advance. Preserve independently computed selected permutations before copying; no average or value-based selection",
+    "zero_residual": "A residual forced to zero by reuse is an algebraic construction property, never an independent accuracy check",
+    "shared_data": "Record whether compact/direct paths share compressed or copied raw AO inputs"
+  },
+  "acceptance": {
+    "minimum_one_accepted": "GOAL_NOT_MANDATORY_OUTCOME",
+    "allowed_accepted_counts": [0, 1, 2],
+    "overall": "All mandatory numerical AND spatial symmetry guards must pass; failed/uncertain guards retain REFUSED/UNRESOLVED",
+    "diagnostic_energy": "May be preserved and compared with explicit diagnostic status; never promote a failed arm to overall accepted",
+    "one_arm": "One accepted arm is not two-arm finite-basis equivalence"
+  },
+  "judgments": {
+    "baseline_shift": "independent item, E_old-E_arm with uncertainty",
+    "inter_arm_difference": "independent item, E_L-E_I after common-space validation, with uncertainty",
+    "precision_sensitivity": "independent item based on internal residual/energy convergence",
+    "spatial_symmetry": "independent mandatory gate, not erased by energy reproduction",
+    "CASE_B_and_CASE_C": "May hold simultaneously; no exclusive if/elif classification",
+    "first_difference": "First meaningful difference after convention alignment and measurement uncertainty, not first differing bit; investigate final-energy impact",
+    "supported_equivalence": "Requires two accepted arms and comparisons within unchanged 1e-9 Eh, with limitations and shared-error disclosure",
+    "evidence_grades": ["rigorous verified bound", "empirical precision convergence", "independent-path agreement", "unverified uncertainty"]
+  },
+  "signed_error_budget": {
+    "path_shift": "E_old-E_new",
+    "remaining_reference_difference": "E_new-E_reference",
+    "uncertainty": "Each term has a verified bound or explicit unverified uncertainty; reference uncertainty is separate",
+    "prohibited_inference": "Remaining difference is not automatically pure finite-basis error; residual numerical and reference errors may cancel"
+  },
+  "statuses": ["SAME_BASIS_ENERGY_EQUIVALENCE_SUPPORTED", "NUMERICAL_FRONTEND_ENERGY_SHIFT_CONFIRMED", "INDEPENDENT_AO_PATH_DISAGREEMENT", "PRECISION_SENSITIVITY_SUPPORTED", "SAME_BASIS_RECONSTRUCTION_UNRESOLVED", "REFERENCE_SIDE_UNRESOLVED", "NOT_CERTIFIED"],
+  "forbidden": ["production/frozen source or historical evidence edits", "basis expansion", "basis deletion", "orbital cutoff", "symmetry projection reducing space", "uncontracting", "threshold relaxation", "post hoc averaging", "reference-targeted algorithm or precision tuning", "force", "nuclear dynamics", "formation", "world integration", "production approval", "push"],
+  "Git": "Verify branch/HEAD/origin/master/origin branch/ahead-behind/dirty/untracked before work; seal source/config/input hashes before each execution phase; commit allowed, push forbidden",
+  "blocker_policy": "Preserve exact blocker and missing designer decision; no arbitrary workaround, invented precision or forced accepted result"
+}

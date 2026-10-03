@@ -1,0 +1,229 @@
+{
+  "norm_L": "0.99999999999999989017",
+  "normalization_change": "-4.4156377537600459634e-18",
+  "h_integral_signed_effect": "-8.901994429031234736e-16",
+  "S_in_one_body_signed_effect": "-1.963337158782445499e-16",
+  "h_S_cross_effect": "-1.348689718418750416e-25",
+  "ERI_signed_effect": "1.1269079437694414846e-09",
+  "overlap_denominator_signed_effect": "-1.1560277114059963752e-17",
+  "fixed_L_state_I_minus_L_Rayleigh_shift": "1.1269068456760054593e-09",
+  "actual_ground_I_minus_L": "1.1251256777384394114e-09",
+  "actual_minus_fixed_state_shift": "-1.7811679375660478208e-12",
+  "largest_16_weighted_AO_ERI_differences": [
+    {
+      "index": [
+        1,
+        1,
+        31,
+        31
+      ],
+      "L": 0.9665182951994705,
+      "I": 0.9665182951994731,
+      "AO_delta": "2.553512956637860043e-15",
+      "weight": "39187.84798655696071",
+      "signed_weighted_contribution": "1.00066677576428075404e-10"
+    },
+    {
+      "index": [
+        31,
+        31,
+        1,
+        1
+      ],
+      "L": 0.9665182951994705,
+      "I": 0.9665182951994731,
+      "AO_delta": "2.553512956637860043e-15",
+      "weight": "39187.84798655696071",
+      "signed_weighted_contribution": "1.00066677576428075404e-10"
+    },
+    {
+      "index": [
+        1,
+        1,
+        31,
+        32
+      ],
+      "L": 0.6931619807892647,
+      "I": 0.6931619807892677,
+      "AO_delta": "2.9976021664879226591e-15",
+      "weight": "6994.4990586893616085",
+      "signed_weighted_contribution": "2.0966725531824966058e-11"
+    },
+    {
+      "index": [
+        1,
+        1,
+        32,
+        31
+      ],
+      "L": 0.6931619807892647,
+      "I": 0.6931619807892677,
+      "AO_delta": "2.9976021664879226591e-15",
+      "weight": "6994.4990586893616085",
+      "signed_weighted_contribution": "2.0966725531824966058e-11"
+    },
+    {
+      "index": [
+        32,
+        31,
+        1,
+        1
+      ],
+      "L": 0.6931619807892647,
+      "I": 0.6931619807892677,
+      "AO_delta": "2.9976021664879226591e-15",
+      "weight": "6994.4990586893616085",
+      "signed_weighted_contribution": "2.0966725531824966058e-11"
+    },
+    {
+      "index": [
+        31,
+        32,
+        1,
+        1
+      ],
+      "L": 0.6931619807892647,
+      "I": 0.6931619807892677,
+      "AO_delta": "2.9976021664879226591e-15",
+      "weight": "6994.4990586893616085",
+      "signed_weighted_contribution": "2.0966725531824966058e-11"
+    },
+    {
+      "index": [
+        2,
+        1,
+        31,
+        31
+      ],
+      "L": 0.6931619807892646,
+      "I": 0.6931619807892674,
+      "AO_delta": "2.775557561562891351e-15",
+      "weight": "6994.4990632992677164",
+      "signed_weighted_contribution": "1.9413634764484843144e-11"
+    },
+    {
+      "index": [
+        31,
+        31,
+        2,
+        1
+      ],
+      "L": 0.6931619807892646,
+      "I": 0.6931619807892674,
+      "AO_delta": "2.775557561562891351e-15",
+      "weight": "6994.4990632992677164",
+      "signed_weighted_contribution": "1.9413634764484843144e-11"
+    },
+    {
+      "index": [
+        31,
+        31,
+        1,
+        2
+      ],
+      "L": 0.6931619807892646,
+      "I": 0.6931619807892674,
+      "AO_delta": "2.775557561562891351e-15",
+      "weight": "6994.4990632992677164",
+      "signed_weighted_contribution": "1.9413634764484843144e-11"
+    },
+    {
+      "index": [
+        1,
+        2,
+        31,
+        31
+      ],
+      "L": 0.6931619807892646,
+      "I": 0.6931619807892674,
+      "AO_delta": "2.775557561562891351e-15",
+      "weight": "6994.4990632992677164",
+      "signed_weighted_contribution": "1.9413634764484843144e-11"
+    },
+    {
+      "index": [
+        31,
+        31,
+        1,
+        9
+      ],
+      "L": 0.11312418751811104,
+      "I": 0.11312418751811372,
+      "AO_delta": "2.6784130469081901538e-15",
+      "weight": "7101.0106703063124574",
+      "signed_weighted_contribution": "1.9019439625582700075e-11"
+    },
+    {
+      "index": [
+        9,
+        1,
+        31,
+        31
+      ],
+      "L": 0.11312418751811104,
+      "I": 0.11312418751811372,
+      "AO_delta": "2.6784130469081901538e-15",
+      "weight": "7101.0106703063124574",
+      "signed_weighted_contribution": "1.9019439625582700075e-11"
+    },
+    {
+      "index": [
+        1,
+        9,
+        31,
+        31
+      ],
+      "L": 0.11312418751811104,
+      "I": 0.11312418751811372,
+      "AO_delta": "2.6784130469081901538e-15",
+      "weight": "7101.0106703063124574",
+      "signed_weighted_contribution": "1.9019439625582700075e-11"
+    },
+    {
+      "index": [
+        31,
+        31,
+        9,
+        1
+      ],
+      "L": 0.11312418751811104,
+      "I": 0.11312418751811372,
+      "AO_delta": "2.6784130469081901538e-15",
+      "weight": "7101.0106703063124574",
+      "signed_weighted_contribution": "1.9019439625582700075e-11"
+    },
+    {
+      "index": [
+        39,
+        31,
+        1,
+        1
+      ],
+      "L": -0.11312418751811104,
+      "I": -0.1131241875181137,
+      "AO_delta": "-2.664535259100375697e-15",
+      "weight": "-7101.010632584288077",
+      "signed_weighted_contribution": "1.8920893205767498762e-11"
+    },
+    {
+      "index": [
+        31,
+        39,
+        1,
+        1
+      ],
+      "L": -0.11312418751811104,
+      "I": -0.1131241875181137,
+      "AO_delta": "-2.664535259100375697e-15",
+      "weight": "-7101.010632584288077",
+      "signed_weighted_contribution": "1.8920893205767498762e-11"
+    }
+  ],
+  "shared_data": "fresh canonical AO fields and actual L reconstructed vector",
+  "alignment": "same unchanged AO coordinates, no unaligned MO subtraction",
+  "first_meaningful_layer": "AO engine/mapping variation has a measurable state-weighted energy effect after downstream 113-bit convergence; which AO implementation is more accurate is unresolved",
+  "measurement_uncertainty": "no rigorous summation enclosure or full AO integral accuracy bound; state-specific empirical perturbation, not a ground-state error bound",
+  "error_cancellation_not_excluded": true,
+  "additional_eigensolver_calls": 0,
+  "new_accepted_energies": 0
+}

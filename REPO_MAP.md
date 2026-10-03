@@ -20,6 +20,15 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/reconstruction_v0/`는 R=.4 same-basis 두-arm reconstruction audit다.
+`protocol.json`/`execution.json`은 설계자 보완 여덟 조건과 사전 precision/guard 일정,
+`measure.py`는 exact-dyadic orth bound/retained rank와 state symmetry,
+최종 `run_io_v2.py`/`numeric_io_v1.cpp`는 자체 C와 113-bit direct/full1830 CI를 계산한다.
+`post_io_v2.py`는 C_I 공통 표현·AO spots, `propagate.py`/`cause_spots.py`는 engine 차이의
+state 영향과 좁은 독립 AO 재계산이다. 초기 실패 source/records 보존.
+결과 `docs/active/h2_reconstruction_v0/`, 큰 raw `runs/h2_reconstruction_v0/`.
+Guard accepted2여도 에너지 band 초과로 equivalence 미통과, UNRESOLVED/STOP/NOT CERTIFIED.
+
 `electronic_pilot/adversarial_v0/`는 R=.4 열린 가설 감사다. `symmetry.py`는 저장 상태에
 AO S-metric 대칭을 적용하고, BSE exact-span/normalization 대조 뒤 cardinal.py의 새 one-points,
 Libint2 native AO와 독립 direct MO의 fixedC 2x2를 측정한다. Production physics 변경 아님.

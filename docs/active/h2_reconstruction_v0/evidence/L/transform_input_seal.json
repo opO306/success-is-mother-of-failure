@@ -1,0 +1,87 @@
+{
+  "bindings": {
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/c.bin": "951d4237a1b40eae547f9d50267701199be3e54033f90d895eefa7de08a40870",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/g_canonical.bin": "9417f87a66199ff51a80cd1d2b4affa141971c36c808f0c5bc412fd8059e4590",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/h_canonical.bin": "34fa58de505a4755f478aef3630be6c1caa1c0cdd0e5591a8dcbb8d81d2efbca"
+  },
+  "C_sha256": "97d26339cabd6c8e23cd73d75491cca8b64e0ea03d423a66b4143ab18fd73e48",
+  "AO_sha256": "9417f87a66199ff51a80cd1d2b4affa141971c36c808f0c5bc412fd8059e4590",
+  "own_S": true,
+  "C_generation": [
+    {
+      "decimal_digits": 60,
+      "change_max_abs": null
+    },
+    {
+      "decimal_digits": 80,
+      "change_max_abs": "2.5569743758645601942580060386635435455612703262475931688985598113943644539313999e-55"
+    }
+  ],
+  "orth_binary64": 1.9097686518161057e-10,
+  "orth_exact": {
+    "status": "PASS",
+    "norm": "absolute operator 2-norm, no relative normalization",
+    "root_measurements": [
+      {
+        "decimal_digits": 80,
+        "Frobenius_upper": "0.000000000000071584732145390761225854609377792919141954611212265008812905778344275812120406619",
+        "column_lower": "0.000000000000042823160110342317754398480974497135305700010880685811265483189877276247786416249"
+      },
+      {
+        "decimal_digits": 100,
+        "Frobenius_upper": "0.00000000000007158473214539076122585460937779291914195461121226500881290577834427581212040661923246739377349098733",
+        "column_lower": "0.00000000000004282316011034231775439848097449713530570001088068581126548318987727624778641624934969671452607790036"
+      }
+    ],
+    "exact_Frobenius_upper_squared": "2853961366362055420858724509399599448962147818272637161423714685751213465760735516537815088049523019859885375375874217587363010823986681280761346021431991517840465/556938551955834377275533643273961343370755433013740225900780336657626363184653001282460059975265063449541297555370411048668054775558525146271076821255153099151854818647493280039413353545728",
+    "exact_column_l2_lower_squared": "5084585572479161734096400247863911876398163950833154296584734009654648497995356070854133514142444895969/2772669694120814859578414184143083703436437075375816575170479580614621307805625623039974406104139578097391210961403571828974157824",
+    "exact_threshold_squared": "59863107065073787891511987775129/5986310706507378352962293074805895248510699696029696",
+    "Frobenius_upper": "0.000000000000071584732145390761225854609377792919141954611212265008812905778344275812120406619",
+    "column_l2_lower": "0.000000000000042823160110342317754398480974497135305700010880685811265483189877276247786416249",
+    "arithmetic": "exact rational on unchanged binary64 inputs"
+  },
+  "Smin": 5.503865868345941e-07,
+  "condition": 9844457.373550193,
+  "retained": {
+    "actual_retained_rank": 60,
+    "proof": "exact dyadic triangular matrix with every diagonal nonzero",
+    "deleted_columns": 0
+  },
+  "canonical_ERI_symmetry": {
+    "ij": {
+      "max_absolute": 0.0,
+      "index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "value": 2.1478047759067547,
+      "counterpart": 2.1478047759067547
+    },
+    "kl": {
+      "max_absolute": 0.0,
+      "index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "value": 2.1478047759067547,
+      "counterpart": 2.1478047759067547
+    },
+    "pair": {
+      "max_absolute": 0.0,
+      "index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "value": 2.1478047759067547,
+      "counterpart": 2.1478047759067547
+    }
+  },
+  "compact_and_direct_share_canonical_AO": true,
+  "canonical_zero_not_independent_validation": true
+}

@@ -1,0 +1,17 @@
+ARM L BITS 64 H_asym 1.21144973170899880599016e-07 solve {'status': 'REFUSED', 'failure_stage': 'H_asym', 'energy': None}
+ARM L BITS 113 H_asym 5.9322018225074477371694323536234800865e-23 solve {'status': 'NUMERICAL_SOLVE_DIAGNOSTIC', 'electronic_energy': -2.6180311336037536, 'BO': -0.11803113360375361, 'eigen_residual_l2': 2.2037617575533397e-14, 'vector_norm_error': 4.440892098500626e-16, 'H_asym_max': 1.5777218104420236e-30, 'next_singlet_gap': 0.7168930839715362, 'full_roots': 1830, 'evr_lowest_two': [-2.6180311336037563, -1.9011380496322121], 'driver_difference': 2.6645352591003757e-15, 'lowest_root_evidence': 'hint-free complete syevd spectrum plus evr; numerical evidence, no formal root enclosure'}
+size/read /mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/runs/h2_reconstruction_v0/run_io_v1/L/refine_0/singlet_matrix_high.bin
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/reconstruction_v0/run_io_v1.py", line 189, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/reconstruction_v0/run_io_v1.py", line 170, in main
+    verify(seal['bound_sha256'],ROOT,MAIN);rows.append(arm_run(arm,definition,binary,libint,guards))
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/reconstruction_v0/run_io_v1.py", line 145, in arm_run
+    subprocess.run([str(binary),'refine',str(target),str(result),'1830'],check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/otherside123/h2-reconstruction-io-v1/numeric', 'refine', '/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/runs/h2_reconstruction_v0/run_io_v1/L/refine_0', '/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/runs/h2_reconstruction_v0/run_io_v1/L/refine_0/output', '1830']' returned non-zero exit status 1.

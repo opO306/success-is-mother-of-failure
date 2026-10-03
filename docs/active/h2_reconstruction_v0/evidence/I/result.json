@@ -1,0 +1,110 @@
+{
+  "arm": "I",
+  "status": "ACCEPTED",
+  "pre_guards": {
+    "Smin": "PASS",
+    "orth": "PASS",
+    "rank": "PASS"
+  },
+  "numerical_guards": {
+    "Smin": "PASS",
+    "orth": "PASS",
+    "rank": "PASS",
+    "H": "PASS",
+    "eigen": "PASS",
+    "norm": "PASS"
+  },
+  "spatial_guards": {
+    "inversion": "PASS",
+    "reflection": "PASS",
+    "Sigma_generator": "PASS",
+    "exchange": "PASS",
+    "rotation_pi_over_7": "PASS",
+    "rotation_pi_over_5": "PASS",
+    "rotation_pi_over_2": "PASS",
+    "raising": "PASS",
+    "lowering": "PASS",
+    "Sz": "PASS"
+  },
+  "precision": [
+    {
+      "significand_bits": 64,
+      "transform": {
+        "significand_bits": 64,
+        "MO_ij_max": "9.93044723871221862721015e-14",
+        "MO_kl_max": "8.13425984153367956711045e-08",
+        "MO_pair_max": "7.43101182938170280907475e-08",
+        "pair_flat_index": 10943450,
+        "h_asym_max": "3.05727665406152482319158e-14",
+        "H_asym_max": "5.75178636997610015502147e-08",
+        "dimension": 1830,
+        "canonical_MO_reuse": false,
+        "runtime_seconds": 4.56792,
+        "peak_rss_kib": 764672
+      },
+      "eigensolve": {
+        "status": "REFUSED",
+        "failure_stage": "H_asym",
+        "energy": null
+      }
+    },
+    {
+      "significand_bits": 113,
+      "transform": {
+        "significand_bits": 113,
+        "MO_ij_max": "2.137975734043931951994247234053188403e-28",
+        "MO_kl_max": "7.622913776149180471724423707431110167e-23",
+        "MO_pair_max": "5.4991935468247459661177778123442749967e-23",
+        "pair_flat_index": 9255050,
+        "h_asym_max": "9.3097912767723471348043528962201318636e-29",
+        "H_asym_max": "5.3902069869128365579865109400966796695e-23",
+        "dimension": 1830,
+        "canonical_MO_reuse": false,
+        "runtime_seconds": 18.4194,
+        "peak_rss_kib": 764672
+      },
+      "eigensolve": {
+        "status": "NUMERICAL_SOLVE_DIAGNOSTIC",
+        "electronic_energy": -2.6180311324786314,
+        "BO": -0.1180311324786314,
+        "eigen_residual_l2": 2.4668855146751086e-14,
+        "vector_norm_error": 2.220446049250313e-16,
+        "H_asym_max": 3.1554436208840472e-30,
+        "next_singlet_gap": 0.7168930828547322,
+        "full_roots": 1830,
+        "evr_lowest_two": [
+          -2.618031132478636,
+          -1.901138049623905
+        ],
+        "driver_difference": 4.440892098500626e-15,
+        "lowest_root_evidence": "hint-free complete syevd spectrum plus evr; numerical evidence, no formal root enclosure"
+      }
+    }
+  ],
+  "refinements": [
+    {
+      "electronic_energy": "-2.6180311324786318058529176997214419449",
+      "eigen_residual_l2": "2.4990588829511624332440538989570676282e-14",
+      "vector_norm_error": "7.7037197775489434122239117703397092742e-34",
+      "significand_bits": 113
+    },
+    {
+      "electronic_energy": "-2.6180311324786318058529176997787217977",
+      "eigen_residual_l2": "2.7979162340864964748682912544243589311e-28",
+      "vector_norm_error": "9.6296497219361792652798897129246365927e-35",
+      "significand_bits": 113
+    }
+  ],
+  "diagnostic_electronic_energy": "-2.6180311324786318058529176997787217977",
+  "diagnostic_BO": "-0.1180311324786318058529176997787217977",
+  "accepted_BO": "-0.1180311324786318058529176997787217977",
+  "energy_provenance": "actually computed after pre-guards; post-solve symmetry still mandatory",
+  "high_precision_diagonalization": "113-bit residual correction; binary64 full-spectrum preconditioner, no formal lowest-root certificate",
+  "upstream_energy_error_bound": null,
+  "precision_convergence_bound_is_empirical": true,
+  "ground_refinement_converged": true,
+  "energy_64_to_113_shift": null,
+  "empirical_energy_convergence": false,
+  "runtime_seconds": 67.74712701300007,
+  "peak_rss_bytes": 783024128
+}

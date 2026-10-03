@@ -6,6 +6,12 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md](active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md):
+보완된 same-space contract/source/input 봉인 뒤 fresh L/I 실제 계산. Guard accepted2,
+1e-9 same-basis energy band 초과로 equivalence 미통과. 기준/space 변경 없음,
+독립 AO narrow 재계산과 state 영향 연결, full uncertainty 미해결 / NOT CERTIFIED / STOP.
+과거 FAIL/source/evidence와 I/O 실패 보존, production 미적용.
+
 [H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md](active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md):
 새 설계자 명령으로 열린 가설 R=.4 감사. DZ/TZ/QZ/V5Z numerical accepted/trend;
 finite-basis limit 조건부 SUPPORTED. Strict inversion guard와 uncontracted/native cells refused;

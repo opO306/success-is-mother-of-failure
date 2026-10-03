@@ -706,3 +706,19 @@ MO pair-interchange roundoff는 남아 있으며 작은 eigen residual도 forwar
 | raw nonsymmetric overlap을 정확히 symmetric인 것처럼 취급 | 첫 HP run STOP 보존; 후속 lower-triangle recurrence를 full raw S로 검사해 잔여 오차 공개, asymmetric S 주입 시험 | 고정밀 linear algebra가 binary64 AO data를 고정밀 물리 integral로 바꾸지 않음 |
 | MP antisymmetry contraction의 index/normalization 결함 | 별도로 만든 작은 full tensor contraction의 여러 coupling과 대조 | 실제 QZ HP는 대표 coupling만, full spectrum/행렬 오차 상한 아님 |
 | 새 QZ 34점만으로 minimum/full curve PASS 선언 | 기존 checker가 left-support boundary minimum/depth를 null, incomplete curve를 false로 유지 | 44점의 실제 supported 계산·물리 일치까지 인증하는 checker 아님 |
+
+### H₂ R=.4 same-basis reconstruction 보완 판정 (2026-10-03)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| energy 일치만으로 failed/missing spatial guard를 accepted로 승격 | 실패·미확인·빈 spatial set이 REFUSED/UNRESOLVED인지 검사; 실제 결과의 numerical6/spatial10 mandatory keys와 값도 대조 | numerical PASS는 full energy accuracy bound가 아님 |
+| accepted 0/1을 강제로 2-arm equivalence로 판정, B/C를 배타 분기로 처리 | 0/1/2 outcome와 B/C/precision 동시 finding 결함 사례 검사 | 구현의 reporting semantics, 전역 solver 인증 아님 |
+| 다른 C의 unaligned MO를 직접 차감, within-arm C 변경 | comparison context 검사에서 거부 | 실제 cross-arm은 네 selected MO entries만 common C_I 표현, 전체 tensor max 미측정 |
+| unknown uncertainty를 0으로 간주, signed budget 잔여분을 pure basis로 명명 | interval 경계/음수 bound/NaN 거부 및 uncertainty UNRESOLVED·부호 보존 검사 | full AO/energy/reference bound는 여전히 없음 |
+| binary64 S/C guard 오류, retained diagonal 삭제 | exact-rational norm bound와 nonzero triangular rank 검사에 입력 결함 주입 | 실제 bound는 저장 dyadics에 대한 것, 물리 integral 정확성 증명 아님 |
+| native ordered H를 사후 평균으로 보정 | 비대칭 one-body 주입이 큰 raw H asymmetry를 유지, 별도 fermion CI와 작은 native 사례 대조 | 작은 control와 실제 full1830 SC 비교는 formal proof가 아님 |
+| `h.bin`/`H.bin` 파일명 충돌 및 high.bin 치환 오류(실제 발생) | 실패를 보존하고 case 구별되는 파일명·출력 크기·수학 source 불변을 검사 | OS filesystem/IO 실수는 numerical guard만으로 예방되지 않음 |
+
+[실제 two-arm 보고서](../active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md).
+113-bit guard accepted2지만 L–I1.12513e-9>1e-9, energy equivalence 미통과.
+AO spot precision 상승은 별도이며 fixed binary64 AO의 HP transformation이 잃은 digits를 복구하지 않는다.

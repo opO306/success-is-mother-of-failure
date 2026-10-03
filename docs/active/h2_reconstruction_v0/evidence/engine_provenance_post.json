@@ -1,0 +1,13 @@
+{
+  "libcint_version_header": [
+    "#define CINT_VERSION            \"6.1.3\""
+  ],
+  "libcint_header_sha256": "40f007ef6728f3e78dd150b8c730b9ac324ea39b1a69abc60e3a234bba138d61",
+  "libcint_exp_cutoff_environment": 0.0,
+  "cutoff_note": "zero means engine default; no override, no claim of unscreened libcint",
+  "compiler_actual_precision_macros": [
+    "#define __FLT128_MANT_DIG__ 113",
+    "#define __LDBL_MANT_DIG__ 64"
+  ],
+  "Libint_set_precision_is_not_arithmetic_bits": true
+}

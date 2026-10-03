@@ -1,0 +1,16 @@
+{
+  "status": "NUMERICAL_SOLVE_DIAGNOSTIC",
+  "electronic_energy": -2.6180311336037536,
+  "BO": -0.11803113360375361,
+  "eigen_residual_l2": 2.2037617575533397e-14,
+  "vector_norm_error": 4.440892098500626e-16,
+  "H_asym_max": 1.5777218104420236e-30,
+  "next_singlet_gap": 0.7168930839715362,
+  "full_roots": 1830,
+  "evr_lowest_two": [
+    -2.6180311336037563,
+    -1.9011380496322121
+  ],
+  "driver_difference": 2.6645352591003757e-15,
+  "lowest_root_evidence": "hint-free complete syevd spectrum plus evr; numerical evidence, no formal root enclosure"
+}

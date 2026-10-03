@@ -1,0 +1,44 @@
+{
+  "bindings": {
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/reconstruction_v0/cause_spots.py": "029cfe2bd5c7d7eeda7e8bd25795a8ae1ac4d228bf228c11b7d8775ddaad94f9",
+    "electronic_pilot/reconstruction_v0/post.py": "894e75408fedeea80c0d1900c86d83b956e4b16069e989c872c2751dce32f744",
+    "electronic_pilot/ao_micro_v0/gaussian.py": "aed7358f29fb871cbbd070aaa8476b19944ba80542845296fa43699d2e85b3f9",
+    "runs/h2_reconstruction_v0/influence_v0/influence.json": "177050ad9a387c52ef212bd8173cc2d5a5d524db322761a600a08b0f27adfc99",
+    "docs/active/h2_adversarial_v0/evidence/basis_definitions.json": "c5244d1e10250aabaccd091d96fa2c2d0c66316d62fb8507f968c69caae6ec5c",
+    "runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/g_canonical.bin": "9417f87a66199ff51a80cd1d2b4affa141971c36c808f0c5bc412fd8059e4590",
+    "runs/h2_reconstruction_v0/run_io_v2/I/fixed_input/g_canonical.bin": "4b76c26a47700f6a3c7847aa28896dc260ff87a6500250e873bacd20a1b975d0"
+  },
+  "classes": [
+    [
+      31,
+      31,
+      1,
+      1
+    ],
+    [
+      32,
+      31,
+      1,
+      1
+    ],
+    [
+      31,
+      31,
+      2,
+      1
+    ],
+    [
+      31,
+      31,
+      9,
+      1
+    ]
+  ],
+  "selection": "first four distinct canonical classes among pre-preserved largest sixteen absolute state-weighted AO variations; no reference or new ground solve",
+  "decimal_digits": [
+    60,
+    80
+  ],
+  "convergence_abs": "1e-45",
+  "physical_space_unchanged": true
+}

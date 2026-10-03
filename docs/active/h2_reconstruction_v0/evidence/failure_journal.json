@@ -1,0 +1,25 @@
+{
+  "attempts": [
+    {
+      "version": "run_v0",
+      "reason": "Windows case-insensitive h.bin/H.bin collision; one-body file overwritten, reshape fails before eigensolve",
+      "ground_energy_generated": false,
+      "tool_exit_code": 1
+    },
+    {
+      "version": "run_io_v1",
+      "reason": "overbroad filename replacement produced singlet_matrix_higone_body.bin; high-precision refinement input unavailable",
+      "ground_energy_generated": "preliminary L solve only, never overall accepted",
+      "tool_exit_code": 1
+    },
+    {
+      "version": "run_io_v2",
+      "reason": "file-path-only correction, same numeric_io_v1.cpp and unchanged mathematical contract",
+      "tool_exit_code": 0,
+      "completed_arms": 2
+    }
+  ],
+  "refused_precision_branches": "Both 64-bit-significand H matrices failed pre-eigensolve guard; no energies filled",
+  "all_failures_preserved": true,
+  "automatic_fourth_attempt": false
+}

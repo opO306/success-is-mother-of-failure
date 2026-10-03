@@ -1,0 +1,50 @@
+{
+  "unmodified_common_AO_representation": true,
+  "raw_S_difference_preserved": true,
+  "differences": {
+    "s": {
+      "max_absolute": 7.771561172376096e-16,
+      "index": [
+        10,
+        40
+      ],
+      "first": 0.9769107325981291,
+      "second": 0.9769107325981299,
+      "frobenius": 4.529468489367612e-15
+    },
+    "t": {
+      "max_absolute": 6.217248937900877e-15,
+      "index": [
+        17,
+        17
+      ],
+      "first": 7.216999999999999,
+      "second": 7.217000000000005,
+      "frobenius": 2.486869278326565e-14
+    },
+    "v": {
+      "max_absolute": 7.105427357601002e-14,
+      "index": [
+        0,
+        0
+      ],
+      "first": -5.3907730818367,
+      "second": -5.390773081836771,
+      "frobenius": 3.260535290415397e-13
+    },
+    "g": {
+      "max_absolute": 2.842170943040401e-14,
+      "index": [
+        0,
+        0,
+        53,
+        53
+      ],
+      "first": 0.8200629977150667,
+      "second": 0.8200629977150383,
+      "frobenius": 1.9601029596179026e-12
+    }
+  },
+  "alignment": "same verified supplied polynomial/radial dyadics and labels; Cartesian engine mapped into this AO convention",
+  "measurement_uncertainty": "binary64 integral and Libint spherical-mapping error unbounded"
+}

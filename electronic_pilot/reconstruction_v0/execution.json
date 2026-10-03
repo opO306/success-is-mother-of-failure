@@ -1,0 +1,31 @@
+{
+  "version": "sealed-execution-v0",
+  "precision_schedule": {
+    "saved_guard": [80, 100],
+    "own_C_generation_decimal_digits": [60, 80],
+    "own_C_convergence_max_abs": "1e-45",
+    "fixed_C": "80-digit full Cholesky inverse transpose rounded once to binary64; identical C across each arm's transform comparisons",
+    "transform_significand_bits": [53, 64, 113],
+    "transform_internal_comparison": "64 vs 113 raw MO and H differences preserved; energy empirical convergence <=1e-12 Eh, independent of reference",
+    "ground_refinement": "113-bit full-H Rayleigh/residual correction, binary64 full-spectrum eigenbasis as preconditioner only; max 4 corrections; internal absolute energy change and residual <=1e-24; no spatial projection",
+    "spatial_measurement_decimal_digits": [80, 100],
+    "AO_spot_decimal_digits": [60, 80],
+    "AO_spot_convergence_abs": "1e-45"
+  },
+  "canonical_rule": "Only AO lower-one-body and descending eightfold ERI representatives, chosen from fresh raw ordered AO. No MO representative reuse and no Hamiltonian copying/averaging. Raw permutations measured before AO reuse",
+  "53bit_compact_direct": "Same canonical full AO and identical saved C, PySCF compact incore versus independent four einsum contractions; no energy from a pre-eigensolve guard failure",
+  "64_113bit_direct": "Independent native explicit four-index ordered contractions; identical AO dyadics and C dyadics; independently computed permutations retained, no MO reuse",
+  "CI": "Full upper-lex i<=j spatial singlet, all 1830 rows and columns. Native explicit ordered four-term spatial assembly; independent fermion Slater-Condon selected rows and ground-state action validate assembly",
+  "lowest_root": "Hint-free full-spectrum numpy syevd plus independent scipy evr first two roots, complete dimension/order and positive next-root gap recorded. High-precision residual refinement remains attached to full-spectrum lowest root; this is numerical evidence, not a formal lowest-root certificate",
+  "pre_eigensolve_guards": ["Smin_floor", "orth_l2_max", "H_asym_max", "finite inputs", "full retained rank"],
+  "post_eigensolve_guards": ["eigen_l2_max", "norm_max", "mandatory spatial and spin symmetry residuals"],
+  "failed_pre_guard": "STOP arm before any eigensolver; no energy calculated, inferred or filled",
+  "failed_post_guard": "Preserve actually computed diagnostic result, never overall accepted; do not compute a replacement energy",
+  "common_representation": "Both arms use the same verified AO polynomial definitions. Cross-arm AO comparisons remain in that unaltered AO representation. Cross-arm MO comparisons, if made, use explicitly verified U=C_L^{-1}C_I with C_L U=C_I; preserve S differences and metric mismatch separately",
+  "AO_spots": {"overlap": [[3,33]], "ERI": [[3,3,33,33], [23,23,53,53]]},
+  "higher_accuracy_AO_scope": "Independent Hermite Gaussian spot integrals only, with exact promotion of sealed exponent/radial/polynomial dyadics. Full higher-precision AO engine and full-AO energy error bound unavailable in deployed libcint/Libint2 binary64 engines; no claim of full AO accuracy",
+  "cost_limits": {"threads":1,"native_transform_wall_limit_seconds_per_arm_precision":1200,"maximum_valid_approaches":3,"no_remote_paid_resources":true},
+  "reference_in_constructor": false,
+  "no_basis_expansion_after_run": true,
+  "final_action": "STOP and designer report, commit allowed, no push"
+}

@@ -1,0 +1,18 @@
+{
+  "bindings": {
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/reconstruction_v0/propagate.py": "c327c330e8f6516f8dc9ef711296f042fe72ec8f2495742ceaa734438d827e52",
+    "runs/h2_reconstruction_v0/run_io_v2/L/c.npy": "97d26339cabd6c8e23cd73d75491cca8b64e0ea03d423a66b4143ab18fd73e48",
+    "runs/h2_reconstruction_v0/run_io_v2/L/refine_1/output/vector.txt": "1477cbf43e0e5524af636ef42a67d35f6bd8bf4916becfe0d5dea8019160c5a2",
+    "runs/h2_reconstruction_v0/run_io_v2/L/result.json": "2573001f44a383346fa772b63a0d9ff2e0363a7b88e859c9b014578f8568db44",
+    "runs/h2_reconstruction_v0/run_io_v2/I/result.json": "4c3ec23b2689d94ba19d9a499afe457f7f6003840ffd36e472ecd79784c7e3e9",
+    "runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/h_canonical.bin": "34fa58de505a4755f478aef3630be6c1caa1c0cdd0e5591a8dcbb8d81d2efbca",
+    "runs/h2_reconstruction_v0/run_io_v2/L/fixed_input/g_canonical.bin": "9417f87a66199ff51a80cd1d2b4affa141971c36c808f0c5bc412fd8059e4590",
+    "runs/h2_reconstruction_v0/run_io_v2/I/fixed_input/h_canonical.bin": "6cdb4383fb36e740d13984e1e933f7b7c024970fcd9ee405ac37370a9c19ff86",
+    "runs/h2_reconstruction_v0/run_io_v2/I/fixed_input/g_canonical.bin": "4b76c26a47700f6a3c7847aa28896dc260ff87a6500250e873bacd20a1b975d0",
+    "runs/h2_reconstruction_v0/run_io_v2/L/s.npy": "ab00609bd20c1557ee38d4cb415e5d2f7ccbefbe51961026ec1bb93ab1aa167c",
+    "runs/h2_reconstruction_v0/run_io_v2/I/s.npy": "36ca43deb760dc661142170878403d618203af7d4210f6c4f35b1bb2e9dbb66b"
+  },
+  "scope": "fixed L physical AO wavefunction, overlap/one-body/ERI engine variations; no eigensolver, no accepted energy generated",
+  "precision": "100-digit W construction then 64-bit significand long double propagation",
+  "selected_terms": "largest 16 absolute weighted AO ERI differences, diagnostic selection only; no canonical rule change"
+}

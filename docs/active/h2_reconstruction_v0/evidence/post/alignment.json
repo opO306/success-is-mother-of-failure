@@ -1,0 +1,13 @@
+{
+  "C_L_U_equals_C_I_max": "3.657559652103279943090507354577091070246111983432955715888402698328424434901562226161433669952550495e-99",
+  "arithmetic_decimal_digits": 100,
+  "U_nonzero_count": 580,
+  "metric_difference_Frobenius": "0.0000000001341737897584729834810651526990979664829005359892981293410870409056812593231192475038457729078729714",
+  "raw_S_difference_sha256": [
+    "8b63b4851e6228cad71578ead713d04381ace214e4302cfde0ea127a7081267d",
+    "f1b57e0e4114cf37f502ad12bca307f82345f9555d9a9eb16c363cb9648f0abe"
+  ],
+  "S_difference_not_hidden": true,
+  "interpretation": "Common orbital functions C_I; U is a coefficient transformation, not assumed unitary when numerical S differs",
+  "verified_mapping_scope": "numerical high-precision correspondence of stored dyadic C; no formal floating-point enclosure"
+}

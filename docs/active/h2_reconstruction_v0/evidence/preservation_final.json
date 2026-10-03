@@ -1,0 +1,13 @@
+{
+  "original_and_initial_source_bindings_unchanged": true,
+  "bindings_checked": 1269,
+  "inherited_bindings": 1178,
+  "existing_physics_frozen_sources_changed": false,
+  "source_versions_preserved": [
+    "numeric.cpp",
+    "numeric_io_v1.cpp",
+    "run.py",
+    "run_io_v1.py",
+    "run_io_v2.py"
+  ]
+}

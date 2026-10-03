@@ -4,6 +4,17 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ R=0.4 Same-Basis Independent Reconstruction V0(2026-10-03):**
+[보완 계약·실제 두 arm·공통 표현·state 영향 진단](docs/active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md).
+실제 retained AO60/full singlet1830, 두 engine 자체 C, threshold 불변으로 fresh reconstruction.
+113-bit 경로 L/I 모두 mandatory numerical·spatial guard 통과(accepted2).
+E_BO L−.11803113360375748 / I−.11803113247863181;
+L–I1.12513e-9>기존1e-9로 energy equivalence 미통과.
+고정 L 상태의 ERI engine/mapping 영향1.12691e-9와 연결되지만 full AO/energy bound 없음.
+Precision 민감도 SUPPORTED / uncertainty-qualified SAME_BASIS_RECONSTRUCTION_UNRESOLVED /
+REFERENCE_SIDE_UNRESOLVED / NOT CERTIFIED / QZ44 FAIL 보존 / production 미승인 / STOP.
+두 I/O 실패와 64-bit refused/null energies 보존, source 계약 불변, push 없음.
+
 **H₂ R=0.4 Open-Hypothesis Adversarial Audit V0(2026-10-03):**
 [열린 가설·실제 symmetry·독립 AO/MO·cardinal 진단](docs/active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md).
 설계자 새 명령으로 reference 미해결 상태의 우리 front-end/one-point basis 진단을 승인했다.

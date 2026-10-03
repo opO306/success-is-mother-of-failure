@@ -1,0 +1,75 @@
+{
+  "engine": {
+    "name": "Libint2",
+    "version": "2.7.2 Ubuntu 2.7.2-1.1build1",
+    "arithmetic": "double, binary64 53 significand bits",
+    "set_precision": 0,
+    "screening": "disabled by set_precision(0); no arithmetic precision promotion",
+    "normalization": "embed OFF; standard Cartesian; externally supplied dyadic radial and spherical map",
+    "spherical_mapping": "four binary64 explicit contractions of raw Cartesian integrals; arithmetic uncertainty remains",
+    "native": {
+      "ncart": 70,
+      "shells": 20,
+      "null_ERI_blocks": 0,
+      "runtime_seconds": 1.48827,
+      "peak_rss_kib": 699536,
+      "screening_precision": 0,
+      "normalization_embedded": false,
+      "Cartesian_convention": "standard",
+      "byteorder": "little host x86_64"
+    },
+    "raw_input_hashes": {
+      "shells.txt": "83495787b63a92df7350b10c8b1c9bdc96f91521f28a2c0d39527c78455829b6",
+      "cart_to_spherical.npy": "c4e1c01bee767ff221f16263bf8611842745c635677ac6449cd7b600f5aeea89"
+    }
+  },
+  "raw_one_body_asymmetry": {
+    "s": 3.191891195797325e-16,
+    "t": 1.1423825370205556e-15,
+    "v": 6.661338147750939e-16
+  },
+  "raw_ERI_symmetry": {
+    "ij": {
+      "max_absolute": 1.304512053934559e-15,
+      "index": [
+        27,
+        57,
+        26,
+        56
+      ],
+      "value": 0.24927475889067285,
+      "counterpart": 0.24927475889067155
+    },
+    "kl": {
+      "max_absolute": 1.5543122344752192e-15,
+      "index": [
+        26,
+        26,
+        26,
+        56
+      ],
+      "value": 0.44399650132874546,
+      "counterpart": 0.443996501328747
+    },
+    "pair": {
+      "max_absolute": 2.220446049250313e-15,
+      "index": [
+        26,
+        26,
+        56,
+        26
+      ],
+      "value": 0.443996501328747,
+      "counterpart": 0.4439965013287448
+    }
+  },
+  "raw_sha256": {
+    "s": "f1b57e0e4114cf37f502ad12bca307f82345f9555d9a9eb16c363cb9648f0abe",
+    "t": "c54ba15ec9dc4b1b0e1c029d8e0ec45f1f4c66e6a095a8aa7530e89c01db0d25",
+    "v": "e6bfa0f636704a786f7a988c6fc73e1f3750f0d003fed54956c2bce8351197b0",
+    "g": "0a40792b43c3e8ea0bfeda8ff68d2561c2c7a76cca2b652daded97d647754416"
+  },
+  "runtime_seconds": 4.623626293000029,
+  "independent_permutations_before_reuse": true,
+  "independence": "engine code differs; dyadic basis definition and verified spherical representation shared"
+}

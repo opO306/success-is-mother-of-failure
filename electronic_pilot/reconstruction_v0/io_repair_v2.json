@@ -1,0 +1,7 @@
+{
+  "failure_stage": "I/O only, before high-precision refinement; L 113-bit preliminary numerical energy exists, never overall accepted",
+  "cause": "Broad string replacement in I/O V1 corrupted the high.bin suffix in the Python symlink filename. C++ expected singlet_matrix_high.bin.",
+  "corrected_scope": "Literal path names/output version only. Same numeric_io_v1.cpp, precision schedule, guard, input and mathematical expressions. No contract adjustment.",
+  "source_sha256": "2c1f67d6fd639c9dd3a78bae362483222372a20a0c3e8518615613d1fa4246f4",
+  "third_attempt_stop_policy": "Any further execution failure will STOP; no fourth retry."
+}

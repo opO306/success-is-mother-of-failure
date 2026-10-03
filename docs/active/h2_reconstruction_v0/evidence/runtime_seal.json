@@ -1,0 +1,22 @@
+{
+  "binary": "/home/otherside123/h2-reconstruction-io-v2/numeric",
+  "binary_sha256": "663346efaec1f1b0448ec0a503c60f6c5846ac98d03bdae23a881f8fcb467f5b",
+  "compile_command": [
+    "g++",
+    "-std=c++17",
+    "-O3",
+    "-fno-fast-math",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/reconstruction_v0/numeric_io_v1.cpp",
+    "-lquadmath",
+    "-o",
+    "/home/otherside123/h2-reconstruction-io-v2/numeric"
+  ],
+  "gcc": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "linkage": "\tlinux-vdso.so.1 (0x00007fff479bc000)\n\tlibquadmath.so.0 => /lib/x86_64-linux-gnu/libquadmath.so.0 (0x00007d947e685000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007d947e400000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007d947e3d2000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007d947e000000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007d947e2e9000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007d947e6e7000)\n",
+  "libint_executable_sha256": "c2223e87ab74519b8771b7e3a05d758e4b2f44e34f4f174f0e8e03fd74851d08",
+  "libint_library_sha256": "5a0469a2b36dbf9c7db2311d0aa2031de14d70cf81c77ac7062c53158a2c9268",
+  "numpy": "2.5.3",
+  "actual_longdouble_significand_bits": 64,
+  "quad": "GCC __float128 with quadmath, 113 significand bits, no fast math",
+  "threads": 1
+}

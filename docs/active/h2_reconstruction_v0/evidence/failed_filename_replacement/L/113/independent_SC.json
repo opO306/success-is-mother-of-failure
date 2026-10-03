@@ -1,0 +1,7 @@
+{
+  "dimension": 1830,
+  "full_matrix_difference_max": 1.4210854715202004e-14,
+  "H_SC_asymmetry": 0.0,
+  "shared": "same rounded high-precision MO; fermion action independent of native spatial pair assembler",
+  "threshold_source": "existing H_asym guard used as additional CI agreement diagnostic"
+}

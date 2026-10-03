@@ -1,0 +1,60 @@
+{
+  "engine": {
+    "name": "PySCF/libcint",
+    "pyscf": "2.12.1",
+    "libcgto_path": "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libcgto.so",
+    "libcgto_sha256": "37c50d334132c161b769644a1d59d58f47a9f20948aa0cf4fd42383c5386def0",
+    "arithmetic": "binary64 double, 53 significand bits",
+    "screening": "PySCF default integral engine settings; raw s1, no user screening override",
+    "linkage": "\tlinux-vdso.so.1 (0x00007ffea4bee000)\n\tlibcint.so => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/deps/lib/libcint.so (0x00007a1db6600000)\n\tlibnp_helper.so => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libnp_helper.so (0x00007a1db690d000)\n\tlibopenblas-r0-f650aae0.3.3.so => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libopenblas-r0-f650aae0.3.3.so (0x00007a1db4000000)\n\tlibgomp-a34b3233.so.1.0.0 => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libgomp-a34b3233.so.1.0.0 (0x00007a1db3c00000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007a1db6900000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007a1db3800000)\n\tlibquadmath-96973f99.so.0.0.0 => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/deps/lib/../../libquadmath-96973f99.so.0.0.0 (0x00007a1db3400000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007a1db3f17000)\n\tlibgfortran-91cc3cb1.so.3.0.0 => /home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libgfortran-91cc3cb1.so.3.0.0 (0x00007a1db3000000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007a1db69af000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007a1db68d0000)\n"
+  },
+  "raw_one_body_asymmetry": {
+    "s": 2.220446049250313e-16,
+    "t": 3.552713678800501e-15,
+    "v": 8.881784197001252e-16
+  },
+  "raw_ERI_symmetry": {
+    "ij": {
+      "max_absolute": 5.551115123125783e-16,
+      "index": [
+        0,
+        1,
+        13,
+        13
+      ],
+      "value": 0.8210209924896574,
+      "counterpart": 0.821020992489658
+    },
+    "kl": {
+      "max_absolute": 7.771561172376096e-16,
+      "index": [
+        26,
+        9,
+        26,
+        56
+      ],
+      "value": 0.051426725291027375,
+      "counterpart": 0.05142672529102815
+    },
+    "pair": {
+      "max_absolute": 9.992007221626409e-16,
+      "index": [
+        15,
+        56,
+        26,
+        56
+      ],
+      "value": -0.23064331743085414,
+      "counterpart": -0.23064331743085514
+    }
+  },
+  "raw_sha256": {
+    "s": "8b63b4851e6228cad71578ead713d04381ace214e4302cfde0ea127a7081267d",
+    "t": "f99b23263f9ec0e5074e710cdee0303966980be43497a3e6b608315603679b5d",
+    "v": "8f51b0f770b9dfbdf24794be804833c6f227a899a5ac3d28cd6fb25518b4fa04",
+    "g": "2fa25dd18deddac6358563d876906db0aa687a4a71a1984b1317571c4ed96226"
+  },
+  "runtime_seconds": 1.829819556000075,
+  "independent_permutations_before_reuse": true,
+  "independence": "engine code differs; dyadic basis definition and verified spherical representation shared"
+}

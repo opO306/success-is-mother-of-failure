@@ -1,0 +1,104 @@
+{
+  "paths": [
+    {
+      "path": "compact",
+      "MO": {
+        "ij": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067547,
+          "counterpart": 2.1478047759067547
+        },
+        "kl": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067547,
+          "counterpart": 2.1478047759067547
+        },
+        "pair": {
+          "max_absolute": 0.0002681358290733231,
+          "index": [
+            50,
+            50,
+            50,
+            56
+          ],
+          "value": -0.02433119636966416,
+          "counterpart": -0.024063060540590837
+        }
+      },
+      "H_asym": 2.4925839170464315e-10,
+      "pre_guard": "FAIL",
+      "energy": null,
+      "eigensolver_called": false
+    },
+    {
+      "path": "direct",
+      "MO": {
+        "ij": {
+          "max_absolute": 4.9596929748995516e-05,
+          "index": [
+            50,
+            56,
+            50,
+            50
+          ],
+          "value": -0.024139362342581107,
+          "counterpart": -0.02408976541283211
+        },
+        "kl": {
+          "max_absolute": 1.4990627489330777e-10,
+          "index": [
+            15,
+            15,
+            50,
+            56
+          ],
+          "value": -0.03311850544962899,
+          "counterpart": -0.03311850559953527
+        },
+        "pair": {
+          "max_absolute": 4.8671641520826175e-05,
+          "index": [
+            50,
+            50,
+            56,
+            50
+          ],
+          "value": -0.024138437054352938,
+          "counterpart": -0.02408976541283211
+        }
+      },
+      "H_asym": 3.507036883476644e-05,
+      "pre_guard": "FAIL",
+      "energy": null,
+      "eigensolver_called": false
+    }
+  ],
+  "MO_difference": {
+    "max_absolute": 0.00040146947707936365,
+    "index": [
+      50,
+      50,
+      50,
+      50
+    ],
+    "first": 0.3604380322099581,
+    "second": 0.3608395016870375,
+    "frobenius": 0.0006572044452253798
+  },
+  "same_AO": true,
+  "same_C": true,
+  "AO_compression_shared": true,
+  "unaligned_cross_arm_comparison": false
+}
