@@ -1,0 +1,4 @@
+/usr/include/mpfr.h:#define MPFR_VERSION_STRING "4.2.1"
+/usr/include/x86_64-linux-gnu/gmp.h:#define __GNU_MP_VERSION            6
+/usr/include/x86_64-linux-gnu/gmp.h:#define __GNU_MP_VERSION_MINOR      3
+/usr/include/x86_64-linux-gnu/gmp.h:#define __GNU_MP_VERSION_PATCHLEVEL 0

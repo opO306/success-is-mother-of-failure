@@ -1,5 +1,15 @@
 # 현재 상태
 
+**H₂ H2SOLV / 독립 JC 이중 감사 재개(2026-10-03):**
+[Archive·부분 source audit·빌드 실패](docs/active/h2_representation_pilot1_resume_v1/REPORT.md).
+설계자 ZIP/내부 archive/solver/README/Makefile hash 모두 일치,20개 원본 보존.
+첫 공식 make가 MPFR 링크 undefined reference로 exit2: BUILD_ENVIRONMENT_DIFFERENCE / STOP.
+Vendor example0 / R=.4 B1계산0 / B2구현0. 원본·기존 Pilot22파일 hash 불변.
+Source partial review, EN=shifted inverse iteration/최저 root 미보장, NMAX=Taylor 길이, 적분80자리·NDIGITS 별도.
+공식 H2SOLV와 B2 모두 감사 대상. 수치·비용 우열 미판정, NOT_CERTIFIED / NOT_PRODUCTION_APPROVED.
+README static linkage 재시도안 준비만, 지시의 실패 STOP에 따라 재개 결정 필요. Push 없음.
+
+
 **최종 갱신:** 2026-10-03 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate

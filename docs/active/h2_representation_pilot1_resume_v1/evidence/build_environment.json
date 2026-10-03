@@ -1,0 +1,87 @@
+{
+  "uname": {
+    "exit": 0,
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "log": "uname.log"
+  },
+  "compiler_fortran": {
+    "exit": 0,
+    "command": [
+      "gfortran",
+      "--version"
+    ],
+    "log": "compiler_fortran.log"
+  },
+  "compiler_c": {
+    "exit": 0,
+    "command": [
+      "gcc",
+      "--version"
+    ],
+    "log": "compiler_c.log"
+  },
+  "linker": {
+    "exit": 0,
+    "command": [
+      "ld",
+      "--version"
+    ],
+    "log": "linker.log"
+  },
+  "compiler_link_specs": {
+    "exit": 0,
+    "command": [
+      "gcc",
+      "-dumpspecs"
+    ],
+    "log": "compiler_link_specs.log"
+  },
+  "packages": {
+    "exit": 0,
+    "command": [
+      "dpkg-query",
+      "-W",
+      "gcc",
+      "gfortran",
+      "libmpfr-dev",
+      "libmpfr6",
+      "libgmp-dev",
+      "libgmp10",
+      "libgomp1"
+    ],
+    "log": "packages.log"
+  },
+  "library_paths": {
+    "exit": 0,
+    "command": [
+      "sh",
+      "-c",
+      "ldconfig -p | grep -E \"lib(mpfr|gmp|gomp)\""
+    ],
+    "log": "library_paths.log"
+  },
+  "library_symbols": {
+    "exit": 0,
+    "command": [
+      "sh",
+      "-c",
+      "nm -D /lib/x86_64-linux-gnu/libmpfr.so.6 | grep -E \" mpfr_(set|mul|add)$\""
+    ],
+    "log": "library_symbols.log"
+  },
+  "header_versions": {
+    "exit": 0,
+    "command": [
+      "sh",
+      "-c",
+      "grep -E \"^#define MPFR_VERSION_STRING|^#define __GNU_MP_VERSION\" /usr/include/mpfr.h /usr/include/x86_64-linux-gnu/gmp.h"
+    ],
+    "log": "header_versions.log"
+  },
+  "linkage": "UNAVAILABLE: no linked executable",
+  "OMP_NUM_THREADS": "1 planned, numerical run not reached",
+  "OMP_flags": "-fopenmp in default Makefile"
+}

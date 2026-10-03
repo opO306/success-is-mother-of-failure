@@ -1,0 +1,125 @@
+{
+  "grade": "STATIC_SOURCE_REVIEW_PARTIAL",
+  "vendor_source_read_by_B1_reviewer": true,
+  "B2_agent_spawned": false,
+  "B2_source_exposure": "NOT_APPLICABLE_NOT_STARTED",
+  "source": "h2solv/f/h2solv.f",
+  "source_sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d",
+  "read_scope": [
+    "README/Makefile/test_h2solv/example.f complete",
+    "JC-symmetric input/output complete; all 5 input/output files byte-inventoried",
+    "h2solv.f 1-326, 397-770 selected, 831-1037, REC_JC opening, invsg 2468-2645, leq1s documentation and opening through 2800",
+    "mpfunf.f90 default precision declaration; mpfuna.f90 mantissa constants"
+  ],
+  "whole_source_read": false,
+  "integral_recurrence_independently_proved": false,
+  "findings": [
+    {
+      "topic": "parser",
+      "lines": [
+        126,
+        191
+      ],
+      "finding": "Integer parameters list-directed; R, EN, nonlinear parameters read as REAL*16 then formatted decimal STR and MPREAL. Thus nominal decimal is not exact-rational input; runtime actual values not measured."
+    },
+    {
+      "topic": "Hamiltonian nuclear repulsion",
+      "lines": [
+        851,
+        945
+      ],
+      "finding": "D uses overlap combination *1/16; V contains same overlap combination *ZA*ZB*(1/16)/R. H=T+V includes +ZA*ZB/R. Do not add +1/R again."
+    },
+    {
+      "topic": "basis enumeration",
+      "lines": [
+        281,
+        320
+      ],
+      "finding": "Enumerates every nonnegative five-exponent tuple with total degree 0..OMEGA and retains CheckRestriction; finite-space prefixes nested for fixed parameters and restrictions, actual runtime count not reproduced."
+    },
+    {
+      "topic": "IAB/I12",
+      "lines": [
+        41,
+        63
+      ],
+      "finding": "IAB is nucleus exchange parity +1/-1/0; IE (input I12) electron exchange +1/-1. JC auto restrictions enforce n2+n3 even for gerade and one lexicographic representative of exchange pairs for symmetric electron space."
+    },
+    {
+      "topic": "nonlinear parameters",
+      "lines": [
+        6,
+        9,
+        567,
+        605
+      ],
+      "finding": "Y/X multiply electron nuclear-distance differences; U/W multiply sums; physical parameters multiplied by R inside HAMLNORM. Symmetric JC X=Y=0 and U=W>0; EPS=1e-16 selects special cases."
+    },
+    {
+      "topic": "NMAX",
+      "lines": [
+        65,
+        210,
+        212,
+        1696,
+        1743
+      ],
+      "finding": "Taylor-series truncation length for integral evaluation. Default when <=0 is integer-assigned 80+10*R16. Not arithmetic digits."
+    },
+    {
+      "topic": "NDIGITS/integral arithmetic",
+      "lines": [
+        495,
+        505
+      ],
+      "finding": "Integral default mpipl=80 in mpfunf.f90:63. After matrix assembly requested NDIGITS maps to nwds=int(NDIGITS/mpdpw+2); word-quantized MPFR precision, not exactly NDIGITS decimal places. Actual runtime precision not validated."
+    },
+    {
+      "topic": "EN/root",
+      "lines": [
+        539,
+        545,
+        2468,
+        2625
+      ],
+      "finding": "Shifted inverse iteration on H-EN*S with initial vector all ones and itmax=40. Refines eigenvalue near supplied shift; source documents inertia output wa(1), but CALCEN does not consume it. Ground root requires independent checking; no reference-based hint or Pilot hint rule chosen."
+    },
+    {
+      "topic": "guards/termination",
+      "lines": [
+        539,
+        545,
+        2529,
+        2625
+      ],
+      "finding": "invsg uses fixed reps=1e-64. At 40 iterations code proceeds to normalization without distinct nonconvergence flag; nonzero ierror is printed by CALCEN, then main program continues output. Wrapper must reject errors and add independent residual/rank/root tests."
+    },
+    {
+      "topic": "normalization/output",
+      "lines": [
+        9,
+        407,
+        425,
+        2611,
+        2625
+      ],
+      "finding": "v^T*S*v normalization (scaled coordinates accounted for), using d3r1/(4pi) d3r2/(4pi) convention. wf_OMEGA.dat stores nuclei/symmetry/R/nonlinear parameters/count/tuples/coefficients; R/parameters printed20 and coefficients60 digits. Printed values do not expose entire internal precision."
+    },
+    {
+      "topic": "matrix visibility",
+      "lines": [
+        199,
+        200,
+        509,
+        528
+      ],
+      "finding": "LG2 is false and matrix-export branch exists but inaccessible through input. No original source edit made. B1 full low-order S/H export remains unresolved and must be explicitly separated as instrumented run if source-copy instrumentation later authorized."
+    },
+    {
+      "topic": "test script",
+      "lines": null,
+      "finding": "test_h2solv uses diff but has no fail-fast/aggregate failure handling and ends with echo. A zero script exit alone would not prove all five comparisons passed; independent per-case exit/semantic checks are required."
+    }
+  ]
+}

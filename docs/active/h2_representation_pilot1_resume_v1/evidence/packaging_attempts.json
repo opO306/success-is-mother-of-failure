@@ -1,0 +1,28 @@
+{
+  "attempts": [
+    {
+      "stage": "initial compact seal after dashboard update",
+      "exit": 1,
+      "failure": "UnicodeDecodeError cp949 reading UTF-8 report with default read_text()",
+      "origin": "transcribed from actual tool output",
+      "resolution": "explicit encoding=utf8; no vendor source/build/numerical retry"
+    },
+    {
+      "stage": "encoding-only packaging repair",
+      "exit": 0
+    },
+    {
+      "stage": "first related-test collection",
+      "exit": 2,
+      "failure": "new test_evidence.py collides with existing test_evidence module",
+      "log": "runs/h2_representation_pilot1/resume_v1_20261003/related_tests.log",
+      "resolution": "rename only new file to test_h2solv_resume_evidence.py"
+    },
+    {
+      "stage": "displaying first test output",
+      "exit": 1,
+      "failure": "UnicodeEncodeError cp949 printing replacement character after UTF-8 decoding of cp949 output",
+      "resolution": "subsequent tool metadata JSON is ASCII-safe; preserve raw bytes"
+    }
+  ]
+}

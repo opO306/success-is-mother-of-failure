@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ H2SOLV / 독립 JC 이중 감사 재개](active/h2_representation_pilot1_resume_v1/REPORT.md):
+제공 archive hashPASS, source 부분 검토, 첫 default build MPFR 링크 실패로 STOP.
+Vendor example/R04계산0, B2미구현, NOT_CERTIFIED / production미승인.
+아래 source미확보 feasibility는 당시 역사 기록이며 bytes를 보존했다.
+
+
 [H₂ Representation Comparison Pilot 1](active/h2_representation_pilot1/REPORT.md)는
 기존 QZ 감사와 분리된 explicit-r12 후보 feasibility 조사다.
 배포/제한 라이선스 확인, source 접근 세 경로 실패 뒤 B 구현·계산 전 STOP.

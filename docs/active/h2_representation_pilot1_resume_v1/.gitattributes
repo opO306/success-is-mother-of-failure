@@ -1,0 +1,4 @@
+* -text whitespace=cr-at-eol
+evidence/*.log whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+evidence/*.xml whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+evidence/designer_instruction.txt whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

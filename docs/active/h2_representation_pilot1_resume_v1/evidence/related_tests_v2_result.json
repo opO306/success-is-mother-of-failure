@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "tests/h2solv_resume_v1",
+    "tests/h2_representation_pilot1",
+    "tests/h2_frontend_reference_v0",
+    "-q",
+    "--junitxml=C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\resume_v1_20261003\\related_tests_v2.xml"
+  ],
+  "exit": 0,
+  "wall_s": 1.5939999999973224,
+  "log": "runs/h2_representation_pilot1/resume_v1_20261003/related_tests_v2.log",
+  "output": "..................................................                       [100%]\r\n50 passed in 0.46s\r\n",
+  "grade": "DOCUMENT_EVIDENCE_TESTS_NOT_VENDOR_OR_PHYSICS_TESTS"
+}

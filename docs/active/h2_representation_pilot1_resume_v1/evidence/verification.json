@@ -1,0 +1,29 @@
+{
+  "test_command": [
+    "python",
+    "-m",
+    "pytest",
+    "tests/h2solv_resume_v1",
+    "tests/h2_representation_pilot1",
+    "tests/h2_frontend_reference_v0",
+    "-q"
+  ],
+  "tests": 50,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "exit": 0,
+  "pytest_elapsed_s": "0.46",
+  "process_wall_s": 1.5939999999973224,
+  "new_tests": 8,
+  "evidence_fault_injection": [
+    "corrupted build_result bytes rejected",
+    "missing build_result rejected"
+  ],
+  "vendor_fault_injection": "NOT_EXECUTED_BUILD_STOP",
+  "LOCAL_FULL": "OMITTED_RELATED_TESTS_SUBSTITUTED",
+  "reason": "only new independent documentation/evidence/tests and dashboard pointers; production/physics/common/frozen/fixtures unchanged",
+  "official_baseline_updated": false,
+  "initial_collection_error_preserved": true,
+  "production_or_scientific_correctness_supported_by_these_tests": false
+}

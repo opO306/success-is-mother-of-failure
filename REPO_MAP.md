@@ -1,5 +1,12 @@
 # 저장소 지도
 
+`docs/active/h2_representation_pilot1_resume_v1/`은 설계자 제공 archive 재개 기록이다.
+Hash5개PASS/원본20개 보존, 공식 default make 링크 실패 exit2에서 STOP.
+Raw source는 Git 밖 runs/h2_representation_pilot1/resume_v1_20261003/에 있다.
+Vendor·R04 계산0/B2 미구현. `tests/h2solv_resume_v1/`은 byte/STOP evidence 시험뿐이다.
+이전 feasibility 문서·증거·시험을 역사 원본으로 보존하며 아래 당시 미확보 기록과 구분한다.
+
+
 작업 대상을 빠르게 찾기 위한 지도다. 저장소 전체를 검색하지 말고 여기서 범위를 정한 뒤 해당 디렉터리만 읽는다.
 
 **규모(과거 집계):** 32,795 파일 / 4.3GB — 이 중 4.2GB가 `runs/`(실험 결과)다. 코드+문서는 67MB. 현재 규모를 재집계한 값은 아니다.

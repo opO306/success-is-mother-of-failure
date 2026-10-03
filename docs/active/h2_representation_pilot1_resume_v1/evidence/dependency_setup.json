@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "wsl",
+      "-u",
+      "root",
+      "-e",
+      "apt-get",
+      "update"
+    ],
+    "exit": 0,
+    "wall_s": 6.4689999999973224,
+    "log": "apt_0.log"
+  },
+  {
+    "command": [
+      "wsl",
+      "-u",
+      "root",
+      "-e",
+      "apt-get",
+      "install",
+      "-y",
+      "gfortran",
+      "libmpfr-dev",
+      "libgmp-dev",
+      "time"
+    ],
+    "exit": 0,
+    "wall_s": 5.51600000000326,
+    "log": "apt_1.log"
+  }
+]

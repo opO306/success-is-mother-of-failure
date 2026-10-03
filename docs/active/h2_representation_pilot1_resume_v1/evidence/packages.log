@@ -1,0 +1,7 @@
+gcc	4:13.2.0-7ubuntu1
+gfortran	4:13.2.0-7ubuntu1
+libgmp-dev:amd64	2:6.3.0+dfsg-2ubuntu6.1
+libgmp10:amd64	2:6.3.0+dfsg-2ubuntu6.1
+libgomp1:amd64	14.2.0-4ubuntu2~24.04.1
+libmpfr-dev:amd64	4.2.1-1build1.1
+libmpfr6:amd64	4.2.1-1build1.1

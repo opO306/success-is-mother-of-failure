@@ -1,0 +1,28 @@
+{
+  "sealed_utc": "2026-10-03T08:13:01.551354+00:00",
+  "phase": "vendor reproduction only",
+  "source_sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d",
+  "original_source_edit_allowed": false,
+  "build_command": [
+    "make"
+  ],
+  "examples_order": [
+    "H2.0.1.1.6_h-h+",
+    "H2.1.1.1.3_jc_sym",
+    "H2.1.1.1.6_h2_sym",
+    "H2.1.1.2.3_jc_asym",
+    "H2.1.1.2.6_general"
+  ],
+  "OMP_NUM_THREADS": "1",
+  "timeout_seconds_per_case": 600,
+  "comparison": {
+    "text": "all nonnumeric tokens normalized whitespace must match",
+    "integer_tokens": "exact",
+    "float_tokens_abs_relative": "5e-16 * max(1,abs(expected))",
+    "energy_absolute_Eh": "1e-17",
+    "missing_duplicate_energy": "REFUSED",
+    "solver_error_warning": "REFUSED"
+  },
+  "on_build_or_reproduction_failure": "STOP before R04 or B2 implementation",
+  "scientific_correctness_from_examples": false
+}

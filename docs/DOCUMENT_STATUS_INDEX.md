@@ -1,5 +1,10 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H₂ H2SOLV / 독립 JC 이중 감사 재개](active/h2_representation_pilot1_resume_v1/REPORT.md):
+별도 연구, archive provenancePASS / default build 링크 실패 STOP / numerical미실행.
+Vendor correctness·독립 JC·비용미판정, NOT_CERTIFIED / production미승인, 역사 원본 보존.
+
+
 현재 상태는 [CURRENT_STATE.md](../CURRENT_STATE.md), 읽는 순서는 [문서 안내](README.md)를 본다.
 **58개 원문을 실제 이동했다.** 폴더 분류는 새 물리 규칙·승인·동결 판정이 아니다.
 동결·역사·초안·후기 자산은 서로 다른 상태다. 코드·fixture·D_valid·시험 의미는 변경하지 않는다.

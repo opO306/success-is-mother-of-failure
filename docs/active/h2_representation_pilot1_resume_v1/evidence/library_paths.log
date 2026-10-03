@@ -1,0 +1,7 @@
+	libmpfr.so.6 (libc6,x86-64) => /lib/x86_64-linux-gnu/libmpfr.so.6
+	libmpfr.so (libc6,x86-64) => /lib/x86_64-linux-gnu/libmpfr.so
+	libgomp.so.1 (libc6,x86-64) => /lib/x86_64-linux-gnu/libgomp.so.1
+	libgmpxx.so.4 (libc6,x86-64) => /lib/x86_64-linux-gnu/libgmpxx.so.4
+	libgmpxx.so (libc6,x86-64) => /lib/x86_64-linux-gnu/libgmpxx.so
+	libgmp.so.10 (libc6,x86-64) => /lib/x86_64-linux-gnu/libgmp.so.10
+	libgmp.so (libc6,x86-64) => /lib/x86_64-linux-gnu/libgmp.so

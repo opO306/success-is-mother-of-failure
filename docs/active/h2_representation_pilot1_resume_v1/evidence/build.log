@@ -1,0 +1,408 @@
+mpinterface.c: In function ‘mpfrroot’:
+mpinterface.c:66:2: warning: ‘mpfr_root’ is deprecated [-Wdeprecated-declarations]
+   66 |  mpfr_root (r2, r1, n1, n2);
+      |  ^~~~~~~~~
+In file included from mpinterface.c:2:
+/usr/include/mpfr.h:763:gfortran -O3 -fno-underscoring -fopenmp -ffixed-line-length-132 -c h2solv.f
+gfortran -fopenmp -lmpfr -o h2solv h2solv.o mpmodule.o mpfuna.o/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_inpz':
+mpfung1.f90:(.text+0x620): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x634): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x7a6): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x7b6): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_ztoz':
+mpfung1.f90:(.text+0x894): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o:mpfung1.f90:(.text+0x8a5): more undefined references to `mpfr_set' follow
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_ztodc':
+mpfung1.f90:(.text+0xa5e): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.f90:(.text+0xa6f): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_zeta':
+mpfung1.f90:(.text+0xafd): undefined reference to `mpfr_zeta'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_tanh':
+mpfung1.f90:(.text+0xbfd): undefined reference to `mpfr_tanh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_tan':
+mpfung1.f90:(.text+0xcad): undefined reference to `mpfr_tan'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_sqrt':
+mpfung1.f90:(.text+0xd5d): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_sinh':
+mpfung1.f90:(.text+0xe0d): undefined reference to `mpfr_sinh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_sin':
+mpfung1.f90:(.text+0xebd): undefined reference to `mpfr_sin'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_sign':
+mpfung1.f90:(.text+0xf88): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0xfd1): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_rtoz':
+mpfung1.f90:(.text+0x1083): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x1093): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_rtor':
+mpfung1.f90:(.text+0x11b4): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_polylog':
+mpfung1.f90:(.text+0x180a): undefined reference to `mpfr_li2'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_pi':
+mpfung1.f90:(.text+0x1928): undefined reference to `mpfr_const_pi'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_min':
+mpfung1.f90:(.text+0x1aab): undefined reference to `mpfr_min'
+/usr/bin/ld: mpfung1.f90:(.text+0x1ac9): undefined reference to `mpfr_min'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mdi':
+mpfung1.f90:(.text+0x1b40): undefined reference to `mpfr_get_d_2exp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_max':
+mpfung1.f90:(.text+0x1bfb): undefined reference to `mpfr_max'
+/usr/bin/ld: mpfung1.f90:(.text+0x1c19): undefined reference to `mpfr_max'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_log2':
+mpfung1.f90:(.text+0x1cc8): undefined reference to `mpfr_const_log2'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_log_gamma':
+mpfung1.f90:(.text+0x1d7d): undefined reference to `mpfr_lngamma'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_log':
+mpfung1.f90:(.text+0x1e2d): undefined reference to `mpfr_log'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_hypot':
+mpfung1.f90:(.text+0x1f12): undefined reference to `mpfr_hypot'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gamma':
+mpfung1.f90:(.text+0x1fcd): undefined reference to `mpfr_gamma'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_exp':
+mpfung1.f90:(.text+0x24ad): undefined reference to `mpfr_exp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_erfc':
+mpfung1.f90:(.text+0x255d): undefined reference to `mpfr_erfc'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_erf':
+mpfung1.f90:(.text+0x260d): undefined reference to `mpfr_erf'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_expint':
+mpfung1.f90:(.text+0x26bd): undefined reference to `mpfr_eint'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_egamma':
+mpfung1.f90:(.text+0x2768): undefined reference to `mpfr_const_euler'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_outz':
+mpfung1.f90:(.text+0x32c3): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x331a): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_digamma':
+mpfung1.f90:(.text+0x361d): undefined reference to `mpfr_digamma'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_csqrt':
+mpfung1.f90:(.text+0x3c94): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x3cb2): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x3cc2): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x3ccf): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d04): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d11): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d1f): undefined reference to `mpfr_abs'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d2f): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d3c): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d6f): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d7f): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x3d8f): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x3e69): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0x3e84): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x3ea1): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.f90:(.text+0x3eae): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x3ebf): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_cosh':
+mpfung1.f90:(.text+0x3f2d): undefined reference to `mpfr_cosh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_cos':
+mpfung1.f90:(.text+0x3fdd): undefined reference to `mpfr_cos'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_conjg':
+mpfung1.f90:(.text+0x40ea): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x40fe): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x410b): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_clog':
+mpfung1.f90:(.text+0x4333): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x4343): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x4353): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x4360): undefined reference to `mpfr_log'
+/usr/bin/ld: mpfung1.f90:(.text+0x4393): undefined reference to `mpfr_atan2'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_cexp':
+mpfung1.f90:(.text+0x4565): undefined reference to `mpfr_sin_cos'
+/usr/bin/ld: mpfung1.f90:(.text+0x4578): undefined reference to `mpfr_exp'
+/usr/bin/ld: mpfung1.f90:(.text+0x4588): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x4598): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_bessel_y1':
+mpfung1.f90:(.text+0x475d): undefined reference to `mpfr_y1'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_bessel_y0':
+mpfung1.f90:(.text+0x480d): undefined reference to `mpfr_y0'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_bessel_j1':
+mpfung1.f90:(.text+0x496d): undefined reference to `mpfr_j1'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_bessel_j0':
+mpfung1.f90:(.text+0x4a1d): undefined reference to `mpfr_j0'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_atan2':
+mpfung1.f90:(.text+0x5142): undefined reference to `mpfr_atan2'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_atanh':
+mpfung1.f90:(.text+0x51ed): undefined reference to `mpfr_atanh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_atan':
+mpfung1.f90:(.text+0x529d): undefined reference to `mpfr_atan'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_asinh':
+mpfung1.f90:(.text+0x534d): undefined reference to `mpfr_asinh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_asin':
+mpfung1.f90:(.text+0x53fd): undefined reference to `mpfr_asin'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_anint':
+mpfung1.f90:(.text+0x54ad): undefined reference to `mpfr_round'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_airy':
+mpfung1.f90:(.text+0x555d): undefined reference to `mpfr_ai'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_aint':
+mpfung1.f90:(.text+0x560d): undefined reference to `mpfr_trunc'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_aimag':
+mpfung1.f90:(.text+0x56eb): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_agm':
+mpfung1.f90:(.text+0x57b2): undefined reference to `mpfr_agm'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_acosh':
+mpfung1.f90:(.text+0x585d): undefined reference to `mpfr_acosh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_acos':
+mpfung1.f90:(.text+0x590d): undefined reference to `mpfr_acos'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_absz':
+mpfung1.f90:(.text+0x5a92): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x5ab1): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x5ac1): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x5ad3): undefined reference to `mpfr_sqrt'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_absr':
+mpfung1.f90:(.text+0x5b9d): undefined reference to `mpfr_abs'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gttri':
+mpfung1.f90:(.text+0x5c3f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gttir':
+mpfung1.f90:(.text+0x5caf): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gttrd':
+mpfung1.f90:(.text+0x5d15): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gttdr':
+mpfung1.f90:(.text+0x5d75): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_gttrr':
+mpfung1.f90:(.text+0x5dad): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_lttri':
+mpfung1.f90:(.text+0x5e0f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_lttir':
+mpfung1.f90:(.text+0x5e7f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_lttrd':
+mpfung1.f90:(.text+0x5ee5): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_lttdr':
+mpfung1.f90:(.text+0x5f45): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_lttrr':
+mpfung1.f90:(.text+0x5f7d): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_getri':
+mpfung1.f90:(.text+0x5fdf): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_getir':
+mpfung1.f90:(.text+0x604f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_getrd':
+mpfung1.f90:(.text+0x60b5): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_getdr':
+mpfung1.f90:(.text+0x6115): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_getrr':
+mpfung1.f90:(.text+0x614d): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_letri':
+mpfung1.f90:(.text+0x61af): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_letir':
+mpfung1.f90:(.text+0x621f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_letrd':
+mpfung1.f90:(.text+0x6285): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_letdr':
+mpfung1.f90:(.text+0x62e5): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_letrr':
+mpfung1.f90:(.text+0x631d): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netzr':
+mpfung1.f90:(.text+0x6369): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netrz':
+mpfung1.f90:(.text+0x63d9): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netzdc':
+mpfung1.f90:(.text+0x64b7): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.f90:(.text+0x64cf): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netdcz':
+mpfung1.f90:(.text+0x6597): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.f90:(.text+0x65af): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netzz':
+mpfung1.f90:(.text+0x6627): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.f90:(.text+0x6639): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netri':
+mpfung1.f90:(.text+0x669f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netir':
+mpfung1.f90:(.text+0x670f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netrd':
+mpfung1.f90:(.text+0x6775): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netdr':
+mpfung1.f90:(.text+0x67d5): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_netrr':
+mpfung1.f90:(.text+0x680d): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtzr':
+mpfung1.f90:(.text+0x6859): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtrz':
+mpfung1.f90:(.text+0x68b9): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtzdc':
+mpfung1.f90:(.text+0x6987): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.f90:(.text+0x699f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtdcz':
+mpfung1.f90:(.text+0x6a67): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.f90:(.text+0x6a7f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtzz':
+mpfung1.f90:(.text+0x6af7): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.f90:(.text+0x6b09): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtri':
+mpfung1.f90:(.text+0x6b6f): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtir':
+mpfung1.f90:(.text+0x6bdf): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtrd':
+mpfung1.f90:(.text+0x6c45): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtdr':
+mpfung1.f90:(.text+0x6ca5): undefined reference to `mpfr_cmp_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqtrr':
+mpfung1.f90:(.text+0x6cdd): undefined reference to `mpfr_cmp'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_exprr':
+mpfung1.f90:(.text+0x6d92): undefined reference to `mpfr_pow'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divzr':
+mpfung1.f90:(.text+0x6f68): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x6f7c): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divrz':
+mpfung1.f90:(.text+0x71b7): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x71cf): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x71dc): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0x71f1): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7209): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7219): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x7229): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x7239): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divzdc':
+mpfung1.f90:(.text+0x752f): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x7582): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divdcz':
+mpfung1.f90:(.text+0x790b): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x795d): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x796d): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7985): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7995): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x79a9): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x79b9): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divzz':
+mpfung1.f90:(.text+0x7c65): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7c7e): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7c9a): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x7cac): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7cc4): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7cd4): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x7ce4): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7cfc): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x7d0c): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0x7d20): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.f90:(.text+0x7d30): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_divrr':
+mpfung1.f90:(.text+0x8242): undefined reference to `mpfr_div'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mulzr':
+mpfung1.f90:(.text+0x8708): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x871c): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mulrz':
+mpfung1.f90:(.text+0x8898): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x88ac): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mulzdc':
+mpfung1.f90:(.text+0x8b79): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x8bca): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_muldcz':
+mpfung1.f90:(.text+0x8eca): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x8f1b): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mulzz':
+mpfung1.f90:(.text+0x9192): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x91a2): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x91b7): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0x91c8): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x91da): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.f90:(.text+0x91ef): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_expzi':
+mpfung1.f90:(.text+0x959c): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x95bd): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x97ed): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x980c): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0x981b): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o:mpfung1.f90:(.text+0x9829): more undefined references to `mpfr_set' follow
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_mulrr':
+mpfung1.f90:(.text+0xa372): undefined reference to `mpfr_mul'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_negz':
+mpfung1.f90:(.text+0xa47a): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0xa48b): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_negr':
+mpfung1.f90:(.text+0xa58d): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_subzr':
+mpfung1.f90:(.text+0xa6b3): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0xa6c4): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_subrz':
+mpfung1.f90:(.text+0xa843): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0xa857): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xa864): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_subzz':
+mpfung1.f90:(.text+0xae98): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.f90:(.text+0xaeae): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_csin':
+mpfung1.f90:(.text+0xb1a9): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb1c8): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb1d5): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0xb3a6): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb3ba): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb562): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb573): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xb720): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o:mpfung1.f90:(.text+0xb743): more undefined references to `mpfr_set' follow
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_csin':
+mpfung1.f90:(.text+0xb777): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_subrr':
+mpfung1.f90:(.text+0xbc92): undefined reference to `mpfr_sub'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_addzr':
+mpfung1.f90:(.text+0xbdb3): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0xbdc4): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_addrz':
+mpfung1.f90:(.text+0xbf43): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0xbf54): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_addzz':
+mpfung1.f90:(.text+0xc588): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.f90:(.text+0xc59e): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_ccos':
+mpfung1.f90:(.text+0xc899): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xc8b8): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xc8c5): undefined reference to `mpfr_neg'
+/usr/bin/ld: mpfung1.f90:(.text+0xca96): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xcaaa): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xcc52): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xcc63): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.f90:(.text+0xce10): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o:mpfung1.f90:(.text+0xce2b): more undefined references to `mpfr_set' follow
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_addrr':
+mpfung1.f90:(.text+0xd372): undefined reference to `mpfr_add'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqzr':
+mpfung1.f90:(.text+0xd435): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqdcz':
+mpfung1.f90:(.text+0xd605): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.f90:(.text+0xd617): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqzz':
+mpfung1.f90:(.text+0xd6e3): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqir':
+mpfung1.f90:(.text+0xd9f3): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqdr':
+mpfung1.f90:(.text+0xda83): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_rtod':
+mpfung1.f90:(.text+0x121f): undefined reference to `mpfr_get_d'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_cssn':
+mpfung1.f90:(.text+0x3a83): undefined reference to `mpfr_sin_cos'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_cssh':
+mpfung1.f90:(.text+0x3b03): undefined reference to `mpfr_sinh_cosh'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqzr':
+mpfung1.f90:(.text+0xd441): undefined reference to `mpfr_set_zero'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqrz':
+mpfung1.f90:(.text+0xd4be): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqzz':
+mpfung1.f90:(.text+0xd6f7): undefined reference to `mpfr_set'
+/usr/bin/ld: mpfung1.o: in function `__mpfung_MOD_mp_eqrr':
+mpfung1.f90:(.text+0xdade): undefined reference to `mpfr_set'
+/usr/bin/ld: mpinterface.o: in function `mpfrgetstr':
+mpinterface.c:(.text+0x59): undefined reference to `mpfr_get_str'
+/usr/bin/ld: mpinterface.o: in function `mpfrsetstr':
+mpinterface.c:(.text+0x97): undefined reference to `mpfr_set_str'
+/usr/bin/ld: mpinterface.o: in function `mpfroutstr':
+mpinterface.c:(.text+0xdb): undefined reference to `__gmpfr_out_str'
+/usr/bin/ld: mpinterface.o: in function `mpfrsetd':
+mpinterface.c:(.text+0x130): undefined reference to `mpfr_set_d'
+/usr/bin/ld: mpinterface.o: in function `mpfraddd':
+mpinterface.c:(.text+0x184): undefined reference to `mpfr_add_d'
+/usr/bin/ld: mpinterface.o: in function `mpfrdsub':
+mpinterface.c:(.text+0x1d5): undefined reference to `mpfr_d_sub'
+/usr/bin/ld: mpinterface.o: in function `mpfrsubd':
+mpinterface.c:(.text+0x229): undefined reference to `mpfr_sub_d'
+/usr/bin/ld: mpinterface.o: in function `mpfrmuld':
+mpinterface.c:(.text+0x27d): undefined reference to `mpfr_mul_d'
+/usr/bin/ld: mpinterface.o: in function `mpfrddiv':
+mpinterface.c:(.text+0x2ce): undefined reference to `mpfr_d_div'
+/usr/bin/ld: mpinterface.o: in function `mpfrdivd':
+mpinterface.c:(.text+0x322): undefined reference to `mpfr_div_d'
+/usr/bin/ld: mpinterface.o: in function `mpfrroot':
+mpinterface.c:(.text+0x36d): undefined reference to `mpfr_root'
+/usr/bin/ld: mpinterface.o: in function `mpfrpowsi':
+mpinterface.c:(.text+0x3b8): undefined reference to `mpfr_pow_si'
+/usr/bin/ld: mpinterface.o: in function `mpfrbesseljn':
+mpinterface.c:(.text+0x403): undefined reference to `mpfr_jn'
+/usr/bin/ld: mpinterface.o: in function `mpfrbesselyn':
+mpinterface.c:(.text+0x44e): undefined reference to `mpfr_yn'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:23: h2solv] Error 1

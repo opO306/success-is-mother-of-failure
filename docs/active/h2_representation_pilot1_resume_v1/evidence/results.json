@@ -1,0 +1,74 @@
+{
+  "statuses": [
+    "H2SOLV_ARCHIVE_PROVENANCE_PASS",
+    "BUILD_ENVIRONMENT_DIFFERENCE",
+    "STOP",
+    "GENERALIZATION_UNRESOLVED",
+    "NOT_CERTIFIED",
+    "NOT_PRODUCTION_APPROVED"
+  ],
+  "archive_gate_pass": true,
+  "build_attempts": 1,
+  "build_exit": 2,
+  "vendor_examples_executed": 0,
+  "vendor_examples_reproduced": null,
+  "vendor_mismatch_measured": false,
+  "linked_executable": false,
+  "R04_B1_runs": 0,
+  "R04_B2_runs": 0,
+  "B2_implemented": false,
+  "B1_B2_equivalence": "NOT_EVALUATED_VENDOR_GATE_STOP",
+  "physical_accuracy": "NOT_EVALUATED_VENDOR_GATE_STOP",
+  "cost_comparison": "COST_COMPARISON_NOT_COMPARABLE",
+  "B1_sizes_and_ladders": "NOT_SEALED_VENDOR_GATE_STOP",
+  "optimizer_and_EN_policy": "NOT_SEALED_VENDOR_GATE_STOP",
+  "official_and_own_implementation_both_audit_targets": true,
+  "h2solv_is_ground_truth": false,
+  "source_redistributed": false,
+  "production_applied": false,
+  "pushed": false,
+  "STOP_authority": "Designer instruction sections 7,8,30. Build failure: do not pass vendor gate.",
+  "cause_grade": "SUPPORTED_LINK_ORDER_HYPOTHESIS_NOT_REBUILD_VERIFIED",
+  "cause_evidence": [
+    "Makefile LD places -lmpfr before objects",
+    "gcc specs contain --as-needed",
+    "libmpfr present and nm exports failed symbols",
+    "linker reports undefined references to MPFR"
+  ],
+  "cost": {
+    "dependency_setup_measured_wall_s": 11.985000000000582,
+    "build_wall_s": null,
+    "build_cpu_s": null,
+    "build_peak_RAM": null,
+    "runtime_wall_s": null,
+    "basis_size": null,
+    "matrix_dimension": null,
+    "integral_generation_s": null,
+    "basis_enumeration_s": null,
+    "optimization_s": null,
+    "matrix_assembly_s": null,
+    "eigensolve_s": null,
+    "validation_s": null,
+    "precision_overhead_s": null,
+    "failed_retry_cost": "1 failed build, wall/CPU/RSS not separately measured; no retry"
+  },
+  "next_experiment_not_executed": {
+    "fresh_directory_required": true,
+    "source_edits": false,
+    "README_static_link_configuration": true,
+    "make_argv": [
+      "make",
+      "LD=gfortran -fopenmp",
+      "MPFR=/usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a"
+    ],
+    "then": "isolated five-case vendor solver + example with per-case exits and sealed semantic comparison; stop at first failure"
+  },
+  "old_Gaussian_results": {
+    "source": "unchanged historical evidence",
+    "fresh": false,
+    "QZ_gap_Eh": "0.0021992075572529746",
+    "V5Z_gap_Eh": "0.0006333466089347428",
+    "main_accuracy_comparator": "A-V5Z",
+    "no_new_reference_used_for_computation": true
+  }
+}

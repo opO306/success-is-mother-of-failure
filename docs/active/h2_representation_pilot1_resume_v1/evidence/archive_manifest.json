@@ -1,0 +1,110 @@
+{
+  "created_utc": "2026-10-03T08:10:54.788513+00:00",
+  "zip_path": "C:\\Users\\zun24\\Downloads\\H2SOLV Fortran solver for diatomic molecules in explicitly correlated exponential basis.zip",
+  "zip_sha256": "3a2756179b4f74abe450b5383fd9d8c656501cc5e39b39af74de42ffcd4d615d",
+  "inner_sha256": "a0f2967b1d110e88fd929f3effd1b8616a6e4fcb0477a988cb564952814a86db",
+  "inventory": [
+    {
+      "path": "h2solv/f/example.f",
+      "bytes": 4805,
+      "sha256": "be5df241be3833404e2cf10a1756e8c631d879eb1a563b6c44ec212aad716d0d"
+    },
+    {
+      "path": "h2solv/f/h2solv.f",
+      "bytes": 98111,
+      "sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d"
+    },
+    {
+      "path": "h2solv/f/input/H2.0.1.1.6_h-h+.inp",
+      "bytes": 852,
+      "sha256": "bf7bccda5932b56c10dc831c45aa4ab3bc5166db152b84573693b2ba84c36129"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.1.3_jc_sym.inp",
+      "bytes": 851,
+      "sha256": "075002a64b9191dc43c55d958f107fb42cf66d876d800886e427c8cf870b7c70"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.1.6_h2_sym.inp",
+      "bytes": 848,
+      "sha256": "6e606b174dd72195c4d93128757052a02de80a09217b3ee4a3e7f6421f56aebb"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.2.3_jc_asym.inp",
+      "bytes": 812,
+      "sha256": "345f972ed9a55a6b5792057b9aa04e689c3eb7f4c735a66c1fc06ad24d027055"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.2.6_general.inp",
+      "bytes": 814,
+      "sha256": "4e7c5e5377fecee647291d2edcf5a669907b7292cfea87a593748f2c676e97d3"
+    },
+    {
+      "path": "h2solv/f/Makefile",
+      "bytes": 1177,
+      "sha256": "870b0368598405586f2320724dc950722599d7ebb665ffd8ca19a8ba4df617cf"
+    },
+    {
+      "path": "h2solv/f/mpfuna.f90",
+      "bytes": 4181,
+      "sha256": "7c395b09ce54423b77d09473d95b10346d19a82dbbd8cf79a56c9070095a9dfe"
+    },
+    {
+      "path": "h2solv/f/mpfunf.f90",
+      "bytes": 3120,
+      "sha256": "03f4a35f7583e5343f1a31edc621f49845dc43180261b630e3b5308d20a00c9d"
+    },
+    {
+      "path": "h2solv/f/mpfung1.f90",
+      "bytes": 118992,
+      "sha256": "ac1a857eba51ecd94e9a443476bcd4d6f637dd2fa986809c42f565fd7d2e91ec"
+    },
+    {
+      "path": "h2solv/f/mpinterface.c",
+      "bytes": 2017,
+      "sha256": "8e5b10cfc8fb0e2ed047a1e48d7f93cd586507f158c675979946f227c3cfd3af"
+    },
+    {
+      "path": "h2solv/f/mpmodule.f90",
+      "bytes": 2083,
+      "sha256": "c5cc5696bbda4ec4df19addd5f8420d1d6c3797f916fd7fb497bbccc31e1a3fc"
+    },
+    {
+      "path": "h2solv/f/output/H2.0.1.1.6_h-h+.out",
+      "bytes": 2811,
+      "sha256": "2bab82fb81cc3129f83b8e5dc224385309ec7b94f928eae900a598531945a552"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.1.3_jc_sym.out",
+      "bytes": 2811,
+      "sha256": "649d8425a45fddc85ee8a7aa2c423a29f1c22872b6a3758968ea8de2f82d094a"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.1.6_h2_sym.out",
+      "bytes": 2749,
+      "sha256": "9e9bc8862d6207a37aebbeb2477101b6019fe4e8aae45682b47999222219f24d"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.2.3_jc_asym.out",
+      "bytes": 2833,
+      "sha256": "aaffc0f4750e4ee53ab3de5a456ba5a4aab4d293d0ab596cab1cf46adf9c4027"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.2.6_general.out",
+      "bytes": 2800,
+      "sha256": "0911783ce1a6cb6c054c3fbae8ffc82b8a624e4898afc51b88ded60858b5ac96"
+    },
+    {
+      "path": "h2solv/f/test_h2solv",
+      "bytes": 1022,
+      "sha256": "80726cfb9d976f26c1305cd2e2112d15bc7afbe53762c2e91ba83bc7b71e9d49"
+    },
+    {
+      "path": "h2solv/README",
+      "bytes": 3980,
+      "sha256": "9967704407e40ec47406eaa415d8d90baa544a60a6959b46e85dbc67065992f8"
+    }
+  ],
+  "status": "H2SOLV_ARCHIVE_PROVENANCE_PASS",
+  "source_redistribution": false
+}

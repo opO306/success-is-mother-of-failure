@@ -1,0 +1,13 @@
+{
+  "exit": 2,
+  "command": [
+    "wsl",
+    "--cd",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/resume_v1_20261003/vendor_build/h2solv/f",
+    "-e",
+    "make"
+  ],
+  "protocol_sha256": "51c84d29dff9b04c4d81a8c59523202c9a37d7a3f1bfb3988811bc069f7e4210",
+  "status": "BUILD_ENVIRONMENT_DIFFERENCE",
+  "STOP": true
+}
