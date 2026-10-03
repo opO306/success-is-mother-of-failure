@@ -1,0 +1,87 @@
+{
+  "name": "H2.0.1.1.6_h-h+",
+  "input_sha256": "bf7bccda5932b56c10dc831c45aa4ab3bc5166db152b84573693b2ba84c36129",
+  "reference_output_sha256": "2bab82fb81cc3129f83b8e5dc224385309ec7b94f928eae900a598531945a552",
+  "actual_output_sha256": "2bab82fb81cc3129f83b8e5dc224385309ec7b94f928eae900a598531945a552",
+  "solver": {
+    "command": [
+      "/usr/bin/time",
+      "-f",
+      "%e %U %S %M %x",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/cases/H2.0.1.1.6_h-h+/solver.time",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "wall_monotonic_seconds": 29.361282378,
+    "timed_out": false,
+    "stdout_sha256": "fd6b6f2dd441445f7170d0c2c41cd9e6a3e43be3a57d840d4eee7a5dc49b231b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gnu_time_seconds": 31.69,
+    "cpu_user_seconds": 30.82,
+    "cpu_system_seconds": 0.6,
+    "peak_RSS_KiB": 519168
+  },
+  "example": {
+    "command": [
+      "/usr/bin/time",
+      "-f",
+      "%e %U %S %M %x",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/cases/H2.0.1.1.6_h-h+/example.time",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/example"
+    ],
+    "exit": 0,
+    "wall_monotonic_seconds": 0.028443275999990192,
+    "timed_out": false,
+    "stdout_sha256": "bf7cf1ae7132493b9d146317b9ad8bb232dff220ac5bdb8fbc37b7cec10feacc",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gnu_time_seconds": 0.01,
+    "cpu_user_seconds": 0.0,
+    "cpu_system_seconds": 0.0,
+    "peak_RSS_KiB": 3200
+  },
+  "wavefunction_sha256": "1bee20c678961063feefc350e9d040608c35fd175efa15ff5e6e45067896b7be",
+  "comparison": {
+    "printed_output_match": true,
+    "status": "VENDOR_PRINTED_OUTPUT_REPRODUCED",
+    "issues": [],
+    "expected": {
+      "energy": "-2.904311531728328003",
+      "basis_size": "416",
+      "integral_digits_label": "80",
+      "linear_algebra_digits_label": "60",
+      "restriction1": "0",
+      "restriction2": "1",
+      "omega": "7",
+      "nmax": "140",
+      "nuclear_symmetry": "NO",
+      "electron_symmetry": "SYM",
+      "basis_family": "H-H+ SYM basis: X = Y; U = W",
+      "delta_r12": "0.1580549562248640E+01"
+    },
+    "measured": {
+      "energy": "-2.904311531728328003",
+      "basis_size": "416",
+      "integral_digits_label": "80",
+      "linear_algebra_digits_label": "60",
+      "restriction1": "0",
+      "restriction2": "1",
+      "omega": "7",
+      "nmax": "140",
+      "nuclear_symmetry": "NO",
+      "electron_symmetry": "SYM",
+      "basis_family": "H-H+ SYM basis: X = Y; U = W",
+      "delta_r12": "0.1580549562248640E+01"
+    },
+    "energy_exact_decimal_match": true,
+    "numeric_token_differences": [],
+    "solver_errors_or_nonfinite": false,
+    "native_iteration_count": null,
+    "native_iteration_limit_reached": null,
+    "native_root_convergence": "UNAVAILABLE_NOT_REPORTED_BY_UNMODIFIED_VENDOR",
+    "root_energy_output_check": "REFERENCE_PRINTED_ENERGY_REPRODUCTION_ONLY",
+    "independent_root_convergence_pass": false,
+    "lowest_root_certified": false
+  }
+}

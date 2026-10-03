@@ -1,0 +1,7 @@
+{
+  "HEAD": "0b79ee32e153085d00514628d1c9d840c16a67cd",
+  "branch": "codex/h2-representation-pilot1",
+  "live_remote": "264f5880ee1dedd5a97b008c29dd8d67057664b9\trefs/heads/codex/h2-representation-pilot1\n0f7b744cf754450424a63c47f305e0327c5b37c1\trefs/heads/master\n",
+  "status_before_execution": "?? electronic_pilot/h2_vendor_resume_v2/\n?? tests/h2_vendor_resume_v2/\n",
+  "no_merge_rebase": true
+}

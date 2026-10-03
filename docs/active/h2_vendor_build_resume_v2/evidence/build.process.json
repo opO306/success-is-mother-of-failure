@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "%e %U %S %M %x",
+    "-o",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/build.time",
+    "make",
+    "LD=gfortran -fopenmp",
+    "MPFR=/usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a"
+  ],
+  "exit": 0,
+  "wall_monotonic_seconds": 5.312965762999994,
+  "timed_out": false,
+  "stdout_sha256": "6e4e18e7b4d6d81b506e600e7d016b4fcf1a48b43f753a642530cc34a2f5d155",
+  "stderr_sha256": "28949b5296bff2af3a81aba0f3ba0711fb8456d2d6166e373db12ec4f18d8f44",
+  "gnu_time_seconds": 5.3,
+  "cpu_user_seconds": 3.61,
+  "cpu_system_seconds": 0.48,
+  "peak_RSS_KiB": 139588
+}

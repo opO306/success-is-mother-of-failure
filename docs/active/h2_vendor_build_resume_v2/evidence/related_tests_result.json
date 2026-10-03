@@ -1,0 +1,16 @@
+{
+  "exit": 0,
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "tests/h2_vendor_resume_v2",
+    "tests/h2solv_resume_v1",
+    "tests/h2_representation_pilot1",
+    "tests/h2_frontend_reference_v0",
+    "-q",
+    "--junitxml=C:\\Users\\zun24\\.codex\\worktrees\\h2-representation-pilot1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\runs\\h2_representation_pilot1\\vendor_build_resume_v2_20261003\\related_tests.xml"
+  ],
+  "output": "........................................................................ [ 83%]\r\n..............                                                           [100%]\r\n86 passed in 1.11s\r\n",
+  "grade": "RELATED_WRAPPER_EVIDENCE_TESTS_NOT_NATIVE_CONVERGENCE_OR_PHYSICS_CERTIFICATION"
+}

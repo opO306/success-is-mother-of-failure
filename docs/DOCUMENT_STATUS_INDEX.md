@@ -1,5 +1,10 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H₂ vendor build 재개 V2](active/h2_vendor_build_resume_v2/REPORT.md):
+별도 vendor감사, README buildPASS/5출력 exact재현. Native convergence미확인/strict guard미통과.
+R=.4/B2미착수, NOT_CERTIFIED/production미승인/사용자 범위의 보고후STOP.
+
+
 [H₂ H2SOLV / 독립 JC 이중 감사 재개](active/h2_representation_pilot1_resume_v1/REPORT.md):
 별도 연구, archive provenancePASS / default build 링크 실패 STOP / numerical미실행.
 Vendor correctness·독립 JC·비용미판정, NOT_CERTIFIED / production미승인, 역사 원본 보존.

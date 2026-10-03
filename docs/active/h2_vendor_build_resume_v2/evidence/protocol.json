@@ -1,0 +1,319 @@
+{
+  "sealed_utc": "2026-10-03T09:31:45.654618+00:00",
+  "purpose": "single README-supported static-link build hypothesis and five printed vendor-output reproductions",
+  "original_tree": "runs/h2_representation_pilot1/resume_v1_20261003/vendor_original",
+  "vendor_inventory": [
+    {
+      "path": "h2solv/f/example.f",
+      "bytes": 4805,
+      "sha256": "be5df241be3833404e2cf10a1756e8c631d879eb1a563b6c44ec212aad716d0d"
+    },
+    {
+      "path": "h2solv/f/h2solv.f",
+      "bytes": 98111,
+      "sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d"
+    },
+    {
+      "path": "h2solv/f/input/H2.0.1.1.6_h-h+.inp",
+      "bytes": 852,
+      "sha256": "bf7bccda5932b56c10dc831c45aa4ab3bc5166db152b84573693b2ba84c36129"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.1.3_jc_sym.inp",
+      "bytes": 851,
+      "sha256": "075002a64b9191dc43c55d958f107fb42cf66d876d800886e427c8cf870b7c70"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.1.6_h2_sym.inp",
+      "bytes": 848,
+      "sha256": "6e606b174dd72195c4d93128757052a02de80a09217b3ee4a3e7f6421f56aebb"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.2.3_jc_asym.inp",
+      "bytes": 812,
+      "sha256": "345f972ed9a55a6b5792057b9aa04e689c3eb7f4c735a66c1fc06ad24d027055"
+    },
+    {
+      "path": "h2solv/f/input/H2.1.1.2.6_general.inp",
+      "bytes": 814,
+      "sha256": "4e7c5e5377fecee647291d2edcf5a669907b7292cfea87a593748f2c676e97d3"
+    },
+    {
+      "path": "h2solv/f/Makefile",
+      "bytes": 1177,
+      "sha256": "870b0368598405586f2320724dc950722599d7ebb665ffd8ca19a8ba4df617cf"
+    },
+    {
+      "path": "h2solv/f/mpfuna.f90",
+      "bytes": 4181,
+      "sha256": "7c395b09ce54423b77d09473d95b10346d19a82dbbd8cf79a56c9070095a9dfe"
+    },
+    {
+      "path": "h2solv/f/mpfunf.f90",
+      "bytes": 3120,
+      "sha256": "03f4a35f7583e5343f1a31edc621f49845dc43180261b630e3b5308d20a00c9d"
+    },
+    {
+      "path": "h2solv/f/mpfung1.f90",
+      "bytes": 118992,
+      "sha256": "ac1a857eba51ecd94e9a443476bcd4d6f637dd2fa986809c42f565fd7d2e91ec"
+    },
+    {
+      "path": "h2solv/f/mpinterface.c",
+      "bytes": 2017,
+      "sha256": "8e5b10cfc8fb0e2ed047a1e48d7f93cd586507f158c675979946f227c3cfd3af"
+    },
+    {
+      "path": "h2solv/f/mpmodule.f90",
+      "bytes": 2083,
+      "sha256": "c5cc5696bbda4ec4df19addd5f8420d1d6c3797f916fd7fb497bbccc31e1a3fc"
+    },
+    {
+      "path": "h2solv/f/output/H2.0.1.1.6_h-h+.out",
+      "bytes": 2811,
+      "sha256": "2bab82fb81cc3129f83b8e5dc224385309ec7b94f928eae900a598531945a552"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.1.3_jc_sym.out",
+      "bytes": 2811,
+      "sha256": "649d8425a45fddc85ee8a7aa2c423a29f1c22872b6a3758968ea8de2f82d094a"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.1.6_h2_sym.out",
+      "bytes": 2749,
+      "sha256": "9e9bc8862d6207a37aebbeb2477101b6019fe4e8aae45682b47999222219f24d"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.2.3_jc_asym.out",
+      "bytes": 2833,
+      "sha256": "aaffc0f4750e4ee53ab3de5a456ba5a4aab4d293d0ab596cab1cf46adf9c4027"
+    },
+    {
+      "path": "h2solv/f/output/H2.1.1.2.6_general.out",
+      "bytes": 2800,
+      "sha256": "0911783ce1a6cb6c054c3fbae8ffc82b8a624e4898afc51b88ded60858b5ac96"
+    },
+    {
+      "path": "h2solv/f/test_h2solv",
+      "bytes": 1022,
+      "sha256": "80726cfb9d976f26c1305cd2e2112d15bc7afbe53762c2e91ba83bc7b71e9d49"
+    },
+    {
+      "path": "h2solv/README",
+      "bytes": 3980,
+      "sha256": "9967704407e40ec47406eaa415d8d90baa544a60a6959b46e85dbc67065992f8"
+    }
+  ],
+  "archive_file_sha256": {
+    "/mnt/c/Users/zun24/Downloads/H2SOLV Fortran solver for diatomic molecules in explicitly correlated exponential basis.zip": "3a2756179b4f74abe450b5383fd9d8c656501cc5e39b39af74de42ffcd4d615d",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/resume_v1_20261003/afba_v1_0.tar.gz": "a0f2967b1d110e88fd929f3effd1b8616a6e4fcb0477a988cb564952814a86db"
+  },
+  "protected_sha256": {
+    "docs/active/h2_representation_pilot1/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "docs/active/h2_representation_pilot1/REPORT.md": "32459fdaed811d978eb643d8b52d1054fa28482ea44646e08a5927666845a619",
+    "docs/active/h2_representation_pilot1/evidence/cost_comparison.json": "8e1b1eca57d23ffe973437c6dfbe62ac3d78391a88b108f8ef32e3376def7c06",
+    "docs/active/h2_representation_pilot1/evidence/designer_instruction.txt": "67cad00c004e4c86945cb6739c033b52730ac5ee28ca910f5e625c172624d770",
+    "docs/active/h2_representation_pilot1/evidence/feasibility.json": "4b55314029adab9b6e87927b9be9d9bf25c8da282e8802630cc53d0d997a3942",
+    "docs/active/h2_representation_pilot1/evidence/final_seal.json": "6099ea00c72b7caf6c2201efa842410d8147fdeb4efefa2b47914184e475a6eb",
+    "docs/active/h2_representation_pilot1/evidence/git_start.json": "d5d8d643bbf3de9af4129be9f65ba38d29ffd96ed4b381c591c6cc48394b9a1b",
+    "docs/active/h2_representation_pilot1/evidence/historical_QZ_result.json": "e525c862c8b637b85a7617c2dee7ee518c478327345e548a78ff76425dbdc784",
+    "docs/active/h2_representation_pilot1/evidence/historical_V5Z_result.json": "980b2526ef9f930149fceb07d6bfd075f54b541178c5b518f7d5a28a8560989a",
+    "docs/active/h2_representation_pilot1/evidence/historical_provenance.json": "646bb88238e09f1f24c13648baeb9b7b51e4b31129220362e48b367c098f03b7",
+    "docs/active/h2_representation_pilot1/evidence/initial_missing_raw.log": "a3a9865b17c964e5dc3ea9137c41773c59cc418a91dd21372062000368c80d1f",
+    "docs/active/h2_representation_pilot1/evidence/parent.log": "de8a8c2dee204019e172f78fd168213050e322419e6cf97d9ce0e12ae7f8623d",
+    "docs/active/h2_representation_pilot1/evidence/parent_protection.json": "c86d0f4848cc15e03d4d9408f5d928231097960749037ae21464521a05860325",
+    "docs/active/h2_representation_pilot1/evidence/pilot.log": "4989ebc6f6ea4e6d99ca0c6f7da6f139c77262ecff7743a6243e33d389c86543",
+    "docs/active/h2_representation_pilot1/evidence/preseal_review.json": "90e4d33f843b306f73db7264a20c42309dba2b7700008d6d8a14b7a26dd9e421",
+    "docs/active/h2_representation_pilot1/evidence/primary_metadata_acquisition.json": "5c3bb7c9857ff8a2d43aa7de5cc2691e710ed06f0143056333d00cef0e55cbc4",
+    "docs/active/h2_representation_pilot1/evidence/reused_primary_provenance.json": "660427648bfcf75dcc81045b280189e09e4752d99f838082169a4426dbdb5d36",
+    "docs/active/h2_representation_pilot1/evidence/source_access_attempts.json": "de17acfe12502f2116c3c2e847797c0c75f84750adedd8df1ab1a1c68a7c0ec4",
+    "docs/active/h2_representation_pilot1/evidence/validation_seal.json": "c2563031dcb3791f7532ae12a8d9283da672d6a987f77a893f3a72990b98e80d",
+    "docs/active/h2_representation_pilot1/evidence/verification.json": "4c56233dfe7d792ae092189e715171ca02ff138980a30ca7a161d089f1e386f2",
+    "docs/active/h2_representation_pilot1_resume_v1/.gitattributes": "667d50e0d61c41c2a4dbabe709874b20f344e9b8bddfb88315f61c0ad5ee993a",
+    "docs/active/h2_representation_pilot1_resume_v1/REPORT.md": "ee396733738d7dd8b2bfa39c9b9288cafc3372c93bad902bf2cba8cd93c8e561",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/apt_0.log": "2ceac9f1bed3d8a8ff0490185bb5b9fa40a4026d359a262e14cdb4bb7ae1a91e",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/apt_1.log": "a21c80a4ff374173c2bd70c237ebd07ff81d1c53feb033b2f5114cf867b2aa6d",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/archive_manifest.json": "4d79021772cb4e0d5e5b720d3e3a7f8ea37a308d52fca1724b4c05bb2ea43127",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/build.log": "21fb8fb44abdca5621a207e352237e1b6771fb5b4b2e3f19669c742207108fba",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/build_environment.json": "0462c86df7ed42c50928eb2048d9e4e95276c6f411aeda823fcaa470c45d25f3",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/build_result.json": "209ed27423580636b6ee9f03949b33b9c1185eeb9b0f1c03c98ac76427f3277d",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/compiler_c.log": "8497f84b2b8334c413d9c6166bd39d009ba55d2ff60a8f23e66dfa5819c2b048",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/compiler_fortran.log": "c077c93e4d08c80bcaaca8856d54d860655a989eb6820a5e807ac798e452e222",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/compiler_link_specs.log": "3a269a0e5ee21101352e1f276f347d289e4152854796704a46416964b170e0dc",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/dependency_setup.json": "3feaf6f849ba5ce01275c190b15311b17e6e7583af4c160939ecac36e276bd47",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/designer_instruction.txt": "47540fe192c43f511424d2fd23054f3af3a383b38075f15a23870819166d0625",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/final_seal.json": "95c635dc3a15bd71407ab3fa1f422a557fb7ef6ac4d405378f30afad16cca617",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/git_preflight.json": "9f7990832d81ebb6a132c4fbd1cf743f45f3d11b904f2283cf04cd458a21419c",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/header_versions.log": "43ca37a5d07aa7329e7e5b5658c4f5d79afba905edec505115d79b3f53429dfe",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/library_paths.log": "4c51666c5e3e40795d78c565d88d631a283e211aeff86a496fac0d89d4c958b3",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/library_symbols.log": "da4beacee7a17405c15fb95124b76dc75d24f55d35ea287b585b209e878c28ca",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/linker.log": "cbb0374a4d23f91537f8588348c460085a38ba5af336bed511060b72a1e76bf7",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/packages.log": "9a1608fd89d20e0aeba4c8216059b2166db8cfe1128a9741834e1cf2c639ed5d",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/packaging_attempts.json": "bdd53e1a1d67de213f2c3a03d3041cea7b1980b7e36d1f1e535a28d3b5eb011d",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/preservation.json": "671b134a4791945eb780aca3c92c24a6c8ee6bb78d42eb87d3123c286bc76462",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/related_tests.log": "4f4b7f8abc4af35c89da72dbeb9a803afed15ce99862dc4aa01dd7798fc736aa",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/related_tests.xml": "a09b068c16baa9c06aebb54b8a62815b713f4aef5b12af44430db04465c6bcb3",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/related_tests_v2.log": "1924a98c288ed525c8ee94b6ae5fd8c08a0dddaab6d9d01ae177d2faeda3b3e1",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/related_tests_v2.xml": "9830320aff8e02cb2249e1c96863c0deac679c4b362d07f566bf2ae1c5bec7ef",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/related_tests_v2_result.json": "8166f74a0386424b125fbcb5fc5fffa97a9ab07e28f2b46e4f3520acfc156f00",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/results.json": "824e42c99104019a52f20ab11e67ac83f9488a77e7fcdb152842820b40a58be5",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/source_audit.json": "a9c5e131ea70b74b488821e6bdb73da92ddfa81bfd39c95428333c5278636005",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/uname.log": "03c069ca1ca4f6c0aad6203e4a620f3131ad85ef5056c1337e88bfcd3a6b4e6b",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/vendor_protocol.json": "51c84d29dff9b04c4d81a8c59523202c9a37d7a3f1bfb3988811bc069f7e4210",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/vendor_protocol.sha256": "888f474424d8dc4104a82e923ba846ff3e6482927fd61f568e5456aa8eefddee",
+    "docs/active/h2_representation_pilot1_resume_v1/evidence/verification.json": "f1898d4deba6d90a1091ba6211f4ca9dfdab0395fea909d06e7b186ba152fb7c",
+    "tests/h2_representation_pilot1/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "tests/h2_representation_pilot1/test_evidence.py": "dacb9407f6f9308db0ec70b3d97e648eb0b310cd5313acd4239cc4ba92baa0df",
+    "tests/h2solv_resume_v1/.gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "tests/h2solv_resume_v1/test_h2solv_resume_evidence.py": "94388ec4b020440ecab37fda964c98648bd9ee939c3c8d7681ea813f11c3a255",
+    "runs/h2_representation_pilot1/resume_v1_20261003/build.log": "21fb8fb44abdca5621a207e352237e1b6771fb5b4b2e3f19669c742207108fba",
+    "runs/h2_representation_pilot1/resume_v1_20261003/build_result.json": "209ed27423580636b6ee9f03949b33b9c1185eeb9b0f1c03c98ac76427f3277d",
+    "runs/h2_representation_pilot1/resume_v1_20261003/vendor_protocol.json": "51c84d29dff9b04c4d81a8c59523202c9a37d7a3f1bfb3988811bc069f7e4210",
+    "runs/h2_representation_pilot1/resume_v1_20261003/vendor_protocol.sha256": "888f474424d8dc4104a82e923ba846ff3e6482927fd61f568e5456aa8eefddee"
+  },
+  "wrapper_sha256": {
+    "electronic_pilot/h2_vendor_resume_v2/compare.py": "e38914242f40d5c17d47a99b5ff905a8b79c24f1715b765f7cc0bded4e2fa007",
+    "electronic_pilot/h2_vendor_resume_v2/run_vendor.py": "78c936abd2a6658b30aa259019cacf1f9992a1b0f4fca5ebd450cd6c709a07b7",
+    "electronic_pilot/h2_vendor_resume_v2/__init__.py": "8dcca7b9dda9cc15f6f7315a5ae49e2fda9b3de042507ecf22510d4591825079"
+  },
+  "build_argv": [
+    "make",
+    "LD=gfortran -fopenmp",
+    "MPFR=/usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a"
+  ],
+  "build_attempts_allowed": 1,
+  "build_timeout_s": 600,
+  "case_timeout_s": 600,
+  "runtime_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE"
+  },
+  "examples": [
+    {
+      "name": "H2.0.1.1.6_h-h+",
+      "input_path": "h2solv/f/input/H2.0.1.1.6_h-h+.inp",
+      "reference_path": "h2solv/f/output/H2.0.1.1.6_h-h+.out",
+      "input_sha256": "bf7bccda5932b56c10dc831c45aa4ab3bc5166db152b84573693b2ba84c36129",
+      "reference_sha256": "2bab82fb81cc3129f83b8e5dc224385309ec7b94f928eae900a598531945a552",
+      "expected_fields": {
+        "energy": "-2.904311531728328003",
+        "basis_size": "416",
+        "integral_digits_label": "80",
+        "linear_algebra_digits_label": "60",
+        "restriction1": "0",
+        "restriction2": "1",
+        "omega": "7",
+        "nmax": "140",
+        "nuclear_symmetry": "NO",
+        "electron_symmetry": "SYM",
+        "basis_family": "H-H+ SYM basis: X = Y; U = W",
+        "delta_r12": "0.1580549562248640E+01"
+      }
+    },
+    {
+      "name": "H2.1.1.1.3_jc_sym",
+      "input_path": "h2solv/f/input/H2.1.1.1.3_jc_sym.inp",
+      "reference_path": "h2solv/f/output/H2.1.1.1.3_jc_sym.out",
+      "input_sha256": "075002a64b9191dc43c55d958f107fb42cf66d876d800886e427c8cf870b7c70",
+      "reference_sha256": "649d8425a45fddc85ee8a7aa2c423a29f1c22872b6a3758968ea8de2f82d094a",
+      "expected_fields": {
+        "energy": "-1.057326153651244754",
+        "basis_size": "228",
+        "integral_digits_label": "80",
+        "linear_algebra_digits_label": "60",
+        "restriction1": "1",
+        "restriction2": "1",
+        "omega": "7",
+        "nmax": "80",
+        "nuclear_symmetry": "GERADE",
+        "electron_symmetry": "SYM",
+        "basis_family": "James-Coolidge SYM basis: X = Y = 0; U = W",
+        "delta_r12": "0.3115301186773375E-01"
+      }
+    },
+    {
+      "name": "H2.1.1.1.6_h2_sym",
+      "input_path": "h2solv/f/input/H2.1.1.1.6_h2_sym.inp",
+      "reference_path": "h2solv/f/output/H2.1.1.1.6_h2_sym.out",
+      "input_sha256": "6e606b174dd72195c4d93128757052a02de80a09217b3ee4a3e7f6421f56aebb",
+      "reference_sha256": "9e9bc8862d6207a37aebbeb2477101b6019fe4e8aae45682b47999222219f24d",
+      "expected_fields": {
+        "energy": "-1.000835673013415305",
+        "basis_size": "416",
+        "integral_digits_label": "80",
+        "linear_algebra_digits_label": "60",
+        "restriction1": "0",
+        "restriction2": "1",
+        "omega": "7",
+        "nmax": "140",
+        "nuclear_symmetry": "GERADE",
+        "electron_symmetry": "SYM",
+        "basis_family": "H2 SYM basis: X = -Y; U = W",
+        "delta_r12": "0.1854474013711082E-03"
+      }
+    },
+    {
+      "name": "H2.1.1.2.3_jc_asym",
+      "input_path": "h2solv/f/input/H2.1.1.2.3_jc_asym.inp",
+      "reference_path": "h2solv/f/output/H2.1.1.2.3_jc_asym.out",
+      "input_sha256": "345f972ed9a55a6b5792057b9aa04e689c3eb7f4c735a66c1fc06ad24d027055",
+      "reference_sha256": "aaffc0f4750e4ee53ab3de5a456ba5a4aab4d293d0ab596cab1cf46adf9c4027",
+      "expected_fields": {
+        "energy": "-0.6907469540168939787",
+        "basis_size": "416",
+        "integral_digits_label": "80",
+        "linear_algebra_digits_label": "60",
+        "restriction1": "1",
+        "restriction2": "0",
+        "omega": "7",
+        "nmax": "80",
+        "nuclear_symmetry": "GERADE",
+        "electron_symmetry": "SYM",
+        "basis_family": "James-Coolidge NON-SYM basis: X = Y = 0; U != W",
+        "delta_r12": "0.1882206070131521E-02"
+      }
+    },
+    {
+      "name": "H2.1.1.2.6_general",
+      "input_path": "h2solv/f/input/H2.1.1.2.6_general.inp",
+      "reference_path": "h2solv/f/output/H2.1.1.2.6_general.out",
+      "input_sha256": "4e7c5e5377fecee647291d2edcf5a669907b7292cfea87a593748f2c676e97d3",
+      "reference_sha256": "0911783ce1a6cb6c054c3fbae8ffc82b8a624e4898afc51b88ded60858b5ac96",
+      "expected_fields": {
+        "energy": "-0.6942666307257072980",
+        "basis_size": "792",
+        "integral_digits_label": "80",
+        "linear_algebra_digits_label": "60",
+        "restriction1": "0",
+        "restriction2": "0",
+        "omega": "7",
+        "nmax": "140",
+        "nuclear_symmetry": "GERADE",
+        "electron_symmetry": "SYM",
+        "basis_family": "General KOLOS-WOLNIEWICZ basis",
+        "delta_r12": "0.8082498721738210E+00"
+      }
+    }
+  ],
+  "comparison": {
+    "energy_absolute_Eh": "1e-17",
+    "float_token_abs_relative": "5e-16",
+    "integer_tokens": "exact",
+    "nonnumeric_tokens": "all exact after whitespace tokenization",
+    "scientific_fields": "basis,omega,nmax,restrictions,symmetry,precision labels,energy,delta probe",
+    "exact_decimal_energy_comparison": "also report separately"
+  },
+  "failure_guard": {
+    "explicit_error_warning_nan_inf": "reject even with exit0",
+    "completion_markers": "required",
+    "process_exit_and_wavefunction": "required for both solver and example",
+    "native_iteration_count": "UNAVAILABLE_WITH_UNMODIFIED_VENDOR",
+    "native_iteration_limit_state": "UNAVAILABLE_WITH_UNMODIFIED_VENDOR",
+    "root_convergence": "do not claim native convergence from printed energy agreement",
+    "strict_vendor_gate": "do not PASS if independent root convergence unavailable"
+  },
+  "first_output_mismatch": "STOP, no next example",
+  "after_five_printed_matches": "REPORT_AND_STOP, no R04, no B2; retain convergence qualification unresolved",
+  "source_edit_allowed": false,
+  "merge_rebase_push_allowed": false
+}

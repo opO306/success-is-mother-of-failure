@@ -1,5 +1,15 @@
 # 현재 상태
 
+**H₂ vendor build 재개 V2(2026-10-03):**
+[README build·5예제 출력 재현·수렴 상태 사각지대](docs/active/h2_vendor_build_resume_v2/REPORT.md).
+원본 불변의 README static MPFR/GMP 연결1회 성공, 배포5예제 solver+example 출력 byte동일5/5.
+Energy·basis·symmetry·restriction·precision·delta일치, 두 process exit0/오류표시0.
+내부 iteration count/한도도달/convergence는 원본이 출력하지 않아 UNAVAILABLE.
+ALL_FIVE_VENDOR_PRINTED_OUTPUTS_REPRODUCED / native guard qualification UNRESOLVED / STOP.
+R=.4 B1계산0/B2시작0, NOT_CERTIFIED/production미승인. 과거 default make링크FAIL 보존.
+원본20파일/기존61bindings 전후불변, merge/rebase/push없음. 아래 V1은 당시 기록이다.
+
+
 **H₂ H2SOLV / 독립 JC 이중 감사 재개(2026-10-03):**
 [Archive·부분 source audit·빌드 실패](docs/active/h2_representation_pilot1_resume_v1/REPORT.md).
 설계자 ZIP/내부 archive/solver/README/Makefile hash 모두 일치,20개 원본 보존.

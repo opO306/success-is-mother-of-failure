@@ -230,6 +230,7 @@ A0 쪽 코드를 직접 읽는 것이 가장 빠르다. 이 경우 `engine/deter
 
 | 날짜 | 대상 | 심은 결함 | 엔진 검증기 | 독립 검증기 | 테스트로 영구화 |
 |---|---|---|---|---|---|
+| 2026-10-03 | [H2SOLV vendor 출력 wrapper V2](../active/h2_vendor_build_resume_v2/REPORT.md) | synthetic 출력의 기저·대칭·restriction·정밀도·energy·delta 변경, NaN/Inf/오류/iteration-limit 표시, 누락·중복 출력, exit 실패 및 출력 byte 오염 | 대상 아님(원본 solver·A physics 불변) | 보고 가능한 결함은 모두 거부. 원본이 출력하지 않는 native 반복 횟수·한도 도달·root convergence는 UNAVAILABLE로 보존하며 출력 재현5/5를 독립 수렴 PASS로 승격하지 않음 | `tests/h2_vendor_resume_v2/test_h2_vendor_comparison.py`, `test_h2_vendor_resume_integrity.py`; 공식 solver 내부 수치 fault injection이나 인증 아님 |
 | 2026-09-21 | `provenance._delta` | `causal.tick` 변경을 델타에서 누락 | **통과 (못 잡음)** | 거부, 8건 탐지 | `tests/test_audit_independent_trace.py::test_catches_a_recorder_bug_the_engines_own_verifier_cannot_see` |
 | 2026-09-21 | `EnvironmentState.resource_totals` | 첫 칸을 빼고 셈 | 잡음 (AssertionError) | — | `test_audit_independent_conservation.py::test_a_state_dependent_miscount_is_caught_by_the_kernel_itself` |
 | 2026-09-21 | `EnvironmentState.total_energy` | 수증기 잠열 항 누락 | 잡음 (AssertionError) | — | (위와 같은 유형, 미영구화) |

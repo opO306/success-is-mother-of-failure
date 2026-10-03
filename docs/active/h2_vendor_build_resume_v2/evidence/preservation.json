@@ -1,0 +1,11 @@
+{
+  "vendor_files_per_copy": 20,
+  "copies": 2,
+  "vendor_byte_mismatches": [],
+  "protected_bindings": 61,
+  "protected_byte_mismatches": [],
+  "zip_after_sha256": "3a2756179b4f74abe450b5383fd9d8c656501cc5e39b39af74de42ffcd4d615d",
+  "inner_after_sha256": "a0f2967b1d110e88fd929f3effd1b8616a6e4fcb0477a988cb564952814a86db",
+  "Attempt1_overwritten": false,
+  "source_or_makefile_edited": false
+}

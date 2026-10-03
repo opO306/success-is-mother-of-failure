@@ -1,0 +1,18 @@
+{
+  "tests": 86,
+  "errors": 0,
+  "failures": 0,
+  "skipped": 0,
+  "exit": 0,
+  "pytest_elapsed_s": "1.11",
+  "new_tests": 36,
+  "Windows_related": "86 passed",
+  "wrapper_preflight_first": "1 failed / 24 passed; whitespace false rejection fixed before vendor execution",
+  "wrapper_preflight_second": "25 passed",
+  "vendor_runs": "5 solver + 5 example processes, authoritative source unchanged",
+  "native_root_convergence": "UNAVAILABLE_NOT_PASSED",
+  "LOCAL_FULL": "OMITTED_RELATED_TESTS_SUBSTITUTED",
+  "reason": "isolated new wrapper/tests/evidence/docs, guidance and fault-injection reference row only; original A/physics/common/frozen/fixtures unchanged",
+  "official_baseline_updated": false,
+  "fault_injection_table_updated": "docs/reference/VERIFICATION_LIMITS_AND_LESSONS.md"
+}

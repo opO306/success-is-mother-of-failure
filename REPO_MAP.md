@@ -1,5 +1,13 @@
 # 저장소 지도
 
+`electronic_pilot/h2_vendor_resume_v2/`는 README 정적 연결1회와 vendor5예제를
+격리 실행·time/RSS·stdout hash·Decimal/token 비교하는 standalone audit wrapper다.
+`docs/active/h2_vendor_build_resume_v2/`는 buildPASS/출력byte동일5/5 기록이다.
+원본은 runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/의 Git밖 tree에 있다.
+Native iteration/convergence telemetry는 UNAVAILABLE, R=.4/B2 미착수/STOP.
+`tests/h2_vendor_resume_v2/`는 wrapper결함주입·실제출력·byte/STOP 검사를 맡는다.
+
+
 `docs/active/h2_representation_pilot1_resume_v1/`은 설계자 제공 archive 재개 기록이다.
 Hash5개PASS/원본20개 보존, 공식 default make 링크 실패 exit2에서 STOP.
 Raw source는 Git 밖 runs/h2_representation_pilot1/resume_v1_20261003/에 있다.

@@ -1,0 +1,9 @@
+gfortran -O3 -fno-underscoring -fopenmp -c mpfuna.f90
+gfortran -O3 -fno-underscoring -fopenmp -c mpfunf.f90
+gfortran -O3 -fno-underscoring -fopenmp -c mpfung1.f90
+gfortran -O3 -fno-underscoring -fopenmp -c mpmodule.f90
+gcc -fopenmp -c mpinterface.c
+gfortran -O3 -fno-underscoring -fopenmp -ffixed-line-length-132 -c h2solv.f
+gfortran -fopenmp -o h2solv h2solv.o mpmodule.o mpfuna.o mpfunf.o mpfung1.o mpinterface.o /usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a
+gfortran -O3 -fno-underscoring -fopenmp -c  example.f
+gfortran -fopenmp -o example example.o mpmodule.o mpfuna.o mpfunf.o mpfung1.o mpinterface.o /usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a

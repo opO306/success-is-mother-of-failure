@@ -1,0 +1,67 @@
+[
+  {
+    "case": "H2.0.1.1.6_h-h+",
+    "basis": 416,
+    "energy_Eh": "-2.904311531728328003",
+    "nmax": 140,
+    "solver_wall_s": 29.361282378,
+    "solver_peak_RSS_MiB": 507.0,
+    "example_wall_s": 0.028443275999990192,
+    "example_peak_RSS_MiB": 3.125,
+    "energy_exact_decimal_match": true,
+    "numeric_differences": 0,
+    "whole_output_byte_equal": true
+  },
+  {
+    "case": "H2.1.1.1.3_jc_sym",
+    "basis": 228,
+    "energy_Eh": "-1.057326153651244754",
+    "nmax": 80,
+    "solver_wall_s": 8.297019167999991,
+    "solver_peak_RSS_MiB": 194.5,
+    "example_wall_s": 0.0204451140000117,
+    "example_peak_RSS_MiB": 3.125,
+    "energy_exact_decimal_match": true,
+    "numeric_differences": 0,
+    "whole_output_byte_equal": true
+  },
+  {
+    "case": "H2.1.1.1.6_h2_sym",
+    "basis": 416,
+    "energy_Eh": "-1.000835673013415305",
+    "nmax": 140,
+    "solver_wall_s": 49.609827362999994,
+    "solver_peak_RSS_MiB": 511.0,
+    "example_wall_s": 0.025307281000010562,
+    "example_peak_RSS_MiB": 3.0,
+    "energy_exact_decimal_match": true,
+    "numeric_differences": 0,
+    "whole_output_byte_equal": true
+  },
+  {
+    "case": "H2.1.1.2.3_jc_asym",
+    "basis": 416,
+    "energy_Eh": "-0.6907469540168939787",
+    "nmax": 80,
+    "solver_wall_s": 17.900653248999987,
+    "solver_peak_RSS_MiB": 198.5,
+    "example_wall_s": 0.02284683400000631,
+    "example_peak_RSS_MiB": 3.125,
+    "energy_exact_decimal_match": true,
+    "numeric_differences": 0,
+    "whole_output_byte_equal": true
+  },
+  {
+    "case": "H2.1.1.2.6_general",
+    "basis": 792,
+    "energy_Eh": "-0.6942666307257072980",
+    "nmax": 140,
+    "solver_wall_s": 131.80042119399997,
+    "solver_peak_RSS_MiB": 518.875,
+    "example_wall_s": 0.04294092200001387,
+    "example_peak_RSS_MiB": 3.25,
+    "energy_exact_decimal_match": true,
+    "numeric_differences": 0,
+    "whole_output_byte_equal": true
+  }
+]

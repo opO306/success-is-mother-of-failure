@@ -1,0 +1,387 @@
+응. **재개하는 게 맞아.** 이번 실패는 아직 H2SOLV 계산법의 실패가 아니라 **링커 단계에서 프로그램 자체가 만들어지지 않은 실패**야.
+
+그리고 중요한 점 하나. 방금 Git 원격을 다시 확인했는데:
+
+```text
+origin/master
+0f7b744cf754450424a63c47f305e0327c5b37c1
+
+origin/codex/h2-representation-pilot1
+264f5880ee1dedd5a97b008c29dd8d67057664b9
+```
+
+이야. 네가 말한 `0b79ee3`은 아직 로컬 전용이라 원격에서는 확인할 수 없다. 또 `master`는 그 사이 앞으로 움직였으니 **이번 Pilot에서 자동 rebase/merge하지 말고 현재 로컬 Pilot 계보를 그대로 유지**하는 게 맞아.
+
+이번 재개는 “실패했으니 옵션 이것저것 바꿔서 될 때까지 두드린다”가 아니야. 딱 하나의 사전 가설을 검사하는 거야.
+
+> **현재 배포 Makefile의 MPFR 링크 순서가 현대 GCC의 `--as-needed`와 충돌했고, README에 공식적으로 설명된 정적 라이브러리 연결 방식이라면 원본 source 변경 없이 빌드되는가?**
+
+이건 충분히 값어치 있는 테스트다.
+
+구현자한테는 아래처럼 넘기면 돼.
+
+---
+
+# H2SOLV Pilot 1 — Vendor Build Resume V2
+
+이전 단계는 공식 archive provenance를 확인했지만 첫 vendor build가 **링크 단계에서 실패**하여 계약에 따라 STOP했습니다.
+
+현재 알려진 실패:
+
+```text
+undefined reference to MPFR symbols
+```
+
+관측:
+
+```text
+MPFR library 존재
+필요 MPFR symbols 존재
+배포 Makefile은 -lmpfr 위치가 object보다 앞
+현재 GCC/linker 환경은 --as-needed 영향 가능
+```
+
+이는 현재 **링크 순서/빌드 환경 가설**이며 아직 해결 확인된 사실이 아닙니다.
+
+이번 작업은 이 가설 하나만 검사합니다.
+
+## 1. 기존 원본은 절대 수정하지 말 것
+
+다음은 byte-for-byte 그대로 유지하십시오.
+
+```text
+공식 ZIP
+afba_v1_0.tar.gz
+h2solv.f
+README
+Makefile
+MPFUN source
+공식 input/output
+```
+
+원본 tree에서 직접 patch하지 마십시오.
+
+새로운 별도 build directory/copy에서만 실험하십시오.
+
+기존 archive/source hash를 실행 전후 다시 확인하십시오.
+
+## 2. README가 설명하는 정식 build 방법만 먼저 시도
+
+이번 재개에서 임의로 linker flag를 이것저것 추가하지 마십시오.
+
+**README에 명시된 static-library/link 방법을 그대로 별도 build directory에 재현**하십시오.
+
+기록:
+
+```text
+compiler version
+gfortran version
+gcc version
+ld version
+
+GMP version
+MPFR version
+
+실제 library path
+실제 link command
+환경의 LDFLAGS
+--as-needed 적용 여부
+
+README 방식과 배포 Makefile 방식의 차이
+```
+
+### 중요한 구분
+
+성공하면:
+
+```text
+README_SUPPORTED_BUILD_PATH_WORKS
+```
+
+입니다.
+
+다음과 같이 쓰지 마십시오.
+
+```text
+원본 Makefile이 올바르다
+H2SOLV가 검증됐다
+```
+
+반대로 실패해도 과학 방법의 실패가 아닙니다.
+
+## 3. 이번 build 재시도는 1개의 사전 정의된 실험
+
+README 방식으로 한 번 시도합니다.
+
+성공:
+
+```text
+VENDOR_BUILD_ENVIRONMENT_COMPATIBILITY_SUPPORTED
+```
+
+실패:
+
+```text
+VENDOR_BUILD_STILL_UNRESOLVED
+STOP
+```
+
+실패한 뒤:
+
+```text
+-lmpfr 위치 계속 변경
+--no-as-needed 추가
+소스 patch
+함수 제거
+컴파일러 여러 개 무작위 교체
+```
+
+등으로 자동 확장하지 마십시오.
+
+새 원인이 나오면 증거를 보존하고 STOP합니다.
+
+## 4. 빌드 성공 시 바로 R=0.4로 가지 말 것
+
+가장 먼저 **배포자가 제공한 5개 vendor example**을 실행하십시오.
+
+각 예제는 서로 독립적으로 기록합니다.
+
+최소:
+
+```text
+input hash
+reference-output hash
+actual stdout/output hash
+
+exit code
+runtime
+peak RSS
+
+reported basis size
+reported precision
+reported energy
+
+reference output와 실제 output의 차이
+```
+
+를 남기십시오.
+
+## 5. “프로그램이 0으로 종료됐다”만으로 PASS 금지
+
+소스 감사에서 이미:
+
+> iteration limit 또는 solver 오류 뒤에도 결과 출력이 계속될 수 있음
+
+이 확인됐으므로 wrapper가 별도로 실패를 판정해야 합니다.
+
+각 vendor example에서 최소:
+
+```text
+solver error indication
+iteration limit
+NaN / Inf
+basis generation failure
+integral failure
+root convergence
+expected final energy
+```
+
+를 확인하십시오.
+
+즉:
+
+```text
+exit 0
+≠ vendor reproduction PASS
+```
+
+입니다.
+
+## 6. Vendor output 비교
+
+출력의 모든 공백/시간 문자열을 bitwise 동일하게 만들 필요는 없습니다.
+
+대신 **과학적으로 의미 있는 필드**를 먼저 정의해서 비교하십시오.
+
+예:
+
+```text
+basis size
+symmetry/restriction
+working precision
+target/root information
+final energy
+convergence state
+```
+
+숫자 tolerance는 **결과를 보기 전에** 정하십시오.
+
+가능한 경우 배포 output의 자릿수/출력 정밀도에 맞춰 exact decimal comparison도 따로 기록하십시오.
+
+## 7. 5개 모두 통과한 경우
+
+그때만:
+
+```text
+H2SOLV_VENDOR_EXAMPLES_REPRODUCED
+```
+
+로 승격합니다.
+
+이 뜻은 오직:
+
+> 현재 환경에서 공식 배포 프로그램을 저자가 제공한 예제 범위에서 재현했다.
+
+입니다.
+
+아직:
+
+```text
+integral recurrence 정확성 인증 X
+H₂ R=0.4 인증 X
+James–Coolidge 표현 우수성 인증 X
+Pachucki reference 인증 X
+```
+
+입니다.
+
+## 8. 예제 하나라도 mismatch면
+
+즉시:
+
+```text
+H2SOLV_VENDOR_EXAMPLE_MISMATCH
+STOP
+```
+
+합니다.
+
+그다음에는 최초 mismatch를 축소하는 별도 감사를 설계합니다.
+
+다섯 개 중 네 개가 맞았다고 R=0.4로 진행하지 마십시오.
+
+## 9. 5개 전부 재현된 뒤에만 다음 단계 준비
+
+그 경우에도 이번 작업에서 자동으로 B1 R=0.4를 계산하지 마십시오.
+
+먼저 보고:
+
+```text
+vendor build 방법
+5개 example 결과
+source audit에서 확인된 EN/root semantics
+NMAX/NDIGITS 의미
+wrapper failure detection
+남은 위험
+```
+
+을 정리한 뒤 STOP합니다.
+
+그 다음 별도 승인에서:
+
+```text
+B1 R=0.4
+SMALL / MEDIUM / LARGE
+```
+
+계약을 봉인합니다.
+
+## 10. B2는 아직 시작 금지
+
+이번 단계에서는 독립 James–Coolidge B2 구현을 시작하지 마십시오.
+
+순서는:
+
+```text
+vendor build
+↓
+vendor 5 examples
+↓
+B1 실행 계약
+↓
+B1 low-order 결과
+↓
+B2 clean-room 독립 구현
+```
+
+입니다.
+
+지금 B1조차 실행 가능한지 확인되지 않았는데 B2부터 만들면 비교 기준이 다시 흐려집니다.
+
+## 11. 과거 실패 보존
+
+이전 공식 `make`의 linker failure는 삭제하거나 덮어쓰지 마십시오.
+
+장부:
+
+```text
+Attempt 1
+official Makefile
+→ link FAIL
+
+Attempt 2
+README-described static linkage
+→ 이번 결과
+```
+
+처럼 보존하십시오.
+
+README 방식이 성공해도 Attempt 1은 여전히 실제 호환성 결함입니다.
+
+## 12. Git
+
+현재 원격 확인:
+
+```text
+origin/master
+0f7b744cf754450424a63c47f305e0327c5b37c1
+
+origin/codex/h2-representation-pilot1
+264f5880ee1dedd5a97b008c29dd8d67057664b9
+```
+
+설계자 보고상 로컬 Pilot commit:
+
+```text
+0b79ee3
+```
+
+은 아직 원격 미확인입니다.
+
+현재 Pilot worktree에서 그대로 작업하십시오.
+
+**origin/master가 움직였다는 이유로 merge/rebase하지 마십시오.**
+
+commit 가능.
+
+**push 금지.**
+
+## 13. 테스트
+
+이번에도 third-party 원본과 새 audit/wrapper/test만 추가되고 기존 A physics/common/frozen 코드를 건드리지 않는다면 관련 시험으로 대체 가능합니다.
+
+기존 공용 실행 계약을 변경하면:
+
+```bash
+pytest -n 6
+```
+
+LOCAL FULL 실행.
+
+## 14. 모델
+
+**GPT: GPT-5.6 Sol Medium~High**
+
+이번 단계는 수학적 재유도보다는 build provenance와 vendor reproduction이 중심이라 High 고정까지는 필요 없습니다. linker 문제 분석이 예상 밖으로 복잡해질 때 High.
+
+**Claude: Sonnet 5.5 High 정도면 충분**
+
+Opus 5.5 High는 아직 과합니다. B1 수학 감사나 B2 독립 JC 구현으로 들어갈 때 다시 올리는 게 낫습니다.
+
+---
+
+핵심은 간단해.
+
+> **README에 저자가 써놓은 다른 공식 조립법으로 한 번 조립해 본다. 조립되면 저자가 같이 넣어준 시험품 5개를 전부 재현한다. 거기까지 성공해야 우리가 원하는 R=0.4 실험으로 넘어간다.**
+
+이번에는 이 정도로 범위를 딱 잘라놓는 게 맞아.

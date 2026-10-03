@@ -1,0 +1,15 @@
+1                         ZA nuclear charge
+1                         ZB nuclear charge
+1	                  IAB, A <-> B symmetry (=-1,0,1)
+1	                  I12, r1 <-> r2 symmetry (=-1,1)
+6.0	                  R, internuclear distance
+0	                  RESTRICT1, basis restriction type 1 (=-1..2; -1 for auto)
+1	                  RESTRICT2, basis restriction type 2 (=-1..2; -1 for auto)
+7	                  OMEGA, basis rank (=1..16)
+140                       NMAX, length of the Taylor series (0 for the default)
+60                        NDIGITS, working precision for the linear algebra in digits
+-1.000836                 approximate energy EN
+ 0.104580                 nonlinear parameter Y
+-0.104580                 nonlinear parameter X
+ 0.517167                 nonlinear parameter U
+ 0.517167                 nonlinear parameter W

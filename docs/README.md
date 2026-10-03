@@ -1,5 +1,10 @@
 # 프로젝트 문서 안내
 
+[H₂ vendor build 재개 V2](active/h2_vendor_build_resume_v2/REPORT.md):
+README static build성공/배포5예제 출력byte동일5/5. 원본불변, default make 실패보존.
+Native convergence미출력→guard qualification UNRESOLVED. R=.4/B2 미착수, STOP/NOT_CERTIFIED.
+
+
 [H₂ H2SOLV / 독립 JC 이중 감사 재개](active/h2_representation_pilot1_resume_v1/REPORT.md):
 제공 archive hashPASS, source 부분 검토, 첫 default build MPFR 링크 실패로 STOP.
 Vendor example/R04계산0, B2미구현, NOT_CERTIFIED / production미승인.

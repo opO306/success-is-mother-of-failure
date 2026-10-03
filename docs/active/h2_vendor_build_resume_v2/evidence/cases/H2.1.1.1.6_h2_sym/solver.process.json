@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-f",
+    "%e %U %S %M %x",
+    "-o",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/cases/H2.1.1.1.6_h2_sym/solver.time",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/h2solv"
+  ],
+  "exit": 0,
+  "wall_monotonic_seconds": 49.609827362999994,
+  "timed_out": false,
+  "stdout_sha256": "bc12c1b5e54b8e91cd83312308eb362167a0a96361e5c71ebc438ee2c2326a5e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "gnu_time_seconds": 52.04,
+  "cpu_user_seconds": 52.93,
+  "cpu_system_seconds": 0.6,
+  "peak_RSS_KiB": 523264
+}

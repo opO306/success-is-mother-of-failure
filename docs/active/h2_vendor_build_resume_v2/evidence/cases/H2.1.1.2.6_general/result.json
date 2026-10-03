@@ -1,0 +1,87 @@
+{
+  "name": "H2.1.1.2.6_general",
+  "input_sha256": "4e7c5e5377fecee647291d2edcf5a669907b7292cfea87a593748f2c676e97d3",
+  "reference_output_sha256": "0911783ce1a6cb6c054c3fbae8ffc82b8a624e4898afc51b88ded60858b5ac96",
+  "actual_output_sha256": "0911783ce1a6cb6c054c3fbae8ffc82b8a624e4898afc51b88ded60858b5ac96",
+  "solver": {
+    "command": [
+      "/usr/bin/time",
+      "-f",
+      "%e %U %S %M %x",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/cases/H2.1.1.2.6_general/solver.time",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "wall_monotonic_seconds": 131.80042119399997,
+    "timed_out": false,
+    "stdout_sha256": "b564e9042d87908949435580ebcc12589ae7a01e359cf92872da61637937e2fe",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gnu_time_seconds": 141.91,
+    "cpu_user_seconds": 141.24,
+    "cpu_system_seconds": 0.93,
+    "peak_RSS_KiB": 531328
+  },
+  "example": {
+    "command": [
+      "/usr/bin/time",
+      "-f",
+      "%e %U %S %M %x",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/cases/H2.1.1.2.6_general/example.time",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/example"
+    ],
+    "exit": 0,
+    "wall_monotonic_seconds": 0.04294092200001387,
+    "timed_out": false,
+    "stdout_sha256": "995044f17c500e517b36a88e566b9a6994750f0b40f5ab8c853d7a4bd0320348",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gnu_time_seconds": 0.03,
+    "cpu_user_seconds": 0.02,
+    "cpu_system_seconds": 0.0,
+    "peak_RSS_KiB": 3328
+  },
+  "wavefunction_sha256": "2a08298d7b31945c31101e8a1b1b9e6cd03aa97c029a410dfd5dccf5d857fd34",
+  "comparison": {
+    "printed_output_match": true,
+    "status": "VENDOR_PRINTED_OUTPUT_REPRODUCED",
+    "issues": [],
+    "expected": {
+      "energy": "-0.6942666307257072980",
+      "basis_size": "792",
+      "integral_digits_label": "80",
+      "linear_algebra_digits_label": "60",
+      "restriction1": "0",
+      "restriction2": "0",
+      "omega": "7",
+      "nmax": "140",
+      "nuclear_symmetry": "GERADE",
+      "electron_symmetry": "SYM",
+      "basis_family": "General KOLOS-WOLNIEWICZ basis",
+      "delta_r12": "0.8082498721738210E+00"
+    },
+    "measured": {
+      "energy": "-0.6942666307257072980",
+      "basis_size": "792",
+      "integral_digits_label": "80",
+      "linear_algebra_digits_label": "60",
+      "restriction1": "0",
+      "restriction2": "0",
+      "omega": "7",
+      "nmax": "140",
+      "nuclear_symmetry": "GERADE",
+      "electron_symmetry": "SYM",
+      "basis_family": "General KOLOS-WOLNIEWICZ basis",
+      "delta_r12": "0.8082498721738210E+00"
+    },
+    "energy_exact_decimal_match": true,
+    "numeric_token_differences": [],
+    "solver_errors_or_nonfinite": false,
+    "native_iteration_count": null,
+    "native_iteration_limit_reached": null,
+    "native_root_convergence": "UNAVAILABLE_NOT_REPORTED_BY_UNMODIFIED_VENDOR",
+    "root_energy_output_check": "REFERENCE_PRINTED_ENERGY_REPRODUCTION_ONLY",
+    "independent_root_convergence_pass": false,
+    "lowest_root_certified": false
+  }
+}
