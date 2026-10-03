@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ R=0.4 Front-End / Reference Cause Separation V0](active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md)는
+Pachucki 원문 표 재전사와 BO 물리량 계약, Sims–Hagstrom 독립 source 교차검증을 기록한다.
+수치는9.586e-13 차이지만 R=.4 reported uncertainty가 없어 REFERENCE_SIDE_UNRESOLVED.
+Reference 오류 확정 아님; basis/AO/변환/새 energy 미실행, 기존 QZ44 FAIL/NOT CERTIFIED 유지.
+DESIGNER DECISION REQUIRED, production 미승인.
+
 [H₂ R=0.4 Ground-State Independent Validation V0](active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md)는
 누락된 direct vector의 sealed replay/bitwise energy 재현, full1830 independent SC action,
 힌트 없는 full-spectrum 최저 energy 일치를 기록한다. CI ground-state 계층 SUPPORTED;

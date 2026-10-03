@@ -4,6 +4,17 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ R=0.4 Front-End / Reference Cause Separation V0(2026-10-03):**
+[원문 전사·물리량 정의·독립 reference 감사](docs/active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md).
+Pachucki Table IV R=.4 energy/uncertainty는 CSV와 동일, Eq.(2)의 +1/R 포함 BO quantity 대조.
+Sims–Hagstrom 독립 계산과 차이9.586e-13이지만 R=.4 pointwise uncertainty 미조사/미보고:
+REFERENCE_SIDE_UNRESOLVED. Reference 오류가 확인된 것은 아니다. 저장 상태 spatial irrep 미확인.
+선행 조건 미완료로 basis/AO/변환/새 energy D–G 미실행, finite-basis 원인 확정 금지.
+기존0.002199207557>0.001·QZ44 FAIL·MO residual UNRESOLVED·NOT CERTIFIED 유지.
+1,095 byte bindings(이전972 포함) 전후 불변. Windows182/WSL185 passed, failure/error/skip0.
+첫 collection 오류 로그 보존. LOCAL FULL 생략 / 새 audit·시험·문서, 관련 시험 대체 / 기준선 불변.
+DESIGNER DECISION REQUIRED, production 미승인, push 없음.
+
 **H₂ R=0.4 Ground-State Independent Validation V0(2026-10-03):**
 [전체 ground-state 독립 검증·설계자 결정](docs/active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md).
 기존 QZ44가 원래 vector를 저장하지 않았음을 공개하고 설계자 허용 후 동일 저장 MO/봉인된

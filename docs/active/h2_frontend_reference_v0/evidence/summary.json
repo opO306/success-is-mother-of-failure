@@ -1,0 +1,23 @@
+{
+  "classifications": {
+    "REFERENCE_TRANSCRIPTION_ERROR_CONFIRMED": "NOT_OBSERVED",
+    "COMPARISON_CONTRACT_MISMATCH_CONFIRMED": "NOT_OBSERVED_FOR_OPERATOR_AND_QUANTITY; spatial selection explicitly differs",
+    "REFERENCE_SIDE_UNRESOLVED": true,
+    "BASIS_DEFINITION_MISMATCH_CONFIRMED": "NOT_TESTED",
+    "AO_INTEGRAL_MISMATCH_CONFIRMED": "NOT_TESTED",
+    "AO_TO_MO_TRANSFORM_MISMATCH_CONFIRMED": "NOT_TESTED",
+    "MO_REPRESENTATION_NUMERICAL_ERROR_SUPPORTED": "ENERGY_CAUSATION_NOT_ESTABLISHED; inherited pair residual UNRESOLVED",
+    "FINITE_BASIS_LIMIT_SUPPORTED": false,
+    "UNRESOLVED": true
+  },
+  "AO_calls": 0,
+  "MO_transform_calls": 0,
+  "CI_calls": 0,
+  "new_energy_calculations": 0,
+  "prior_QZ44": "NUMERICAL FAIL unchanged",
+  "not_certified": true,
+  "controlling_unresolved": "No pointwise reported uncertainty for independent R04 reference; observed state spatial irrep also not independently checked",
+  "decision": "DESIGNER DECISION REQUIRED",
+  "no_reference_error_confirmed": true,
+  "numerical_closeness_is_not_a_reported_uncertainty_gate": true
+}

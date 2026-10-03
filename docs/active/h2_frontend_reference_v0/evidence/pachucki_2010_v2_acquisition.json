@@ -1,0 +1,37 @@
+{
+  "name": "pachucki_2010_v2",
+  "url": "https://arxiv.org/pdf/1007.0322v2",
+  "pages": [
+    2,
+    11
+  ],
+  "status": "ACQUIRED",
+  "final_url": "https://arxiv.org/pdf/1007.0322v2",
+  "headers": {
+    "Connection": "close",
+    "Content-Length": "118500",
+    "x-cloud-trace-context": "b136d0c0668fb34af0497f9f13a83b0f",
+    "etag": "CMf/qLrz0fwCEAE=",
+    "access-control-allow-origin": "*",
+    "via": "1.1 google, 1.1 varnish, 1.1 varnish, 1.1 varnish",
+    "content-disposition": "inline; filename=\"1007.0322v2.pdf\"",
+    "content-type": "application/pdf",
+    "last-modified": "Wed, 18 Jan 2023 19:56:45 GMT",
+    "server": "Google Frontend",
+    "link": "<https://arxiv.org/pdf/1007.0322>; rel='canonical'",
+    "Accept-Ranges": "bytes",
+    "Age": "439446",
+    "Date": "Sat, 03 Oct 2026 03:08:08 GMT",
+    "X-Served-By": "cache-lga21959-LGA, cache-lga21959-LGA, cache-lga21939-LGA, cache-icn1450082-ICN",
+    "X-Cache": "MISS, HIT, HIT",
+    "X-Timer": "S1790996889.786251,VS0,VE0"
+  },
+  "bytes": 118500,
+  "sha256": "55bc19137751110a2162f1aaa2268ff8577d2282dad77e9e89f7872743d3dd6e",
+  "page_count": 14,
+  "rendered": [
+    "pachucki_2010_v2_page_3.png",
+    "pachucki_2010_v2_page_12.png"
+  ],
+  "seconds": 1.5151193000056082
+}

@@ -1,0 +1,48 @@
+{
+  "name": "sims_hagstrom_2006_published",
+  "url": "https://www.nist.gov/system/files/documents/2017/05/09/sims-h2.pdf",
+  "pages": [
+    0,
+    3,
+    4
+  ],
+  "status": "ACQUIRED",
+  "final_url": "https://www.nist.gov/system/files/documents/2017/05/09/sims-h2.pdf",
+  "headers": {
+    "Date": "Sat, 03 Oct 2026 03:08:11 GMT",
+    "Content-Type": "application/pdf",
+    "Content-Length": "122244",
+    "Connection": "close",
+    "Accept-Ranges": "bytes",
+    "Server-Timing": "cfEdge;dur=78,cfOrigin;dur=441",
+    "Cache-Control": "private",
+    "Content-language": "en",
+    "Content-Security-Policy": "default-src 'self'; script-src 'self' *.nist.gov js-agent.newrelic.com bam.nr-data.net bam-cell.nr-data.net gov-bam.nr-data.net 'unsafe-inline' 'unsafe-eval' www.google-analytics.com *.googletagmanager.com platform.twitter.com https://player.vimeo.com static.cloudflareinsights.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' *.nist.gov fonts.googleapis.com  *.typekit.net; img-src 'self' 'unsafe-inline' data: *.nist.gov *.google-analytics.com *.googletagmanager.com cdnsecakmi.kaltura.com nist-el-nfrlhrr.s3.amazonaws.com https://cdn.jsdelivr.net/npm/leaflet-fullscreen@1.0.2/dist/fullscreen@2x.png https://cdn.jsdelivr.net/npm/leaflet-fullscreen@1.0.2/dist/fullscreen.png api.mapbox.com syndication.twitter.com https://h5p.org https://i.vimeocdn.com; media-src 'self' nist-el-nfrlhrr.s3.amazonaws.com; frame-src 'self' tube.nist.gov sts.nist.gov sts2.nist.gov *.kaltura.com *.youtube.com *.arcgis.com https://platform.twitter.com/ https://player.vimeo.com https://vimeo.com/ https://time.gov/ login.nist.gov https://customer-ltx6ylk10sje63q6.cloudflarestream.com https://challenges.cloudflare.com; frame-ancestors 'self'; child-src 'self' blob: tube.nist.gov sts.nist.gov sts2.nist.gov *.kaltura.com *.youtube.com *.arcgis.com *.time.gov login.nist.gov; font-src 'self' *.nist.gov fonts.googleapis.com fonts.gstatic.com *.typekit.net data:; connect-src 'self' bam.nr-data.net bam-cell.nr-data.net gov-bam.nr-data.net *.google-analytics.com *.analytics.google.com *.googletagmanager.com; upgrade-insecure-requests",
+    "Expires": "Sun, 19 Nov 1978 05:00:00 GMT",
+    "Last-Modified": "Tue, 21 May 2019 01:37:21 GMT",
+    "Server": "cloudflare",
+    "Strict-Transport-Security": "max-age=31536000",
+    "Via": "varnish",
+    "X-AH-Environment": "prod",
+    "X-Cache": "MISS",
+    "X-Content-Type-Options": "nosniff",
+    "X-Drupal-Cache": "UNCACHEABLE (no cacheability)",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Generator": "Drupal 10 (https://www.drupal.org)",
+    "X-Request-ID": "v-aa31ca34-bed7-11f1-b9c7-9b0c35b9e766",
+    "X-UA-Compatible": "IE=edge",
+    "X-XSS-Protection": "1;mode=block",
+    "cf-cache-status": "BYPASS",
+    "set-cookie": "_cfuvid=S.3BoMiD6UOuUwpP4EZm53Hh56smODtyuYE4UxiPtbs-1790996890.5937295-1.0.1.1-Qlr6xx6WgakSICpSanWoaaNbEMkPQOA4KlLUHFrnHb8; HttpOnly; SameSite=None; Secure; Path=/; Domain=nist.gov",
+    "CF-RAY": "a448bda63df715f3-SJC"
+  },
+  "bytes": 122244,
+  "sha256": "3ba26d2428f0876d76dff83d074572780331b3c1416557a29d22497c3b74834b",
+  "page_count": 7,
+  "rendered": [
+    "sims_hagstrom_2006_published_page_1.png",
+    "sims_hagstrom_2006_published_page_4.png",
+    "sims_hagstrom_2006_published_page_5.png"
+  ],
+  "seconds": 2.405004400003236
+}

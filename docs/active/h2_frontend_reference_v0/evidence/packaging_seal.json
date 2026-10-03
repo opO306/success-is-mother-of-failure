@@ -1,0 +1,6 @@
+{
+  "packaging_script_sha256": "45f5d60bf2ab4970357747b995c04285471e86e5e3bbd7ae9d103f3fbf5494a7",
+  "audit_summary_sha256": "f3e56c9b2fac8444b2986bf5768b9c93294611a5024471968a53900092870c2f",
+  "protected_bindings_checked": 1095,
+  "purpose": "Post-audit copying and provenance; no new numerical result"
+}

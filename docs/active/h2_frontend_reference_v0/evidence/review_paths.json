@@ -1,0 +1,76 @@
+{
+  "crops": [
+    {
+      "name": "pachucki_R04_row.png",
+      "sha256": "de598fe711b8d87a6975ade70e4cee2016de0871328036555027dabae801a3a2",
+      "pdf": "pachucki_2010_v2.pdf",
+      "pdf_sha256": "55bc19137751110a2162f1aaa2268ff8577d2282dad77e9e89f7872743d3dd6e",
+      "page_one_based": 12,
+      "box_pdf_points": [
+        65,
+        70,
+        550,
+        190
+      ]
+    },
+    {
+      "name": "pachucki_Hamiltonian.png",
+      "sha256": "f0f78d8b6d968e1dd315c13776b473f6a0b04ed0bb205c0e7b593b28b0a241d5",
+      "pdf": "pachucki_2010_v2.pdf",
+      "pdf_sha256": "55bc19137751110a2162f1aaa2268ff8577d2282dad77e9e89f7872743d3dd6e",
+      "page_one_based": 3,
+      "box_pdf_points": [
+        65,
+        270,
+        560,
+        415
+      ]
+    },
+    {
+      "name": "sims_R04_row.png",
+      "sha256": "114c8df60cf506b9ecf723f7b7e6b179f24f01ddaa783607eed7b8f2bbf5c6d1",
+      "pdf": "sims_hagstrom_2006_published.pdf",
+      "pdf_sha256": "3ba26d2428f0876d76dff83d074572780331b3c1416557a29d22497c3b74834b",
+      "page_one_based": 5,
+      "box_pdf_points": [
+        42,
+        40,
+        302,
+        124
+      ]
+    },
+    {
+      "name": "sims_uncertainty_scope.png",
+      "sha256": "4f4f164cd45ea21e6ded5fe8741e6dbbd2238a40b26f9e9de4b8568498b188f6",
+      "pdf": "sims_hagstrom_2006_published.pdf",
+      "pdf_sha256": "3ba26d2428f0876d76dff83d074572780331b3c1416557a29d22497c3b74834b",
+      "page_one_based": 4,
+      "box_pdf_points": [
+        310,
+        336,
+        570,
+        477
+      ]
+    }
+  ],
+  "extracted_rows": {
+    "pachucki_2010_v2": {
+      "page_one_based": 12,
+      "extracted_row": "0.40 \u22120.120230341178823(15) 3.30 \u22121.040717365351395(11)",
+      "compact_row": "0.40-0.120230341178823(15)3.30-1.040717365351395(11)"
+    },
+    "sims_hagstrom_2006_published": {
+      "page_one_based": 5,
+      "extracted_row": "0.4 0.5075 0.98286 \u22120.1202303411778644 285.9 1 1 2 2 1 1 2 2",
+      "compact_row": "0.40.50750.98286-0.1202303411778644285.911221122"
+    },
+    "sims_hagstrom_author_preprint": {
+      "page_one_based": 10,
+      "extracted_row": "0.4 0.5075 0.98286 -0.1202 3034 1177 8644 285.9",
+      "compact_row": "0.40.50750.98286-0.1202303411778644285.9"
+    }
+  },
+  "acquisition_source_sha256": "5340de18ea0fbb5f18d03ac1e7a3fdfecfe819213482b5b64c47e5fecdbcf3dc",
+  "reviewer": "implementing agent; relevant primary pages visually reviewed",
+  "independence": "Two transcription mechanisms of the same documents; two calculation lineages total, not three"
+}

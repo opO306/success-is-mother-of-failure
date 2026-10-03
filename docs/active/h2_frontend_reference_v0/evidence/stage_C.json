@@ -1,0 +1,13 @@
+{
+  "status": "REFERENCE_SIDE_UNRESOLVED",
+  "second_minus_first_hartree": "9.586E-13",
+  "reported_pointwise_uncertainties": [
+    "0.000000000000015",
+    null
+  ],
+  "combined_reported_uncertainty_hartree": null,
+  "within_reported_uncertainty": null,
+  "reason": "second source has no investigated/reported R=0.4 uncertainty",
+  "meaningful_reference_disagreement": false,
+  "unknown_uncertainty_is_not_evidence_of_reference_error": true
+}

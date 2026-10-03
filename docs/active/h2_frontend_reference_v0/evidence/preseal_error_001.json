@@ -1,0 +1,10 @@
+{
+  "status": "PRESEAL_INFRASTRUCTURE_ERROR_PRESERVED",
+  "failure": "relative acquisition path was combined with absolute root in pathlib.relative_to",
+  "source_sha256": "fae29faac5394080336e3c2f2ef4c3f38f8a924d7f3bf03324be6dd3f327ca2a",
+  "seal_output_created": false,
+  "audit_started": false,
+  "AO_calls": 0,
+  "CI_calls": 0,
+  "correction": "resolve input directories before portable byte binding; no scientific rule change"
+}

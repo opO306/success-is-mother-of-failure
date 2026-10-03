@@ -1,0 +1,17 @@
+{
+  "version": "h2-r04-front-end-reference-cause-separation-v0",
+  "base_commit": "c05aa9de9044ee37fecd67bd85a175ae1f2f8a91",
+  "branch": "codex/h2-qz-cause-v0",
+  "origin_master": "6c53eec71e981cef35f850095da76b965457866c",
+  "priority": "Definitions and controlling uncertainty first; cost only breaks ties",
+  "R_bohr": "0.4",
+  "reference_crosscheck_rule": "Both pointwise reported uncertainties must be available; compare absolute difference with their sum, not with the physical 0.001 target",
+  "missing_uncertainty": "REFERENCE_SIDE_UNRESOLVED; no inferred uncertainty from printed digits, another R, basis contribution, or a primary author's general precision description",
+  "downstream_gate": "D requires reference-side closure; E requires D; F requires E; G requires A through F. No numerical downstream calculation on an unclosed prerequisite",
+  "criterion_source": "electronic_pilot/protocol_v2.json:criteria.P3_curve_max_abs_error_hartree",
+  "observations_before_seal": "Primary PDFs were acquired and relevant pages visually reviewed before this audit seal. This is a source/definition audit, not a blinded new energy run",
+  "source_transcription": "Manual decimal transcription from primary PDF page images; separately check extracted text. Do not generate the manual value from the old CSV",
+  "same_quantity_not_same_trial_space": "Full finite-basis singlet minimum versus reference 1Sigma_g+ BO ground state; finite-basis limitation and observed state's spatial irrep remain separate questions",
+  "not_certified": true,
+  "forbidden": ["old physical source changes", "old evidence changes", "tolerance changes", "new basis", "forced matrix averaging", "reference retuning", "QZ44 retroactive PASS", "force", "dynamics", "formation", "world integration", "production approval", "push"]
+}

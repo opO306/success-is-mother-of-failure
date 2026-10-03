@@ -20,6 +20,14 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/frontend_reference_v0/`는 R=.4 primary-source PDF 취득/페이지 확인과
+Decimal 전사·물리량 계약·reported uncertainty gate를 감사하는 isolated 분석이다.
+AO/MO/CI evaluator를 호출하지 않는다. `acquire.py`/`review.py`는 원문 source 경로,
+`audit.py`는 byte seal과 A/B/C 판정이다. D–G는 선행 조건 미완료로 미실행이다.
+[Front-end/reference 원인 분리](docs/active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md),
+`tests/h2_frontend_reference_v0/`, raw `runs/h2_frontend_reference_v0/`, compact
+`docs/active/h2_frontend_reference_v0/`. REFERENCE_SIDE_UNRESOLVED는 reference 오류 확정이 아니다.
+
 `electronic_pilot/ground_state_audit_v0/`는 R=0.4의 저장 MO에서 실제 ground-state 전체를
 독립 raw-MO Slater–Condon action과 NumPy full-spectrum eigensolve로 확인하는 분석이다.
 `replay.py`만 기존 direct builder/evr를 써 누락 vector를 재현하고, 독립 `operator.py`는

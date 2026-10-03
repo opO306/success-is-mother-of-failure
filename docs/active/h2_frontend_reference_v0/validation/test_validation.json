@@ -1,0 +1,53 @@
+{
+  "results": {
+    "reference_unit_windows": {
+      "tests": "26",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.220"
+    },
+    "reference_evidence_windows": {
+      "tests": "35",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.260"
+    },
+    "related_windows": {
+      "tests": "1",
+      "failures": "0",
+      "errors": "1",
+      "skipped": "0",
+      "time": "2.668"
+    },
+    "related_wsl": {
+      "tests": "1",
+      "failures": "0",
+      "errors": "1",
+      "skipped": "0",
+      "time": "9.528"
+    },
+    "related_windows_v1": {
+      "tests": "182",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "2.421"
+    },
+    "related_wsl_v1": {
+      "tests": "185",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "10.324"
+    }
+  },
+  "LOCAL_FULL": "OMITTED / related tests substituted / new isolated audit and tests/docs only; old physics/common/frozen unchanged",
+  "official_baseline_not_updated": true,
+  "post_regression_bindings_checked": 1095,
+  "namespace_added_after_audit": true,
+  "namespace_init_sha256": "7e5e29a8aad4e1fc856fb4f2457cf6a1dead1332f5aa00d724b1cd7bda8c1bff",
+  "first_combined_test_collection_error_preserved": true,
+  "external_audit": false
+}

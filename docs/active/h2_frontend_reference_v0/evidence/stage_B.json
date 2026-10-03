@@ -1,0 +1,9 @@
+{
+  "status": "PHYSICAL_QUANTITY_MATCH_SUPPORTED",
+  "differences": {},
+  "ours_spatial_selection": "All finite-basis singlets; no imposed gerade or Sigma projection",
+  "reference_spatial_selection": "1Sigma_g+ ground state",
+  "identical_trial_spaces": false,
+  "observed_state_spatial_irrep": "NOT_INDEPENDENTLY_CHECKED",
+  "scope": "operator and total BO energy convention; not all front-end numerical fidelity"
+}

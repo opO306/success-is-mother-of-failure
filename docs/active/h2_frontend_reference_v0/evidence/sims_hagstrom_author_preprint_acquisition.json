@@ -1,0 +1,38 @@
+{
+  "name": "sims_hagstrom_author_preprint",
+  "url": "https://math.nist.gov/mcsd/savg/papers/h2.pdf",
+  "pages": [
+    7,
+    17
+  ],
+  "status": "ACQUIRED",
+  "final_url": "https://math.nist.gov/mcsd/savg/papers/h2.pdf",
+  "headers": {
+    "Date": "Sat, 03 Oct 2026 03:08:13 GMT",
+    "Content-Type": "application/pdf",
+    "Content-Length": "142331",
+    "Connection": "close",
+    "x-frame-options": "SAMEORIGIN",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "1; mode=block",
+    "last-modified": "Wed, 04 Jan 2006 23:42:04 GMT",
+    "etag": "\"22bfb-40990f698eb00\"",
+    "Accept-Ranges": "bytes",
+    "content-security-policy": "frame-ancestors 'self'",
+    "Server": "cloudflare",
+    "Server-Timing": "cfEdge;dur=26,cfOrigin;dur=0",
+    "expires": "Sat, 03 Oct 2026 07:08:13 GMT",
+    "Cache-Control": "public, max-age=14400",
+    "cf-cache-status": "HIT",
+    "set-cookie": "__cf_bm=nK_cNTu_46QhrvpBGNt5Uz5SmtKh7vs_OopsOtnPbfs-1790996892.995202-1.0.1.1-mW3kdK3mPzYViCMlB8si6zZhik8PcdogXkGQiO29BFavtGoQ5iuLCNqpeErxNbcZsq9uK_H2bkxcWnSkL6DTI_RDNGP73MFkHsngFXNqK3HNbYplkXIDI14ugjIqZDZ5; HttpOnly; SameSite=None; Secure; Path=/; Domain=nist.gov; Expires=Sat, 03 Oct 2026 03:38:13 GMT",
+    "CF-RAY": "a448bdb53b2a1ff0-SJC"
+  },
+  "bytes": 142331,
+  "sha256": "8477ebfd06b192f1dd0dc98cfa987abe1476afc0ed478acab5f5d9cec06cd3b2",
+  "page_count": 19,
+  "rendered": [
+    "sims_hagstrom_author_preprint_page_8.png",
+    "sims_hagstrom_author_preprint_page_18.png"
+  ],
+  "seconds": 2.112455800001044
+}

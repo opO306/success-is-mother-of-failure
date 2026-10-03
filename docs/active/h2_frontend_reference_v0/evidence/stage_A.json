@@ -1,0 +1,9 @@
+{
+  "status": "REFERENCE_TRANSCRIPTION_MATCH_SUPPORTED",
+  "primary_energy": "-0.120230341178823",
+  "primary_uncertainty": "1.5E-14",
+  "stored_energy": "-0.120230341178823",
+  "stored_uncertainty": "0.000000000000015",
+  "stored_minus_primary": "0E-15",
+  "uncertainty_difference": "0E-15"
+}

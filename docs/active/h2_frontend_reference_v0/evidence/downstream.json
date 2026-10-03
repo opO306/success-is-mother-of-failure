@@ -1,0 +1,18 @@
+{
+  "D": {
+    "status": "NOT_EXECUTED",
+    "reason": "reference-side prerequisite not closed"
+  },
+  "E": {
+    "status": "NOT_EXECUTED",
+    "reason": "reference-side prerequisite not closed"
+  },
+  "F": {
+    "status": "NOT_EXECUTED",
+    "reason": "reference-side prerequisite not closed"
+  },
+  "G": {
+    "status": "NOT_EXECUTED",
+    "reason": "reference-side prerequisite not closed"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "status": "POSTAUDIT_PACKAGING_INFRASTRUCTURE_ERROR_PRESERVED",
+  "failure": "file-mode launch omitted repository root from Python module search path",
+  "source_sha256": "cfbf53b33932b914cad8b45937501563cc52ce5704015df40d618227d8728b0c",
+  "audit_already_complete": true,
+  "compact_output_created": false,
+  "correction": "invoke same script as a module from repository root; no scientific rule change"
+}

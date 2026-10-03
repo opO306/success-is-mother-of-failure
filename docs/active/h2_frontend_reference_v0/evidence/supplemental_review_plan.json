@@ -1,0 +1,53 @@
+{
+  "crops": [
+    [
+      "pachucki_2010_v2",
+      12,
+      "pachucki_R04_row",
+      [
+        65,
+        70,
+        550,
+        190
+      ]
+    ],
+    [
+      "pachucki_2010_v2",
+      3,
+      "pachucki_Hamiltonian",
+      [
+        65,
+        270,
+        560,
+        415
+      ]
+    ],
+    [
+      "sims_hagstrom_2006_published",
+      5,
+      "sims_R04_row",
+      [
+        42,
+        40,
+        302,
+        124
+      ]
+    ],
+    [
+      "sims_hagstrom_2006_published",
+      4,
+      "sims_uncertainty_scope",
+      [
+        310,
+        336,
+        570,
+        477
+      ]
+    ]
+  ],
+  "preprint_extra_pages": [
+    9,
+    10
+  ],
+  "purpose": "source review only; not independent numerical computation"
+}

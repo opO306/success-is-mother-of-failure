@@ -1,0 +1,35 @@
+"""Post-audit packaging only; full copyrighted sources remain outside Git."""
+from pathlib import Path
+from electronic_pilot.frontend_reference_v0.audit import read,write,sha,verify
+
+root=Path.cwd();raw=root/'runs/h2_frontend_reference_v0';acq=raw/'acquisition_v0'
+run=raw/'audit_v0';destination=root/'docs/active/h2_frontend_reference_v0'
+seal=read(run/'execution_seal.json')
+count=verify(seal['bound_sha256'],root,Path('C:/Users/zun24/성공은 실패의 어머니'))
+write(raw/'packaging_seal.json',dict(packaging_script_sha256=sha(__file__),
+    audit_summary_sha256=sha(run/'summary.json'),protected_bindings_checked=count,
+    purpose='Post-audit copying and provenance; no new numerical result'))
+destination.mkdir(parents=True,exist_ok=False)
+evidence=destination/'evidence';evidence.mkdir()
+for folder in (run,acq):
+    for path in sorted(folder.glob('*.json')):
+        (evidence/path.name).write_bytes(path.read_bytes())
+for label in ('pachucki_R04_row','pachucki_Hamiltonian','sims_R04_row','sims_uncertainty_scope'):
+    (evidence/(label+'.png')).write_bytes((acq/(label+'.png')).read_bytes())
+for name in ('preseal_error_001.json','prepackage_error_001.json','packaging_seal.json'):
+    (evidence/name).write_bytes((raw/name).read_bytes())
+source=destination/'source';source.mkdir()
+for folder in ('electronic_pilot/frontend_reference_v0','tests/h2_frontend_reference_v0'):
+    for path in sorted((root/folder).iterdir()):
+        if path.is_file():
+            (source/(path.relative_to(root).as_posix().replace('/','__')+'.txt')).write_bytes(path.read_bytes())
+(source/'post_audit_packaging.py.txt').write_bytes(Path(__file__).read_bytes())
+write(evidence/'raw_manifest.json',dict(files={p.relative_to(raw).as_posix():dict(bytes=p.stat().st_size,sha256=sha(p))
+    for folder in (acq,run) for p in sorted(folder.iterdir()) if p.is_file()},
+    full_PDFs_text_and_pages_retained_outside_Git=True,raw_root='runs/h2_frontend_reference_v0',
+    no_physics_source_modified=True))
+(destination/'.gitattributes').write_bytes(b'* -text\n')
+write(evidence/'compact_manifest.json',dict(files={p.relative_to(destination).as_posix():dict(bytes=p.stat().st_size,sha256=sha(p))
+    for p in sorted(destination.rglob('*')) if p.is_file()},packaged_after_audit=True,
+    manifest_not_a_formal_certificate=True))
+print('PACKAGED',count,'unchanged bindings; full source PDFs kept in raw runs')

@@ -1,0 +1,32 @@
+{
+  "sources": [
+    {
+      "name": "pachucki_2010_v2",
+      "url": "https://arxiv.org/pdf/1007.0322v2",
+      "pages": [
+        2,
+        11
+      ]
+    },
+    {
+      "name": "sims_hagstrom_2006_published",
+      "url": "https://www.nist.gov/system/files/documents/2017/05/09/sims-h2.pdf",
+      "pages": [
+        0,
+        3,
+        4
+      ]
+    },
+    {
+      "name": "sims_hagstrom_author_preprint",
+      "url": "https://math.nist.gov/mcsd/savg/papers/h2.pdf",
+      "pages": [
+        7,
+        17
+      ]
+    }
+  ],
+  "old_CSV_not_read": true,
+  "acquisition_source_sha256": "76c03ccfa419755a9652a7a83d97d1483de315eb1e8923da707955327b1665dd",
+  "evidence_scope": "primary source retrieval and relevant page review, not blinded numerical validation"
+}

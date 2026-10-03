@@ -1,0 +1,143 @@
+{
+  "files": {
+    "acquisition_v0/acquisition_plan.json": {
+      "bytes": 800,
+      "sha256": "5340de18ea0fbb5f18d03ac1e7a3fdfecfe819213482b5b64c47e5fecdbcf3dc"
+    },
+    "acquisition_v0/pachucki_2010_v2.pdf": {
+      "bytes": 118500,
+      "sha256": "55bc19137751110a2162f1aaa2268ff8577d2282dad77e9e89f7872743d3dd6e"
+    },
+    "acquisition_v0/pachucki_2010_v2.txt": {
+      "bytes": 78024,
+      "sha256": "b80fe219abc6c6e81923724311e9ff89198c144982e31512e8bd78bcb250d8f5"
+    },
+    "acquisition_v0/pachucki_2010_v2_acquisition.json": {
+      "bytes": 1282,
+      "sha256": "5ebf03d2f66b70004bf843a0906837cbe99567157fc058244f123bc34923aca4"
+    },
+    "acquisition_v0/pachucki_2010_v2_page_12.png": {
+      "bytes": 36973,
+      "sha256": "df4214c6cfb9dfb1e021df29bd09a9d11da99d4299c31daebfe6144c5b5abb9f"
+    },
+    "acquisition_v0/pachucki_2010_v2_page_3.png": {
+      "bytes": 31032,
+      "sha256": "c8207768004fcb33e4eb0f5e0ba5184b56b678ee9b8a4c012eb1e4eebd25f777"
+    },
+    "acquisition_v0/pachucki_Hamiltonian.png": {
+      "bytes": 8004,
+      "sha256": "f0f78d8b6d968e1dd315c13776b473f6a0b04ed0bb205c0e7b593b28b0a241d5"
+    },
+    "acquisition_v0/pachucki_R04_row.png": {
+      "bytes": 9253,
+      "sha256": "de598fe711b8d87a6975ade70e4cee2016de0871328036555027dabae801a3a2"
+    },
+    "acquisition_v0/review_paths.json": {
+      "bytes": 2529,
+      "sha256": "fb364bfc3055fde08e0432e5a08bb612e8330af3f186b2f51b0e4cfc140c9730"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published.pdf": {
+      "bytes": 122244,
+      "sha256": "3ba26d2428f0876d76dff83d074572780331b3c1416557a29d22497c3b74834b"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published.txt": {
+      "bytes": 67387,
+      "sha256": "81aeb61038574cc39bb8f9b09757282ee12452c831e4695df162b8e64065bb4b"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published_acquisition.json": {
+      "bytes": 3372,
+      "sha256": "dec367edbc2a6e3ebf8182d3b53a1b864b0497fbb5d8fad42ffbc0d942616c17"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published_page_1.png": {
+      "bytes": 68218,
+      "sha256": "a399105212a259955c2d0d0802d3ae4a04bcede5e537725640aef6ef9879e95f"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published_page_4.png": {
+      "bytes": 66813,
+      "sha256": "f46f7c1614921d3fac4d2cb5bff778c82b25e187df0464b840de6e72f584e577"
+    },
+    "acquisition_v0/sims_hagstrom_2006_published_page_5.png": {
+      "bytes": 68350,
+      "sha256": "7e06f30c97bc5de6e4d4b104f7132ef422bf6461ab803fa73d3d5e95cf0ee3b8"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint.pdf": {
+      "bytes": 142331,
+      "sha256": "8477ebfd06b192f1dd0dc98cfa987abe1476afc0ed478acab5f5d9cec06cd3b2"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint.txt": {
+      "bytes": 104483,
+      "sha256": "7edccd23ab10b8b06b71eb0084ffe98272276754fc04e487b6b2772981d41fac"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint_acquisition.json": {
+      "bytes": 1559,
+      "sha256": "fae9a0ca981b36cdd4ac4845d7589c991a803cb7fe0dda58e7bf5abaab3ab931"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint_page_10.png": {
+      "bytes": 32926,
+      "sha256": "07ac7cffae17b16332b8e94789d2692a2e73eb1dcce618a2fa683d9a75ae377a"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint_page_18.png": {
+      "bytes": 37191,
+      "sha256": "4bf0ef0691428aa0a3eccc79305f74338d0bf057400c7495e945a14ec87908b4"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint_page_8.png": {
+      "bytes": 38316,
+      "sha256": "a39c3b9f33f21585447cad401b31b71655a495a63863bf5802fe6e153c4d03a5"
+    },
+    "acquisition_v0/sims_hagstrom_author_preprint_page_9.png": {
+      "bytes": 33793,
+      "sha256": "47d6a1e59f8b871f45fb0e82ec687f8aa93978aa26c31c927042b2cc5c076591"
+    },
+    "acquisition_v0/sims_R04_row.png": {
+      "bytes": 5445,
+      "sha256": "114c8df60cf506b9ecf723f7b7e6b179f24f01ddaa783607eed7b8f2bbf5c6d1"
+    },
+    "acquisition_v0/sims_uncertainty_scope.png": {
+      "bytes": 11125,
+      "sha256": "4f4f164cd45ea21e6ded5fe8741e6dbbd2238a40b26f9e9de4b8568498b188f6"
+    },
+    "acquisition_v0/sources.json": {
+      "bytes": 6867,
+      "sha256": "d9ef11666704fc8b0404eab4ac8c3bd1558a150b0ba44721144b1e1685fe054f"
+    },
+    "acquisition_v0/supplemental_review_plan.json": {
+      "bytes": 731,
+      "sha256": "e688abe3219586226ab130924af3714f873b92d85571dffa871dd60243a72b5a"
+    },
+    "audit_v0/downstream.json": {
+      "bytes": 399,
+      "sha256": "e66b8cb0c52f3782dd2c848f3d88229afd433b359c0c31ba5c62339ab583b1dd"
+    },
+    "audit_v0/execution_seal.json": {
+      "bytes": 149595,
+      "sha256": "3f2e6e5b3d77ab46aaa1c5df3dad7be6c21e4ec5af784ab5b13bb91769637ca0"
+    },
+    "audit_v0/preservation.json": {
+      "bytes": 103,
+      "sha256": "fff7ff9e987d70452e10ffff61ee277f3f425d878cb3e254cef3e07416afb060"
+    },
+    "audit_v0/prior_energy_comparison.json": {
+      "bytes": 894,
+      "sha256": "b7d8722f6a595ddbc0fde8dfa119bcf6e344226e6a4d27a6f6ef192b7fa38ed1"
+    },
+    "audit_v0/stage_A.json": {
+      "bytes": 294,
+      "sha256": "1cd4892f5f25d959c771d4b6aa442e95c62ccc0d49cc23c43b506820748cea77"
+    },
+    "audit_v0/stage_B.json": {
+      "bytes": 418,
+      "sha256": "39f631dc0019354fb9a43112b8e49a8e18d3253d4437194c1dbb618d78f97e7b"
+    },
+    "audit_v0/stage_C.json": {
+      "bytes": 444,
+      "sha256": "61e333e4ee6cbf72229351afcb9a9d3bc7d90851371444552caa7d4722881705"
+    },
+    "audit_v0/summary.json": {
+      "bytes": 1084,
+      "sha256": "f3e56c9b2fac8444b2986bf5768b9c93294611a5024471968a53900092870c2f"
+    }
+  },
+  "full_PDFs_text_and_pages_retained_outside_Git": true,
+  "raw_root": "runs/h2_frontend_reference_v0",
+  "no_physics_source_modified": true
+}

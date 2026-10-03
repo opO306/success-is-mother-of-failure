@@ -6,6 +6,11 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md](active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md):
+R=.4 primary 전사/BO quantity MATCH_SUPPORTED; 독립 source pointwise uncertainty 미보고로
+REFERENCE_SIDE_UNRESOLVED. Basis/AO/변환/새 energy 미실행, 원인 UNRESOLVED / NOT CERTIFIED.
+DESIGNER DECISION REQUIRED / QZ44 FAIL 유지 / production 미적용.
+
 [H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md](active/H2_R04_GROUND_STATE_INDEPENDENT_VALIDATION_V0.md):
 R=0.4 same-MO full1830 ground-state action/eigensolve SUPPORTED, reproduced sealed-replay vector.
 AO/MO/basis physical accuracy UNRESOLVED / NOT CERTIFIED / QZ44 NUMERICAL FAIL 유지.
