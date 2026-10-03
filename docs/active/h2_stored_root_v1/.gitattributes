@@ -1,0 +1,6 @@
+evidence/* -text
+.gitattributes -text
+evidence/** -text
+PLAN.md -text
+REPORT.md -text
+CONCEPT_ALIGNMENT.md -text

@@ -1,5 +1,13 @@
 # 저장소 지도
 
+`electronic_pilot/h2_stored_root_v1/`는 저장 exact dyadic parser·독립 MPFR interval
+unpivoted LDL/inertia·root bracket·240자리 residual·exact negative-direction checker다.
+Vendor numerical routine을 재사용하지 않는다. `tests/h2_stored_root_v1/`는 합성 fault와
+실제 proof 재검증을 한다. `docs/active/h2_stored_root_v1/`에 compact hash/metadata/report,
+큰 matrix/intermediate/pivot proof는 runs/h2_representation_pilot1/stored_root_v1_20261003/에 있다.
+5예제 중2 lowest확인/1 non-lowest반박/1 S 음의방향/1 SPD미확정, 전체 UNRESOLVED/STOP.
+R=.4/B2 미착수, NOT_CERTIFIED/production미승인. 기존 공급자·계측판·과거봉인불변.
+
 `electronic_pilot/h2_internal_convergence_v0/`는 별도 계측판 생성·native branch sidecar·
 원래 H/S·반환 E/v의 exact dyadic 저장/복원·160자리 독립 residual/root 진단 코드다.
 원본 source는 불변이며 `observer.f`는 관측만 추가한다. matrix/vector·제3자 source/executable은

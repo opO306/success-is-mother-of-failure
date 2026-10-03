@@ -1,5 +1,10 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H₂ stored-matrix lowest-root audit V1](active/h2_stored_root_v1/REPORT.md):
+새 independent stored-dyadic/interval audit. 두 예제 lowest enclosure, JC asymmetric non-lowest,
+H–He⁺ exact S negative direction, General240자리SPD미확정. 전체 UNRESOLVED/STOP,
+NMAX/물리 적분 미판정/R=.4/B2미착수/NOT_CERTIFIED/production미승인.
+
 [H₂ internal convergence audit V0](active/h2_internal_convergence_v0/REPORT.md):
 별도 vendor/observer 감사. 수렴 분기·출력불변·native MAXIT 탐지 지원,
 독립 residual acceptance/root/integral미확인. R=.4/B2미착수/NOT_CERTIFIED/STOP.

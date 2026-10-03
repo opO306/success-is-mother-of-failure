@@ -1,5 +1,16 @@
 # 현재 상태
 
+**H₂ stored-matrix lowest-root audit V1(2026-10-03):**
+[독립 interval SPD/inertia·lowest 구간·정확 negative 방향](docs/active/h2_stored_root_v1/REPORT.md).
+JC symmetric/H₂ symmetric은 S SPD 및 반환 E 포함 lowest 구간0→1 확인.
+JC asymmetric은 S SPD지만 반환 E 주변1→2: 그 아래 root가 이미 있어 lowest 주장 반박.
+H–He⁺ stored S는 정확한 xᵀSx<0 방향, General은 최대240자리 interval pivot 미확정.
+General의 미확정을 indefinite 판정으로 읽지 않는다. WA1은 SPD3예제만 독립 count와 일치,
+다른2개 미실행으로 전체 semantics미확정. raw/metric residual·RQ는240자리 MEASURED.
+H2SOLV_LOWEST_ROOT_UNRESOLVED / STOP / NOT_CERTIFIED / production미승인.
+기존660bindings 전후불변, 관련169시험PASS(134+35)/LOCAL FULL생략/기준선유지.
+R=.4/B2/sweep/optimization/push0. 아래 V0/V2/V1은 당시 증거 상태를 보존한다.
+
 **H₂ internal convergence audit V0(2026-10-03):**
 [실제 종료 분기·독립 residual·MAXIT fault](docs/active/h2_internal_convergence_v0/REPORT.md).
 Vendor/AUDIT scientific output·WF byte동일5/5, 원래 수렴 조건 종료18/16/12/22/26회,

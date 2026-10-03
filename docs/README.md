@@ -1,5 +1,10 @@
 # 프로젝트 문서 안내
 
+[H₂ stored-matrix lowest-root audit V1](active/h2_stored_root_v1/REPORT.md):
+저장 finite H/S 독립 interval 감사. 두 예제 lowest 확인, JC asymmetric non-lowest 반박,
+H–He⁺ S 정확 음의방향, General240자리SPD미확정. 전체 UNRESOLVED/STOP,
+NMAX/물리 적분 미판정/R=.4/B2미착수/NOT_CERTIFIED/production미승인.
+
 [H₂ internal convergence audit V0](active/h2_internal_convergence_v0/REPORT.md):
 Vendor/AUDIT 출력·WF불변5/5, 실제 수렴 종료5/5, exit0/ierror0 MAXIT mutant 소진 탐지.
 독립 residual160자리 MEASURED/acceptance미승인, root/integral미확인, R=.4/B2미착수/STOP.

@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "wsl",
+    "-e",
+    "g++",
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/h2_stored_root_v1/interval_ldl.cpp",
+    "-o",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/stored_root_v1_20261003/interval_ldl",
+    "-lmpfr",
+    "-lgmp"
+  ],
+  "exit": 0,
+  "binary_sha256": "39055b462107aa41f6532c9a96774c3c71bd48c36ca7a89a3aeb162652a34beb"
+}

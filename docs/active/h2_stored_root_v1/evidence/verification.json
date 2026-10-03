@@ -1,0 +1,29 @@
+{
+  "fresh_execution": true,
+  "tests": 169,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_summary_seconds": 37.87,
+  "execution_batches": [
+    {
+      "passed": 134,
+      "seconds": 37.38
+    },
+    {
+      "passed": 35,
+      "seconds": 0.49
+    }
+  ],
+  "new_tests": 40,
+  "previous_related_tests": 129,
+  "preflight_synthetic_tests": 33,
+  "first_related_attempt": "collection error from duplicate module name, preserved attempt1 log/xml",
+  "LOCAL_FULL": "OMITTED_RELATED_TESTS_REPLACEMENT",
+  "reason": "new isolated analysis/tests/docs only; no existing execution/common/physics/frozen changes",
+  "baseline_updated": false,
+  "scientific_factorization_retries": 0,
+  "R04_runs": 0,
+  "B2_started": false,
+  "push": false
+}

@@ -1,0 +1,210 @@
+{
+  "name": "H2.0.1.1.6_h-h+",
+  "dimension": 416,
+  "SPD": {
+    "matrix_sha256": "3b387ce61e337e416d9f3cb7a49cead5eaab323ddd652b07f02910e5348056ca",
+    "attempts": [
+      {
+        "decimal_digits": 80,
+        "bits": 266,
+        "result": {
+          "status": "NOT_SPD",
+          "negative": 1,
+          "positive": 111,
+          "uncertain": 0,
+          "completed_pivots": 111,
+          "dimension": 416,
+          "lambda_min_lower_pair": null,
+          "environment": [
+            "4.2.1",
+            "6.3.0",
+            "266"
+          ],
+          "seconds": 3.84695,
+          "count_scope": "resolved leading prefix only",
+          "pivot_count": 112,
+          "minimum_resolved_positive_lower": "4.523859512242934859022717e-18",
+          "last_pivot": {
+            "index": 111,
+            "sign": -1,
+            "lower_pair": [
+              "-71191850666223405702671996309197002586932417190011718405695875656545401799276007",
+              -322
+            ],
+            "upper_pair": [
+              "-71191850666223405702671996309197002586932417190011718405688801476091604316735895",
+              -322
+            ]
+          }
+        }
+      }
+    ],
+    "final": {
+      "status": "NOT_SPD",
+      "negative": 1,
+      "positive": 111,
+      "uncertain": 0,
+      "completed_pivots": 111,
+      "dimension": 416,
+      "lambda_min_lower_pair": null,
+      "environment": [
+        "4.2.1",
+        "6.3.0",
+        "266"
+      ],
+      "seconds": 3.84695,
+      "count_scope": "resolved leading prefix only",
+      "pivot_count": 112,
+      "minimum_resolved_positive_lower": "4.523859512242934859022717e-18",
+      "last_pivot": {
+        "index": 111,
+        "sign": -1,
+        "lower_pair": [
+          "-71191850666223405702671996309197002586932417190011718405695875656545401799276007",
+          -322
+        ],
+        "upper_pair": [
+          "-71191850666223405702671996309197002586932417190011718405688801476091604316735895",
+          -322
+        ]
+      }
+    }
+  },
+  "SPD_status": "STORED_S_NOT_SPD_EXACT_NEGATIVE_DIRECTION",
+  "exact_direction": {
+    "length": 112,
+    "q_pair": [
+      "-140863272055122715411008415638724459357966525860843014111975377797824505079401377807969270383763822210735383677407373095755119377391662574641504748340036321244428498004941342127515475820356946316074094104642391744576500334309297690805908761355654900228011",
+      -901
+    ],
+    "norm_pair": [
+      "2946682587208591311117358688411767033009596929551688096866868872885664968989780979893690945043042433211672226720466470166095534859185771413831490642075141205222279361293",
+      -550
+    ],
+    "negative_witness": true,
+    "direction_RQ": "-0.00000000000000000001042163688985762798286594386367691165657768567915882232118114933757786971089442705363",
+    "scope": "one Schur direction; RQ upper bound on lambda_min; not its value"
+  },
+  "S_symmetry": "EXACT_BY_PACKED_LOWER_TRIANGLE_RESTORATION; independent upper triangle not exported",
+  "rank": null,
+  "rank_status": "FULL_RANK_UNRESOLVED",
+  "WA1": 12,
+  "initial_EN": "-2.90439999999999999999999999999999984000000000000000000000000000000000000000000000000000000000000089754999627061858406104377341043999129075773142150380263390054521992967975879040354",
+  "initial_inertia": null,
+  "WA1_status": "NOT_EXECUTED_S_PRECONDITION_FAILED",
+  "root": {
+    "status": "NOT_EXECUTED_S_PRECONDITION_FAILED",
+    "low": null,
+    "high": null,
+    "inertia_low": null,
+    "inertia_high": null,
+    "width": null,
+    "E_inside": null
+  },
+  "second_root": "NOT_EXECUTED_BOUNDED_SCOPE",
+  "fault_indefinite": {
+    "status": "DETECTED",
+    "result": {
+      "matrix_sha256": "d09d284b9b225f93710084c4983478263fd704fb0453a0da14f808f0390d0e85",
+      "attempts": [
+        {
+          "decimal_digits": 80,
+          "bits": 266,
+          "result": {
+            "status": "NOT_SPD",
+            "negative": 1,
+            "positive": 0,
+            "uncertain": 0,
+            "completed_pivots": 0,
+            "dimension": 416,
+            "lambda_min_lower_pair": null,
+            "environment": [
+              "4.2.1",
+              "6.3.0",
+              "266"
+            ],
+            "seconds": 6.6143e-05,
+            "count_scope": "resolved leading prefix only",
+            "pivot_count": 1,
+            "minimum_resolved_positive_lower": null,
+            "last_pivot": {
+              "index": 0,
+              "sign": -1,
+              "lower_pair": [
+                "-59285552024502937519099374513066654295951224057075665250082453000019798229416836",
+                -265
+              ],
+              "upper_pair": [
+                "-59285552024502937519099374513066654295951224057075665250082453000019798229416835",
+                -265
+              ]
+            }
+          }
+        }
+      ],
+      "final": {
+        "status": "NOT_SPD",
+        "negative": 1,
+        "positive": 0,
+        "uncertain": 0,
+        "completed_pivots": 0,
+        "dimension": 416,
+        "lambda_min_lower_pair": null,
+        "environment": [
+          "4.2.1",
+          "6.3.0",
+          "266"
+        ],
+        "seconds": 6.6143e-05,
+        "count_scope": "resolved leading prefix only",
+        "pivot_count": 1,
+        "minimum_resolved_positive_lower": null,
+        "last_pivot": {
+          "index": 0,
+          "sign": -1,
+          "lower_pair": [
+            "-59285552024502937519099374513066654295951224057075665250082453000019798229416836",
+            -265
+          ],
+          "upper_pair": [
+            "-59285552024502937519099374513066654295951224057075665250082453000019798229416835",
+            -265
+          ]
+        }
+      }
+    },
+    "exact_witness": {
+      "length": 1,
+      "q_pair": [
+        "-4479489660782996982562708856874367214543314485016006963000797868654130505853169637965858583488494092815",
+        -341
+      ],
+      "norm_pair": [
+        "1",
+        0
+      ],
+      "negative_witness": true,
+      "direction_RQ": "-1.000000039385601680194048797455314760082288955089445678061010689946584970970588352895",
+      "scope": "one Schur direction; RQ upper bound on lambda_min; not its value"
+    },
+    "authoritative_unchanged": true
+  },
+  "residual": {
+    "grade": "MEASURED_ONLY_NO_ACCEPTANCE_THRESHOLD",
+    "decimal_digits": 240,
+    "E_returned": "-2.90431153172832800319813339252318766731086445183446302649032281376635596649551073282408078031910339932596664580418270842392924678260798106353239539440302660578611853006705131343399",
+    "residual_L2": "2.31933130025015913101758781842911260406133549277177808738560634096701806351973857320732753e-66",
+    "residual_Linf": "5.00192948554451623636443915520615202970851538168273297859860582555135645753045996401803305e-67",
+    "nS": "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004880724684237810879146689851077383951785769595788023765991574638738442",
+    "normalization_error": "4.88072468423781087914668985107738395178576959578802376599157463873844230366548270524753251e-110",
+    "E_RQ": "-2.90431153172832800319813339252318766731086445183446302649032281312491724976874874111827966765528579450352403160740251985917421846168541293780206195164396866047666104114037551083302",
+    "RQ_minus_E": "6.41438716726761991705801112663817604822442614196780188564755028320922568125730333442759058e-64",
+    "transformed_residual": null,
+    "transformed_status": "NOT_EXECUTED_S_NOT_SPD"
+  },
+  "eigenpair_consistency": {
+    "grade": "UNRESOLVED_PRECONDITION_OR_ROOT_FAILED"
+  },
+  "full_result_path": "runs/h2_representation_pilot1/stored_root_v1_20261003/cases/H2.0.1.1.6_h-h+/result.json",
+  "full_result_sha256": "c94f992cae47510704ec809318d88257240c5b5b2d5c97c5a6a94cdb9d443642"
+}

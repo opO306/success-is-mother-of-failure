@@ -724,3 +724,16 @@ MO pair-interchange roundoff는 남아 있으며 작은 eigen residual도 forwar
 [실제 two-arm 보고서](../active/H2_R04_SAME_BASIS_INDEPENDENT_RECONSTRUCTION_V0.md).
 113-bit guard accepted2지만 L–I1.12513e-9>1e-9, energy equivalence 미통과.
 AO spot precision 상승은 별도이며 fixed binary64 AO의 HP transformation이 잃은 digits를 복구하지 않는다.
+
+### H2SOLV stored-matrix lowest-root V1 (2026-10-03)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| binary64 또는 구간 중심으로 SPD 승인, zero pivot 강제 부호 선택 | 알려진 SPD2^-600의 ladder상향, max-rung zero-containing refusal, 비특이 zero-pivot 사례도 fail-closed | unpivoted interval LDL의 wrapping/정밀도 한계는 실제 indefinite와 구분; General798bit에서 미확정 |
+| 실제 저장 S 사본의 한 방향을 indefinite로 만들기 | 5개 test copy S00=-abs(S00)-1 모두 negative pivot 및 exact integer qform으로 거부, authority hash 불변 | 원래 generator/NMAX/물리 integral correctness 증명 아님 |
+| 수렴·작은 residual·WA1 일치만으로 lowest 선언 | 독립 shifted interval inertia, 알려진 root 위·아래 count; 실제 JC asymmetric은 S SPD/WA1 일치지만 E주변1→2여서 lowest 반박 | 원래 의도한 target root/source 의미와 물리 정확성은 별도 진단 대상 |
+| interval negative pivot 또는 parser를 자기 함수로만 재확인 | 실제 H–He⁺ 방향의 q<0를 backend와 별도 integer qform으로 확인하고 후속 Fraction full action으로 정확 재현; native dyadic probe/layout/precision corruption 시험 | code/MPFR/GMP 신뢰 기반이 남음; 외부기관 감사나 machine formal proof 아님 |
+| 한 예제 성공을 전체5개로 일반화, 미실행 WA1을 일치로 집계 | 2 lowest확인/1 non-lowest/1 indefinite/1 SPD미확정 모두 기록, S실패 case의 root/rho 미실행, 전체 UNRESOLVED/STOP | λ2 추가 search/NMAX sweep/R=.4/B2 미실행, residual는 MEASURED/no new tolerance |
+
+[보고서](../active/h2_stored_root_v1/REPORT.md). 신규40개 포함 관련169시험(134+35)PASS,
+LOCAL FULL생략/기준선유지. 첫 related collection error는 module명 충돌이며 로그를 보존했다.
