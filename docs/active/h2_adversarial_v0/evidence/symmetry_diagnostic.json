@@ -1,0 +1,38 @@
+{
+  "conventions": {
+    "angular_algebra": {
+      "0": {
+        "generator_polynomial_identity_max": 0.0,
+        "reflection_polynomial_identity_max": 0.0
+      },
+      "1": {
+        "generator_polynomial_identity_max": 0.0,
+        "reflection_polynomial_identity_max": 0.0
+      },
+      "2": {
+        "generator_polynomial_identity_max": 0.0,
+        "reflection_polynomial_identity_max": 0.0
+      },
+      "3": {
+        "generator_polynomial_identity_max": 5.551115123125783e-17,
+        "reflection_polynomial_identity_max": 0.0
+      }
+    },
+    "inversion_function_values_max": 0.0,
+    "reflection_function_values_max": 0.0,
+    "AO_integral_calls": 0
+  },
+  "inversion_tail": {
+    "odd_S_metric_norm_squared": "0.000000000000000000096363647194792737681169182890265300116982418511919461098824133913066557822471704",
+    "even_S_metric_norm_squared": "1.0000000000000008453391716382475693301107546870439210014233449974979467989940232",
+    "unchanged_state_S_metric_norm_squared": "1.0000000000000008454355355066118414644095752020028034419227354536588934456777784",
+    "strict_symmetry_status": "UNRESOLVED; original inversion residual remains above 1e-10",
+    "matrix_sha256": "8c96b0a559078dcfb5c02e55073c33645e31e558869f15f915d58ee5e35fa956",
+    "Rayleigh_original": -2.618031133621568,
+    "Rayleigh_even_projection": -2.6180311336215683,
+    "Rayleigh_shift_hartree": -4.440892098500626e-16,
+    "vector_change_l2": 3.1042494607997606e-10,
+    "diagnostic_only_not_recomputed_ground_state": true
+  },
+  "not_certified": true
+}

@@ -6,6 +6,12 @@
 
 ## 현재 활성 A / C1-B1
 
+[H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md](active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md):
+새 설계자 명령으로 열린 가설 R=.4 감사. DZ/TZ/QZ/V5Z numerical accepted/trend;
+finite-basis limit 조건부 SUPPORTED. Strict inversion guard와 uncontracted/native cells refused;
+reference uncertainty/MO error/전체 cause budget UNRESOLVED / QZ44 FAIL / NOT CERTIFIED.
+과거 phase source/evidence byte 불변, production 미적용.
+
 [H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md](active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md):
 R=.4 primary 전사/BO quantity MATCH_SUPPORTED; 독립 source pointwise uncertainty 미보고로
 REFERENCE_SIDE_UNRESOLVED. Basis/AO/변환/새 energy 미실행, 원인 UNRESOLVED / NOT CERTIFIED.

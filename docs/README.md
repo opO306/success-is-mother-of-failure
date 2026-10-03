@@ -1,5 +1,12 @@
 # 프로젝트 문서 안내
 
+[H₂ R=0.4 Open-Hypothesis Adversarial Audit V0](active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md)는
+설계자 추가 승인 뒤 실제 spatial symmetry, BSE coefficient span, cardinal one-points,
+Libint2 independentAO/directMO connected experiment를 기록한다. Cardinal approach는 강한 조건부 증거;
+strict inversion·uncontracted/native refusals·reference uncertainty·MO residual은 미해결이다.
+이전 보고서/실패 보존 / QZ44 FAIL / NOT CERTIFIED / production 미승인.
+아래 front-end 보고서의 D–G 미실행/STOP는 당시 단계의 기록이다.
+
 [H₂ R=0.4 Front-End / Reference Cause Separation V0](active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md)는
 Pachucki 원문 표 재전사와 BO 물리량 계약, Sims–Hagstrom 독립 source 교차검증을 기록한다.
 수치는9.586e-13 차이지만 R=.4 reported uncertainty가 없어 REFERENCE_SIDE_UNRESOLVED.

@@ -20,6 +20,14 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/adversarial_v0/`는 R=.4 열린 가설 감사다. `symmetry.py`는 저장 상태에
+AO S-metric 대칭을 적용하고, BSE exact-span/normalization 대조 뒤 cardinal.py의 새 one-points,
+Libint2 native AO와 독립 direct MO의 fixedC 2x2를 측정한다. Production physics 변경 아님.
+[원인 구조·한계](docs/active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md),
+`tests/h2_adversarial_v0/`, raw `runs/h2_adversarial_v0/`, compact `docs/active/h2_adversarial_v0/`.
+Cardinal trend SUPPORTED under assumptions; strict parity/native equivalence/contraction/reference/MO
+전체 closure 미완료, 기존 QZ44 FAIL 유지. 아래 frontend_reference_v0 D–G 미실행은 직전 단계 기록이다.
+
 `electronic_pilot/frontend_reference_v0/`는 R=.4 primary-source PDF 취득/페이지 확인과
 Decimal 전사·물리량 계약·reported uncertainty gate를 감사하는 isolated 분석이다.
 AO/MO/CI evaluator를 호출하지 않는다. `acquire.py`/`review.py`는 원문 source 경로,

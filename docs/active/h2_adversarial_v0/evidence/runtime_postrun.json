@@ -1,0 +1,31 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "pyscf": "2.12.1",
+  "mpmath": "1.3.0",
+  "postrun_observation": true,
+  "pyscf_native_libraries": {
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libsolvent.so": "6b5ac2a3e60e71c71f905c9506ddac773ae3ffa2582d0ee7c6915520d2f53bdf",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libfci.so": "e53865ce85ae7cb66e8238898b04931b2a298b7e2aa5204458cd560b18f553ed",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libnp_helper.so": "da34a2d50ca60512c5f4b58a97594f58fbcdec7c749005f104173a9de46946c8",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libccsdt.so": "248f08ccf2a2b26d18b94b54b03e853089e216ece46857b8f5ca84a076f7953d",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libcc.so": "ff788f183dc2eaaafc00c9c04b67c0912f219646b353afa4cd98ae559e966f7d",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libopenblas-r0-f650aae0.3.3.so": "79ec02b53f573cd7116a89f04c397473018e7fda05720b354d43505c19d47958",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libpdft.so": "cef16190629649610b603d8ef10e2d01c8caa553bb675eb1a2144892830c0276",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libxcfun_itrf.so": "5ba15b20c81767b2ef434b087caceb2f4f163db5fe376d2ec267501b25136aac",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libmcscf.so": "b9ff5ebe2a9f10a7418d407b56658300a6d3e0f4f927c3d517eca84d667907df",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libao2mo.so": "db9c39a886621416b69e698e6e8c521356428b4a40ac37143ad014160574f36b",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libri.so": "7c549d5c0a068d1c1ea5b13ae1e47aa58eaec13b0b326b649397906372fcfe40",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libpbc.so": "fdf205f0e701bb3ff3d09d41660e70d8a4fdc3990b72c6da9f0821797f461d91",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libcvhf.so": "4342659535bcc735e35956a1e96a35489cde087867a6cbed8ee0aecb5275af96",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libxc_itrf.so": "f4a69af308518e732060a8d815cb04a97fad9ddc1302a4abb2097a081a781842",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libdft.so": "9df68571d8defb52c061bc4c29e44ad0c0a638c7a551859d47666f94d7cf1f93",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libmp.so": "6556009208e9f7000811d24d1b8ce0a2b1007c13869b39ff41cb4a528a305c92",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libagf2.so": "83bdc600122011b31f16d1fde04b30b4a764fb05ebd871dcd48def2b1ea088ea",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/libcgto.so": "37c50d334132c161b769644a1d59d58f47a9f20948aa0cf4fd42383c5386def0",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/deps/lib64/libxcfun.so": "69a381159a6dc1646a963d23f3376f2770f8d2cb2148cce015c2b9184ec55c5e",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/deps/lib/libcint.so": "950bb0a297507369dce95b9013ef2c5b64b0fa36a0018c303c98e95efce7db7e",
+    "/home/otherside123/.venvs/h2-reference-pilot/lib/python3.12/site-packages/pyscf/lib/deps/lib/libxc.so": "d120371b37f4729dfc21f3b0575e563ef9b0254839926c41c0c02f5082143548"
+  }
+}

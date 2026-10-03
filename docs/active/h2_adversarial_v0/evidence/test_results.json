@@ -1,0 +1,39 @@
+{
+  "LOCAL_FULL": "omitted under allowed isolated audit scope; baseline unchanged",
+  "runs": [
+    {
+      "name": "related_windows_v0",
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "217",
+        "time": "6.060",
+        "timestamp": "2026-10-03T14:02:16.699633+09:00",
+        "hostname": "\uc73c\uc545"
+      },
+      "log_sha256": "af645097becbbb8b5936d0c96780e4b65f4f6cb4e0f9a1e972617401fb1d4492",
+      "xml_sha256": "a934daeb50b4b9b5143479244e124cb0bc20ca3d83808637c90558f400eee853"
+    },
+    {
+      "name": "related_wsl_v0",
+      "junit": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "220",
+        "time": "33.028",
+        "timestamp": "2026-10-03T14:02:28.550885+09:00",
+        "hostname": "localhost"
+      },
+      "log_sha256": "e4dbd6d7030f766e839639bb9c3a46f8c785634b82fe1e0b9848e7536577e7fd",
+      "xml_sha256": "4accbd0840dcacc061f1d8d4c0766068d8c3c1f5e3cb1948b8a418eaca2b1c47"
+    }
+  ],
+  "new_algebra_and_fault_injection_tests": 20,
+  "native_closed_form_tests": 3,
+  "new_evidence_tests": 12,
+  "earlier_collection_failure_preserved": "initial_collection_failure.log"
+}

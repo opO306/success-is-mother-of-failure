@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/adversarial_v0/inputs.py", line 86, in <module>
+    a=p.parse_args();export(a.output,a.sources)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/성공은 실패의 어머니/electronic_pilot/adversarial_v0/inputs.py", line 50, in export
+    raise ValueError('BASIS_DEFINITION_MISMATCH '+name)
+ValueError: BASIS_DEFINITION_MISMATCH cc-pVDZ

@@ -1,0 +1,9 @@
+{
+  "name": "cc-pVDZ",
+  "url": "https://www.basissetexchange.org/api/basis/cc-pvdz/format/json/?elements=1",
+  "final_url": "https://www.basissetexchange.org/api/basis/cc-pvdz/format/json/?elements=1",
+  "status": "ACQUIRED",
+  "bytes": 2219,
+  "sha256": "2e2e26f5bf38f20861ae0a2ac666fc8b75eb855988ad254786faed333616b49d",
+  "version": "1"
+}

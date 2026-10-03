@@ -1,0 +1,17 @@
+REFERENCE ACQUIRE h2solv True
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\zun24\.codex\worktrees\h2-qz-cause-v0\������ ������ ��Ӵ�\electronic_pilot\adversarial_v0\acquire_reference.py", line 28, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Users\zun24\.codex\worktrees\h2-qz-cause-v0\������ ������ ��Ӵ�\electronic_pilot\adversarial_v0\acquire_reference.py", line 26, in main
+    rows.append(row);write(dest/'sources.json',rows);print('REFERENCE ACQUIRE',name,row['acquired'],flush=True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zun24\.codex\worktrees\h2-qz-cause-v0\������ ������ ��Ӵ�\electronic_pilot\frontend_reference_v0\audit.py", line 23, in write
+    with path.open('x', encoding='utf-8', newline='\n') as stream:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\zun24\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'runs\\h2_adversarial_v0\\reference_acquisition_v0\\sources.json'

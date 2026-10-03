@@ -1,0 +1,47 @@
+[
+  {
+    "name": "h2solv",
+    "requested_url": "https://users.fuw.edu.pl/~krp/papers/h2solv.pdf",
+    "time_UTC": "2026-10-03T04:41:25.954232+00:00",
+    "final_url": "https://users.fuw.edu.pl/~krp/papers/h2solv.pdf",
+    "status": 200,
+    "content_type": "application/pdf",
+    "file": "runs\\h2_adversarial_v0\\reference_acquisition_v1\\h2solv.pdf",
+    "sha256": "145ae5c7aa9a30ee378dd7f093d73178bc6c5be84dd7be9e7cda5a74bd77f306",
+    "bytes": 284690,
+    "acquired": true
+  },
+  {
+    "name": "FC_LSE_2018",
+    "requested_url": "https://www.qcri.or.jp/lab/wp-content/uploads/2018/12/J.Chem.Phys._149_244116_2018.pdf",
+    "time_UTC": "2026-10-03T04:41:29.373656+00:00",
+    "final_url": "https://www.qcri.or.jp/lab/wp-content/uploads/2018/12/J.Chem.Phys._149_244116_2018.pdf",
+    "status": 200,
+    "content_type": "application/pdf",
+    "file": "runs\\h2_adversarial_v0\\reference_acquisition_v1\\FC_LSE_2018.pdf",
+    "sha256": "fc5ce3e17fb36d9c558fa0bcda0182ac68a687fc206a871b64202f595d85267b",
+    "bytes": 3251451,
+    "acquired": true
+  },
+  {
+    "name": "FC_variational_landing",
+    "requested_url": "https://pubs.rsc.org/en/content/articlelanding/2019/cp/c8cp05949g",
+    "time_UTC": "2026-10-03T04:41:30.384515+00:00",
+    "acquired": false,
+    "error": "<HTTPError 403: 'Forbidden'>"
+  },
+  {
+    "name": "Ndeke_landing",
+    "requested_url": "https://edoc.hu-berlin.de/handle/18452/30005",
+    "time_UTC": "2026-10-03T04:41:30.427037+00:00",
+    "acquired": false,
+    "error": "URLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)'))"
+  },
+  {
+    "name": "qcri_publications",
+    "requested_url": "https://www.qcri.or.jp/en/publications/",
+    "time_UTC": "2026-10-03T04:41:31.762973+00:00",
+    "acquired": false,
+    "error": "<HTTPError 404: 'Not Found'>"
+  }
+]

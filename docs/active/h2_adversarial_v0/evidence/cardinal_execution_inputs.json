@@ -1,0 +1,14 @@
+{
+  "definitions_sha256": "c5244d1e10250aabaccd091d96fa2c2d0c66316d62fb8507f968c69caae6ec5c",
+  "runner_sha256": "30f86e3634722089c8cf3b836c758cc65b565da6279a0eeace91098995dcdf37",
+  "worker_sha256": "0f5861d1127d023d657f8f06c1d8b212dd77f62365076f6864815d4abfa425b8",
+  "grid": [
+    0.4
+  ],
+  "basis": [
+    "cc-pVTZ",
+    "cc-pVQZ",
+    "cc-pV5Z",
+    "uncontracted-cc-pVQZ"
+  ]
+}

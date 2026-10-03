@@ -1,0 +1,19 @@
+{
+  "name": "cc-pVDZ",
+  "R_bohr": 0.4,
+  "bindings": {
+    "runs/h2_adversarial_v0/definitions_v1/basis_definitions.json": "c5244d1e10250aabaccd091d96fa2c2d0c66316d62fb8507f968c69caae6ec5c",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/adversarial_v0/cardinal.py": "0f5861d1127d023d657f8f06c1d8b212dd77f62365076f6864815d4abfa425b8",
+    "electronic_pilot/ao_micro_v0/reuse.py": "d3a9db91303df54ccca7172c83ca8ce0bfe9ccd6a79c99071e4e4fe47ecd25f3",
+    "electronic_pilot/numerical_cause/core.py": "8432d2e5023c846c5af3fba38993b81cc5ac564efff5b7f5befad79838db950a",
+    "electronic_pilot/solver.py": "af4448202196910949f9f0c60241a8d96d6b119d7c6c4115a9e5847c656786ac",
+    "electronic_pilot/ao_micro_v0/protocol.json": "02229a1a0a9e587d36b1626debdb75de31c8008badafe9752ec21a47cbfa01e7"
+  },
+  "guards": {
+    "Smin_floor": 1e-10,
+    "orth_l2_max": 1e-10,
+    "H_asym_max": 1e-10,
+    "eigen_l2_max": 1e-09,
+    "norm_max": 1e-10
+  }
+}

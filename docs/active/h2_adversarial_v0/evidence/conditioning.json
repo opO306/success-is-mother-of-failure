@@ -1,0 +1,146 @@
+{
+  "conditioning": {
+    "condition_S": 9844457.373550193,
+    "condition_C": 3137.5878303679124,
+    "max_absolute_C": 761.8934591903231,
+    "AO_delta_S_max": 7.771561172376096e-16,
+    "AO_delta_h_max": 6.838973831690964e-14,
+    "AO_delta_ERI_max": 2.842170943040401e-14,
+    "transformed_overlap_delta_l2": 1.3368144073147308e-10
+  },
+  "selected_MO_elements": [
+    {
+      "MO_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "cell_values": [
+        2.1478047759067547,
+        2.1478047759067547,
+        2.1478047759067564,
+        2.1478047759067564
+      ],
+      "direct_AO_engine_effect": 1.7763568394002505e-15,
+      "absolute_weighted_AO_delta_sum": 1.7763568394002505e-15,
+      "largest_weighted_AO_delta_index": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "largest_weighted_contribution": 1.7763568394002505e-15,
+      "largest_component_AO_delta": 1.7763568394002505e-15,
+      "largest_component_C4_weight": 1.0,
+      "baseline_sum_absolute_integral_terms": 2.1478047759067547
+    },
+    {
+      "MO_index": [
+        39,
+        50,
+        50,
+        50
+      ],
+      "cell_values": [
+        -0.019703027152886028,
+        -0.01969303725385213,
+        -0.023840193381513372,
+        -0.02382931978581188
+      ],
+      "direct_AO_engine_effect": -0.004101906496192733,
+      "absolute_weighted_AO_delta_sum": 0.009265032590446639,
+      "largest_weighted_AO_delta_index": [
+        31,
+        31,
+        1,
+        1
+      ],
+      "largest_weighted_contribution": -0.0003366880172651075,
+      "largest_component_AO_delta": 2.55351295663786e-15,
+      "largest_component_C4_weight": -131852872095.23907,
+      "baseline_sum_absolute_integral_terms": 4614721662930.858
+    },
+    {
+      "MO_index": [
+        50,
+        42,
+        50,
+        50
+      ],
+      "cell_values": [
+        0.06250775158229105,
+        0.06247103777807663,
+        0.06024609821836989,
+        0.06025414203258029
+      ],
+      "direct_AO_engine_effect": -0.002245434682155597,
+      "absolute_weighted_AO_delta_sum": 0.005470286543125514,
+      "largest_weighted_AO_delta_index": [
+        31,
+        32,
+        1,
+        1
+      ],
+      "largest_weighted_contribution": -0.00022076280426936907,
+      "largest_component_AO_delta": 2.9976021664879227e-15,
+      "largest_component_C4_weight": -73646465410.72565,
+      "baseline_sum_absolute_integral_terms": 3041922477642.7124
+    },
+    {
+      "MO_index": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "cell_values": [
+        0.360721715622045,
+        0.36098579488130705,
+        0.3726334990739916,
+        0.3726898961814696
+      ],
+      "direct_AO_engine_effect": 0.01181159242976318,
+      "absolute_weighted_AO_delta_sum": 0.02694925999440908,
+      "largest_weighted_AO_delta_index": [
+        31,
+        31,
+        1,
+        1
+      ],
+      "largest_weighted_contribution": 0.0008569826121763318,
+      "largest_component_AO_delta": 2.55351295663786e-15,
+      "largest_component_C4_weight": 335609267205.2454,
+      "baseline_sum_absolute_integral_terms": 13727662402751.125
+    },
+    {
+      "MO_index": [
+        50,
+        50,
+        50,
+        56
+      ],
+      "cell_values": [
+        -0.02419710341804182,
+        -0.024070131377972506,
+        -0.018477438689674497,
+        -0.018450055387943143
+      ],
+      "direct_AO_engine_effect": 0.005671392197988144,
+      "absolute_weighted_AO_delta_sum": 0.01296582342010324,
+      "largest_weighted_AO_delta_index": [
+        1,
+        1,
+        31,
+        31
+      ],
+      "largest_weighted_contribution": 0.0004146114110239064,
+      "largest_component_AO_delta": 2.55351295663786e-15,
+      "largest_component_C4_weight": 162369025755.7235,
+      "baseline_sum_absolute_integral_terms": 6610106893177.174
+    }
+  ],
+  "measurements_not_rigorous_bounds": true,
+  "all_AO_inputs_binary64": true,
+  "high_precision_integrals": false
+}

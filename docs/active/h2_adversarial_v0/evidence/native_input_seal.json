@@ -1,0 +1,10 @@
+{
+  "definitions_sha256": "c5244d1e10250aabaccd091d96fa2c2d0c66316d62fb8507f968c69caae6ec5c",
+  "shells_sha256": "83495787b63a92df7350b10c8b1c9bdc96f91521f28a2c0d39527c78455829b6",
+  "mapping_sha256": "c4e1c01bee767ff221f16263bf8611842745c635677ac6449cd7b600f5aeea89",
+  "ncart": 70,
+  "nspherical": 60,
+  "shared": "Actual basis coefficients and real spherical polynomial representation metadata; no integral values supplied",
+  "normalization": "radial coefficients supplied; no angular/primitive normalization embedded by Libint",
+  "integral_engine": "Libint2 2.7.2, independent of libcint"
+}

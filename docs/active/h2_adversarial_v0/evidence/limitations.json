@@ -1,0 +1,20 @@
+{
+  "formal_certification": false,
+  "external_independent_human_audit": false,
+  "full_solver_certification": false,
+  "all_MO_integrals_validated": false,
+  "reference_truth_assumed": false,
+  "source_config_and_inputs_presealed": true,
+  "native_executable_and_dependencies_presealed": true,
+  "Python_package_native_library_inventory": "postrun observation; not a pre-run runtime seal",
+  "precision": "AO engines binary64; saved-state symmetry measurement80digits promotes stored dyadics, not AO integral accuracy",
+  "strict_irrep_gate": "UNRESOLVED because inversion6.2085e-10 exceeds sealed1e-10 guard",
+  "cardinal_state_irreps": "Only original reproduced QZ state directly measured. New cardinal energies are lowest full-singlet finite-space energies; no separate saved V5Z irrep certification",
+  "ground_energy_interaction": "UNAVAILABLE, three controlled cells refused; same-v Rayleigh interaction is a diagnostic, not a bound",
+  "contraction_contribution": "UNRESOLVED; uncontracted QZ refused at orthonormalization before energy",
+  "finite_basis_attribution": "Strong conditional cardinal trend, not an exact causal error decomposition or proof of all discrepancy",
+  "reference_uncertainty": "Independent R04 pointwise reported bound still unavailable; Ndeke actual calculation shares H2SOLV lineage",
+  "QZ44": "Previous43accepted1refused and physicalFAIL preserved; not rerun/reclassified",
+  "LOCAL_FULL": "Omitted under designer rule: isolated new analysis/tests/docs, old runtime/physics/common/frozen sources and fixtures unchanged; official baseline unchanged",
+  "forbidden_work": "No forces, dynamics, formation, complex atoms, world integration or production electronic foundation selection; no push"
+}

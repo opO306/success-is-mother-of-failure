@@ -1,0 +1,11 @@
+{
+  "urls": {
+    "cc-pVDZ": "https://www.basissetexchange.org/api/basis/cc-pvdz/format/json/?elements=1",
+    "cc-pVTZ": "https://www.basissetexchange.org/api/basis/cc-pvtz/format/json/?elements=1",
+    "cc-pVQZ": "https://www.basissetexchange.org/api/basis/cc-pvqz/format/json/?elements=1",
+    "cc-pV5Z": "https://www.basissetexchange.org/api/basis/cc-pv5z/format/json/?elements=1"
+  },
+  "source_sha256": "4146bb9a42688bb7be94e942aad9f34c64b925e1feaa5d64eab1123b970536ee",
+  "physics_calls": 0,
+  "old_basis_not_read": true
+}

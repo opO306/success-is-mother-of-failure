@@ -1,0 +1,18 @@
+
+=================================== ERRORS ====================================
+__________ ERROR collecting tests/h2_adversarial_v0/test_algebra.py ___________
+ImportError while importing test module 'C:\Users\zun24\.codex\worktrees\h2-qz-cause-v0\성공은 실패의 어머니\tests\h2_adversarial_v0\test_algebra.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\h2_adversarial_v0\test_algebra.py:10: in <module>
+    from electronic_pilot.adversarial_v0.factorial import pack8,expand8,lower
+electronic_pilot\adversarial_v0\factorial.py:8: in <module>
+    import time,resource
+E   ModuleNotFoundError: No module named 'resource'
+=========================== short test summary info ===========================
+ERROR tests/h2_adversarial_v0/test_algebra.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.80s

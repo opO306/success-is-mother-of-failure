@@ -1,0 +1,11 @@
+{
+  "bindings": {
+    "runs/h2_adversarial_v0/definitions_v1/basis_definitions.json": "c5244d1e10250aabaccd091d96fa2c2d0c66316d62fb8507f968c69caae6ec5c",
+    "/mnt/c/Users/zun24/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_qz44_sealed_v1/curve/R_0.4.npz": "40fcefcb1c2f190f7690e1ac018287e26217b482908200f55a8eac9dce521997",
+    "docs/active/h2_ground_state_audit_v0/evidence/v_direct_reproduced.npy": "cfb1113166b72f050f3d2d8c24de6d9aa2b00a72f64f10d83c65470f2f8d35b6",
+    "docs/active/h2_ground_state_audit_v0/evidence/direct_state_order.npy": "4ac593314a03a75706a4dd87497875782a66b395f8aaa4a397905d9851761711",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-cause-v0/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/electronic_pilot/adversarial_v0/symmetry_diagnostic.py": "2a72745c37983cb305ebf8739d1700db78eb15fa2ebc74db2541bf8917c0a599",
+    "electronic_pilot/adversarial_v0/symmetry.py": "38c5c939a6c4e00d6204d1b178936dc312bb1fcb4885373947e7b1baf7124ac0"
+  },
+  "diagnostic_projection_not_replacement": true
+}

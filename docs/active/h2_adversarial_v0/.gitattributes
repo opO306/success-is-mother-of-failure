@@ -1,0 +1,2 @@
+# Preserve raw acquisition/measurement/seal evidence bytes, including failure logs.
+* -text

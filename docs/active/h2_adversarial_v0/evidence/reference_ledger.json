@@ -1,0 +1,69 @@
+{
+  "status": "REFERENCE_SIDE_UNRESOLVED",
+  "truth_not_assumed": true,
+  "sources": [
+    {
+      "source": "Pachucki 2010 v2, PRA 82 032509",
+      "url": "https://arxiv.org/abs/1007.0406",
+      "R04_BO_hartree": "-0.120230341178823",
+      "reported_uncertainty_hartree": "0.000000000000015",
+      "primary_review": "Previously checked Table IV PDF12 and Eq2 PDF3; now reviewed convergence/extrapolation discussion PDF8 and Table I PDF9",
+      "pointwise_convergence_table_R04": "NOT_AVAILABLE_IN_REVIEWED_PAPER",
+      "other_convergence_points": [
+        1.4011,
+        6,
+        12
+      ],
+      "extrapolation": "Exponential in basis-order Omega; Table IV extrapolates to complete basis. Equilibrium beta about .9 is not a fitted R04 error bound",
+      "independence": "Explicitly correlated exponential variational basis, analytic integral recurrence; shares physical Hamiltonian/symmetry and exponential variational tradition with Sims. Does not use our Gaussian/libcint/Libint finite representation",
+      "correction_search": "No R04 correction found in the scoped search; this is not an exhaustive no-erratum claim"
+    },
+    {
+      "source": "Sims-Hagstrom 2006 JCP 124 094101",
+      "url": "https://doi.org/10.1063/1.2173250",
+      "R04_BO_hartree": "-0.1202303411778644",
+      "minus_Pachucki_hartree": "0.0000000000009586",
+      "reported_R04_uncertainty": null,
+      "reason": "Published paper explicitly does not investigate remaining-distance uncertainty; R1.4 .001 nhartree estimate does not apply automatically to R.4",
+      "independence": "Different authors/calculation, modified James-Coolidge variational expansion; same Coulomb/BO/singlet-spatial target and related analytic exponential basis tradition. Author preprint is the same calculation, not another independent source"
+    },
+    {
+      "source": "Ndeke 2024 Humboldt dissertation Molecular Effects in Nuclear beta Decay",
+      "url": "https://edoc.hu-berlin.de/bitstreams/87e5b794-5696-4bca-8a37-e505e5ba1529/download",
+      "doi": "10.18452/29340",
+      "primary_pdf_sha256": "c452896dd1f637cf5298c2a439c5a2a96b1bec75b480806a1bc123d39759232d",
+      "R04_BO_hartree": "-0.1202303300",
+      "minus_Pachucki_hartree": "0.000000011178823",
+      "primary_review": "Table5.3 PDF59 printed49, visually reviewed; H2SOLV discussion and convergence tables PDF56-57",
+      "basis_at_R04": "b007, Omega13; pointwise error bar absent",
+      "R04_convergence": "Not in reported convergence series: R1,1.4,1.4011,2,6,12",
+      "independence": "New calculation, not simple quotation, but H2SOLV from Pachucki/Zientkiewicz/Yerokhin is shared numerical lineage; cannot count as a third independent implementation or close the missing pointwise bound",
+      "acquisition": "Windows TLS validation failed; WSL system CA validated TLS without bypass, primary university PDF then acquired"
+    },
+    {
+      "source": "Pachucki, Zientkiewicz, Yerokhin H2SOLV",
+      "url": "https://users.fuw.edu.pl/~krp/papers/h2solv.pdf",
+      "primary_pdf_sha256": "145ae5c7aa9a30ee378dd7f093d73178bc6c5be84dd7be9e7cda5a74bd77f306",
+      "primary_review": "Title/abstract, program summary and algorithm lineage",
+      "role": "Lineage evidence: explicitly correlated Kolos-Wolniewicz functions, arbitrary precision, integral algorithm cites Pachucki2013. Not an independently acquired R04 uncertainty or independent truth source"
+    },
+    {
+      "source": "Nakashima-Nakatsuji JCP149 244116 2018 FC-LSE",
+      "url": "https://www.qcri.or.jp/lab/wp-content/uploads/2018/12/J.Chem.Phys._149_244116_2018.pdf",
+      "doi": "10.1063/1.5060659",
+      "primary_pdf_sha256": "fc5ce3e17fb36d9c558fa0bcda0182ac68a687fc206a871b64202f595d85267b",
+      "primary_review": "Method and TableI ground-state columns, supplementary data pointer",
+      "independence": "Different authors/method: free-complement local Schrodinger equation, integral-free sampling; nonvariational results can fall below reference. Shares Hamiltonian/BO/spatial target and reference comparisons",
+      "R04_point": "NOT_AVAILABLE_IN_ACQUIRED_MAIN_TABLE; displayed ground-state TableI begins R1.2. Main table reference columns are quotations, not new independent calculations",
+      "pointwise_error_bound": null
+    },
+    {
+      "source": "Kurokawa-Nakashima-Nakatsuji PCCP21 6327-6340 2019 FC variational",
+      "url": "https://doi.org/10.1039/C8CP05949G",
+      "primary_scope": "Publisher indexed abstract/metadata only; live main/supplement download returned403",
+      "independence": "Promising different variational FC calculation; no acquired R04 result/convergence/bound, so not counted",
+      "status": "UNAVAILABLE_IN_TESTED_ACQUISITION_SCOPE"
+    }
+  ],
+  "conclusion": "No acquired primary counterexample establishes reference error; the extra same-R calculation is consistent at 1.12e-8 but shares code lineage and lacks R04 error bar. Reference correctness is not certified."
+}

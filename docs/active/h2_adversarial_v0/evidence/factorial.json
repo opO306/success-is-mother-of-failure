@@ -1,0 +1,318 @@
+{
+  "rows": [
+    {
+      "engine": "libcint_canonical",
+      "transform": "historical_compact",
+      "cell": "cell_00",
+      "Smin": 5.503865871698124e-07,
+      "condition": 9844457.367554333,
+      "orthogonality_l2": 5.342868746822731e-11,
+      "h_asymmetry": 0.0,
+      "ERI_symmetry": {
+        "ij": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067547,
+          "counterpart": 2.1478047759067547
+        },
+        "kl": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067547,
+          "counterpart": 2.1478047759067547
+        },
+        "pair": {
+          "max_absolute": 2.9811480079414837e-05,
+          "index": [
+            50,
+            50,
+            50,
+            56
+          ],
+          "value": -0.02419710341804182,
+          "counterpart": -0.024167291937962406
+        }
+      },
+      "difference_from_baseline_h": {
+        "max_absolute": 0.0,
+        "index": [
+          0,
+          0
+        ],
+        "first": 0.06476197101550696,
+        "second": 0.06476197101550696,
+        "frobenius": 0.0
+      },
+      "difference_from_baseline_g": {
+        "max_absolute": 0.0,
+        "index": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "first": 2.1478047759067547,
+        "second": 2.1478047759067547,
+        "frobenius": 0.0
+      },
+      "H_asymmetry": 2.220446049250313e-16,
+      "same_v_rayleigh_hartree": -2.6180311336215683,
+      "same_v_action_delta_l2": 2.3684997045187707e-14,
+      "electronic_energy_hartree": -2.6180311336215714,
+      "BO_energy_hartree": -0.11803113362157136,
+      "eigen_residual_l2": 2.0221732956748973e-14,
+      "accepted": true,
+      "failure_stage": null,
+      "full_matrix_sha256": "cc2c1f58f47cb3bb35957b7fdff17f69a098bded635e81596cbc251dca4a958c",
+      "vector_norm_error": 0.0,
+      "next_singlet_gap": 0.7168930839894423,
+      "runtime_seconds": 26.218638398999985,
+      "peak_rss_kib": 681012
+    },
+    {
+      "engine": "libcint_canonical",
+      "transform": "independent_direct",
+      "cell": "cell_01",
+      "Smin": 5.503865871698124e-07,
+      "condition": 9844457.367554333,
+      "orthogonality_l2": 5.342868746822731e-11,
+      "h_asymmetry": 1.1604417426980262e-10,
+      "ERI_symmetry": {
+        "ij": {
+          "max_absolute": 0.00010767581565073597,
+          "index": [
+            39,
+            50,
+            50,
+            50
+          ],
+          "value": -0.01969303725385213,
+          "counterpart": -0.019800713069502866
+        },
+        "kl": {
+          "max_absolute": 2.9396761067057575e-10,
+          "index": [
+            30,
+            30,
+            50,
+            56
+          ],
+          "value": -0.011741777916006377,
+          "counterpart": -0.011741777622038766
+        },
+        "pair": {
+          "max_absolute": 9.424220429176886e-05,
+          "index": [
+            39,
+            50,
+            50,
+            50
+          ],
+          "value": -0.01969303725385213,
+          "counterpart": -0.0197872794581439
+        }
+      },
+      "difference_from_baseline_h": {
+        "max_absolute": 1.1604694982736419e-10,
+        "index": [
+          56,
+          50
+        ],
+        "first": 0.7328856420849801,
+        "second": 0.732885642201027,
+        "frobenius": 1.7701206320442598e-10
+      },
+      "difference_from_baseline_g": {
+        "max_absolute": 0.0002640792592620289,
+        "index": [
+          50,
+          50,
+          50,
+          50
+        ],
+        "first": 0.36098579488130705,
+        "second": 0.360721715622045,
+        "frobenius": 0.0005008948272728416
+      },
+      "H_asymmetry": 7.613822081431465e-05,
+      "same_v_rayleigh_hartree": -2.618031133599658,
+      "same_v_action_delta_l2": 1.0840614691096327e-07,
+      "electronic_energy_hartree": null,
+      "BO_energy_hartree": null,
+      "eigen_residual_l2": null,
+      "accepted": false,
+      "failure_stage": "singlet_hermiticity",
+      "full_matrix_sha256": "9d9605ecf005c15a789751cadce8e09e09283c9bfb8a60096e90d56e85d161ba",
+      "runtime_seconds": 26.63462635999997,
+      "peak_rss_kib": 684600
+    },
+    {
+      "engine": "Libint_canonical",
+      "transform": "historical_compact",
+      "cell": "cell_10",
+      "Smin": 5.503865864920143e-07,
+      "condition": 9844457.37967772,
+      "orthogonality_l2": 1.6796946238643007e-10,
+      "h_asymmetry": 0.0,
+      "ERI_symmetry": {
+        "ij": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067564,
+          "counterpart": 2.1478047759067564
+        },
+        "kl": {
+          "max_absolute": 0.0,
+          "index": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "value": 2.1478047759067564,
+          "counterpart": 2.1478047759067564
+        },
+        "pair": {
+          "max_absolute": 5.639428017211942e-05,
+          "index": [
+            50,
+            50,
+            50,
+            56
+          ],
+          "value": -0.018477438689674497,
+          "counterpart": -0.018421044409502377
+        }
+      },
+      "difference_from_baseline_h": {
+        "max_absolute": 1.6103337330264367e-08,
+        "index": [
+          50,
+          50
+        ],
+        "first": 6.727766613627779,
+        "second": 6.727766597524441,
+        "frobenius": 2.257451665242466e-08
+      },
+      "difference_from_baseline_g": {
+        "max_absolute": 0.0119117834519466,
+        "index": [
+          50,
+          50,
+          50,
+          50
+        ],
+        "first": 0.3726334990739916,
+        "second": 0.360721715622045,
+        "frobenius": 0.023390986590056652
+      },
+      "H_asymmetry": 2.220446049250313e-16,
+      "same_v_rayleigh_hartree": -2.618031132483421,
+      "same_v_action_delta_l2": 5.159930582922154e-06,
+      "electronic_energy_hartree": null,
+      "BO_energy_hartree": null,
+      "eigen_residual_l2": null,
+      "accepted": false,
+      "failure_stage": "orthonormalization",
+      "full_matrix_sha256": "1a353d34765213905b80a561c1698e5f02565c7e980d6c8fa9823be7191e7439",
+      "runtime_seconds": 26.056161421000013,
+      "peak_rss_kib": 685184
+    },
+    {
+      "engine": "Libint_canonical",
+      "transform": "independent_direct",
+      "cell": "cell_11",
+      "Smin": 5.503865864920143e-07,
+      "condition": 9844457.37967772,
+      "orthogonality_l2": 1.6796946238643007e-10,
+      "h_asymmetry": 2.2795176857215438e-10,
+      "ERI_symmetry": {
+        "ij": {
+          "max_absolute": 4.543742541846321e-05,
+          "index": [
+            50,
+            56,
+            50,
+            50
+          ],
+          "value": -0.01844939620704783,
+          "counterpart": -0.018403958781629367
+        },
+        "kl": {
+          "max_absolute": 1.7753558345656728e-10,
+          "index": [
+            6,
+            6,
+            39,
+            50
+          ],
+          "value": -0.1005357019768305,
+          "counterpart": -0.10053570215436608
+        },
+        "pair": {
+          "max_absolute": 4.6128951660152906e-05,
+          "index": [
+            50,
+            42,
+            50,
+            50
+          ],
+          "value": 0.06025414203258029,
+          "counterpart": 0.060208013080920136
+        }
+      },
+      "difference_from_baseline_h": {
+        "max_absolute": 1.6103337330264367e-08,
+        "index": [
+          50,
+          50
+        ],
+        "first": 6.727766613627779,
+        "second": 6.727766597524441,
+        "frobenius": 2.2491634470268414e-08
+      },
+      "difference_from_baseline_g": {
+        "max_absolute": 0.011968180559424557,
+        "index": [
+          50,
+          50,
+          50,
+          50
+        ],
+        "first": 0.3726898961814696,
+        "second": 0.360721715622045,
+        "frobenius": 0.02344964849283334
+      },
+      "H_asymmetry": 3.495840609923917e-05,
+      "same_v_rayleigh_hartree": -2.6180311324788352,
+      "same_v_action_delta_l2": 5.17919800265332e-06,
+      "electronic_energy_hartree": null,
+      "BO_energy_hartree": null,
+      "eigen_residual_l2": null,
+      "accepted": false,
+      "failure_stage": "orthonormalization",
+      "full_matrix_sha256": "da27a19f590f06f3127c45eb7d93d9eaa8fba38798afaf4e022707983dc0f663",
+      "runtime_seconds": 27.61776882500004,
+      "peak_rss_kib": 685300
+    }
+  ],
+  "same_v_rayleigh_interaction_hartree": -1.7324808254670643e-11,
+  "accepted_ground_energy_interaction_hartree": null,
+  "interaction_is_not_an_error_bound": true,
+  "not_certified": true
+}

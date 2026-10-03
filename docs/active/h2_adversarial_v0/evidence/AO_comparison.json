@@ -1,0 +1,135 @@
+{
+  "libint_vs_raw_libcint": {
+    "s": {
+      "max_absolute": 7.771561172376096e-16,
+      "index": [
+        10,
+        40
+      ],
+      "first": 0.9769107325981299,
+      "second": 0.9769107325981291,
+      "frobenius": 4.529468489367612e-15
+    },
+    "t": {
+      "max_absolute": 6.217248937900877e-15,
+      "index": [
+        17,
+        17
+      ],
+      "first": 7.217000000000005,
+      "second": 7.216999999999999,
+      "frobenius": 2.486869278326565e-14
+    },
+    "v": {
+      "max_absolute": 7.105427357601002e-14,
+      "index": [
+        0,
+        0
+      ],
+      "first": -5.390773081836771,
+      "second": -5.3907730818367,
+      "frobenius": 3.260535290415397e-13
+    },
+    "g": {
+      "max_absolute": 2.842170943040401e-14,
+      "index": [
+        0,
+        0,
+        53,
+        53
+      ],
+      "first": 0.8200629977150383,
+      "second": 0.8200629977150667,
+      "frobenius": 1.9601029596179026e-12
+    }
+  },
+  "libint_ERI_symmetry": {
+    "ij": {
+      "max_absolute": 1.304512053934559e-15,
+      "index": [
+        27,
+        57,
+        26,
+        56
+      ],
+      "value": 0.24927475889067285,
+      "counterpart": 0.24927475889067155
+    },
+    "kl": {
+      "max_absolute": 1.5543122344752192e-15,
+      "index": [
+        26,
+        26,
+        26,
+        56
+      ],
+      "value": 0.44399650132874546,
+      "counterpart": 0.443996501328747
+    },
+    "pair": {
+      "max_absolute": 2.220446049250313e-15,
+      "index": [
+        26,
+        26,
+        56,
+        26
+      ],
+      "value": 0.443996501328747,
+      "counterpart": 0.4439965013287448
+    }
+  },
+  "libcint_raw_ERI_symmetry": {
+    "ij": {
+      "max_absolute": 5.551115123125783e-16,
+      "index": [
+        0,
+        1,
+        13,
+        13
+      ],
+      "value": 0.8210209924896574,
+      "counterpart": 0.821020992489658
+    },
+    "kl": {
+      "max_absolute": 7.771561172376096e-16,
+      "index": [
+        26,
+        9,
+        26,
+        56
+      ],
+      "value": 0.051426725291027375,
+      "counterpart": 0.05142672529102815
+    },
+    "pair": {
+      "max_absolute": 9.992007221626409e-16,
+      "index": [
+        15,
+        56,
+        26,
+        56
+      ],
+      "value": -0.23064331743085414,
+      "counterpart": -0.23064331743085514
+    }
+  },
+  "libint_one_body_asymmetry": {
+    "s": 3.191891195797325e-16,
+    "t": 1.1423825370205556e-15,
+    "v": 6.661338147750939e-16
+  },
+  "native": {
+    "ncart": 70,
+    "shells": 20,
+    "null_ERI_blocks": 0,
+    "runtime_seconds": 2.54373,
+    "peak_rss_kib": 200328,
+    "screening_precision": 0,
+    "normalization_embedded": false,
+    "Cartesian_convention": "standard",
+    "byteorder": "little host x86_64"
+  },
+  "shared_mapping": "explicit real-spherical polynomial coefficients from verified PySCF basis metadata",
+  "distinct_integral_implementations": true,
+  "not_certified": true
+}

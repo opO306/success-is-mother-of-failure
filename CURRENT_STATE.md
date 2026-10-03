@@ -4,6 +4,17 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**H₂ R=0.4 Open-Hypothesis Adversarial Audit V0(2026-10-03):**
+[열린 가설·실제 symmetry·독립 AO/MO·cardinal 진단](docs/active/H2_R04_OPEN_HYPOTHESIS_ADVERSARIAL_AUDIT_V0.md).
+설계자 새 명령으로 reference 미해결 상태의 우리 front-end/one-point basis 진단을 승인했다.
+DZ/TZ/QZ/V5Z accepted, target 차이 .096834/.015634/.002199/.000633 hartree로 접근:
+finite-basis limitation 강한 조건부 증거. 원인 전체 배분은 UNRESOLVED.
+실제 reproduced state inversion residual6.2085e-10>봉인1e-10: strict1Sigma_g+ UNRESOLVED.
+Libint2 독립 fullAO 차이는 작지만 conditioning에서 증폭; fixedC AO×MO 2x2의3cells refused.
+Uncontracted QZ도 orthogonality refused, contraction 기여 미분리. Reference uncertainty/MO ERI residual
+UNRESOLVED / QZ44 FAIL / NOT CERTIFIED / production 미승인 / push 없음.
+아래 Front-End V0의 D–G 미실행/STOP는 직전 단계의 보존된 기록이다.
+
 **H₂ R=0.4 Front-End / Reference Cause Separation V0(2026-10-03):**
 [원문 전사·물리량 정의·독립 reference 감사](docs/active/H2_R04_FRONTEND_REFERENCE_CAUSE_SEPARATION_V0.md).
 Pachucki Table IV R=.4 energy/uncertainty는 CSV와 동일, Eq.(2)의 +1/R 포함 BO quantity 대조.

@@ -1,0 +1,42 @@
+{
+  "records": [
+    {
+      "name": "cc-pVDZ",
+      "url": "https://www.basissetexchange.org/api/basis/cc-pvdz/format/json/?elements=1",
+      "final_url": "https://www.basissetexchange.org/api/basis/cc-pvdz/format/json/?elements=1",
+      "status": "ACQUIRED",
+      "bytes": 2219,
+      "sha256": "2e2e26f5bf38f20861ae0a2ac666fc8b75eb855988ad254786faed333616b49d",
+      "version": "1"
+    },
+    {
+      "name": "cc-pVTZ",
+      "url": "https://www.basissetexchange.org/api/basis/cc-pvtz/format/json/?elements=1",
+      "final_url": "https://www.basissetexchange.org/api/basis/cc-pvtz/format/json/?elements=1",
+      "status": "ACQUIRED",
+      "bytes": 3370,
+      "sha256": "9e4270bcb741828d87398c4e976c04833d6bf713668479a9156a740e404fba51",
+      "version": "1"
+    },
+    {
+      "name": "cc-pVQZ",
+      "url": "https://www.basissetexchange.org/api/basis/cc-pvqz/format/json/?elements=1",
+      "final_url": "https://www.basissetexchange.org/api/basis/cc-pvqz/format/json/?elements=1",
+      "status": "ACQUIRED",
+      "bytes": 4862,
+      "sha256": "519ad9a16fa099e0112af7eba77d8db7612282025fbd3a8d28a0b4374be4f105",
+      "version": "1"
+    },
+    {
+      "name": "cc-pV5Z",
+      "url": "https://www.basissetexchange.org/api/basis/cc-pv5z/format/json/?elements=1",
+      "final_url": "https://www.basissetexchange.org/api/basis/cc-pv5z/format/json/?elements=1",
+      "status": "ACQUIRED",
+      "bytes": 7102,
+      "sha256": "8256ba631780f18dfd10013e14d65532d51abdfca95d86181ad762011ef26a43",
+      "version": "1"
+    }
+  ],
+  "AO_calls": 0,
+  "energy_calls": 0
+}

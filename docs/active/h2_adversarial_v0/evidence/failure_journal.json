@@ -1,0 +1,21 @@
+{
+  "numerical_refusals": [
+    {"phase": "saved-state symmetry", "first_failure": "inversion6.208498923e-10 > unchanged1e-10", "preserved": "symmetry.json", "retuned": false},
+    {"phase": "uncontracted QZ R04", "first_failure": "orthogonality5.870159570e-10 > unchanged1e-10", "preserved": "summary.json and raw cardinal_v0/uncontracted_QZ", "retuned": false},
+    {"phase": "factorial cell01", "first_failure": "singlet Hermiticity7.613822081e-5", "preserved": "factorial.json and raw h/g", "retuned": false},
+    {"phase": "factorial cell10/11", "first_failure": "fixedC/nativeAO orthogonality1.679694624e-10", "preserved": "factorial.json and raw h/g", "retuned": false}
+  ],
+  "audit_implementation_failures": [
+    {"phase": "basis definitions V0", "failure": "Overstrong column equality rejected segmented/general equivalent span", "preserved": "initial_column_refusal.json and initial_definition_failure.log; inputs.py and V0 seal unchanged", "correction": "Separate exact-rational span checker V1 before any new energy; no numerical tolerance/physics change"},
+    {"phase": "reference acquisition V0", "failure": "Immutable exclusive-write helper was incorrectly reused as an incremental index writer", "preserved": "reference_initial_failure.log and unchanged acquire_reference.py", "correction": "Separate V1 acquisition writes individual immutable entries then a final index"},
+    {"phase": "Windows algebra test V0", "failure": "Pure helper import loaded Linux-only resource module", "preserved": "initial_collection_failure.log", "correction": "Test actual sealed pure-function AST without loading Linux worker; executed numerical source unchanged"}
+  ],
+  "infrastructure_observations": [
+    {"event": "WSL distribution name Ubuntu was not installed; inventory showed Ubuntu-24.04", "evidence_scope": "Original tool trace in conversation, no calculation started"},
+    {"event": "Shell variable quoting caused empty dpkg-deb argument during task-local unpack; corrected find -exec unpack succeeded", "evidence_scope": "Original tool traces, task-local downloaded packages/sha; not a physics attempt"},
+    {"event": "WSL Git could not read Windows-managed worktree pointer; precompile seal executed with Windows Git", "evidence_scope": "Original tool trace; no compile/integral preceded the corrected source seal"},
+    {"event": "Windows TLS chain validation failed for Ndeke; WSL system-CA validation succeeded without disabling TLS verification", "evidence_scope": "reference acquisition records, raw WSL landing/PDF and curl log"},
+    {"event": "RSC main/supplement403 and guessed QCRI publications path404", "evidence_scope": "reference acquisition records and tool traces; no R04 result fabricated"}
+  ],
+  "note": "Observation journal is a post-acquisition description, not a fabricated raw runtime trace. Failed numerical entries were not retried with adjusted rules."
+}

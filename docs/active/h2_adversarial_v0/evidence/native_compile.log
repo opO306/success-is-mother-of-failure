@@ -1,0 +1,22 @@
+In file included from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/cxxapi.h:43,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2.hpp:24,
+                 from electronic_pilot/adversarial_v0/libint_driver.cpp:4:
+/home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/solidharmonics.h:219:45: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+  219 |         struct CtorHelperIter : public std::iterator<std::input_iterator_tag, SolidHarmonicsCoefficients> {
+      |                                             ^~~~~~~~
+In file included from /usr/include/c++/13/bits/stl_algobase.h:65,
+                 from /usr/include/c++/13/algorithm:60,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/util/vector.h:26,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/libint2_types.h:24,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/util/generated/libint2_types.h:26,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2.h:35,
+                 from /home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/cxxapi.h:29:
+/usr/include/c++/13/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
+/home/otherside123/h2-adversarial-v0/deps/unpacked/usr/include/libint2/solidharmonics.h:221:33: warning: ‘template<class _Category, class _Tp, class _Distance, class _Pointer, class _Reference> struct std::iterator’ is deprecated [-Wdeprecated-declarations]
+  221 |             using typename std::iterator<std::input_iterator_tag, SolidHarmonicsCoefficients>::value_type;
+      |                                 ^~~~~~~~
+/usr/include/c++/13/bits/stl_iterator_base_types.h:127:34: note: declared here
+  127 |     struct _GLIBCXX17_DEPRECATED iterator
+      |                                  ^~~~~~~~
