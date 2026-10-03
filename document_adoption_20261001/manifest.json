@@ -1,0 +1,57 @@
+{
+  "base": "ac143855bec21352aaa86241b31baf86d6075eae",
+  "files": {
+    "AGENTS.md": {
+      "before_sha256": "758e86680ae573404f7b00ac8c10a942aeb40350d6814ede3ba3abbbf8560ba7",
+      "after_text_sha256": "82443da8093c2faee4a87bf668f7f7b771dbf26296da645bca845cfe8851def7"
+    },
+    "RULES.md": {
+      "before_sha256": "ea684417f4f9ca95ade7b039622f6d345b09b907d177a65e4544f97fa9e2e3e1",
+      "after_text_sha256": "bf8c5ff26bf7862f19d552b32549f853bae158f82003e3b69374527892c344f0"
+    },
+    "CURRENT_STATE.md": {
+      "before_sha256": "f730747db03dc5de26b78571b016ccfb8ad0800dd9d663a1548b5c58218cd73c",
+      "after_text_sha256": "67f0cd4dfd9f46793ea55b8b40c71f23328c853a859a4800a21a1f31c50c7e6a"
+    },
+    "PROJECT_CONSTITUTION.md": {
+      "before_sha256": "ef8250cc163a2066314e19e26b0ad17c5bdb310802ce9ec0ef37b7a961c36f53",
+      "after_text_sha256": "9a39b8b1a239adf310f36e8ec7c3a754b38130642ace6b528e0326366c7fbe81"
+    },
+    "docs/active/README.md": {
+      "before_sha256": "4dca3edeabf4275f4a9955e35541c05f5d1155d294567917157b6758eb28cbad",
+      "after_text_sha256": "4cdfae3fca957990df0bd834337a13e7c7880b3b67e5fe71dab8e9723c664d67"
+    },
+    "docs/reference/README.md": {
+      "before_sha256": "137c24ffd0beca9c4548aaabe39a657328ccb0ee8870084e7db8dba870a8d368",
+      "after_text_sha256": "8dffb85965e91e2cdfad7118359fb5cc99c1b3c6060cb8698ba89ff144013d7e"
+    },
+    "docs/DOCUMENT_STATUS_INDEX.md": {
+      "before_sha256": "1b947f922c94bf50f10d73cbd16170b03d21d082572405ce6543664bd92109fc",
+      "after_text_sha256": "023272ad12db8d25649689f1c6a3a56e0dad32abf41d498c9e76e0bcbcbd921c"
+    },
+    "docs/README.md": {
+      "before_sha256": "c64ae899cd29228e2fdb32a7ea5abda37eb68e1a42ec4ec9e834557f021dae84",
+      "after_text_sha256": "5c224063adc0f4e0e0dedcfbdf8d7fe13dcea40c2c83b415277e0f8d928626fc"
+    },
+    "EVOLUTION_V2_PLAN.md": {
+      "before_sha256": "e38dfbe84cab6b24469145ee8809e72981c560290c21b57335a0e52bcc71f8f2",
+      "after_text_sha256": "c6573b2edb7455471b481e54c008a69e83b1f98535edc39ae6eb6bc33eaa8b1a"
+    },
+    "EVOLVABLE_LANGUAGE_PLAN.md": {
+      "before_sha256": "a85f4b6bd3cf174fd4d9cb0f497dc4fb788258e1b0cbb2e91ba3acbd1a1aa1e6",
+      "after_text_sha256": "f7900cb23df1aa0ce21b57e68b4bf4f5e5eaa44fa74b376d65df1d9d970f4a54"
+    },
+    "docs/active/A_THREE_LAYER_SEPARATION_V1.md": {
+      "before_sha256": null,
+      "after_text_sha256": "c85bafcdd289bb3530ab2a7ab8ec0ab3e400c72dd3b4481eae8175cfbd5228d7"
+    },
+    "docs/reference/L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md": {
+      "before_sha256": null,
+      "after_text_sha256": "9a1511a5469675fa4814de00a981309a0d13a5a74bab710420d4a02a96e332b9"
+    },
+    "docs/active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md": {
+      "before_sha256": null,
+      "after_text_sha256": "0304b843c839963ba0563787a5244f526edb3037f735972141829cdbffa56eeb"
+    }
+  }
+}

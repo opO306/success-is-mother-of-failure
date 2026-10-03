@@ -1,0 +1,62 @@
+{
+  "base": "ac143855bec21352aaa86241b31baf86d6075eae",
+  "files": [
+    "AGENTS.md",
+    "CURRENT_STATE.md",
+    "EVOLUTION_V2_PLAN.md",
+    "EVOLVABLE_LANGUAGE_PLAN.md",
+    "PROJECT_CONSTITUTION.md",
+    "RULES.md",
+    "docs/DOCUMENT_STATUS_INDEX.md",
+    "docs/README.md",
+    "docs/active/README.md",
+    "docs/reference/README.md",
+    "docs/active/A_THREE_LAYER_SEPARATION_V1.md",
+    "docs/active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md",
+    "docs/reference/L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md"
+  ],
+  "rendered_local_links_checked": 260,
+  "new_broken_links": [],
+  "preexisting_broken_links": [
+    [
+      "CURRENT_STATE.md",
+      "감쇠 항 상쇄"
+    ]
+  ],
+  "unchanged_constitution_articles": [
+    1,
+    2,
+    3,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20,
+    23,
+    24,
+    25,
+    26
+  ],
+  "repository_changes": "Markdown only, unstaged, no commit or push",
+  "after_sha256": {
+    "AGENTS.md": "82443da8093c2faee4a87bf668f7f7b771dbf26296da645bca845cfe8851def7",
+    "CURRENT_STATE.md": "c24068ea9ad785536829302f3ce21b51aa97971212e9641a264dbedc32bc3a12",
+    "EVOLUTION_V2_PLAN.md": "c6573b2edb7455471b481e54c008a69e83b1f98535edc39ae6eb6bc33eaa8b1a",
+    "EVOLVABLE_LANGUAGE_PLAN.md": "f7900cb23df1aa0ce21b57e68b4bf4f5e5eaa44fa74b376d65df1d9d970f4a54",
+    "PROJECT_CONSTITUTION.md": "0244fb5bbdff85f84465904b2c4cd49cb91ee8c33500b29fb39cca6562082d1c",
+    "RULES.md": "cfd4262675ec6e8b35208dc2f3ad484d47bed63d3621ecd5828776d818bdbfaf",
+    "docs/DOCUMENT_STATUS_INDEX.md": "023272ad12db8d25649689f1c6a3a56e0dad32abf41d498c9e76e0bcbcbd921c",
+    "docs/README.md": "5c224063adc0f4e0e0dedcfbdf8d7fe13dcea40c2c83b415277e0f8d928626fc",
+    "docs/active/README.md": "4cdfae3fca957990df0bd834337a13e7c7880b3b67e5fe71dab8e9723c664d67",
+    "docs/reference/README.md": "8dffb85965e91e2cdfad7118359fb5cc99c1b3c6060cb8698ba89ff144013d7e",
+    "docs/active/A_THREE_LAYER_SEPARATION_V1.md": "55285a0d509437b512661751c03d04f76f93eca6c69571b65bc89eae38e96ea6",
+    "docs/active/C1B1_O3_SCATTERING_VS_VISCOSITY_SURVEY_V0.md": "0304b843c839963ba0563787a5244f526edb3037f735972141829cdbffa56eeb",
+    "docs/reference/L_ORIGIN_AND_OBSERVATION_PRINCIPLES_V2.md": "9a1511a5469675fa4814de00a981309a0d13a5a74bab710420d4a02a96e332b9"
+  }
+}
