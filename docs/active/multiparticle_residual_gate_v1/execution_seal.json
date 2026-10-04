@@ -1,0 +1,11 @@
+{
+ "quick": false,
+ "git_head_at_start": "a361c0f23d2e58f3e8586a17c3253adab11d42bd",
+ "python": "3.12.7",
+ "source_sha256": {
+  "__init__.py": "fdc6bbacdc2f8a6c19cdda5f204823970cd1b801d4a87e9612891a05eed5e4a0",
+  "ledger.py": "6491500b4745fa68db08fbe4a5298fc3a586ef334c39d06b6263dff37eed0bbc",
+  "campaign.py": "2d47ad7a975f5d6bb765dd7b998b68569818fbce7ee25a80e4ef0684955a02f8",
+  "protocol.json": "21b369257bece9e9b6dcb887fe3be14fba358123b90ebfb34a1751e8ebe5f725"
+ }
+}

@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Multiparticle Residual / Carry Gate V1](active/MULTIPARTICLE_RESIDUAL_CARRY_GATE_V1.md)·[증거](active/multiparticle_residual_gate_v1/verdict.json):
+SURVEY_ONLY, 판정 B. U = L 같은 의미, 물리 실현은 더 고운 격자의 P. 법칙 채택 아님.
+
 [Multiparticle Rounding Gate V0](active/MULTIPARTICLE_ROUNDING_GATE_V0.md)·[증거](active/multiparticle_rounding_v0/summary.json):
 SURVEY_ONLY, 다원자 반올림 후보 P/T/C 비교. 법칙 선택 없음. NOT APPROVED.
 

@@ -4,6 +4,12 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Multiparticle Residual / Carry Gate V1 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/MULTIPARTICLE_RESIDUAL_CARRY_GATE_V1.md), 봉인 `a361c0f`.
+판정 **B — U_AND_L_EQUIVALENT_BUT_COST_UNRESOLVED**. 설계자 carry(U)와 ledger(L)는 같은 의미(정규화 시점만 다름).
+정확 유리수 입력에서 핵심 조건 9개 통과(보존·집단 효과·순서/번호 무관·drift가 P+r 사용·STOP 0·O(N)).
+실제 Lang 충격량은 유한 잔여 격자가 필요해 R = 더 고운 격자의 P(손실 2⁻ᵏ배로 축소, 0 아님). 일반 유리수 잔여는 비트 수 무한 증가.
+C1-B1 drift의 위치 격자 반올림도 계통적 손실 발견(별도 판단 대상). 관련 시험25 PASS, LOCAL FULL 생략.
+
 **Multiparticle Rounding Gate V0 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/MULTIPARTICLE_ROUNDING_GATE_V0.md), 봉인 `d4d43b3`.
 P/T/C 모두 N=2 C1-B1 동일·번호/순서/평행이동 무관. P: 보존 항상, 집단 효과 손실(원거리 중심 3.03 u → 0). T: 오차 ≤0.5 u, 보존 깨짐(N=4 전수 32%·실제 배치).
 C(새 후보): 보존, 그러나 STOP N=4 전수 25.6%·실제 원거리 배치. 법칙 선택은 설계자 결정. 관련 시험12 PASS, LOCAL FULL 생략.
