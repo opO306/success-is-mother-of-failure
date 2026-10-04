@@ -1,0 +1,90 @@
+{
+  "gate": "Nuclear State / Dynamics Gate V1",
+  "date": "2026-10-04",
+  "status": "SURVEY_ONLY / NOT WORLD EXECUTOR / NOT CERTIFIED",
+  "sealed_before_dynamics": true,
+  "purpose": "Compare nuclear treatments by which physics each one cannot represent, against a full quantum reference. Cost is reported last and does not select a method.",
+  "world_class": "MODEL_TEST_WORLD (1D Shin-Metiu). Measurements are INTERNAL. Not a reality-transfer candidate (contract V0.1 N8).",
+  "model": {
+    "form": "Shin & Metiu, J. Chem. Phys. 102, 9285 (1995); see model.py docstring",
+    "L": 19.0,
+    "Rl": 3.1,
+    "Rr": 3.1,
+    "Rf_panel": [4.0, 5.0, 6.0],
+    "M": 1836.15267343,
+    "M_source": "CODATA 2018 proton-electron mass ratio (reality evidence R-A, used as CALIBRATION input)",
+    "electron_mass": 1.0
+  },
+  "candidates": {
+    "Q": "nucleus quantum + electron fully coupled (2D wavefunction, split-operator). Reference.",
+    "EH": "nucleus classical ensemble + electron fully coupled, mean force (Ehrenfest).",
+    "BOQ": "nucleus quantum on ground adiabatic surface only.",
+    "BOCL": "nucleus classical ensemble on ground adiabatic surface only.",
+    "excluded": "Stochastic surface hopping (uses random numbers, RULES section 1). Coupled-trajectory / spawning / exact-factorization / Bohmian methods are V2 candidates, not run here."
+  },
+  "grids": {
+    "R": {"lo": -9.0, "hi": 9.0, "n": 512},
+    "x": {"lo": -32.0, "hi": 32.0, "n": 512},
+    "R_fine": {"lo": -9.0, "hi": 9.0, "n": 768},
+    "x_fine": {"lo": -32.0, "hi": 32.0, "n": 768},
+    "nstates": 3
+  },
+  "time": {
+    "dt": 0.1,
+    "dt_fine": 0.05,
+    "t_final": 1240.0,
+    "t_final_note": "about 30.0 fs",
+    "sample_every": 10.0
+  },
+  "classical_ensemble": {
+    "initial": "Wigner function of the nuclear Gaussian (uncorrelated Gaussian in R and P)",
+    "quadrature": "Gauss-Hermite product, deterministic",
+    "n_primary": 10,
+    "n_convergence": 14
+  },
+  "scenarios": {
+    "S1_slide": {
+      "nuclear_initial": "chi(R) proportional to exp(-(R-R0)^2/sigma^2) * exp(i P0 R)",
+      "R0": -7.0,
+      "P0": 0.0,
+      "sigma": 0.5923488777590923,
+      "sigma_note": "1/sqrt(2.85)",
+      "electron_initial": "ground adiabatic state at each R"
+    },
+    "S2_barrier": {
+      "rule": "V0 = ground adiabatic energy on the primary R grid. R_a = argmin V0 on [-8, 0). R_b = argmax V0 on [R_a, -R_a]. B = V0(R_b) - V0(R_a). If B < 1e-3 hartree or R_b is an endpoint: S2 NOT_APPLICABLE for that Rf. Else R0 = R_a, P0 = +sqrt(2 M E_k) with E_k = 0.5 B, same sigma, electron ground adiabatic.",
+      "observable": "transmission = nuclear probability with R > R_b at t_final (all electronic states)"
+    }
+  },
+  "observables": {
+    "P_exc": "1 - P0(t_final); P0 = ground adiabatic population. Classical: ensemble-weighted |<phi_0(R_i)|psi_i>|^2.",
+    "branch_separation": "<R>_exc - <R>_0 at t_final using channel-resolved nuclear densities. Applicable only if Q P_exc(t_final) >= 0.05.",
+    "electron_right": "electron probability with x > 0 at t_final",
+    "transmission": "S2 only",
+    "energy_drift": "max |E(t) - E(0)| over samples (total energy of the method's own Hamiltonian)",
+    "norm_drift": "max |N(t) - 1| over samples (quantum parts)"
+  },
+  "domain_monitor": {
+    "electron_edge": "probability with |x| > 28 must stay <= 1e-6 at every sample, else that run is UNSUPPORTED (STOP)",
+    "nuclear_edge": "probability (or classical weight) with |R| > 8.6 must stay <= 1e-6 at every sample, else UNSUPPORTED (STOP)",
+    "note": "Periodic grids wrap around; the monitor guards against fake re-entry. No absorbing boundary is used in V1."
+  },
+  "reference_validity": {
+    "Q_dt_convergence": "|obs(dt) - obs(dt_fine)| <= 1e-3 for P_exc, electron_right, transmission; relative <= 0.01 for branch_separation",
+    "Q_grid_convergence": "same thresholds against the fine grid",
+    "Q_norm": "norm_drift <= 1e-8",
+    "Q_energy": "energy_drift <= 1e-4 hartree",
+    "classical_quadrature": "|obs(n_primary) - obs(n_convergence)| <= 1e-3 (relative 0.01 for branch_separation), else that method/observable REFUSED",
+    "on_failure": "If Q fails validity for an Rf/scenario, every comparison in that cell is REFUSED (no verdict)."
+  },
+  "verdict_rules": {
+    "REPRESENTED": "probabilities: |m - Q| <= max(0.02, 0.1*|Q|); branch_separation: |m - Q| <= 0.2*|Q|",
+    "DISTORTED": "computed but outside the REPRESENTED band",
+    "ABSENT_BY_CONSTRUCTION": "the method cannot produce the quantity (BO methods: P_exc is identically 0, branch_separation undefined)",
+    "NOT_APPLICABLE": "applicability condition false in Q",
+    "REFUSED": "reference or method validity failed",
+    "UNSUPPORTED": "domain monitor tripped"
+  },
+  "gate_output": "A table of method x phenomenon verdicts per Rf and scenario, plus measured cost and state-size scaling. The Gate does not select a method; selection is a designer decision.",
+  "no_post_hoc_changes": "Parameters, thresholds and rules above are not changed after dynamics results are seen. Failures are recorded, not hidden."
+}
