@@ -1,0 +1,143 @@
+"""Seal inputs/source, run controls before targets, preserve failures."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import multiprocessing as mp
+import platform
+import subprocess
+import sys
+import time
+import traceback
+from pathlib import Path
+
+from .checker import bracket, controls
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write(path, value):
+    with path.open("x", encoding="utf-8") as f:
+        f.write(json.dumps(value, indent=2, allow_nan=False)+"\n")
+
+
+def protected():
+    paths = list(Path("electronic_pilot").glob("*.*"))
+    paths += list(Path("electronic_pilot/numerical_cause").glob("*.*"))
+    for folder in ("docs/active/h2_static_pilot_v2", "docs/active/h2_numerical_cause_v1"):
+        paths += list(Path(folder).glob("*.*"))
+    return {str(x): sha(x) for x in paths if x.is_file()}
+
+
+def basis_snapshot():
+    import psi4
+    mol = psi4.geometry("0 1\nH 0 0 -1\nH 0 0 1\nunits bohr\nsymmetry c1\nno_com\nno_reorient\n")
+    bs = psi4.core.BasisSet.build(mol, "BASIS", "cc-pVQZ", puream=1)
+    shells = [[bs.shell(k).am]+[[bs.shell(k).exp(i), bs.shell(k).original_coef(i)]
+               for i in range(bs.shell(k).nprimitive)] for k in range(bs.nshell())]
+    original = json.loads(Path("docs/active/h2_numerical_cause_v1/controls_seal.json").read_text())["hydrogen_basis_data"]["cc-pVQZ"]
+    if shells != original+original or bs.nbf() != 60 or not bs.has_puream():
+        raise ValueError("FAIL: basis coefficient/dimension/spherical mismatch")
+    basis_file = Path(psi4.core.get_datadir())/"basis/cc-pvqz.gbs"
+    return dict(shells=shells, exact_original_input_coefficient_match=True,
+                nbf=bs.nbf(), nshell=bs.nshell(), spherical=bs.has_puream(),
+                basis_file=str(basis_file), basis_file_sha256=sha(basis_file))
+
+
+def worker(r, spec, root):
+    import resource
+    output = Path(root)
+    try:
+        from .evaluator import solve
+        row = solve(r, spec, output/"matrices.npz", output/"psi4.log")
+    except Exception as exc:
+        row = dict(R_bohr=r, accepted=False, status="IMPLEMENTATION_ERROR_PRESERVED",
+                   error=repr(exc), traceback=traceback.format_exc())
+    row["process_peak_rss_bytes"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024
+    write(output/"result.json", row)
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--stage", choices=("controls", "target"), required=True)
+    p.add_argument("--output", required=True)
+    p.add_argument("--controls")
+    p.add_argument("--git-receipt", required=True, help="Windows Git receipt; WSL cannot resolve Windows worktree .git links")
+    args = p.parse_args()
+    spec_path = Path(__file__).with_name("protocol.json")
+    spec = json.loads(spec_path.read_text())
+    historical_path = Path("docs/active/h2_numerical_cause_v1/controls_results.json")
+    historical = json.loads(historical_path.read_text())
+    git_receipt_path = Path(args.git_receipt)
+    git_receipt = json.loads(git_receipt_path.read_text())
+    if git_receipt["HEAD"] != "24ee72e336b2c8faef6b4dadbd155a98ba68b3b4":
+        raise ValueError("unexpected gate base receipt")
+    control_result = None
+    if args.stage == "target":
+        if not args.controls:
+            raise ValueError("target requires completed control gate")
+        control_result = json.loads(Path(args.controls).read_text())
+        control_seal = json.loads(Path(args.controls).with_name("seal.json").read_text())
+        current_source = {x.name: sha(x) for x in Path(__file__).parent.glob("*") if x.is_file()}
+        if control_seal["source_sha256"] != current_source or control_seal["protected_sha256"] != protected():
+            raise ValueError("control source/protected bytes changed; no target execution")
+        control_verdict = controls(control_result["rows"], historical, spec)
+        if control_verdict["status"] != "PASS":
+            raise ValueError("FAIL: control gate did not pass; no target execution")
+    output = Path(args.output)
+    output.mkdir(parents=True, exist_ok=False)
+    import psi4
+    import numpy as np
+    import scipy
+    source = {x.name: sha(x) for x in Path(__file__).parent.glob("*") if x.is_file()}
+    seal = dict(stage=args.stage, protocol=spec, protocol_sha256=sha(spec_path),
+                source_sha256=source, protected_sha256=protected(),
+                historical_controls_sha256=sha(historical_path), basis=basis_snapshot(),
+                git_start=git_receipt["HEAD"], git_receipt=git_receipt,
+                git_receipt_sha256=sha(git_receipt_path),
+                python=sys.version, platform=platform.platform(),
+                versions=dict(psi4=psi4.__version__, numpy=np.__version__, scipy=scipy.__version__),
+                longdouble_nmant=np.finfo(np.longdouble).nmant,
+                libint_linkage=subprocess.check_output(["ldd", psi4.core.__file__], text=True),
+                dpkg_versions=subprocess.check_output(["dpkg-query", "-W", "psi4", "psi4-data", "libint1"], text=True))
+    if control_result is not None:
+        seal.update(control_results_sha256=sha(Path(args.controls)), control_verdict=control_verdict)
+    write(output/"seal.json", seal)
+    for x in Path(__file__).parent.glob("*"):
+        if x.is_file():
+            (output/(x.name+".executed.txt")).write_bytes(x.read_bytes())
+    rows, wall, cpu = [], time.perf_counter(), time.process_time()
+    grid = spec["controls_bohr" if args.stage == "controls" else "target_bohr"]
+    for k, r in enumerate(grid):
+        point = output/f"point_{k:02d}_R{r}"
+        point.mkdir(exist_ok=False)
+        process = mp.get_context("spawn").Process(target=worker, args=(r, spec, str(point)))
+        process.start()
+        process.join()
+        if process.exitcode != 0 or not (point/"result.json").exists():
+            write(output/"process_failure.json", dict(R_bohr=r, exitcode=process.exitcode))
+            raise RuntimeError("STOP: worker failed; evidence preserved; no retry")
+        row = json.loads((point/"result.json").read_text())
+        rows.append(row)
+        print(r, row["status"], row.get("failure_stage"), row.get("total_energy_hartree"), flush=True)
+        if not row["accepted"]:
+            break
+    if args.stage == "controls":
+        verdict = controls(rows, historical, spec)
+        outcome = dict(control_verdict=verdict, status=verdict["status"])
+    else:
+        verdict = bracket(rows+control_result["rows"], control_verdict, spec)
+        outcome = dict(bracket=verdict, status=verdict["status"])
+    outcome.update(rows=rows, stage_wall_seconds=time.perf_counter()-wall,
+                   parent_cpu_seconds=time.process_time()-cpu,
+                   protected_bytes_unchanged=protected() == seal["protected_sha256"],
+                   seal_sha256=sha(output/"seal.json"))
+    write(output/"results.json", outcome)
+    print(json.dumps({k: v for k, v in outcome.items() if k != "rows"}, indent=2), flush=True)
+
+
+if __name__ == "__main__":
+    main()

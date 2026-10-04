@@ -1,0 +1,367 @@
+{
+  "stage": "target",
+  "protocol": {
+    "version": "h2-qz-minimum-bracket-v1",
+    "scope": "ISOLATED_REFERENCE_NOT_WORLD_NOT_CERTIFIED",
+    "basis": "cc-pVQZ",
+    "basis_size": 60,
+    "singlet_dimension": 1830,
+    "electrons": 2,
+    "sector": "full spatial-symmetric singlet",
+    "Hamiltonian": "isolated fixed nuclei nonrelativistic Coulomb; Ee + 1/R",
+    "geometry": "H Z=1 at (0,0,-R/2) and (0,0,R/2), bohr; charge 0",
+    "controls_bohr": [
+      1.5,
+      2.0,
+      20.0
+    ],
+    "target_bohr": [
+      1.3,
+      1.4
+    ],
+    "sampled_bracket_bohr": [
+      1.3,
+      1.4,
+      1.5
+    ],
+    "candidate_A": "Psi4 1.3.2 / Libint 1.2.1 independent AO, no SCF; full Cholesky coordinates; longdouble sequential full tensor contractions; independent explicit full singlet assembly; binary64 LAPACK evr",
+    "longdouble_required_nmant": 63,
+    "same_problem_energy_abs_hartree": 1e-09,
+    "same_problem_overlap_spectrum_abs": 1e-10,
+    "same_problem_nuclear_repulsion_abs_hartree": 1e-15,
+    "overlap_min_eigenvalue_floor": 1e-10,
+    "orthonormalization_max_norm": 1e-10,
+    "hermitian_max_asymmetry": 1e-10,
+    "eigen_residual_max_l2_hartree": 1e-09,
+    "vector_norm_error_max": 1e-10,
+    "threads": 1,
+    "control_failure_policy": "STOP; no target solve and no widening tolerance",
+    "refusal_policy": "preserve diagnostics, null energy; do not eigensolve after failed matrix guard",
+    "candidate_B_policy": "only if A unavailable or cannot guarantee same finite-basis problem; bounded sentinel-only feasibility, no general chemistry engine",
+    "cost_stop": "three failed attempts; local CPU only; no 44-point curve or optional stress in V1",
+    "forbidden": [
+      "basis deletion",
+      "orbital cutoff",
+      "tolerance relaxation",
+      "matrix averaging",
+      "ERI averaging",
+      "HF/DFT/ML substitute",
+      "reference energies in worker",
+      "dynamics",
+      "production integration",
+      "push"
+    ]
+  },
+  "protocol_sha256": "845eb917bf9ce082db016f045fb3c855e5bddeb8d2597d476e72f4508d3e85df",
+  "source_sha256": {
+    "campaign.py": "79133600158117741d31bdaf28786c11230f223fc8e28a168883241a56ecf6ad",
+    "checker.py": "2c7bacbc4b6b591902ca968798f3e991fe083d87c2d0a41b4aeaf716bc808146",
+    "evaluator.py": "24aa4ed2371af19f9050d4757f96b42f1493e10a3578c9272b1d8688994e9162",
+    "protocol.json": "845eb917bf9ce082db016f045fb3c855e5bddeb8d2597d476e72f4508d3e85df",
+    "__init__.py": "16efa725f596353dab075a911410dc2dd827d36c1329b20d2de2edf620df9b5d"
+  },
+  "protected_sha256": {
+    "electronic_pilot/.gitattributes": "e9f09a1c997e4fa51c4bd5ba9730d3301e2bf6126340b97a2aa32664125617a6",
+    "electronic_pilot/campaign.py": "9b33ede5bd6f9f004383ae1ce1ce589d38eb566d015fc98d8af875fac4d1a7c2",
+    "electronic_pilot/check_reference.py": "348c74e2d3a4e8aee2e2ce23799e74935e9bebd676e7968e4fd61452cf8a79b3",
+    "electronic_pilot/diagnose_integrals.py": "04a726ecb1141cca1374cb17f433b950bc3debedf2657ba4e66034a9cebaf562",
+    "electronic_pilot/package_evidence.py": "2ad8defabe6824cc63472b1ab2e78c23a62ac2cf1eeb1a817bcb67bb0def4b83",
+    "electronic_pilot/plot_results.py": "2b2041d5e0d46a53fef32b69d13e300e782cfbc44dca0944fecfcda6f938ebe9",
+    "electronic_pilot/protocol_v1.json": "dba052649a384b95acdf327a301d48c96b285e69e147676761fe7eafc4bb5e9c",
+    "electronic_pilot/protocol_v2.json": "ac82927f3d14685bf8cee6aad8803f0403780ec07fbe12451d5f90bef410a757",
+    "electronic_pilot/README.md": "b1ed6d6f138f3d34549777c00d4714f3f1eeb7fe8c19dccc1d926797b043aa86",
+    "electronic_pilot/reference_pachucki_v2.csv": "9576b17e1dbea93b1010d15068fdf83a6a54aeb7923a88ffe9898f7be08f66a2",
+    "electronic_pilot/solver.py": "af4448202196910949f9f0c60241a8d96d6b119d7c6c4115a9e5847c656786ac",
+    "electronic_pilot/test_integration.py": "d59dc90f95aa085c4baee63b506973aff3c90a0fda0936c145329433cd3189e7",
+    "electronic_pilot/verify_reference_transcription.py": "36bbf4d2e3cf824f584de3f4418071ea56bab6add0441fd9e844eaa3571bc1e2",
+    "electronic_pilot/__init__.py": "b017720307c5a5ec5596a77206c5fd2439ba7aafba98103f8ff66b57838bf7b4",
+    "electronic_pilot/numerical_cause/core.py": "8432d2e5023c846c5af3fba38993b81cc5ac564efff5b7f5befad79838db950a",
+    "electronic_pilot/numerical_cause/high_precision.py": "0f2e2313b71ef3f066845863500d601d2452761479ed7cf7d6232950cae98558",
+    "electronic_pilot/numerical_cause/package_evidence.py": "d6d8e2e68f8e3d5336dca8d8767cd6840552324ad6e7dd9318257cb173fff1f0",
+    "electronic_pilot/numerical_cause/physical_compare.py": "6bb65c6b9af31efc61535c9eaee978efa83939d3dc83f34c22d827ef090e4889",
+    "electronic_pilot/numerical_cause/plot.py": "ed82b795908fdc7c9a10688bc42e3438c30147251fbc742a6ef0133e5d76f66b",
+    "electronic_pilot/numerical_cause/protocol.json": "da6e36bbd9ea96c478cabc4cf30fbd342f5211e16f8beeceec8734d272f79a5d",
+    "electronic_pilot/numerical_cause/select.py": "f5f75456f4e030709d7a9e257cbe7885dd21ef6dd8ba832c11016d71820eb5ff",
+    "electronic_pilot/numerical_cause/study.py": "62a797d8664f84308f3a47261651cc5093a93b2c8b315c8847cb8c9428511e4c",
+    "electronic_pilot/numerical_cause/summarize.py": "f25ab6fa47d9c73bf006e83194c579e3f8ab11f554a3bb3aa612529d6a8a4620",
+    "electronic_pilot/numerical_cause/test_integration.py": "2a059064f323ae454568b5b556e6e8e021cd190677b8694af131d48a0c11c589",
+    "electronic_pilot/numerical_cause/__init__.py": "8572eb589ff7f7b02397d3706d7e130bf030a8b0b0aca22b109f8e94fe1007b4",
+    "docs/active/h2_static_pilot_v2/.gitattributes": "b23bb1dd327aafe256f463f668d7f4c98cb4113db410ade554f920ccc93d7b1a",
+    "docs/active/h2_static_pilot_v2/campaign.log": "79ee3769ee30ee90fe543c4e63b759572fc7cec2b3ecf76e54f12c184406baa8",
+    "docs/active/h2_static_pilot_v2/comparison.json": "88ab0d9f1cf2b551dd5183241517cbbe8f291599adc85d12e082d3015cf3f352",
+    "docs/active/h2_static_pilot_v2/curve.png": "4db3ec4bdeb7f6bd346b337ac13721eb0844874af593bda020d7f4d2f20270e5",
+    "docs/active/h2_static_pilot_v2/curve.svg": "60a50738419b2c2f0e3cbe2e1356d5380578a926b544318a8f810e07577c90fb",
+    "docs/active/h2_static_pilot_v2/orthogonality_message_diagnostic.json": "b8d921cc9215cdc39769cfcf0ab98dc51ab31e682803bdb04dc3750a979a756f",
+    "docs/active/h2_static_pilot_v2/postrun_source_note.json": "a2a6c0d60c964072995c5438f5b26358c974bc6d72944e5c3d6328c9dae77942",
+    "docs/active/h2_static_pilot_v2/raw_manifest.json": "4087f14e8431fedceeba6e666edc4a326ff4f74152eaecb40f78aa8490f3f695",
+    "docs/active/h2_static_pilot_v2/reference_transcription.json": "406df184a68fdf8dd27652044d7e4362d3b7b819b4523de77e2a15699d2cc349",
+    "docs/active/h2_static_pilot_v2/results.json": "60a00e8dc2d9d9bdcf8466a5e09a81375e8bc1c3dbc02fb1887d1c2d0da35505",
+    "docs/active/h2_static_pilot_v2/sanity_results.json": "01d1aba4e34b8fb331dd963c6ab94e7f0b0cb4a6badd129681f1b7c9965efe45",
+    "docs/active/h2_static_pilot_v2/sanity_seal.json": "d4f24b6505eb85d8fde0925ec33f1a54fe8f3ba6df9743c349358f5a2b6b48e2",
+    "docs/active/h2_static_pilot_v2/seal.json": "886a0a4b25cae664b66da2a47e8467a93be665159050a4a5ffbdb00bbdcba4fd",
+    "docs/active/h2_static_pilot_v2/solver_executed.py.txt": "08c7a3f05a2ffde6a179ab31de11fdade4925f63826bab58f1846b66850405a0",
+    "docs/active/h2_static_pilot_v2/windows_tests.log": "51d2ae5b12f14bfa13d9c87b2065365b9788f97f3e4ac81d5f615ed7f8d540b6",
+    "docs/active/h2_static_pilot_v2/windows_tests.xml": "4bb954e7a2eda568b434a48ad83226b533f336572917203346f29a45168785b5",
+    "docs/active/h2_static_pilot_v2/wsl_tests.log": "258b3fe8c00adfb15350c1cff0af0f877144ce246b908aa49f8aa04dc82d7edd",
+    "docs/active/h2_static_pilot_v2/wsl_tests.xml": "cf526d6471fec078614481a50ad7cebfd28a2cf1670d6afb7dc7e0b6f814dbc1",
+    "docs/active/h2_numerical_cause_v1/.gitattributes": "2031088a49f89fd4a5137ae9cc512013bf84c79f9675f59579dbbd4fbb42abf8",
+    "docs/active/h2_numerical_cause_v1/compare.log": "d78b1c66cde35b09b3c799f05ec910bce3fe674229a51bd8c1cd050f0fdbf833",
+    "docs/active/h2_numerical_cause_v1/compare_results.json": "cb471f95d1a60d9f1381a270459cb54243684be119a4a01a3e9155a0d3a5f619",
+    "docs/active/h2_numerical_cause_v1/compare_seal.json": "6f1d29e4618d603c0bcd3dad95597cb9886e0d5f3b309c564680961a75005dd5",
+    "docs/active/h2_numerical_cause_v1/controls.log": "b3c0ecf99f84f07914d4ba7b51ae9a3a7fc169492569c555c303644a416fcd3f",
+    "docs/active/h2_numerical_cause_v1/controls_results.json": "4ba3151d509fa1d2a1bfed218ab4e4c8a187507d6026c3eebda18ccb78aac5bd",
+    "docs/active/h2_numerical_cause_v1/controls_seal.json": "ba3b7c0a533a3e0f250edd6bad81a46778d571779d071d973ca9e1f165f063b8",
+    "docs/active/h2_numerical_cause_v1/core.py.txt": "8432d2e5023c846c5af3fba38993b81cc5ac564efff5b7f5befad79838db950a",
+    "docs/active/h2_numerical_cause_v1/curve.log": "1c94de6b2d5e4f8b0569e078760268c7bd0812c3118eacb1c6743ac55dc0573a",
+    "docs/active/h2_numerical_cause_v1/diagnostic_curve.png": "d62eb6f5ac10e7e8420f86deee5b0481e98dc35913ba9fc5e3d85c47553a14f3",
+    "docs/active/h2_numerical_cause_v1/high_precision.py.txt": "0f2e2313b71ef3f066845863500d601d2452761479ed7cf7d6232950cae98558",
+    "docs/active/h2_numerical_cause_v1/high_precision_v2_results.json": "2ec523a94e7420b95a678261b5c84f64e7a77ef068572a26fd8ceba28ca42f7a",
+    "docs/active/h2_numerical_cause_v1/high_precision_v2_seal.json": "3c521f61880581de4b7235703cec829144a788e144c8ff6c6755a76b50f70af8",
+    "docs/active/h2_numerical_cause_v1/hp.log": "f6d9be419b5a904aadd381c52893bb63faaf9e41ad2c5dd40156b93a6daf70eb",
+    "docs/active/h2_numerical_cause_v1/hp_v2.log": "35f3fb46e16ea53f7cb0f28946b2f8bbad5e5d2c1b18578bff3a8b4795dc4e37",
+    "docs/active/h2_numerical_cause_v1/initial_hp_executed.py.txt": "9082f16c0587848fe5b7ed6a9ee13d793164ca58299ccf49b9f3007fb66ca859",
+    "docs/active/h2_numerical_cause_v1/initial_hp_failed_seal.json": "6ba8b622a7cadf804f4ba1e82ccd7b1d6c8fdb9fc6a01349b944667badf2dc21",
+    "docs/active/h2_numerical_cause_v1/initial_hp_failed_tests.xml": "c4a5a8c2a5984a8bed34fd98d0fe72962fa01359f0cd98bda859fbfdf52077f5",
+    "docs/active/h2_numerical_cause_v1/initial_hp_repaired_tests.xml": "64b646118eea089e984d97f15295dbaa6a8ff2103520d53be5aa0998d009d79c",
+    "docs/active/h2_numerical_cause_v1/initial_hp_test_executed.py.txt": "c1f235d61dfdd47c7642bf2a28c6f26898dfbebd21f7db899f14a1477c45d1a5",
+    "docs/active/h2_numerical_cause_v1/package_evidence.py.txt": "d6d8e2e68f8e3d5336dca8d8767cd6840552324ad6e7dd9318257cb173fff1f0",
+    "docs/active/h2_numerical_cause_v1/physical_checker_records.json": "89d3b3ba6daf9f6c26910ce6d50d18046893ca498a890d9e93a5b7b25c70190b",
+    "docs/active/h2_numerical_cause_v1/physical_compare.py.txt": "6bb65c6b9af31efc61535c9eaee978efa83939d3dc83f34c22d827ef090e4889",
+    "docs/active/h2_numerical_cause_v1/physical_comparison.json": "41529fc4b31df9c0331891546523c6a960419ae7ebcda094f2eeb2ba7e327fef",
+    "docs/active/h2_numerical_cause_v1/physical_comparison.log": "ec0beed96d4cb35b8e6333348f7201681c74d2095ab0295bec480430c831fad4",
+    "docs/active/h2_numerical_cause_v1/physical_comparison_v2.log": "f0351a4463676a8f98842d7ada8ad345c44f3acaf0eca85ad33e8910608c5a30",
+    "docs/active/h2_numerical_cause_v1/physical_seal.json": "ce82b898379faba2f70f8eebfc09477d63824817bfd958f96bfecc7ae94e3d09",
+    "docs/active/h2_numerical_cause_v1/plot.py.txt": "ed82b795908fdc7c9a10688bc42e3438c30147251fbc742a6ef0133e5d76f66b",
+    "docs/active/h2_numerical_cause_v1/provenance_note.json": "a04050a91e5188cb5719c2ef6f26a380569b5988cdc25732ea312d41aea5c8c4",
+    "docs/active/h2_numerical_cause_v1/qz_curve_results.json": "f2d97fe252e4ae156e02f4c809293617a74e1a81c43e56698503a0b743e482aa",
+    "docs/active/h2_numerical_cause_v1/qz_curve_seal.json": "6ca2ff38ad1dfe3fc79854a2fabcc1224f9e1aca8a570fba8ade2ae84d2ded80",
+    "docs/active/h2_numerical_cause_v1/raw_manifest.json": "d518280b1d5627a9cfe09ae42cf589d4085b54ce0a52b66261d004438e054c80",
+    "docs/active/h2_numerical_cause_v1/reproduce.log": "07add55b2999ba6e56755d78067f5567bb94cf21b26fac502bbde1c24adace16",
+    "docs/active/h2_numerical_cause_v1/reproduce_results.json": "e19737d567f1450a435b91341404cdb4f06e5d4ee4314c3a3f7aff97e5729fc8",
+    "docs/active/h2_numerical_cause_v1/reproduce_seal.json": "03f63cd343beb19c2b7d05287800cd960022259ab7c018d99f55137ec6e66bb3",
+    "docs/active/h2_numerical_cause_v1/select.py.txt": "f5f75456f4e030709d7a9e257cbe7885dd21ef6dd8ba832c11016d71820eb5ff",
+    "docs/active/h2_numerical_cause_v1/selection.json": "20e2f134830ad9e2b1b019066d777ca63ff41af816457e9e5f36b523ce24c757",
+    "docs/active/h2_numerical_cause_v1/study.py.txt": "62a797d8664f84308f3a47261651cc5093a93b2c8b315c8847cb8c9428511e4c",
+    "docs/active/h2_numerical_cause_v1/summarize.py.txt": "f25ab6fa47d9c73bf006e83194c579e3f8ab11f554a3bb3aa612529d6a8a4620",
+    "docs/active/h2_numerical_cause_v1/summary.json": "27bfd0973dabab9b396de9c5d0fd9c4715aba14c1cd8fde2abc9790e48d37f54",
+    "docs/active/h2_numerical_cause_v1/test_integration.py.txt": "2a059064f323ae454568b5b556e6e8e021cd190677b8694af131d48a0c11c589",
+    "docs/active/h2_numerical_cause_v1/windows_tests.log": "8be0e16d10fcf99e0f706007ad6432731db9a412a26e852c7347b7c865fc31b5",
+    "docs/active/h2_numerical_cause_v1/windows_tests.xml": "0d37e71b48aa8399a084647bb02ada429989fad4b30d959aeb182ea9e8ad71ff",
+    "docs/active/h2_numerical_cause_v1/wsl_tests.log": "625a5c5a58503f719394a1a30d881b49f5d4517c8639d072a53692baa71b2512",
+    "docs/active/h2_numerical_cause_v1/wsl_tests.xml": "086950c49aba0bc67a2d56fe487bfdc52f1afdb79daed7dd188045fb9f48bb70",
+    "docs/active/h2_numerical_cause_v1/__init__.py.txt": "8572eb589ff7f7b02397d3706d7e130bf030a8b0b0aca22b109f8e94fe1007b4"
+  },
+  "historical_controls_sha256": "4ba3151d509fa1d2a1bfed218ab4e4c8a187507d6026c3eebda18ccb78aac5bd",
+  "basis": {
+    "shells": [
+      [
+        0,
+        [
+          82.64,
+          0.002006
+        ],
+        [
+          12.41,
+          0.015343
+        ],
+        [
+          2.824,
+          0.075579
+        ]
+      ],
+      [
+        0,
+        [
+          0.7977,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.2581,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.08989,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          2.292,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.838,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.292,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          2.062,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          0.662,
+          1.0
+        ]
+      ],
+      [
+        3,
+        [
+          1.397,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          82.64,
+          0.002006
+        ],
+        [
+          12.41,
+          0.015343
+        ],
+        [
+          2.824,
+          0.075579
+        ]
+      ],
+      [
+        0,
+        [
+          0.7977,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.2581,
+          1.0
+        ]
+      ],
+      [
+        0,
+        [
+          0.08989,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          2.292,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.838,
+          1.0
+        ]
+      ],
+      [
+        1,
+        [
+          0.292,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          2.062,
+          1.0
+        ]
+      ],
+      [
+        2,
+        [
+          0.662,
+          1.0
+        ]
+      ],
+      [
+        3,
+        [
+          1.397,
+          1.0
+        ]
+      ]
+    ],
+    "exact_original_input_coefficient_match": true,
+    "nbf": 60,
+    "nshell": 20,
+    "spherical": true,
+    "basis_file": "/usr/share/psi4/basis/cc-pvqz.gbs",
+    "basis_file_sha256": "45774bc7d8ab5289de40ce890430ea1d9e6736303b0e8e37bf9125d96031e4a8"
+  },
+  "git_start": "24ee72e336b2c8faef6b4dadbd155a98ba68b3b4",
+  "git_receipt": {
+    "HEAD": "24ee72e336b2c8faef6b4dadbd155a98ba68b3b4",
+    "branch": "codex/h2-qz-minimum-bracket-v1",
+    "status": "?? electronic_pilot/minimum_bracket/\n?? tests/test_h2_minimum_bracket.py\n?? timer.dat",
+    "mainline_HEAD": "0f7b744cf754450424a63c47f305e0327c5b37c1",
+    "live_remote_master": "0f7b744cf754450424a63c47f305e0327c5b37c1",
+    "worktree": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-minimum-v1\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8",
+    "remote_checked_2026_10_04": true
+  },
+  "git_receipt_sha256": "7c792c3a39bc9f2d9d2eea00e51ab26d1dbd455b6b138fa48cde256bba611bea",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "versions": {
+    "psi4": "1.3.2",
+    "numpy": "1.26.4",
+    "scipy": "1.11.4"
+  },
+  "longdouble_nmant": 63,
+  "libint_linkage": "\tlinux-vdso.so.1 (0x00007ffcf9be1000)\n\tlibchemps2.so.3 => /usr/lib/x86_64-linux-gnu/psi4/../libchemps2.so.3 (0x00007a0ffd6a1000)\n\tlibgg.so.2 => /usr/lib/x86_64-linux-gnu/psi4/../libgg.so.2 (0x00007a0ffd563000)\n\tlibxc.so.9 => /usr/lib/x86_64-linux-gnu/psi4/../libxc.so.9 (0x00007a0ffc800000)\n\tlibderiv.so.1 => /usr/lib/x86_64-linux-gnu/psi4/../libderiv.so.1 (0x00007a0ffb400000)\n\tlibint.so.1 => /usr/lib/x86_64-linux-gnu/psi4/../libint.so.1 (0x00007a0ffaa00000)\n\tliblapack.so.3 => /usr/lib/x86_64-linux-gnu/psi4/../liblapack.so.3 (0x00007a0ffa200000)\n\tlibblas.so.3 => /usr/lib/x86_64-linux-gnu/psi4/../libblas.so.3 (0x00007a0ffed1d000)\n\tlibgomp.so.1 => /usr/lib/x86_64-linux-gnu/psi4/../libgomp.so.1 (0x00007a0ffd50d000)\n\tlibstdc++.so.6 => /usr/lib/x86_64-linux-gnu/psi4/../libstdc++.so.6 (0x00007a0ff9e00000)\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/psi4/../libm.so.6 (0x00007a0ffd424000)\n\tlibgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/psi4/../libgcc_s.so.1 (0x00007a0ffd3f6000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/psi4/../libc.so.6 (0x00007a0ff9a00000)\n\tlibhdf5_serial.so.103 => /lib/x86_64-linux-gnu/libhdf5_serial.so.103 (0x00007a0ff9600000)\n\tlibgfortran.so.5 => /lib/x86_64-linux-gnu/libgfortran.so.5 (0x00007a0ff9200000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007a0ffedc8000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007a0ff8c00000)\n\tlibcurl.so.4 => /lib/x86_64-linux-gnu/libcurl.so.4 (0x00007a0ffb33f000)\n\tlibsz.so.2 => /lib/x86_64-linux-gnu/libsz.so.2 (0x00007a0ffed0e000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007a0ffd3da000)\n\tlibnghttp2.so.14 => /lib/x86_64-linux-gnu/libnghttp2.so.14 (0x00007a0ffd3af000)\n\tlibidn2.so.0 => /lib/x86_64-linux-gnu/libidn2.so.0 (0x00007a0ffd38d000)\n\tlibrtmp.so.1 => /lib/x86_64-linux-gnu/librtmp.so.1 (0x00007a0ffd36f000)\n\tlibssh.so.4 => /lib/x86_64-linux-gnu/libssh.so.4 (0x00007a0ffc78e000)\n\tlibpsl.so.5 => /lib/x86_64-linux-gnu/libpsl.so.5 (0x00007a0ffc77a000)\n\tlibssl.so.3 => /lib/x86_64-linux-gnu/libssl.so.3 (0x00007a0ffa956000)\n\tlibgssapi_krb5.so.2 => /lib/x86_64-linux-gnu/libgssapi_krb5.so.2 (0x00007a0ffb2eb000)\n\tlibldap.so.2 => /lib/x86_64-linux-gnu/libldap.so.2 (0x00007a0ffa8f8000)\n\tliblber.so.2 => /lib/x86_64-linux-gnu/liblber.so.2 (0x00007a0ffb2db000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007a0ffa146000)\n\tlibbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x00007a0ffb2cd000)\n\tlibaec.so.0 => /lib/x86_64-linux-gnu/libaec.so.0 (0x00007a0ffed01000)\n\tlibunistring.so.5 => /lib/x86_64-linux-gnu/libunistring.so.5 (0x00007a0ff9c53000)\n\tlibgnutls.so.30 => /lib/x86_64-linux-gnu/libgnutls.so.30 (0x00007a0ff8a05000)\n\tlibhogweed.so.6 => /lib/x86_64-linux-gnu/libhogweed.so.6 (0x00007a0ffa0fe000)\n\tlibnettle.so.8 => /lib/x86_64-linux-gnu/libnettle.so.8 (0x00007a0ffa0a9000)\n\tlibgmp.so.10 => /lib/x86_64-linux-gnu/libgmp.so.10 (0x00007a0ff997c000)\n\tlibkrb5.so.3 => /lib/x86_64-linux-gnu/libkrb5.so.3 (0x00007a0ff9537000)\n\tlibk5crypto.so.3 => /lib/x86_64-linux-gnu/libk5crypto.so.3 (0x00007a0ff9c27000)\n\tlibcom_err.so.2 => /lib/x86_64-linux-gnu/libcom_err.so.2 (0x00007a0ffb2c5000)\n\tlibkrb5support.so.0 => /lib/x86_64-linux-gnu/libkrb5support.so.0 (0x00007a0ffa09c000)\n\tlibsasl2.so.2 => /lib/x86_64-linux-gnu/libsasl2.so.2 (0x00007a0ffa082000)\n\tlibbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x00007a0ff91dd000)\n\tlibp11-kit.so.0 => /lib/x86_64-linux-gnu/libp11-kit.so.0 (0x00007a0ff8861000)\n\tlibtasn1.so.6 => /lib/x86_64-linux-gnu/libtasn1.so.6 (0x00007a0ff9521000)\n\tlibkeyutils.so.1 => /lib/x86_64-linux-gnu/libkeyutils.so.1 (0x00007a0ff9c20000)\n\tlibresolv.so.2 => /lib/x86_64-linux-gnu/libresolv.so.2 (0x00007a0ff91cb000)\n\tlibffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007a0ff9c14000)\n",
+  "dpkg_versions": "libint1\t1.2.1-6\npsi4\t1:1.3.2+dfsg-5build3\npsi4-data\t1:1.3.2+dfsg-5build3\n",
+  "control_results_sha256": "1dcd66aa82efc61ed744387cc039d7fb14f0209728fea1567f0b59ea5a81f34d",
+  "control_verdict": {
+    "status": "PASS",
+    "comparisons": [
+      {
+        "R_bohr": 1.5,
+        "passed": true,
+        "energy_abs_difference_hartree": 8.419931418757187e-13,
+        "overlap_spectrum_max_abs_difference": 7.105427357601002e-15
+      },
+      {
+        "R_bohr": 2.0,
+        "passed": true,
+        "energy_abs_difference_hartree": 1.829647544582258e-13,
+        "overlap_spectrum_max_abs_difference": 6.217248937900877e-15
+      },
+      {
+        "R_bohr": 20.0,
+        "passed": true,
+        "energy_abs_difference_hartree": 4.6629367034256575e-15,
+        "overlap_spectrum_max_abs_difference": 3.1086244689504383e-15
+      }
+    ],
+    "note": "same finite-basis numerical controls; not a formal certificate"
+  }
+}

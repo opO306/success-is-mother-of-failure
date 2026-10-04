@@ -1,0 +1,6 @@
+{
+  "status": "STARTUP_FAILURE_PRESERVED",
+  "cause": "WSL Git cannot resolve Windows absolute worktree gitdir",
+  "physics_runs": 0,
+  "repair": "host Git receipt, no physics/tolerance changes"
+}

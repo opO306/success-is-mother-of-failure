@@ -1,0 +1,44 @@
+   => Loading Basis Set <=
+
+    Name: CC-PVQZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1-2 entry H          line    22 file /usr/share/psi4/basis/cc-pvqz.gbs 
+
+  Threads set to 1 by Python driver.
+1.5 NUMERICAL_RESULT_NOT_CERTIFIED None -1.1722017793714437
+  Threads set to 1 by Python driver.
+2.0 NUMERICAL_RESULT_NOT_CERTIFIED None -1.1375076966207263
+  Threads set to 1 by Python driver.
+20.0 NUMERICAL_RESULT_NOT_CERTIFIED None -0.9998911934800141
+{
+  "control_verdict": {
+    "status": "PASS",
+    "comparisons": [
+      {
+        "R_bohr": 1.5,
+        "passed": true,
+        "energy_abs_difference_hartree": 8.419931418757187e-13,
+        "overlap_spectrum_max_abs_difference": 7.105427357601002e-15
+      },
+      {
+        "R_bohr": 2.0,
+        "passed": true,
+        "energy_abs_difference_hartree": 1.829647544582258e-13,
+        "overlap_spectrum_max_abs_difference": 6.217248937900877e-15
+      },
+      {
+        "R_bohr": 20.0,
+        "passed": true,
+        "energy_abs_difference_hartree": 4.6629367034256575e-15,
+        "overlap_spectrum_max_abs_difference": 3.1086244689504383e-15
+      }
+    ],
+    "note": "same finite-basis numerical controls; not a formal certificate"
+  },
+  "status": "PASS",
+  "stage_wall_seconds": 59.496607467000004,
+  "parent_cpu_seconds": 0.013555482000000008,
+  "protected_bytes_unchanged": true,
+  "seal_sha256": "2f7fc0fc09f3f179b8743a9afef933e29f4d1f59b26960997b2a319f70189ae5"
+}

@@ -1,0 +1,9 @@
+{
+  "HEAD": "24ee72e336b2c8faef6b4dadbd155a98ba68b3b4",
+  "branch": "codex/h2-qz-minimum-bracket-v1",
+  "status": "?? electronic_pilot/minimum_bracket/\n?? tests/test_h2_minimum_bracket.py\n?? timer.dat",
+  "mainline_HEAD": "0f7b744cf754450424a63c47f305e0327c5b37c1",
+  "live_remote_master": "0f7b744cf754450424a63c47f305e0327c5b37c1",
+  "worktree": "C:\\Users\\zun24\\.codex\\worktrees\\h2-qz-minimum-v1\\성공은 실패의 어머니",
+  "remote_checked_2026_10_04": true
+}

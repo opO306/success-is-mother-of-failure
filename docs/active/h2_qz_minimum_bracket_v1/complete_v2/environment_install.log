@@ -1,0 +1,313 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libaec0 libblas3 libchemps2-3t64 libgg2 libhdf5-103-1t64 libint1 liblapack3
+  liblbfgsb0 libsz2 libxc9 psi4-data pybind11-dev python3-decorator
+  python3-deepdiff python3-iniconfig python3-jsonpickle python3-networkx
+  python3-numpy python3-ordered-set python3-packaging python3-pint
+  python3-pluggy python3-pybind11 python3-pydantic python3-qcelemental
+Suggested packages:
+  chemps2-doc pybind11-doc python-jsonpickle-doc python3-simplejson
+  python-networkx-doc python3-gdal python3-matplotlib python3-pydot
+  python3-pygraphviz python-scipy-doc
+Recommended packages:
+  libeigen3-dev python3-clevercsv python3-pil
+The following NEW packages will be installed:
+  libaec0 libblas3 libchemps2-3t64 libgg2 libhdf5-103-1t64 libint1 liblapack3
+  liblbfgsb0 libsz2 libxc9 psi4 psi4-data pybind11-dev python3-decorator
+  python3-deepdiff python3-iniconfig python3-jsonpickle python3-networkx
+  python3-numpy python3-ordered-set python3-packaging python3-pint
+  python3-pluggy python3-pybind11 python3-pydantic python3-pytest
+  python3-qcelemental python3-scipy
+0 upgraded, 28 newly installed, 0 to remove and 20 not upgraded.
+Need to get 51.9 MB of archives.
+After this operation, 264 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble/universe amd64 libaec0 amd64 1.1.2-1build1 [22.9 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libblas3 amd64 3.12.0-3build1.1 [238 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble/universe amd64 libsz2 amd64 1.1.2-1build1 [5476 B]
+Get:4 http://archive.ubuntu.com/ubuntu noble/universe amd64 libhdf5-103-1t64 amd64 1.10.10+repack-3.1ubuntu4 [1270 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 liblapack3 amd64 3.12.0-3build1.1 [2646 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/universe amd64 libchemps2-3t64 amd64 1.8.12-3.1build2 [551 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 libgg2 amd64 2.0.7-2 [334 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 libint1 amd64 1.2.1-6 [7550 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/universe amd64 liblbfgsb0 amd64 3.0+dfsg.4-1build1 [29.9 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble/universe amd64 libxc9 amd64 5.2.3-1ubuntu1 [4007 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble/universe amd64 psi4-data all 1:1.3.2+dfsg-5build3 [4038 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-jsonpickle all 3.0.3+dfsg-1 [35.5 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-numpy amd64 1:1.26.4+ds-6ubuntu1 [4437 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-ordered-set all 4.1.0-1 [9778 B]
+Get:15 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-deepdiff all 6.7.1-1 [62.8 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-networkx all 2.8.8-1ubuntu1 [1468 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble/universe amd64 pybind11-dev all 2.11.1-2 [159 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-pybind11 all 2.11.1-2 [167 kB]
+Get:19 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-pint all 0.19.2-1 [170 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-pydantic amd64 1.10.14-1 [1856 kB]
+Get:21 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-qcelemental all 0.27.1+dfsg-1 [316 kB]
+Get:22 http://archive.ubuntu.com/ubuntu noble/universe amd64 psi4 amd64 1:1.3.2+dfsg-5build3 [6648 kB]
+Get:23 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-decorator all 5.1.1-5 [10.1 kB]
+Get:24 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-iniconfig all 1.1.1-2 [6024 B]
+Get:25 http://archive.ubuntu.com/ubuntu noble/main amd64 python3-packaging all 24.0-1 [41.1 kB]
+Get:26 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-pluggy all 1.4.0-1 [20.4 kB]
+Get:27 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-pytest all 7.4.4-1 [305 kB]
+Get:28 http://archive.ubuntu.com/ubuntu noble/universe amd64 python3-scipy amd64 1.11.4-6build1 [15.5 MB]
+Fetched 51.9 MB in 6s (8958 kB/s)
+Selecting previously unselected package libaec0:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 48666 files and directories currently installed.)
+Preparing to unpack .../00-libaec0_1.1.2-1build1_amd64.deb ...
+Unpacking libaec0:amd64 (1.1.2-1build1) ...
+Selecting previously unselected package libblas3:amd64.
+Preparing to unpack .../01-libblas3_3.12.0-3build1.1_amd64.deb ...
+Unpacking libblas3:amd64 (3.12.0-3build1.1) ...
+Selecting previously unselected package libsz2:amd64.
+Preparing to unpack .../02-libsz2_1.1.2-1build1_amd64.deb ...
+Unpacking libsz2:amd64 (1.1.2-1build1) ...
+Selecting previously unselected package libhdf5-103-1t64:amd64.
+Preparing to unpack .../03-libhdf5-103-1t64_1.10.10+repack-3.1ubuntu4_amd64.deb ...
+Unpacking libhdf5-103-1t64:amd64 (1.10.10+repack-3.1ubuntu4) ...
+Selecting previously unselected package liblapack3:amd64.
+Preparing to unpack .../04-liblapack3_3.12.0-3build1.1_amd64.deb ...
+Unpacking liblapack3:amd64 (3.12.0-3build1.1) ...
+Selecting previously unselected package libchemps2-3t64:amd64.
+Preparing to unpack .../05-libchemps2-3t64_1.8.12-3.1build2_amd64.deb ...
+Unpacking libchemps2-3t64:amd64 (1.8.12-3.1build2) ...
+Selecting previously unselected package libgg2:amd64.
+Preparing to unpack .../06-libgg2_2.0.7-2_amd64.deb ...
+Unpacking libgg2:amd64 (2.0.7-2) ...
+Selecting previously unselected package libint1.
+Preparing to unpack .../07-libint1_1.2.1-6_amd64.deb ...
+Unpacking libint1 (1.2.1-6) ...
+Selecting previously unselected package liblbfgsb0:amd64.
+Preparing to unpack .../08-liblbfgsb0_3.0+dfsg.4-1build1_amd64.deb ...
+Unpacking liblbfgsb0:amd64 (3.0+dfsg.4-1build1) ...
+Selecting previously unselected package libxc9:amd64.
+Preparing to unpack .../09-libxc9_5.2.3-1ubuntu1_amd64.deb ...
+Unpacking libxc9:amd64 (5.2.3-1ubuntu1) ...
+Selecting previously unselected package psi4-data.
+Preparing to unpack .../10-psi4-data_1%3a1.3.2+dfsg-5build3_all.deb ...
+Unpacking psi4-data (1:1.3.2+dfsg-5build3) ...
+Selecting previously unselected package python3-jsonpickle.
+Preparing to unpack .../11-python3-jsonpickle_3.0.3+dfsg-1_all.deb ...
+Unpacking python3-jsonpickle (3.0.3+dfsg-1) ...
+Selecting previously unselected package python3-numpy.
+Preparing to unpack .../12-python3-numpy_1%3a1.26.4+ds-6ubuntu1_amd64.deb ...
+Unpacking python3-numpy (1:1.26.4+ds-6ubuntu1) ...
+Selecting previously unselected package python3-ordered-set.
+Preparing to unpack .../13-python3-ordered-set_4.1.0-1_all.deb ...
+Unpacking python3-ordered-set (4.1.0-1) ...
+Selecting previously unselected package python3-deepdiff.
+Preparing to unpack .../14-python3-deepdiff_6.7.1-1_all.deb ...
+Unpacking python3-deepdiff (6.7.1-1) ...
+Selecting previously unselected package python3-networkx.
+Preparing to unpack .../15-python3-networkx_2.8.8-1ubuntu1_all.deb ...
+Unpacking python3-networkx (2.8.8-1ubuntu1) ...
+Selecting previously unselected package pybind11-dev.
+Preparing to unpack .../16-pybind11-dev_2.11.1-2_all.deb ...
+Unpacking pybind11-dev (2.11.1-2) ...
+Selecting previously unselected package python3-pybind11.
+Preparing to unpack .../17-python3-pybind11_2.11.1-2_all.deb ...
+Unpacking python3-pybind11 (2.11.1-2) ...
+Selecting previously unselected package python3-pint.
+Preparing to unpack .../18-python3-pint_0.19.2-1_all.deb ...
+Unpacking python3-pint (0.19.2-1) ...
+Selecting previously unselected package python3-pydantic.
+Preparing to unpack .../19-python3-pydantic_1.10.14-1_amd64.deb ...
+Unpacking python3-pydantic (1.10.14-1) ...
+Selecting previously unselected package python3-qcelemental.
+Preparing to unpack .../20-python3-qcelemental_0.27.1+dfsg-1_all.deb ...
+Unpacking python3-qcelemental (0.27.1+dfsg-1) ...
+Selecting previously unselected package psi4.
+Preparing to unpack .../21-psi4_1%3a1.3.2+dfsg-5build3_amd64.deb ...
+Unpacking psi4 (1:1.3.2+dfsg-5build3) ...
+Selecting previously unselected package python3-decorator.
+Preparing to unpack .../22-python3-decorator_5.1.1-5_all.deb ...
+Unpacking python3-decorator (5.1.1-5) ...
+Selecting previously unselected package python3-iniconfig.
+Preparing to unpack .../23-python3-iniconfig_1.1.1-2_all.deb ...
+Unpacking python3-iniconfig (1.1.1-2) ...
+Selecting previously unselected package python3-packaging.
+Preparing to unpack .../24-python3-packaging_24.0-1_all.deb ...
+Unpacking python3-packaging (24.0-1) ...
+Selecting previously unselected package python3-pluggy.
+Preparing to unpack .../25-python3-pluggy_1.4.0-1_all.deb ...
+Unpacking python3-pluggy (1.4.0-1) ...
+Selecting previously unselected package python3-pytest.
+Preparing to unpack .../26-python3-pytest_7.4.4-1_all.deb ...
+Unpacking python3-pytest (7.4.4-1) ...
+Selecting previously unselected package python3-scipy.
+Preparing to unpack .../27-python3-scipy_1.11.4-6build1_amd64.deb ...
+Unpacking python3-scipy (1.11.4-6build1) ...
+Setting up python3-iniconfig (1.1.1-2) ...
+Setting up python3-jsonpickle (3.0.3+dfsg-1) ...
+Setting up psi4-data (1:1.3.2+dfsg-5build3) ...
+Setting up python3-ordered-set (4.1.0-1) ...
+Setting up libint1 (1.2.1-6) ...
+Setting up python3-networkx (2.8.8-1ubuntu1) ...
+/usr/lib/python3/dist-packages/networkx/readwrite/tests/test_gml.py:556: SyntaxWarning: invalid octal escape sequence '\420'
+  "graph [edge [ source u'u\4200' target u'u\4200' ] "
+/usr/lib/python3/dist-packages/networkx/readwrite/tests/test_gml.py:557: SyntaxWarning: invalid octal escape sequence '\420'
+  + "node [ id u'u\4200' label b ] ]"
+Setting up pybind11-dev (2.11.1-2) ...
+Setting up libaec0:amd64 (1.1.2-1build1) ...
+Setting up python3-pint (0.19.2-1) ...
+Setting up python3-decorator (5.1.1-5) ...
+Setting up libblas3:amd64 (3.12.0-3build1.1) ...
+update-alternatives: using /usr/lib/x86_64-linux-gnu/blas/libblas.so.3 to provide /usr/lib/x86_64-linux-gnu/libblas.so.3 (libblas.so.3-x86_64-linux-gnu) in auto mode
+Setting up python3-packaging (24.0-1) ...
+Setting up libgg2:amd64 (2.0.7-2) ...
+Setting up python3-pydantic (1.10.14-1) ...
+Setting up python3-pluggy (1.4.0-1) ...
+Setting up python3-pybind11 (2.11.1-2) ...
+Setting up libsz2:amd64 (1.1.2-1build1) ...
+Setting up libxc9:amd64 (5.2.3-1ubuntu1) ...
+Setting up liblapack3:amd64 (3.12.0-3build1.1) ...
+update-alternatives: using /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3 to provide /usr/lib/x86_64-linux-gnu/liblapack.so.3 (liblapack.so.3-x86_64-linux-gnu) in auto mode
+Setting up python3-qcelemental (0.27.1+dfsg-1) ...
+Setting up python3-pytest (7.4.4-1) ...
+Setting up python3-numpy (1:1.26.4+ds-6ubuntu1) ...
+Setting up libhdf5-103-1t64:amd64 (1.10.10+repack-3.1ubuntu4) ...
+Setting up liblbfgsb0:amd64 (3.0+dfsg.4-1build1) ...
+Setting up python3-deepdiff (6.7.1-1) ...
+Setting up python3-scipy (1.11.4-6build1) ...
+Setting up libchemps2-3t64:amd64 (1.8.12-3.1build2) ...
+Setting up psi4 (1:1.3.2+dfsg-5build3) ...
+/usr/lib/x86_64-linux-gnu/psi4/driver/driver_cbs.py:1871: SyntaxWarning: invalid escape sequence '\+'
+  method_name_list = re.split("""\+(?=\s*[Dd]:)""", method_name)
+/usr/lib/x86_64-linux-gnu/psi4/driver/procrouting/mcscf/augmented_hessian.py:116: SyntaxWarning: invalid escape sequence '\l'
+  core.print_out("   Warning! Multiple eigenvectors found to follow. Following closest to \lambda = 1.\n")
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:152: SyntaxWarning: invalid escape sequence '\%'
+  mape = '  ----  ' if err['mape'] is None else '%6.1f\%%' % (100 * err['mape'])
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:153: SyntaxWarning: invalid escape sequence '\%'
+  mapbe = '  ----  ' if err['mapbe'] is None else '%6.1f\%%' % (100 * err['mapbe'])
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:154: SyntaxWarning: invalid escape sequence '\%'
+  mapce = '  ----  ' if err['mapce'] is None else '%6.1f\%%' % (100 * err['mapce'])
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:155: SyntaxWarning: invalid escape sequence '\{'
+  text = """$\{%s; %s\}$ %s %s %s""" % \
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:2500: SyntaxWarning: invalid escape sequence '\s'
+  title="""Reaction energies [kcal/mol] for {sset} $\subset$ {dbse} with {mc}""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/dbwrap.py:2501: SyntaxWarning: invalid escape sequence '\s'
+  indextitle="""Detailed results for {sset} $\subset$ {dbse} with {mc}""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:280: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzdz',      fullname='[aTZ; D:DZ]', latex="""[aTZ; $\delta$:DZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:282: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('adtzdz',     fullname='[aDTZ; D:DZ]', latex="""[aDTZ; $\delta$:DZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:284: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzdz',     fullname='[aTQZ; D:DZ]', latex="""[aTQZ; $\delta$:DZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:286: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzjadz',    fullname='[aTZ; D:jaDZ]', latex="""[aTZ; $\delta$:jaDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:288: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('adtzjadz',   fullname='[aDTZ; D:jaDZ]', latex="""[aDTZ; $\delta$:jaDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:290: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzjadz',   fullname='[aTQZ; D:jaDZ]', latex="""[aTQZ; $\delta$:jaDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:292: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzhadz',    fullname='[aTZ; D:haDZ]', latex="""[aTZ; $\delta$:haDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:294: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('adtzhadz',   fullname='[aDTZ; D:haDZ]', latex="""[aDTZ; $\delta$:haDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:296: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzhadz',   fullname='[aTQZ; D:haDZ]', latex="""[aTQZ; $\delta$:haDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:298: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzadz',     fullname='[aTZ; D:aDZ]', latex="""[aTZ; $\delta$:aDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:300: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('adtzadz',    fullname='[aDTZ; D:aDZ]', latex="""[aDTZ; $\delta$:aDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:302: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzadz',    fullname='[aTQZ; D:aDZ]', latex="""[aTQZ; $\delta$:aDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:304: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('aq5zadz',    fullname='[aQ5Z; D:aDZ]', latex="""[aQ5Z; $\delta$:aDZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:306: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzdtz',     fullname='[aTZ; D:DTZ]', latex="""[aTZ; $\delta$:DTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:308: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzdtz',    fullname='[aTQZ; D:DTZ]', latex="""[aTQZ; $\delta$:DTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:310: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzjadtz',   fullname='[aTZ; D:jaDTZ]', latex="""[aTZ; $\delta$:jaDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:312: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzjadtz',  fullname='[aTQZ; D:jaDTZ]', latex="""[aTQZ; $\delta$:jaDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:314: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzhadtz',   fullname='[aTZ; D:haDTZ]', latex="""[aTZ; $\delta$:haDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:316: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzhadtz',  fullname='[aTQZ; D:haDTZ]', latex="""[aTQZ; $\delta$:haDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:318: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atzadtz',    fullname='[aTZ; D:aDTZ]', latex="""[aTZ; $\delta$:aDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:320: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzadtz',   fullname='[aTQZ; D:aDTZ]', latex="""[aTQZ; $\delta$:aDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:322: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('aq5zadtz',   fullname='[aQ5Z; D:aDTZ]', latex="""[aQ5Z; $\delta$:aDTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:324: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqztz',     fullname='[aTQZ; D:TZ]', latex="""[aTQZ; $\delta$:TZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:326: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzjatz',   fullname='[aTQZ; D:jaTZ]', latex="""[aTQZ; $\delta$:jaTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:328: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzmatz',   fullname='[aTQZ; D:maTZ]', latex="""[aTQZ; $\delta$:maTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:330: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzhatz',   fullname='[aTQZ; D:haTZ]', latex="""[aTQZ; $\delta$:haTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:332: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('atqzatz',    fullname='[aTQZ; D:aTZ]', latex="""[aTQZ; $\delta$:aTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:334: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('aq5zatz',    fullname='[aQ5Z; D:aTZ]', latex="""[aQ5Z; $\delta$:aTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:336: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('aq5zhatz',   fullname='[aQ5Z; D:haTZ]', latex="""[aQ5Z; $\delta$:haTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:338: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('haq5zatz',   fullname='[haQ5Z; D:aTZ]', latex="""[haQ5Z; $\delta$:aTZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:340: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('aq5zaqz',    fullname='[aQ5Z; D:aQZ]', latex="""[aQ5Z; $\delta$:aQZ]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:342: SyntaxWarning: invalid escape sequence '\d'
+  BasisSet('tqz631gs025',fullname='[TQZ; D:631G*(0.25)', latex="""[TQZ; $\delta$:631gs025]""",
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:389: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT2PM',         fullname='SAPT2+dMP2', latex="""SAPT2+$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:390: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT3M',          fullname='SAPT2+(3)dMP2', latex="""SAPT2+(3)$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:391: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT3FM',         fullname='SAPT2+3dMP2', latex="""SAPT2+3$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:392: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT2PCM',        fullname='SAPT2+(CCD)dMP2', latex="""SAPT2+(CCD)$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:393: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT3CM',         fullname='SAPT2+(3)(CCD)dMP2', latex="""SAPT2+(3)(CCD)$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:394: SyntaxWarning: invalid escape sequence '\d'
+  Method('SAPT3FCM',        fullname='SAPT2+3(CCD)dMP2', latex="""SAPT2+3(CCD)$\delta$MP2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:470: SyntaxWarning: invalid escape sequence '\o'
+  Method('WB97XD',          fullname='wB97X-D', latex="""$\omega$B97X-D"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:471: SyntaxWarning: invalid escape sequence '\o'
+  Method('WB97X2',          fullname='wB97X-2', latex="""$\omega$B97X-2"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:472: SyntaxWarning: invalid escape sequence '\o'
+  Method('WB97XV',          fullname='wB97X-V', latex="""$\omega$B97X-V"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:486: SyntaxWarning: invalid escape sequence '\o'
+  Method('WPBE',            fullname='wPBE', latex="""$\omega$PBE"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:487: SyntaxWarning: invalid escape sequence '\o'
+  Method('WPBED3',          fullname='wPBE-D3', latex="""$\omega$PBE-D3"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:488: SyntaxWarning: invalid escape sequence '\o'
+  Method('WPBED3BJ',        fullname='wPBE-D3(BJ)', latex="""$\omega$PBE-D3(BJ)"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:489: SyntaxWarning: invalid escape sequence '\o'
+  Method('WPBED3M',         fullname='wPBE-D3M', latex="""$\omega$PBE-D3M"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:490: SyntaxWarning: invalid escape sequence '\o'
+  Method('WPBED3MBJ',       fullname='wPBE-D3M(BJ)', latex="""$\omega$PBE-D3M(BJ)"""),
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:515: SyntaxWarning: invalid escape sequence '\d'
+  Method('DELTQ',           fullname='d(TQ)', latex="""$\delta$(TQ)"""),  # TODO kill this once non-IE impl in reap-DB
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/modelchems.py:516: SyntaxWarning: invalid escape sequence '\d'
+  Method('DEL2T',           fullname='d(T)', latex="""$\delta$(T)"""),  # TODO kill this once non-IE impl in reap-DB
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:162: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD triplet pair energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:163: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD correlation energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:164: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'Triples \(T\) contribution\s+' + NUMBER + '\s*$',
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:181: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12a triplet pair energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:182: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12a correlation energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:183: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'Triples \(T\) contribution\s+' + NUMBER + '\s*$',
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:202: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12b triplet pair energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:203: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12b correlation energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:204: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'Triples \(T\) contribution\s+' + NUMBER + '\s*$',
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:223: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12c triplet pair energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:224: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'CCSD-F12c correlation energy\s+' + NUMBER + '\s*' +
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/molpro2.py:225: SyntaxWarning: invalid escape sequence '\s'
+  r'^\s*' + r'Triples \(T\) contribution\s+' + NUMBER + '\s*$',
+/usr/lib/x86_64-linux-gnu/psi4/driver/qcdb/mpl.py:893: SyntaxWarning: invalid escape sequence '\d'
+  bfdbpattern = re.compile("\d\d\d([A-Z][A-Z][A-Z])-\d\d\d([A-Z][A-Z][A-Z])-\d")
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...

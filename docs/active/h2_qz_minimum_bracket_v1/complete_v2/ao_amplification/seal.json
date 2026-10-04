@@ -1,0 +1,13 @@
+{
+  "scope": "post-diagnostic worst saved coupling; no new AO, no eigensolve, no energy, no matrix correction",
+  "decimal_digits": [
+    60,
+    80
+  ],
+  "source_sha256": "5a3acdac9a08ba4f838ba5b8a524f612b77c4cc1938be32a0447347848986e16",
+  "historical_MP_diagnostic_sha256": "0f2e2313b71ef3f066845863500d601d2452761479ed7cf7d6232950cae98558",
+  "input_artifact_sha256": {
+    "runs/h2_qz_minimum_bracket_v1_20261004/target_v1/point_00_R1.3": "9627b0f482845efa9a4530dc3a2f9e905ccee5dae351073b9eba0a30323deb7c",
+    "runs/h2_qz_minimum_bracket_v1_20261004/target_generalized_h_v2/point_00_R1.3": "b52f69d910d58428012a4a88da9b4bc5cba6932aa3833cfd2a9137aa9f9b1728"
+  }
+}

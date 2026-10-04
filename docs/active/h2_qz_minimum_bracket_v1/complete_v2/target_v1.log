@@ -1,0 +1,20 @@
+   => Loading Basis Set <=
+
+    Name: CC-PVQZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1-2 entry H          line    22 file /usr/share/psi4/basis/cc-pvqz.gbs 
+
+  Threads set to 1 by Python driver.
+1.3 REFUSED singlet_hermiticity None
+{
+  "bracket": {
+    "status": "UNRESOLVED",
+    "reason": "missing_duplicate_or_invalid_neighbor"
+  },
+  "status": "UNRESOLVED",
+  "stage_wall_seconds": 16.861524125000017,
+  "parent_cpu_seconds": 0.004119898000000011,
+  "protected_bytes_unchanged": true,
+  "seal_sha256": "2a8a23f59519ff89231063c4c309078488615a6340ff9dd394acc3c19c54fd25"
+}

@@ -1,0 +1,7 @@
+   => Loading Basis Set <=
+
+    Name: CC-PVQZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1-2 entry H          line    22 file /usr/share/psi4/basis/cc-pvqz.gbs 
+

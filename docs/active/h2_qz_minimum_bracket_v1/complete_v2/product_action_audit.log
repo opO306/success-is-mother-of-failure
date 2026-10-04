@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "stage": "controls_v2",
+      "R_bohr": 1.5,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 4.3814287697555843e-14,
+      "wave_norm_error": 1.776682100051996e-15,
+      "rayleigh_energy_hartree": -1.8388684460381244,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.44578533261640363,
+      "passed": true
+    },
+    {
+      "stage": "controls_v2",
+      "R_bohr": 2.0,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 1.856283297384643e-14,
+      "wave_norm_error": 3.931859178518682e-16,
+      "rayleigh_energy_hartree": -1.637507696620722,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.4609023858060035,
+      "passed": true
+    },
+    {
+      "stage": "controls_v2",
+      "R_bohr": 20.0,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 2.0426474251060822e-14,
+      "wave_norm_error": 1.1147766737495957e-15,
+      "rayleigh_energy_hartree": -1.0498911934800135,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.6056830449738972,
+      "passed": true
+    },
+    {
+      "stage": "target_v1",
+      "R_bohr": 1.3,
+      "artifact_hash_match": true,
+      "accepted": false,
+      "refusal_null_energy_preserved": true,
+      "passed": true
+    },
+    {
+      "stage": "controls_generalized_h_v2",
+      "R_bohr": 1.5,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 3.1317259252799136e-14,
+      "wave_norm_error": 1.7748389563587708e-16,
+      "rayleigh_energy_hartree": -1.8388684460381213,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.44578533261640557,
+      "passed": true
+    },
+    {
+      "stage": "controls_generalized_h_v2",
+      "R_bohr": 2.0,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 4.2855186845254454e-15,
+      "wave_norm_error": 1.848564704087785e-16,
+      "rayleigh_energy_hartree": -1.637507696620723,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.4609023858060031,
+      "passed": true
+    },
+    {
+      "stage": "controls_generalized_h_v2",
+      "R_bohr": 20.0,
+      "artifact_hash_match": true,
+      "accepted": true,
+      "full_product_residual_l2": 3.597518660858772e-15,
+      "wave_norm_error": 1.938553484404082e-16,
+      "rayleigh_energy_hartree": -1.049891193480012,
+      "full_product_dimension": 3600,
+      "singlet_vector_dimension": 1830,
+      "full_AO_dimension": 60,
+      "C_min_singular_value": 0.6056830449738972,
+      "passed": true
+    },
+    {
+      "stage": "target_generalized_h_v2",
+      "R_bohr": 1.3,
+      "artifact_hash_match": true,
+      "accepted": false,
+      "refusal_null_energy_preserved": true,
+      "passed": true
+    }
+  ],
+  "source_sha256": "2523a5b5844dec76a779d926545f440e4836c6a0b884c41ded3b1a09184775d2",
+  "note": "independent matrix-action formula on saved candidate integrals; author check, not external AO audit or certification"
+}

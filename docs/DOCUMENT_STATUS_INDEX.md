@@ -1,5 +1,9 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md](active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md):
+새 독립 reference Gate, PARTIAL / R1.3 UNSUPPORTED / bracket UNRESOLVED / NOT CERTIFIED.
+control 동등성·거부·독립 AO 성분 사후 진단과 B 미실행, 관련 시험·원본 불변을 함께 기록한다.
+
 [C1-B1 Optimization Generation 1 종료 기록](active/C1B1_OPTIMIZATION_GENERATION1_FREEZE_V1.md)·[Prepared Binding Contract](active/C1B1_GENERATION1_BINDING_CONTRACT_V1.md): **VERIFIED FAST-PATH GENERATION / NOT FORMALLY CERTIFIED**, Generation1 FROZEN(2026-10-04 기록 확정). integration branch production default **fast_pilot3**, REF/fast/Combined 보존. 21cases/59171 successful steps/59187 impulses, producer7개/79087steps, FULL4157 PASS+1 strict XFAIL/FAIL0/ERROR0/real SKIP0, live closure PASS. 최종 직접 REF **1.629995× / CPU38.6501% 감소**; 이전1.906532×와 구분. Combined의B대비37.5905% CPU 증가와 binding 비용도 공개. root master 유지/push 없음, C1-B1④ 전체/A-EV/native J/replay 승인 미완료. 새 실제 workload의 상위 병목·충분한 전체 이득이 확인될 때만 Generation2 재개.
 
 **이전 source/campaign의 역사:** [C1-B1 Pilot3 opt-in 승격 결과](active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md)·[baseline 실제 Fraction map](active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md)·[exact 산술 논증](active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md): ABCD만 fast_pilot3 opt-in PRODUCTION FAST-PATH CANDIDATE, current-source closure/FULL4074+1 PASS. 기본fast 유지; 측정한 비용 증가와 한계도 결과 문서에 기록한다. 기존 REF/Candidate B/Combined는 보존한다.

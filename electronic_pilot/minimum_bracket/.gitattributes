@@ -1,0 +1,2 @@
+# Gate sources/protocols and postrun tools preserve their captured bytes.
+* -text whitespace=cr-at-eol

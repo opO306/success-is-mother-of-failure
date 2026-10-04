@@ -1,0 +1,22 @@
+   => Loading Basis Set <=
+
+    Name: CC-PVQZ
+    Role: ORBITAL
+    Keyword: BASIS
+    atoms 1-2 entry H          line    22 file /usr/share/psi4/basis/cc-pvqz.gbs 
+
+fatal: not a git repository: /mnt/c/Users/zun24/.codex/worktrees/h2-qz-minimum-v1/성공은 실패의 어머니/C:/Users/zun24/성공은 실패의 어머니/.git/worktrees/성공은-실패의-어머니7
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-minimum-v1/성공은 실패의 어머니/electronic_pilot/minimum_bracket/campaign.py", line 137, in <module>
+    main()
+  File "/mnt/c/Users/zun24/.codex/worktrees/h2-qz-minimum-v1/성공은 실패의 어머니/electronic_pilot/minimum_bracket/campaign.py", line 94, in main
+    git_start=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.

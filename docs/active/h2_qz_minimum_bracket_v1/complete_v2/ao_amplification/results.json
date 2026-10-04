@@ -1,0 +1,74 @@
+{
+  "rows": [
+    {
+      "coordinate_path": "cholesky",
+      "R_bohr": 1.3,
+      "pair_a": [
+        40,
+        40
+      ],
+      "pair_b": [
+        48,
+        53
+      ],
+      "measured_signed_asymmetry": 1.7254713402989658e-10,
+      "energy_calculated": false,
+      "precision": {
+        "60": {
+          "eri_contribution": "1.7246726615702153946959872863435602079931978691270536543241470719883177e-10",
+          "h_contribution": "0.0",
+          "total": "1.7246726615702153946959872863435602079931978691270536543241470719883177e-10",
+          "nonzero_weight_products": 179469,
+          "nonzero_AO_antisymmetry_terms": 24826,
+          "bits": 231,
+          "measured_minus_propagated": "7.9867872875043798996949194826456781296463721488054977741542801168233338e-14"
+        },
+        "80": {
+          "eri_contribution": "1.72467266157021539469598728634356020799319786912705365432414707198834065938507606705628847e-10",
+          "h_contribution": "0.0",
+          "total": "1.72467266157021539469598728634356020799319786912705365432414707198834065938507606705628847e-10",
+          "nonzero_weight_products": 179469,
+          "nonzero_AO_antisymmetry_terms": 24826,
+          "bits": 297,
+          "measured_minus_propagated": "7.986787287504379899694919482645678129646372148805497774154280116593406149239329437115296443e-14"
+        }
+      }
+    },
+    {
+      "coordinate_path": "generalized_h",
+      "R_bohr": 1.3,
+      "pair_a": [
+        10,
+        23
+      ],
+      "pair_b": [
+        23,
+        59
+      ],
+      "measured_signed_asymmetry": -1.2963052527808185e-10,
+      "energy_calculated": false,
+      "precision": {
+        "60": {
+          "eri_contribution": "-1.2958508443380035969305892986477277804795116800543710759905612505169261e-10",
+          "h_contribution": "0.0",
+          "total": "-1.2958508443380035969305892986477277804795116800543710759905612505169261e-10",
+          "nonzero_weight_products": 12960000,
+          "nonzero_AO_antisymmetry_terms": 843940,
+          "bits": 231,
+          "measured_minus_propagated": "-4.5440844281485320133289397748342933594950850039271795475124948307389562e-14"
+        },
+        "80": {
+          "eri_contribution": "-1.295850844338003596930589298647727780479511680054371075990561250517221449510389172858345607e-10",
+          "h_contribution": "0.0",
+          "total": "-1.295850844338003596930589298647727780479511680054371075990561250517221449510389172858345607e-10",
+          "nonzero_weight_products": 12960000,
+          "nonzero_AO_antisymmetry_terms": 843940,
+          "bits": 297,
+          "measured_minus_propagated": "-4.54408442814853201332893977483429335949508500392717954751249482778550489610827141654392654e-14"
+        }
+      }
+    }
+  ],
+  "wall_seconds": 48.611916509000025,
+  "interpretation": "binary64 independent AO component at fixed C; scalar multiprecision is NOT higher-precision AO or a full matrix bound"
+}

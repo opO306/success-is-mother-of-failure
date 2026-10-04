@@ -4,6 +4,18 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 H₂ QZ Minimum-Bracket Numerical Gate V1(2026-10-04):**
+[결과·실패·미실행·다음 물리 질문](docs/active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md).
+PARTIAL / QZ R=1.3 UNSUPPORTED / sampled minimum bracket UNRESOLVED / NOT CERTIFIED.
+독립 Psi4 1.3.2/Libint1.2.1의 두 full-span 좌표에서 QZ controls1.5/2/20 모두 일치,
+각 R=1.3은 기존 Hermiticity 기준1e-10에서 거부되어 energy없음. R=1.4 새 실행 없음.
+대표 coupling의 MPFR 사후 진단에서 independent AO 비대칭 전파 성분 자체가 기준 초과.
+고정밀 AO evaluator는 미구현/미실행이며 일반 integral engine으로 확장하지 않았다.
+Windows72/별도WSL78 PASS, 신규29, 실패/error/실제skip0; 기존source/evidence89와 raw410 불변.
+LOCAL FULL 생략/새 독립 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
+QZ short-R를 격리한 PARTIAL static pilot 종료·Electronic Sector Panel V1 진행 제안, panel/dynamics 미착수.
+기존 C1-B1/Generation1/production/foundation 승인 불변. 새 worktree local commit, push없음.
+
 **C1-B1 Optimization Generation 1 종료·동결(2026-10-04 문서 확정):**
 [최종 기록·성능·Top10·한계](docs/active/C1B1_OPTIMIZATION_GENERATION1_FREEZE_V1.md),
 [WORLD/RUN/STEP/COMPONENT binding contract](docs/active/C1B1_GENERATION1_BINDING_CONTRACT_V1.md).

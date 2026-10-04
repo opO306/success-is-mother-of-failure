@@ -1,0 +1,454 @@
+{
+  "status": "PARTIAL",
+  "QZ_short_R_support": "UNSUPPORTED_UNRESOLVED",
+  "candidate_B": "NOT_IMPLEMENTED_NOT_EVALUATED; feasibility only; stop rule",
+  "sampled_bracket": "UNRESOLVED",
+  "R13_trusted_energy": null,
+  "controls": [
+    {
+      "status": "PASS",
+      "comparisons": [
+        {
+          "R_bohr": 1.5,
+          "passed": true,
+          "energy_abs_difference_hartree": 8.419931418757187e-13,
+          "overlap_spectrum_max_abs_difference": 7.105427357601002e-15
+        },
+        {
+          "R_bohr": 2.0,
+          "passed": true,
+          "energy_abs_difference_hartree": 1.829647544582258e-13,
+          "overlap_spectrum_max_abs_difference": 6.217248937900877e-15
+        },
+        {
+          "R_bohr": 20.0,
+          "passed": true,
+          "energy_abs_difference_hartree": 4.6629367034256575e-15,
+          "overlap_spectrum_max_abs_difference": 3.1086244689504383e-15
+        }
+      ],
+      "note": "same finite-basis numerical controls; not a formal certificate"
+    },
+    {
+      "status": "PASS",
+      "comparisons": [
+        {
+          "R_bohr": 1.5,
+          "passed": true,
+          "energy_abs_difference_hartree": 8.522071937022702e-13,
+          "overlap_spectrum_max_abs_difference": 7.105427357601002e-15
+        },
+        {
+          "R_bohr": 2.0,
+          "passed": true,
+          "energy_abs_difference_hartree": 1.8829382497642655e-13,
+          "overlap_spectrum_max_abs_difference": 6.217248937900877e-15
+        },
+        {
+          "R_bohr": 20.0,
+          "passed": true,
+          "energy_abs_difference_hartree": 3.9968028886505635e-15,
+          "overlap_spectrum_max_abs_difference": 3.1086244689504383e-15
+        }
+      ],
+      "note": "same finite-basis numerical controls; not a formal certificate"
+    }
+  ],
+  "R13_refusals": [
+    {
+      "R_bohr": 1.3,
+      "basis": "cc-pVQZ",
+      "basis_size": 60,
+      "singlet_dimension": 1830,
+      "electrons": 2,
+      "sector": "full spatial-symmetric singlet",
+      "charge": 0,
+      "multiplicity": 1,
+      "positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.65
+        ],
+        [
+          0.0,
+          0.0,
+          0.65
+        ]
+      ],
+      "spherical": true,
+      "overlap_eigenvalues": [
+        0.00021541278620031297,
+        0.0009466775311892519,
+        0.005240612502106256,
+        0.005240612502106417,
+        0.010715170530710858,
+        0.02116580016274207,
+        0.0518663815966393,
+        0.05186638159663987,
+        0.053318486224321636,
+        0.08085518555973562,
+        0.08130512257485513,
+        0.1288955828637016,
+        0.12889558286370223,
+        0.1327914962610794,
+        0.13279149626107986,
+        0.143412753747089,
+        0.14341275374708953,
+        0.16205914482787737,
+        0.18852554507686817,
+        0.1885255450768685,
+        0.2005575372252589,
+        0.28889246122954315,
+        0.3142369149175531,
+        0.3142369149175532,
+        0.4670751195915883,
+        0.46707511959158854,
+        0.4800610153871628,
+        0.5004824102583799,
+        0.5004824102583809,
+        0.6298221141718314,
+        0.6298221141718333,
+        0.6520955243250732,
+        0.6928641127967937,
+        0.6928641127967942,
+        0.9434853824408869,
+        1.0771410933144734,
+        1.1570867374522162,
+        1.157086737452217,
+        1.1932225601794317,
+        1.1932225601794328,
+        1.2813841598314184,
+        1.2813841598314186,
+        1.3026034333161152,
+        1.3071358872032044,
+        1.3071358872032057,
+        1.3883221304216504,
+        1.3883221304216518,
+        1.6908908977922075,
+        1.7355743969090185,
+        1.7355743969090203,
+        2.021045484761644,
+        2.298228833261988,
+        2.2982288332619896,
+        2.4875520980715597,
+        2.507080310689118,
+        2.5070803106891204,
+        3.308333621442671,
+        3.8767519402683046,
+        3.8767519402683077,
+        5.136760450495778
+      ],
+      "Smin": 0.00021541278620031297,
+      "condition": 23846.12604062922,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij_swap_max": 9.062368910850438e-14,
+        "kl_swap_max": 9.062368910850438e-14,
+        "pair_swap_max": 1.0736203592820459e-14
+      },
+      "AO_sha256": {
+        "s": "10b91db1eee5b8037ff00c1b825e8045ba779b1a06ee0d35922500b437689f67",
+        "h": "a44f8306c1721cc2534cf4341c2972409c6919516e644e2fc7d44a617061eb6d",
+        "eri": "e3755d98cbd80ba7fb40cc43bce81654b67386c7899bc3952aeb5d290a866adc"
+      },
+      "nuclear_repulsion_hartree": 0.7692307692307692,
+      "accepted": false,
+      "status": "REFUSED",
+      "failure_stage": "singlet_hermiticity",
+      "electronic_energy_hartree": null,
+      "total_energy_hartree": null,
+      "eigen_residual_l2": null,
+      "vector_norm_error": null,
+      "iteration_count": null,
+      "integral_seconds": 0.5739431479999837,
+      "method": "Psi4/Libint AO binary64, extended contractions, full singlet, LAPACK",
+      "longdouble_nmant": 63,
+      "precision_note": "64 significand bits in contractions, binary64 independent AO and eigensolve; no rigorous enclosure",
+      "transformation_seconds": 11.035674596000007,
+      "orthonormalization_error": 1.8749720398469222e-13,
+      "transformed_h_asymmetry": 1.3482054014857248e-16,
+      "transformed_eri_symmetry": {
+        "ij_swap_max": 9.173110581133133e-11,
+        "kl_swap_max": 9.792807933936147e-11,
+        "pair_swap_max": 7.477964085358512e-11
+      },
+      "assembly_seconds": 0.5236076509999918,
+      "singlet_asymmetry": 1.7254713402989658e-10,
+      "artifact_sha256": "9627b0f482845efa9a4530dc3a2f9e905ccee5dae351073b9eba0a30323deb7c",
+      "artifact_file": "matrices.npz",
+      "wall_seconds": 15.97929406,
+      "cpu_seconds": 15.794529191999999,
+      "AO_eri_bytes": 103680000,
+      "transformed_eri_bytes": 207360000,
+      "singlet_matrix_bytes": 53582400,
+      "process_peak_rss_bytes": 826736640
+    },
+    {
+      "R_bohr": 1.3,
+      "basis": "cc-pVQZ",
+      "basis_size": 60,
+      "singlet_dimension": 1830,
+      "electrons": 2,
+      "sector": "full spatial-symmetric singlet",
+      "charge": 0,
+      "multiplicity": 1,
+      "positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.65
+        ],
+        [
+          0.0,
+          0.0,
+          0.65
+        ]
+      ],
+      "spherical": true,
+      "overlap_eigenvalues": [
+        0.00021541278620031297,
+        0.0009466775311892519,
+        0.005240612502106256,
+        0.005240612502106417,
+        0.010715170530710858,
+        0.02116580016274207,
+        0.0518663815966393,
+        0.05186638159663987,
+        0.053318486224321636,
+        0.08085518555973562,
+        0.08130512257485513,
+        0.1288955828637016,
+        0.12889558286370223,
+        0.1327914962610794,
+        0.13279149626107986,
+        0.143412753747089,
+        0.14341275374708953,
+        0.16205914482787737,
+        0.18852554507686817,
+        0.1885255450768685,
+        0.2005575372252589,
+        0.28889246122954315,
+        0.3142369149175531,
+        0.3142369149175532,
+        0.4670751195915883,
+        0.46707511959158854,
+        0.4800610153871628,
+        0.5004824102583799,
+        0.5004824102583809,
+        0.6298221141718314,
+        0.6298221141718333,
+        0.6520955243250732,
+        0.6928641127967937,
+        0.6928641127967942,
+        0.9434853824408869,
+        1.0771410933144734,
+        1.1570867374522162,
+        1.157086737452217,
+        1.1932225601794317,
+        1.1932225601794328,
+        1.2813841598314184,
+        1.2813841598314186,
+        1.3026034333161152,
+        1.3071358872032044,
+        1.3071358872032057,
+        1.3883221304216504,
+        1.3883221304216518,
+        1.6908908977922075,
+        1.7355743969090185,
+        1.7355743969090203,
+        2.021045484761644,
+        2.298228833261988,
+        2.2982288332619896,
+        2.4875520980715597,
+        2.507080310689118,
+        2.5070803106891204,
+        3.308333621442671,
+        3.8767519402683046,
+        3.8767519402683077,
+        5.136760450495778
+      ],
+      "Smin": 0.00021541278620031297,
+      "condition": 23846.12604062922,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij_swap_max": 9.062368910850438e-14,
+        "kl_swap_max": 9.062368910850438e-14,
+        "pair_swap_max": 1.0736203592820459e-14
+      },
+      "AO_sha256": {
+        "s": "10b91db1eee5b8037ff00c1b825e8045ba779b1a06ee0d35922500b437689f67",
+        "h": "a44f8306c1721cc2534cf4341c2972409c6919516e644e2fc7d44a617061eb6d",
+        "eri": "e3755d98cbd80ba7fb40cc43bce81654b67386c7899bc3952aeb5d290a866adc"
+      },
+      "nuclear_repulsion_hartree": 0.7692307692307692,
+      "accepted": false,
+      "status": "REFUSED",
+      "failure_stage": "singlet_hermiticity",
+      "electronic_energy_hartree": null,
+      "total_energy_hartree": null,
+      "eigen_residual_l2": null,
+      "vector_norm_error": null,
+      "iteration_count": null,
+      "integral_seconds": 0.7084058959999879,
+      "method": "Psi4/Libint AO binary64, extended contractions, full singlet, LAPACK",
+      "longdouble_nmant": 63,
+      "precision_note": "64 significand bits in contractions, binary64 independent AO and eigensolve; no rigorous enclosure",
+      "coordinate_path": "generalized_h",
+      "transformation_seconds": 12.389928950000012,
+      "orthonormalization_error": 1.8674106851464965e-13,
+      "transformed_h_asymmetry": 2.7073290576615343e-16,
+      "transformed_eri_symmetry": {
+        "ij_swap_max": 8.151489966489876e-11,
+        "kl_swap_max": 8.306286514079251e-11,
+        "pair_swap_max": 7.301248120041714e-11
+      },
+      "assembly_seconds": 0.6236663420000355,
+      "singlet_asymmetry": 1.296303997105296e-10,
+      "artifact_sha256": "b52f69d910d58428012a4a88da9b4bc5cba6932aa3833cfd2a9137aa9f9b1728",
+      "artifact_file": "matrices.npz",
+      "wall_seconds": 23.14091125699997,
+      "cpu_seconds": 22.262509961,
+      "AO_eri_bytes": 103680000,
+      "transformed_eri_bytes": 207360000,
+      "singlet_matrix_bytes": 53582400,
+      "process_peak_rss_bytes": 826519552
+    }
+  ],
+  "stages_wall_seconds": 172.52010506699997,
+  "stages_worker_cpu_seconds": 160.825502264,
+  "max_process_peak_rss_bytes": 827203584,
+  "product_action_audit_status": "PASS",
+  "max_accepted_full_product_residual_l2": 4.3814287697555843e-14,
+  "scalar_MP_diagnostic": {
+    "rows": [
+      {
+        "coordinate_path": "cholesky",
+        "R_bohr": 1.3,
+        "pair_a": [
+          40,
+          40
+        ],
+        "pair_b": [
+          48,
+          53
+        ],
+        "measured_signed_asymmetry": 1.7254713402989658e-10,
+        "energy_calculated": false,
+        "precision": {
+          "60": {
+            "eri_contribution": "1.7246726615702153946959872863435602079931978691270536543241470719883177e-10",
+            "h_contribution": "0.0",
+            "total": "1.7246726615702153946959872863435602079931978691270536543241470719883177e-10",
+            "nonzero_weight_products": 179469,
+            "nonzero_AO_antisymmetry_terms": 24826,
+            "bits": 231,
+            "measured_minus_propagated": "7.9867872875043798996949194826456781296463721488054977741542801168233338e-14"
+          },
+          "80": {
+            "eri_contribution": "1.72467266157021539469598728634356020799319786912705365432414707198834065938507606705628847e-10",
+            "h_contribution": "0.0",
+            "total": "1.72467266157021539469598728634356020799319786912705365432414707198834065938507606705628847e-10",
+            "nonzero_weight_products": 179469,
+            "nonzero_AO_antisymmetry_terms": 24826,
+            "bits": 297,
+            "measured_minus_propagated": "7.986787287504379899694919482645678129646372148805497774154280116593406149239329437115296443e-14"
+          }
+        }
+      },
+      {
+        "coordinate_path": "generalized_h",
+        "R_bohr": 1.3,
+        "pair_a": [
+          10,
+          23
+        ],
+        "pair_b": [
+          23,
+          59
+        ],
+        "measured_signed_asymmetry": -1.2963052527808185e-10,
+        "energy_calculated": false,
+        "precision": {
+          "60": {
+            "eri_contribution": "-1.2958508443380035969305892986477277804795116800543710759905612505169261e-10",
+            "h_contribution": "0.0",
+            "total": "-1.2958508443380035969305892986477277804795116800543710759905612505169261e-10",
+            "nonzero_weight_products": 12960000,
+            "nonzero_AO_antisymmetry_terms": 843940,
+            "bits": 231,
+            "measured_minus_propagated": "-4.5440844281485320133289397748342933594950850039271795475124948307389562e-14"
+          },
+          "80": {
+            "eri_contribution": "-1.295850844338003596930589298647727780479511680054371075990561250517221449510389172858345607e-10",
+            "h_contribution": "0.0",
+            "total": "-1.295850844338003596930589298647727780479511680054371075990561250517221449510389172858345607e-10",
+            "nonzero_weight_products": 12960000,
+            "nonzero_AO_antisymmetry_terms": 843940,
+            "bits": 297,
+            "measured_minus_propagated": "-4.54408442814853201332893977483429335949508500392717954751249482778550489610827141654392654e-14"
+          }
+        }
+      }
+    ],
+    "wall_seconds": 48.611916509000025,
+    "interpretation": "binary64 independent AO component at fixed C; scalar multiprecision is NOT higher-precision AO or a full matrix bound"
+  },
+  "source_binding": {
+    "controls_v2": {
+      "executed_snapshots_match": true,
+      "current_executed_files_match": false,
+      "added_post_acquisition_files": [
+        "README.md",
+        "protocol_generalized_h_v2.json"
+      ],
+      "expected_historical_candidate": true
+    },
+    "target_v1": {
+      "executed_snapshots_match": true,
+      "current_executed_files_match": false,
+      "added_post_acquisition_files": [
+        "README.md",
+        "protocol_generalized_h_v2.json"
+      ],
+      "expected_historical_candidate": true
+    },
+    "controls_generalized_h_v2": {
+      "executed_snapshots_match": true,
+      "current_executed_files_match": true,
+      "added_post_acquisition_files": [
+        "README.md"
+      ],
+      "expected_historical_candidate": false
+    },
+    "target_generalized_h_v2": {
+      "executed_snapshots_match": true,
+      "current_executed_files_match": true,
+      "added_post_acquisition_files": [
+        "README.md"
+      ],
+      "expected_historical_candidate": false
+    }
+  },
+  "protected_source_and_evidence_file_count": 89,
+  "historical_raw_file_count": 410,
+  "historical_raw_all_unchanged": true,
+  "numerical_attempts": 8,
+  "accepted_controls": 6,
+  "refused_target_attempts": 2,
+  "startup_failures": 1,
+  "unexecuted_target_R14": true,
+  "local_full": "OMITTED_RELATED_TESTS_ONLY_BASELINE_UNCHANGED",
+  "windows_tests": 72,
+  "wsl_tests": 78,
+  "unique_new_tests": 29,
+  "conceptual_review": "author review; full dimensions, exact basis inputs, guards preserved, no energy from refused matrices; not external audit approval",
+  "basis_error": "unchanged finite cc-pVQZ approximation; no continuum error bound",
+  "model_error": "fixed nuclei, isolated nonrelativistic Coulomb; no dynamics or radiation",
+  "reference_error": "controls use archived same-basis numerical results; no new physical-reference calculation",
+  "scaling": "M=60, D=1830; 60^4=12960000 AO entries; 8 small fresh workers only; no many-electron scaling measurement",
+  "next_gate": "Electronic Sector Panel V1 proposed; not started",
+  "push": false
+}

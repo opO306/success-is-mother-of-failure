@@ -1,0 +1,6 @@
+{
+  "status": "PACKAGING_ERROR_PRESERVED",
+  "cause": "default cp949 reading UTF-8 Korean path in historical raw precheck",
+  "physics_runs": 0,
+  "repair": "explicit UTF-8 decoding only; new compact output folder"
+}

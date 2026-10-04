@@ -675,3 +675,16 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | raw nonsymmetric overlap을 정확히 symmetric인 것처럼 취급 | 첫 HP run STOP 보존; 후속 lower-triangle recurrence를 full raw S로 검사해 잔여 오차 공개, asymmetric S 주입 시험 | 고정밀 linear algebra가 binary64 AO data를 고정밀 물리 integral로 바꾸지 않음 |
 | MP antisymmetry contraction의 index/normalization 결함 | 별도로 만든 작은 full tensor contraction의 여러 coupling과 대조 | 실제 QZ HP는 대표 coupling만, full spectrum/행렬 오차 상한 아님 |
 | 새 QZ 34점만으로 minimum/full curve PASS 선언 | 기존 checker가 left-support boundary minimum/depth를 null, incomplete curve를 false로 유지 | 44점의 실제 supported 계산·물리 일치까지 인증하는 checker 아님 |
+
+### H₂ QZ minimum-bracket independent AO Gate (2026-10-04)
+
+[결과와 미해결](../active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md).
+신규29시험 포함 Windows72/별도WSL78 PASS, 실패/error/실제skip0. 중복 합산 없음.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| AO/singlet 차원 축소·sector/전자수/charge/spherical/geometry 불일치 | control/bracket checker가 invalid로 거부 | 봉인된 QZ 표본과 입력 계약만; 다른 화학 문제 인증 아님 |
+| controls energy/spectrum 변조·누락·중복, 이웃점 거부·중복, 가짜 minimum | 같은 기준에서 FAIL 또는 UNRESOLVED, 거부 energy는 null | same-basis energy 일치는 AO 개별 entry의 오차 상한이 아님 |
+| h/ERI/H 비대칭·overlap/orthogonality/residual/norm 초과 | 에너지 인정 전 guard, synthetic fault refusal | 실제 R1.3 두 번의 거부도 정상 보존; 완주 보장 아님 |
+| singlet 구성식의 index/normalization 오류 | 별도 작은 ordered-product 투영식, 실제 accepted vector의 full-product 작용식 대조; energy/vector/dimension 주입 검출 | 저장 AO를 공유한 작성자 검사이며 외부 AO 정확도 감사·lowest-root 인증은 아님 |
+| 독립 backend이면 short-R가 자동 해결된다는 가정 | controls6 accepted 뒤 target2 REFUSED; 사후 MPFR에서 independent AO 성분 자체가 기준 초과 | 대표 coupling만, 전체 행렬 bound/모든 binary64 좌표 불가능성 증명 아님 |

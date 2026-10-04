@@ -22,6 +22,10 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 **독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet
 Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
+추가 `electronic_pilot/minimum_bracket/`는 독립 Psi4/Libint AO와 full-span 두 좌표의
+QZ 최소점 주변 Gate다. [결과](docs/active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md):
+controls 모두 일치, R=1.3 두 번 거부/에너지 없음, PARTIAL·bracket UNRESOLVED.
+`postrun/`은 저장 증거의 별도 작용식/MPFR 진단·packaging이며 고정밀 AO generator가 아니다.
 `tests/test_h2_static_pilot.py`는 dependency-light 구조/결함 주입 시험,
 `electronic_pilot/test_integration.py`는 PySCF가 있는 로컬 WSL의 별도 integration이다.
 [실측 보고서](docs/active/H2_STATIC_REFERENCE_PILOT_V1.md): 일부 수치 결과/거부 보존,

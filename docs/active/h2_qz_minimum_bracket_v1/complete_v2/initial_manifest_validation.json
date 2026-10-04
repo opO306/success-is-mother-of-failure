@@ -1,0 +1,6 @@
+{
+  "mismatches": [
+    "packaging_complete_v2.log"
+  ],
+  "explanation": "packaging stdout log was still open while the initial manifest was created; retained initial manifest; closed final manifest supersedes this one"
+}
