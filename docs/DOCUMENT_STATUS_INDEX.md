@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Nuclear State / Dynamics Gate V1](active/NUCLEAR_STATE_DYNAMICS_GATE_V1.md)·[증거](active/nuclear_gate_v1/verdicts.json):
+SURVEY_ONLY, 1D 모델 시험 세계, 네 핵 처리 방식 비교. 방법 선택 없음. NOT CERTIFIED.
+
 [일반 핵·전자 세계 최소 계약 V0.1](active/GENERAL_ATOMIC_ELECTRONIC_WORLD_CONTRACT_V0_1.md)·[V0 원문](active/general_world_contract_v0/V0_ORIGINAL.md):
 DESIGN CONTRACT 설계자 승인(2026-10-04, 원칙·판정 체계 범위), NOT IMPLEMENTED. Gate 0-A DECIDED / 0-B UNRESOLVED. 결정론/현실성 분리, 양자 결과 확정 UNRESOLVED,
 Reality Transfer, 현실 자료 오류 가능성·등급·비교 전 봉인. 0-A 외 물리 선택 미승인, RULES §1 개정 문구 미결.

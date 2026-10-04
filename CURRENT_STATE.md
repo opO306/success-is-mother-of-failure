@@ -4,6 +4,13 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Nuclear State / Dynamics Gate V1 (2026-10-04, SURVEY_ONLY / 모델 시험 세계):**
+[결과](docs/active/NUCLEAR_STATE_DYNAMICS_GATE_V1.md). 1D Shin–Metiu에서 Q(양자 핵+전자)/EH/BOQ/BOCL 비교, 실행 전 봉인 `b8f2b65`.
+S1: BO 두 방식은 전이 ABSENT·전자 위치 DISTORTED(3/3), EH는 전이·전자 위치 REPRESENTED(3/3)지만 핵 갈래 분리 DISTORTED/REFUSED.
+S2 장벽: 고전 핵 터널링은 표본 비수렴으로 판정 불가, Rf6 기준선 격자 수렴 실패로 REFUSED. 양자 핵은 핵 수에 지수적.
+방법 선택 없음(설계자 결정). 관련 시험18 PASS, LOCAL FULL 생략/새 survey 패키지·문서만/공식 기준선 불변.
+RULES §1 숫자 규칙 개정(`21fffab`, 문구 설계자 확인 대상).
+
 **일반 핵·전자 세계 최소 계약 V0.1 — 설계자 승인(2026-10-04, 원칙·판정 체계 범위):**
 [계약](docs/active/GENERAL_ATOMIC_ELECTRONIC_WORLD_CONTRACT_V0_1.md)·[V0 원문](docs/active/general_world_contract_v0/V0_ORIGINAL.md).
 Gate 0-A World Definition DECIDED(승인된 현실 근거 법칙의 결정론적 실행 = A 세계) /

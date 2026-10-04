@@ -1,0 +1,14 @@
+{
+ "quick": false,
+ "git_head_at_start": "b8f2b6515b9652933052ede2667311bbb37eb59a",
+ "source_sha256": {
+  "__init__.py": "45557cf61be18c13313deec3f166086b4935375f975a3db20f371b89df387085",
+  "model.py": "a918c5ee98da60a6df3e4142cfdb0bdf23e7635bbec4d2298bba26aca9433d9a",
+  "dynamics.py": "9baa4876638bf3b144d1d2fda7545be8867b33b8350e1017f4db3c4ffc11cdf8",
+  "campaign.py": "bcd4771e7aec5ffb432860cc0f6b48d493623e569e1b669a9cb0bbccbc20d715",
+  "protocol.json": "b18b70dcddf8c1ad5ad8443e7743982d98330ab76cc9e1f998efcf0d01651233"
+ },
+ "python": "3.12.7",
+ "numpy": "2.4.6",
+ "platform": "Windows-11-10.0.26200-SP0"
+}

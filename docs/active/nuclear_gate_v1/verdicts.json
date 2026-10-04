@@ -1,0 +1,635 @@
+{
+ "quick": false,
+ "cells": [
+  {
+   "Rf": 4.0,
+   "S2_rule": {
+    "R_a": -3.26953125,
+    "R_b": 0.0,
+    "barrier": 0.02624515415071038,
+    "applicable": true
+   },
+   "scenarios": {
+    "S1_slide": {
+     "reference": {
+      "valid": true,
+      "problems": [],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.6455592019988894,
+       "electron_right": 0.8582123314393524,
+       "transmission": null,
+       "branch_separation": -1.248549692707022
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REPRESENTED",
+        "electron_right": "REPRESENTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "REFUSED"
+       },
+       "final": {
+        "P_exc": 0.6487556604351223,
+        "electron_right": 0.8376343772959433,
+        "transmission": null,
+        "branch_separation": 0.17407566836791677
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.9997177575735775,
+        "transmission": null,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.9997543437882431,
+        "transmission": null,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 4.82171846338808e-07,
+       "max_edge": 3.505401593954204e-08
+      },
+      "EH": {
+       "energy_drift": 4.806196693962761e-07,
+       "max_edge": 2.6849485158471727e-11,
+       "max_traj_energy_dev": 5.998408057483751e-07
+      },
+      "BOQ": {
+       "energy_drift": 9.48427808511454e-09,
+       "max_edge": 3.5054015939542013e-08
+      },
+      "BOCL": {
+       "energy_drift": 9.484226654032923e-09,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 2.833155092751838e-07
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 126.14088110000012,
+       "cpu_s": 123.03125,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 85.1354782999997,
+       "cpu_s": 84.53125,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.6879040000003442,
+       "cpu_s": 0.6875,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 4.389996100000644,
+       "cpu_s": 5.9375,
+       "state_values": 200
+      }
+     }
+    },
+    "S2_barrier": {
+     "reference": {
+      "valid": true,
+      "problems": [],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.0007255502383183245,
+       "electron_right": 0.06176741583019366,
+       "transmission": 0.04109810934828272,
+       "branch_separation": 1.7388394727249534
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REPRESENTED",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.003518358685121305,
+        "electron_right": 0.050639871278350276,
+        "transmission": 0.025260643674166607,
+        "branch_separation": 3.204000795124964
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "REPRESENTED",
+        "transmission": "REPRESENTED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.06813666406874062,
+        "transmission": 0.04651452575083917,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.0522710084172826,
+        "transmission": 0.025260643674166607,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 5.707844497049308e-08,
+       "max_edge": 1.4709797704863915e-10
+      },
+      "EH": {
+       "energy_drift": 5.6766354339377045e-08,
+       "max_edge": 1.372874913931429e-10,
+       "max_traj_energy_dev": 5.505765201807566e-07
+      },
+      "BOQ": {
+       "energy_drift": 1.4494544453569347e-10,
+       "max_edge": 2.3082619038977764e-13
+      },
+      "BOCL": {
+       "energy_drift": 1.453143716467764e-10,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 3.0052718369422138e-09
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 118.79253840000001,
+       "cpu_s": 117.453125,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 82.12853020000148,
+       "cpu_s": 85.09375,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.6064408000002004,
+       "cpu_s": 0.59375,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 4.07255350000014,
+       "cpu_s": 5.96875,
+       "state_values": 200
+      }
+     }
+    }
+   }
+  },
+  {
+   "Rf": 5.0,
+   "S2_rule": {
+    "R_a": -2.6015625,
+    "R_b": 0.0,
+    "barrier": 0.016843040028764578,
+    "applicable": true
+   },
+   "scenarios": {
+    "S1_slide": {
+     "reference": {
+      "valid": true,
+      "problems": [],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.9657892756788822,
+       "electron_right": 0.20313169133427678,
+       "transmission": null,
+       "branch_separation": -1.0802496158900503
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REPRESENTED",
+        "electron_right": "REPRESENTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "DISTORTED"
+       },
+       "final": {
+        "P_exc": 0.9657745248514863,
+        "electron_right": 0.20195659586356882,
+        "transmission": null,
+        "branch_separation": 0.08265886801207056
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.9997886716612889,
+        "transmission": null,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.9998522918541677,
+        "transmission": null,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 2.7366905261394514e-07,
+       "max_edge": 3.505401593954202e-08
+      },
+      "EH": {
+       "energy_drift": 2.734481692745483e-07,
+       "max_edge": 3.785374003363711e-11,
+       "max_traj_energy_dev": 3.0840358458683603e-07
+      },
+      "BOQ": {
+       "energy_drift": 9.745694778962033e-09,
+       "max_edge": 3.5054015939542013e-08
+      },
+      "BOCL": {
+       "energy_drift": 9.745696347152055e-09,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 2.837724887849724e-07
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 127.22723610000048,
+       "cpu_s": 124.375,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 90.14432659999966,
+       "cpu_s": 89.65625,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.7358094000001074,
+       "cpu_s": 0.640625,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 4.473616799999945,
+       "cpu_s": 6.15625,
+       "state_values": 200
+      }
+     }
+    },
+    "S2_barrier": {
+     "reference": {
+      "valid": true,
+      "problems": [],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.01793090984891212,
+       "electron_right": 0.046807509250529664,
+       "transmission": 0.04546973324105366,
+       "branch_separation": 1.3329092329576906
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REFUSED",
+        "electron_right": "REFUSED",
+        "transmission": "REPRESENTED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.06111671311648122,
+        "electron_right": 0.06717361545123522,
+        "transmission": 0.04361647744741203,
+        "branch_separation": 1.3575670454554163
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "DISTORTED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.11230105513161488,
+        "transmission": 0.10506333053316864,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "NOT_APPLICABLE"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.1585935143201105,
+        "transmission": 0.15536063633475639,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 2.5907578471429105e-08,
+       "max_edge": 3.1632836490020277e-11
+      },
+      "EH": {
+       "energy_drift": 2.5827310679016335e-08,
+       "max_edge": 2.7885960605661552e-11,
+       "max_traj_energy_dev": 9.031350223231982e-08
+      },
+      "BOQ": {
+       "energy_drift": 8.040634824624249e-11,
+       "max_edge": 8.959910508738598e-13
+      },
+      "BOCL": {
+       "energy_drift": 8.157685638110479e-11,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 4.967048272686014e-09
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 118.2819915,
+       "cpu_s": 116.5625,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 71.01236470000003,
+       "cpu_s": 72.953125,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.5743671000000177,
+       "cpu_s": 0.578125,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 5.150840899999821,
+       "cpu_s": 6.671875,
+       "state_values": 200
+      }
+     }
+    }
+   }
+  },
+  {
+   "Rf": 6.0,
+   "S2_rule": {
+    "R_a": -2.0390625,
+    "R_b": 0.0,
+    "barrier": 0.010140270817370123,
+    "applicable": true
+   },
+   "scenarios": {
+    "S1_slide": {
+     "reference": {
+      "valid": true,
+      "problems": [],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.9916828437358726,
+       "electron_right": 0.014967249381332235,
+       "transmission": null,
+       "branch_separation": -0.7059015670424129
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REPRESENTED",
+        "electron_right": "REPRESENTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "REFUSED"
+       },
+       "final": {
+        "P_exc": 0.9917050238055427,
+        "electron_right": 0.015029513331989557,
+        "transmission": null,
+        "branch_separation": 0.044833450927824536
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.999754488536238,
+        "transmission": null,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "DISTORTED",
+        "transmission": "NOT_APPLICABLE",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.9998450853418037,
+        "transmission": null,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 1.6769985848597013e-07,
+       "max_edge": 3.505401593954202e-08
+      },
+      "EH": {
+       "energy_drift": 1.6762668687830828e-07,
+       "max_edge": 2.1847449099104107e-11,
+       "max_traj_energy_dev": 2.735043844737106e-07
+      },
+      "BOQ": {
+       "energy_drift": 9.894385678832496e-09,
+       "max_edge": 3.5054015939542013e-08
+      },
+      "BOCL": {
+       "energy_drift": 9.894257968490194e-09,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 2.836811275330753e-07
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 126.89599989999988,
+       "cpu_s": 124.15625,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 86.16722680000021,
+       "cpu_s": 85.78125,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.7233837000003405,
+       "cpu_s": 0.609375,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 4.459426899999926,
+       "cpu_s": 5.734375,
+       "state_values": 200
+      }
+     }
+    },
+    "S2_barrier": {
+     "reference": {
+      "valid": false,
+      "problems": [
+       "Q_grid_fine transmission: 0.07493349933565313 vs 0.07622482265652127"
+      ],
+      "unsupported": false,
+      "final": {
+       "P_exc": 0.06171243016921567,
+       "electron_right": 0.025516662277533013,
+       "transmission": 0.07493349933565313,
+       "branch_separation": 1.126216764672578
+      }
+     },
+     "verdicts": {
+      "EH": {
+       "verdict": {
+        "P_exc": "REFUSED",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "REFUSED"
+       },
+       "final": {
+        "P_exc": 0.13611825907389327,
+        "electron_right": 0.024978354237612167,
+        "transmission": 0.13457198228843584,
+        "branch_separation": 1.12256940388048
+       }
+      },
+      "BOQ": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.19014821980314423,
+        "transmission": 0.18569151798544245,
+        "branch_separation": null
+       }
+      },
+      "BOCL": {
+       "verdict": {
+        "P_exc": "ABSENT_BY_CONSTRUCTION",
+        "electron_right": "REFUSED",
+        "transmission": "REFUSED",
+        "branch_separation": "ABSENT_BY_CONSTRUCTION"
+       },
+       "final": {
+        "P_exc": 0.0,
+        "electron_right": 0.15855139296932746,
+        "transmission": 0.15588316300844732,
+        "branch_separation": null
+       }
+      }
+     },
+     "ledger": {
+      "Q": {
+       "energy_drift": 1.5801191743936016e-08,
+       "max_edge": 1.6672570772752567e-11
+      },
+      "EH": {
+       "energy_drift": 1.5780859230485333e-08,
+       "max_edge": 1.7077447818070398e-11,
+       "max_traj_energy_dev": 5.7005626941109e-08
+      },
+      "BOQ": {
+       "energy_drift": 4.613787130125502e-11,
+       "max_edge": 1.7743597270282902e-12
+      },
+      "BOCL": {
+       "energy_drift": 5.5653204267258616e-11,
+       "max_edge": 0.0,
+       "max_traj_energy_dev": 5.589398360816844e-09
+      }
+     },
+     "cost": {
+      "Q": {
+       "wall_s": 117.90182650000042,
+       "cpu_s": 116.328125,
+       "state_values": 262144
+      },
+      "EH": {
+       "wall_s": 74.48639710000134,
+       "cpu_s": 76.96875,
+       "state_values": 51400
+      },
+      "BOQ": {
+       "wall_s": 0.6171543000000383,
+       "cpu_s": 0.625,
+       "state_values": 512
+      },
+      "BOCL": {
+       "wall_s": 4.279369299998507,
+       "cpu_s": 5.921875,
+       "state_values": 200
+      }
+     }
+    }
+   }
+  }
+ ],
+ "results_sha256": "a486ce0c548ed7ee6a92e7df1fa46a54a6c2f2990e7c4dc6c987ce68ef1b4057"
+}
