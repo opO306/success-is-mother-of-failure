@@ -1,5 +1,25 @@
 # 현재 상태
 
+
+**H₂ Multi-Step Layered Validation V0 (2026-10-04):**
+[5-step 경로·검증비용·checkpoint/rollback](docs/active/h2_multistep_layered_v0/REPORT.md).
+H2_MULTISTEP_LAYERED_VALIDATION_PILOT_SUPPORTED / NOT CERTIFIED / NOT PRODUCTION APPROVED.
+이전1step accepted R1/P1/F1을C0로 재사용(F재계산0), dt1/h.1/μ=mp/2/Decimal80/V5Z full-CI guard 유지.
+추가5steps만 실행; stencil10+중앙3/5진단2=실제12전자calls 모두ACCEPTED, Quick5PASS.
+끝R=1.499423921018629329…/P=−.176131803174852663…/F=−.029253048256778768…;
+모든step R domain[1.2,1.6], COM0/총운동량0, NaN/Inf없음. Medium은상태승격없음.
+snapshot25파일·기존2584hash연결 불변, start2624/end2737bindings PASS+5step독립scalar replay.
+임시5states는보존, 종료감사후별도decision에서Pilot C5확정; 실패시C0유지/후손DISCARDED/삭제·자동재실행금지.
+중앙ΔH from C0:추가3 −3.71563920877e−7 / 추가5 −8.67000395826e−7 Eh MEASURED만, 에너지보존tolerance없음.
+전체370.720480s/평균74.144096s; raw260.551107s, Quick합.087671s/평균17.534ms,
+중앙진단28.455703+26.767259s, full26.522745+26.982749s. GNU/outer calls17.712267s차이원인미조사.
+workflow20ms sampled aggregate RSS3.804653GiB(전체host아님);176관련시험PASS/skip0.
+기존140.27s/step은역사비교; 중앙계산수·주기가동시변경돼엄밀통제속도비교아님.
+가상K1/5/10/50/100의비용/최대rollback표만작성, 최종K미선택/더긴trajectory미실행.
+LOCAL FULL생략/새독립Pilot·시험·문서만/기존calculator/common/frozen불변/기준선유지.
+공식optimizer·JC/B2/adaptive·canonical A채택·merge/rebase/push0. 아래1step/force는당시단계기록이다.
+
+
 **H₂ BO Nuclear Motion 1-Step V0 (2026-10-04):**
 [핵 위치·운동량·진단·실측 비용](docs/active/h2_nuclear_1step_v0/REPORT.md).
 H2_BO_NUCLEAR_1STEP_SUPPORTED / NOT CERTIFIED / NOT PRODUCTION APPROVED.

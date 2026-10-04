@@ -1,0 +1,8 @@
+{
+  "numerical_reexecution": 0,
+  "postprocessing_failures": [
+    "Cost display helper initially omitted encoding=utf8 and hit cp949 UnicodeDecodeError; fixed only the display read.",
+    "Report helper invoked as a runs/ script could not resolve electronic_pilot; invoked as a root namespace module successfully."
+  ],
+  "report_edit": "Corrected derived report prose to Korean; immutable numeric captures/seals unchanged."
+}

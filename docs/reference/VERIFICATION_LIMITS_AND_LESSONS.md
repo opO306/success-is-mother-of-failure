@@ -777,3 +777,19 @@ LOCAL FULL생략/관련시험대체/새분석·시험·문서만, 공식기준�
 첫preflight1failed 기대값Decimal28 비교는exact Fraction으로고침; 원래실패log 보존.
 LOCAL FULL생략/새독립pilot·시험·문서만/기존calculator/common/frozen 불변, 기준선유지.
 자동시험과요청계약 대조를별도로수행, 외부 독립감사 아님. 1step 후STOP.
+
+
+### H₂ Multi-Step Layered Validation V0 (2026-10-04)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| Full 끝실패인데C5확정/Medium을trusted checkpoint로승격 | 실제5step별도확정decision+실패branch의C0동일/후손DISCARDED 시험 | 실제campaign 실패/rollback은없음, synthetic/fault 경로검증이며물리정확도인증아님 |
+| REFUSED/NaN/Inf/domain/force/μ/COM/p합/geometry corruption을다음step까지방치 | Quick매step Fraction검산과guard5종·중앙geometry독립검사·즉시STOP·full escalation | guard는그대로지만unknown physical/model error상한없음 |
+| checkout source가snapshot에섞임/공개point변조를늦게새hash로봉인 | -I import origins 실제12calls 확인, 원래커널byte복사, start/end25snapshot hash+최초raw/state/공개point/C0hash | 외부라이브러리는기존환경신뢰, 양끝hash는중간변경후복원·memory결함을모두잡지못함 |
+| 실패step/비정상process 비용을기타로숨김·launch누락 | reviewer가발견후RED→GREEN, finally부분timing보존+nonzero process실제실행receipt 시험 | blocked campaign의실제물리비용은미실측, 정상12calls계측만 |
+| 같은성능조건인것처럼역사1step과비교/K100안전또는정확도보장 | 2stencil/step+중앙3/5와full양끝비용분리, K가상표/rollback창만, GNUvsouter17.712267s차이보존 | 통제재실행없음, clock차이원인미조사, 미래K적정성미확정 |
+
+[보고서](../active/h2_multistep_layered_v0/REPORT.md). 실제추가5steps/전자12ACCEPTED/Quick5PASS/fullstart/endPASS.
+176관련시험PASS/skip0. 초기zero기대값실패·의도된RED·postprocessing오류도보존. 별도reviewer검토는외부기관독립감사가아님.
+LOCAL FULL생략/새독립Pilot·시험·문서만/기존calculator/common/frozen불변/기준선유지.
+ΔH3/5는MEASURED, 새로운에너지보존tolerance0; canonical A승격없음/STOP/최종K설계자미결정.

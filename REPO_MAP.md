@@ -1,5 +1,17 @@
 # 저장소 지도
 
+
+`electronic_pilot/h2_multistep_v0/`는이전C0힘을재사용하는추가5step의독립BO Pilot이다.
+`scalar.py`=Decimal80 Verlet/중앙진단, `kit.py`=별도Fraction Quick/geometry/guard/statehash/확정·폐기판정.
+`campaign.py`=snapshot준비·start/end감사·2stencil/step·중앙3/5·cost/RSS·별도authority결정.
+`launch.py`/`worker.py`=Python -I snapshot에서실제원래V5Z수치커널을호출, kernel변경없음.
+`tests/h2_multistep_v0/`=synthetic/fault41+실측capture5, 기존130과합176PASS/skip0.
+[결과](docs/active/h2_multistep_layered_v0/REPORT.md), protocol/25files snapshot seal/공개point/result/authority는같은폴더.
+실제snapshot·AO/raw·process/state자료는Git밖 `runs/h2_multistep_layered_v0_20261004/`.
+모든임시state원본은불변보존; 종료감사실패시C0로확정포인터유지하고이후상태는DISCARDED표시.
+추가5step지원/물리·force·장시간인증아님/NOT CERTIFIED/production미승인/STOP. K미선택.
+
+
 `electronic_pilot/h2_nuclear_v0/`는 기존 cc-pV5Z 계산기를 바꾸지 않은 독립 1-step BO 핵 운동 Pilot이다.
 sealed E1.4/1.5/1.6 → Decimal80 initial half-kick/drift → 새3 geometry worker → final half-kick.
 `mass.json`은 NIST nominal proton-electron ratio의 Pilot 로컬 상수/전사 fingerprint이며 전역상수 변경없음.

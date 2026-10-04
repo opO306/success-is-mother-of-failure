@@ -1,0 +1,20 @@
+F........................                                                [100%]
+================================== FAILURES ===================================
+___________________ test_quadratic_update_and_carried_force ___________________
+
+    def test_quadratic_update_and_carried_force():
+        previous,step=sample()
+        assert step['P_half']=='-0.1' and D(step['R'])==D('1.4999')
+        assert abs(D(step['P'])-D('-.1999'))<D('1e-14')
+        assert api('kit').quick(previous,step,'2000','/snapshot')['status']=='QUICK_KIT_PASS'
+>       assert step['nuclei']['COM_position']=='0.0000' and Q(step['nuclei']['total_momentum'])==0
+E       AssertionError: assert ('0.00000' == '0.0000'
+E         
+E         - 0.0000
+E         + 0.00000
+E         ?       +)
+
+tests\h2_multistep_v0\test_kit.py:34: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/h2_multistep_v0/test_kit.py::test_quadratic_update_and_carried_force
+1 failed, 24 passed in 0.65s
