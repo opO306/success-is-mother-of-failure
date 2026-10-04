@@ -1,0 +1,8 @@
+{
+  "canonical_RSS": "INVALID FOR COMPARISON; results.json retained unchanged",
+  "diagnostic": "child getrusage highwater equals parent highwater after exec, unlike child /proc/self/status",
+  "reproduced_parent_and_child_getrusage_KiB": 47372,
+  "child_VmHWM_KiB": 11520,
+  "replacement": "smaps_rollup sampled resident pages at boundaries and 2ms; observed maximum only",
+  "canonical_source_or_physics_changed": false
+}

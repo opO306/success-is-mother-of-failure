@@ -20,6 +20,17 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+**Electronic Representation Survey:** `electronic_pilot/representation_survey/` — 기존 stored corpus의 네 prototype, A-world와 분리.
+`corpus.py`는 이전 Ne1 state 및 저장 Ne2 singlet integrals/H에서 전체 공간 REF를 만든다.
+`representations.py`는 exact adaptive residual/certificate, lossy index, lossless block, CAS/DAG/thread checks.
+`verify.py`는 독립 decoder/density/full-matrix evolution 비교, `campaign.py`는 seal/cost/correctness capture.
+`postrun/`은 canonical 불변 상태에서 RSS 교정·같은-input pipeline·checkpoint reference·collision audit를 수행한다.
+[결과](docs/active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md): survey 완료/NOT CERTIFIED,
+Summary authority REJECTED, exact restore PASS, 실제 dedup0, production 선택 없음.
+`tests/test_electronic_representation_survey*.py` 신규60개,
+`docs/active/electronic_representation_survey_v1/` compact evidence,
+`runs/electronic_representation_survey_v1_20261004/` 별도 raw. GPU/Vast/새 전자-핵 law 없음.
+
 **Electronic State / History:** `electronic_pilot/state_history/` — A-world와 분리된 고정 핵·Ne1·TZ28공간 pilot.
 `campaign.py`는 protocol/source/Git seal 후 fresh AO와 전체 eigenvectors를 저장하고,
 `core.py`는 복소 state 준비·전체 eigenbasis 전개, `checker.py`는 별도 full-matrix expm·projector·밀도를 검사한다.

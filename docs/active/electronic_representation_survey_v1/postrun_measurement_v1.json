@@ -1,0 +1,270 @@
+{
+  "measurement_status": "POSTRUN MEASUREMENT ONLY; physics/source/tolerances unchanged",
+  "canonical_getrusage_peaks": "INVALID FOR COMPARISON: inherited parent highwater reproduced",
+  "rows": [
+    {
+      "corpus": "A",
+      "candidate": "REF",
+      "operation": "dense energy",
+      "answer": -0.947631161800787,
+      "wall_seconds": 0.010273798000000056,
+      "cpu_seconds": 0.0033090320000000034,
+      "observed_peak_RSS_bytes": 35319808,
+      "initial_RSS_bytes": 35065856,
+      "samples": 7,
+      "kernel_reported_VmHWM_bytes": 35328000,
+      "getrusage_highwater_bytes": 35328000,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "A",
+      "candidate": "A",
+      "operation": "exact adaptive decode plus dense energy",
+      "answer": -0.947631161800787,
+      "wall_seconds": 0.014456691000000355,
+      "cpu_seconds": 0.004809859999999999,
+      "observed_peak_RSS_bytes": 35504128,
+      "initial_RSS_bytes": 35110912,
+      "samples": 8,
+      "kernel_reported_VmHWM_bytes": 35487744,
+      "getrusage_highwater_bytes": 35487744,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "A",
+      "candidate": "B",
+      "operation": "index read ONLY; no equivalent physical computation",
+      "answer": -0.947631161801,
+      "wall_seconds": 0.004172644999999697,
+      "cpu_seconds": 0.0011989650000000102,
+      "observed_peak_RSS_bytes": 35074048,
+      "initial_RSS_bytes": 35041280,
+      "samples": 3,
+      "kernel_reported_VmHWM_bytes": 35061760,
+      "getrusage_highwater_bytes": 35069952,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "A",
+      "candidate": "C",
+      "operation": "streamed dense-coupling energy",
+      "answer": -0.9476311618007868,
+      "wall_seconds": 0.052054826,
+      "cpu_seconds": 0.014138819999999996,
+      "observed_peak_RSS_bytes": 35459072,
+      "initial_RSS_bytes": 35131392,
+      "samples": 23,
+      "kernel_reported_VmHWM_bytes": 35459072,
+      "getrusage_highwater_bytes": 35459072,
+      "counters": {
+        "read_bytes": 2240,
+        "read_calls": 20,
+        "peak_coefficient_working_bytes": 384,
+        "peak_operator_tile_bytes": 512
+      },
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "A",
+      "candidate": "D",
+      "operation": "two-thread block norm/hash verification ONLY",
+      "answer": 1.3882481508957338,
+      "wall_seconds": 0.008124797999999878,
+      "cpu_seconds": 0.004194699999999996,
+      "observed_peak_RSS_bytes": 35397632,
+      "initial_RSS_bytes": 35074048,
+      "samples": 5,
+      "kernel_reported_VmHWM_bytes": 35164160,
+      "getrusage_highwater_bytes": 35164160,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "B",
+      "candidate": "REF",
+      "operation": "dense energy",
+      "answer": -1.6384626935363273,
+      "wall_seconds": 0.018687975000000634,
+      "cpu_seconds": 0.009414858999999998,
+      "observed_peak_RSS_bytes": 38907904,
+      "initial_RSS_bytes": 35086336,
+      "samples": 10,
+      "kernel_reported_VmHWM_bytes": 39124992,
+      "getrusage_highwater_bytes": 39124992,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "B",
+      "candidate": "A",
+      "operation": "exact adaptive decode plus dense energy",
+      "answer": -1.6384626935363273,
+      "wall_seconds": 0.025253543999999906,
+      "cpu_seconds": 0.012277859999999988,
+      "observed_peak_RSS_bytes": 38301696,
+      "initial_RSS_bytes": 35061760,
+      "samples": 12,
+      "kernel_reported_VmHWM_bytes": 39157760,
+      "getrusage_highwater_bytes": 39157760,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "B",
+      "candidate": "B",
+      "operation": "index read ONLY; no equivalent physical computation",
+      "answer": -1.638462693536,
+      "wall_seconds": 0.0040888219999999365,
+      "cpu_seconds": 0.0010817779999999916,
+      "observed_peak_RSS_bytes": 35155968,
+      "initial_RSS_bytes": 35123200,
+      "samples": 3,
+      "kernel_reported_VmHWM_bytes": 35196928,
+      "getrusage_highwater_bytes": 35201024,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "B",
+      "candidate": "C",
+      "operation": "streamed dense-coupling energy",
+      "answer": -1.6384626935363276,
+      "wall_seconds": 0.14166762300000002,
+      "cpu_seconds": 0.03795704299999998,
+      "observed_peak_RSS_bytes": 36765696,
+      "initial_RSS_bytes": 35082240,
+      "samples": 60,
+      "kernel_reported_VmHWM_bytes": 36634624,
+      "getrusage_highwater_bytes": 36634624,
+      "counters": {
+        "read_bytes": 51968,
+        "read_calls": 56,
+        "peak_coefficient_working_bytes": 3072,
+        "peak_operator_tile_bytes": 32768
+      },
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "B",
+      "candidate": "D",
+      "operation": "two-thread block norm/hash verification ONLY",
+      "answer": 0.9999999999999986,
+      "wall_seconds": 0.012489320999999443,
+      "cpu_seconds": 0.005530629000000009,
+      "observed_peak_RSS_bytes": 35266560,
+      "initial_RSS_bytes": 35012608,
+      "samples": 7,
+      "kernel_reported_VmHWM_bytes": 35061760,
+      "getrusage_highwater_bytes": 35201024,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "synthetic",
+      "candidate": "REF",
+      "operation": "dense norm",
+      "answer": 0.9999999999999823,
+      "wall_seconds": 0.0740557380000002,
+      "cpu_seconds": 0.023724206999999997,
+      "observed_peak_RSS_bytes": 52166656,
+      "initial_RSS_bytes": 35258368,
+      "samples": 32,
+      "kernel_reported_VmHWM_bytes": 52006912,
+      "getrusage_highwater_bytes": 52137984,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "synthetic",
+      "candidate": "C",
+      "operation": "streamed norm",
+      "answer": 0.9999999999999987,
+      "wall_seconds": 0.3640711769999996,
+      "cpu_seconds": 0.11365645199999999,
+      "observed_peak_RSS_bytes": 35774464,
+      "initial_RSS_bytes": 35143680,
+      "samples": 214,
+      "kernel_reported_VmHWM_bytes": 35487744,
+      "getrusage_highwater_bytes": 35487744,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    },
+    {
+      "corpus": "synthetic",
+      "candidate": "D",
+      "operation": "two-thread block norm/hash verification ONLY",
+      "answer": 0.9999999999999987,
+      "wall_seconds": 0.13500939600000006,
+      "cpu_seconds": 0.06820380399999999,
+      "observed_peak_RSS_bytes": 36564992,
+      "initial_RSS_bytes": 35090432,
+      "samples": 56,
+      "kernel_reported_VmHWM_bytes": 36245504,
+      "getrusage_highwater_bytes": 36245504,
+      "counters": {},
+      "RSS_scope": "smaps_rollup resident pages at boundaries and 2ms samples; observed maximum, not certified absolute peak; includes interpreter"
+    }
+  ],
+  "random_access": {
+    "A": {
+      "wall_median_seconds": 0.004273312000000473,
+      "wall_samples_seconds": [
+        0.004543530000000295,
+        0.004102443000000733,
+        0.004273312000000473,
+        0.004296495999999372,
+        0.004190097999999587
+      ],
+      "coefficient_read_bytes": 64,
+      "coefficient_read_calls": 1,
+      "manifest_bytes": 2511,
+      "scope": "single last-block coefficient query; not full state or observable"
+    },
+    "B": {
+      "wall_median_seconds": 0.004073864000000427,
+      "wall_samples_seconds": [
+        0.0043266819999994155,
+        0.0038403810000007255,
+        0.004073864000000427,
+        0.004136417999999864,
+        0.00399030999999983
+      ],
+      "coefficient_read_bytes": 352,
+      "coefficient_read_calls": 1,
+      "manifest_bytes": 3983,
+      "scope": "single last-block coefficient query; not full state or observable"
+    },
+    "synthetic": {
+      "wall_median_seconds": 0.005279500000000326,
+      "wall_samples_seconds": [
+        0.005694173999999386,
+        0.005279500000000326,
+        0.005436542999999183,
+        0.005031607000000271,
+        0.0050705200000003
+      ],
+      "coefficient_read_bytes": 262144,
+      "coefficient_read_calls": 1,
+      "manifest_bytes": 31924,
+      "scope": "single last-block coefficient query; not full state or observable"
+    }
+  },
+  "parallel_exact_block_reduction": {
+    "A": {
+      "hash_equal": true,
+      "norm_bit_equal": true
+    },
+    "B": {
+      "hash_equal": true,
+      "norm_bit_equal": true
+    },
+    "synthetic": {
+      "hash_equal": true,
+      "norm_bit_equal": true
+    }
+  },
+  "disk_cache_control": "NOT CONTROLLED; logical coefficient bytes only; no disk-sector byte claim"
+}

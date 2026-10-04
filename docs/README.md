@@ -1,9 +1,14 @@
 # 프로젝트 문서 안내
 
+[Electronic Representation Survey Gate V1](active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md):
+Ne1/TZ28·Ne2/singlet406 dense REF에 대한 네 prototype 조사 완료/NOT CERTIFIED.
+Adaptive·USB·CAS exact restore PASS, Summary authority REJECTED/index only, 실제 checkpoint dedup0.
+비용 증가·100% static REFINE·RAM 측정 교정도 기록, production 선택·다음 Gate 자동 착수·push 없음.
+
 [Electronic State / History Gate V1](active/ELECTRONIC_STATE_HISTORY_GATE_V1.md):
 TZ28공간 closed fixed-H의 P1–P5 PASS/NOT CERTIFIED. 같은 순간 밀도의 두 상태가 다른 미래 dipole을 가진다.
 current full state 충분한 후보·별도 history 필요성 미확인·global phase 동등, 노트북 saved-H 재현 PASS.
-Representation / Electron–Nuclear Dynamics는 설계자 결정 대기, foundation 미승인·이번 push 금지.
+당시 다음 결정에서 위 Representation Survey로 진행했다. Production 표현·Dynamics·foundation 미승인, push 없음.
 
 [Electronic Sector Panel V1](active/ELECTRONIC_SECTOR_PANEL_V1.md): 같은 TZ full-space의 Ne/sector18개 static 결과,
 P1–P5 PASS/NOT CERTIFIED. Q derived·화학 ID 거부·노트북 saved-AO 부분 재현을 구분한다.

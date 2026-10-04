@@ -1,5 +1,9 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md](active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md):
+2026-10-04 stored full-space corpus의 네 구조 prototype 조사. Exact restore·두 summary collision,
+cost/fallback/RAM 측정 실패와 교정·dedup0 기록. Survey 완료/NOT CERTIFIED/production 선택 없음/push 없음.
+
 [ELECTRONIC_STATE_HISTORY_GATE_V1.md](active/ELECTRONIC_STATE_HISTORY_GATE_V1.md):
 2026-10-04 새 isolated dynamic state pilot, finite numerical P1–P5 PASS/NOT CERTIFIED.
 순간 밀도 단독 불충분, current full state 충분한 후보·history 필요성 미확인, global phase 동등.

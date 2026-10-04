@@ -1,0 +1,2206 @@
+{
+  "scope": "same initial states; disk restore plus same retained-H/U numerical kernels; 5 repeats; cache uncontrolled",
+  "B": "INDEX ONLY: no equivalent physical pipeline",
+  "rows": [
+    {
+      "corpus": "A",
+      "state": "ground",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.006933013999997684,
+        "cpu_median_seconds": 0.000814731000000013,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00749666900000534,
+          0.006836777999978949,
+          0.006933013999997684,
+          0.006847376999985499,
+          0.007016999999990503
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.006794744000018227,
+        "cpu_median_seconds": 0.0008260820000000058,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007069803000007369,
+          0.007036556999992172,
+          0.006794744000018227,
+          0.006640078999993193,
+          0.006726589999999533
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.006967604999999821,
+        "cpu_median_seconds": 0.0007599400000000145,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.006648244000018622,
+          0.006967604999999821,
+          0.00667706699999826,
+          0.007025237000021889,
+          0.00714872399998967
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.006845695000009755,
+        "cpu_median_seconds": 0.000820795999999957,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.006852399999985437,
+          0.006777632999984462,
+          0.00717100299999629,
+          0.006677273999997624,
+          0.006845695000009755
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "ground",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.007086152999988826,
+        "cpu_median_seconds": 0.0010856799999999778,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00766863699999476,
+          0.007086152999988826,
+          0.007044048000011571,
+          0.007065159000006815,
+          0.007182851999999684
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.0070689990000119,
+        "cpu_median_seconds": 0.0010707169999999988,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007020866000004844,
+          0.006896535999999287,
+          0.007347754999983636,
+          0.0070689990000119,
+          0.007717238000026327
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007561875999982703,
+        "cpu_median_seconds": 0.0010799550000000213,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00790391999998974,
+          0.007974141000005375,
+          0.007166071000000329,
+          0.007561875999982703,
+          0.006996821999990743
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.0074268829999937225,
+        "cpu_median_seconds": 0.0011838789999999988,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0074268829999937225,
+          0.008303925000006984,
+          0.007734236999993982,
+          0.00728079600000342,
+          0.007146088000013151
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "ground",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.02028169400000479,
+        "cpu_median_seconds": 0.0024395110000000053,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.023609644000003982,
+          0.019624096000001146,
+          0.02039387299998907,
+          0.02028169400000479,
+          0.020105061000009528
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.020015389999997524,
+        "cpu_median_seconds": 0.002240421000000048,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.021968775000004825,
+          0.02157800499998075,
+          0.01961823700000309,
+          0.01946638200001871,
+          0.020015389999997524
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.019487497000000076,
+        "cpu_median_seconds": 0.0022107969999999866,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.019777914999991708,
+          0.019500270999998293,
+          0.019345772999997735,
+          0.0192593049999914,
+          0.019487497000000076
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.02252551500001232,
+        "cpu_median_seconds": 0.0028956629999999928,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02252551500001232,
+          0.020963515000005373,
+          0.02352382199998715,
+          0.026326566999983925,
+          0.021714193999997633
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "ground",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.0240845110000123,
+        "cpu_median_seconds": 0.003361816999999989,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.023796166000011,
+          0.024134012000018856,
+          0.02497873799998729,
+          0.023940021000015577,
+          0.0240845110000123
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.024333041999994975,
+        "cpu_median_seconds": 0.0033563739999999953,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.025106053000001793,
+          0.025323185000019066,
+          0.023927944999996953,
+          0.024333041999994975,
+          0.022810020000008535
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.02121798999999669,
+        "cpu_median_seconds": 0.002564025999999997,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.021086864000011474,
+          0.02079283599999826,
+          0.02121798999999669,
+          0.022086952999984533,
+          0.02207825400000729
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.02333502099997986,
+        "cpu_median_seconds": 0.0028041810000000167,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022389191999991453,
+          0.02333502099997986,
+          0.023076313999979448,
+          0.024619999999998754,
+          0.023450297000010778
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.043208879999980354
+    },
+    {
+      "corpus": "A",
+      "state": "excited",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.00808884200000648,
+        "cpu_median_seconds": 0.0009207980000000004,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008367444000015212,
+          0.00808884200000648,
+          0.009473253000010118,
+          0.007828480999990006,
+          0.007837876000024835
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.008092422999993687,
+        "cpu_median_seconds": 0.0009615279999999893,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008092422999993687,
+          0.007893849999987879,
+          0.008345639999987498,
+          0.0076336749999939,
+          0.008532473999991907
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008399327999995876,
+        "cpu_median_seconds": 0.0010478359999999687,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008399327999995876,
+          0.008666667999989386,
+          0.0076493509999977505,
+          0.007249755000003688,
+          0.008533513000003268
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.0074026190000040515,
+        "cpu_median_seconds": 0.0010045149999999836,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0073071440000092025,
+          0.0074026190000040515,
+          0.0073260719999836965,
+          0.007801178000022446,
+          0.007531301999989637
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "excited",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.007849777999979324,
+        "cpu_median_seconds": 0.0012828320000000115,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007673283999992009,
+          0.008232658999986597,
+          0.007527344999999741,
+          0.008831352000015613,
+          0.007849777999979324
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.007495705999986058,
+        "cpu_median_seconds": 0.001170102999999978,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007212256000002526,
+          0.007504946000011614,
+          0.007495705999986058,
+          0.007181070000001455,
+          0.00756274799999801
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007752401999994163,
+        "cpu_median_seconds": 0.0012319610000000036,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007139677999987271,
+          0.007752401999994163,
+          0.026799068000002535,
+          0.007893942999999126,
+          0.007469845000002806
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.008126852999993162,
+        "cpu_median_seconds": 0.0015485070000000878,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00769118900001331,
+          0.008320157000014206,
+          0.008126852999993162,
+          0.007641223000007358,
+          0.00844036099999812
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "excited",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.02518404099998861,
+        "cpu_median_seconds": 0.003193315999999946,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.026076681000006374,
+          0.024980425000023843,
+          0.02518404099998861,
+          0.0246763980000253,
+          0.02587769400000184
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.02489309399999229,
+        "cpu_median_seconds": 0.0029883410000000055,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02489309399999229,
+          0.027279246000006196,
+          0.026732108000004473,
+          0.023041835999976,
+          0.02290152899999498
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.02141472600001748,
+        "cpu_median_seconds": 0.00252134599999998,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022059539000025552,
+          0.021280163999989554,
+          0.02141472600001748,
+          0.02140327300000422,
+          0.023169174999992492
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.02463459400001966,
+        "cpu_median_seconds": 0.0034579479999999885,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02295968299998208,
+          0.022211879999986195,
+          0.04177783100001875,
+          0.028493075999989514,
+          0.02463459400001966
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "excited",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.02506448900001601,
+        "cpu_median_seconds": 0.0031506320000000976,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0253803180000034,
+          0.023169244000001754,
+          0.02450243999999202,
+          0.025312842000005276,
+          0.02506448900001601
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.026917616999980964,
+        "cpu_median_seconds": 0.0033352700000000013,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.027983252000012726,
+          0.025237308000015446,
+          0.026426369999995813,
+          0.026917616999980964,
+          0.027293904000003977
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.02376138799999694,
+        "cpu_median_seconds": 0.0030452560000000517,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02715694299999427,
+          0.02376138799999694,
+          0.02396624300001804,
+          0.023199847999990197,
+          0.022949613999998064
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.02428892399998972,
+        "cpu_median_seconds": 0.0033201090000000155,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02170861199999763,
+          0.021770651999986512,
+          0.02428892399998972,
+          0.02637511599999698,
+          0.024673011999993832
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.04777966300000003
+    },
+    {
+      "corpus": "A",
+      "state": "plus",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.009047189999989769,
+        "cpu_median_seconds": 0.0012054850000000616,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009136832000024242,
+          0.009047189999989769,
+          0.008652211999987003,
+          0.008745123999972293,
+          0.009664064999981292
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.010385351999985915,
+        "cpu_median_seconds": 0.0014661589999999114,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012996388999994224,
+          0.009330637000005026,
+          0.010385351999985915,
+          0.01436343899999315,
+          0.009810544999993454
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008959301000004416,
+        "cpu_median_seconds": 0.0011787500000000062,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009809025999999221,
+          0.008883287000003293,
+          0.009120043999985228,
+          0.008959301000004416,
+          0.008420944999983249
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.009303627999997843,
+        "cpu_median_seconds": 0.001314526000000038,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012033274000003757,
+          0.011196544000000586,
+          0.009180055999991055,
+          0.008696606999990308,
+          0.009303627999997843
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "plus",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.01005887700000585,
+        "cpu_median_seconds": 0.0020682359999999456,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.01005887700000585,
+          0.010520004999989396,
+          0.009724769999991167,
+          0.00989608500000827,
+          0.011628705999982003
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.01034913600000209,
+        "cpu_median_seconds": 0.0017768120000000165,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010120427999993353,
+          0.010707702999980029,
+          0.010656566999983852,
+          0.01034913600000209,
+          0.010156633000008242
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.010061081999992894,
+        "cpu_median_seconds": 0.0018583139999999165,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009699753000006694,
+          0.011433457999999064,
+          0.010099628000006078,
+          0.010042078999987325,
+          0.010061081999992894
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.00975436900000659,
+        "cpu_median_seconds": 0.0019249890000000436,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010492130999978144,
+          0.00975436900000659,
+          0.009941604999994524,
+          0.00969869799999401,
+          0.009350128999983554
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "plus",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.03446081399999912,
+        "cpu_median_seconds": 0.003701146000000044,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03446081399999912,
+          0.04225605499999574,
+          0.03219667999999842,
+          0.037734352999990506,
+          0.025772291999999197
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.025635829999998805,
+        "cpu_median_seconds": 0.003248154999999975,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02754418200001396,
+          0.027523625000014817,
+          0.025635829999998805,
+          0.02478452700000844,
+          0.02405425999998556
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.024030811000017138,
+        "cpu_median_seconds": 0.0030918149999999978,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.024975732999990896,
+          0.023785946000003833,
+          0.02334304699999734,
+          0.024403207999995402,
+          0.024030811000017138
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.023546072000016238,
+        "cpu_median_seconds": 0.0030437139999999197,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022994285000009995,
+          0.023546072000016238,
+          0.023246984999985898,
+          0.024682697000002918,
+          0.02414938699999425
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "plus",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.026854752000019744,
+        "cpu_median_seconds": 0.003557262000000061,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.024942577000018673,
+          0.026854752000019744,
+          0.030308114000007436,
+          0.03118478999999752,
+          0.026707224000006136
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.02871217599999909,
+        "cpu_median_seconds": 0.0033408219999999655,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.028724242999999205,
+          0.027675964000025033,
+          0.028678030000008903,
+          0.02871217599999909,
+          0.02973174199999562
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.026768274000005476,
+        "cpu_median_seconds": 0.0030275370000000246,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.028300776999998334,
+          0.026573890999998184,
+          0.026997400999988486,
+          0.026768274000005476,
+          0.02598477300000468
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.022825899999986632,
+        "cpu_median_seconds": 0.0023441600000000395,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02451781600001368,
+          0.023220485999985385,
+          0.022623572000014747,
+          0.022164756000023544,
+          0.022825899999986632
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.050596561999981304
+    },
+    {
+      "corpus": "A",
+      "state": "minus",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.007836046999983637,
+        "cpu_median_seconds": 0.0007471840000000673,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008596807000003537,
+          0.0077706759999784936,
+          0.007836046999983637,
+          0.007513376000019889,
+          0.007912409999988768
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.008661666999984163,
+        "cpu_median_seconds": 0.0009272909999999968,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008661666999984163,
+          0.009188981999983525,
+          0.008332975000001852,
+          0.008299531999995224,
+          0.009497447000001102
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008713657999976476,
+        "cpu_median_seconds": 0.0009078579999999281,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008542454999997062,
+          0.008993587000020398,
+          0.007908351999986962,
+          0.009497086000010313,
+          0.008713657999976476
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.00846470499999441,
+        "cpu_median_seconds": 0.0008964140000000675,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008539883999986841,
+          0.008535147999992887,
+          0.008402015000001484,
+          0.00846470499999441,
+          0.008270062999997663
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "minus",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.008990012999987584,
+        "cpu_median_seconds": 0.001188585999999936,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00948541500000033,
+          0.009014000000007627,
+          0.008900468000007322,
+          0.008990012999987584,
+          0.008632046999991871
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.008433496999998624,
+        "cpu_median_seconds": 0.0012415680000000817,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008536566999993056,
+          0.008433631000002606,
+          0.008433496999998624,
+          0.0076484939999943435,
+          0.00782073200002742
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007778956999999309,
+        "cpu_median_seconds": 0.0010346799999999545,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0074253989999988335,
+          0.007813118000001396,
+          0.007424835999984225,
+          0.008185473999986925,
+          0.007778956999999309
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.007849946000021646,
+        "cpu_median_seconds": 0.001163358999999975,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007557212999984131,
+          0.007649141000001691,
+          0.008080786999983047,
+          0.007849946000021646,
+          0.008288081000017655
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "minus",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.021117054999990614,
+        "cpu_median_seconds": 0.0021123819999999682,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.021117054999990614,
+          0.02087089100001549,
+          0.021199648999981946,
+          0.02064629500000592,
+          0.021683195999997906
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.021344342000020333,
+        "cpu_median_seconds": 0.002194068999999965,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0216586159999963,
+          0.021871244999999817,
+          0.0209008089999827,
+          0.021344342000020333,
+          0.021302011000017274
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.023384979000013573,
+        "cpu_median_seconds": 0.002501565999999955,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022727275000022473,
+          0.024305881000003637,
+          0.023677450999997518,
+          0.023384979000013573,
+          0.022991494999985207
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.023190970999991123,
+        "cpu_median_seconds": 0.002535516999999987,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02338921899999491,
+          0.02279782499999783,
+          0.022858164000012948,
+          0.023190970999991123,
+          0.023398191000012503
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "minus",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.022553588000022273,
+        "cpu_median_seconds": 0.002251522000000006,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0243889010000089,
+          0.023205407000006062,
+          0.022030634999993026,
+          0.02234879299999193,
+          0.022553588000022273
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.023316877999974395,
+        "cpu_median_seconds": 0.002505906999999974,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022622452999996767,
+          0.02278400800000213,
+          0.023316877999974395,
+          0.023717653000005612,
+          0.024425466000025153
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.02284505999998032,
+        "cpu_median_seconds": 0.002397476000000065,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02270036199999481,
+          0.02284505999998032,
+          0.022882962000011275,
+          0.025009249000021327,
+          0.021339417999996613
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.021541978000016115,
+        "cpu_median_seconds": 0.0022320000000000118,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02314339999998083,
+          0.02298703900001442,
+          0.020702621999987514,
+          0.021003989999996975,
+          0.021541978000016115
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.04895677499999351
+    },
+    {
+      "corpus": "A",
+      "state": "global_phase",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.007655760000005785,
+        "cpu_median_seconds": 0.0007814120000000369,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008202240000002803,
+          0.007536454999979014,
+          0.008108351000004177,
+          0.007655760000005785,
+          0.007497026999999434
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.007521135999979833,
+        "cpu_median_seconds": 0.0007693659999999936,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00747876999997743,
+          0.007521135999979833,
+          0.007495498999986694,
+          0.007575440000010758,
+          0.007568691000017225
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007566867999997839,
+        "cpu_median_seconds": 0.0007365759999999888,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007566867999997839,
+          0.0075338499999872965,
+          0.00768490699999802,
+          0.007329960999982177,
+          0.007656069000006482
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.007746712999988858,
+        "cpu_median_seconds": 0.000826279999999957,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007822279999999182,
+          0.008496064000013348,
+          0.0074476579999895876,
+          0.007746712999988858,
+          0.007570149999992282
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "global_phase",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.008120888000007653,
+        "cpu_median_seconds": 0.0010924599999999618,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007950775000011845,
+          0.007931219999989025,
+          0.008369761000011522,
+          0.008120888000007653,
+          0.008342869000017572
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.00865734199999224,
+        "cpu_median_seconds": 0.0012884730000000122,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008883397999994713,
+          0.008625488999996378,
+          0.009598509999989346,
+          0.008188227999994524,
+          0.00865734199999224
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.00802453399998626,
+        "cpu_median_seconds": 0.0012009220000002152,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.00802453399998626,
+          0.008102998999987676,
+          0.008085606999998163,
+          0.007923396999984789,
+          0.007737422000019478
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.008755064000013135,
+        "cpu_median_seconds": 0.0014147529999999353,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0088825740000118,
+          0.008716977000005954,
+          0.008755064000013135,
+          0.008908278999996355,
+          0.008237502000014274
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "global_phase",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.02300040400001535,
+        "cpu_median_seconds": 0.0024654809999999916,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0254645639999751,
+          0.023676726999980247,
+          0.02300040400001535,
+          0.021706422000022485,
+          0.021104600999990453
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.02243091299999378,
+        "cpu_median_seconds": 0.002440863999999987,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.021652296999974396,
+          0.022885434000016858,
+          0.022108250999991697,
+          0.02243091299999378,
+          0.022560673000015186
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.02294453400000407,
+        "cpu_median_seconds": 0.0024781910000000185,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022334252999996806,
+          0.022788727999994762,
+          0.02294453400000407,
+          0.022990771999985782,
+          0.024318238999995856
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.024541322000004584,
+        "cpu_median_seconds": 0.0027197500000000208,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.022565085000024965,
+          0.024541322000004584,
+          0.02500036000000705,
+          0.024711846000002424,
+          0.023786228999995274
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "A",
+      "state": "global_phase",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.023868007000004354,
+        "cpu_median_seconds": 0.0026873519999999207,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.023868007000004354,
+          0.02328279500000008,
+          0.02641923699999893,
+          0.02412768700000356,
+          0.022884624999989
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.023277144000019234,
+        "cpu_median_seconds": 0.002548299999999948,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.023277144000019234,
+          0.023552777000020342,
+          0.024361153999990393,
+          0.023243060999988074,
+          0.022765603000010515
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.023558335999979363,
+        "cpu_median_seconds": 0.0025321900000001563,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.025144660000023578,
+          0.023753954999989446,
+          0.022968622999997024,
+          0.023558335999979363,
+          0.023208680999999842
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.02400493000001802,
+        "cpu_median_seconds": 0.002734133999999999,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.02400493000001802,
+          0.02319620800000166,
+          0.0266783710000027,
+          0.025198361000008163,
+          0.023175441000006458
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.04691977099997757
+    },
+    {
+      "corpus": "B",
+      "state": "ground",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.00826164699998344,
+        "cpu_median_seconds": 0.00092155599999999,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009220408999993879,
+          0.008070228000008228,
+          0.008924927999999,
+          0.00819177799999693,
+          0.00826164699998344
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.010341701000015746,
+        "cpu_median_seconds": 0.003069927999999944,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.011456420000001799,
+          0.01011154900001543,
+          0.010341701000015746,
+          0.010678421000022809,
+          0.010300780999983772
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008975923000008379,
+        "cpu_median_seconds": 0.0011883120000000247,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009266005000000632,
+          0.008297431999977789,
+          0.009458561999991844,
+          0.008975923000008379,
+          0.008335015999989537
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04525783299999375,
+        "cpu_median_seconds": 0.03787998300000006,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04601136899998437,
+          0.044082947999982025,
+          0.04523391800000809,
+          0.04665813700000854,
+          0.04525783299999375
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "ground",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.011683570000002419,
+        "cpu_median_seconds": 0.003880042000000028,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012224535000001424,
+          0.011561072999995758,
+          0.01063317399999164,
+          0.013251149000012674,
+          0.011683570000002419
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.013949336999985462,
+        "cpu_median_seconds": 0.0065103050000001605,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.013683165000003328,
+          0.013748967999987372,
+          0.014683113000018011,
+          0.014532063000018525,
+          0.013949336999985462
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.011601962999975513,
+        "cpu_median_seconds": 0.004001463999999899,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010823049000009632,
+          0.011657267000003912,
+          0.011601962999975513,
+          0.011772422999996479,
+          0.011092550000000756
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04856810000001133,
+        "cpu_median_seconds": 0.04084189100000013,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.051525895999986915,
+          0.04856810000001133,
+          0.04571882899998059,
+          0.04812552800001413,
+          0.07090460900002427
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "ground",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.038204519999993636,
+        "cpu_median_seconds": 0.004248765000000043,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03758068199999798,
+          0.04031893399999831,
+          0.03868738599999233,
+          0.038204519999993636,
+          0.03675926599999002
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.03940929300000562,
+        "cpu_median_seconds": 0.00611339700000002,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04318097299997703,
+          0.04020681700001205,
+          0.03832600499998762,
+          0.03940929300000562,
+          0.039300330000003214
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.03746641600000089,
+        "cpu_median_seconds": 0.004289100000000046,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03756904299999064,
+          0.03880236300000206,
+          0.036164816999985305,
+          0.036046515999998974,
+          0.03746641600000089
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07283811499999615,
+        "cpu_median_seconds": 0.04093205700000002,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.07193757299998538,
+          0.07580533899999864,
+          0.07283811499999615,
+          0.08485297699999705,
+          0.07129272399998854
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "ground",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.03892682000000036,
+        "cpu_median_seconds": 0.004368090000000269,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03877190600002223,
+          0.04001390299998775,
+          0.03903234500000963,
+          0.03786126900001818,
+          0.03892682000000036
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.0453362469999945,
+        "cpu_median_seconds": 0.008293909000000266,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04409751299999698,
+          0.049236251999985825,
+          0.0453362469999945,
+          0.04650983100000872,
+          0.04487084499999128
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.04343313300000773,
+        "cpu_median_seconds": 0.005302259000000031,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04263664699999481,
+          0.0436280970000098,
+          0.04470779199999697,
+          0.04343313300000773,
+          0.04208675699999276
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.09674845600000026,
+        "cpu_median_seconds": 0.057235327999999974,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.08301039199997717,
+          0.10166820599999937,
+          0.09674845600000026,
+          0.09862137400000393,
+          0.07691907399998854
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.07569239399998651
+    },
+    {
+      "corpus": "B",
+      "state": "excited",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.00842993000000547,
+        "cpu_median_seconds": 0.0009805589999998254,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009675630000003821,
+          0.008284212000006619,
+          0.008458301999979767,
+          0.008104427999995778,
+          0.00842993000000547
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.009890828999999712,
+        "cpu_median_seconds": 0.002662705999999737,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010170299000009209,
+          0.009248076999995192,
+          0.009890828999999712,
+          0.009710284999982832,
+          0.011660827999975254
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008940104000004112,
+        "cpu_median_seconds": 0.0012451540000002481,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009445432999996228,
+          0.008940104000004112,
+          0.009018077999996876,
+          0.008319986999993034,
+          0.008098055000004933
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.044289940999988175,
+        "cpu_median_seconds": 0.03661991099999984,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04331398600001535,
+          0.04399808200000166,
+          0.044292270999989114,
+          0.044289940999988175,
+          0.04672384400001306
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "excited",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.011555342000008295,
+        "cpu_median_seconds": 0.003758967000000002,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.011978470000002517,
+          0.012954621000005773,
+          0.011555342000008295,
+          0.011383030000018834,
+          0.010801487000009047
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.013314079999986461,
+        "cpu_median_seconds": 0.005641283999999747,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.01380618199999617,
+          0.014011084000003393,
+          0.013314079999986461,
+          0.01305869300000495,
+          0.01289167000001612
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.011501004000024295,
+        "cpu_median_seconds": 0.003939293000000177,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.011393134999991616,
+          0.01116669800001091,
+          0.012248871999986477,
+          0.011501004000024295,
+          0.011868698999990102
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04928075200001558,
+        "cpu_median_seconds": 0.041512875000000005,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.05896989699999722,
+          0.04820465199998125,
+          0.04928075200001558,
+          0.046776002000001426,
+          0.05756780999999478
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "excited",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.037647727000006626,
+        "cpu_median_seconds": 0.004408031999999729,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04290847700002587,
+          0.037647727000006626,
+          0.038392324000000144,
+          0.03697618200001784,
+          0.037540753000001814
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.04628476600001363,
+        "cpu_median_seconds": 0.008291463000000387,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04329383399999642,
+          0.04628542699998661,
+          0.04628476600001363,
+          0.047571021000010205,
+          0.04607549199999994
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.04440048399999341,
+        "cpu_median_seconds": 0.005136435000000272,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.045320829999980106,
+          0.042132218000006105,
+          0.044221605999979374,
+          0.04440048399999341,
+          0.04602667999998289
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.10135031400000116,
+        "cpu_median_seconds": 0.05959477900000021,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.10694161799997914,
+          0.10135031400000116,
+          0.11953374899999858,
+          0.07858910199999514,
+          0.07868217600000094
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "excited",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.038300985999995873,
+        "cpu_median_seconds": 0.004212861000000068,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03833630299999413,
+          0.038300985999995873,
+          0.03776995800001259,
+          0.038395637999997234,
+          0.03727474300001177
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.03921495600002345,
+        "cpu_median_seconds": 0.007143195999999907,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.040805979999987585,
+          0.040819889000005105,
+          0.03921495600002345,
+          0.037296139000005724,
+          0.038109375000004775
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.03576830500000483,
+        "cpu_median_seconds": 0.004632704999999682,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03760744799998861,
+          0.035568982000000915,
+          0.03576830500000483,
+          0.03632174800000598,
+          0.03533674799999176
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07258838000001333,
+        "cpu_median_seconds": 0.04264702100000006,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.08066679200001659,
+          0.07039087500001528,
+          0.07258838000001333,
+          0.06825131100001158,
+          0.07354550099998391
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.07439256699998964
+    },
+    {
+      "corpus": "B",
+      "state": "plus",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.00757413200000201,
+        "cpu_median_seconds": 0.0009102930000000065,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007929654999998093,
+          0.007415414999996983,
+          0.007450852999994595,
+          0.00757413200000201,
+          0.007589623999990636
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.010788019000017357,
+        "cpu_median_seconds": 0.004287891000000155,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009765106000003243,
+          0.009898109999994631,
+          0.011016452999996318,
+          0.010788019000017357,
+          0.011429025000012416
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007813056999992796,
+        "cpu_median_seconds": 0.0011451970000000422,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.007813056999992796,
+          0.007421316999995042,
+          0.0077630870000007235,
+          0.007953216000004204,
+          0.00785850799999821
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04469938400001183,
+        "cpu_median_seconds": 0.040248051000000284,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.05048532600000044,
+          0.04481311500001084,
+          0.041129025000003594,
+          0.04469938400001183,
+          0.042703326999998126
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "plus",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.011021139999996876,
+        "cpu_median_seconds": 0.004282635000000035,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012189699000003884,
+          0.010923852000018996,
+          0.011021139999996876,
+          0.01074174800001515,
+          0.011221048999999539
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.013510295000003225,
+        "cpu_median_seconds": 0.006685003999999495,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.013200148999999328,
+          0.013083928000014566,
+          0.013933444999992162,
+          0.013729281999985687,
+          0.013510295000003225
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.010958823999999368,
+        "cpu_median_seconds": 0.0042279489999996756,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.011540760000002592,
+          0.010559348000015234,
+          0.010958823999999368,
+          0.011232043000006797,
+          0.010675265999992689
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04664463000000296,
+        "cpu_median_seconds": 0.04264266900000013,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0446171760000027,
+          0.04460477399999263,
+          0.04664463000000296,
+          0.06111744300000055,
+          0.05753262900000777
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "plus",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.03326020900001936,
+        "cpu_median_seconds": 0.003908859999999237,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03557077000002096,
+          0.033412448999996514,
+          0.03326020900001936,
+          0.03304876199999285,
+          0.03189339300001848
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.03668314899999814,
+        "cpu_median_seconds": 0.006596919999999784,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03569971999999666,
+          0.037226941000000124,
+          0.0362418949999892,
+          0.03907138600001758,
+          0.03668314899999814
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.03493028299999423,
+        "cpu_median_seconds": 0.004524947000000168,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03717075299999806,
+          0.03513358300000391,
+          0.03451062900001034,
+          0.034929767999983596,
+          0.03493028299999423
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07706022299998949,
+        "cpu_median_seconds": 0.050666382000000176,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.06806016500001988,
+          0.06761068099999079,
+          0.07706022299998949,
+          0.09597935200000052,
+          0.096948900000001
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "plus",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.034769089999997504,
+        "cpu_median_seconds": 0.0044772240000003904,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.036950767000007545,
+          0.034769089999997504,
+          0.033909553999990294,
+          0.03403586400000336,
+          0.035692097999998396
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.04182003400001122,
+        "cpu_median_seconds": 0.007584424000000034,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03788711000001399,
+          0.04182003400001122,
+          0.04457169100001579,
+          0.04082145099999934,
+          0.04414723599998638
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.039901243999992175,
+        "cpu_median_seconds": 0.005261250000000217,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04028022800000031,
+          0.039558239999990974,
+          0.04042241100000865,
+          0.039901243999992175,
+          0.036695473999998285
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07963237899997466,
+        "cpu_median_seconds": 0.04510126299999939,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.06876651999999694,
+          0.09050055599999496,
+          0.08092992199999571,
+          0.07963237899997466,
+          0.07276562000001263
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.06773266500002251
+    },
+    {
+      "corpus": "B",
+      "state": "minus",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.007323423000002549,
+        "cpu_median_seconds": 0.0009084250000004346,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008233449999977438,
+          0.00730357199998366,
+          0.007328562999987298,
+          0.007078027000005704,
+          0.007323423000002549
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.009713263000008965,
+        "cpu_median_seconds": 0.003186965999999458,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009157045999984348,
+          0.010007483000009643,
+          0.009713263000008965,
+          0.008703268000004982,
+          0.01018466700000431
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.007474363000000039,
+        "cpu_median_seconds": 0.0011169939999993161,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008303509000000986,
+          0.0074134780000179035,
+          0.0072222299999964434,
+          0.007474363000000039,
+          0.009392731000019694
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04495651099998099,
+        "cpu_median_seconds": 0.04026763600000027,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04064329000001976,
+          0.04518854299999475,
+          0.04495651099998099,
+          0.04468733900000643,
+          0.04675650200002224
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "minus",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.011222209999999677,
+        "cpu_median_seconds": 0.00428030700000015,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.011367485999983273,
+          0.011320418000025256,
+          0.010736906999994744,
+          0.01111312800000519,
+          0.011222209999999677
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.012900301000001946,
+        "cpu_median_seconds": 0.0062633039999999696,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012897530000003599,
+          0.013205962000000682,
+          0.012900301000001946,
+          0.012288985000026287,
+          0.013116382999982079
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.011273893999998563,
+        "cpu_median_seconds": 0.004526736999999947,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010731974999998783,
+          0.010979303999988588,
+          0.011273893999998563,
+          0.01601859200002309,
+          0.011847173000006705
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04665707700002031,
+        "cpu_median_seconds": 0.04218604500000023,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04665707700002031,
+          0.04581875099998456,
+          0.058707319999996344,
+          0.04689997399998447,
+          0.04449400800001513
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "minus",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.0353005679999967,
+        "cpu_median_seconds": 0.004462693000000684,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03686732799999959,
+          0.035944367000013244,
+          0.03399034500000653,
+          0.0353005679999967,
+          0.03499053400000207
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.03728638699999465,
+        "cpu_median_seconds": 0.006630715000000009,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03728638699999465,
+          0.03852667600000359,
+          0.03597182999999404,
+          0.03881400899999221,
+          0.037148561000009295
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.036610464000006004,
+        "cpu_median_seconds": 0.004941268000000498,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03732619399997361,
+          0.03511103400001048,
+          0.03510805299998765,
+          0.0367179120000003,
+          0.036610464000006004
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07138916599998879,
+        "cpu_median_seconds": 0.0416564079999997,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.07043666699999562,
+          0.07138916599998879,
+          0.07161483700002691,
+          0.07736134600000355,
+          0.06816824999998516
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "minus",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.03660310999998728,
+        "cpu_median_seconds": 0.0046466900000003974,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.039582797999997865,
+          0.039614892999992435,
+          0.03660310999998728,
+          0.03436751699999263,
+          0.0342991379999944
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.04221299299999259,
+        "cpu_median_seconds": 0.007496137000000402,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03859356800001024,
+          0.04221299299999259,
+          0.040550106000011965,
+          0.04382850700000063,
+          0.042228165000011586
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.043209856000004265,
+        "cpu_median_seconds": 0.005798787999999888,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04897724799999992,
+          0.043209856000004265,
+          0.04662645199999815,
+          0.04239440899999636,
+          0.04187315900000499
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.07943943600000125,
+        "cpu_median_seconds": 0.0461885070000001,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.07943943600000125,
+          0.07523862200000053,
+          0.08250188900001376,
+          0.08102104799999665,
+          0.07314711899999793
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.06985629600001175
+    },
+    {
+      "corpus": "B",
+      "state": "global_phase",
+      "candidate": "REF",
+      "decode": {
+        "wall_median_seconds": 0.008852845000006937,
+        "cpu_median_seconds": 0.001104223999999654,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.008595566000025201,
+          0.008852845000006937,
+          0.008668935000002875,
+          0.009192137000013645,
+          0.00893026099998906
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.010697192999998606,
+        "cpu_median_seconds": 0.0032607269999997968,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010483260999990307,
+          0.012933281999977453,
+          0.011483284999997068,
+          0.010663531999995257,
+          0.010697192999998606
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.008682399000008445,
+        "cpu_median_seconds": 0.0014134949999995428,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.009242097000026206,
+          0.008584927000015341,
+          0.009116540999997369,
+          0.008682399000008445,
+          0.008618283000004112
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.04527451300000962,
+        "cpu_median_seconds": 0.04122321200000023,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04832777899997609,
+          0.04321064600000568,
+          0.045799590000001444,
+          0.04527451300000962,
+          0.040986810999982026
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "global_phase",
+      "candidate": "A",
+      "decode": {
+        "wall_median_seconds": 0.010635481999997864,
+        "cpu_median_seconds": 0.004443037000000594,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.010635481999997864,
+          0.010177729999981011,
+          0.01157541599999945,
+          0.01204726000000278,
+          0.010599948999981734
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.012316824000009774,
+        "cpu_median_seconds": 0.005639358000000705,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012316824000009774,
+          0.012289952000003268,
+          0.013419779000003018,
+          0.011229396999993924,
+          0.013233815999996068
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.011139093999986471,
+        "cpu_median_seconds": 0.004638062000000609,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.012239614999998594,
+          0.011139093999986471,
+          0.011489117999985865,
+          0.010505898000019442,
+          0.01080638900000963
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.043088287000017544,
+        "cpu_median_seconds": 0.0392273439999995,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04303749199999629,
+          0.04863047399999232,
+          0.043088287000017544,
+          0.050210166999988814,
+          0.04251099499998645
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "global_phase",
+      "candidate": "C",
+      "decode": {
+        "wall_median_seconds": 0.0329446080000082,
+        "cpu_median_seconds": 0.0039225200000005955,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03525621000000001,
+          0.0329446080000082,
+          0.03273016399998596,
+          0.03253194300000928,
+          0.0363067689999923
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.03965968099998918,
+        "cpu_median_seconds": 0.006332846000000281,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.038284380000021656,
+          0.03806989900002122,
+          0.041343268999980864,
+          0.03965968099998918,
+          0.04100994999998875
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.039252376000007416,
+        "cpu_median_seconds": 0.005097119000000205,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03887082900001815,
+          0.04066781500000616,
+          0.039252376000007416,
+          0.0368088470000032,
+          0.04331536899999833
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.06761864899999637,
+        "cpu_median_seconds": 0.03935950100000074,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.06673711900000967,
+          0.06590560899999787,
+          0.07171141000000603,
+          0.06761864899999637,
+          0.07035699499999737
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": null
+    },
+    {
+      "corpus": "B",
+      "state": "global_phase",
+      "candidate": "D",
+      "decode": {
+        "wall_median_seconds": 0.03566143300000135,
+        "cpu_median_seconds": 0.004104604000000123,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.0337875239999903,
+          0.03205980300000988,
+          0.03588899699997228,
+          0.03566143300000135,
+          0.03653642699998727
+        ]
+      },
+      "restore_plus_observable": {
+        "wall_median_seconds": 0.037510363999984975,
+        "cpu_median_seconds": 0.0061355719999998115,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.04252285000001166,
+          0.03596489399998859,
+          0.038045670000002474,
+          0.037510363999984975,
+          0.03661941400000046
+        ]
+      },
+      "restore_plus_density": {
+        "wall_median_seconds": 0.03379971100000034,
+        "cpu_median_seconds": 0.0037957470000007376,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.03628073199999449,
+          0.034559846999997035,
+          0.03379971100000034,
+          0.03319433299998309,
+          0.033236707000014576
+        ]
+      },
+      "restore_plus_evolution": {
+        "wall_median_seconds": 0.06757273499999883,
+        "cpu_median_seconds": 0.03900843600000048,
+        "repetitions": 5,
+        "wall_samples_seconds": [
+          0.06757273499999883,
+          0.06904574199998592,
+          0.07057592900000031,
+          0.06635082900001521,
+          0.06542748199998982
+        ]
+      },
+      "exact_initial_and_future_bytes": true,
+      "D_initial_checkpoint_encode_seconds": 0.07279106699999716
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "time_utc": "2026-10-04T10:25:31.176412+00:00",
+  "device": "DESKTOP-0EASI0F",
+  "device_id": "2bb57131-8320-4fbf-8c9f-63e1f44738ec",
+  "live_device_listing": "Offline",
+  "replay_status": "UNAVAILABLE / NOT RUN",
+  "worker_limit": 1,
+  "prior_gate_laptop_pass_not_reused_as_this_gate_evidence": true,
+  "required_for_completion": false
+}

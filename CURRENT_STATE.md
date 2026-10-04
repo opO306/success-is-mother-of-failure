@@ -4,6 +4,18 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 Electronic Representation Survey Gate V1(2026-10-04):**
+[네 prototype·비용·반례·18항목 보고서](docs/active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md).
+기존 Ne1/TZ28 및 Ne2/singlet406 dense REF에 대해 Adaptive/Summary/USB/Structure-as-Asset 조사 완료.
+Adaptive/USB/CAS 복원은 원본 비트 동일, Summary는 두 corpus에서 미래가 다른 collision으로 authority REJECTED/index only.
+Adaptive의 다전자 고유상태 두 개 저장은 감소했으나 중첩과5상태 평균은 증가, static preview30/30 REFINE.
+실제30checkpoint의 payload dedup0%; metadata로 전체 저장 증가. Block RAM/I/O와2-thread hash 검사 이득은 범위 한정.
+최초 RSS highwater 측정 부적합을 보존·교정;16MiB synthetic observed RSS52.17→35.77MB, absolute peak 인증 아님.
+신규60 포함 Windows210/별도WSL219 PASS, fail/error/real skip0; 실제 두 corpus의 필수9종 변이 검출.
+기존tracked255/이전closed raw127 SHA 불변. LOCAL FULL 생략/새 격리 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
+Production representation·foundation 미승인, notebook Offline/NOT RUN, 다음 Gate 자동 착수 없음.
+별도 branch local commit, **push 금지/master merge 없음**.
+
 **별도 Electronic State / History Gate V1(2026-10-04):**
 [18항목 보고서·수치·미구현 범위](docs/active/ELECTRONIC_STATE_HISTORY_GATE_V1.md).
 고정 핵 R1.4·Ne1·doublet 한 spin projection·TZ 전체28공간에서 P1–P5 PASS / NOT CERTIFIED.
@@ -12,7 +24,8 @@
 본체 fresh AO 계산과 노트북 saved-H/eigenvectors worker1 재현 PASS; 외부 physics audit 아님.
 Windows150/별도WSL159 PASS, 신규39, 실패/error/실제skip0; 필수 변이10종 합성·실측 양쪽 검출.
 기존tracked217 및 이전 Sector raw95 해시 불변. LOCAL FULL 생략/새 격리 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
-기존 H₂ PARTIAL·QZ UNRESOLVED·foundation 미승인 유지. Representation / Electron–Nuclear Dynamics는 설계자 선택 대기, 자동 착수 없음.
+기존 H₂ PARTIAL·QZ UNRESOLVED·foundation 미승인 유지. 당시 Representation / Dynamics 선택 대기였고 위 survey로 진행했다.
+Production representation과 Electron–Nuclear Dynamics는 여전히 미승인/미착수다.
 새 branch local commit만 보존, **최신 요청에 따라 push 금지**, master merge 없음.
 
 **별도 Electronic Sector Panel V1(2026-10-04):**

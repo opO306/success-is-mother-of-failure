@@ -1,0 +1,204 @@
+{
+  "storage_and_runtime": {
+    "A": {
+      "REF": {
+        "bytes_min": 880,
+        "bytes_max": 880,
+        "mean_bytes": 880,
+        "mean_ratio_to_dense_serialized": 1.0,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          432,
+          432
+        ],
+        "decode_median_over_states_ms": 3.6765800000004845,
+        "observable_median_over_states_ms": 0.018643999998957383,
+        "density_median_over_states_ms": 0.004718999999653306,
+        "evolution_median_over_states_ms": 0.035076000000522356,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 7.607498999998796
+      },
+      "A": {
+        "bytes_min": 1194,
+        "bytes_max": 1301,
+        "mean_bytes": 1254.8,
+        "mean_ratio_to_dense_serialized": 1.4259090909090908,
+        "certificate_bytes_range": [
+          195,
+          198
+        ],
+        "metadata_bytes_range": [
+          795,
+          798
+        ],
+        "decode_median_over_states_ms": 7.825314999999833,
+        "observable_median_over_states_ms": 0.2730589999995203,
+        "density_median_over_states_ms": 0.24164100000056976,
+        "evolution_median_over_states_ms": 0.2893800000007829,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 8.104771000001065
+      },
+      "B": {
+        "bytes_min": 700,
+        "bytes_max": 703,
+        "mean_bytes": 702,
+        "mean_ratio_to_dense_serialized": 0.7977272727272727,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          419,
+          419
+        ],
+        "decode_median_over_states_ms": null,
+        "observable_median_over_states_ms": null,
+        "density_median_over_states_ms": null,
+        "evolution_median_over_states_ms": null,
+        "index_read_median_over_states_ms": 3.806510999999624,
+        "encode_median_over_states_ms": 4.573281999999956
+      },
+      "C": {
+        "bytes_min": 2959,
+        "bytes_max": 2959,
+        "mean_bytes": 2959,
+        "mean_ratio_to_dense_serialized": 3.3625,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          2511,
+          2511
+        ],
+        "decode_median_over_states_ms": 21.27037300000012,
+        "observable_median_over_states_ms": 17.02695600000048,
+        "density_median_over_states_ms": 17.090744999999075,
+        "evolution_median_over_states_ms": 16.822884999999843,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 24.893221999999326
+      }
+    },
+    "B": {
+      "REF": {
+        "bytes_min": 6915,
+        "bytes_max": 6915,
+        "mean_bytes": 6915,
+        "mean_ratio_to_dense_serialized": 1.0,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          419,
+          419
+        ],
+        "decode_median_over_states_ms": 3.7292479999990746,
+        "observable_median_over_states_ms": 1.1737400000022546,
+        "density_median_over_states_ms": 0.11503400000023589,
+        "evolution_median_over_states_ms": 34.4793569999986,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 8.388973999998939
+      },
+      "A": {
+        "bytes_min": 5498,
+        "bytes_max": 7932,
+        "mean_bytes": 7067,
+        "mean_ratio_to_dense_serialized": 1.0219812002892263,
+        "certificate_bytes_range": [
+          196,
+          201
+        ],
+        "metadata_bytes_range": [
+          787,
+          791
+        ],
+        "decode_median_over_states_ms": 10.940344999998075,
+        "observable_median_over_states_ms": 4.30738600000069,
+        "density_median_over_states_ms": 3.062944999999928,
+        "evolution_median_over_states_ms": 37.56785899999926,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 12.762104000000107
+      },
+      "B": {
+        "bytes_min": 686,
+        "bytes_max": 686,
+        "mean_bytes": 686,
+        "mean_ratio_to_dense_serialized": 0.09920462762111353,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          405,
+          405
+        ],
+        "decode_median_over_states_ms": null,
+        "observable_median_over_states_ms": null,
+        "density_median_over_states_ms": null,
+        "evolution_median_over_states_ms": null,
+        "index_read_median_over_states_ms": 3.873506999998,
+        "encode_median_over_states_ms": 4.609809999998049
+      },
+      "C": {
+        "bytes_min": 10479,
+        "bytes_max": 10479,
+        "mean_bytes": 10479,
+        "mean_ratio_to_dense_serialized": 1.5154013015184382,
+        "certificate_bytes_range": [
+          0,
+          0
+        ],
+        "metadata_bytes_range": [
+          3983,
+          3983
+        ],
+        "decode_median_over_states_ms": 33.898453999999134,
+        "observable_median_over_states_ms": 31.209245999999524,
+        "density_median_over_states_ms": 31.804426000000774,
+        "evolution_median_over_states_ms": 64.69026999999983,
+        "index_read_median_over_states_ms": null,
+        "encode_median_over_states_ms": 38.7841619999989
+      }
+    }
+  },
+  "source_lines": {
+    "campaign.py": 216,
+    "corpus.py": 112,
+    "memory_worker.py": 54,
+    "representations.py": 264,
+    "verify.py": 107,
+    "__init__.py": 1,
+    "postrun\\audit.py": 23,
+    "postrun\\rss.py": 109,
+    "postrun\\__init__.py": 1
+  },
+  "prototype_function_lines": {
+    "dump": 2,
+    "sha": 2,
+    "raw": 2,
+    "binding": 2,
+    "require_binding": 3,
+    "radius": 3,
+    "adaptive_encode": 19,
+    "adaptive_decode": 26,
+    "adaptive_preview": 23,
+    "summary_encode": 10,
+    "summary_validate": 5,
+    "block_encode": 15,
+    "validate_manifest": 13,
+    "load_block": 9,
+    "block_restore": 6,
+    "stream_quadratic": 18,
+    "cas_checkpoint": 22,
+    "cas_restore": 17,
+    "parallel_checks": 15
+  },
+  "certificate_bytes_are_subset_of_metadata": true,
+  "canonical_peak_RSS_excluded": true,
+  "operator_IO_bytes": "NOT_MEASURED: mmap page reads; explicit coefficient logical reads only",
+  "timing_scope": "single encode; median 5 restores/observables/evolutions; WSL Windows-mounted files, OS cache uncontrolled"
+}

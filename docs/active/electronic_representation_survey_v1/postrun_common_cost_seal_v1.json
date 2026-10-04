@@ -1,0 +1,10 @@
+{
+  "source_sha256": {
+    "audit.py": "f102fd31daf9f2e33c548cbcfec6c12fa0a4965f3beaa0ff27c4a8dde66c499e",
+    "common_cost.py": "ef730093d5e48dcb01d92814458866739db60539b9eabd1bc8f50dd29f905243",
+    "rss.py": "b979cd467b374f7dcfab88e9f2c36d54c7dc09165fbce742c96794ad20792c1c",
+    "__init__.py": "41a3faaebc24372727e781131993d606b392a49c6e8a4d0618674017ef79ad4f"
+  },
+  "scope": "disk-restore-inclusive measurement, same prior REF states and numerical kernels",
+  "canonical_source_changed": false
+}

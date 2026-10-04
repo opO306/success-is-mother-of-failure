@@ -1,0 +1,52 @@
+{
+  "A": {
+    "catalog_states": 5,
+    "descriptive_keys": 3,
+    "query_plus_candidates": [
+      "plus",
+      "minus",
+      "global_phase"
+    ],
+    "index_serialized_bytes": 257,
+    "in_memory_query_median_seconds": 9.399984264746308e-06,
+    "requires_full_state_check": true,
+    "index": {
+      "b2cf3e401f97c08b499841aa4ba2b41a8b681261ccdca55c32553d90a8ad3230": [
+        "ground"
+      ],
+      "abd103f2c60a3de808d1a64ffb3e3acba36bb23829c9bdabc699092db1eacc8b": [
+        "excited"
+      ],
+      "7c7d6f87ec16595e763e30d4d605a71f8f092c0f3397bdacc7df159668cbeafd": [
+        "plus",
+        "minus",
+        "global_phase"
+      ]
+    }
+  },
+  "B": {
+    "catalog_states": 5,
+    "descriptive_keys": 3,
+    "query_plus_candidates": [
+      "plus",
+      "minus",
+      "global_phase"
+    ],
+    "index_serialized_bytes": 257,
+    "in_memory_query_median_seconds": 8.800008799880743e-06,
+    "requires_full_state_check": true,
+    "index": {
+      "2a18da63f27d1f0b7f155690343036edf0b6b02b85f5cf571336400987c98f3f": [
+        "ground"
+      ],
+      "b9cdc2a1a1cddb64406a4fd42ed1203f3cfca7380eafea505f4a35092e3718e2": [
+        "excited"
+      ],
+      "3392cb6b9f9f38edd490a075042e1eeeba815862f4dcf3abd2dfdfe0343541af": [
+        "plus",
+        "minus",
+        "global_phase"
+      ]
+    }
+  }
+}

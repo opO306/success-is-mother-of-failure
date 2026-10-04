@@ -1,0 +1,20 @@
+{
+  "A": {
+    "payload_bytes": 6720,
+    "metadata_bytes": 6480,
+    "total_bytes": 13200,
+    "checkpoint_count": 15,
+    "encode_median_seconds": 0.00818549399997437,
+    "restore_median_seconds": 0.008380285999976422,
+    "same_DAG_states_raw_exact": true
+  },
+  "B": {
+    "payload_bytes": 97440,
+    "metadata_bytes": 6285,
+    "total_bytes": 103725,
+    "checkpoint_count": 15,
+    "encode_median_seconds": 0.008355182000002515,
+    "restore_median_seconds": 0.008062810000012632,
+    "same_DAG_states_raw_exact": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "protected_tracked_files": 255,
+  "prior_closed_raw_files": 127,
+  "protected_bytes_unchanged": true,
+  "canonical_source_unchanged": true,
+  "postrun_source_seals_match": true,
+  "XML_counts": {
+    "windows_related_tests_v1": {
+      "tests": 210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "wsl_related_tests_v1": {
+      "tests": 219,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "report_sections": [
+    "BASELINE DENSE \u03a8",
+    "PHYSICAL TEST CORPUS",
+    "A \u2014 CERTIFIED ADAPTIVE",
+    "B \u2014 REVIEW / SUMMARY",
+    "C \u2014 MODULAR / USB",
+    "D \u2014 STRUCTURE AS ASSET",
+    "STATE COLLISION TEST",
+    "CORRECTNESS COMPARISON",
+    "STORAGE COMPARISON",
+    "RAM / IO COMPARISON",
+    "RUNTIME COST",
+    "SCALING MODEL",
+    "HIDDEN COST / FAILURE MODES",
+    "ROLE CLASSIFICATION",
+    "COMBINED ARCHITECTURE POSSIBILITY",
+    "UNRESOLVED",
+    "NEXT DESIGNER DECISION",
+    "GIT END STATE"
+  ],
+  "production_selected": false,
+  "push_performed": false
+}

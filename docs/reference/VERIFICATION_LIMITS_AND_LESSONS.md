@@ -720,3 +720,20 @@ LOCAL FULL 생략, 기존 실행·공용 모듈·동결 계약 불변, 공식 �
 
 화학 labels로 H/evolution을 고르지 않는 조건은 strict 입력 refusal 시험과 별도 author concept review로 확인했다.
 노트북은 saved-H/eigenvectors 환경 재현이며 fresh AO/외부 physics 승인으로 세지 않는다.
+
+### Electronic Representation Survey Gate V1 (2026-10-04)
+
+[18항목 결과·비용·반례](../active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md).
+신규60시험 포함 Windows210/별도WSL219 PASS, fail/error/actual skip0.
+기존 공용 실행·동결 계약 불변, LOCAL FULL 생략/관련 시험 대체/공식 기준선 미갱신.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| block 하나 누락·순서 교환·phase metadata 손상 | 합성 및 실제 Ne1/Ne2에서 range/id/phase/content/source 검사로 REFUSED | 저장된 finite corpus만; physical global phase equivalence는 별도 projector 판정 |
+| stale law/basis/Ne/sector/source/version binding | 필드별 구조 변이 및 실측 law 변이를 거부 | 봉인된 expected binding을 신뢰, 동시 manifest/payload 재작성 방어 인증 아님 |
+| adaptive certificate radius 축소 | 독립 exact-rational cold error 재계산 및 preview 전 residual 검증이 실제 두 corpus에서 검출 | 좌표 오차 bound이며 AO/continuum/evolution 오차 certificate가 아님, 검증 비용에 전체 잔차 읽기 포함 |
+| 잘못된 hash·checkpoint manifest의 잘못된 block 참조·false dedup | 실제 두 corpus의 source bytes/hash와 기존 object 직접 비교로 거부 | hash를 물리 정확도 증명으로 취급하지 않음 |
+| summary collision을 authoritative라고 숨김 | 실제 Ne1/Ne2의 같은 summary·다른 미래를 별도 full-matrix expm로 계산, 허위 authority 변이 검출 | 이 summary prototype의 탈락; 모든 summary/1-RDM 표현의 불가능성 아님 |
+| 부모 highwater가 자식 RSS peak에 남음(실제 측정 결함) | exec probe로 재현, 최초 getrusage 수치는 보존·비교 제외, smaps_rollup 경계/2ms resident samples로 별도 측정 | 관측된 최대 RSS이며 absolute peak 상한 아님; B index/D hash는 같은 physical energy 작업이 아님 |
+| 병렬 coefficient 제곱합을 AO physical norm이라 주장 | A는 Euclidean checksum임을 분리, physical S-norm/cross terms는 별도 검사 | hash/checksum wall 이득을 physics evolution speedup으로 승격하지 않음 |
+| 가짜 dedup·좋은 고유상태 압축만 보고 | 실제30checkpoint payload dedup0, 다전자 중첩 저장 증가·30/30 REFINE 보존 | 더 큰 실제 corpus의 비용·rank/entanglement 미평가 |

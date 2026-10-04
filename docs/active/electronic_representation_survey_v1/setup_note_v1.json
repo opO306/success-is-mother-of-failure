@@ -1,0 +1,6 @@
+{
+  "stage": "before representation execution",
+  "initial_failure": "runs parent absent; exclusive mkdir without parents=True failed",
+  "fix": "create new runs subtree with parents=True",
+  "physics_executed_before_fix": false
+}
