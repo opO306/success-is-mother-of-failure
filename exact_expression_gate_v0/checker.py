@@ -160,7 +160,7 @@ def check(run_dir, fast=False):
             out["replay_confirmations"].append({"scenario": name, "checkpoint": cp, "bits": need, "confirmed": ok})
         out["scenarios"][name] = {"flags": scenario_flags(r, name),
                                   "intrinsic_amplification_log2": r["intrinsic_amplification_log2"],
-                                  "tree_size": r["A"].get("tree_size"),
+                                  "tree_size_log2": r["A"].get("tree_size_log2"),
                                   "extended": "RUN" if isinstance(r.get("extended"), dict) else r.get("extended")}
     inter = ["A2_bound", "A3_low", "A3_high"]
     fl = {n: out["scenarios"][n]["flags"] for n in inter}

@@ -177,7 +177,8 @@ def run_scenario(name, q0, p0, checkpoints, grid, log):
                "reachable": {str(cp): {"nodes": s[0], "edges": s[1], "size": s[0] + s[1]} for cp, s in sizes.items()},
                "bytes_per_size_unit": peak / max(1, created_size)}
         if path == "A":
-            rec["tree_size"] = {str(cp): tree_size_estimate(dag, snaps[cp][0] + snaps[cp][1]) for cp in checkpoints}
+            rec["tree_size_log2"] = {str(cp): tree_size_estimate(dag, snaps[cp][0] + snaps[cp][1]).bit_length()
+                                     for cp in checkpoints}
             log(f"{name}: A built {len(dag.nodes)} nodes in {build_s:.1f}s; sweeping precision")
             t0 = time.perf_counter()
             found, timing = sweep(dag, snaps, checkpoints, grid)
@@ -268,15 +269,22 @@ def scenario_job(args):
         print(time.strftime("%H:%M:%S"), msg, flush=True)
 
     log(f"start {name}")
-    r = run_scenario(name, q0, p0, cps, grid, log)
-    if not quick and r["A"]["sweep_s"] < 300:
-        log(f"{name}: extended 10000-step checkpoint")
-        r["extended"] = run_scenario(name, q0, p0, [10000], grid, log)
-    elif not quick:
-        r["extended"] = "NOT_RUN(time)"
-    Path(out, f"{name}.json").write_text(json.dumps({"seal": seal, "protocol": proto, "result": r}, indent=1),
-                                         encoding="utf-8")
-    log(f"done {name}")
+    try:
+        r = run_scenario(name, q0, p0, cps, grid, log)
+        Path(out, f"{name}.base.json").write_text(json.dumps({"seal": seal, "protocol": proto, "result": r}, indent=1),
+                                                  encoding="utf-8")
+        if not quick and r["A"]["sweep_s"] < 300:
+            log(f"{name}: extended 10000-step checkpoint")
+            r["extended"] = run_scenario(name, q0, p0, [10000], grid, log)
+        elif not quick:
+            r["extended"] = "NOT_RUN(time)"
+        Path(out, f"{name}.json").write_text(json.dumps({"seal": seal, "protocol": proto, "result": r}, indent=1),
+                                             encoding="utf-8")
+        log(f"done {name}")
+    except Exception as e:  # recorded, never hidden; other scenarios keep running
+        import traceback
+        Path(out, f"{name}.ERROR.txt").write_text(traceback.format_exc(), encoding="utf-8")
+        log(f"FAILED {name}: {e!r}")
 
 
 if __name__ == "__main__":
