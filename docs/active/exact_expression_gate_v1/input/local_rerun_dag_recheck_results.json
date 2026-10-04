@@ -1,0 +1,174 @@
+{
+  "scope": "Original byte-matched DAG only; independent harness; no campaign, checker, or Lang force execution.",
+  "snapshot": "9dfd3f853c74426d0c984ac91c45f40955da45b7",
+  "git_blob_sha1": "8e6fe1e360b99a3f9dd6dda23822b38622e7a3bd",
+  "environment": {
+    "python": "3.12.7",
+    "mpmath": "1.3.0"
+  },
+  "tests": {
+    "DOMAIN_ERASURE": {
+      "scope": "Out-of-domain coincident particles; not a sealed trajectory.",
+      "outcomes": {
+        "A": {
+          "status": "REFUSED_DOMAIN",
+          "message": "R^2 enclosure reaches below r_min^2 (interval blow-up or domain)"
+        },
+        "B": {
+          "status": "RETURNED",
+          "cells": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "REPRESENTATION_SENSITIVE_PRECISION": {
+      "scope": "Synthetic one-particle force-free exact halfway case; campaign skipping not executed here.",
+      "q0_x": "-386028792804055761235494199/703025678690360617022259200000",
+      "p0_x": "1",
+      "q1_x_exact": "1/562949953421312",
+      "grid": [
+        64,
+        96,
+        128,
+        192,
+        256,
+        384,
+        512,
+        768,
+        1024,
+        1536,
+        2048,
+        3072,
+        4096,
+        6144,
+        8192
+      ],
+      "outcomes": {
+        "A": {
+          "first_decided_bits": null,
+          "attempts": [
+            {
+              "bits": 64,
+              "decided": false
+            },
+            {
+              "bits": 96,
+              "decided": false
+            },
+            {
+              "bits": 128,
+              "decided": false
+            },
+            {
+              "bits": 192,
+              "decided": false
+            },
+            {
+              "bits": 256,
+              "decided": false
+            },
+            {
+              "bits": 384,
+              "decided": false
+            },
+            {
+              "bits": 512,
+              "decided": false
+            },
+            {
+              "bits": 768,
+              "decided": false
+            },
+            {
+              "bits": 1024,
+              "decided": false
+            },
+            {
+              "bits": 1536,
+              "decided": false
+            },
+            {
+              "bits": 2048,
+              "decided": false
+            },
+            {
+              "bits": 3072,
+              "decided": false
+            },
+            {
+              "bits": 4096,
+              "decided": false
+            },
+            {
+              "bits": 6144,
+              "decided": false
+            },
+            {
+              "bits": 8192,
+              "decided": false
+            }
+          ]
+        },
+        "B": {
+          "first_decided_bits": 64,
+          "attempts": [
+            {
+              "bits": 64,
+              "decided": true
+            }
+          ],
+          "cells": [
+            0,
+            0,
+            0,
+            1208925819614629174706176,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "RETAINED_HISTORY": {
+      "scope": "New force-free initial condition, not sealed F_free; counts not byte/RSS benchmarks.",
+      "rows": [
+        {
+          "steps": 10,
+          "reachable_nodes": 6,
+          "retained_nodes": 24,
+          "index_entries": 24
+        },
+        {
+          "steps": 100,
+          "reachable_nodes": 6,
+          "retained_nodes": 204,
+          "index_entries": 204
+        },
+        {
+          "steps": 1000,
+          "reachable_nodes": 6,
+          "retained_nodes": 2004,
+          "index_entries": 2004
+        },
+        {
+          "steps": 10000,
+          "reachable_nodes": 6,
+          "retained_nodes": 20004,
+          "index_entries": 20004
+        }
+      ]
+    }
+  },
+  "force_evaluator_calls": 0
+}

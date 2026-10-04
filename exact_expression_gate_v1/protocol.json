@@ -1,0 +1,71 @@
+{
+ "gate": "Exact Expression Gate V1 - comparison contract revision + C_stream candidates",
+ "date": "2026-10-05",
+ "status": "SURVEY_ONLY / ALTERNATIVE NUMERIC WORLD SEMANTICS (same as V0). Not a C1-B1 optimization, not a production candidate, no promotion of any path. V0 (848ceaf/9dfd3f8) stays sealed and unmodified.",
+ "source_of_request": "designer handover 2026-10-05 (integrated verdict EXPERIMENT NEEDED): stage 0 = fix verdict and measurement, stage 1 = add C_stream as a small candidate, stage 2 = keep the B low-precision counterexample as regression and optionally test local algebra combined with C_stream.",
+ "semantics": "World state = exact real values of the UNROUNDED KDK map of V0 (dt = 40, half kick 20, Ar40 mass of C1-B1, frozen C1-A Lang 2024 force with retardation). Projection to FX(96,48) positions / FX(96,80) momenta (round half even, signed 96-bit raw range check) is a TEST MEASUREMENT only, never fed back.",
+ "force_evaluator_tcb": "exact_expression_gate_v0/lang_iv.py (V0, unchanged) is the SHARED force specification of every path AND of the checker. The checker's replay is therefore a relative check with a declared shared TCB, not an independent certification of the force. Trust base: mpmath interval arithmetic and the V0 transcription (cross-checked against a_reference/ar2_lang2024.enclose by the V0 tests).",
+ "domain": "Force defined iff R >= r_min (a_reference/ar2_lang2024 refuses R < r_min; V0 used the stricter R > r_min). Three-way per force evaluation: PROVEN (lower end of R^2 >= r_min^2), VIOLATED (upper end < r_min^2: final REFUSED_DOMAIN, no more precision), UNPROVEN (otherwise: undecided at this precision). Every path checks the domain of every force evaluation of steps 0..t for a query at step t, including forces whose value an optimizer folded away (V1 fix of V0 B).",
+ "paths": {
+  "A": "V0 expression DAG, hash-consing, no algebra; V1 adds explicit domain obligations (no value change).",
+  "B": "V0 DAG + V0 verified algebra (MERGE_MAX_TERMS = 2) unchanged; V1 adds domain obligations so folding cannot erase the duty that G(R^2) be defined.",
+  "C": "replay: every requested step is its own cold query, restarted from the exact initial state at each precision.",
+  "CS": "C_stream: one forward interval pass per precision, from the exact initial state up to the last still-undecided requested step, reading all requested steps on the way. Same operation order as C, so at equal precision C and CS enclosures are bit-identical. No state is adopted from a lower precision.",
+  "CX": "C_stream_x (stage-2 local-algebra candidate, proposed by the handover, not proven): CS where a value stays an exact Fraction while all its inputs are exact; anything touching the transcendental force becomes an interval, except exact 0 times a domain-checked finite force = exact 0. No other algebra."
+ },
+ "precision_policy": "Every path searches the same grid independently, ascending from 64 bits. A step is DECIDED at the first precision where every q and p component projects to one grid cell and every force evaluation up to it is PROVEN. Decided cells are final (true enclosures). Cap 8192 bits -> UNDECIDED_AT_CAP. A failure of one path never skips or seeds another path.",
+ "precision_grid": [64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048, 3072, 4096, 6144, 8192],
+ "scenarios": {
+  "physical": {
+   "F_free": "V0: 1 atom, no force. q0 = (0,0,0), p0 = (14,3,-2)",
+   "A2_bound": "V0: N=2 Ar, q = (-71/20,0,0), (71/20,0,0); p = (1,-3,0), (-1,3,0)",
+   "A3_low": "V0: N=3 Ar widely separated: q = (0,0,0), (25,0,0), (0,25,0); p = (2,1,0), (-1,2,0), (-1,-3,0)",
+   "A3_high": "V0: N=3 Ar near-equilateral, side 71/10: q = (0,0,0), (71/10,0,0), (71/20,6149/1000,0); p = (3,0,1/2), (-3/2,13/5,0), (-3/2,-13/5,-1/2)"
+  },
+  "control": {
+   "H_halfway": "synthetic force-free exact tie (handover counterexample): 1 atom, q0_x = 2^-49 - 40/m, p0 = (1,0,0); exact q1_x = 2^-49, half-even raw 0. Interval paths cannot decide an exact tie.",
+   "D_zero": "synthetic out-of-domain input: 2 atoms both at (0,0,0) with p = 0. R = 0 < r_min: the force is undefined before step 1; every path must refuse."
+  }
+ },
+ "workloads": {
+  "cold": {"query_sets": [[10], [100], [1000]], "meaning": "three separate cold queries, each from nothing"},
+  "warm": {"query_sets": [[10, 100, 1000]], "meaning": "one query for the three checkpoints together (C: three cold queries by its policy)"},
+  "every": {"query_sets": [[1, 2, 3, "...", 100]], "steps": [1, 100], "meaning": "decide every step 1..100 (C: 100 cold queries, T(T+1)/2 transitions per precision attempt)"},
+  "control": {"query_sets": [[1]], "meaning": "controls only"}
+ },
+ "jobs": "physical scenarios x paths x {cold, warm, every} + control scenarios x paths x {control}: 70 jobs, each in a fresh spawned process (maxtasksperchild=1), 6 workers, heavy jobs first. Each job writes its own JSON at once (partial campaigns survive). Concurrency is disclosed; timing is under that load.",
+ "not_run": "No 10,000-step checkpoint (V0 extended) in V1: the comparison fix is the target, and the V0 10,000-step figures are not re-used as verified performance. No intrinsic-sensitivity diagnostic (V0 computed it from a possibly incomplete replay state). No energy question: the submitted Delta H counterexample is a property of the same unrounded KDK for every path and is out of scope.",
+ "measurements": {
+  "cost": "per query: build (DAG only) and every precision attempt, wall (perf_counter) and CPU (process_time) separately; totals per job. Ranking uses CPU.",
+  "work": "C/CS/CX: transitions per attempt; A/B: constructor calls, created nodes, index entries, obligations.",
+  "memory": "peak RSS of the job process (psutil peak_wset on Windows, ru_maxrss elsewhere) and RSS after imports; A/B: retained (created) nodes and index entries next to reachable nodes + edges, measured after the timed part. Reachable is NOT reported as RAM.",
+  "exact_size": "CX: max bit length of numerator/denominator of exact state values.",
+  "identity": "sha256 of the exact endpoint text of the deciding enclosure, for bit-identity checks between C and CS."
+ },
+ "checker": {
+  "independence": "checker.py imports neither dag, stream, paths, common nor campaign. It has its own interval KDK replay, its own rounding and domain rule, and its own exact Fraction computation of the controls. Shared TCB: exact_expression_gate_v0/lang_iv.py.",
+  "binding": "execution_seal.json source hashes (LF-normalized sha256) must equal the current files; every job file must carry the sealed protocol hash and the seal hash. A mismatch is a CheckError.",
+  "completeness": "all 70 jobs present without ERROR files; every requested step present with a known status; every cost field finite. Missing evidence -> INCOMPLETE (never a positive label).",
+  "agreement": "cells are recomputed from the records, stored flags are not trusted: all DECIDED cells for a scenario and step must be identical over every path and workload, else CheckError.",
+  "replay_confirmation": "checker replays itself the 4 physical scenarios at steps 10, 100 and 1000 (1000 skipped with --fast; then the label is INCOMPLETE) starting at C's deciding precision, up to 2 more grid steps. Required: all 12 confirmed. Different cells -> CheckError; not decided -> unconfirmed -> INCOMPLETE.",
+  "controls": "H_halfway expected cells computed exactly by the checker; D_zero must be REFUSED_DOMAIN by every path with completed_steps 0 (otherwise claim K1 FAILS)."
+ },
+ "claims": {
+  "K1_DOMAIN": "every path refuses D_zero (REFUSED_DOMAIN, completed_steps 0).",
+  "K2_HALFWAY": "B and CX decide H_halfway at 64 bits with the exact cells; A, C and CS end UNDECIDED_AT_CAP.",
+  "K3_STREAM_IDENTITY": "for every physical scenario and checkpoint: C cold and CS cold/warm decide at the same precision with identical endpoint hashes; CS warm and CS every agree (bits and hash) at steps 10 and 100 (observation-schedule invariance).",
+  "K4_AGREEMENT": "no conflicting cells anywhere (a conflict is a CheckError, so K4 holds whenever the checker finishes).",
+  "K5_FREE": "F_free: B reachable size constant over 10/100/1000 while its retained nodes grow; CX decides every F_free checkpoint at 64 bits."
+ },
+ "comparison_rule": "Per scenario and workload, among paths whose every requested step is DECIDED or a final refusal, path X is FASTER than Y if cpu(X) < 0.8 cpu(Y); otherwise TIE. least_cost_set = complete paths with cpu <= min_cpu / 0.8. No single winner is declared and no path is promoted.",
+ "predictions_sealed_not_results": {
+  "P1": "CS is in the least_cost_set of warm and every for all three interacting scenarios; C is not in the least_cost_set of every.",
+  "P2": "CS and C TIE on cold in all three interacting scenarios.",
+  "P3": "neither A nor B is FASTER than CS in any workload of the interacting scenarios.",
+  "P4": "B's own first deciding precision <= A's own at every checkpoint of the interacting scenarios (cold workload).",
+  "P5": "CX TIEs CS in every workload of the interacting scenarios."
+ },
+ "verdict": "INCOMPLETE(reasons) if any completeness, binding or confirmation requirement fails; otherwise COMPARISON_COMPLETE with the claims (HOLDS/FAILS), predictions (HOLDS/FAILS), least_cost_sets, per-path bits and memory. There is no PROMISING/PASS label. The checker's own run time is reported next to the campaign costs.",
+ "tie_rule": "There is no 'dominant failure' choice in V1 (V0 had no tie rule). Every claim and prediction is reported separately.",
+ "no_post_hoc_changes": "Scenarios, grid, workloads, claims, predictions, comparison rule and verdict are fixed before running."
+}
