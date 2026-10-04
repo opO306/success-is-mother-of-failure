@@ -1,0 +1,1 @@
+"""Exact Expression State Gate V0 — ALTERNATIVE NUMERIC WORLD SEMANTICS / SURVEY_ONLY."""
