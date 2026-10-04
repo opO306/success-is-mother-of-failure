@@ -4,6 +4,14 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**일반 핵·전자 세계 최소 계약 V0.1 — 설계자 승인(2026-10-04, 원칙·판정 체계 범위):**
+[계약](docs/active/GENERAL_ATOMIC_ELECTRONIC_WORLD_CONTRACT_V0_1.md)·[V0 원문](docs/active/general_world_contract_v0/V0_ORIGINAL.md).
+Gate 0-A World Definition DECIDED(승인된 현실 근거 법칙의 결정론적 실행 = A 세계) /
+0-B Quantum Outcome Definiteness UNRESOLVED → 가상 실험실 진행 가능, L/B 단일 역사 세계 불가.
+H₂는 benchmark/회귀 전용. 핵 운동·전자기장·표현·경계 선택 미승인. 다음: RULES §1 개정 문구 → 첫 일반 가상 실험실 최소 조건 → Gate 1.
+근거 전자 연구(Sector/State-History/Survey/Hotline)는 원격 브랜치 `codex/electronic-compressibility-hotline-v1`(`d721435`)에 있고 master 미merge.
+문서만 변경, LOCAL FULL 생략/공식 기준선 불변.
+
 **C1-B1 Combined production opt-in 승격(2026-10-03):**
 [최종 gate·성능·production Top10](docs/active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md),
 [독립 산술 promotion 감사](docs/active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md).

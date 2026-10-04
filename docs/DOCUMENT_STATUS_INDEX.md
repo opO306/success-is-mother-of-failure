@@ -9,8 +9,8 @@
 ## 현재 활성 A / C1-B1
 
 [일반 핵·전자 세계 최소 계약 V0.1](active/GENERAL_ATOMIC_ELECTRONIC_WORLD_CONTRACT_V0_1.md)·[V0 원문](active/general_world_contract_v0/V0_ORIGINAL.md):
-DESIGN / CONTRACT DRAFT, 설계자 검토 대기, NOT IMPLEMENTED. 결정론/현실성 분리, 양자 결과 확정 UNRESOLVED,
-Reality Transfer, 현실 자료 오류 가능성·등급·비교 전 봉인. 어떤 물리 선택도 승인하지 않음.
+DESIGN CONTRACT 설계자 승인(2026-10-04, 원칙·판정 체계 범위), NOT IMPLEMENTED. Gate 0-A DECIDED / 0-B UNRESOLVED. 결정론/현실성 분리, 양자 결과 확정 UNRESOLVED,
+Reality Transfer, 현실 자료 오류 가능성·등급·비교 전 봉인. 0-A 외 물리 선택 미승인, RULES §1 개정 문구 미결.
 
 [Pilot2 prepared drift / raw 정수 산술](active/C1B1_PREPARED_DRIFT_PILOT2_V1.md):
 독립 브랜치 opt-in 분석·최적화 후보, production NOT_APPLIED. 원래 REF/current FAST 비교와
