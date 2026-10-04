@@ -1,0 +1,70 @@
+{
+  "gate": "Nuclear State / Dynamics Gate V2",
+  "date": "2026-10-04",
+  "status": "SURVEY_ONLY / NOT WORLD EXECUTOR / NOT CERTIFIED",
+  "sealed_before_dynamics": true,
+  "question": "Does a deterministic coupled-trajectory method preserve nuclear wavepacket splitting, branch weights, phase relations and recoherence close enough to the full quantum reference while scaling non-exponentially in the number of nuclei?",
+  "world_class": "MODEL_TEST_WORLD (1D Shin-Metiu, same model and constants as V1). INTERNAL measurements only. Not a reality-transfer candidate (contract V0.1 N8).",
+  "model": {"L": 19.0, "Rl": 3.1, "Rr": 3.1, "M": 1836.15267343, "source": "nuclear_gate_v1/model.py (unchanged)"},
+  "pre_seal_static_information": "WKB tunnelling estimates and barrier heights on the V1 ground surfaces were computed before sealing (static, no dynamics). V1 dynamics results were known when this protocol was written; V2 does not reuse V1 verdicts.",
+  "candidates": {
+    "Q": "reference: nucleus + electron quantum, 2D split-operator (V1 grids and dt).",
+    "CT": "CT-MQC (Min, Agostini, Gross, PRL 115, 073001 (2015)), equations as in Gossel, Agostini, Maitra, JCTC 14, 4513 (2018) section II, 3 adiabatic states, implementation choices below.",
+    "EHA": "Ehrenfest in the same 3-state adiabatic machinery (CT with quantum momentum set to zero). Failure baseline and machinery check.",
+    "BOQ": "S2r only: quantum nucleus on the ground surface.",
+    "BOCL": "S2r only: classical nuclei on the ground surface; transmission by converged phase-space integration (not 0/1 quadrature averaging)."
+  },
+  "ct_implementation_choices": {
+    "electronic_basis": "3 lowest adiabatic states. Energies, gradients <phi_k|dV/dR|phi_k> and couplings d_lk = <phi_l|dV/dR|phi_k>/(e_k - e_l) tabulated on 1024 R points in [-9,9) and cubic-spline interpolated.",
+    "table_validation": "at 64 off-grid R points vs direct eigensolve: |energy error| <= 1e-7 and ||d| error| <= 1e-4 * max|d|; else CT/EHA REFUSED",
+    "electron_equation": "dC_l/dt = -i e_l C_l - v sum_k d_lk C_k + (1/M) sum_k |C_k|^2 Q_lk (f_l - f_k) C_l   (hbar = 1)",
+    "force": "F = -sum_k |C_k|^2 de_k/dR - Re sum_{l,k} C_l* C_k (e_k - e_l) d_lk - (2/M) sum_{l,k} |C_l|^2 |C_k|^2 Q_lk f_l (f_k - f_l)",
+    "accumulated_force": "f_l += -de_l/dR dt along the trajectory, f_l(0) = 0; if max_l |C_l|^2 > 0.995 then all f_l of that trajectory are set to 0",
+    "quantum_momentum": "nuclear density = weighted Gaussian kernel sum over trajectories (quadrature weights), Silverman bandwidth h = 1.06 * weighted_std * N_eff^(-1/5), N_eff = 1/sum w^2. alpha_I = (1/2) sum_J w_J g_J(R_I) / h^2 / sum_J w_J g_J(R_I). Direct Q_I = (1/2) sum_J w_J g_J(R_I)(R_I - R_J)/h^2 / sum_J w_J g_J(R_I).",
+    "pair_intercept": "Q_lk^I = alpha_I (R_I - R0_lk) with R0_lk = sum_I w_I a_I alpha_I R_I / sum_I w_I a_I alpha_I, a_I = |C_l|^2 |C_k|^2 (f_k - f_l) (zero net decoherence-induced population transfer). If |sum_I w_I a_I alpha_I| < 1e-14 or R0_lk outside [min R - 3h, max R + 3h], use direct Q_I for that pair.",
+    "integrator": "velocity Verlet for nuclei; electrons by RK4 over each dt with R linear in time, v = P_half/M, Q and pair intercepts from the start of the step",
+    "energy": "E_I = P^2/2M + sum_k |C_k|^2 e_k; drift reported. CT-MQC is not exactly energy conserving; no pass threshold."
+  },
+  "grids_time": {
+    "Q_grids": "R [-9,9) n=512, x [-32,32) n=512; fine 768/768",
+    "dt": 0.1, "dt_fine": 0.05, "sample_every": 10.0, "nstates_projection": 3,
+    "quadrature": {"n_primary": 10, "n_convergence": 14}
+  },
+  "scenarios": {
+    "S1_branching": {"Rf_panel": [4.0, 5.0, 6.0], "R0": -7.0, "P0": 0.0, "sigma": 0.5923488777590923, "t_final": 1240.0},
+    "S2r_tunnelling": {
+      "Rf": 6.0,
+      "rule": "V0 = ground adiabatic energy on the primary Q R grid. R_a = argmin V0 on [-8,0); R_b = argmax V0 on [R_a, -R_a]; B = V0(R_b) - V0(R_a). R_c = point on the outer wall (R < R_a) where V0 = V0(R_a) + 0.8 B (linear interpolation between grid points). P0 = 0. sigma = (2 / (M |dV0/dR(R_c)|))^(1/3) (minimises classical energy spread of the Wigner distribution). Electron ground adiabatic.",
+      "t_final": 2480.0,
+      "observable": "transmission = probability with R > R_b at t_final",
+      "classical_exact": "BOCL transmission integrated over the Wigner density on a uniform phase-space grid spanning +-7 std in R and P, 201x201 (primary) and 301x301 (convergence); pass if |T201 - T301| <= max(1e-4, 0.05*T301), else REFUSED. Also reported: Wigner mass with E > V0(R_b) on the same grid.",
+      "floor": "if Q transmission < 1e-6 the tunnelling comparison is INCONCLUSIVE"
+    },
+    "S3_recombination": {
+      "Rf": 5.0, "R0": -7.0, "P0_scan": [0.0, 1.5, 3.0, 4.5, 6.0], "sigma": 0.5923488777590923, "t_final": 3000.0,
+      "applicability": "per P0: R_g = argmin (e1 - e0) on [-8, 0) of the primary grid. Applicable if the Q total mean position <R>(t) crosses R_g at least twice (out and back). Otherwise NOT_APPLICABLE for that P0.",
+      "interference_demonstrated": "Q contrast = max - min of P_exc(t_final) over applicable P0 must be >= 0.05, else phase test NOT_DEMONSTRATED"
+    }
+  },
+  "observables": {
+    "P_exc": "1 - ground adiabatic population at t_final",
+    "electron_right": "electron probability with x > 0 (Q); for trajectory methods sum_I w_I sum_{k,l} C_k* C_l <phi_k|Theta(x)|phi_l> at R_I",
+    "branch_separation": "<R>_exc - <R>_0 at t_final, applicable if Q P_exc >= 0.05",
+    "coherence_indicator": "D = integral |chi|^2 |C_0|^2 |C_1|^2 dR. Q: integral |c0(R)|^2 |c1(R)|^2 / rho(R) dR with c_k = <phi_k|Psi>, rho = integral |Psi|^2 dx (cells with rho < 1e-12 skipped). Trajectories: sum_I w_I |C_0|^2 |C_1|^2.",
+    "transmission": "S2r",
+    "S3_contrast": "max - min of P_exc over applicable P0"
+  },
+  "validity": {
+    "Q": "dt and grid convergence: |delta| <= 1e-3 for P_exc, electron_right, transmission, coherence_indicator; relative <= 0.01 for branch_separation (only if applicable); norm drift <= 1e-8; energy drift <= 1e-4; domain monitor as V1 (edge probability <= 1e-6)",
+    "trajectory_methods": "|obs(n=10) - obs(n=14)| <= 1e-3 (relative 0.01 for branch_separation) else REFUSED for that observable; domain monitor on weights with |R| > 8.6",
+    "machinery_check": "EHA vs V1 grid Ehrenfest evidence on S1 P_exc and electron_right: |delta| <= 0.01, else CT and EHA REFUSED for all S1 cells (adiabatic machinery not trusted)"
+  },
+  "verdicts": {
+    "REPRESENTED": "probabilities |m - Q| <= max(0.02, 0.1|Q|); branch_separation |m - Q| <= 0.2|Q|; coherence_indicator |m - Q| <= max(0.02, 0.2|Q|); S3 phase: every applicable P0 REPRESENTED and contrast |m - Q| <= max(0.02, 0.2*contrast_Q)",
+    "DISTORTED": "computed, outside band",
+    "ABSENT_BY_CONSTRUCTION": "BO methods for P_exc, branch_separation, coherence",
+    "NOT_APPLICABLE / NOT_DEMONSTRATED / INCONCLUSIVE / REFUSED / UNSUPPORTED": "as defined above and in V1"
+  },
+  "scaling_report": "Measured cost per method and analytical state-size scaling with number of nuclear coordinates. CT cost includes the O(N_traj^2) kernel sum.",
+  "no_post_hoc_changes": "Nothing above changes after dynamics results are seen. Failures are recorded."
+}
