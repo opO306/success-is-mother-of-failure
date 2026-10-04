@@ -4,6 +4,10 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Multiparticle Rounding Gate V0 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/MULTIPARTICLE_ROUNDING_GATE_V0.md), 봉인 `d4d43b3`.
+P/T/C 모두 N=2 C1-B1 동일·번호/순서/평행이동 무관. P: 보존 항상, 집단 효과 손실(원거리 중심 3.03 u → 0). T: 오차 ≤0.5 u, 보존 깨짐(N=4 전수 32%·실제 배치).
+C(새 후보): 보존, 그러나 STOP N=4 전수 25.6%·실제 원거리 배치. 법칙 선택은 설계자 결정. 관련 시험12 PASS, LOCAL FULL 생략.
+
 **Nuclear State / Dynamics Gate V2 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/NUCLEAR_STATE_DYNAMICS_GATE_V2.md), 봉인 `6ebc808`.
 CT-MQC 후보로 "분리·위상 보존 + 비지수적"을 보이지 못함: S1 갈래 분리 3/3 궤적 수 수렴 실패(REFUSED, Rf4에서만 부호·크기 근접),
 궤적별 에너지 최대 0.6 hartree 변화, S3 궤적 영역 이탈(UNSUPPORTED). 기계 검사(EHA = V1 Ehrenfest) 통과.

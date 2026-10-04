@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Multiparticle Rounding Gate V0](active/MULTIPARTICLE_ROUNDING_GATE_V0.md)·[증거](active/multiparticle_rounding_v0/summary.json):
+SURVEY_ONLY, 다원자 반올림 후보 P/T/C 비교. 법칙 선택 없음. NOT APPROVED.
+
 [Nuclear State / Dynamics Gate V2](active/NUCLEAR_STATE_DYNAMICS_GATE_V2.md)·[증거](active/nuclear_gate_v2/verdicts.json):
 SURVEY_ONLY, CT-MQC 후보, 미수렴·에너지 비보존·시험 설계 실패 2건 공개. 방법 선택 없음. NOT CERTIFIED.
 

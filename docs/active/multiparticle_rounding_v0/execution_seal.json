@@ -1,0 +1,12 @@
+{
+ "quick": false,
+ "git_head_at_start": "d4d43b3190b622066c3eb999c67f52b30d8bd6b5",
+ "source_sha256": {
+  "__init__.py": "0df1df174ab94db1218c5d75f245b7703e22583b7da6911934c207ede45ab42f",
+  "laws.py": "eccd8162bfc5149b0faa64e8e1b9784ea4bdb11b9d10dbfd83ada5704617ed1c",
+  "physics.py": "c984bf8f6e17bd13c1e543b11bfc226ab2d70e37e24c8b414ee758af7bb4ba57",
+  "campaign.py": "54e59307f462f51fd2955c84dae26c8f26a7bc75772a5ddfda78160b17bd4bf3",
+  "protocol.json": "d049741f39b60562db7fba1d5424fabeb9c7faff88c07082fd092b535d1d6475"
+ },
+ "python": "3.12.7"
+}

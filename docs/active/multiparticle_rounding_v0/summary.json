@@ -1,0 +1,272 @@
+{
+ "quick": false,
+ "exhaustive_N3": {
+  "P": {
+   "cases": 29791,
+   "stop": 0,
+   "nonconserving": 0,
+   "max_abs_error": "1",
+   "err_gt_half": 13512
+  },
+  "T": {
+   "cases": 29791,
+   "stop": 0,
+   "nonconserving": 7548,
+   "max_abs_error": "1/2",
+   "err_gt_half": 0
+  },
+  "C": {
+   "cases": 29791,
+   "stop": 2190,
+   "nonconserving": 0,
+   "max_abs_error": "3/5",
+   "err_gt_half": 1782
+  }
+ },
+ "exhaustive_N4": {
+  "P": {
+   "cases": 531441,
+   "stop": 0,
+   "nonconserving": 0,
+   "max_abs_error": "6/5",
+   "err_gt_half": 404160
+  },
+  "T": {
+   "cases": 531441,
+   "stop": 0,
+   "nonconserving": 170208,
+   "max_abs_error": "2/5",
+   "err_gt_half": 0
+  },
+  "C": {
+   "cases": 531441,
+   "stop": 136032,
+   "nonconserving": 0,
+   "max_abs_error": "3/5",
+   "err_gt_half": 34176
+  }
+ },
+ "N2_equal_to_C1B1": {
+  "P": true,
+  "T": true,
+  "C": true
+ },
+ "clusters": {
+  "triangle_7.0": {
+   "P": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.7144462134813564
+   },
+   "T": {
+    "momentum_sum": [
+     0,
+     -1,
+     0
+    ],
+    "conserving": false,
+    "max_abs_error_u": 0.3562201848834768
+   },
+   "C": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.6437798151165233
+   },
+   "permutation_mismatches": {
+    "P": 0,
+    "T": 0,
+    "C": 0
+   },
+   "translation_same": {
+    "P": true,
+    "T": true
+   },
+   "T_grouping_same": true
+  },
+  "chain_7.5": {
+   "P": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.0564445407062363
+   },
+   "T": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.0564445407062363
+   },
+   "C": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.0564445407062363
+   },
+   "permutation_mismatches": {
+    "P": 0,
+    "T": 0,
+    "C": 0
+   },
+   "translation_same": {
+    "P": true,
+    "T": true
+   },
+   "T_grouping_same": true
+  },
+  "square_7.2": {
+   "P": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.002230153783728341
+   },
+   "T": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.002230153783728341
+   },
+   "C": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.002230153783728341
+   },
+   "permutation_mismatches": {
+    "P": 0,
+    "T": 0,
+    "C": 0
+   },
+   "translation_same": {
+    "P": true,
+    "T": true
+   },
+   "T_grouping_same": true
+  },
+  "tetrahedron_7.0": {
+   "P": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.5827205987609798
+   },
+   "T": {
+    "momentum_sum": [
+     0,
+     1,
+     0
+    ],
+    "conserving": false,
+    "max_abs_error_u": 0.4900843374370227
+   },
+   "C": {
+    "momentum_sum": [
+     0,
+     0,
+     0
+    ],
+    "conserving": true,
+    "max_abs_error_u": 0.5099156625629774
+   },
+   "permutation_mismatches": {
+    "P": 0,
+    "T": 0,
+    "C": 0
+   },
+   "translation_same": {
+    "P": true,
+    "T": true
+   },
+   "T_grouping_same": true
+  }
+ },
+ "far_field": {
+  "P": {
+   "momentum_sum": [
+    0,
+    0,
+    0
+   ],
+   "conserving": true,
+   "max_abs_error_u": 3.0315767446263933,
+   "center_dp_u": [
+    0,
+    0,
+    0
+   ],
+   "center_lost_u": [
+    3.0315767446263933,
+    0.19714119341162784,
+    0.19714119341162784
+   ]
+  },
+  "T": {
+   "momentum_sum": [
+    2,
+    0,
+    0
+   ],
+   "conserving": false,
+   "max_abs_error_u": 0.475161524273074,
+   "center_dp_u": [
+    3,
+    0,
+    0
+   ],
+   "center_lost_u": [
+    0.031576744626393066,
+    0.19714119341162784,
+    0.19714119341162784
+   ]
+  },
+  "C": {
+   "status": "STOP_OR_UNDECIDED"
+  },
+  "permutation_mismatches": {
+   "P": 0,
+   "T": 0,
+   "C": 0
+  },
+  "translation_same": {
+   "P": true,
+   "T": true
+  },
+  "T_grouping_same": true,
+  "d": 7600,
+  "center_exact_total_u": [
+   3.0315767446263933,
+   0.19714119341162784,
+   0.19714119341162784
+  ]
+ },
+ "results_sha256": "45ba19f0463bc34287548f6396ce032ff1cc5e0c8a8174a03b104c61ffa956c5"
+}
