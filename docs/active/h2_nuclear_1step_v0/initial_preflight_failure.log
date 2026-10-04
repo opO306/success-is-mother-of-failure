@@ -1,0 +1,23 @@
+F....................................................................... [ 57%]
+.....................................................                    [100%]
+================================== FAILURES ===================================
+______________ test_known_quadratic_force_and_verlet_mass_factor ______________
+
+    def test_known_quadratic_force_and_verlet_mass_factor():
+        old,new,result=fixture()
+        initial=result['initial']
+        f=Q.from_float(old[0]['total_energy_hartree'])-Q.from_float(old[2]['total_energy_hartree'])
+        f*=5
+>       assert D(initial['F0'])==D(f.numerator)/D(f.denominator)  # finite short exact toy decimals
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert Decimal('-0.20000000000000017763568394002504646778106689453125') == (Decimal('-225179981368525') / Decimal('1125899906842624'))
+E        +  where Decimal('-0.20000000000000017763568394002504646778106689453125') = D('-0.20000000000000017763568394002504646778106689453125')
+E        +  and   Decimal('-225179981368525') = D(-225179981368525)
+E        +    where -225179981368525 = Fraction(-225179981368525, 1125899906842624).numerator
+E        +  and   Decimal('1125899906842624') = D(1125899906842624)
+E        +    where 1125899906842624 = Fraction(-225179981368525, 1125899906842624).denominator
+
+tests\h2_nuclear_v0\test_scalar.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/h2_nuclear_v0/test_scalar.py::test_known_quadratic_force_and_verlet_mass_factor
+1 failed, 124 passed in 3.04s

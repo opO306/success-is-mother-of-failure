@@ -1,0 +1,17 @@
+{
+  "incremental_workflow_wall_seconds": 140.271747989,
+  "electronic_calls_outer_wall_sum_seconds": 87.506782284,
+  "validation_wall_seconds": 52.684139468,
+  "scalar_integration_wall_seconds": 0.00019329199999162938,
+  "other_capture_and_controller_seconds": 0.08063294500001916,
+  "timer": "all above from same WSL Python perf_counter; setup and final evidence packaging outside execution window",
+  "gnu_time_native_process_wall_sum_seconds": 89.18,
+  "native_vs_outer_timing_difference_seconds": 1.6732177160000106,
+  "timing_difference_cause": "NOT_INVESTIGATED; retain both records, do not add GNU wall to perf_counter decomposition",
+  "cold_start_equivalent": {
+    "status": "ESTIMATED_FROM_PREVIOUS_MEASURED_INITIAL_COST_PLUS_CURRENT_INCREMENTAL_NOT_FRESH_COLD_RUN",
+    "initial_three_process_wall_seconds": 86.48,
+    "equivalent_wall_seconds": 226.75174798900002,
+    "caveat": "previous same-host three process timings; run times differ, excludes old validation/startup cost; not a prediction bound"
+  }
+}

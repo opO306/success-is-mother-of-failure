@@ -1,0 +1,5 @@
+{
+  "first_report_attempt": "KeyError: reuse SHA key Windows backslash vs forward-slash display path",
+  "resolution": "normalize display keys only; sealed protocol/results/cost data not changed",
+  "numerical_runs_repeated": 0
+}

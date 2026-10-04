@@ -1,0 +1,17 @@
+{
+  "name": "proton-electron mass ratio",
+  "local_pilot_only": true,
+  "literal_value": "1836.152673426",
+  "standard_uncertainty": "0.000000032",
+  "source": "https://physics.nist.gov/cuu/Constants/Table/allascii.txt",
+  "source_adjustment": "2022 CODATA",
+  "retrieval_date_KST": "2026-10-04",
+  "retrieved_utc": "2026-10-04T02:04:02.444887+00:00",
+  "source_row": "proton-electron mass ratio                                  1836.152 673 426         0.000 000 032",
+  "source_access": "web tool official NIST table open/find, line275; exact value manually transcribed from returned row",
+  "source_row_fingerprint_sha256": "b1a4bf0308f43bb8f8c4d8d6d4116814d2019c878a46d83e43ec05064a6d6246",
+  "fingerprint_scope": "retrieved row transcription and nominal literal; not full remote file bytes",
+  "literal_fingerprint_sha256": "2fc335b770dee30b0df68d7874464fdb0119bd02554d0ec8a15be82375d497ed",
+  "direct_byte_download": "HTTP403; no raw-byte provenance claimed",
+  "uncertainty_propagation": "NOT_EVALUATED; nominal reported value used"
+}

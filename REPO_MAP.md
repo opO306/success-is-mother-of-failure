@@ -1,5 +1,17 @@
 # 저장소 지도
 
+`electronic_pilot/h2_nuclear_v0/`는 기존 cc-pV5Z 계산기를 바꾸지 않은 독립 1-step BO 핵 운동 Pilot이다.
+sealed E1.4/1.5/1.6 → Decimal80 initial half-kick/drift → 새3 geometry worker → final half-kick.
+`mass.json`은 NIST nominal proton-electron ratio의 Pilot 로컬 상수/전사 fingerprint이며 전역상수 변경없음.
+`check.py`는 scalar/전자 계산기를 import하지 않고 exact Fraction 식·질량·저장좌표·COM/운동량을 재검산한다.
+`tests/h2_nuclear_v0/`는 scalar/fault33+실측capture5, 총 관련130passed/skip0.
+[보고서](docs/active/h2_nuclear_1step_v0/REPORT.md), compact captures와 protocol/rebound/receipt는 같은 폴더.
+큰 AO/raw/process/RSS 자료는 Git밖 `runs/h2_nuclear_1step_v0_20261004/`.
+원래 실행봉인의 빈 후속시험log와 완료log를 별도rebound로 연결, 모든수치/source leaf 보존.
+1step supported / NOT CERTIFIED / NOT PRODUCTION APPROVED; energy ΔH는 MEASURED만, 그 뒤STOP.
+아래 force 모듈의 핵운동없음은 그 모듈 자체/당시 작업의 범위다.
+
+
 `electronic_pilot/h2_force_v0/`는 기존 V5Z calculator를 변경 없이 호출하는 독립 탐색 분석이다.
 사전 고정5점 worker → guard fail-closed energy consumer → h=.1 diagnostic radial force.
 `tests/h2_force_v0/`는 synthetic false acceptance 및 actual capture/Decimal 재계산/해시 검사를 한다.

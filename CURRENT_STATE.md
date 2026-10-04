@@ -1,5 +1,22 @@
 # 현재 상태
 
+**H₂ BO Nuclear Motion 1-Step V0 (2026-10-04):**
+[핵 위치·운동량·진단·실측 비용](docs/active/h2_nuclear_1step_v0/REPORT.md).
+H2_BO_NUCLEAR_1STEP_SUPPORTED / NOT CERTIFIED / NOT PRODUCTION APPROVED.
+R0=1.5,P0=0,dt=1,h=.1; nominal mp=1836.152673426,μ=mp/2; Decimal80 Velocity Verlet 정확히1step.
+기존 E1.4/1.5/1.6 재사용, 초기 전자 재계산0; 새 R1−h/R1/R1+h 3점 동일V5Z/full-CI guard ACCEPTED.
+requested R1=1.4999839841775447537652…, actual binary64 R1=1.4999839841775449; rounding 공개.
+F0/F1/P_half/P1<0, 두 핵 안쪽 이동, COM=0/총운동량=0 exact scalar replay 확인.
+ΔH=−2.47704957618e−8 Eh MEASURED만; force/vibration/BO dynamics·에너지보존 인증 없음.
+incremental140.271748s=전자calls87.506782+validation52.684139+scalar.000193292+기타.080633.
+cold equivalent226.751748s는 역사 실측을 더한 추정, fresh cold start 아님.
+단일call peak3.784653GiB; controller+descendants 20ms sampled aggregate3.795464GiB(전체host RSS 아님).
+관련130passed/skip0, 기존2525bindings/계산기source 불변. 초기기대값시험실패와포장log race 모두보존;
+원래봉인+빈log스냅샷+완료자료rebound검증, 수치재실행0. LOCAL FULL생략/관련시험대체/기준선유지.
+1step 후STOP; multi-step·formation·JC/adaptive·계산기backlog·merge/rebase/push0.
+다음 결정은 이 비용을 보고 설계자가 정한다. 아래 force 등은 당시 단계의 역사 기록이다.
+
+
 **Electronic Calculation Stack V0 동결 + H₂ Force Vertical Slice V0(2026-10-04):**
 [5점 에너지·guard·force·실제 비용](docs/active/h2_force_v0/REPORT.md).
 계산기 자체 선제 감사는 탐색용 V0로 동결, 기존 FAIL/UNRESOLVED/NOT IMPLEMENTED 보존.

@@ -1,0 +1,11 @@
+{
+  "original_execution_seal_sha256": "f11009a3b483ea54c78878a91d51f5d52ba5e2607d61d71fe9e5d00e705b24e4",
+  "changed_binding": "docs/active/h2_nuclear_1step_v0/related_tests.log",
+  "partial_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "partial_snapshot": "runs/h2_nuclear_1step_v0_20261004/sealed_partial_related_tests.log",
+  "partial_snapshot_bytes": 0,
+  "full_completed_log_sha256": "3695cae97a8c1ed23ba261a3d295038a5e03028af06d0c011c94c06efa98966b",
+  "numerical_and_source_bindings_changed": [],
+  "resolution": "preserve original seal and exact matching partial log; create separate rebound of completed evidence; no numerical rerun",
+  "initial_and_numerical_history_unchanged": true
+}

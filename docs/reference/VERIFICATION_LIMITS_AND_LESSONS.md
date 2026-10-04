@@ -761,3 +761,19 @@ LOCAL FULL생략/관련시험대체/기존A·common·frozen불변, 기준선유�
 
 [실측 보고서](../active/h2_force_v0/REPORT.md). 현재92+parent35시험PASS, 초기historical byte/raw 오류 보존.
 LOCAL FULL생략/관련시험대체/새분석·시험·문서만, 공식기준선 유지.
+
+
+### H₂ BO nuclear motion 1-step V0 (2026-10-04)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| reduced mass 2배 오류·half-kick/force 반전·개별핵 momentum 부호·COM drift | quadratic synthetic 및 exact Fraction 독립 scalar replay, 실제 F0/F1/P1<0와COM/총운동량0 | 고정COM/equal-mass/1D 한step이며 일반3D·장시간 인증 아님 |
+| requested와actual geometry 혼합·rounding 숨김·guard REFUSED 무시·NaN/Inf | actual PySCF 저장좌표/hex/rounding 검사, 실패주입, 새3점 guard 재검사 | binary64 electronic/basis/force 오차 상한 없음 |
+| 높은scalar정밀도·작은ΔH를 힘/에너지보존 인증으로 승격 | Decimal80 vs exact Fraction 산술만1e−75, ΔH MEASURED/physical tolerance null 강제 | h=.1 차분·전자·Verlet 오차 원인 분리 미평가 |
+| cached initial cost를 전체cold-start 실측으로 보고·단일worker RSS를host peak로 보고 | incremental 성분계측과역사cost추정 분리, per-call RSS와20ms workflow aggregate 별도 | freshcoldstart 아님, 공유page 중복/샘플사이peak/Windows host 제외 |
+| 진행중pytest log를execution seal에 묶음 | 실제 빈log 해시 race 확인, 원래봉인/정확한빈snapshot/완료log 보존, 별도rebound bridge+hash검사 | 작성자 포장순서 오류, 수치/source binding 변경0·전자재실행0 |
+
+[보고서](../active/h2_nuclear_1step_v0/REPORT.md). 신규38+관련92=130passed/skip0.
+첫preflight1failed 기대값Decimal28 비교는exact Fraction으로고침; 원래실패log 보존.
+LOCAL FULL생략/새독립pilot·시험·문서만/기존calculator/common/frozen 불변, 기준선유지.
+자동시험과요청계약 대조를별도로수행, 외부 독립감사 아님. 1step 후STOP.
