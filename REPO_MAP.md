@@ -1,5 +1,14 @@
 # 저장소 지도
 
+`electronic_pilot/h2_r04_jc_v1/`는 energy-blind native basis enumeration·사전봉인·
+새observer clocks·bounded common-u search·각accepted run의 unchanged V1checker 호출·
+sealed energy 이후 별도reference/freshV5Z 비용 wrapper다. 기존A/common/frozen/third-party 불변.
+`tests/h2_r04_jc_v1/` 신규30tests, `docs/active/h2_r04_jc_v1/` plan/protocol/compactcapture/report.
+Raw third-party source/HS/EV/intervalproof는 runs/h2_representation_pilot1/r04_jc_v1_20261004/의 Git밖.
+R=.4 Ω3/5/7 finite targets supported/firstSMALLtargetMET, 전체costwall우위미지원,
+NOT_CERTIFIED/production미승인/STOP. 아래 계통별 이전 미착수 판정은 당시 기록이다.
+
+
 `electronic_pilot/h2_stored_root_v1/`는 저장 exact dyadic parser·독립 MPFR interval
 unpivoted LDL/inertia·root bracket·240자리 residual·exact negative-direction checker다.
 Vendor numerical routine을 재사용하지 않는다. `tests/h2_stored_root_v1/`는 합성 fault와

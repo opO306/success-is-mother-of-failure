@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "wsl",
+    "-e",
+    "make",
+    "-C",
+    "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/enumeration_build/h2solv/f",
+    "h2solv",
+    "LD=gfortran -fopenmp",
+    "MPFR=/usr/lib/x86_64-linux-gnu/libmpfr.a /usr/lib/x86_64-linux-gnu/libgmp.a"
+  ],
+  "exit": 0,
+  "wall_seconds": 8.038400300021749,
+  "stripped_source_sha256": "aa109cbd47cf5dcd2db57ce3da67bdaf69e22dfd9023e1219328e21413703d2d",
+  "modified_sha256": "b05b2c15b8ccfd44038bd66d4ea6888bd5cb4d4bc9893f032e8e6db3265eaa76",
+  "binary_sha256": "2c3ff3a1680e995d5b890281230990f010f64e91e591b725b9447af567d6c9b8"
+}

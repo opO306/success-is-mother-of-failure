@@ -1,0 +1,104 @@
+{
+  "label": "cal_n60d60_try0",
+  "OMEGA": 5,
+  "dimension": 78,
+  "u": "1.0",
+  "NMAX": 60,
+  "NDIGITS": 60,
+  "energy": "-0.120225197159138392516005425902763881799542075777067706772033141217071410315094254804603975381672336909640692842890345802770313379748565486410576734048561439928579209606296266177787",
+  "E_pair": [
+    "-1184278490856779720252138755831013393245101578668339717523541039776825699921858378908666964698423075617092612601407",
+    -382
+  ],
+  "initial_EN": "-2.0",
+  "WA1": 0,
+  "WA1_status": "NOT_EXECUTED",
+  "observation": {
+    "inverse_iteration_supported": false,
+    "maxit_exhausted": true,
+    "converged_by_eigenvalue_test": false,
+    "solver_factorization_error_free": true,
+    "structure_errors": [],
+    "actual_iteration_count": 40,
+    "termination_reason": "MAXIT_EXHAUSTED",
+    "final_ierror": 0,
+    "ITMAX": 40
+  },
+  "SPD": true,
+  "SPD_summary": {
+    "status": "COMPLETE",
+    "positive": 78,
+    "negative": 0,
+    "uncertain": 0,
+    "lambda_min_lower_pair": [
+      "64639734889887787798667628048838335134099799960369309443191272876689046534911311",
+      -355
+    ]
+  },
+  "root": {
+    "status": "NOT_EXECUTED_REJECTED_ITERATION_OR_SPD",
+    "inertia_low": null,
+    "inertia_high": null,
+    "E_inside": null
+  },
+  "residual": null,
+  "consistency": {},
+  "phase_seconds": {
+    "integrals": 1.986431909,
+    "matrix_build_and_allocation": 0.061734879000000076,
+    "precision_conversion_and_setup": 0.002539418,
+    "matrix_snapshot": 0.008823091,
+    "eigensolve_with_iteration_and_return_observers": 0.063257005,
+    "CALCEN_total": 2.124461127
+  },
+  "native_process": {
+    "argv": [
+      "wsl",
+      "-e",
+      "/usr/bin/time",
+      "-f",
+      "wall_seconds=%e\npeak_rss_kib=%M\nuser_seconds=%U\nsystem_seconds=%S",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/cal_n60d60_try0/native.time",
+      "/usr/bin/timeout",
+      "600",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "MKL_NUM_THREADS=1",
+      "/bin/sh",
+      "-c",
+      "cd \"$1\" && exec \"$2\"",
+      "r04",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/cal_n60d60_try0",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/audit_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "outer_wall_seconds": 2.3544855999934953,
+    "measurement": {
+      "wall_seconds": 2.14,
+      "peak_rss_kib": 79232.0,
+      "user_seconds": 2.1,
+      "system_seconds": 0.12
+    },
+    "thread_environment": "OMP/OPENBLAS/MKL=1",
+    "scope": "GNU time WSL process peak; outer time includes WSL startup"
+  },
+  "validation_seconds": 0.1689732999948319,
+  "HS_precision_counts": {
+    "320": 6162
+  },
+  "EV_precision_counts": {
+    "384": 79
+  },
+  "hashes": {
+    "input.inp": "e0a5648588fb211bcdd84c217578f577479f110b525e867ddb10e3610d876dc7",
+    "audit_HS.bin": "deeafa9d984e6c5d806140b8e15e8f47075866369a58c1bf1a298de495be2b3b",
+    "audit_EV.bin": "b8f6f386db54e7d3d5c4abcacc25db69fd29cbebe5a817812192d015d8451c47",
+    "audit_invsg.log": "aa95be1d5b20bdd0486907b50a4eb2ea0e2342cea897ff107049d6cc563d2601",
+    "independent.json": "98b0c7a0246d52a24489172ce552930be30e1063d7bfa2cd772a989111892916"
+  },
+  "status": "REFUSED_ITERATION",
+  "total_wall_seconds": 2.610106799984351,
+  "controller_peak_rss_bytes": 29487104
+}

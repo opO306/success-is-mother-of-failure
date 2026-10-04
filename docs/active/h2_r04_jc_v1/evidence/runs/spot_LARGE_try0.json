@@ -1,0 +1,132 @@
+{
+  "label": "spot_LARGE_try0",
+  "OMEGA": 7,
+  "dimension": 228,
+  "u": "1.0",
+  "NMAX": 100,
+  "NDIGITS": 60,
+  "energy": "-0.120230096580672009713759207651314987659625690586086622914153048148460549849347015123471125202917247997192318117606518278154945524493316291164069668252876598551339352803476982626467",
+  "E_pair": [
+    "-37898456083717961715013511146733207251336426433998315632405950279988121625519657011327192434204590577367567145501739",
+    -387
+  ],
+  "initial_EN": "-0.124136346580672009713759207651314992999999999999999999999999999999999999999999999999999999999999995121083069989337526792147472067649252071924106365270293930120556037305026098586122",
+  "WA1": 0,
+  "WA1_status": "MATCH",
+  "observation": {
+    "inverse_iteration_supported": true,
+    "maxit_exhausted": false,
+    "converged_by_eigenvalue_test": true,
+    "solver_factorization_error_free": true,
+    "structure_errors": [],
+    "actual_iteration_count": 28,
+    "termination_reason": "EIGENVALUE_TEST",
+    "final_ierror": 0,
+    "ITMAX": 40
+  },
+  "SPD": true,
+  "SPD_summary": {
+    "status": "COMPLETE",
+    "positive": 228,
+    "negative": 0,
+    "uncertain": 0,
+    "lambda_min_lower_pair": [
+      "76096797382923435186622972236542537693015253751670181038317641085632572859753687",
+      -421
+    ]
+  },
+  "root": {
+    "status": "LOWEST_ROOT_ENCLOSED",
+    "low": "-0.1202300965806720097141827241249421378291598518364264438951787439492417998493470151235",
+    "high": "-0.1202300965806720097135474494145014125748586099609167124236402002480699248493470151235",
+    "low_pair": [
+      "-37898456083717961715147010336478264131486115290633912639568619312635412423641347111816081167065880611744002275935275",
+      -387
+    ],
+    "high_pair": [
+      "-37898456083717961714946761551860678811261582005680517128824615763664476226458811961082748067773945560179349580284971",
+      -387
+    ],
+    "width": "0.000000000000000000000635274710440725254301241875509731471538543701171875",
+    "inertia_low": 0,
+    "inertia_high": 1,
+    "E_inside": true
+  },
+  "residual": {
+    "grade": "MEASURED_ONLY_NO_ACCEPTANCE_THRESHOLD",
+    "decimal_digits": 240,
+    "E_returned": "-0.120230096580672009713759207651314987659625690586086622914153048148460549849347015123471125202917247997192318117606518278154945524493316291164069668252876598551339352803476982626467",
+    "residual_L2": "1.97023699677972989423865713255353823666987407503350895110787163887314883210961014832693644e-57",
+    "residual_Linf": "1.65106226974725164437560846898978382729109043839488698848486428153896812538711787854980537e-57",
+    "nS": "0.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999663950508115643170186878263790808173443730031321343669935113043786",
+    "normalization_error": "3.36049491884356829813121736209191826556269968678656330064886956214054723336470620648544362e-115",
+    "E_RQ": "-0.120230096580672009713759207651314987659625690586086622914153048215348178533065279327477755441258379883890480744628386301044463304187935891557934972827480761060286494245610419071477",
+    "RQ_minus_E": "-6.68876286837182642040066302383411318866981626270218680228895177796946196003938653045746042e-65",
+    "transformed_residual": "3.680772881091656866648940751066152026508592729538938544742822880812610821131759566067138487754400591e-64",
+    "transformed_status": "MEASURED_S_SPD_CONFIRMED"
+  },
+  "consistency": {
+    "RQ_inside": true,
+    "RQ_cauchy": true,
+    "residual_intersects": true,
+    "rho_contained": true
+  },
+  "phase_seconds": {
+    "integrals": 9.169662343,
+    "matrix_build_and_allocation": 0.45590175099999897,
+    "precision_conversion_and_setup": 0.003147344,
+    "matrix_snapshot": 0.036223298,
+    "eigensolve_with_iteration_and_return_observers": 0.449740595,
+    "CALCEN_total": 10.116799361
+  },
+  "native_process": {
+    "argv": [
+      "wsl",
+      "-e",
+      "/usr/bin/time",
+      "-f",
+      "wall_seconds=%e\npeak_rss_kib=%M\nuser_seconds=%U\nsystem_seconds=%S",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/spot_LARGE_try0/native.time",
+      "/usr/bin/timeout",
+      "600",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "MKL_NUM_THREADS=1",
+      "/bin/sh",
+      "-c",
+      "cd \"$1\" && exec \"$2\"",
+      "r04",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/spot_LARGE_try0",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/audit_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "outer_wall_seconds": 10.408432399999583,
+    "measurement": {
+      "wall_seconds": 10.99,
+      "peak_rss_kib": 243712.0,
+      "user_seconds": 9.97,
+      "system_seconds": 0.28
+    },
+    "thread_environment": "OMP/OPENBLAS/MKL=1",
+    "scope": "GNU time WSL process peak; outer time includes WSL startup"
+  },
+  "validation_seconds": 21.884201999986544,
+  "HS_precision_counts": {
+    "320": 52212
+  },
+  "EV_precision_counts": {
+    "384": 229
+  },
+  "hashes": {
+    "input.inp": "d9191cecb1d3328b7d41611566921e15a50a6ef8075fa756e00522b0d4c3a7c9",
+    "audit_HS.bin": "2a9e04d06ae9f4635643233fc43e1c6b764a01571070c92c7d0dd36c41877fec",
+    "audit_EV.bin": "1043fe3d11ff0bf0486ced6a09fce63418ab3df8df85aeaaeb5e28d709db4191",
+    "audit_invsg.log": "fc4d28bfb39b5661e61847be327cee7858c744c0384e7686489df00f9d53990f",
+    "independent.json": "51caff497817d62e58ef55aa5533c5a8a1330932372a68403a7ce6e3721a2944"
+  },
+  "status": "ACCEPTED_FINITE_STORED_PROBLEM",
+  "total_wall_seconds": 32.6788451000175,
+  "controller_peak_rss_bytes": 82726912
+}

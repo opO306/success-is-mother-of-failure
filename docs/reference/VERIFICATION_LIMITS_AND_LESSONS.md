@@ -737,3 +737,15 @@ AO spot precision 상승은 별도이며 fixed binary64 AO의 HP transformation�
 
 [보고서](../active/h2_stored_root_v1/REPORT.md). 신규40개 포함 관련169시험(134+35)PASS,
 LOCAL FULL생략/기준선유지. 첫 related collection error는 module명 충돌이며 로그를 보존했다.
+
+### H₂ R=.4 symmetric JC V1 (2026-10-04)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| exit0/MAXIT, SPD fail, excited1→2, Eoutside, WA mismatch, 빈/false consistency를 성공 취급 | 새gate의6종false-success injection+emptyconsistency와SPD/MAXIT동시거부; 실제초회MAXIT40 REFUSED보존 | semantic gate검사+unchanged V1realproof, 모든generator결함인증아님 |
+| Ω/NMAX/NDIGITS혼합, 기준값fit, 사후범위확장 | nativeenumeration-onlySTOP, pre-energyprotocol/sourcehash, bounded7trial, energyseal후별도reference | empirical1e−10 stability는 formalerrorbound아님; source/API독립Coulomb구현은 B2미착수 |
+| SMALL단체크만으로전체비용우월판정 | failedretry/calibration/search/validation/spots/vendorcost 포함79.55s vsfreshV5Z33.30s | samehost/wrapper라도validation부하차이존재; 외부basis설계/설치/상각미측정 |
+| 특정vendor예제를ground가아니라는이유로target경로차단 | JCasy intendedUNRESOLVED로분리, actualR04accepted17각각SPD/lowest0→1확인 | 기존HHeindef/Generalunresolved/JCasy1→2/MAXITsilent failure해결아님 |
+
+[보고서](../active/h2_r04_jc_v1/REPORT.md). 신규30+기존169=199passed/skip0.
+LOCAL FULL생략/관련시험대체/기존A·common·frozen불변, 기준선유지. 작성자검증과외부독립감사를구별한다.

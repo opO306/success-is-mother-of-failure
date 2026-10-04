@@ -1,0 +1,51 @@
+[
+  {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "stdout": "1503b6765b2f8db595200b3dc4725c879eead812\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "stdout": "codex/h2-representation-pilot1\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "status",
+      "--porcelain"
+    ],
+    "stdout": "?? docs/active/h2_r04_jc_v1/\n?? electronic_pilot/h2_r04_jc_v1/\n?? tests/h2_r04_jc_v1/\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "ls-remote",
+      "origin",
+      "refs/heads/master",
+      "refs/heads/codex/h2-representation-pilot1"
+    ],
+    "stdout": "264f5880ee1dedd5a97b008c29dd8d67057664b9\trefs/heads/codex/h2-representation-pilot1\n0f7b744cf754450424a63c47f305e0327c5b37c1\trefs/heads/master\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "git",
+      "rev-list",
+      "--left-right",
+      "--count",
+      "origin/codex/h2-representation-pilot1...HEAD"
+    ],
+    "stdout": "0\t4\n",
+    "stderr": ""
+  }
+]

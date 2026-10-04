@@ -1,0 +1,40 @@
+{
+  "scientific_stdout_identical": true,
+  "wavefunctions_identical": true,
+  "vendor_wavefunction_hashes": {
+    "wf_3.dat": "c656909ce142cd0f43317f93a10d82c0411ff04f10c92ab52ddbf96a1ee04913"
+  },
+  "measurement": {
+    "argv": [
+      "wsl",
+      "-e",
+      "/usr/bin/time",
+      "-f",
+      "wall_seconds=%e\npeak_rss_kib=%M\nuser_seconds=%U\nsystem_seconds=%S",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/vendor_checks/final_SMALL_try0/native.time",
+      "/usr/bin/timeout",
+      "600",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "MKL_NUM_THREADS=1",
+      "/bin/sh",
+      "-c",
+      "cd \"$1\" && exec \"$2\"",
+      "r04",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/vendor_checks/final_SMALL_try0",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/vendor_build_resume_v2_20261003/vendor_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "outer_wall_seconds": 0.9157428999897093,
+    "measurement": {
+      "wall_seconds": 0.82,
+      "peak_rss_kib": 46464.0,
+      "user_seconds": 0.77,
+      "system_seconds": 0.04
+    },
+    "thread_environment": "OMP/OPENBLAS/MKL=1",
+    "scope": "GNU time WSL process peak; outer time includes WSL startup"
+  }
+}

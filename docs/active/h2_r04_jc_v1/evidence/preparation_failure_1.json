@@ -1,0 +1,7 @@
+{
+  "stage": "pre-energy preparation",
+  "error": "ambiguous clock anchor",
+  "cause": "vendor integral call ends with one preserved space before LF; observation anchor initially omitted it",
+  "scientific_execution": false,
+  "repair": "exact whitespace anchor; synthetic tests 23 passed before retry"
+}

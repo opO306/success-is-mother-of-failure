@@ -1,5 +1,12 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[H₂ R=.4 symmetric JC B1 V1](active/h2_r04_jc_v1/REPORT.md):
+별도수치Pilot, Ω3/5/7 finite stored ground-root/empirical numerical progression지원.
+SMALLtargetMET, 전체cost우위미지원; prior5예제 all-lowest요건은 targetGate에서 제외.
+985historicalbindings불변, 199relatedtestsPASS, NOT_CERTIFIED/production미승인/STOP.
+아래 previousstage scope는 원문대로 보존.
+
+
 [H₂ stored-matrix lowest-root audit V1](active/h2_stored_root_v1/REPORT.md):
 새 independent stored-dyadic/interval audit. 두 예제 lowest enclosure, JC asymmetric non-lowest,
 H–He⁺ exact S negative direction, General240자리SPD미확정. 전체 UNRESOLVED/STOP,

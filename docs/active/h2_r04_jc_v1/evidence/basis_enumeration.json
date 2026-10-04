@@ -1,0 +1,65 @@
+[
+  {
+    "OMEGA": 1,
+    "dimension": 3,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "da6a6572f816e50a2693be25ce1026a088cb08ff594f4e55e464dea65feda899",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 2,
+    "dimension": 9,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "3ac506e1b287b6cd5d49bfaf65cb6e779bdcefeb51489e049951783059318e12",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 3,
+    "dimension": 20,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "bbdc7a331576b811519ed341b689760c688252c505dcf2d9065260fad5a55ec4",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 4,
+    "dimension": 42,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "8861b6982a5018cf883bb9dcfcd754f926316f8e7df5fb30d58a200830f6e4e9",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 5,
+    "dimension": 78,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "618830d4a4acf15b031da52b0fc7be71f4ffa331423a6b7950a1832c6d85f655",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 6,
+    "dimension": 138,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "5f3280945c794983eeb355690007db8e8ebd58e0c9f41564d935421b960c8379",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 7,
+    "dimension": 228,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "95ba7592ca74705139852fe87395bfa15f0b1dbbb6c75166d91e23a6cf734ef8",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 8,
+    "dimension": 363,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "0205b08a5dcc568a69e3b8d2cc055f266004f07b448cc697befbf7bc2e397353",
+    "energy_executed": false
+  },
+  {
+    "OMEGA": 9,
+    "dimension": 553,
+    "native_order_and_tuples_match": true,
+    "tuples_sha256": "7284aec4686d5d60c69aadbdb2056c6b4175d5356dd047c69f5800fa8d6318d3",
+    "energy_executed": false
+  }
+]

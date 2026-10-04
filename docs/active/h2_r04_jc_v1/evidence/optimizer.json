@@ -1,0 +1,44 @@
+{
+  "evaluations": [
+    {
+      "u": "1",
+      "label": "cal_n80d60_try0",
+      "reused_calibration": true
+    },
+    {
+      "u": "0.75",
+      "label": "opt_1_try0",
+      "reused_calibration": false
+    },
+    {
+      "u": "1.25",
+      "label": "opt_2_try0",
+      "reused_calibration": false
+    },
+    {
+      "u": "0.875",
+      "label": "opt_3_try0",
+      "reused_calibration": false
+    },
+    {
+      "u": "1.125",
+      "label": "opt_4_try0",
+      "reused_calibration": false
+    },
+    {
+      "u": "0.9375",
+      "label": "opt_5_try0",
+      "reused_calibration": false
+    },
+    {
+      "u": "1.0625",
+      "label": "opt_6_try0",
+      "reused_calibration": false
+    }
+  ],
+  "evaluation_count": 7,
+  "selected_u": "1.0",
+  "selected_label": "cal_n80d60_try0",
+  "extra_wall_seconds": 36.27154609997524,
+  "status": "BOUNDED_SEARCH_COMPLETED_NO_OPTIMALITY_CERTIFICATE"
+}

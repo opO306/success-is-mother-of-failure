@@ -1,5 +1,16 @@
 # 현재 상태
 
+**H₂ R=.4 symmetric JC B1 V1(2026-10-04):**
+[3표현·분리수치보정·실제최저근·비용](docs/active/h2_r04_jc_v1/REPORT.md).
+Ω3/5/7=20/78/228, common u=w1, NMAX80/ND60; 3final+3N100spots 정상수렴/SPD/lowest0→1.
+최종 E−.120099222707685/−.120228247889702/−.120230096580672, 지정reference gap .000131118/2.09329e−6/2.44598e−7 Eh; SMALL부터 .001 target MET.
+수치안정/3nested표현진행/저장lowest 조건부SUPPORTED; empirical evidence, NOT_CERTIFIED/production미승인/STOP.
+JC 전체 first-target절차79.55s vssamehostfreshV5Z33.30s: 전체wall우위미지원. SMALLnative.79s/45.4MiB; 준비·검색·검증 비용을 제외한 우월판정 금지.
+첫 회MAXIT40 REFUSED1+accepted17; 기존985bindings불변, 관련199passed/skip0, LOCAL FULL생략/기준선유지.
+설계자 변경: vendor5예제 all-lowest는 target 선행요건에서 제외. JCasy intended root UNRESOLVED로 보존, HHe indefinite/General SPD미확정/MAXIT결함 보존.
+R1.4/6·B2·A채택·push0. 아래 V1/V0/V2는 당시 증거와 범위의 역사 기록이며 덮어쓰지 않는다.
+
+
 **H₂ stored-matrix lowest-root audit V1(2026-10-03):**
 [독립 interval SPD/inertia·lowest 구간·정확 negative 방향](docs/active/h2_stored_root_v1/REPORT.md).
 JC symmetric/H₂ symmetric은 S SPD 및 반환 E 포함 lowest 구간0→1 확인.

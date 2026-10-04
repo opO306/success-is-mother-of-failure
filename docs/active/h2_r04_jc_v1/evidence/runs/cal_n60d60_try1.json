@@ -1,0 +1,132 @@
+{
+  "label": "cal_n60d60_try1",
+  "OMEGA": 5,
+  "dimension": 78,
+  "u": "1.0",
+  "NMAX": 60,
+  "NDIGITS": 60,
+  "energy": "-0.12022824788970239010500829395234520358498662387238052410340164017669236331333954615537434298593319877750132671474785017804690080281581648211620742689438538705833943469935583587617",
+  "E_pair": [
+    "-37897873346653640352278118824288552716007685488326193283034861106345941152569602096906902690453139369482176652421183",
+    -387
+  ],
+  "initial_EN": "-0.124131447159138392516005425902763878000000000000000000000000000000000000000000000000000000000000024017850424623270382787805877116288910194768165996935846780344647928054580448336921",
+  "WA1": 0,
+  "WA1_status": "MATCH",
+  "observation": {
+    "inverse_iteration_supported": true,
+    "maxit_exhausted": false,
+    "converged_by_eigenvalue_test": true,
+    "solver_factorization_error_free": true,
+    "structure_errors": [],
+    "actual_iteration_count": 29,
+    "termination_reason": "EIGENVALUE_TEST",
+    "final_ierror": 0,
+    "ITMAX": 40
+  },
+  "SPD": true,
+  "SPD_summary": {
+    "status": "COMPLETE",
+    "positive": 78,
+    "negative": 0,
+    "uncertain": 0,
+    "lambda_min_lower_pair": [
+      "64639734889887787798667628048838335134099799960369309443191272876689046534911311",
+      -355
+    ]
+  },
+  "root": {
+    "status": "LOWEST_ROOT_ENCLOSED",
+    "low": "-0.1202282478897023901054318104259723537545207851227203450844273359774736133133395461554",
+    "high": "-0.1202282478897023901047965357155316285002195432472106136128887922763017383133395461554",
+    "low_pair": [
+      "-37897873346653640352411618014033609596157374344961790290197530138993231950691292197395791423314429403858611782854719",
+      -387
+    ],
+    "high_pair": [
+      "-37897873346653640352211369229416024275932841060008394779453526590022295753508757046662458324022494352293959087204415",
+      -387
+    ],
+    "width": "0.000000000000000000000635274710440725254301241875509731471538543701171875",
+    "inertia_low": 0,
+    "inertia_high": 1,
+    "E_inside": true
+  },
+  "residual": {
+    "grade": "MEASURED_ONLY_NO_ACCEPTANCE_THRESHOLD",
+    "decimal_digits": 240,
+    "E_returned": "-0.12022824788970239010500829395234520358498662387238052410340164017669236331333954615537434298593319877750132671474785017804690080281581648211620742689438538705833943469935583587617",
+    "residual_L2": "2.06700443088639453619870476496360920649177043271961558508919315069786687831173086921596334e-62",
+    "residual_Linf": "1.55205762288117036528683895567516914331161309084378479327089235348327267719110272956594264e-62",
+    "nS": "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005253854677422599519380061835927512153058966910449123801476932753",
+    "normalization_error": "5.25385467742259951938006183592751215305896691044912380147693275321887887007320516626892021e-116",
+    "E_RQ": "-0.120228247889702390105008293952345203584986623872380524103401640175165980531930457779297103778756855539155771457958517959737246262218794831062920842026459117690373348409318060820569",
+    "RQ_minus_E": "1.52638278140908837607723920717634323834555525678933221830965454059702165105328658486792627e-66",
+    "transformed_residual": "1.561558368303799857222823293724339938612731371275150933501191748972546519016341934535221710802792111e-66",
+    "transformed_status": "MEASURED_S_SPD_CONFIRMED"
+  },
+  "consistency": {
+    "RQ_inside": true,
+    "RQ_cauchy": true,
+    "residual_intersects": true,
+    "rho_contained": true
+  },
+  "phase_seconds": {
+    "integrals": 2.211740041,
+    "matrix_build_and_allocation": 0.06835344899999996,
+    "precision_conversion_and_setup": 0.002117054,
+    "matrix_snapshot": 0.010016067,
+    "eigensolve_with_iteration_and_return_observers": 0.053059622,
+    "CALCEN_total": 2.347993083
+  },
+  "native_process": {
+    "argv": [
+      "wsl",
+      "-e",
+      "/usr/bin/time",
+      "-f",
+      "wall_seconds=%e\npeak_rss_kib=%M\nuser_seconds=%U\nsystem_seconds=%S",
+      "-o",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/cal_n60d60_try1/native.time",
+      "/usr/bin/timeout",
+      "600",
+      "/usr/bin/env",
+      "OMP_NUM_THREADS=1",
+      "OPENBLAS_NUM_THREADS=1",
+      "MKL_NUM_THREADS=1",
+      "/bin/sh",
+      "-c",
+      "cd \"$1\" && exec \"$2\"",
+      "r04",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/runs/cal_n60d60_try1",
+      "/mnt/c/Users/zun24/.codex/worktrees/h2-representation-pilot1/\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8/runs/h2_representation_pilot1/r04_jc_v1_20261004/audit_build/h2solv/f/h2solv"
+    ],
+    "exit": 0,
+    "outer_wall_seconds": 2.4459976999787614,
+    "measurement": {
+      "wall_seconds": 2.36,
+      "peak_rss_kib": 79104.0,
+      "user_seconds": 2.27,
+      "system_seconds": 0.05
+    },
+    "thread_environment": "OMP/OPENBLAS/MKL=1",
+    "scope": "GNU time WSL process peak; outer time includes WSL startup"
+  },
+  "validation_seconds": 2.9358406999963336,
+  "HS_precision_counts": {
+    "320": 6162
+  },
+  "EV_precision_counts": {
+    "384": 79
+  },
+  "hashes": {
+    "input.inp": "90495b7cd5dc4423701d6c26a1452c1c838076643bdc0c090760b41da8604f7b",
+    "audit_HS.bin": "deeafa9d984e6c5d806140b8e15e8f47075866369a58c1bf1a298de495be2b3b",
+    "audit_EV.bin": "f8850148b1a24aeb2e2e6b8b3a6072934fff46c41f070e00b6d01db148cfff05",
+    "audit_invsg.log": "fa19cd5f1287a70c6926d8fd7d61a003963dfcaa0df039879b544d3dabe6faf0",
+    "independent.json": "aaef1d89f78d3c011e7209e093662ab68ce67a84b064be5b2eb4673302d79fd8"
+  },
+  "status": "ACCEPTED_FINITE_STORED_PROBLEM",
+  "total_wall_seconds": 5.467587999999523,
+  "controller_peak_rss_bytes": 36548608
+}

@@ -1,5 +1,11 @@
 # 프로젝트 문서 안내
 
+[H₂ R=.4 symmetric JC B1 V1](active/h2_r04_jc_v1/REPORT.md):
+세nested기저·분리수치보정·최저근검증 및NMAXspots지원, SMALL부터 .001 target MET.
+전체목표확보79.55s vsfreshV5Z33.30s로 전체wall우위미지원, NOT_CERTIFIED/production미승인/STOP.
+JCasy intended rootUNRESOLVED·이전anomalies보존. 아래 V1이하 R=.4미착수는 당시 범위 기록이다.
+
+
 [H₂ stored-matrix lowest-root audit V1](active/h2_stored_root_v1/REPORT.md):
 저장 finite H/S 독립 interval 감사. 두 예제 lowest 확인, JC asymmetric non-lowest 반박,
 H–He⁺ S 정확 음의방향, General240자리SPD미확정. 전체 UNRESOLVED/STOP,
