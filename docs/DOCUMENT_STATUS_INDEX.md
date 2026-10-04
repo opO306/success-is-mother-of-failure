@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Exact Expression State Gate V0](active/EXACT_EXPRESSION_STATE_GATE_V0.md)·[증거](active/exact_expression_gate_v0/verdict.json):
+ALTERNATIVE NUMERIC WORLD SEMANTICS / SURVEY_ONLY, 판정 EXPRESSION_WALL(+REPLAY_DOMINATES). C1-B1 대체 아님.
+
 [Multiparticle Residual / Carry Gate V1](active/MULTIPARTICLE_RESIDUAL_CARRY_GATE_V1.md)·[증거](active/multiparticle_residual_gate_v1/verdict.json):
 SURVEY_ONLY, 판정 B. U = L 같은 의미, 물리 실현은 더 고운 격자의 P. 법칙 채택 아님.
 

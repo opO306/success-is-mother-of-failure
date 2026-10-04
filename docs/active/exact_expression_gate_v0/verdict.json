@@ -1,0 +1,229 @@
+{
+ "scenarios": {
+  "F_free": {
+   "flags": {
+    "last_checkpoint": 10000,
+    "size_slope_A": 9.0,
+    "size_slope_B": 0.0,
+    "optimizer_meaningful": true,
+    "bits": {
+     "10": 64,
+     "100": 64,
+     "1000": 64,
+     "10000": 96
+    },
+    "bits_slope": 0.0032323232323232323,
+    "precision_wall": false,
+    "bytes_slope_B": 0.0,
+    "expression_wall": false,
+    "B_query_s": 6.4858362000013585,
+    "C_query_s": 0.3407416000009107,
+    "replay_dominates": true,
+    "free_passes": false
+   },
+   "intrinsic_amplification_log2": {
+    "10": 0.0,
+    "100": 0.0,
+    "1000": 0.0
+   },
+   "tree_size_log2": {
+    "10": 7,
+    "100": 10,
+    "1000": 14
+   },
+   "extended": "RUN"
+  },
+  "A2_bound": {
+   "flags": {
+    "last_checkpoint": 10000,
+    "size_slope_A": 113.0,
+    "size_slope_B": 55.0,
+    "optimizer_meaningful": true,
+    "bits": {
+     "10": 96,
+     "100": 128,
+     "1000": 128,
+     "10000": 384
+    },
+    "bits_slope": 0.02585858585858586,
+    "precision_wall": false,
+    "bytes_slope_B": 8072.892679783737,
+    "expression_wall": true,
+    "B_query_s": 112.40152990000206,
+    "C_query_s": 76.51564519999738,
+    "replay_dominates": true
+   },
+   "intrinsic_amplification_log2": {
+    "10": -0.0011954623687273624,
+    "100": 1.6878779067528455,
+    "1000": 1.5631847809817714
+   },
+   "tree_size_log2": {
+    "10": 56,
+    "100": 498,
+    "1000": 4913
+   },
+   "extended": "RUN"
+  },
+  "A3_low": {
+   "flags": {
+    "last_checkpoint": 10000,
+    "size_slope_A": 294.0,
+    "size_slope_B": 135.0,
+    "optimizer_meaningful": true,
+    "bits": {
+     "10": 96,
+     "100": 96,
+     "1000": 96,
+     "10000": 192
+    },
+    "bits_slope": 0.009696969696969697,
+    "precision_wall": false,
+    "bytes_slope_B": 17951.641859931424,
+    "expression_wall": true,
+    "B_query_s": 267.72648549999576,
+    "C_query_s": 202.4179894000008,
+    "replay_dominates": true
+   },
+   "intrinsic_amplification_log2": {
+    "10": 2.577714042217849e-08,
+    "100": 2.617614441646765e-06,
+    "1000": 0.0003083220157833466
+   },
+   "tree_size_log2": {
+    "10": 67,
+    "100": 594,
+    "1000": 5866
+   },
+   "extended": "RUN"
+  },
+  "A3_high": {
+   "flags": {
+    "last_checkpoint": 10000,
+    "size_slope_A": 294.0,
+    "size_slope_B": 198.0,
+    "optimizer_meaningful": false,
+    "bits": {
+     "10": 96,
+     "100": 128,
+     "1000": 192,
+     "10000": 512
+    },
+    "bits_slope": 0.03878787878787879,
+    "precision_wall": false,
+    "bytes_slope_B": 25580.30746545321,
+    "expression_wall": true,
+    "B_query_s": 310.73845159999837,
+    "C_query_s": 241.07268920000206,
+    "replay_dominates": true
+   },
+   "intrinsic_amplification_log2": {
+    "10": -0.0015099781140008872,
+    "100": 2.2124820155029283,
+    "1000": 1.7143777549026424
+   },
+   "tree_size_log2": {
+    "10": 67,
+    "100": 594,
+    "1000": 5866
+   },
+   "extended": "RUN"
+  }
+ },
+ "replay_confirmations": [
+  {
+   "scenario": "F_free",
+   "checkpoint": 10,
+   "bits": 64,
+   "confirmed": true
+  },
+  {
+   "scenario": "F_free",
+   "checkpoint": 100,
+   "bits": 64,
+   "confirmed": true
+  },
+  {
+   "scenario": "F_free",
+   "checkpoint": 1000,
+   "bits": 64,
+   "confirmed": true
+  },
+  {
+   "scenario": "A2_bound",
+   "checkpoint": 10,
+   "bits": 96,
+   "confirmed": true
+  },
+  {
+   "scenario": "A2_bound",
+   "checkpoint": 100,
+   "bits": 128,
+   "confirmed": true
+  },
+  {
+   "scenario": "A2_bound",
+   "checkpoint": 1000,
+   "bits": 128,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_low",
+   "checkpoint": 10,
+   "bits": 96,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_low",
+   "checkpoint": 100,
+   "bits": 96,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_low",
+   "checkpoint": 1000,
+   "bits": 96,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_high",
+   "checkpoint": 10,
+   "bits": 96,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_high",
+   "checkpoint": 100,
+   "bits": 128,
+   "confirmed": true
+  },
+  {
+   "scenario": "A3_high",
+   "checkpoint": 1000,
+   "bits": 192,
+   "confirmed": true
+  }
+ ],
+ "verdict": "EXPRESSION_WALL",
+ "failing_flags": {
+  "A2_bound": [
+   "expression_wall",
+   "replay_dominates"
+  ],
+  "A3_low": [
+   "expression_wall",
+   "replay_dominates"
+  ],
+  "A3_high": [
+   "expression_wall",
+   "replay_dominates",
+   "optimizer_not_meaningful"
+  ]
+ },
+ "file_sha256": {
+  "F_free": "d5d3c970e3e9aa8b2c48c4dea90b372ae4555e906a4ef56f0e05ecca64c62e8e",
+  "A2_bound": "38bf72e95f9887e8c4bf047ef4f73f2766012cb542da2e76d12a4d5d51e7d138",
+  "A3_low": "ec3e3921012c8d520c5383bc4cd55353ce1779e75334122ca0e486d7b10ca6cc",
+  "A3_high": "e1c195a439da12de95c430385f2934e498668f55da3994e50fdb8df21ebc5537"
+ }
+}

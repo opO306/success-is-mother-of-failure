@@ -4,6 +4,11 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Exact Expression State Gate V0 (2026-10-05, ALTERNATIVE NUMERIC WORLD SEMANTICS / SURVEY_ONLY):** [결과](docs/active/EXACT_EXPRESSION_STATE_GATE_V0.md), 봉인 `848ceaf`(+저장 형식 수정 `9dfd3f8`).
+판정 **EXPRESSION_WALL**(REPLAY_DOMINATES와 3:3 동수, 동수 규칙 미봉인 공개). 식 크기 step 선형, 최적화 1.5〜2.2×, 3원자 10,000 step 상태 약 200만 단위.
+식 평가 ≈ replay 속도. 인증 비트 10,000 step에서 192〜512(실제 민감도 2〜21 bit, 대부분 구간 과대추정). 자유 비행만 O(1)로 접힘.
+자유 비행 판정 규칙 결함 공개(정밀도를 A 경로로만 측정). 관련 시험12 PASS, LOCAL FULL 생략.
+
 **Multiparticle Residual / Carry Gate V1 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/MULTIPARTICLE_RESIDUAL_CARRY_GATE_V1.md), 봉인 `a361c0f`.
 판정 **B — U_AND_L_EQUIVALENT_BUT_COST_UNRESOLVED**. 설계자 carry(U)와 ledger(L)는 같은 의미(정규화 시점만 다름).
 정확 유리수 입력에서 핵심 조건 9개 통과(보존·집단 효과·순서/번호 무관·drift가 P+r 사용·STOP 0·O(N)).

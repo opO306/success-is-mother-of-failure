@@ -1,0 +1,12 @@
+{
+ "quick": false,
+ "git_head_at_start": "9dfd3f853c74426d0c984ac91c45f40955da45b7",
+ "python": "3.12.7",
+ "source_sha256": {
+  "__init__.py": "a3bbba729e109800a8a6f8574527e6422561aa9b502835a252172202447c54d3",
+  "lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "dag.py": "0e7163db682a72adda0856e892d2ecfd4b44e026b202b5f027513049726000cc",
+  "campaign.py": "25f805e8c93134ee0af1385ea1620e55d8c6d3bc0d3e5ae89998e19eabb648ab",
+  "protocol.json": "64e2d0b7331a1f071ac02476e29c92fb201db5d29d44c13d139677d96a8f6ff4"
+ }
+}
