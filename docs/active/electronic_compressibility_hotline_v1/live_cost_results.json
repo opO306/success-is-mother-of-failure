@@ -1,0 +1,3464 @@
+[
+  {
+    "corpus": "A",
+    "path": "REF",
+    "cpu_samples": [
+      0.005369818999999998,
+      0.005336685999999979,
+      0.006323797999999992,
+      0.004656384999999985,
+      0.005201565999999991
+    ],
+    "cpu_median": 0.005336685999999979,
+    "cost_medians": {
+      "evolution_cpu": 9.876500000008392e-05,
+      "observable_cpu": 0.0012736819999999704,
+      "baseline_cpu": 0.0,
+      "monitor_cpu": 0.0,
+      "conversion_cpu": 0.0,
+      "refine_cpu": 0.0,
+      "enclosure_cpu": 0.0,
+      "monitor_with_acquisition_cpu": 0.0,
+      "accounting_total_cpu": 0.0,
+      "engine_cpu": 0.0013836710000000307
+    },
+    "propagator_preparation_cpu": 0.00029750600000000293,
+    "observed_peak_RSS_bytes": 49020928,
+    "initial_RSS_bytes": 46702592,
+    "samples": 21,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.3763043964434414,
+      "future_dipole_difference": 1.4006036644623934
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  },
+  {
+    "corpus": "A",
+    "path": "BASELINE",
+    "cpu_samples": [
+      0.34672525400000004,
+      0.333440918,
+      0.34173641099999996,
+      0.34102382900000006,
+      0.353407834
+    ],
+    "cpu_median": 0.34173641099999996,
+    "cost_medians": {
+      "evolution_cpu": 0.00018158799999978825,
+      "observable_cpu": 0.006808294000000048,
+      "baseline_cpu": 0.014930579000000055,
+      "monitor_cpu": 0.00020164399999900162,
+      "conversion_cpu": 0.014626332999997382,
+      "refine_cpu": 0.001784396000000854,
+      "enclosure_cpu": 0.30303878199999934,
+      "monitor_with_acquisition_cpu": 0.014834087999999745,
+      "accounting_total_cpu": 0.3214984209999995,
+      "engine_cpu": 0.32841068399999995
+    },
+    "propagator_preparation_cpu": 0.00012648599999998122,
+    "observed_peak_RSS_bytes": 49299456,
+    "initial_RSS_bytes": 46886912,
+    "samples": 97,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.3763043964434414,
+      "future_dipole_difference": 1.4006036644623934
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  },
+  {
+    "corpus": "A",
+    "path": "HOTLINE",
+    "cpu_samples": [
+      0.351331407,
+      0.33033569900000004,
+      0.3294174030000001,
+      0.331734572,
+      0.3438876580000001
+    ],
+    "cpu_median": 0.331734572,
+    "cost_medians": {
+      "evolution_cpu": 0.0001848669999990893,
+      "observable_cpu": 0.007225652000001359,
+      "baseline_cpu": 0.014861967999999948,
+      "monitor_cpu": 0.0013402449999997679,
+      "conversion_cpu": 0.014552562000001101,
+      "refine_cpu": 0.0015824289999991636,
+      "enclosure_cpu": 0.28928699499999944,
+      "monitor_with_acquisition_cpu": 0.015790818999999456,
+      "accounting_total_cpu": 0.3097403089999995,
+      "engine_cpu": 0.31709433999999925
+    },
+    "propagator_preparation_cpu": 0.00012024399999999158,
+    "observed_peak_RSS_bytes": 49205248,
+    "initial_RSS_bytes": 46792704,
+    "samples": 99,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.821618696257282e-15,
+          "energy_error": 1.2213054267474168e-14,
+          "density_error": 1.827704654289164e-14,
+          "dipole_error": 6.951944594308725e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.6238162397701267e-14,
+          "energy_error": 2.5535134306137457e-14,
+          "density_error": 3.229361222878424e-14,
+          "dipole_error": 1.1029900552285784e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 8.21670437881859e-15,
+          "energy_error": 2.3606042397148798e-15,
+          "density_error": 1.137423488728473e-13,
+          "dipole_error": 5.614716680967177e-15
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.525094368467011e-14,
+          "energy_error": 3.3602665185215243e-15,
+          "density_error": 1.9806378759312793e-13,
+          "dipole_error": 1.0110570871265811e-14
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.552418738894263e-15,
+          "energy_error": 3.11242649831874e-15,
+          "density_error": 2.2370993946196904e-14,
+          "dipole_error": 3.442116575981666e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0946604015850585e-14,
+          "energy_error": 6.884305342191978e-15,
+          "density_error": 7.183142969324763e-14,
+          "dipole_error": 8.881789176999376e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0749787030465635e-14,
+          "energy_error": 1.032508126959031e-14,
+          "density_error": 1.0763612223740893e-13,
+          "dipole_error": 9.71459466274598e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9746298974066565e-14,
+          "energy_error": 2.176037245920773e-14,
+          "density_error": 1.9595436384634013e-13,
+          "dipole_error": 2.120526512555041e-14
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.593955372251662e-15,
+          "energy_error": 3.777202068682178e-15,
+          "density_error": 2.2593038551121936e-14,
+          "dipole_error": 3.333468347398008e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.0714646071021093e-14,
+          "energy_error": 7.106818712047521e-15,
+          "density_error": 7.216449660063518e-14,
+          "dipole_error": 7.883029284574466e-15
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.3763043964434414,
+      "future_dipole_difference": 1.4006036644623934
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  },
+  {
+    "corpus": "B",
+    "path": "REF",
+    "cpu_samples": [
+      0.5108237739999999,
+      0.5035369579999998,
+      0.5078670350000003,
+      0.519484764,
+      0.5439029990000002
+    ],
+    "cpu_median": 0.5108237739999999,
+    "cost_medians": {
+      "evolution_cpu": 0.007463713999999566,
+      "observable_cpu": 0.09392823900000047,
+      "baseline_cpu": 0.0,
+      "monitor_cpu": 0.0,
+      "conversion_cpu": 0.0,
+      "refine_cpu": 0.0,
+      "enclosure_cpu": 0.0,
+      "monitor_with_acquisition_cpu": 0.0,
+      "accounting_total_cpu": 0.0,
+      "engine_cpu": 0.1012125499999994
+    },
+    "propagator_preparation_cpu": 0.147444142,
+    "observed_peak_RSS_bytes": 85102592,
+    "initial_RSS_bytes": 46821376,
+    "samples": 906,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.5942722190645197,
+      "future_dipole_difference": 1.6380376121627125
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  },
+  {
+    "corpus": "B",
+    "path": "BASELINE",
+    "cpu_samples": [
+      2.2203706690000002,
+      2.1605478459999996,
+      2.248295635999999,
+      2.1879034310000005,
+      2.182922071
+    ],
+    "cpu_median": 2.1879034310000005,
+    "cost_medians": {
+      "evolution_cpu": 0.007024344999999155,
+      "observable_cpu": 0.09063459999999424,
+      "baseline_cpu": 0.17024764600000064,
+      "monitor_cpu": 0.0003356660000193301,
+      "conversion_cpu": 0.1695695339999992,
+      "refine_cpu": 0.0009949539999940527,
+      "enclosure_cpu": 1.4837259659999908,
+      "monitor_with_acquisition_cpu": 0.1699115710000021,
+      "accounting_total_cpu": 1.6541832079999956,
+      "engine_cpu": 1.748878151999989
+    },
+    "propagator_preparation_cpu": 0.13164925200000002,
+    "observed_peak_RSS_bytes": 84828160,
+    "initial_RSS_bytes": 46714880,
+    "samples": 1758,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.5942722190645197,
+      "future_dipole_difference": 1.6380376121627125
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  },
+  {
+    "corpus": "B",
+    "path": "HOTLINE",
+    "cpu_samples": [
+      2.464926576,
+      2.1563039460000004,
+      2.238512849000001,
+      2.5570824300000012,
+      3.370613938
+    ],
+    "cpu_median": 2.464926576,
+    "cost_medians": {
+      "evolution_cpu": 0.008802815999997549,
+      "observable_cpu": 0.10729571599999899,
+      "baseline_cpu": 0.18617604099999885,
+      "monitor_cpu": 0.0021739549999884034,
+      "conversion_cpu": 0.18546281600000336,
+      "refine_cpu": 0.0011437660000015448,
+      "enclosure_cpu": 1.6191977009999983,
+      "monitor_with_acquisition_cpu": 0.187540421,
+      "accounting_total_cpu": 1.8156099959999992,
+      "engine_cpu": 1.934233346999998
+    },
+    "propagator_preparation_cpu": 0.12944592800000002,
+    "observed_peak_RSS_bytes": 83922944,
+    "initial_RSS_bytes": 46747648,
+    "samples": 1853,
+    "independent_live_corridor": [
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 1.9505785314339635e-15,
+          "energy_error": 5.673880334808348e-16,
+          "density_error": 1.4710455076283324e-15,
+          "dipole_error": 2.605085874747628e-16
+        }
+      },
+      {
+        "state": "ground",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.5465896459757538e-15,
+          "energy_error": 1.3389212204004126e-15,
+          "density_error": 2.525757381022231e-15,
+          "dipole_error": 4.476337062785627e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 3.3388545087163263e-15,
+          "energy_error": 6.4443219111081676e-15,
+          "density_error": 3.108624468950438e-14,
+          "dipole_error": 3.4910113124915817e-16
+        }
+      },
+      {
+        "state": "excited",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 5.932246889436038e-15,
+          "energy_error": 1.3101071405727331e-14,
+          "density_error": 5.684341886080802e-14,
+          "dipole_error": 9.099956543023338e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.7810623619826755e-15,
+          "energy_error": 3.7755559968723796e-15,
+          "density_error": 1.554312234475219e-14,
+          "dipole_error": 3.778220086356861e-16
+        }
+      },
+      {
+        "state": "plus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.697103101702824e-15,
+          "energy_error": 8.43825256772179e-15,
+          "density_error": 3.019806626980426e-14,
+          "dipole_error": 1.1152955694174627e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.781608699157716e-15,
+          "energy_error": 3.555121360551439e-15,
+          "density_error": 1.4210854715202004e-14,
+          "dipole_error": 6.47124353072372e-16
+        }
+      },
+      {
+        "state": "minus",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.620849695981503e-15,
+          "energy_error": 6.883545771748679e-15,
+          "density_error": 2.7533531010703882e-14,
+          "dipole_error": 1.0086401916770652e-15
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "ascending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "descending",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 0,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 0.0,
+          "energy_error": 0.0,
+          "density_error": 0.0,
+          "dipole_error": 0.0
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 1,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 2.8186979990308696e-15,
+          "energy_error": 3.999447812499185e-15,
+          "density_error": 1.687538997430238e-14,
+          "dipole_error": 3.778220086356847e-16
+        }
+      },
+      {
+        "state": "global_phase",
+        "order": "even_then_odd",
+        "epoch": 2,
+        "canonical_bits_equal_dense": true,
+        "independent_metrics": {
+          "state_error_S": 4.7397067951240764e-15,
+          "energy_error": 7.99361644551663e-15,
+          "density_error": 3.3306690738754696e-14,
+          "dipole_error": 6.787660630504506e-16
+        }
+      }
+    ],
+    "phase": {
+      "future_density_difference": 0.5942722190645197,
+      "future_dipole_difference": 1.6380376121627125
+    },
+    "cost_scope": "5 repeats; each 5 states x 3 orders x 3 physical rounds; validation and source monitoring charged; propagator setup separate",
+    "representation_scope": "per-round accounting classifier restarts COLD; hysteresis temporal tests are separate primary/control traces",
+    "RAM_scope": "fresh child smaps_rollup boundaries + 2ms samples, observed maximum including interpreter/monitor, not absolute peak"
+  }
+]

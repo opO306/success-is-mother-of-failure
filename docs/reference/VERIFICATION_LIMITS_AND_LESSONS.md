@@ -737,3 +737,18 @@ LOCAL FULL 생략, 기존 실행·공용 모듈·동결 계약 불변, 공식 �
 | 부모 highwater가 자식 RSS peak에 남음(실제 측정 결함) | exec probe로 재현, 최초 getrusage 수치는 보존·비교 제외, smaps_rollup 경계/2ms resident samples로 별도 측정 | 관측된 최대 RSS이며 absolute peak 상한 아님; B index/D hash는 같은 physical energy 작업이 아님 |
 | 병렬 coefficient 제곱합을 AO physical norm이라 주장 | A는 Euclidean checksum임을 분리, physical S-norm/cross terms는 별도 검사 | hash/checksum wall 이득을 physics evolution speedup으로 승격하지 않음 |
 | 가짜 dedup·좋은 고유상태 압축만 보고 | 실제30checkpoint payload dedup0, 다전자 중첩 저장 증가·30/30 REFINE 보존 | 더 큰 실제 corpus의 비용·rank/entanglement 미평가 |
+
+### Tensor Compressibility + Guaranteed Baseline / Hotline V1 (2026-10-04)
+
+[두 축 결과·비용 실패](../active/ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md).
+기존 numerical source/corpus 보존, 새 survey_only. 외부 independent audit나 production 승격 아님.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| COLD=0 / stale bound / coupling 누락 | 별도 control corruption, 실제 electronic pair omission 및 source/epoch/center/radius 변이가 거부됨 | coefficient hierarchy, continuum/physical spatial region 인증 아님 |
+| HOT가 다른 updates를 중지 / 영구 starvation | K=1 complete epoch coverage checker가 두 mutants 검출 | finite traces만, 무한 liveness 아님 |
+| wrong threshold / unsafe hysteresis / order dependence | 사전 control sequence의8fault 전부와 별도 coupling fault 검출, 세 orders 출력 동일 | 직접 receipt mutation 범위, 모든 executor fault 보장 아님 |
+| receipt 안의 threshold를 expected policy로 신뢰 | primary 범위 공백을 보존하고 별도 policy-binding checker/봉인으로 정상 policy mutation 거부 | primary capture를 수정·재인증하지 않음, explicit safety probe는 별도 expected policy 필요 |
+| raw406 reshape를 Schmidt로 오해 / singlet spin 한 채널 삭제 | occupation enumeration의90spectrum 비교, singlet-paired truncation,1,890physical/future comparisons | 3cuts만, 전체MPS/큰전자/장시간 scaling 아님 |
+| monitor 자기 CPU만 보고 cheap이라 주장 | full-coordinate radius acquisition을 별도 포함, B monitoring만REF engine1.85배, 후보engine19.11배 비용 | 작은 Python/Fraction prototype, 최적 구현의 하한 아님 |
+| Windows 짧은 process CPU가0인 실제 측정 문제 | 12failed/26passed 보존, ratio unavailable 처리 후38passed, Linux 비용 측정 | 시계 해상도 문제가 사라졌다는 주장이 아님 |

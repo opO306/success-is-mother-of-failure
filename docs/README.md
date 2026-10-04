@@ -1,5 +1,9 @@
 # 프로젝트 문서 안내
 
+[Tensor Compressibility + Guaranteed Baseline / Hotline Gate V1](active/ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md):
+Ne1 CONDITIONAL / Ne2 POOR, 짧은 시간 χ 증가 미관찰. Coverage·scheduler·fault 검사는 통과했지만
+full-coordinate monitoring과 enclosure 비용이 REF보다 큼. 두 축 독립 조사, NOT CERTIFIED/production 미연결/push 없음.
+
 [Electronic Representation Survey Gate V1](active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md):
 Ne1/TZ28·Ne2/singlet406 dense REF에 대한 네 prototype 조사 완료/NOT CERTIFIED.
 Adaptive·USB·CAS exact restore PASS, Summary authority REJECTED/index only, 실제 checkpoint dedup0.

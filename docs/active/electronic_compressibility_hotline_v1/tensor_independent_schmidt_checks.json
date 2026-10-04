@@ -1,0 +1,722 @@
+[
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 1.65034368771319e-31
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 4.6285850198655545e-48
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 6.427599088478635e-49
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 6.846883703470505e-32
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 2.9360825933863325e-49
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 4.116361128625437e-47
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 1.628151543508192e-17
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 7.511704919048074e-17
+  },
+  {
+    "corpus": "A",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 5.1936398676813023e-17
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 3.3306690738754696e-16,
+    "tail": 3.958845291223911e-31
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 5.428517090402809e-32
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 3.944304526105059e-31,
+    "tail": 6.234301066502406e-32
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 2.9206535887458152e-31
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 7.888609052210118e-31,
+    "tail": 2.19561364509684e-31
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 1.5993875206990705e-31
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 4.57830993709774e-17
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 2.220446049250313e-16,
+    "tail": 6.63828378158219e-17
+  },
+  {
+    "corpus": "A",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 3.889339045822363e-17
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 2.348782550078589e-16
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 1.113165375727848e-31
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 3.944304526105059e-31,
+    "tail": 4.600181013226182e-32
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 4.077721768101178e-16
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 9.028140999424274e-32
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 1.522484247731754e-31
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 8.26614213026396e-17
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 8.193838328008144e-17
+  },
+  {
+    "corpus": "A",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 7.51861931649488e-17
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 0.0,
+    "tail": 2.348782550078589e-16
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 1.113165375727848e-31
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 3.944304526105059e-31,
+    "tail": 4.600181013226182e-32
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 4.077721768101178e-16
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 9.028140999424274e-32
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 1.522484247731754e-31
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 8.26614213026396e-17
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 8.193838328008144e-17
+  },
+  {
+    "corpus": "A",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 7.51861931649488e-17
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 1.3795393725676466e-16
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 3.944304526105059e-31,
+    "tail": 2.4363824660480567e-31
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 3.944304526105059e-31,
+    "tail": 2.967527596880414e-32
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 2.334434443221494e-16
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 4.350229301260265e-32
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 0.0,
+    "tail": 9.313678610905411e-32
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.399233696206433e-17
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 0.0,
+    "tail": 8.942695118640325e-17
+  },
+  {
+    "corpus": "A",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 5.551115123125783e-17,
+    "tail": 3.7766586555815895e-17
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 1.0137482072583797e-16
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 6.938893903907228e-18,
+    "tail": 8.630363418314692e-18
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 7.621952312236423e-19
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 1.3658565630820488e-16
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 1.0266778906960636e-17,
+    "tail": 9.12395447336683e-18
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 9.260618549639545e-19
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.362688023950582e-17
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 1.1102230246251565e-16,
+    "tail": 5.238170339388025e-16
+  },
+  {
+    "corpus": "B",
+    "state": "ground",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 3.3306690738754696e-16,
+    "tail": 2.6909304673202705e-17
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 8.881784197001252e-16,
+    "tail": 2.0221856882507148e-16
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 7.806255641895632e-18,
+    "tail": 6.1656839235306646e-18
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 4.636912279673865e-19
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 2.388276764348078e-16
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 6.071532165918825e-18,
+    "tail": 5.788884573019261e-18
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 6.092564005263188e-19
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 1.1102230246251565e-16,
+    "tail": 6.614504691046187e-17
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 3.362957747160415e-16,
+    "tail": 2.407993449115192e-16
+  },
+  {
+    "corpus": "B",
+    "state": "excited",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 3.885780586188048e-16,
+    "tail": 8.583640865782885e-17
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 2.9466904890092826e-16
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 4.440892098500626e-16,
+    "tail": 1.1520298488933112e-17
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.4234150068361112e-18
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 1.4432899320127035e-15,
+    "tail": 2.699636983882403e-16
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 4.440892098500626e-16,
+    "tail": 1.345089404307411e-17
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.62488117665643e-18
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 3.3306690738754696e-16,
+    "tail": 7.074793132588027e-17
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 3.3306690738754696e-16,
+    "tail": 5.723553929452685e-16
+  },
+  {
+    "corpus": "B",
+    "state": "plus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 4.440892098500626e-16,
+    "tail": 7.471150665768609e-17
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 2.220446049250313e-16,
+    "tail": 2.9466904890092826e-16
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 4.440892098500626e-16,
+    "tail": 1.1520298488933112e-17
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.4234150068361112e-18
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 1.4432899320127035e-15,
+    "tail": 2.699636983882403e-16
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 4.440892098500626e-16,
+    "tail": 1.345089404307411e-17
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 1.1102230246251565e-16,
+    "tail": 2.62488117665643e-18
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 3.3306690738754696e-16,
+    "tail": 7.074793132588027e-17
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 3.3306690738754696e-16,
+    "tail": 5.723553929452685e-16
+  },
+  {
+    "corpus": "B",
+    "state": "minus",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 4.440892098500626e-16,
+    "tail": 7.471150665768609e-17
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 7,
+    "error": 4.440892098500626e-16,
+    "tail": 3.1486524097810774e-16
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 14,
+    "error": 2.220446049250313e-16,
+    "tail": 1.2602929623482747e-17
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "original_MO",
+    "cut": 21,
+    "error": 6.661338147750939e-16,
+    "tail": 2.3722332015554836e-18
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "error": 4.440892098500626e-16,
+    "tail": 3.301945733247925e-16
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "error": 2.220446049250313e-16,
+    "tail": 1.1422402251420328e-17
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "error": 6.661338147750939e-16,
+    "tail": 2.139204175078779e-18
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "error": 9.992007221626409e-16,
+    "tail": 1.0049600077092408e-16
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "error": 2.220446049250313e-16,
+    "tail": 6.278641607002914e-16
+  },
+  {
+    "corpus": "B",
+    "state": "global_phase",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "error": 5.551115123125783e-16,
+    "tail": 6.43492072493007e-17
+  }
+]

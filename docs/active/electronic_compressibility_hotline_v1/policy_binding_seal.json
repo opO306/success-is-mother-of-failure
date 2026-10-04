@@ -1,0 +1,14 @@
+{
+  "source_sha256": "7a479bb20d2de9fafa2ab550ab535ef26606e826d146f59aa760cb3e123f685a",
+  "primary_source_preserved": true,
+  "normal_expected": {
+    "enter": 0.006,
+    "exit": 0.002,
+    "safety": 0.008
+  },
+  "safety_probe_expected": {
+    "enter": 0.02,
+    "exit": 0.002,
+    "safety": 0.008
+  }
+}

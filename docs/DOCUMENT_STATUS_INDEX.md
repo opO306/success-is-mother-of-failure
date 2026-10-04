@@ -1,5 +1,9 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md](active/ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md):
+2026-10-04 isolated finite-corpus 두 축 조사. Tensor Ne1 CONDITIONAL/Ne2 POOR, Hotline coverage/control PASS,
+cost benefit FAIL. Source-sealed artifacts 및 추가 policy-binding 검사를 구분, NOT CERTIFIED/production·통합 구현·push 없음.
+
 [ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md](active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md):
 2026-10-04 stored full-space corpus의 네 구조 prototype 조사. Exact restore·두 summary collision,
 cost/fallback/RAM 측정 실패와 교정·dedup0 기록. Survey 완료/NOT CERTIFIED/production 선택 없음/push 없음.

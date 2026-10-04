@@ -1,0 +1,22 @@
+{
+  "tests": {
+    "windows_related_v2": {
+      "tests": 296,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "wsl_related_v2": {
+      "tests": 305,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "protected_tracked_files_unchanged": 234,
+  "LOCAL_FULL": "OMITTED_NEW_ISOLATED_RESEARCH_TESTS_DOCS_ONLY",
+  "baseline_updated": false,
+  "primary_capture_preserved": true,
+  "scope": "NUMERICAL_RESEARCH_NOT_EXTERNAL_AUDIT_NOT_FORMAL_CERTIFICATION",
+  "push": "PROHIBITED"
+}

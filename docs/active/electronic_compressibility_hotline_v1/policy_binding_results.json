@@ -1,0 +1,7 @@
+{
+  "primary_control_checker_trusted_receipt_thresholds": true,
+  "normal_policy_mutation_rejected": "threshold policy binding",
+  "normal_controls_pass": 6,
+  "explicitly_sealed_safety_probe_pass": true,
+  "scope": "additional policy binding; does not replace or rewrite primary capture"
+}

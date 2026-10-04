@@ -1,0 +1,2302 @@
+{
+  "controls": [
+    {
+      "kind": "hidden",
+      "order": "ascending",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0,
+              "center": 1.0,
+              "radius": 0.0
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.000500000000001,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0005
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.009,
+              "center": 1.0,
+              "radius": 0.009
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0095,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0095
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.012,
+              "center": 1.0,
+              "radius": 0.012
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0125,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0125
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.008,
+              "center": 1.0,
+              "radius": 0.008
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0085,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0085
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 7,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 7,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 1,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "hidden",
+      "order": "descending",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0,
+              "center": 1.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.000500000000001,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0005
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.009,
+              "center": 1.0,
+              "radius": 0.009
+            }
+          ],
+          "result": 6.0095,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0095
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.012,
+              "center": 1.0,
+              "radius": 0.012
+            }
+          ],
+          "result": 6.0125,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0125
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.008,
+              "center": 1.0,
+              "radius": 0.008
+            }
+          ],
+          "result": 6.0085,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0085
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 7,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 7,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "hidden",
+      "order": "even_then_odd",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0,
+              "center": 1.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.000500000000001,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0005
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.009,
+              "center": 1.0,
+              "radius": 0.009
+            },
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0095,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0095
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.012,
+              "center": 1.0,
+              "radius": 0.012
+            },
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0125,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0125
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.008,
+              "center": 1.0,
+              "radius": 0.008
+            },
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0085,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0085
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 7,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 7,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 2,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "thrash",
+      "order": "ascending",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "thrash",
+      "order": "descending",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "thrash",
+      "order": "even_then_odd",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.0055,
+              "center": 1.0,
+              "radius": 0.0055
+            },
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.006,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "ERROR_BOUND",
+              "source": 1.0065,
+              "center": 1.0,
+              "radius": 0.0065
+            },
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.007,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.006999999999999999
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.006,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    },
+    {
+      "kind": "hidden",
+      "order": "ascending",
+      "rows": [
+        {
+          "epoch": 0,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.0,
+              "center": 1.0,
+              "radius": 0.0
+            },
+            {
+              "block": 1,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 0,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.000500000000001,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0005
+        },
+        {
+          "epoch": 1,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 1,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 1,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        },
+        {
+          "epoch": 2,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 1,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 2,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 3,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.009,
+              "center": 1.0,
+              "radius": 0.009
+            },
+            {
+              "block": 1,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 3,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0095,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0095
+        },
+        {
+          "epoch": 4,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 4,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "SAFETY_OVERRIDE",
+              "source": 1.012,
+              "center": 1.0,
+              "radius": 0.012
+            },
+            {
+              "block": 1,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 4,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0125,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0125
+        },
+        {
+          "epoch": 5,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 5,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.008,
+              "center": 1.0,
+              "radius": 0.008
+            },
+            {
+              "block": 1,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 5,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0085,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0085
+        },
+        {
+          "epoch": 6,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 6,
+              "updated": true,
+              "previous": "FULL",
+              "status": "FULL",
+              "reason": "HYSTERESIS",
+              "source": 1.004,
+              "center": 1.0,
+              "radius": 0.004
+            },
+            {
+              "block": 1,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 6,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0045,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0045000000000000005
+        },
+        {
+          "epoch": 7,
+          "blocks": [
+            {
+              "block": 0,
+              "epoch": 7,
+              "updated": true,
+              "previous": "FULL",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 1.001,
+              "center": 1.0,
+              "radius": 0.001
+            },
+            {
+              "block": 1,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 2.0,
+              "center": 2.0,
+              "radius": 0.0
+            },
+            {
+              "block": 2,
+              "epoch": 7,
+              "updated": true,
+              "previous": "COARSE_CERTIFIED",
+              "status": "COARSE_CERTIFIED",
+              "reason": "RETURN_OR_STAY_COARSE",
+              "source": 3.0005,
+              "center": 3.0,
+              "radius": 0.0005
+            }
+          ],
+          "result": 6.0015,
+          "coverage_center": 6.0,
+          "coverage_radius": 0.0015
+        }
+      ],
+      "thresholds": {
+        "enter": 0.02,
+        "exit": 0.002,
+        "safety": 0.008
+      }
+    }
+  ],
+  "mutations": [
+    {
+      "fault": "cold_zero",
+      "caught": true,
+      "reason": "cold/bound corruption"
+    },
+    {
+      "fault": "hot_stops_others",
+      "caught": true,
+      "reason": "starvation"
+    },
+    {
+      "fault": "stale_bound",
+      "caught": true,
+      "reason": "cold/bound corruption"
+    },
+    {
+      "fault": "omitted_coupling",
+      "caught": true,
+      "reason": "coverage failure"
+    },
+    {
+      "fault": "wrong_threshold",
+      "caught": true,
+      "reason": "threshold or unsafe hysteresis"
+    },
+    {
+      "fault": "unsafe_hysteresis",
+      "caught": true,
+      "reason": "threshold or unsafe hysteresis"
+    },
+    {
+      "fault": "order_dependent",
+      "caught": true,
+      "reason": "order changed result"
+    },
+    {
+      "fault": "permanent_starvation",
+      "caught": true,
+      "reason": "starvation"
+    },
+    {
+      "fault": "real_electronic_pair_omission",
+      "caught": true,
+      "reason": "coupling omitted"
+    }
+  ],
+  "safety_probe_scope": "BRANCH_TEST_ONLY / additional thresholds declared in source execution seal"
+}

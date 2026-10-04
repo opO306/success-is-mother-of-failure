@@ -1,0 +1,7 @@
+{
+  "status": "FAILED_PRECAPTURE_TEST",
+  "result": "12 failed / 26 passed",
+  "cause": "Windows process_time coarse resolution yielded total_cpu=0, division by zero",
+  "repair": "zero-duration ratio is unavailable/None; actual cost measured on Linux",
+  "raw_tool_output": "not exported to file; failure counts and traceback cause retained here"
+}

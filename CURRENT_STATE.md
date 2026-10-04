@@ -4,6 +4,14 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 전자 표현 후속(2026-10-04):**
+[Tensor Compressibility + Guaranteed Baseline/Hotline V1](docs/active/ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md).
+기존 D28/D406 corpus의 사전 mode partitions 진단: Ne1 CONDITIONAL/Ne2 POOR,
+봉인한 t=0/0.5/1에서 χ 요구 증가 미관찰. Coverage/K=1/hysteresis/order/hidden-event/fault 검사 통과,
+full-coordinate monitoring·Fraction enclosure 비용이 REF보다 커 비용 이득 실패.
+신규86 포함 Windows296/별도WSL305 PASS, fail/error/actual skip0; 추가 policy-binding 검사 별도 보존.
+두 축 독립 연구만, NOT CERTIFIED/production·통합·push 없음. 기존 foundation/C1-B1 기준선 불변.
+
 **별도 Electronic Representation Survey Gate V1(2026-10-04):**
 [네 prototype·비용·반례·18항목 보고서](docs/active/ELECTRONIC_REPRESENTATION_SURVEY_GATE_V1.md).
 기존 Ne1/TZ28 및 Ne2/singlet406 dense REF에 대해 Adaptive/Summary/USB/Structure-as-Asset 조사 완료.

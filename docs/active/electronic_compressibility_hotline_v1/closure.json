@@ -1,0 +1,15 @@
+{
+  "files": {
+    "baseline_receipts.json.gz": "444b5c0e520e67f65deaa68c157fdd1308e19dcfa0f0e12527fbecb3b6c19919",
+    "controls_and_mutations.json": "239358498eb2825c597c14862076fe66e486b4975eb77e4fa2925d2ca91edca0",
+    "execution_seal.json": "7be2df4d93bb477f8b8daa95f63208cb2d6f178242477da4ebe029bb5da5002d",
+    "gauge_metadata.json": "8ee8a7bdd1cec0629e67bfc3164c6bda89d0c182289c1c384d344f609ce53f43",
+    "gauges.npz": "c5779ed5485ee1d6013055f044fb309d119beb7c9d3efc48ce4c148eb6e95907",
+    "results.json": "d50be6d9c3634495d973b3ddf4a00a3d7105f7ffca9be40aa7cc44734771e3f6",
+    "tensor_independent_schmidt_checks.json": "5f17b38da13c5d6d127c7ce520678c74cef022a557a13bd4b47abea82f66f070",
+    "tensor_phase_distinction.json": "7d3fec321e02a0b286a3553a8087c0a4d8e22986c6918f4d1f7890ed918cdc83",
+    "tensor_reconstructions.npz": "aedfcbb6d8b0c493b9b744cf409181717e4c08e1c4b41b0facae230fdad652e6",
+    "tensor_rows.json": "996656bf3df583901253e48a83673bd8fb720bc539a2d9a134dba7c9d863d484"
+  },
+  "sources_unchanged": true
+}

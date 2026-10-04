@@ -1,0 +1,135 @@
+{
+  "protocol": {
+    "version": "electronic-compressibility-hotline-v1",
+    "base_commit": "8c01884886e7f92fbbd25467428519d021a76eb0",
+    "scope": "SURVEY_ONLY / NOT_PRODUCTION / NOT_CERTIFIED",
+    "push": "PROHIBITED",
+    "corpora": [
+      "A",
+      "B"
+    ],
+    "states": [
+      "ground",
+      "excited",
+      "plus",
+      "minus",
+      "global_phase"
+    ],
+    "times_atomic": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "future_delta_atomic": 0.5,
+    "gauges": [
+      "original_MO",
+      "energy_MO",
+      "position_z_eigenbasis"
+    ],
+    "gauge_definition": "original=B.c; energy=stable sort diagonal C.T H_A C; position=eigh(-C.T dipole_z C), signs largest component positive; no result-dependent optimization",
+    "cuts_spatial_orbitals": [
+      7,
+      14,
+      21
+    ],
+    "chi": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      24,
+      32
+    ],
+    "factorization": "spatial-orbital Fock mode left/right, interleaved alpha,beta; number sectors; singlet-paired cross SVD truncation",
+    "rank_relative_threshold": 1e-12,
+    "entropy_log_base": 2,
+    "diagnostic_state_error_levels": [
+      0.01,
+      0.0001,
+      1e-06,
+      1e-10
+    ],
+    "state_tolerance": 1e-10,
+    "observable_tolerance": 1e-09,
+    "classification": "PROMISING if every case meets inherited state/observable tolerances at chi<=8 AND max payload < dense; CONDITIONAL if only some cases do; POOR if no such cases; UNRESOLVED if checker fails. Structural low-error ranks reported separately, never production approval.",
+    "block_sizes": {
+      "A": 8,
+      "B": 64
+    },
+    "scheduler_K": 1,
+    "orders": [
+      "ascending",
+      "descending",
+      "even_then_odd"
+    ],
+    "hot_enter_radius_l1": 6e-09,
+    "cold_return_radius_l1": 2e-09,
+    "safety_radius_l1": 8e-09,
+    "coarse_encoding": "complex64 center with exact Fraction component L1 radius; exact complex128 checkpoint retained",
+    "canonical_decision": "exact coefficient output requires restore of every non-FULL block; no approximate coefficient is committed as physical state",
+    "hidden_radii": [
+      0.0,
+      0.001,
+      0.004,
+      0.009,
+      0.012,
+      0.008,
+      0.004,
+      0.001
+    ],
+    "thrash_radii": [
+      0.0055,
+      0.0065,
+      0.0055,
+      0.0065,
+      0.0055,
+      0.0065,
+      0.001
+    ],
+    "control_thresholds": {
+      "enter": 0.006,
+      "exit": 0.002,
+      "safety": 0.008
+    },
+    "control_scope": "NON_CANONICAL_TEST_SEQUENCE, additive scalar blocks, no electronic evolution claim",
+    "cost_repeats": 5,
+    "mutations": [
+      "cold_zero",
+      "hot_stops_others",
+      "stale_bound",
+      "omitted_coupling",
+      "wrong_threshold",
+      "unsafe_hysteresis",
+      "order_dependent",
+      "permanent_starvation"
+    ],
+    "monitor_limit": "monitor reads all exact coefficient components; full-precision cost cannot be claimed eliminated",
+    "tensor_evolution": "restore dense then existing fixed-H unitary; no tensor-native evolution implemented",
+    "memory": "observed RSS from smaps_rollup boundary samples, not absolute peak guarantee"
+  },
+  "source": {
+    "electronic_pilot/compressibility_hotline/.gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "electronic_pilot/compressibility_hotline/__init__.py": "6c55674bff3ef325a75e3ff87a6af2f98800df576f33932c873ced26bddf3579",
+    "electronic_pilot/compressibility_hotline/baseline.py": "ab72e8cbc72f5986fffa4084d01e375cebf3a02bcef5bdd7d72851bf6fbc6507",
+    "electronic_pilot/compressibility_hotline/campaign.py": "f552ca3ea838b923a0b4211340e4bc3c194ab54fa5e352f7c34b2e443d6a75e7",
+    "electronic_pilot/compressibility_hotline/checker.py": "cb858a58b42b365b068dec3fdbc0bc40a83d556706e55bdddd6d26f40cb9f8ec",
+    "electronic_pilot/compressibility_hotline/protocol.json": "1195fdab73cb11efe117c1279a98bbd7dc59f9010f22c2927b2cfe7ad7841c8a",
+    "electronic_pilot/compressibility_hotline/tensor.py": "7b1b1171ce2145035edca5bcecc337d1d9626c34fb9ca7ac10cdd0504c3d83d0"
+  },
+  "corpus_sources": {
+    "A": {
+      "corpus": "a777d2fc227828ee791b8b0da2ba1b7d8414e0709ce79c8548b66cf655f05b4d",
+      "contract": "a3e184517d604d9ff7fe33579ffedf520b1a4c2cf81f7684add309f80953c565"
+    },
+    "B": {
+      "corpus": "33e4ba1bd230cd0085e402d211e52ac7df99d8f84aad0293d0f28b96768cca25",
+      "contract": "2bba0c61f2e3542025149a072841df32856a02615e9a450591a632019d2ba076"
+    }
+  },
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "scipy": "1.11.4",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "scope": "NUMERICAL_FINITE_CORPUS_NOT_FORMAL_OR_EXTERNAL_AUDIT"
+}

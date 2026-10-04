@@ -2,6 +2,9 @@
 
 **상태: ACTIVE / C1-B1 / 세 층 분리 기준 종료 조건(2026-10-01).** A가 최우선이며 L·B의 진행 시점은 [CURRENT_STATE.md](../../CURRENT_STATE.md)를 따른다.
 
+별도 전자 연구: [Tensor Compressibility + Baseline/Hotline V1](ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md).
+Finite corpus·두 축 독립 조사, Ne1 CONDITIONAL/Ne2 POOR 및 비용 이득 실패. A production Gate 승격 아님.
+
 | 문서 | 현재 읽을 범위 |
 |---|---|
 | [Small-world reachable domain 감사 V1](C1B1_SMALL_WORLD_REACHABLE_DOMAIN_V1.md) | **SMALL_WORLD_ENVELOPE_UNDEFINED**. 목표 세계 초기 집합·총에너지·크기·운영 시간 미정. O-1 문제 입력은 UNDECIDABLE_FROM_CURRENT_WORLD_SPEC. 기존 observed 두 원자 입력을 자연 생성 증거로 승격하지 않음. production/상태 변경·probe 없음 |

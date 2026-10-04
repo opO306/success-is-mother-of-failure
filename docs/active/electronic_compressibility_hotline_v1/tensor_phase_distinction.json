@@ -1,0 +1,1262 @@
+[
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053866466,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.3381065856518973e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.1467028505385656,
+    "future_dipole_difference": 0.5460275032486481,
+    "projector_overlap": 2.7025506443995905e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053856588,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 1.4632553679035835e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053866466,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.3381065856518973e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.1467028505385656,
+    "future_dipole_difference": 0.5460275032486481,
+    "projector_overlap": 2.7025506443995905e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053856588,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 1.4632553679035835e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053853516,
+    "future_dipole_difference": 0.5460275032486483,
+    "projector_overlap": 3.5575867505390553e-31
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.0352605386203675,
+    "future_dipole_difference": 0.4856293746182554,
+    "projector_overlap": 0.03194635236092961
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 1.2632472434010447,
+    "future_dipole_difference": 0.20957955701007325,
+    "projector_overlap": 0.15113243934040158
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.035260538620122,
+    "future_dipole_difference": 0.48562937461826006,
+    "projector_overlap": 0.031946352360930054
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "A",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.14670285053854962,
+    "future_dipole_difference": 0.5460275032486532,
+    "projector_overlap": 1.0744816812237296e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.3068678656677906,
+    "future_dipole_difference": 0.5451201828540441,
+    "projector_overlap": 1.399424454574343e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.3088791308120524,
+    "future_dipole_difference": 0.5451866646354866,
+    "projector_overlap": 1.5704320116183948e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.20649687149940504,
+    "future_dipole_difference": 0.5919316444258216,
+    "projector_overlap": 7.89550203734559e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21095496869559965,
+    "future_dipole_difference": 0.5937524852096048,
+    "projector_overlap": 1.0300445642504756e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465489,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.017823179008001e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465489,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.017823179008001e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465489,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.017823179008001e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.20688176007314674,
+    "future_dipole_difference": 0.5879785303121088,
+    "projector_overlap": 9.609876400950807e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2067851631548292,
+    "future_dipole_difference": 0.5880891157674178,
+    "projector_overlap": 4.375483334467413e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21340995899261037,
+    "future_dipole_difference": 0.5932703993893269,
+    "projector_overlap": 2.5091399052381686e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21436091765496568,
+    "future_dipole_difference": 0.5933467641511684,
+    "projector_overlap": 1.7388283578541716e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154575356925787,
+    "future_dipole_difference": 0.5936861592296465,
+    "projector_overlap": 1.722985583730129e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654893,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018633813590689e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654893,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018633813590689e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21372623127082335,
+    "future_dipole_difference": 0.5941587773887905,
+    "projector_overlap": 2.4286257384549324e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2137368829726485,
+    "future_dipole_difference": 0.5942455594145759,
+    "projector_overlap": 1.1101851899075048e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21409725183590295,
+    "future_dipole_difference": 0.5937074011513515,
+    "projector_overlap": 1.1102352369651957e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21449195183477254,
+    "future_dipole_difference": 0.5937248513748212,
+    "projector_overlap": 5.474267446578927e-11
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654893,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018795062573661e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654893,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018795062573661e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "original_MO",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654893,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018795062573661e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.3068678656677906,
+    "future_dipole_difference": 0.5451201828540441,
+    "projector_overlap": 1.399424454574343e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.3088791308120524,
+    "future_dipole_difference": 0.5451866646354866,
+    "projector_overlap": 1.5704320116183948e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.20649687149940504,
+    "future_dipole_difference": 0.5919316444258216,
+    "projector_overlap": 7.895502037345585e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2109549686955996,
+    "future_dipole_difference": 0.5937524852096048,
+    "projector_overlap": 1.030044564250479e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654885,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.020463959027668e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654885,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.020463959027668e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654885,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.020463959027668e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.20688176007314674,
+    "future_dipole_difference": 0.5879785303121088,
+    "projector_overlap": 9.609876400950807e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2067851631548292,
+    "future_dipole_difference": 0.5880891157674178,
+    "projector_overlap": 4.375483334467413e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2134099589926104,
+    "future_dipole_difference": 0.5932703993893269,
+    "projector_overlap": 2.5091399052381637e-08
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21436091765496576,
+    "future_dipole_difference": 0.5933467641511684,
+    "projector_overlap": 1.7388283578542039e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21545753569257867,
+    "future_dipole_difference": 0.5936861592296465,
+    "projector_overlap": 1.7229855837301717e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654896,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018962083334165e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654896,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018962083334165e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21372623127082335,
+    "future_dipole_difference": 0.5941587773887905,
+    "projector_overlap": 2.4286257384549324e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2137368829726485,
+    "future_dipole_difference": 0.5942455594145759,
+    "projector_overlap": 1.1101851899075048e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21409725183590295,
+    "future_dipole_difference": 0.5937074011513515,
+    "projector_overlap": 1.110235236965199e-09
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21449195183477252,
+    "future_dipole_difference": 0.5937248513748212,
+    "projector_overlap": 5.4742674465789974e-11
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654896,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018632294803739e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654896,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018632294803739e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "energy_MO",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224654896,
+    "future_dipole_difference": 0.5937745020168459,
+    "projector_overlap": 4.018632294803739e-30
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.587750275283834,
+    "future_dipole_difference": 0.4529097989268864,
+    "projector_overlap": 0.07001235049307249
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.680560643633713,
+    "future_dipole_difference": 0.45374215186738387,
+    "projector_overlap": 0.05984088903855648
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.22611158421018374,
+    "future_dipole_difference": 0.5955789119998072,
+    "projector_overlap": 0.00039702169976066126
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21898614993921744,
+    "future_dipole_difference": 0.593545153584123,
+    "projector_overlap": 1.0426197946149729e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465526,
+    "future_dipole_difference": 0.593774502016849,
+    "projector_overlap": 1.016673188342802e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465526,
+    "future_dipole_difference": 0.593774502016849,
+    "projector_overlap": 1.016673188342802e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 7,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2154185522465526,
+    "future_dipole_difference": 0.593774502016849,
+    "projector_overlap": 1.016673188342802e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.9840472086301517,
+    "future_dipole_difference": 0.10365091880914029,
+    "projector_overlap": 0.04055976126522929
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.39843797298432626,
+    "future_dipole_difference": 0.2105772284574135,
+    "projector_overlap": 0.008777733849258684
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2653823767186142,
+    "future_dipole_difference": 0.6063781613141526,
+    "projector_overlap": 0.01153652482406612
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.214962101454381,
+    "future_dipole_difference": 0.5933785550390788,
+    "projector_overlap": 1.580706701261684e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21545196848619272,
+    "future_dipole_difference": 0.5937665837352333,
+    "projector_overlap": 2.460658786305569e-10
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541367228167577,
+    "future_dipole_difference": 0.5937764207145038,
+    "projector_overlap": 1.0604986228622454e-12
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 14,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224655157,
+    "future_dipole_difference": 0.5937745020168487,
+    "projector_overlap": 1.0668066480118375e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 1,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.587750275283749,
+    "future_dipole_difference": 0.45290979892689387,
+    "projector_overlap": 0.07001235049307175
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 2,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 2.680560643633618,
+    "future_dipole_difference": 0.453742151867392,
+    "projector_overlap": 0.05984088903855646
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 4,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.22611158421018895,
+    "future_dipole_difference": 0.5955789119998074,
+    "projector_overlap": 0.000397021699760581
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 8,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.2189861501938665,
+    "future_dipole_difference": 0.593545150456481,
+    "projector_overlap": 1.0779860771752414e-07
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 16,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224655304,
+    "future_dipole_difference": 0.5937745020168488,
+    "projector_overlap": 1.0968816127381077e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 24,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224655304,
+    "future_dipole_difference": 0.5937745020168488,
+    "projector_overlap": 1.0968816127381077e-29
+  },
+  {
+    "corpus": "B",
+    "gauge": "position_z_eigenbasis",
+    "cut": 21,
+    "chi": 32,
+    "initial_density_difference": 0.0,
+    "future_density_difference": 0.21541855224655304,
+    "future_dipole_difference": 0.5937745020168488,
+    "projector_overlap": 1.0968816127381077e-29
+  }
+]

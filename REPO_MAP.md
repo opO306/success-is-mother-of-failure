@@ -20,6 +20,11 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+`electronic_pilot/compressibility_hotline/`: 별도 survey_only 두 축 연구. Tensor Fock partition
+진단과 Guaranteed Baseline/Hotline을 분리, 기존 corpus/production 보존.
+[결과](docs/active/ELECTRONIC_COMPRESSIBILITY_HOTLINE_GATE_V1.md): Ne1 CONDITIONAL/Ne2 POOR,
+coverage/control 검사와 비용 이득 실패를 구분한다. Tensor-native evolution·통합 구현 없음.
+
 **Electronic Representation Survey:** `electronic_pilot/representation_survey/` — 기존 stored corpus의 네 prototype, A-world와 분리.
 `corpus.py`는 이전 Ne1 state 및 저장 Ne2 singlet integrals/H에서 전체 공간 REF를 만든다.
 `representations.py`는 exact adaptive residual/certificate, lossy index, lossless block, CAS/DAG/thread checks.

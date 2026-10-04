@@ -1,0 +1,5 @@
+{
+  "source_sha256": "b25bdfff4fdfd4bd646a9b00a45398ec8806f1a1e81d7ee6741e1ec6a2be9f4b",
+  "primary_capture_unchanged_sha256": "7a1a1436cee201b6c20c1a03cfbf013abf572f056a67aaa7b64e13526caf774c",
+  "protocol": "existing fixed times/states/orders/cost_repeats; full propagator; exact restore before next round"
+}
