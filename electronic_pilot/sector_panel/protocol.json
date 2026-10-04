@@ -1,0 +1,541 @@
+{
+  "version": "electronic-sector-panel-v1",
+  "scope": "ISOLATED_STATIC_SURVEY_ONLY_NOT_WORLD_NOT_CERTIFIED",
+  "grid_bohr": [
+    0.8,
+    1.4,
+    2.0,
+    4.0,
+    20.0
+  ],
+  "cases": {
+    "atom": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_doublet_0.8": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.4
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.4
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_singlet_0.8": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.4
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.4
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "singlet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_triplet_0.8": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.4
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.4
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "triplet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_doublet_1.4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.7
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.7
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_singlet_1.4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.7
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.7
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "singlet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_triplet_1.4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -0.7
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            0.7
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "triplet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_doublet_2": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_singlet_2": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "singlet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_triplet_2": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "triplet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_doublet_4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -2.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            2.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_singlet_4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -2.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            2.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "singlet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_triplet_4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -2.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            2.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "triplet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_doublet_20": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            10.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_singlet_20": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            10.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "singlet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "pair_triplet_20": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        },
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            10.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [],
+      "electrons": 2,
+      "sector": "triplet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "ghost_4": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -2.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [
+        [
+          0.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    },
+    "ghost_20": {
+      "nuclei": [
+        {
+          "Z": 1,
+          "position_bohr": [
+            0.0,
+            0.0,
+            -10.0
+          ]
+        }
+      ],
+      "ghost_centers_bohr": [
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "electrons": 1,
+      "sector": "doublet",
+      "basis": "cc-pVTZ",
+      "law": "isolated_clamped_nonrelativistic_coulomb"
+    }
+  },
+  "execution_order": [
+    "atom",
+    "pair_singlet_1.4",
+    "pair_singlet_2",
+    "pair_singlet_20",
+    "pair_doublet_0.8",
+    "pair_singlet_0.8",
+    "pair_triplet_0.8",
+    "pair_doublet_1.4",
+    "pair_triplet_1.4",
+    "pair_doublet_2",
+    "pair_triplet_2",
+    "pair_doublet_4",
+    "pair_singlet_4",
+    "pair_triplet_4",
+    "pair_doublet_20",
+    "pair_triplet_20",
+    "ghost_4",
+    "ghost_20"
+  ],
+  "historical_control_keys": [
+    "pair_singlet_1.4",
+    "pair_singlet_2",
+    "pair_singlet_20"
+  ],
+  "same_geometry_groups": [
+    [
+      "pair_doublet_0.8",
+      "pair_singlet_0.8",
+      "pair_triplet_0.8"
+    ],
+    [
+      "pair_doublet_1.4",
+      "pair_singlet_1.4",
+      "pair_triplet_1.4"
+    ],
+    [
+      "pair_doublet_2",
+      "pair_singlet_2",
+      "pair_triplet_2"
+    ],
+    [
+      "pair_doublet_4",
+      "pair_singlet_4",
+      "pair_triplet_4"
+    ],
+    [
+      "pair_doublet_20",
+      "pair_singlet_20",
+      "pair_triplet_20"
+    ]
+  ],
+  "coordinate_path": "all_generalized_h_roots_extended_contractions",
+  "overlap_floor": 1e-10,
+  "orthogonality_tolerance": 1e-10,
+  "hermiticity_tolerance": 1e-10,
+  "residual_tolerance": 1e-09,
+  "norm_tolerance": 1e-10,
+  "bookkeeping_tolerance": 1e-14,
+  "control_energy_tolerance": 1e-09,
+  "control_spectrum_tolerance": 1e-10,
+  "sector_difference_floor": 1e-07,
+  "asymptotic_tolerance": 0.0001,
+  "ghost_far_tolerance": 1e-07,
+  "dual_replay_tolerance": 1e-09,
+  "laptop_representatives": [
+    "atom",
+    "pair_doublet_1.4",
+    "pair_singlet_1.4",
+    "pair_triplet_1.4"
+  ],
+  "threads": 1,
+  "rationale": "Same original contracted spherical TZ. Previous libcint binary64 TZ R0.8 refusal preserved; independent Libint full-span generalized h and extended contractions selected before this panel. No claim that R0.8 is already supported; refusals remain null energy. Control1.4/2/20 before other panel cases.",
+  "failure_policy": "control failure STOP; independent non-control numerical refusals recorded and other sealed cases may run; no point added or criterion relaxed",
+  "asymptotic_rationale": "At R20 finite separation remains: ion-induced polarization in Ne1 and neutral dispersion/exchange in Ne2. 1e-4 hartree finite-basis sanity tolerance, not a continuum error bound. Require closer-to-fragment at R20 than R4 and ghost-at-R20 <1e-7.",
+  "laptop_scope": "fresh AO backend unavailable on laptop; same saved binary64 AO/evaluator partial replay only; Windows longdouble nmant52 recorded, thresholds unchanged",
+  "push_authorization": "latest direct user instruction to push this task branch supersedes attachment no-push clause",
+  "forbidden": [
+    "QZ",
+    "basis truncation",
+    "matrix averaging",
+    "threshold relaxation",
+    "reference energy hint",
+    "bond/molecule/reaction selector",
+    "world integration",
+    "dynamics",
+    "Vast",
+    "GPU",
+    "performance optimization"
+  ]
+}

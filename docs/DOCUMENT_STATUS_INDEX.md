@@ -1,5 +1,10 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ELECTRONIC_SECTOR_PANEL_V1.md](active/ELECTRONIC_SECTOR_PANEL_V1.md):
+2026-10-04 새 static TZ sector panel, P1–P5 PASS/NOT CERTIFIED.
+같은 저장 AO부터 대표4개 노트북 부분 재현; fresh AO 두 기기 재현은 미실행.
+Ne/선택 sector 필요·Q derived, 다음 State/History 제안과 미구현 범위 구분.
+
 [H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md](active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md):
 새 독립 reference Gate, PARTIAL / R1.3 UNSUPPORTED / bracket UNRESOLVED / NOT CERTIFIED.
 control 동등성·거부·독립 AO 성분 사후 진단과 B 미실행, 관련 시험·원본 불변을 함께 기록한다.

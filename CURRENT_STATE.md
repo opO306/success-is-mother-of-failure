@@ -4,6 +4,17 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 Electronic Sector Panel V1(2026-10-04):**
+[결과·한계·다음 State/History 질문](docs/active/ELECTRONIC_SECTOR_PANEL_V1.md).
+같은 TZ 전체 기저·같은 Coulomb 식의 핵/전자수/spin18개 static 계산, P1–P5 PASS / NOT CERTIFIED.
+Ne1차원28 / singlet406 / triplet378, Q=ΣZ−Ne derived, 화학 ID 입력 거부.
+노트북 DESKTOP-0EASI0F의 대표4개는 같은 저장 AO부터 부분 재현 PASS, 새 AO 포함 전체 재현 미실행.
+Windows111/별도WSL120 PASS, 실패/error/실제skip0; 기존tracked187 및 QZ raw87 해시 불변.
+LOCAL FULL 생략/새 독립 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
+기존 H₂ PARTIAL·QZ short-R UNSUPPORTED/UNRESOLVED·QZ minimum UNRESOLVED 유지.
+State/History Gate는 다음 제안, 미착수; production/ground-state BO foundation 미승인.
+이번 새 브랜치만 사용자 최신 직접 지시로 push 대상이며 master merge 없음.
+
 **별도 H₂ QZ Minimum-Bracket Numerical Gate V1(2026-10-04):**
 [결과·실패·미실행·다음 물리 질문](docs/active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md).
 PARTIAL / QZ R=1.3 UNSUPPORTED / sampled minimum bracket UNRESOLVED / NOT CERTIFIED.

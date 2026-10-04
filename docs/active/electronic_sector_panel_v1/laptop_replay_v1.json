@@ -1,0 +1,428 @@
+{
+  "scope": "PARTIAL_SAVED_AO_ENVIRONMENT_REPLAY_NOT_FRESH_AO_NOT_PHYSICS_AUDIT",
+  "host": "DESKTOP-0EASI0F",
+  "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "longdouble_nmant": 52,
+  "source_sha256": {
+    ".gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "action_check.py": "fd8280f7da2b1df0aadaca5cb18054fcbc64ca5ac8efdf7cc77135f7a4cb9165",
+    "campaign.py": "2c985fa269567944648130631f417f5f5a6413347eb339327fec5062580a0a43",
+    "checker.py": "f2aeeebffc3b3703851e13f4b78c31a24b884e0bab289717f8bb4aae1435c8aa",
+    "contract.py": "453c99df5bd7e42ae4d0cb336febc66fe24d46834a2d01cc5750d1e0eb521d6e",
+    "evaluator.py": "e4c80b4a3f2c622ec9eb03be3d640926f6c56f28b7fa478571887aa906c29835",
+    "protocol.json": "4219cbd2c131269c0f49d40a1b79b674cb89dcc604d92ec19d1ac72e55c11694",
+    "replay.py": "6d8905a94d81035a692a431f786aa97719933d59c49e7bb17b38ff08135cfe2d",
+    "__init__.py": "0fdf2d42809f82340a79a49c44672ae15fef7aa1e7345f772afe81e088f1ed95"
+  },
+  "input_manifest_sha256": "67f2b4846c21807604c40a1e69cb367bbfa87cda7375316421cb8068d4a4b7b7",
+  "rows": [
+    {
+      "case_key": "atom",
+      "row": {
+        "input": {
+          "nuclei": [
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          ],
+          "ghost_centers_bohr": [],
+          "electrons": 1,
+          "sector": "doublet",
+          "basis": "cc-pVTZ",
+          "law": "isolated_clamped_nonrelativistic_coulomb"
+        },
+        "electrons": 1,
+        "sector": "doublet",
+        "derived_charge_e": 0,
+        "multiplicity": 2,
+        "basis_size": 14,
+        "ci_dimension": 14,
+        "AO_sha256": {
+          "s": "5691a1b2e2523511e7b3cdaa1b148ac985aae5a49c62a48cabbf45456fb91ab1",
+          "h": "c38261e665a14bd6c08a087714d60a43bf0386f0b90dcdf2e7986df7b7178a10",
+          "eri": "c6b9c2f30ce361bcd3676e2c0a6148e44d3e8fea28c5fec410287e8f1861ab60"
+        },
+        "longdouble_nmant": 52,
+        "accepted": true,
+        "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+        "electronic_energy_hartree": -0.49980981130184277,
+        "total_energy_hartree": -0.49980981130184277,
+        "failure_stage": null,
+        "iteration_count": null,
+        "spherical": true,
+        "nuclear_repulsion_hartree": 0.0,
+        "overlap_eigenvalues": [
+          0.10927857055501447,
+          0.3850764359418024,
+          0.3850764359418025,
+          0.3850764359418025,
+          0.629485868208806,
+          1.0,
+          1.0,
+          1.0,
+          1.0000000000000002,
+          1.0000000000000002,
+          1.6149235640581971,
+          1.6149235640581971,
+          1.6149235640581971,
+          2.2612355612361785
+        ],
+        "Smin": 0.10927857055501447,
+        "condition": 20.692396960827715,
+        "AO_s_asymmetry": 0.0,
+        "AO_h_asymmetry": 0.0,
+        "AO_eri_symmetry": {
+          "ij": 1.6653345369377348e-16,
+          "kl": 2.220446049250313e-16,
+          "pair": 3.3306690738754696e-16
+        },
+        "orthonormalization_error": 9.488119516011985e-16,
+        "transformed_h_asymmetry": 1.1102230246251565e-16,
+        "transformed_eri_symmetry": {
+          "ij": 1.4710455076283324e-15,
+          "kl": 1.4155343563970746e-15,
+          "pair": 1.4155343563970746e-15
+        },
+        "matrix_asymmetry": 1.1102230246251565e-16,
+        "eigen_residual_l2": 5.551115123125783e-17,
+        "vector_norm_error": 0.0,
+        "next_sector_gap": 0.5256155677832223,
+        "artifact_sha256": "57ba37893ff354e1b2ea71633f5884aeb35db739a5934a6a6139874e054e24ed",
+        "artifact_file": "atom.npz",
+        "matrix_dimension": 14,
+        "matrix_bytes": 1568
+      },
+      "desktop_energy_difference": 1.1102230246251565e-16,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_1.4",
+      "row": {
+        "input": {
+          "nuclei": [
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                -0.7
+              ]
+            },
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                0.7
+              ]
+            }
+          ],
+          "ghost_centers_bohr": [],
+          "electrons": 1,
+          "sector": "doublet",
+          "basis": "cc-pVTZ",
+          "law": "isolated_clamped_nonrelativistic_coulomb"
+        },
+        "electrons": 1,
+        "sector": "doublet",
+        "derived_charge_e": 1,
+        "multiplicity": 2,
+        "basis_size": 28,
+        "ci_dimension": 28,
+        "AO_sha256": {
+          "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+          "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+          "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+        },
+        "longdouble_nmant": 52,
+        "accepted": true,
+        "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+        "electronic_energy_hartree": -1.283662196657909,
+        "total_energy_hartree": -0.5693764823721946,
+        "failure_stage": null,
+        "iteration_count": null,
+        "spherical": true,
+        "nuclear_repulsion_hartree": 0.7142857142857143,
+        "overlap_eigenvalues": [
+          0.0015995344819107612,
+          0.03837528898211906,
+          0.08174315997364158,
+          0.09652979714700992,
+          0.10201237945616266,
+          0.10201237945616329,
+          0.13313487680900968,
+          0.2292199341639457,
+          0.22921993416394731,
+          0.3659287747959505,
+          0.4485226582977795,
+          0.44852265829778076,
+          0.6447710677428443,
+          0.6450789824375772,
+          0.6450789824375779,
+          1.1441576355684953,
+          1.1769736570145914,
+          1.1774356576044005,
+          1.1774356576044012,
+          1.352828915121985,
+          1.3528289151219888,
+          1.3549210175624207,
+          1.354921017562423,
+          1.8267516877138419,
+          2.273781651383643,
+          2.6899804553557214,
+          2.6899804553557223,
+          4.216252868386944
+        ],
+        "Smin": 0.0015995344819107612,
+        "condition": 2635.924961961633,
+        "AO_s_asymmetry": 0.0,
+        "AO_h_asymmetry": 0.0,
+        "AO_eri_symmetry": {
+          "ij": 4.315992008230296e-15,
+          "kl": 4.315992008230296e-15,
+          "pair": 1.27675647831893e-15
+        },
+        "orthonormalization_error": 8.148955964615385e-14,
+        "transformed_h_asymmetry": 4.682365606356598e-14,
+        "transformed_eri_symmetry": {
+          "ij": 7.791947642665775e-12,
+          "kl": 1.3961765771286494e-12,
+          "pair": 7.957263320479413e-12
+        },
+        "matrix_asymmetry": 4.682365606356598e-14,
+        "eigen_residual_l2": 2.220446049250313e-16,
+        "vector_norm_error": 0.0,
+        "next_sector_gap": 0.6720620697142443,
+        "artifact_sha256": "8190d13abe8fdb614841a0014d6f04aa74e4c48f16f3a7484230886dae44bc57",
+        "artifact_file": "pair_doublet_1.4.npz",
+        "matrix_dimension": 28,
+        "matrix_bytes": 6272
+      },
+      "desktop_energy_difference": 2.220446049250313e-16,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_1.4",
+      "row": {
+        "input": {
+          "nuclei": [
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                -0.7
+              ]
+            },
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                0.7
+              ]
+            }
+          ],
+          "ghost_centers_bohr": [],
+          "electrons": 2,
+          "sector": "singlet",
+          "basis": "cc-pVTZ",
+          "law": "isolated_clamped_nonrelativistic_coulomb"
+        },
+        "electrons": 2,
+        "sector": "singlet",
+        "derived_charge_e": 0,
+        "multiplicity": 1,
+        "basis_size": 28,
+        "ci_dimension": 406,
+        "AO_sha256": {
+          "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+          "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+          "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+        },
+        "longdouble_nmant": 52,
+        "accepted": true,
+        "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+        "electronic_energy_hartree": -1.886620307830015,
+        "total_energy_hartree": -1.1723345935443006,
+        "failure_stage": null,
+        "iteration_count": null,
+        "spherical": true,
+        "nuclear_repulsion_hartree": 0.7142857142857143,
+        "overlap_eigenvalues": [
+          0.0015995344819107612,
+          0.03837528898211906,
+          0.08174315997364158,
+          0.09652979714700992,
+          0.10201237945616266,
+          0.10201237945616329,
+          0.13313487680900968,
+          0.2292199341639457,
+          0.22921993416394731,
+          0.3659287747959505,
+          0.4485226582977795,
+          0.44852265829778076,
+          0.6447710677428443,
+          0.6450789824375772,
+          0.6450789824375779,
+          1.1441576355684953,
+          1.1769736570145914,
+          1.1774356576044005,
+          1.1774356576044012,
+          1.352828915121985,
+          1.3528289151219888,
+          1.3549210175624207,
+          1.354921017562423,
+          1.8267516877138419,
+          2.273781651383643,
+          2.6899804553557214,
+          2.6899804553557223,
+          4.216252868386944
+        ],
+        "Smin": 0.0015995344819107612,
+        "condition": 2635.924961961633,
+        "AO_s_asymmetry": 0.0,
+        "AO_h_asymmetry": 0.0,
+        "AO_eri_symmetry": {
+          "ij": 4.315992008230296e-15,
+          "kl": 4.315992008230296e-15,
+          "pair": 1.27675647831893e-15
+        },
+        "orthonormalization_error": 8.148955964615385e-14,
+        "transformed_h_asymmetry": 4.682365606356598e-14,
+        "transformed_eri_symmetry": {
+          "ij": 7.791947642665775e-12,
+          "kl": 1.3961765771286494e-12,
+          "pair": 7.957263320479413e-12
+        },
+        "matrix_asymmetry": 5.793719670688091e-12,
+        "eigen_residual_l2": 8.36798671640517e-15,
+        "vector_norm_error": 0.0,
+        "next_sector_gap": 0.496315228587368,
+        "artifact_sha256": "0a57a5c4d67f7a4dca155921f93911d526c732699897915854688aafd11c804b",
+        "artifact_file": "pair_singlet_1.4.npz",
+        "matrix_dimension": 406,
+        "matrix_bytes": 1318688
+      },
+      "desktop_energy_difference": 1.3322676295501878e-15,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_1.4",
+      "row": {
+        "input": {
+          "nuclei": [
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                -0.7
+              ]
+            },
+            {
+              "Z": 1,
+              "position_bohr": [
+                0.0,
+                0.0,
+                0.7
+              ]
+            }
+          ],
+          "ghost_centers_bohr": [],
+          "electrons": 2,
+          "sector": "triplet",
+          "basis": "cc-pVTZ",
+          "law": "isolated_clamped_nonrelativistic_coulomb"
+        },
+        "electrons": 2,
+        "sector": "triplet",
+        "derived_charge_e": 0,
+        "multiplicity": 3,
+        "basis_size": 28,
+        "ci_dimension": 378,
+        "AO_sha256": {
+          "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+          "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+          "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+        },
+        "longdouble_nmant": 52,
+        "accepted": true,
+        "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+        "electronic_energy_hartree": -1.4936409887549242,
+        "total_energy_hartree": -0.7793552744692099,
+        "failure_stage": null,
+        "iteration_count": null,
+        "spherical": true,
+        "nuclear_repulsion_hartree": 0.7142857142857143,
+        "overlap_eigenvalues": [
+          0.0015995344819107612,
+          0.03837528898211906,
+          0.08174315997364158,
+          0.09652979714700992,
+          0.10201237945616266,
+          0.10201237945616329,
+          0.13313487680900968,
+          0.2292199341639457,
+          0.22921993416394731,
+          0.3659287747959505,
+          0.4485226582977795,
+          0.44852265829778076,
+          0.6447710677428443,
+          0.6450789824375772,
+          0.6450789824375779,
+          1.1441576355684953,
+          1.1769736570145914,
+          1.1774356576044005,
+          1.1774356576044012,
+          1.352828915121985,
+          1.3528289151219888,
+          1.3549210175624207,
+          1.354921017562423,
+          1.8267516877138419,
+          2.273781651383643,
+          2.6899804553557214,
+          2.6899804553557223,
+          4.216252868386944
+        ],
+        "Smin": 0.0015995344819107612,
+        "condition": 2635.924961961633,
+        "AO_s_asymmetry": 0.0,
+        "AO_h_asymmetry": 0.0,
+        "AO_eri_symmetry": {
+          "ij": 4.315992008230296e-15,
+          "kl": 4.315992008230296e-15,
+          "pair": 1.27675647831893e-15
+        },
+        "orthonormalization_error": 8.148955964615385e-14,
+        "transformed_h_asymmetry": 4.682365606356598e-14,
+        "transformed_eri_symmetry": {
+          "ij": 7.791947642665775e-12,
+          "kl": 1.3961765771286494e-12,
+          "pair": 7.957263320479413e-12
+        },
+        "matrix_asymmetry": 7.296038773141333e-13,
+        "eigen_residual_l2": 1.2890854279075788e-15,
+        "vector_norm_error": 4.440892098500626e-16,
+        "next_sector_gap": 0.16051384500744614,
+        "artifact_sha256": "5143271c753968005e9f9900401a22732616b099320cde03c2a5472be5dc2482",
+        "artifact_file": "pair_triplet_1.4.npz",
+        "matrix_dimension": 378,
+        "matrix_bytes": 1143072
+      },
+      "desktop_energy_difference": 2.220446049250313e-15,
+      "passed": true
+    }
+  ],
+  "status": "PASS"
+}

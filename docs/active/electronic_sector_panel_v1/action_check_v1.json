@@ -1,0 +1,204 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "case_key": "atom",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 4.607859233063394e-17,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -0.49980981130184293,
+      "C_min_singular_value": 0.6650083472146611,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_1.4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 5.2434774536190716e-15,
+      "norm_error": 2.489328188026718e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.8866203078300143,
+      "C_min_singular_value": 0.48700865019237466,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_2",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.5263094800586994e-15,
+      "norm_error": 5.204170427930421e-18,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.6361716888638438,
+      "C_min_singular_value": 0.5073619740691828,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_20",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.6873295382387405e-15,
+      "norm_error": 5.344032508181051e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.0496196559748827,
+      "C_min_singular_value": 0.6650083471597392,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_0.8",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 9.346906928997534e-16,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.552825715345471,
+      "C_min_singular_value": 0.4754182419003605,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_0.8",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.9663664761256954e-13,
+      "norm_error": 3.286216784803564e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -2.265400369925161,
+      "C_min_singular_value": 0.4754182419003605,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_0.8",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.82611484784385e-14,
+      "norm_error": 2.474149357611921e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.69354411008964,
+      "C_min_singular_value": 0.4754182419003605,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_1.4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 3.7730235602495554e-17,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.2836621966579087,
+      "C_min_singular_value": 0.48700865019237466,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_1.4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.7392859026296044e-15,
+      "norm_error": 2.654126918244515e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.493640988754923,
+      "C_min_singular_value": 0.48700865019237466,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_2",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.0776969594505914e-16,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.1022444255722408,
+      "C_min_singular_value": 0.5073619740691828,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_2",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 8.243175470498886e-16,
+      "norm_error": 5.746271514173174e-17,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.3955798661928125,
+      "C_min_singular_value": 0.5073619740691828,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 3.524199161664132e-16,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -0.7942580387692786,
+      "C_min_singular_value": 0.6046188381485426,
+      "passed": true
+    },
+    {
+      "case_key": "pair_singlet_4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 2.271302327459894e-15,
+      "norm_error": 2.0778734635684692e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.2648498947395677,
+      "C_min_singular_value": 0.6046188381485426,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.6879635377554927e-16,
+      "norm_error": 7.846371122277596e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.2426873477199154,
+      "C_min_singular_value": 0.6046188381485426,
+      "passed": true
+    },
+    {
+      "case_key": "pair_doublet_20",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 2.783689077857459e-16,
+      "norm_error": 2.2085198253529725e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -0.5498157048609447,
+      "C_min_singular_value": 0.6650083471597392,
+      "passed": true
+    },
+    {
+      "case_key": "pair_triplet_20",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 3.3891241861604444e-16,
+      "norm_error": 6.754579534584693e-17,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -1.0496196559748823,
+      "C_min_singular_value": 0.6650083471597392,
+      "passed": true
+    },
+    {
+      "case_key": "ghost_4",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 1.8423305415959934e-16,
+      "norm_error": 2.220446049250313e-16,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -0.49981129947669095,
+      "C_min_singular_value": 0.6046188381485424,
+      "passed": true
+    },
+    {
+      "case_key": "ghost_20",
+      "accepted": true,
+      "artifact_hash_match": true,
+      "product_residual_l2": 3.1452705023804484e-16,
+      "norm_error": 0.0,
+      "exchange_parity_error": 0.0,
+      "rayleigh_hartree": -0.49980981130184304,
+      "C_min_singular_value": 0.6650083471597391,
+      "passed": true
+    }
+  ],
+  "source_sha256": "fd8280f7da2b1df0aadaca5cb18054fcbc64ca5ac8efdf7cc77135f7a4cb9165"
+}

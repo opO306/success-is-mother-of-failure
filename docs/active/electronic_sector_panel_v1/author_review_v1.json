@@ -1,0 +1,56 @@
+{
+  "status": "AUTHOR_SOURCE_AND_CONCEPT_REVIEW_PASS_NOT_EXTERNAL_AUDIT",
+  "P4": "PASS",
+  "authoritative_input": [
+    "nuclear Z",
+    "nuclear position_bohr",
+    "electrons",
+    "sector",
+    "basis",
+    "law"
+  ],
+  "derived": [
+    "charge=sum(Z)-Ne",
+    "nuclear Coulomb repulsion"
+  ],
+  "ground_solution": "solver output under chosen static sector, not extra authority",
+  "findings": [
+    {
+      "file": "contract.py",
+      "finding": "Strict physical-input keys reject bond_id/molecule_id/reaction_id and independent Q; assert Q only diagnostic, inconsistency REFUSED"
+    },
+    {
+      "file": "evaluator.py",
+      "finding": "Exactly same h and g law; oneelectron h, singlet plus/spatial symmetric and triplet minus/spatial antisymmetric; all spatial M retained; labels never enter evaluator"
+    },
+    {
+      "file": "campaign.py",
+      "finding": "Reporting key added only after solve; history used only in control acceptance comparison, never evaluator or root hint"
+    },
+    {
+      "file": "checker.py",
+      "finding": "Same-geometry fresh S/h/g bytes identical in all3sectors at each of5R; static row/dimension/charge/case/nn correspondence"
+    },
+    {
+      "file": "action_check.py",
+      "finding": "Separate product-action formula confirms all18vector residuals/exchange; saved integrals shared, no external AO audit"
+    }
+  ],
+  "conceptual_boundary": "nuclei+Ne define the complete fixed-Hamiltonian fermion problem if all sectors are included; selected-sector input is needed to pick singlet vs triplet static problem. This panel does not establish that a sector and ground-root map suffice for real world state/history.",
+  "tests": {
+    "new": 39,
+    "windows_related": 111,
+    "wsl_related": 120,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "LOCAL_FULL": "OMITTED: isolated new survey/tests/docs; historical source/fixture unchanged; official baseline unchanged"
+  },
+  "first_failures_preserved": [
+    "preexecution missing runs parent",
+    "algebra unit test bound inappropriate for Windows longdouble binary64",
+    "related-test collection command used nonexistent filename; no tests ran"
+  ],
+  "next_gate": "Electronic State / History Gate, proposal only; no excited state/dynamics implementation",
+  "push_authorization": "latest user direct request to push task branch; master not merged"
+}

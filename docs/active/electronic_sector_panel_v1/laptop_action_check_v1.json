@@ -1,0 +1,30 @@
+[
+  {
+    "case_key": "atom",
+    "product_residual_l2": 5.551115123125783e-17,
+    "norm_error": 0.0,
+    "exchange_parity_error": 0.0,
+    "rayleigh_hartree": -0.4998098113018428
+  },
+  {
+    "case_key": "pair_doublet_1.4",
+    "product_residual_l2": 2.220446049250313e-16,
+    "norm_error": 0.0,
+    "exchange_parity_error": 0.0,
+    "rayleigh_hartree": -1.2836621966579091
+  },
+  {
+    "case_key": "pair_singlet_1.4",
+    "product_residual_l2": 1.2267235620456896e-14,
+    "norm_error": 2.220446049250313e-16,
+    "exchange_parity_error": 0.0,
+    "rayleigh_hartree": -1.8866203078300146
+  },
+  {
+    "case_key": "pair_triplet_1.4",
+    "product_residual_l2": 1.3253648041518077e-14,
+    "norm_error": 1.1102230246251565e-16,
+    "exchange_parity_error": 0.0,
+    "rayleigh_hartree": -1.4936409887549233
+  }
+]

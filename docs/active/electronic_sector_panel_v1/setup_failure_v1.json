@@ -1,0 +1,16 @@
+{
+  "stage": "preexecution",
+  "failures": [
+    {
+      "kind": "FileNotFoundError",
+      "reason": "new worktree runs parent did not exist",
+      "fix": "mkdir parents=True, no calculation had started"
+    },
+    {
+      "kind": "unit_test",
+      "result": "2 failed,17 passed",
+      "reason": "test used 1e-17 algebra tolerance though Windows longdouble is binary64; observed2.22e-16/1.11e-16",
+      "fix": "portable unit algebra bound32*longdouble_epsilon; panel numerical tolerances unchanged"
+    }
+  ]
+}

@@ -20,6 +20,12 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+**Electronic Sector Panel:** `electronic_pilot/sector_panel/` — 고정 nuclei·Ne1/2·doublet/singlet/triplet의
+같은 TZ full-space Coulomb 연구, A-world와 분리. [결과](docs/active/ELECTRONIC_SECTOR_PANEL_V1.md):
+static P1–P5 PASS/NOT CERTIFIED, 노트북 saved-AO 부분 재현. `replay.py`는 fresh AO generator가 아니다.
+`tests/test_electronic_sector_panel*.py`는 algebra·API refusal·실측 대응·의미 결함 주입39개 시험이다.
+이전 H₂/QZ evidence를 보존하며 State/History와 dynamics는 미착수다.
+
 **독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet
 Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
 추가 `electronic_pilot/minimum_bracket/`는 독립 Psi4/Libint AO와 full-span 두 좌표의

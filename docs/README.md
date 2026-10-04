@@ -1,5 +1,9 @@
 # 프로젝트 문서 안내
 
+[Electronic Sector Panel V1](active/ELECTRONIC_SECTOR_PANEL_V1.md): 같은 TZ full-space의 Ne/sector18개 static 결과,
+P1–P5 PASS/NOT CERTIFIED. Q derived·화학 ID 거부·노트북 saved-AO 부분 재현을 구분한다.
+State/History는 다음 별도 Gate이며 기존 H₂ PARTIAL/QZ UNRESOLVED와 foundation 미승인을 유지한다.
+
 [H₂ QZ 최소점 주변 수치 Gate V1](active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md):
 PARTIAL, 독립 AO 두 좌표의 accepted controls 일치, R=1.3 두 번 거부/energy없음,
 bracket UNRESOLVED. 고정밀 AO 미구현/미실행, short-R UNSUPPORTED 격리 및

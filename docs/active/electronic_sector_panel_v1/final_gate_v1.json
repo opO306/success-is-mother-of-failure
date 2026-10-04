@@ -1,0 +1,11 @@
+{
+  "P1": "PASS",
+  "P2": "PASS",
+  "P3": "PASS",
+  "P5": "PASS",
+  "P4": "PASS",
+  "classification": "STATIC_FINITE_BASIS_PANEL_PASS_NOT_CERTIFIED_NOT_PRODUCTION",
+  "dual_machine": "PARTIAL_SAVED_AO_REPLAY_PASS_FRESH_AO_NOT_RUN",
+  "external_physics_audit": "NOT_PERFORMED",
+  "prior_QZ": "UNSUPPORTED_UNRESOLVED_UNCHANGED"
+}

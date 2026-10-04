@@ -688,3 +688,16 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | h/ERI/H 비대칭·overlap/orthogonality/residual/norm 초과 | 에너지 인정 전 guard, synthetic fault refusal | 실제 R1.3 두 번의 거부도 정상 보존; 완주 보장 아님 |
 | singlet 구성식의 index/normalization 오류 | 별도 작은 ordered-product 투영식, 실제 accepted vector의 full-product 작용식 대조; energy/vector/dimension 주입 검출 | 저장 AO를 공유한 작성자 검사이며 외부 AO 정확도 감사·lowest-root 인증은 아님 |
 | 독립 backend이면 short-R가 자동 해결된다는 가정 | controls6 accepted 뒤 target2 REFUSED; 사후 MPFR에서 independent AO 성분 자체가 기준 초과 | 대표 coupling만, 전체 행렬 bound/모든 binary64 좌표 불가능성 증명 아님 |
+
+### Electronic Sector Panel V1 (2026-10-04)
+
+[결과와 미구현 범위](../active/ELECTRONIC_SECTOR_PANEL_V1.md).
+새39시험 포함 Windows111/별도WSL120 PASS, 실패/error/실제skip0. LOCAL FULL 생략, 공식 기준선 불변.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| 모순 Q, 독립 charge 및 bond/molecule/reaction ID 입력 | strict key/charge assertion REFUSED, Z=(1,1),Ne2,Q+1 실제 시험 | isolated Z1/Ne1·2 panel 계약; 전자 전달 dynamics 미구현 |
+| Ne/sector/multiplicity/차원/핵반발/좌표/잔차/norm 변조 | 실제 저장 row에17개 field 변이 및 geometry/spectrum 변이, 별도 judge가 invalid | 표본과 row 대응 검사, continuum 또는 A-world 인증 아님 |
+| 같은 geometry인데 AO를 바꾸고 sector 효과라고 선언 | AO h hash 변조가 P1 UNRESOLVED, 실제5geometry의 세 sector AO bytes 동일 | hash는 provenance 대응이고 AO 정확도 증명은 아님 |
+| triplet 교환부호·singlet 정규화 오류 | 별도3orbital full-product 투영과 대조, h 결합 변이 작용 residual 검출; actual18개 product action PASS | 작성자 구현 검토이며 같은 저장 적분을 공유, 외부 physics 감사 아님 |
+| 누락·중복·노트북 부분 재현을 전체 PASS로 해석 | incomplete/invalid 집계 및 saved-AO replay scope 보존 | 노트북 fresh AO backend UNAVAILABLE/NOT RUN; 근본 state/history 충분성 미평가 |

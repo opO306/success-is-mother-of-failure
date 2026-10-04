@@ -1,0 +1,38 @@
+  Threads set to 1 by Python driver.
+  Threads set to 1 by Python driver.
+atom NUMERICAL_RESULT_NOT_CERTIFIED None -0.4998098113018429
+  Threads set to 1 by Python driver.
+pair_singlet_1.4 NUMERICAL_RESULT_NOT_CERTIFIED None -1.1723345935442993
+  Threads set to 1 by Python driver.
+pair_singlet_2 NUMERICAL_RESULT_NOT_CERTIFIED None -1.1361716888638451
+  Threads set to 1 by Python driver.
+pair_singlet_20 NUMERICAL_RESULT_NOT_CERTIFIED None -0.9996196559748818
+  Threads set to 1 by Python driver.
+pair_doublet_0.8 NUMERICAL_RESULT_NOT_CERTIFIED None -0.3028257153454701
+  Threads set to 1 by Python driver.
+pair_singlet_0.8 NUMERICAL_RESULT_NOT_CERTIFIED None -1.0154003699251604
+  Threads set to 1 by Python driver.
+pair_triplet_0.8 NUMERICAL_RESULT_NOT_CERTIFIED None -0.4435441100896407
+  Threads set to 1 by Python driver.
+pair_doublet_1.4 NUMERICAL_RESULT_NOT_CERTIFIED None -0.5693764823721944
+  Threads set to 1 by Python driver.
+pair_triplet_1.4 NUMERICAL_RESULT_NOT_CERTIFIED None -0.7793552744692077
+  Threads set to 1 by Python driver.
+pair_doublet_2 NUMERICAL_RESULT_NOT_CERTIFIED None -0.6022444255722408
+  Threads set to 1 by Python driver.
+pair_triplet_2 NUMERICAL_RESULT_NOT_CERTIFIED None -0.8955798661928118
+  Threads set to 1 by Python driver.
+pair_doublet_4 NUMERICAL_RESULT_NOT_CERTIFIED None -0.5442580387692789
+  Threads set to 1 by Python driver.
+pair_singlet_4 NUMERICAL_RESULT_NOT_CERTIFIED None -1.0148498947395685
+  Threads set to 1 by Python driver.
+pair_triplet_4 NUMERICAL_RESULT_NOT_CERTIFIED None -0.9926873477199145
+  Threads set to 1 by Python driver.
+pair_doublet_20 NUMERICAL_RESULT_NOT_CERTIFIED None -0.49981570486094423
+  Threads set to 1 by Python driver.
+pair_triplet_20 NUMERICAL_RESULT_NOT_CERTIFIED None -0.9996196559748818
+  Threads set to 1 by Python driver.
+ghost_4 NUMERICAL_RESULT_NOT_CERTIFIED None -0.4998112994766909
+  Threads set to 1 by Python driver.
+ghost_20 NUMERICAL_RESULT_NOT_CERTIFIED None -0.4998098113018434
+PASS rows 18 wall 41.365925407999995

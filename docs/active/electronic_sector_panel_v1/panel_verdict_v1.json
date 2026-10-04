@@ -1,0 +1,91 @@
+{
+  "P1": "PASS",
+  "P2": "PASS",
+  "P3": "PASS",
+  "P4": "SOURCE_REVIEW_REQUIRED",
+  "P5": "PASS",
+  "complete": true,
+  "all_rows_valid": true,
+  "comparisons": [
+    {
+      "keys": [
+        "pair_doublet_0.8",
+        "pair_singlet_0.8",
+        "pair_triplet_0.8"
+      ],
+      "valid": true,
+      "same_AO": true,
+      "electron_energy_difference": 0.7125746545796903,
+      "spin_energy_difference": 0.5718562598355197
+    },
+    {
+      "keys": [
+        "pair_doublet_1.4",
+        "pair_singlet_1.4",
+        "pair_triplet_1.4"
+      ],
+      "valid": true,
+      "same_AO": true,
+      "electron_energy_difference": 0.6029581111721048,
+      "spin_energy_difference": 0.39297931907509154
+    },
+    {
+      "keys": [
+        "pair_doublet_2",
+        "pair_singlet_2",
+        "pair_triplet_2"
+      ],
+      "valid": true,
+      "same_AO": true,
+      "electron_energy_difference": 0.5339272632916043,
+      "spin_energy_difference": 0.2405918226710333
+    },
+    {
+      "keys": [
+        "pair_doublet_4",
+        "pair_singlet_4",
+        "pair_triplet_4"
+      ],
+      "valid": true,
+      "same_AO": true,
+      "electron_energy_difference": 0.47059185597028963,
+      "spin_energy_difference": 0.022162547019654033
+    },
+    {
+      "keys": [
+        "pair_doublet_20",
+        "pair_singlet_20",
+        "pair_triplet_20"
+      ],
+      "valid": true,
+      "same_AO": true,
+      "electron_energy_difference": 0.49980395111393755,
+      "spin_energy_difference": 0.0
+    }
+  ],
+  "asymptotic": [
+    {
+      "sector": "doublet",
+      "fragment_factor": 1,
+      "finite_R20_error_hartree": -5.893559101355361e-06,
+      "R4_error_hartree": -0.04444822746743604,
+      "passed": true
+    },
+    {
+      "sector": "singlet",
+      "fragment_factor": 2,
+      "finite_R20_error_hartree": -3.337119602875305e-08,
+      "R4_error_hartree": -0.015230272135882794,
+      "passed": true
+    },
+    {
+      "sector": "triplet",
+      "fragment_factor": 2,
+      "finite_R20_error_hartree": -3.337119602875305e-08,
+      "R4_error_hartree": 0.006932274883771239,
+      "passed": true
+    }
+  ],
+  "ghost_R20_difference": -4.996003610813204e-16,
+  "scope": "static finite-basis author numerical check; not certification"
+}

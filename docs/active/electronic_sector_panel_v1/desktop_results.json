@@ -1,0 +1,2192 @@
+{
+  "rows": [
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 0,
+      "multiplicity": 2,
+      "basis_size": 14,
+      "ci_dimension": 14,
+      "AO_sha256": {
+        "s": "5691a1b2e2523511e7b3cdaa1b148ac985aae5a49c62a48cabbf45456fb91ab1",
+        "h": "c38261e665a14bd6c08a087714d60a43bf0386f0b90dcdf2e7986df7b7178a10",
+        "eri": "c6b9c2f30ce361bcd3676e2c0a6148e44d3e8fea28c5fec410287e8f1861ab60"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -0.4998098113018429,
+      "total_energy_hartree": -0.4998098113018429,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.0,
+      "overlap_eigenvalues": [
+        0.1092785705550145,
+        0.3850764359418024,
+        0.3850764359418025,
+        0.3850764359418025,
+        0.6294858682088058,
+        1.0,
+        1.0,
+        1.0,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.6149235640581971,
+        1.6149235640581971,
+        1.6149235640581971,
+        2.2612355612361785
+      ],
+      "Smin": 0.1092785705550145,
+      "condition": 20.69239696082771,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 9.03350228635156e-16,
+      "transformed_h_asymmetry": 8.555032767268433e-20,
+      "transformed_eri_symmetry": {
+        "ij": 1.3517697161277709e-15,
+        "kl": 2.1444705820133914e-15,
+        "pair": 1.6345025376576783e-15
+      },
+      "matrix_asymmetry": 8.555032767268433e-20,
+      "eigen_residual_l2": 4.607859233063394e-17,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.5256155677832222,
+      "artifact_sha256": "2f5b842e37892fa6c7bec4436c122248071c8601e78b295572f12e899e649e3c",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 14,
+      "matrix_bytes": 3136,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 6,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.0,
+      "wall_seconds": 0.13294114200000084,
+      "cpu_seconds": 0.09731415100000002,
+      "peak_rss_bytes": 100106240,
+      "case_key": "atom",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.7
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.7
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "singlet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "singlet",
+      "derived_charge_e": 0,
+      "multiplicity": 1,
+      "basis_size": 28,
+      "ci_dimension": 406,
+      "AO_sha256": {
+        "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+        "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+        "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.8866203078300134,
+      "total_energy_hartree": -1.1723345935442993,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.7142857142857143,
+      "overlap_eigenvalues": [
+        0.0015995344819110312,
+        0.038375288982118234,
+        0.0817431599736412,
+        0.09652979714700967,
+        0.1020123794561628,
+        0.10201237945616298,
+        0.13313487680900962,
+        0.22921993416394584,
+        0.22921993416394595,
+        0.36592877479595043,
+        0.44852265829777965,
+        0.4485226582977805,
+        0.6447710677428441,
+        0.6450789824375769,
+        0.6450789824375788,
+        1.1441576355684961,
+        1.1769736570145928,
+        1.1774356576044005,
+        1.1774356576044032,
+        1.3528289151219854,
+        1.3528289151219874,
+        1.3549210175624233,
+        1.354921017562424,
+        1.8267516877138412,
+        2.273781651383642,
+        2.689980455355723,
+        2.689980455355725,
+        4.21625286838694
+      ],
+      "Smin": 0.0015995344819110312,
+      "condition": 2635.924961961186,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 4.315992008230296e-15,
+        "kl": 4.315992008230296e-15,
+        "pair": 1.27675647831893e-15
+      },
+      "orthonormalization_error": 3.864724725555426e-14,
+      "transformed_h_asymmetry": 8.29605244364543e-18,
+      "transformed_eri_symmetry": {
+        "ij": 1.4262764443277796e-12,
+        "kl": 1.991921086625173e-12,
+        "pair": 1.6846340733736738e-12
+      },
+      "matrix_asymmetry": 2.344898850643835e-12,
+      "eigen_residual_l2": 4.8750490823906315e-15,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 0.496315228587376,
+      "artifact_sha256": "68cfb634d1bdddff6fb66fda2bad7d3e3b79afeaf82737b418e8229ea910cf4d",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 406,
+      "matrix_bytes": 2637376,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 1,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.7
+        ],
+        [
+          0.0,
+          0.0,
+          0.7
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.7142857142857143,
+      "wall_seconds": 0.8777887109999991,
+      "cpu_seconds": 0.7817324889999999,
+      "peak_rss_bytes": 141078528,
+      "case_key": "pair_singlet_1.4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "singlet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "singlet",
+      "derived_charge_e": 0,
+      "multiplicity": 1,
+      "basis_size": 28,
+      "ci_dimension": 406,
+      "AO_sha256": {
+        "s": "a06e361423f4187bc03e5c4d0e18443a8c67041eae0c981be4336dbea3082dd2",
+        "h": "090e662629c27831b0b2e296c54883ba8d78bef9e2c624c8bdc21bb0cdf96daf",
+        "eri": "90713b75047c121b1b50a151748471a5b205c7d035f43014b4d6925b870758ec"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.6361716888638451,
+      "total_energy_hartree": -1.1361716888638451,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.5,
+      "overlap_eigenvalues": [
+        0.009527885559084301,
+        0.05951136024399083,
+        0.12056953658370803,
+        0.22080011619290296,
+        0.22080011619290454,
+        0.23911382788698415,
+        0.298124780160366,
+        0.3974858398386305,
+        0.4382626807398175,
+        0.4382626807398177,
+        0.5175934239095755,
+        0.5175934239095766,
+        0.7105205730309909,
+        0.8792460168205328,
+        0.8792460168205333,
+        1.1207539831794664,
+        1.1207539831794668,
+        1.1738555225644542,
+        1.200716098334869,
+        1.2556972108129993,
+        1.2556972108129998,
+        1.35160464127991,
+        1.3516046412799116,
+        1.9312727600936481,
+        1.974542014525083,
+        2.216041927064795,
+        2.2160419270647953,
+        3.884759801178194
+      ],
+      "Smin": 0.009527885559084301,
+      "condition": 407.72527934850086,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 2.1649348980190553e-15,
+        "kl": 2.1649348980190553e-15,
+        "pair": 8.881784197001252e-16
+      },
+      "orthonormalization_error": 5.943869967949613e-15,
+      "transformed_h_asymmetry": 2.0599841277224877e-18,
+      "transformed_eri_symmetry": {
+        "ij": 4.3539295974982795e-14,
+        "kl": 3.124534797018484e-14,
+        "pair": 3.07907318348663e-14
+      },
+      "matrix_asymmetry": 6.658713362053988e-14,
+      "eigen_residual_l2": 1.5105398115151079e-15,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 0.40638973392374966,
+      "artifact_sha256": "1f5cdd1a0838809f65cff81a64d787375a972feb8c8943fe20a031359558d2ab",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 406,
+      "matrix_bytes": 2637376,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 1,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.5,
+      "wall_seconds": 0.8212948359999999,
+      "cpu_seconds": 0.75067401,
+      "peak_rss_bytes": 140673024,
+      "case_key": "pair_singlet_2",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -10.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              10.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "singlet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "singlet",
+      "derived_charge_e": 0,
+      "multiplicity": 1,
+      "basis_size": 28,
+      "ci_dimension": 406,
+      "AO_sha256": {
+        "s": "b9c8620ef6892d08b2ef3545f19503b68983bde90e8c3792558040dd1a5093a3",
+        "h": "8fb4b3a2251d622f893588a08b6e52b67d2d946c222eb1896c0f33afe2b60859",
+        "eri": "9485931831da860f46365f5e4018019bdbde0800c26e333a78d7a5d6c4805317"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.0496196559748818,
+      "total_energy_hartree": -0.9996196559748818,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.05,
+      "overlap_eigenvalues": [
+        0.10927857023899665,
+        0.10927857087103211,
+        0.38507643594180213,
+        0.38507643594180224,
+        0.38507643594180263,
+        0.38507643594180274,
+        0.3850764359418028,
+        0.3850764359418035,
+        0.6294858676971942,
+        0.6294858687204175,
+        0.9999999999999994,
+        0.9999999999999996,
+        0.9999999999999996,
+        1.0,
+        1.0,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000018,
+        1.6149235640581958,
+        1.6149235640581965,
+        1.6149235640581967,
+        1.6149235640581974,
+        1.6149235640581983,
+        1.6149235640581983,
+        2.2612355608626746,
+        2.2612355616096833
+      ],
+      "Smin": 0.10927857023899665,
+      "condition": 20.69239702408505,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 2.3816267126157297e-15,
+      "transformed_h_asymmetry": 1.0687278254126846e-19,
+      "transformed_eri_symmetry": {
+        "ij": 7.00218420572607e-16,
+        "kl": 1.1176972433517285e-15,
+        "pair": 8.627403262281841e-16
+      },
+      "matrix_asymmetry": 5.61752250619052e-16,
+      "eigen_residual_l2": 1.677025328880293e-15,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.45329639809305844,
+      "artifact_sha256": "1ddacf44289a702803054a10e6ba9ca76b46e79cdf96b624797debd6cb6a0d21",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 406,
+      "matrix_bytes": 2637376,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 1,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.05,
+      "wall_seconds": 0.7833146240000008,
+      "cpu_seconds": 0.7067023889999999,
+      "peak_rss_bytes": 140840960,
+      "case_key": "pair_singlet_20",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.4
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.4
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 1,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "074faf7a8db9632642869ae3184ce08f7670a8ea0741847395f8b27266c4bc1a",
+        "h": "58e0e79bec43680df228e5760819729ea029c878f26957c0f2ef5567ff7e220c",
+        "eri": "2a47d88dcf512248ca9e6dc613af6a8cd55ffefba135adec5f4237dfa5dc6cc5"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.55282571534547,
+      "total_energy_hartree": -0.3028257153454701,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 1.25,
+      "overlap_eigenvalues": [
+        0.00022188692015116067,
+        0.014974188428444161,
+        0.017794347171248698,
+        0.017794347171248958,
+        0.019486462518777666,
+        0.029894336526064415,
+        0.07987511254251009,
+        0.07987511254251074,
+        0.10132023669902285,
+        0.28697585843243173,
+        0.28697585843243284,
+        0.333642344075371,
+        0.34421959390438983,
+        0.3442195939043904,
+        0.39682566619774007,
+        0.849944617116127,
+        0.8882162112857326,
+        0.8882162112857338,
+        1.3554797871127207,
+        1.6122944599237055,
+        1.6122944599237072,
+        1.6466772557143086,
+        1.7130241415675667,
+        1.7130241415675695,
+        2.82719502640657,
+        3.0576002751724083,
+        3.0576002751724127,
+        4.4243381922847025
+      ],
+      "Smin": 0.00022188692015116067,
+      "condition": 19939.607928536832,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.27675647831893e-15,
+        "kl": 1.27675647831893e-15,
+        "pair": 7.251144129583054e-16
+      },
+      "orthonormalization_error": 2.6327181620529384e-13,
+      "transformed_h_asymmetry": 1.2474762433984418e-16,
+      "transformed_eri_symmetry": {
+        "ij": 2.3941325023825108e-11,
+        "kl": 4.4986201416308876e-11,
+        "pair": 8.81915494519014e-11
+      },
+      "matrix_asymmetry": 1.2474762433984418e-16,
+      "eigen_residual_l2": 9.346906928997534e-16,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 1.0105366471560793,
+      "artifact_sha256": "d61176f0657befa1a2a6d0f4dde751c77f4fa4e4e1313fe7c28bb962de102bd1",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 1,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.4
+        ],
+        [
+          0.0,
+          0.0,
+          0.4
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 1.25,
+      "wall_seconds": 0.7829842019999997,
+      "cpu_seconds": 0.7059808620000001,
+      "peak_rss_bytes": 132616192,
+      "case_key": "pair_doublet_0.8",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.4
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.4
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "singlet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "singlet",
+      "derived_charge_e": 0,
+      "multiplicity": 1,
+      "basis_size": 28,
+      "ci_dimension": 406,
+      "AO_sha256": {
+        "s": "074faf7a8db9632642869ae3184ce08f7670a8ea0741847395f8b27266c4bc1a",
+        "h": "58e0e79bec43680df228e5760819729ea029c878f26957c0f2ef5567ff7e220c",
+        "eri": "2a47d88dcf512248ca9e6dc613af6a8cd55ffefba135adec5f4237dfa5dc6cc5"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -2.2654003699251604,
+      "total_energy_hartree": -1.0154003699251604,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 1.25,
+      "overlap_eigenvalues": [
+        0.00022188692015116067,
+        0.014974188428444161,
+        0.017794347171248698,
+        0.017794347171248958,
+        0.019486462518777666,
+        0.029894336526064415,
+        0.07987511254251009,
+        0.07987511254251074,
+        0.10132023669902285,
+        0.28697585843243173,
+        0.28697585843243284,
+        0.333642344075371,
+        0.34421959390438983,
+        0.3442195939043904,
+        0.39682566619774007,
+        0.849944617116127,
+        0.8882162112857326,
+        0.8882162112857338,
+        1.3554797871127207,
+        1.6122944599237055,
+        1.6122944599237072,
+        1.6466772557143086,
+        1.7130241415675667,
+        1.7130241415675695,
+        2.82719502640657,
+        3.0576002751724083,
+        3.0576002751724127,
+        4.4243381922847025
+      ],
+      "Smin": 0.00022188692015116067,
+      "condition": 19939.607928536832,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.27675647831893e-15,
+        "kl": 1.27675647831893e-15,
+        "pair": 7.251144129583054e-16
+      },
+      "orthonormalization_error": 2.6327181620529384e-13,
+      "transformed_h_asymmetry": 1.2474762433984418e-16,
+      "transformed_eri_symmetry": {
+        "ij": 2.3941325023825108e-11,
+        "kl": 4.4986201416308876e-11,
+        "pair": 8.81915494519014e-11
+      },
+      "matrix_asymmetry": 2.7827174368759682e-11,
+      "eigen_residual_l2": 1.675904966651396e-13,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.6195464810620717,
+      "artifact_sha256": "36e2214812fc8cee696d415dd07bbb8e29ed7e97158b55a0958a3ee297c445c1",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 406,
+      "matrix_bytes": 2637376,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 1,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.4
+        ],
+        [
+          0.0,
+          0.0,
+          0.4
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 1.25,
+      "wall_seconds": 0.886503394,
+      "cpu_seconds": 0.807935643,
+      "peak_rss_bytes": 140615680,
+      "case_key": "pair_singlet_0.8",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.4
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.4
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "triplet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "triplet",
+      "derived_charge_e": 0,
+      "multiplicity": 3,
+      "basis_size": 28,
+      "ci_dimension": 378,
+      "AO_sha256": {
+        "s": "074faf7a8db9632642869ae3184ce08f7670a8ea0741847395f8b27266c4bc1a",
+        "h": "58e0e79bec43680df228e5760819729ea029c878f26957c0f2ef5567ff7e220c",
+        "eri": "2a47d88dcf512248ca9e6dc613af6a8cd55ffefba135adec5f4237dfa5dc6cc5"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.6935441100896407,
+      "total_energy_hartree": -0.4435441100896407,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 1.25,
+      "overlap_eigenvalues": [
+        0.00022188692015116067,
+        0.014974188428444161,
+        0.017794347171248698,
+        0.017794347171248958,
+        0.019486462518777666,
+        0.029894336526064415,
+        0.07987511254251009,
+        0.07987511254251074,
+        0.10132023669902285,
+        0.28697585843243173,
+        0.28697585843243284,
+        0.333642344075371,
+        0.34421959390438983,
+        0.3442195939043904,
+        0.39682566619774007,
+        0.849944617116127,
+        0.8882162112857326,
+        0.8882162112857338,
+        1.3554797871127207,
+        1.6122944599237055,
+        1.6122944599237072,
+        1.6466772557143086,
+        1.7130241415675667,
+        1.7130241415675695,
+        2.82719502640657,
+        3.0576002751724083,
+        3.0576002751724127,
+        4.4243381922847025
+      ],
+      "Smin": 0.00022188692015116067,
+      "condition": 19939.607928536832,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.27675647831893e-15,
+        "kl": 1.27675647831893e-15,
+        "pair": 7.251144129583054e-16
+      },
+      "orthonormalization_error": 2.6327181620529384e-13,
+      "transformed_h_asymmetry": 1.2474762433984418e-16,
+      "transformed_eri_symmetry": {
+        "ij": 2.3941325023825108e-11,
+        "kl": 4.4986201416308876e-11,
+        "pair": 8.81915494519014e-11
+      },
+      "matrix_asymmetry": 2.1283390800902902e-12,
+      "eigen_residual_l2": 2.6634699048930584e-15,
+      "vector_norm_error": 8.881784197001252e-16,
+      "next_sector_gap": 0.0538400851172649,
+      "artifact_sha256": "25c7d9af7804d4ac048344825a94749570ac585983346f8cc6d7330008034cdf",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 378,
+      "matrix_bytes": 2286144,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 3,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.4
+        ],
+        [
+          0.0,
+          0.0,
+          0.4
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 1.25,
+      "wall_seconds": 0.8568079920000002,
+      "cpu_seconds": 0.782544312,
+      "peak_rss_bytes": 139792384,
+      "case_key": "pair_triplet_0.8",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.7
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.7
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 1,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+        "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+        "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.2836621966579087,
+      "total_energy_hartree": -0.5693764823721944,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.7142857142857143,
+      "overlap_eigenvalues": [
+        0.0015995344819110312,
+        0.038375288982118234,
+        0.0817431599736412,
+        0.09652979714700967,
+        0.1020123794561628,
+        0.10201237945616298,
+        0.13313487680900962,
+        0.22921993416394584,
+        0.22921993416394595,
+        0.36592877479595043,
+        0.44852265829777965,
+        0.4485226582977805,
+        0.6447710677428441,
+        0.6450789824375769,
+        0.6450789824375788,
+        1.1441576355684961,
+        1.1769736570145928,
+        1.1774356576044005,
+        1.1774356576044032,
+        1.3528289151219854,
+        1.3528289151219874,
+        1.3549210175624233,
+        1.354921017562424,
+        1.8267516877138412,
+        2.273781651383642,
+        2.689980455355723,
+        2.689980455355725,
+        4.21625286838694
+      ],
+      "Smin": 0.0015995344819110312,
+      "condition": 2635.924961961186,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 4.315992008230296e-15,
+        "kl": 4.315992008230296e-15,
+        "pair": 1.27675647831893e-15
+      },
+      "orthonormalization_error": 3.864724725555426e-14,
+      "transformed_h_asymmetry": 8.29605244364543e-18,
+      "transformed_eri_symmetry": {
+        "ij": 1.4262764443277796e-12,
+        "kl": 1.991921086625173e-12,
+        "pair": 1.6846340733736738e-12
+      },
+      "matrix_asymmetry": 8.29605244364543e-18,
+      "eigen_residual_l2": 3.7730235602495554e-17,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.6720620697142435,
+      "artifact_sha256": "dac6c7ab2e77f788e35c62049d94dbb9ff3f85d2e28aeb0c975e867e5f79d18a",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 1,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.7
+        ],
+        [
+          0.0,
+          0.0,
+          0.7
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.7142857142857143,
+      "wall_seconds": 0.8038446159999992,
+      "cpu_seconds": 0.728045079,
+      "peak_rss_bytes": 132440064,
+      "case_key": "pair_doublet_1.4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -0.7
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              0.7
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "triplet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "triplet",
+      "derived_charge_e": 0,
+      "multiplicity": 3,
+      "basis_size": 28,
+      "ci_dimension": 378,
+      "AO_sha256": {
+        "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+        "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+        "eri": "760a0ee15616f4ac01d0c2ead8203ea6445694399ffb886eb1ad200f687340c8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.493640988754922,
+      "total_energy_hartree": -0.7793552744692077,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.7142857142857143,
+      "overlap_eigenvalues": [
+        0.0015995344819110312,
+        0.038375288982118234,
+        0.0817431599736412,
+        0.09652979714700967,
+        0.1020123794561628,
+        0.10201237945616298,
+        0.13313487680900962,
+        0.22921993416394584,
+        0.22921993416394595,
+        0.36592877479595043,
+        0.44852265829777965,
+        0.4485226582977805,
+        0.6447710677428441,
+        0.6450789824375769,
+        0.6450789824375788,
+        1.1441576355684961,
+        1.1769736570145928,
+        1.1774356576044005,
+        1.1774356576044032,
+        1.3528289151219854,
+        1.3528289151219874,
+        1.3549210175624233,
+        1.354921017562424,
+        1.8267516877138412,
+        2.273781651383642,
+        2.689980455355723,
+        2.689980455355725,
+        4.21625286838694
+      ],
+      "Smin": 0.0015995344819110312,
+      "condition": 2635.924961961186,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 4.315992008230296e-15,
+        "kl": 4.315992008230296e-15,
+        "pair": 1.27675647831893e-15
+      },
+      "orthonormalization_error": 3.864724725555426e-14,
+      "transformed_h_asymmetry": 8.29605244364543e-18,
+      "transformed_eri_symmetry": {
+        "ij": 1.4262764443277796e-12,
+        "kl": 1.991921086625173e-12,
+        "pair": 1.6846340733736738e-12
+      },
+      "matrix_asymmetry": 1.2563101363524069e-13,
+      "eigen_residual_l2": 6.442326638385902e-16,
+      "vector_norm_error": 1.1102230246251565e-16,
+      "next_sector_gap": 0.16051384500744437,
+      "artifact_sha256": "c25af06f85c4581076e24592dfeb75593bb8dcc6dcb5bc8b65d2cf448f468534",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 378,
+      "matrix_bytes": 2286144,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 3,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -0.7
+        ],
+        [
+          0.0,
+          0.0,
+          0.7
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.7142857142857143,
+      "wall_seconds": 0.8187056819999974,
+      "cpu_seconds": 0.741013385,
+      "peak_rss_bytes": 139771904,
+      "case_key": "pair_triplet_1.4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 1,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "a06e361423f4187bc03e5c4d0e18443a8c67041eae0c981be4336dbea3082dd2",
+        "h": "090e662629c27831b0b2e296c54883ba8d78bef9e2c624c8bdc21bb0cdf96daf",
+        "eri": "90713b75047c121b1b50a151748471a5b205c7d035f43014b4d6925b870758ec"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.1022444255722408,
+      "total_energy_hartree": -0.6022444255722408,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.5,
+      "overlap_eigenvalues": [
+        0.009527885559084301,
+        0.05951136024399083,
+        0.12056953658370803,
+        0.22080011619290296,
+        0.22080011619290454,
+        0.23911382788698415,
+        0.298124780160366,
+        0.3974858398386305,
+        0.4382626807398175,
+        0.4382626807398177,
+        0.5175934239095755,
+        0.5175934239095766,
+        0.7105205730309909,
+        0.8792460168205328,
+        0.8792460168205333,
+        1.1207539831794664,
+        1.1207539831794668,
+        1.1738555225644542,
+        1.200716098334869,
+        1.2556972108129993,
+        1.2556972108129998,
+        1.35160464127991,
+        1.3516046412799116,
+        1.9312727600936481,
+        1.974542014525083,
+        2.216041927064795,
+        2.2160419270647953,
+        3.884759801178194
+      ],
+      "Smin": 0.009527885559084301,
+      "condition": 407.72527934850086,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 2.1649348980190553e-15,
+        "kl": 2.1649348980190553e-15,
+        "pair": 8.881784197001252e-16
+      },
+      "orthonormalization_error": 5.943869967949613e-15,
+      "transformed_h_asymmetry": 2.0599841277224877e-18,
+      "transformed_eri_symmetry": {
+        "ij": 4.3539295974982795e-14,
+        "kl": 3.124534797018484e-14,
+        "pair": 3.07907318348663e-14
+      },
+      "matrix_asymmetry": 2.0599841277224877e-18,
+      "eigen_residual_l2": 1.0776969594505914e-16,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.4351023440503906,
+      "artifact_sha256": "f835358abd716dfd9406d082cd482534c6bdee44d3617534baa695d20fda6bc0",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 1,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.5,
+      "wall_seconds": 0.8384099479999989,
+      "cpu_seconds": 0.76384049,
+      "peak_rss_bytes": 132505600,
+      "case_key": "pair_doublet_2",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "triplet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "triplet",
+      "derived_charge_e": 0,
+      "multiplicity": 3,
+      "basis_size": 28,
+      "ci_dimension": 378,
+      "AO_sha256": {
+        "s": "a06e361423f4187bc03e5c4d0e18443a8c67041eae0c981be4336dbea3082dd2",
+        "h": "090e662629c27831b0b2e296c54883ba8d78bef9e2c624c8bdc21bb0cdf96daf",
+        "eri": "90713b75047c121b1b50a151748471a5b205c7d035f43014b4d6925b870758ec"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.3955798661928118,
+      "total_energy_hartree": -0.8955798661928118,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.5,
+      "overlap_eigenvalues": [
+        0.009527885559084301,
+        0.05951136024399083,
+        0.12056953658370803,
+        0.22080011619290296,
+        0.22080011619290454,
+        0.23911382788698415,
+        0.298124780160366,
+        0.3974858398386305,
+        0.4382626807398175,
+        0.4382626807398177,
+        0.5175934239095755,
+        0.5175934239095766,
+        0.7105205730309909,
+        0.8792460168205328,
+        0.8792460168205333,
+        1.1207539831794664,
+        1.1207539831794668,
+        1.1738555225644542,
+        1.200716098334869,
+        1.2556972108129993,
+        1.2556972108129998,
+        1.35160464127991,
+        1.3516046412799116,
+        1.9312727600936481,
+        1.974542014525083,
+        2.216041927064795,
+        2.2160419270647953,
+        3.884759801178194
+      ],
+      "Smin": 0.009527885559084301,
+      "condition": 407.72527934850086,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 2.1649348980190553e-15,
+        "kl": 2.1649348980190553e-15,
+        "pair": 8.881784197001252e-16
+      },
+      "orthonormalization_error": 5.943869967949613e-15,
+      "transformed_h_asymmetry": 2.0599841277224877e-18,
+      "transformed_eri_symmetry": {
+        "ij": 4.3539295974982795e-14,
+        "kl": 3.124534797018484e-14,
+        "pair": 3.07907318348663e-14
+      },
+      "matrix_asymmetry": 2.2658775084092447e-14,
+      "eigen_residual_l2": 7.312664084275931e-16,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 0.2787711505222614,
+      "artifact_sha256": "0657bf63c149bf8144ab4599cc2caf3b8c8d8e962acf593e3aab341e2b37ae5a",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 378,
+      "matrix_bytes": 2286144,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 3,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.5,
+      "wall_seconds": 0.976819975999998,
+      "cpu_seconds": 0.893069662,
+      "peak_rss_bytes": 139755520,
+      "case_key": "pair_triplet_2",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -2.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              2.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 1,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "5f14f76c3b3adc4487a7a5fe1c05959396daacc70cda106c2451ec06a71905c6",
+        "h": "429be625ab2148cb4e917de5384b713a26597fdfbc0736cbe737cffb9d3c9452",
+        "eri": "8818c1cc704dfa524725cf19d11d894ea874d54bbbf4b10aa77c321eb3c45ae8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -0.7942580387692789,
+      "total_energy_hartree": -0.5442580387692789,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.25,
+      "overlap_eigenvalues": [
+        0.08410549893724761,
+        0.11127241075107053,
+        0.24234557340983087,
+        0.3667185415107677,
+        0.36671854151076827,
+        0.4021400907905508,
+        0.40214009079055135,
+        0.4359788996160462,
+        0.498567553361258,
+        0.7153517856486566,
+        0.9842186126675848,
+        0.9966028109831813,
+        0.996602810983182,
+        0.9997873791446059,
+        0.9997873791446062,
+        1.0002126208553936,
+        1.000212620855394,
+        1.0033641285439687,
+        1.0033641285439692,
+        1.0147850187067742,
+        1.448835784221908,
+        1.5884131294699297,
+        1.5884131294699302,
+        1.6427612987015991,
+        1.6427612987015991,
+        1.7503548500335933,
+        1.9786844403395236,
+        2.735499572306508
+      ],
+      "Smin": 0.08410549893724761,
+      "condition": 32.52462213377398,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 3.670181766078525e-15,
+      "transformed_h_asymmetry": 1.6847849280357557e-19,
+      "transformed_eri_symmetry": {
+        "ij": 9.919873895838233e-16,
+        "kl": 1.363418113218412e-15,
+        "pair": 1.1863001358157488e-15
+      },
+      "matrix_asymmetry": 1.6847849280357557e-19,
+      "eigen_residual_l2": 3.524199161664132e-16,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.09903155878754588,
+      "artifact_sha256": "e6118de1942476730ac1d60ca3ed1d9c83db99da61bd4988f755e31519acb0dd",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 1,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.25,
+      "wall_seconds": 0.768857122,
+      "cpu_seconds": 0.6965720129999999,
+      "peak_rss_bytes": 132292608,
+      "case_key": "pair_doublet_4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -2.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              2.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "singlet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "singlet",
+      "derived_charge_e": 0,
+      "multiplicity": 1,
+      "basis_size": 28,
+      "ci_dimension": 406,
+      "AO_sha256": {
+        "s": "5f14f76c3b3adc4487a7a5fe1c05959396daacc70cda106c2451ec06a71905c6",
+        "h": "429be625ab2148cb4e917de5384b713a26597fdfbc0736cbe737cffb9d3c9452",
+        "eri": "8818c1cc704dfa524725cf19d11d894ea874d54bbbf4b10aa77c321eb3c45ae8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.2648498947395685,
+      "total_energy_hartree": -1.0148498947395685,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.25,
+      "overlap_eigenvalues": [
+        0.08410549893724761,
+        0.11127241075107053,
+        0.24234557340983087,
+        0.3667185415107677,
+        0.36671854151076827,
+        0.4021400907905508,
+        0.40214009079055135,
+        0.4359788996160462,
+        0.498567553361258,
+        0.7153517856486566,
+        0.9842186126675848,
+        0.9966028109831813,
+        0.996602810983182,
+        0.9997873791446059,
+        0.9997873791446062,
+        1.0002126208553936,
+        1.000212620855394,
+        1.0033641285439687,
+        1.0033641285439692,
+        1.0147850187067742,
+        1.448835784221908,
+        1.5884131294699297,
+        1.5884131294699302,
+        1.6427612987015991,
+        1.6427612987015991,
+        1.7503548500335933,
+        1.9786844403395236,
+        2.735499572306508
+      ],
+      "Smin": 0.08410549893724761,
+      "condition": 32.52462213377398,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 3.670181766078525e-15,
+      "transformed_h_asymmetry": 1.6847849280357557e-19,
+      "transformed_eri_symmetry": {
+        "ij": 9.919873895838233e-16,
+        "kl": 1.363418113218412e-15,
+        "pair": 1.1863001358157488e-15
+      },
+      "matrix_asymmetry": 6.19458911249593e-16,
+      "eigen_residual_l2": 2.2736812444253303e-15,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 0.2973490605470315,
+      "artifact_sha256": "b7cb8a91dc22c0bacb88db773fd1087772caeb1dfc28ffb512c022e4bea843bf",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 406,
+      "matrix_bytes": 2637376,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 1,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.25,
+      "wall_seconds": 0.8012969229999989,
+      "cpu_seconds": 0.7295461090000002,
+      "peak_rss_bytes": 140767232,
+      "case_key": "pair_singlet_4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -2.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              2.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "triplet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "triplet",
+      "derived_charge_e": 0,
+      "multiplicity": 3,
+      "basis_size": 28,
+      "ci_dimension": 378,
+      "AO_sha256": {
+        "s": "5f14f76c3b3adc4487a7a5fe1c05959396daacc70cda106c2451ec06a71905c6",
+        "h": "429be625ab2148cb4e917de5384b713a26597fdfbc0736cbe737cffb9d3c9452",
+        "eri": "8818c1cc704dfa524725cf19d11d894ea874d54bbbf4b10aa77c321eb3c45ae8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.2426873477199145,
+      "total_energy_hartree": -0.9926873477199145,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.25,
+      "overlap_eigenvalues": [
+        0.08410549893724761,
+        0.11127241075107053,
+        0.24234557340983087,
+        0.3667185415107677,
+        0.36671854151076827,
+        0.4021400907905508,
+        0.40214009079055135,
+        0.4359788996160462,
+        0.498567553361258,
+        0.7153517856486566,
+        0.9842186126675848,
+        0.9966028109831813,
+        0.996602810983182,
+        0.9997873791446059,
+        0.9997873791446062,
+        1.0002126208553936,
+        1.000212620855394,
+        1.0033641285439687,
+        1.0033641285439692,
+        1.0147850187067742,
+        1.448835784221908,
+        1.5884131294699297,
+        1.5884131294699302,
+        1.6427612987015991,
+        1.6427612987015991,
+        1.7503548500335933,
+        1.9786844403395236,
+        2.735499572306508
+      ],
+      "Smin": 0.08410549893724761,
+      "condition": 32.52462213377398,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 3.670181766078525e-15,
+      "transformed_h_asymmetry": 1.6847849280357557e-19,
+      "transformed_eri_symmetry": {
+        "ij": 9.919873895838233e-16,
+        "kl": 1.363418113218412e-15,
+        "pair": 1.1863001358157488e-15
+      },
+      "matrix_asymmetry": 2.841321199587715e-16,
+      "eigen_residual_l2": 1.8576108065536485e-16,
+      "vector_norm_error": 1.1102230246251565e-15,
+      "next_sector_gap": 0.5149289818513008,
+      "artifact_sha256": "ed00a08f6902e86fa3f893eb36f9ccdfbd2bfae8e7a92d083dc50f12eca32d46",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 378,
+      "matrix_bytes": 2286144,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 3,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.25,
+      "wall_seconds": 0.8099311219999983,
+      "cpu_seconds": 0.736063415,
+      "peak_rss_bytes": 139784192,
+      "case_key": "pair_triplet_4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -10.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              10.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 1,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "b9c8620ef6892d08b2ef3545f19503b68983bde90e8c3792558040dd1a5093a3",
+        "h": "8fb4b3a2251d622f893588a08b6e52b67d2d946c222eb1896c0f33afe2b60859",
+        "eri": "9485931831da860f46365f5e4018019bdbde0800c26e333a78d7a5d6c4805317"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -0.5498157048609442,
+      "total_energy_hartree": -0.49981570486094423,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.05,
+      "overlap_eigenvalues": [
+        0.10927857023899665,
+        0.10927857087103211,
+        0.38507643594180213,
+        0.38507643594180224,
+        0.38507643594180263,
+        0.38507643594180274,
+        0.3850764359418028,
+        0.3850764359418035,
+        0.6294858676971942,
+        0.6294858687204175,
+        0.9999999999999994,
+        0.9999999999999996,
+        0.9999999999999996,
+        1.0,
+        1.0,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000018,
+        1.6149235640581958,
+        1.6149235640581965,
+        1.6149235640581967,
+        1.6149235640581974,
+        1.6149235640581983,
+        1.6149235640581983,
+        2.2612355608626746,
+        2.2612355616096833
+      ],
+      "Smin": 0.10927857023899665,
+      "condition": 20.69239702408505,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 2.3816267126157297e-15,
+      "transformed_h_asymmetry": 1.0687278254126846e-19,
+      "transformed_eri_symmetry": {
+        "ij": 7.00218420572607e-16,
+        "kl": 1.1176972433517285e-15,
+        "pair": 8.627403262281841e-16
+      },
+      "matrix_asymmetry": 1.0687278254126846e-19,
+      "eigen_residual_l2": 2.9067460244344627e-16,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 5.671172420562698e-10,
+      "artifact_sha256": "56d154b98ed72d0032bf0b6dc9372113a2653ff3dc1df9a40fd76ad45450fdcb",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 1,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.05,
+      "wall_seconds": 1.3294459070000038,
+      "cpu_seconds": 0.884083215,
+      "peak_rss_bytes": 132386816,
+      "case_key": "pair_doublet_20",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -10.0
+            ]
+          },
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              10.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [],
+        "electrons": 2,
+        "sector": "triplet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 2,
+      "sector": "triplet",
+      "derived_charge_e": 0,
+      "multiplicity": 3,
+      "basis_size": 28,
+      "ci_dimension": 378,
+      "AO_sha256": {
+        "s": "b9c8620ef6892d08b2ef3545f19503b68983bde90e8c3792558040dd1a5093a3",
+        "h": "8fb4b3a2251d622f893588a08b6e52b67d2d946c222eb1896c0f33afe2b60859",
+        "eri": "9485931831da860f46365f5e4018019bdbde0800c26e333a78d7a5d6c4805317"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -1.0496196559748818,
+      "total_energy_hartree": -0.9996196559748818,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.05,
+      "overlap_eigenvalues": [
+        0.10927857023899665,
+        0.10927857087103211,
+        0.38507643594180213,
+        0.38507643594180224,
+        0.38507643594180263,
+        0.38507643594180274,
+        0.3850764359418028,
+        0.3850764359418035,
+        0.6294858676971942,
+        0.6294858687204175,
+        0.9999999999999994,
+        0.9999999999999996,
+        0.9999999999999996,
+        1.0,
+        1.0,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000018,
+        1.6149235640581958,
+        1.6149235640581965,
+        1.6149235640581967,
+        1.6149235640581974,
+        1.6149235640581983,
+        1.6149235640581983,
+        2.2612355608626746,
+        2.2612355616096833
+      ],
+      "Smin": 0.10927857023899665,
+      "condition": 20.69239702408505,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 2.3816267126157297e-15,
+      "transformed_h_asymmetry": 1.0687278254126846e-19,
+      "transformed_eri_symmetry": {
+        "ij": 7.00218420572607e-16,
+        "kl": 1.1176972433517285e-15,
+        "pair": 8.627403262281841e-16
+      },
+      "matrix_asymmetry": 1.741025401104379e-16,
+      "eigen_residual_l2": 4.0149197007995104e-16,
+      "vector_norm_error": 1.1102230246251565e-16,
+      "next_sector_gap": 0.5256155825854985,
+      "artifact_sha256": "386d48eb441e4c29513b020459bd3da2816d8db4be29273e1ccb168e6ae13b9f",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 378,
+      "matrix_bytes": 2286144,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 3,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.05,
+      "wall_seconds": 1.7835919219999994,
+      "cpu_seconds": 1.1379965419999998,
+      "peak_rss_bytes": 139735040,
+      "case_key": "pair_triplet_20",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -2.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [
+          [
+            0.0,
+            0.0,
+            2.0
+          ]
+        ],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 0,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "5f14f76c3b3adc4487a7a5fe1c05959396daacc70cda106c2451ec06a71905c6",
+        "h": "e51237c23227a55779fe44c9d285d1b1db799ab2def254662d3fc77c54f584e9",
+        "eri": "8818c1cc704dfa524725cf19d11d894ea874d54bbbf4b10aa77c321eb3c45ae8"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -0.4998112994766909,
+      "total_energy_hartree": -0.4998112994766909,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.0,
+      "overlap_eigenvalues": [
+        0.08410549893724761,
+        0.11127241075107053,
+        0.24234557340983087,
+        0.3667185415107677,
+        0.36671854151076827,
+        0.4021400907905508,
+        0.40214009079055135,
+        0.4359788996160462,
+        0.498567553361258,
+        0.7153517856486566,
+        0.9842186126675848,
+        0.9966028109831813,
+        0.996602810983182,
+        0.9997873791446059,
+        0.9997873791446062,
+        1.0002126208553936,
+        1.000212620855394,
+        1.0033641285439687,
+        1.0033641285439692,
+        1.0147850187067742,
+        1.448835784221908,
+        1.5884131294699297,
+        1.5884131294699302,
+        1.6427612987015991,
+        1.6427612987015991,
+        1.7503548500335933,
+        1.9786844403395236,
+        2.735499572306508
+      ],
+      "Smin": 0.08410549893724761,
+      "condition": 32.52462213377398,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 2.41782605008316e-15,
+      "transformed_h_asymmetry": 4.1351089693770904e-19,
+      "transformed_eri_symmetry": {
+        "ij": 1.3894931754666884e-15,
+        "kl": 2.2904177469570963e-15,
+        "pair": 1.7895027907416372e-15
+      },
+      "matrix_asymmetry": 4.1351089693770904e-19,
+      "eigen_residual_l2": 1.8426015921391148e-16,
+      "vector_norm_error": 2.220446049250313e-16,
+      "next_sector_gap": 0.42810749026569694,
+      "artifact_sha256": "71a690898d9f431f36eb59d8fc7562f18432343428e45e57d693b00461248e53",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -2.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.0,
+      "wall_seconds": 2.8506232610000026,
+      "cpu_seconds": 1.3620905250000002,
+      "peak_rss_bytes": 132198400,
+      "case_key": "ghost_4",
+      "process_exitcode": 0
+    },
+    {
+      "input": {
+        "nuclei": [
+          {
+            "Z": 1,
+            "position_bohr": [
+              0.0,
+              0.0,
+              -10.0
+            ]
+          }
+        ],
+        "ghost_centers_bohr": [
+          [
+            0.0,
+            0.0,
+            10.0
+          ]
+        ],
+        "electrons": 1,
+        "sector": "doublet",
+        "basis": "cc-pVTZ",
+        "law": "isolated_clamped_nonrelativistic_coulomb"
+      },
+      "electrons": 1,
+      "sector": "doublet",
+      "derived_charge_e": 0,
+      "multiplicity": 2,
+      "basis_size": 28,
+      "ci_dimension": 28,
+      "AO_sha256": {
+        "s": "b9c8620ef6892d08b2ef3545f19503b68983bde90e8c3792558040dd1a5093a3",
+        "h": "d4acee1a47f10b13d8f01926e27b9e98de7c386a9802a603c30f6e9afd6b065e",
+        "eri": "9485931831da860f46365f5e4018019bdbde0800c26e333a78d7a5d6c4805317"
+      },
+      "longdouble_nmant": 63,
+      "accepted": true,
+      "status": "NUMERICAL_RESULT_NOT_CERTIFIED",
+      "electronic_energy_hartree": -0.4998098113018434,
+      "total_energy_hartree": -0.4998098113018434,
+      "failure_stage": null,
+      "iteration_count": null,
+      "spherical": true,
+      "nuclear_repulsion_hartree": 0.0,
+      "overlap_eigenvalues": [
+        0.10927857023899665,
+        0.10927857087103211,
+        0.38507643594180213,
+        0.38507643594180224,
+        0.38507643594180263,
+        0.38507643594180274,
+        0.3850764359418028,
+        0.3850764359418035,
+        0.6294858676971942,
+        0.6294858687204175,
+        0.9999999999999994,
+        0.9999999999999996,
+        0.9999999999999996,
+        1.0,
+        1.0,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000002,
+        1.0000000000000018,
+        1.6149235640581958,
+        1.6149235640581965,
+        1.6149235640581967,
+        1.6149235640581974,
+        1.6149235640581983,
+        1.6149235640581983,
+        2.2612355608626746,
+        2.2612355616096833
+      ],
+      "Smin": 0.10927857023899665,
+      "condition": 20.69239702408505,
+      "AO_s_asymmetry": 0.0,
+      "AO_h_asymmetry": 0.0,
+      "AO_eri_symmetry": {
+        "ij": 1.6653345369377348e-16,
+        "kl": 2.220446049250313e-16,
+        "pair": 3.3306690738754696e-16
+      },
+      "orthonormalization_error": 1.6073041208853413e-15,
+      "transformed_h_asymmetry": 3.848006469481237e-19,
+      "transformed_eri_symmetry": {
+        "ij": 1.3523456985319038e-15,
+        "kl": 2.143210196987877e-15,
+        "pair": 1.6339062264628113e-15
+      },
+      "matrix_asymmetry": 3.848006469481237e-19,
+      "eigen_residual_l2": 3.1452705023804484e-16,
+      "vector_norm_error": 0.0,
+      "next_sector_gap": 0.5256155677832225,
+      "artifact_sha256": "a990f8641fe20fb7fbb2e968a3e3f24aeca873c099050438894fe5e66d4e491d",
+      "artifact_file": "matrices.npz",
+      "matrix_dimension": 28,
+      "matrix_bytes": 12544,
+      "backend": "Psi4/Libint independent binary64 AO, extended full contractions, binary64 LAPACK",
+      "basis_shells": 12,
+      "backend_charge_e": 0,
+      "backend_multiplicity": 2,
+      "backend_positions_bohr": [
+        [
+          0.0,
+          0.0,
+          -10.0
+        ],
+        [
+          0.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "backend_nuclear_repulsion_hartree": 0.0,
+      "wall_seconds": 1.1786970920000002,
+      "cpu_seconds": 1.002976488,
+      "peak_rss_bytes": 132427776,
+      "case_key": "ghost_20",
+      "process_exitcode": 0
+    }
+  ],
+  "control_gate": "PASS",
+  "seal_sha256": "0a34a76bc2b9bbdcf6a99cb6c2969ea1018b0c713aae0bac86dc3b6aac1e43f8",
+  "wall_seconds": 41.365925407999995,
+  "protected_bytes_unchanged": true,
+  "source_bytes_unchanged": true
+}
