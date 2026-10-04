@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Exact Expression Gate V1](active/EXACT_EXPRESSION_GATE_V1.md)·[증거](active/exact_expression_gate_v1/verdict.json):
+SURVEY_ONLY, COMPARISON_COMPLETE(승자 없음). V0의 도메인 소거·비교 결함 수정, C_stream 추가. 승격 아님.
+
 [Exact Expression State Gate V0](active/EXACT_EXPRESSION_STATE_GATE_V0.md)·[증거](active/exact_expression_gate_v0/verdict.json):
 ALTERNATIVE NUMERIC WORLD SEMANTICS / SURVEY_ONLY, 판정 EXPRESSION_WALL(+REPLAY_DOMINATES). C1-B1 대체 아님.
 

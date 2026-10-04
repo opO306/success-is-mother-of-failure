@@ -4,6 +4,11 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Exact Expression Gate V1 (2026-10-05, SURVEY_ONLY / ALTERNATIVE NUMERIC WORLD SEMANTICS):** [결과](docs/active/EXACT_EXPRESSION_GATE_V1.md), 봉인 `1c0e751`. 설계자 통합 판정(EXPERIMENT NEEDED) 단계 0·1·2 이행. V0는 수정하지 않음.
+판정 **COMPARISON_COMPLETE**(승자·승격 없음): 70작업 완료, 독립 replay 12/12, 봉인 주장 K1〜K5·예측 P1〜P5 전부 HOLDS. 도메인 의무를 B의 접힘 뒤에도 유지(V0 B는 거리 0을 통과시켰음), 경로별 독립 정밀도 탐색.
+C_stream은 replay와 끝점 해시까지 동일. 1…100 step 전부 질의에서 C가 32/34/40배 CPU, 드문 체크포인트에서는 동률. DAG는 시간 이득 없고 피크 RSS만 큼(최대 145 vs 31 MB). 정확 동점 반례는 B·CX만 64비트에 결정.
+**공개:** CX는 "국소 대수 + 스트리밍"이 아니라 정확 수 유지 정도라 상호작용 시나리오에서 C_stream과 같음(P5는 자명한 통과), 시간은 1회 측정·6작업 동시, 1,000 step까지, 검사기는 힘 식(lang_iv)을 공유. 관련 시험 통과, LOCAL FULL 생략.
+
 **Exact Expression State Gate V0 (2026-10-05, ALTERNATIVE NUMERIC WORLD SEMANTICS / SURVEY_ONLY):** [결과](docs/active/EXACT_EXPRESSION_STATE_GATE_V0.md), 봉인 `848ceaf`(+저장 형식 수정 `9dfd3f8`).
 판정 **EXPRESSION_WALL**(REPLAY_DOMINATES와 3:3 동수, 동수 규칙 미봉인 공개). 식 크기 step 선형, 최적화 1.5〜2.2×, 3원자 10,000 step 상태 약 200만 단위.
 식 평가 ≈ replay 속도. 인증 비트 10,000 step에서 192〜512(실제 민감도 2〜21 bit, 대부분 구간 과대추정). 자유 비행만 O(1)로 접힘.

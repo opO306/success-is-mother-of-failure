@@ -1,0 +1,636 @@
+{
+ "verdict": "COMPARISON_COMPLETE",
+ "incomplete_reasons": [],
+ "claims": {
+  "K1_DOMAIN": "HOLDS",
+  "K2_HALFWAY": "HOLDS",
+  "K3_STREAM_IDENTITY": "HOLDS",
+  "K4_AGREEMENT": "HOLDS",
+  "K5_FREE": "HOLDS"
+ },
+ "predictions": {
+  "P1": "HOLDS",
+  "P2": "HOLDS",
+  "P3": "HOLDS",
+  "P4": "HOLDS",
+  "P5": "HOLDS"
+ },
+ "replay_confirmations": [
+  {
+   "scenario": "F_free",
+   "step": 10,
+   "start_bits": 64,
+   "confirmed": true,
+   "bits": 64
+  },
+  {
+   "scenario": "F_free",
+   "step": 100,
+   "start_bits": 64,
+   "confirmed": true,
+   "bits": 64
+  },
+  {
+   "scenario": "F_free",
+   "step": 1000,
+   "start_bits": 64,
+   "confirmed": true,
+   "bits": 64
+  },
+  {
+   "scenario": "A2_bound",
+   "step": 10,
+   "start_bits": 96,
+   "confirmed": true,
+   "bits": 96
+  },
+  {
+   "scenario": "A2_bound",
+   "step": 100,
+   "start_bits": 128,
+   "confirmed": true,
+   "bits": 128
+  },
+  {
+   "scenario": "A2_bound",
+   "step": 1000,
+   "start_bits": 128,
+   "confirmed": true,
+   "bits": 128
+  },
+  {
+   "scenario": "A3_low",
+   "step": 10,
+   "start_bits": 96,
+   "confirmed": true,
+   "bits": 96
+  },
+  {
+   "scenario": "A3_low",
+   "step": 100,
+   "start_bits": 96,
+   "confirmed": true,
+   "bits": 96
+  },
+  {
+   "scenario": "A3_low",
+   "step": 1000,
+   "start_bits": 96,
+   "confirmed": true,
+   "bits": 96
+  },
+  {
+   "scenario": "A3_high",
+   "step": 10,
+   "start_bits": 96,
+   "confirmed": true,
+   "bits": 96
+  },
+  {
+   "scenario": "A3_high",
+   "step": 100,
+   "start_bits": 128,
+   "confirmed": true,
+   "bits": 128
+  },
+  {
+   "scenario": "A3_high",
+   "step": 1000,
+   "start_bits": 192,
+   "confirmed": true,
+   "bits": 192
+  }
+ ],
+ "comparison": {
+  "F_free": {
+   "cold": {
+    "least_cost_set": [
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 0.1875,
+     "B": 0.125,
+     "C": 0.03125,
+     "CS": 0.046875,
+     "CX": 0.015625
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 34009088,
+     "B": 31989760,
+     "C": 30560256,
+     "CS": 30822400,
+     "CX": 30027776
+    }
+   },
+   "warm": {
+    "least_cost_set": [
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 0.15625,
+     "B": 0.09375,
+     "C": 0.046875,
+     "CS": 0.015625,
+     "CX": 0.015625
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 33681408,
+     "B": 32067584,
+     "C": 30797824,
+     "CS": 29986816,
+     "CX": 30777344
+    }
+   },
+   "every": {
+    "least_cost_set": [
+     "CS"
+    ],
+    "cpu_s": {
+     "A": 0.046875,
+     "B": 0.03125,
+     "C": 0.171875,
+     "CS": 0.0,
+     "CX": 0.015625
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 31002624,
+     "B": 30822400,
+     "C": 30830592,
+     "CS": 30769152,
+     "CX": 30633984
+    }
+   },
+   "bits_cold": {
+    "A": {
+     "10": 64,
+     "100": 64,
+     "1000": 64
+    },
+    "B": {
+     "10": 64,
+     "100": 64,
+     "1000": 64
+    },
+    "C": {
+     "10": 64,
+     "100": 64,
+     "1000": 64
+    },
+    "CS": {
+     "10": 64,
+     "100": 64,
+     "1000": 64
+    },
+    "CX": {
+     "10": 64,
+     "100": 64,
+     "1000": 64
+    }
+   }
+  },
+  "A2_bound": {
+   "cold": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 25.046875,
+     "B": 25.453125,
+     "C": 24.359375,
+     "CS": 23.828125,
+     "CX": 24.453125
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 66371584,
+     "B": 52768768,
+     "C": 30388224,
+     "CS": 30916608,
+     "CX": 30560256
+    }
+   },
+   "warm": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 24.171875,
+     "B": 23.328125,
+     "C": 24.03125,
+     "CS": 21.375,
+     "CX": 21.265625
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 66576384,
+     "B": 52600832,
+     "C": 30842880,
+     "CS": 30666752,
+     "CX": 30507008
+    }
+   },
+   "every": {
+    "least_cost_set": [
+     "B",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 2.828125,
+     "B": 2.6875,
+     "C": 70.921875,
+     "CS": 2.21875,
+     "CX": 2.359375
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 34189312,
+     "B": 32849920,
+     "C": 30928896,
+     "CS": 30715904,
+     "CX": 30814208
+    }
+   },
+   "bits_cold": {
+    "A": {
+     "10": 96,
+     "100": 128,
+     "1000": 128
+    },
+    "B": {
+     "10": 96,
+     "100": 128,
+     "1000": 128
+    },
+    "C": {
+     "10": 96,
+     "100": 128,
+     "1000": 128
+    },
+    "CS": {
+     "10": 96,
+     "100": 128,
+     "1000": 128
+    },
+    "CX": {
+     "10": 96,
+     "100": 128,
+     "1000": 128
+    }
+   }
+  },
+  "A3_low": {
+   "cold": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 49.421875,
+     "B": 46.09375,
+     "C": 40.734375,
+     "CS": 40.53125,
+     "CX": 41.984375
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 122998784,
+     "B": 76464128,
+     "C": 30715904,
+     "CS": 30613504,
+     "CX": 30613504
+    }
+   },
+   "warm": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 44.59375,
+     "B": 40.046875,
+     "C": 41.078125,
+     "CS": 36.9375,
+     "CX": 37.625
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 120442880,
+     "B": 73637888,
+     "C": 30691328,
+     "CS": 30732288,
+     "CX": 30842880
+    }
+   },
+   "every": {
+    "least_cost_set": [
+     "B",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 7.84375,
+     "B": 6.890625,
+     "C": 192.171875,
+     "CS": 5.625,
+     "CX": 5.75
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 40923136,
+     "B": 35532800,
+     "C": 30801920,
+     "CS": 30781440,
+     "CX": 30654464
+    }
+   },
+   "bits_cold": {
+    "A": {
+     "10": 96,
+     "100": 96,
+     "1000": 96
+    },
+    "B": {
+     "10": 96,
+     "100": 96,
+     "1000": 96
+    },
+    "C": {
+     "10": 96,
+     "100": 96,
+     "1000": 96
+    },
+    "CS": {
+     "10": 96,
+     "100": 96,
+     "1000": 96
+    },
+    "CX": {
+     "10": 96,
+     "100": 96,
+     "1000": 96
+    }
+   }
+  },
+  "A3_high": {
+   "cold": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 94.015625,
+     "B": 90.890625,
+     "C": 80.71875,
+     "CS": 80.765625,
+     "CX": 84.71875
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 145481728,
+     "B": 100876288,
+     "C": 30531584,
+     "CS": 30715904,
+     "CX": 30638080
+    }
+   },
+   "warm": {
+    "least_cost_set": [
+     "A",
+     "B",
+     "C",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 87.484375,
+     "B": 84.0,
+     "C": 81.328125,
+     "CS": 74.828125,
+     "CX": 84.578125
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 145207296,
+     "B": 100536320,
+     "C": 30765056,
+     "CS": 31002624,
+     "CX": 30560256
+    }
+   },
+   "every": {
+    "least_cost_set": [
+     "B",
+     "CS",
+     "CX"
+    ],
+    "cpu_s": {
+     "A": 8.46875,
+     "B": 8.03125,
+     "C": 265.984375,
+     "CS": 6.6875,
+     "CX": 6.921875
+    },
+    "complete": {
+     "A": true,
+     "B": true,
+     "C": true,
+     "CS": true,
+     "CX": true
+    },
+    "peak_rss": {
+     "A": 41938944,
+     "B": 38518784,
+     "C": 31117312,
+     "CS": 30695424,
+     "CX": 31256576
+    }
+   },
+   "bits_cold": {
+    "A": {
+     "10": 96,
+     "100": 128,
+     "1000": 192
+    },
+    "B": {
+     "10": 96,
+     "100": 128,
+     "1000": 192
+    },
+    "C": {
+     "10": 96,
+     "100": 128,
+     "1000": 192
+    },
+    "CS": {
+     "10": 96,
+     "100": 128,
+     "1000": 192
+    },
+    "CX": {
+     "10": 96,
+     "100": 128,
+     "1000": 192
+    }
+   }
+  }
+ },
+ "controls": {
+  "H_halfway": {
+   "A": {
+    "status": "UNDECIDED_AT_CAP"
+   },
+   "B": {
+    "status": "DECIDED",
+    "bits": 64,
+    "cells": [
+     0,
+     0,
+     0,
+     1208925819614629174706176,
+     0,
+     0
+    ],
+    "key": "da68af4706fcdd9027cd9dae4532c35901650c37f0fec9995f1eeeef8c24e7aa"
+   },
+   "C": {
+    "status": "UNDECIDED_AT_CAP"
+   },
+   "CS": {
+    "status": "UNDECIDED_AT_CAP"
+   },
+   "CX": {
+    "status": "DECIDED",
+    "bits": 64,
+    "cells": [
+     0,
+     0,
+     0,
+     1208925819614629174706176,
+     0,
+     0
+    ],
+    "key": "2646102bca53d9ed1c8456007bf7d5e99cfb8afbcbdedba7f5e053336a057a61"
+   }
+  },
+  "D_zero": {
+   "A": {
+    "status": "REFUSED_DOMAIN",
+    "completed_steps": 0,
+    "reason": "force undefined at the positions of step 0"
+   },
+   "B": {
+    "status": "REFUSED_DOMAIN",
+    "completed_steps": 0,
+    "reason": "force undefined at the positions of step 0"
+   },
+   "C": {
+    "status": "REFUSED_DOMAIN",
+    "completed_steps": 0,
+    "reason": "force undefined at the positions of step 0"
+   },
+   "CS": {
+    "status": "REFUSED_DOMAIN",
+    "completed_steps": 0,
+    "reason": "force undefined at the positions of step 0"
+   },
+   "CX": {
+    "status": "REFUSED_DOMAIN",
+    "completed_steps": 0,
+    "reason": "force undefined at the positions of step 0"
+   }
+  }
+ },
+ "note": "No PROMISING/PASS label exists in V1; no path is promoted. Timings are EXECUTED measurements under the disclosed concurrency, not verified performance.",
+ "checker_cost": {
+  "wall_s": 42.38368309999714,
+  "cpu_s": 41.4375
+ }
+}

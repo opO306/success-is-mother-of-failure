@@ -675,3 +675,16 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | raw nonsymmetric overlap을 정확히 symmetric인 것처럼 취급 | 첫 HP run STOP 보존; 후속 lower-triangle recurrence를 full raw S로 검사해 잔여 오차 공개, asymmetric S 주입 시험 | 고정밀 linear algebra가 binary64 AO data를 고정밀 물리 integral로 바꾸지 않음 |
 | MP antisymmetry contraction의 index/normalization 결함 | 별도로 만든 작은 full tensor contraction의 여러 coupling과 대조 | 실제 QZ HP는 대표 coupling만, full spectrum/행렬 오차 상한 아님 |
 | 새 QZ 34점만으로 minimum/full curve PASS 선언 | 기존 checker가 left-support boundary minimum/depth를 null, incomplete curve를 false로 유지 | 44점의 실제 supported 계산·물리 일치까지 인증하는 checker 아님 |
+
+### Exact Expression Gate V1 (2026-10-05)
+
+[결과](../active/EXACT_EXPRESSION_GATE_V1.md). 시험 `tests/test_exact_expression_gate_v1.py`, 증거 재검사 `tests/test_exact_expression_gate_v1_evidence.py`.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| **V0 B의 도메인 소거(실제 결함, 제출 재현)** | 두 원자가 같은 자리일 때 V0 A는 거부, B는 `G(0)*0` 접힘으로 G가 도달 불가해져 12성분 0을 반환. V1은 G를 의무로 따로 기록해 5경로 모두 거부. V0 동작은 `legacy_defect`로 보존 | 의무는 생성된 G 노드 기준이며 다른 단순화 규칙이 생기면 새로 확인해야 함 |
+| 빈·누락 증거에 긍정 라벨(V0 판정기 결함) | 결과 파일 0개를 주면 미비 71건·모든 주장 UNDETERMINED, 긍정 라벨 없음 | 완전성은 파일·단계·비용 필드 존재를 본다. 값의 정확성은 독립 replay 12개 표본으로만 |
+| 일관된 셀 위조 | 5경로 모두 같은 셀을 +1하면 비교는 못 잡고 검사기의 독립 replay가 잡음 | replay는 같은 힘 식(lang_iv)을 공유하므로 힘 식 자체의 오류는 못 잡음 |
+| 저장된 합계·플래그 신뢰 | 합계를 0으로 위조해도 검사기가 구간별 CPU를 재계산, 비용 필드 삭제는 미비로 처리 | 시간 값 자체의 진위는 검증 불가 |
+| **자명한 통과(실제 발견)** | P5(CX = CS)가 전부 통과했으나 CX의 정확 수가 첫 step 뒤 사라지는 구현 때문. 통과를 "대수가 무익"으로 읽지 않도록 문서에 명시 | 실제 국소 대수 후보는 미시험 |
+
