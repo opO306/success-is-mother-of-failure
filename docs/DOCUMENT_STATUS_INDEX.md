@@ -8,6 +8,9 @@
 
 ## 현재 활성 A / C1-B1
 
+[Nuclear State / Dynamics Gate V2](active/NUCLEAR_STATE_DYNAMICS_GATE_V2.md)·[증거](active/nuclear_gate_v2/verdicts.json):
+SURVEY_ONLY, CT-MQC 후보, 미수렴·에너지 비보존·시험 설계 실패 2건 공개. 방법 선택 없음. NOT CERTIFIED.
+
 [Nuclear State / Dynamics Gate V1](active/NUCLEAR_STATE_DYNAMICS_GATE_V1.md)·[증거](active/nuclear_gate_v1/verdicts.json):
 SURVEY_ONLY, 1D 모델 시험 세계, 네 핵 처리 방식 비교. 방법 선택 없음. NOT CERTIFIED.
 

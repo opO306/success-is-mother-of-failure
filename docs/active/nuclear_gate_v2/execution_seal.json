@@ -1,0 +1,18 @@
+{
+ "quick": false,
+ "git_head_at_start": "6ebc808f14bcc80dafb1a0415bc6570d3fe86307",
+ "source_sha256": {
+  "__init__.py": "f262df6b91eb1e9024718e4e9e98b2ce4c027eb01aca0f1aea0562086c64da00",
+  "table.py": "a74fc8014c6c262c8a3c910c968c33a360c7f6d8bc3d86abcdc4bc55927507fd",
+  "ctmqc.py": "4862c9effe69974fa5c89ef1ec9a40aac496b07642e9bd5b21f7465afe36cb8f",
+  "q2.py": "e2e4814c9a121ae665900ae9dc11d093a27e86d6f19820d52dbe18ea81cd1f91",
+  "bocl_exact.py": "32d10fe249b6a3148aed179887dadb1c74243590440074ec353303db690dc810",
+  "campaign.py": "fd5b74d6f2075d20f6fe4afb6b3ed40adc820b8ff8cb598a8fd1073d5c5e3d0b",
+  "protocol.json": "7b7db84acbd5805031cb9e68cfbc2895f6feb98eccb0b4aab4bc2bff6192f257",
+  "v1/model.py": "a918c5ee98da60a6df3e4142cfdb0bdf23e7635bbec4d2298bba26aca9433d9a",
+  "v1/dynamics.py": "9baa4876638bf3b144d1d2fda7545be8867b33b8350e1017f4db3c4ffc11cdf8"
+ },
+ "python": "3.12.7",
+ "numpy": "2.4.6",
+ "platform": "Windows-11-10.0.26200-SP0"
+}

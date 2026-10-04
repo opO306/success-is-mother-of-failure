@@ -4,6 +4,12 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**Nuclear State / Dynamics Gate V2 (2026-10-05, SURVEY_ONLY):** [결과](docs/active/NUCLEAR_STATE_DYNAMICS_GATE_V2.md), 봉인 `6ebc808`.
+CT-MQC 후보로 "분리·위상 보존 + 비지수적"을 보이지 못함: S1 갈래 분리 3/3 궤적 수 수렴 실패(REFUSED, Rf4에서만 부호·크기 근접),
+궤적별 에너지 최대 0.6 hartree 변화, S3 궤적 영역 이탈(UNSUPPORTED). 기계 검사(EHA = V1 Ehrenfest) 통과.
+**시험 설계 실패 2건:** S2 수정판은 Wigner 질량 40%가 장벽 위(터널링 시험 아님), S3는 Q 결과가 단조 변화라 간섭 미입증.
+실패 중단 규칙으로 다음 단계 자동 착수 없음. 관련 시험32 PASS, LOCAL FULL 생략/공식 기준선 불변.
+
 **Nuclear State / Dynamics Gate V1 (2026-10-04, SURVEY_ONLY / 모델 시험 세계):**
 [결과](docs/active/NUCLEAR_STATE_DYNAMICS_GATE_V1.md). 1D Shin–Metiu에서 Q(양자 핵+전자)/EH/BOQ/BOCL 비교, 실행 전 봉인 `b8f2b65`.
 S1: BO 두 방식은 전이 ABSENT·전자 위치 DISTORTED(3/3), EH는 전이·전자 위치 REPRESENTED(3/3)지만 핵 갈래 분리 DISTORTED/REFUSED.
