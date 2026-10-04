@@ -120,7 +120,10 @@ class CombinedRuntime:
         ns['_kick']=kick
         self.raw_drift_enabled=(run.drift=='v2' and canonical_fx(run.pos) is not None
                                 and canonical_fx(run.mom) is not None)
+        self._prepared_binding=None
         if self.raw_drift_enabled:
+            from .c1b1_prepared_binding import RunBinding
+            self._prepared_binding=RunBinding.build(run,'fast_combined')
             self.contracts={a.species:DriftConversionContract.build(run.pos,run.mom,run.dt,
                             C.SPECIES_MASS[a.species]) for a in run.atoms}
             self.binding=(run.pos,run.mom,run.dt,tuple(a.species for a in run.atoms),
@@ -134,13 +137,25 @@ class CombinedRuntime:
         r=self.run
         if r is not self._bound_run:
             raise C.ContractViolation('stale drift contract: different Run')
+        if self._prepared_binding is not None:
+            self._prepared_binding.assert_current(r,self._binding_mode())
         if self.raw_drift_enabled:
             now=(r.pos,r.mom,r.dt,tuple(a.species for a in r.atoms),
                  canonical_fx(r.pos),canonical_fx(r.mom),r.drift)
             if (now!=self.binding or type(r.dt) not in (int,Q) or
                 any(C.SPECIES_MASS.get(s)!=k.mass for s,k in self.contracts.items())):
                 raise C.ContractViolation('stale drift contract')
-        return self.function(r)
+        result=self.function(r)
+        if self._prepared_binding is not None:
+            self._prepared_binding.record_cached_impulse(r)
+        return result
+
+    def _binding_mode(self):
+        return 'fast_combined'
+
+    @property
+    def binding_key(self):
+        return None if self._prepared_binding is None else self._prepared_binding.key
 
 
 def step(run):

@@ -4,10 +4,11 @@ import pytest
 from a_reference import c1b1_runtime as R,c1b1_two_atom as C,c1b1_fast_impulse as F,c1b1_pilot3_impulse as X
 from experiments.verified_superoptimizer_c1b1 import pilot3_campaign as P,integration_stages as I
 
-def test_optin_uses_chosen_ABCD_and_preserves_default_and_REF():
+def test_chosen_ABCD_is_default_and_preserves_explicit_fast_and_REF():
     run=P.make_run(dict(e='2',b_frac='1/2'));ex=R.bind(run,mode='fast_pilot3')
     assert ex.variant=='ABCD' and ex.function.__code__ is C.step.__code__
-    assert R.select()==(F.impulse,F.step_fast) and R.select('reference')==(C.impulse,C.step)
+    assert R.select()==(X.impulse,X.step)
+    assert R.select('fast')==(F.impulse,F.step_fast) and R.select('reference')==(C.impulse,C.step)
     assert R.select('fast_pilot3')==(X.impulse,X.step)
     assert C.step.__globals__['impulse'] is C.impulse
     original=copy.copy(run)

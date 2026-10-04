@@ -20,10 +20,12 @@ def driver():
     return importlib.import_module('experiments.verified_superoptimizer_c1b1.runtime_activation')
 
 
-def test_default_fast_and_explicit_reference_are_real_functions():
+def test_default_pilot3_and_preserved_fast_and_reference_are_real_functions():
     r = runtime()
     from a_reference import c1b1_two_atom as c, c1b1_fast_impulse as f
-    assert r.select() == (f.impulse, f.step_fast)
+    from a_reference import c1b1_pilot3_impulse as p
+    assert r.select() == (p.impulse, p.step)
+    assert r.select('fast') == (f.impulse, f.step_fast)
     assert r.select('reference') == (c.impulse, c.step)
     assert r.new_run is c.new_run
 
@@ -35,7 +37,7 @@ def test_unknown_mode_fails_before_any_state_change(mode):
         r.step(object(), mode=mode)
 
 
-@pytest.mark.parametrize('mode', ['fast', 'reference', 'fast_combined'])
+@pytest.mark.parametrize('mode', ['fast', 'reference', 'fast_combined', 'fast_pilot3'])
 def test_real_production_producer_dispatches_selected_runtime(mode, tmp_path, monkeypatch):
     r = runtime()
     from a_reference import c1b1_two_atom as c
@@ -63,7 +65,7 @@ def test_real_production_producer_dispatches_selected_runtime(mode, tmp_path, mo
         ex.step = traced
         return ex
     monkeypatch.setattr(r, 'bind', observed)
-    result = producer.execute('unit') if mode == 'fast' else producer.execute('unit', mode=mode)
+    result = producer.execute('unit', mode=mode)
     assert bindings == [mode]
     assert calls == [mode]*3
     assert result['runtime_mode'] == mode
@@ -118,7 +120,7 @@ def test_runtime_never_patches_reference_globals():
     assert originals == (c.step, c.impulse, c._model_R, c._decide)
 
 
-def test_differential_gate_detects_wrong_actual_default_step(monkeypatch):
+def test_candidate_B_differential_gate_detects_wrong_explicit_fast_step(monkeypatch):
     d = driver()
     r = runtime()
     actual = r.step

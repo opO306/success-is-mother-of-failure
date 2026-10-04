@@ -110,7 +110,8 @@ def paired(spec, stream):
             refs.clear();fasts.clear()
             before_ref, before_fast = dict(vars(ref)),dict(vars(fast))
             ro = capture(lambda run:R.step(run,mode='reference'),ref)
-            fo = capture(R.step,fast)  # exercises the actual DEFAULT runtime path
+            # Preserve Candidate B's historical differential path after later defaults.
+            fo = capture(lambda run:R.step(run,mode='fast'),fast)
             assert ro == fo and refs == fasts and I.raw(ref) == I.raw(fast)
             if ro['kind'] != 'value':
                 assert vars(ref) == before_ref and vars(fast) == before_fast
@@ -231,7 +232,7 @@ def profile(inputs,out):
             started,wall=time.process_time(),time.perf_counter()
             profiler.enable()
             try:
-                final=I.complete_trajectory(run,R.step,spec['cap'])
+                final=I.complete_trajectory(run,lambda r:R.step(r,mode='fast'),spec['cap'])
             finally:
                 profiler.disable()
             clock=time.process_time()-started

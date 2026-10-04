@@ -1,9 +1,11 @@
 # 프로젝트 문서 안내
 
-[C1-B1 Pilot3 opt-in 승격 결과](active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md)·[baseline 실제 Fraction map](active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md)·[exact 산술 논증](active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md): ABCD만 fast_pilot3 opt-in PRODUCTION FAST-PATH CANDIDATE, current-source closure/FULL4074+1 PASS. 기본fast 유지; 측정한 비용 증가와 한계도 결과 문서에 기록한다. 기존 REF/Candidate B/Combined는 보존한다.
+[C1-B1 Optimization Generation 1 종료 기록](active/C1B1_OPTIMIZATION_GENERATION1_FREEZE_V1.md)·[Prepared Binding Contract](active/C1B1_GENERATION1_BINDING_CONTRACT_V1.md): **VERIFIED FAST-PATH GENERATION / NOT FORMALLY CERTIFIED**, Generation1 FROZEN(2026-10-04 기록 확정). integration branch production default **fast_pilot3**, REF/fast/Combined 보존. 21cases/59171 successful steps/59187 impulses, producer7개/79087steps, FULL4157 PASS+1 strict XFAIL/FAIL0/ERROR0/real SKIP0, live closure PASS. 최종 직접 REF **1.629995× / CPU38.6501% 감소**; 이전1.906532×와 구분. Combined의B대비37.5905% CPU 증가와 binding 비용도 공개. root master 유지/push 없음, C1-B1④ 전체/A-EV/native J/replay 승인 미완료. 새 실제 workload의 상위 병목·충분한 전체 이득이 확인될 때만 Generation2 재개.
+
+**이전 source/campaign의 역사:** [C1-B1 Pilot3 opt-in 승격 결과](active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md)·[baseline 실제 Fraction map](active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md)·[exact 산술 논증](active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md): ABCD만 fast_pilot3 opt-in PRODUCTION FAST-PATH CANDIDATE, current-source closure/FULL4074+1 PASS. 기본fast 유지; 측정한 비용 증가와 한계도 결과 문서에 기록한다. 기존 REF/Candidate B/Combined는 보존한다.
 
 
-[Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
+**이전 source/campaign의 역사:** [Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
 
 [고정 핵 H₂ static reference pilot](active/H2_STATIC_REFERENCE_PILOT_V1.md)은
 2026-10-02의 독립 numerical research다. DZ/TZ 표본 minimum·해리 방향 및 부분

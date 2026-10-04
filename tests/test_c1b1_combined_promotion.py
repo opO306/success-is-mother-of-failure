@@ -12,12 +12,12 @@ def test_combined_is_opt_in_and_bound_to_original_step_body():
     ex=R.bind(run,mode='fast_combined')
     assert ex.function.__code__ is C.step.__code__
     assert ex.function.__globals__['impulse'] is F.impulse
-    assert R.select()==(F.impulse,F.step_fast)
+    assert R.select('fast')==(F.impulse,F.step_fast)
     assert R.select('reference')==(C.impulse,C.step)
     old=(C.step,C._drift,C._kick,C.impulse,F.step_fast)
     ref=copy.copy(run);base=copy.copy(run)
     for _ in range(20):
-        R.step(ref,mode='reference');R.step(base);ex.step()
+        R.step(ref,mode='reference');R.step(base,mode='fast');ex.step()
         assert I.raw(ref)==I.raw(base)==I.raw(run)
     assert old==(C.step,C._drift,C._kick,C.impulse,F.step_fast)
 

@@ -14,6 +14,8 @@ LABELS=('e0.5_rho-0.01','e0.5_rho-0.005','e0.15_rho-0.005','e1_b10',
         'e0.5_b6','e0.5_rho+0.005','e10_b0')
 OLD=ROOT/'runs/c1b1_postverify_survey_20261001'
 OUT=ROOT/'runs/c1b1_production_replay_20261001'
+# Keep producer runtime imports inside execute: verifier workers forbid them.
+DEFAULT_RUNTIME_MODE='fast_pilot3'
 
 def flat(s):return tuple(v for row in s for v in row)
 
@@ -53,7 +55,7 @@ def prepare():
     (OUT/'witness_manifest.json').write_text(json.dumps(rows,indent=2)+'\n')
     return rows
 
-def execute(label, mode='fast'):
+def execute(label, mode=DEFAULT_RUNTIME_MODE):
     # Producer-side imports only; none of these modules enter the verifier worker.
     from fractions import Fraction as Q
     from a_numeric import FixedPoint
@@ -93,7 +95,7 @@ def replay(args):
     assert result.verdict.value=='VALID',row
     return row
 
-def batch(kind, runtime_mode='fast'):
+def batch(kind, runtime_mode=DEFAULT_RUNTIME_MODE):
     import threading
     import psutil
     parent=psutil.Process()
@@ -135,5 +137,5 @@ def batch(kind, runtime_mode='fast'):
 if __name__=='__main__':
     mode=sys.argv[1]
     if mode=='prepare':print(json.dumps(prepare(),indent=2))
-    elif mode in ('executor','stream','full'):batch(mode,sys.argv[2] if len(sys.argv)>2 else 'fast')
+    elif mode in ('executor','stream','full'):batch(mode,sys.argv[2] if len(sys.argv)>2 else DEFAULT_RUNTIME_MODE)
     else:raise SystemExit('prepare|executor|stream|full')

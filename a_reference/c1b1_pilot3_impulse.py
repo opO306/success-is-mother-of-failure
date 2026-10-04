@@ -180,6 +180,8 @@ class Runtime(K.CombinedRuntime):
         self.variant=variant
         self.pilot3_enabled=self.raw_drift_enabled
         if not self.pilot3_enabled:return
+        from .c1b1_prepared_binding import RunBinding
+        self._prepared_binding=RunBinding.build(run,'fast_pilot3:'+variant)
         ns=dict(self.function.__globals__)
         if variant=='A':ns['impulse']=impulse_A
         else:
@@ -191,10 +193,15 @@ class Runtime(K.CombinedRuntime):
                 ns['impulse']=selected
         self.function=FunctionType(C.step.__code__,ns,'step_pilot3_'+variant)
 
+    def _binding_mode(self):
+        return 'fast_pilot3:'+self.variant
+
 
 def impulse(dr,dt,profile):
     """Explicit raw packet fast path; general callers retain original Candidate B."""
     if type(dr) is RawRelative and K.canonical_fx(profile) is not None:
+        from .c1b1_prepared_binding import world_binding
+        world_binding()
         return impulse_raw(dr,dt,profile,prepared=True,final_integer=True)
     return F.impulse(dr,dt,profile)
 

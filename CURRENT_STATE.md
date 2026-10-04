@@ -1,10 +1,29 @@
 # 현재 상태
 
-**최종 갱신:** 2026-10-03 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
+**최종 갱신:** 2026-10-04 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 
 ## 현재 우선순위와 활성 Gate
 
-**C1-B1 Pilot3 ABCD production opt-in 후보 승격(2026-10-03):**
+**C1-B1 Optimization Generation 1 종료·동결(2026-10-04 문서 확정):**
+[최종 기록·성능·Top10·한계](docs/active/C1B1_OPTIMIZATION_GENERATION1_FREEZE_V1.md),
+[WORLD/RUN/STEP/COMPONENT binding contract](docs/active/C1B1_GENERATION1_BINDING_CONTRACT_V1.md).
+상태 `VERIFIED FAST-PATH GENERATION / NOT FORMALLY CERTIFIED`. integration branch의 production default는 `fast_pilot3`;
+reference/fast/fast_combined와 slow REF·model·rounding·proof/checker 보존. root master/origin 0f7b744는 그대로, push 없음.
+최종 source `582323351e6dfa29bdf0cc26a9a029b85f3105fc15734433d3234e5724c3f206`에서
+21 cases/59171 successful steps/59187 impulse events, producer 7 witnesses/79087 steps 및 actual default 차등 PASS.
+FULL4157 PASS/1 strict XFAIL/FAIL0/ERROR0/real SKIP0, pytest642.17초/process643.6113394초,
+cp949 compiler reader-thread warnings27 미해결. 현 source live evidence closure PASS.
+같은 CPU campaign six trajectory median: REF51.625000/B36.703125/Combined50.500000/Pilot3 31.671875초;
+최종 REF1.629995×/CPU38.6501% 감소. 이전 Pilot3 1.906532×는 이전 source/campaign 결과이며 최종값 아님.
+Combined는 이번 조건에서 B보다37.5905% CPU 증가. World 준비1.453ms/Run bind152.344μs/empty-cache hot check59.375μs;
+control과4.265625초 차이는 검사+cache provenance 기록의 관측 차이이며 World guard 단독 비용 아님.
+stale binding/다른 Run/변경dt·profile·species·mass·physics 조건은 계산 진입 전 거부, stale J 자동 재사용 없음.
+Generation1만 동결; 전체domain/무한trajectory formal proof, hostile/concurrent mutation, initial J provenance,
+independent replay 승인/A-EV/native J는 미해결. C1-B1④ 전체는 FROZEN 아님.
+현재 충분한 순이득을 확보해 profiler1위 추적을 중단한다. 새 실제 workload에서 상위 프로젝트를 막는 병목과 의미 있는 전체 이득이 확인될 때만 별도 Generation2를 연다.
+이번 마무리는 문서만 갱신, 계산 source 불변; 재측정/FULL 재실행 없음. 이전 실패·중단 evidence도 보존.
+
+**C1-B1 Pilot3 ABCD production opt-in 후보 승격 — Generation 1 이전 역사(2026-10-03):**
 [결과·한계·CPU 측정](docs/active/C1B1_PILOT3_PRODUCTION_PROMOTION_V1.md),
 [실제 Fraction 주소 map](docs/active/C1B1_PILOT3_BASELINE_FRACTION_MAP_V1.md),
 [exact 산술 논증](docs/active/C1B1_PILOT3_EXACT_ARITHMETIC_ARGUMENT_V1.md).
@@ -22,7 +41,7 @@ prepared model self13.6386%/1위,다음대상미선정. primaryallocation5입력
 작업 기준9ad2ed7;rootmaster/origin은 외부0f7b744 문서commit으로 이동(이번작업push없음).
 외부commit의FULL로 세지 않고 Pilot3 branch만 보존, H2/새CONFIRMED/Pilot4선정 없음.
 
-**C1-B1 Combined production opt-in 승격(2026-10-03):**
+**C1-B1 Combined production opt-in 승격 — 당시 기본 fast, 현재 기본값은 위 Generation 1(2026-10-03 역사):**
 [최종 gate·성능·production Top10](docs/active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md),
 [독립 산술 promotion 감사](docs/active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md).
 Combined만 PRODUCTION FAST-PATH CANDIDATE, 실제 producer에 fast_combined opt-in 연결.
@@ -52,7 +71,7 @@ Fraction 두 생성 경로 합계27.5010% / gcd 호출27.4606% 감소. 실제 ra
 당시 Combined는 승격 검토 후보/production NOT_APPLIED였으며, 위의 후속 Combined gate에서 opt-in 승격했다.
 공식 AGENTS 기준선·기존 C1-B1 Gate·A-EV/native J·새 CONFIRMED history는 갱신하지 않는다.
 
-**C1-B1 Candidate B master 통합·runtime 활성화(2026-10-03):**
+**C1-B1 Candidate B master 통합·runtime 활성화 — 당시 FAST 기본값의 역사(2026-10-03):**
 [단계별 결과·한계·새 병목](docs/active/C1B1_CANDIDATE_B_RUNTIME_ACTIVATION_V1.md).
 master는 6c53eec→951b076 fast-forward. 실제 production replay producer에 별도
 `c1b1_runtime` 선택기를 연결해 FAST 기본 / 명시적 reference mode를 제공한다.

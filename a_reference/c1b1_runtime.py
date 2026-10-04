@@ -1,14 +1,16 @@
 """Production execution selection. Proof, audit and historical REF stay separate.
 
-FAST is the runtime default. Explicit reference mode remains callable; there is
+Generation 1's guarded Pilot 3 ABCD path is the runtime default. Reference,
+Candidate B and Combined remain explicitly callable; there is
 no automatic fallback, retry, cap change, or module-global monkey-patching.
 """
 from . import c1b1_two_atom as reference, c1b1_fast_impulse as fast
 
 new_run = reference.new_run
+DEFAULT_MODE = 'fast_pilot3'
 
 
-def select(mode='fast'):
+def select(mode=DEFAULT_MODE):
     if mode == 'fast':
         return fast.impulse, fast.step_fast
     if mode == 'reference':
@@ -22,11 +24,11 @@ def select(mode='fast'):
     raise ValueError("runtime mode must be 'fast', 'reference', 'fast_combined' or 'fast_pilot3'")
 
 
-def impulse(dr, dt_kick, profile, *, mode='fast'):
+def impulse(dr, dt_kick, profile, *, mode=DEFAULT_MODE):
     return select(mode)[0](dr, dt_kick, profile)
 
 
-def step(run, *, mode='fast'):
+def step(run, *, mode=DEFAULT_MODE):
     return select(mode)[1](run)
 
 
@@ -40,7 +42,7 @@ class BoundRuntime:
         return self.function(self.run)
 
 
-def bind(run, *, mode='fast'):
+def bind(run, *, mode=DEFAULT_MODE):
     _,function=select(mode)
     if mode == 'fast_combined':
         from .c1b1_combined_arithmetic import CombinedRuntime
