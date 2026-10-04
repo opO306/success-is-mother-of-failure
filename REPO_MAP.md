@@ -1,5 +1,11 @@
 # 저장소 지도
 
+`electronic_pilot/h2_force_v0/`는 기존 V5Z calculator를 변경 없이 호출하는 독립 탐색 분석이다.
+사전 고정5점 worker → guard fail-closed energy consumer → h=.1 diagnostic radial force.
+`tests/h2_force_v0/`는 synthetic false acceptance 및 actual capture/Decimal 재계산/해시 검사를 한다.
+[결과](docs/active/h2_force_v0/REPORT.md): 5accepted/local minimum/force signs supported,
+NOT CERTIFIED/production미승인, 핵운동·adaptive표현없음. 원본은 runs/h2_force_v0_20261004/.
+
 `electronic_pilot/h2_r04_jc_v1/`는 energy-blind native basis enumeration·사전봉인·
 새observer clocks·bounded common-u search·각accepted run의 unchanged V1checker 호출·
 sealed energy 이후 별도reference/freshV5Z 비용 wrapper다. 기존A/common/frozen/third-party 불변.

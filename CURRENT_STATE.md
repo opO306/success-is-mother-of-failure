@@ -1,5 +1,18 @@
 # 현재 상태
 
+**Electronic Calculation Stack V0 동결 + H₂ Force Vertical Slice V0(2026-10-04):**
+[5점 에너지·guard·force·실제 비용](docs/active/h2_force_v0/REPORT.md).
+계산기 자체 선제 감사는 탐색용 V0로 동결, 기존 FAIL/UNRESOLVED/NOT IMPLEMENTED 보존.
+다음 층의 실제 blocker 또는 downstream correctness 반례만 다시 연다.
+기존 cc-pV5Z/full-CI 동일 guard·binary64·solver로 R1.2/1.3/1.4/1.5/1.6 모두 accepted.
+E1.4<E1.3,E1.5 및 h=.1 중앙차분 F1.3>0/F1.5<0 만족; F1.4=.00262016208584459 측정만.
+H2_LOCAL_BO_CURVE_SUPPORTED / H2_FORCE_INTERFACE_PILOT_SUPPORTED /
+NOT CERTIFIED / NOT PRODUCTION APPROVED. analytic/rigorous force·정확 equilibrium 인증 없음.
+5점 wall144.757s, process peak3.783722GiB; dynamics 병목 여부 NOT_EVALUATED.
+현재92+parent35 관련시험PASS, 초기 historical 자료/byte 실패3+error3 보존.
+기존2451bindings 불변, LOCAL FULL생략/새분석·시험·문서만/기준선유지.
+JC/B2/다른계산기감사/핵운동/adaptive표현/merge/rebase/push0. 다음 작업 후보: 작은 핵 운동1-step.
+
 **H₂ R=.4 symmetric JC B1 V1(2026-10-04):**
 [3표현·분리수치보정·실제최저근·비용](docs/active/h2_r04_jc_v1/REPORT.md).
 Ω3/5/7=20/78/228, common u=w1, NMAX80/ND60; 3final+3N100spots 정상수렴/SPD/lowest0→1.

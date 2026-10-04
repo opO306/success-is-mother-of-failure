@@ -749,3 +749,15 @@ LOCAL FULL생략/기준선유지. 첫 related collection error는 module명 충�
 
 [보고서](../active/h2_r04_jc_v1/REPORT.md). 신규30+기존169=199passed/skip0.
 LOCAL FULL생략/관련시험대체/기존A·common·frozen불변, 기준선유지. 작성자검증과외부독립감사를구별한다.
+
+### H₂ diagnostic force interface V0 (2026-10-04)
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| accepted flag만 믿고 guard 초과/NaN/Inf/norm 누락 사용 | 5필수 guard·finite data 재검사, REFUSED와 null force 유지 | 저장 진단에 대한 fail-closed 검사, AO/force rigorous bound 없음 |
+| 다른 basis/차원/precision/energy convention 혼합 또는 geometry 누락/중복 | 고정5점·동일 contract 검사, missing은 NOT_EVALUATED | 실제 point 생성 자체는 unchanged Gaussian 경로 신뢰 |
+| 중앙 차분 sign/단위 오류·사후 F1.4 tolerance | 알려진 quadratic synthetic derivative 및 실제 에너지 Decimal100 재계산 | h=.1 절단오차·basis/reference error의 힘 전파 상한 없음 |
+| 모든 numerical acceptance를 production/dynamics 승인으로 승격 | NOT CERTIFIED/NOT PRODUCTION APPROVED 유지, 핵 운동0 확인 | 작성자 2차 검증이며 외부 독립 감사가 아님 |
+
+[실측 보고서](../active/h2_force_v0/REPORT.md). 현재92+parent35시험PASS, 초기historical byte/raw 오류 보존.
+LOCAL FULL생략/관련시험대체/새분석·시험·문서만, 공식기준선 유지.
