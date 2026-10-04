@@ -1,0 +1,35 @@
+{
+  "gate": "Multiparticle Rounding Gate V0",
+  "date": "2026-10-05",
+  "status": "SURVEY_ONLY / NOT A WORLD LAW / NOT APPROVED",
+  "purpose": "Compare candidate discrete laws for turning exact pair impulses into stored per-atom momentum changes when N >= 3. The Gate does not choose a law; the designer does.",
+  "grid": "momentum profile FX(96,80) (C1-B1 production momentum grid), unit u = 2^-80. Rounding = round half to even (odd-symmetric), exactly as a_numeric.profiles.FixedPoint.",
+  "convention": "pair (i,j) with dr = r_j - r_i: exact real impulse A_ij acts +A_ij on j and -A_ij on i (C1-B1 convention).",
+  "candidates": {
+    "P": "per pair, per component: J_ij = round(A_ij); dp_j += J_ij, dp_i -= J_ij; exact integer sums (C1-C section 6 recommended candidate).",
+    "T": "per atom, per component: dp_i = round(sum_j exact signed A) (one rounding of the exact total).",
+    "C": "T, then per component D = sum_i dp_i; if D != 0 move |D| units label-free: with e_i = dp_i - a_i, subtract sign(D) from the |D| atoms with the largest sign(D)*e_i (largest-remainder / Hamilton). If the cut falls inside a group of equal e_i: STOP (no label-free choice exists). New candidate written for this Gate (C1-C D4 left coupled undefined)."
+  },
+  "physics_evaluation": "Exact pair impulse enclosures from a_reference/c1b1_two_atom.py (frozen C1-A Lang 2024 model, retardation ON), dt = 40, kick = dt/2 = 20, positions exact rationals on the FX(96,48) grid. P uses c1b1_two_atom.impulse directly. T and C refine the summed enclosure until one rounded value is decided (start 128 bits, double, max 4096 bits for this Gate; beyond that REFUSED). C rank decisions use the same enclosures; an undecidable rank comparison within 4096 bits is REFUSED.",
+  "synthetic_panel": {
+    "named_cases": "S_collective (0.4 x3 onto one atom), S_split (-0.8, 0.4, 0.4), S_pair (+0.6/-0.6), S_ties (exact halves), S_many (K pairs of 0.1 onto one atom, K = 1..20)",
+    "exhaustive_N3": "one component, 3 pairs, A in {k/10 : k = -15..15} (29,791 configurations)",
+    "exhaustive_N4": "one component, 6 pairs, A in {k/5 : k = -4..4} (531,441 configurations)"
+  },
+  "physics_panel": {
+    "N2_reduction": "6 pairs at R in {6.5, 7.1, 8, 10, 20, 50} bohr along non-axis directions; every candidate must equal c1b1_two_atom.impulse bit for bit",
+    "small_clusters": "equilateral triangle side 7.0; linear chain spacing 7.5; square side 7.2; regular tetrahedron edge 7.0 (bohr). Coordinates rounded to the FX(96,48) grid once, before any impulse.",
+    "far_field": "center atom + 8 atoms on a one-sided cap (fixed direction list) at distance d. d = smallest multiple of 100 bohr where every center-pair impulse component is < 0.5 u in magnitude (static search, recorded).",
+    "invariance": "for each configuration: all permutations of labels (N <= 4; for N = 9 the 9 cyclic shifts and the reversal), translation by (+3, -2, +5) bohr, and for T: three different summation groupings of the enclosures"
+  },
+  "metrics": [
+    "N2: equal to C1-B1 (bit for bit)",
+    "label permutation: outputs permute with labels",
+    "pair order / grouping: same value (truth) — availability may differ",
+    "translation: same",
+    "exact total momentum conservation (sum of dp == 0 per component)",
+    "collective survival: |dp_i - a_i| per atom; total lost collective impulse on the far-field center",
+    "STOP / REFUSED counts and every counterexample"
+  ],
+  "no_post_hoc_changes": "Cases, grids and rules above are fixed before running. Results and counterexamples are reported as found."
+}
