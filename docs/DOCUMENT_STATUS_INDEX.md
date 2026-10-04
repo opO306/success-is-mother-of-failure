@@ -1,5 +1,10 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ELECTRONIC_STATE_HISTORY_GATE_V1.md](active/ELECTRONIC_STATE_HISTORY_GATE_V1.md):
+2026-10-04 새 isolated dynamic state pilot, finite numerical P1–P5 PASS/NOT CERTIFIED.
+순간 밀도 단독 불충분, current full state 충분한 후보·history 필요성 미확인, global phase 동등.
+본체 fresh AO와 노트북 saved-H 재현을 구분하며 다음 Gate 자동 착수·push 없음, foundation 미승인.
+
 [ELECTRONIC_SECTOR_PANEL_V1.md](active/ELECTRONIC_SECTOR_PANEL_V1.md):
 2026-10-04 새 static TZ sector panel, P1–P5 PASS/NOT CERTIFIED.
 같은 저장 AO부터 대표4개 노트북 부분 재현; fresh AO 두 기기 재현은 미실행.

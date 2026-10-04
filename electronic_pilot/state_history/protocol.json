@@ -1,0 +1,113 @@
+{
+  "version": "electronic-state-history-gate-v1",
+  "scope": "FINITE_CLOSED_FIXED_NUCLEI_RESEARCH_NOT_WORLD_NOT_CERTIFIED",
+  "basis_size": 28,
+  "case": {
+    "nuclei": [
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          -0.7
+        ]
+      },
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          0.7
+        ]
+      }
+    ],
+    "electrons": 1,
+    "sector": "doublet",
+    "basis": "cc-pVTZ",
+    "law": "isolated_clamped_nonrelativistic_coulomb"
+  },
+  "times_atomic": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "time_unit": "hbar/E_h; electronic Hamiltonian phase, nuclear constant changes global phase only",
+  "time_rationale": "Fixed zero, one-half and one atomic time unit before seeing the spectrum; cheap bounded short-time comparison, no gap-adaptive times or added geometry.",
+  "global_phase_radians": 0.731,
+  "energy_tolerance": 1e-09,
+  "baseline_energy_tolerance": 1e-09,
+  "energy_distinction_floor": 1e-07,
+  "overlap_floor": 1e-10,
+  "hermiticity_tolerance": 1e-10,
+  "residual_tolerance": 1e-09,
+  "norm_tolerance": 1e-10,
+  "state_tolerance": 1e-10,
+  "density_tolerance": 1e-10,
+  "evolution_tolerance": 1e-09,
+  "projector_tolerance": 1e-10,
+  "observable_tolerance": 1e-09,
+  "observable_difference_floor": 1e-06,
+  "dual_machine_tolerance": 1e-09,
+  "selected_preparation": "(phi0 +/- i phi1)/sqrt2; all28eigenvectors kept and propagated, no cutoff",
+  "density_metric": "full REAL AO quadratic density kernel Re(c c^dagger), equality implies n(r) equality in this real finite basis; NOT equality of full quantum projector",
+  "spatial_max_density_difference": "NOT_EVALUATED; no real-space grid needed",
+  "integrated_density_metric": "Tr(S c c^dagger) electron number; dipole is density-weighted spatial integral; no absolute L1 real-space quadrature",
+  "observable": "AO electronic dipole_z from Psi4 MintsHelper; nuclei centered at +/-0.7 yield zero nuclear dipole; fixed origin",
+  "state_equivalence": "S-metric normalized overlap modulo global phase; independent checker S^(1/2) projector",
+  "independent_check": "full-S-space expm(-i S^-1/2 H S^-1/2 t), no executor function imports; shares saved AO, not external physics audit",
+  "path_A": "canonicalize directly prepared plus",
+  "path_B": "prepare exp(i*0.731)*plus then canonicalize",
+  "threads": 1,
+  "push": "PROHIBITED by this latest Gate request",
+  "next_gate": "DESIGNER_DECISION_REQUIRED; no automatic Representation/Dynamics Gate",
+  "scaling_examples": [
+    [
+      28,
+      1,
+      1,
+      0
+    ],
+    [
+      28,
+      2,
+      1,
+      1
+    ],
+    [
+      28,
+      4,
+      2,
+      2
+    ],
+    [
+      56,
+      8,
+      4,
+      4
+    ],
+    [
+      100,
+      10,
+      5,
+      5
+    ]
+  ],
+  "forbidden": [
+    "ground-state law insertion",
+    "eigenvector cutoff",
+    "state deletion",
+    "density equality forcing",
+    "post-result threshold/time changes",
+    "matrix averaging",
+    "separate history authority without counterexample",
+    "TDDFT production",
+    "nonadiabatic",
+    "surface hopping",
+    "electron-nuclear dynamics",
+    "photon",
+    "collapse",
+    "open system",
+    "decoherence",
+    "push"
+  ]
+}

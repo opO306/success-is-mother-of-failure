@@ -1,0 +1,68 @@
+{
+  "pilot_dimension": 28,
+  "pilot_wavefunction_bytes": 448,
+  "pilot_dense_quantum_density_operator_bytes": 12544,
+  "pilot_real_AO_density_kernel_full_bytes": 6272,
+  "examples": [
+    {
+      "M_spatial": 28,
+      "N": 1,
+      "N_alpha": 1,
+      "N_beta": 0,
+      "sector": "fixed_Nalpha_Nbeta_Ms_NOT_pure_total_spin_S",
+      "dimension": 28,
+      "wavefunction_complex_coefficients": 28,
+      "dense_density_operator_entries": 784,
+      "wavefunction_complex128_bytes": 448,
+      "dense_density_operator_complex128_bytes": 12544
+    },
+    {
+      "M_spatial": 28,
+      "N": 2,
+      "N_alpha": 1,
+      "N_beta": 1,
+      "sector": "fixed_Nalpha_Nbeta_Ms_NOT_pure_total_spin_S",
+      "dimension": 784,
+      "wavefunction_complex_coefficients": 784,
+      "dense_density_operator_entries": 614656,
+      "wavefunction_complex128_bytes": 12544,
+      "dense_density_operator_complex128_bytes": 9834496
+    },
+    {
+      "M_spatial": 28,
+      "N": 4,
+      "N_alpha": 2,
+      "N_beta": 2,
+      "sector": "fixed_Nalpha_Nbeta_Ms_NOT_pure_total_spin_S",
+      "dimension": 142884,
+      "wavefunction_complex_coefficients": 142884,
+      "dense_density_operator_entries": 20415837456,
+      "wavefunction_complex128_bytes": 2286144,
+      "dense_density_operator_complex128_bytes": 326653399296
+    },
+    {
+      "M_spatial": 56,
+      "N": 8,
+      "N_alpha": 4,
+      "N_beta": 4,
+      "sector": "fixed_Nalpha_Nbeta_Ms_NOT_pure_total_spin_S",
+      "dimension": 134901944100,
+      "wavefunction_complex_coefficients": 134901944100,
+      "dense_density_operator_entries": 18198534521959524810000,
+      "wavefunction_complex128_bytes": 2158431105600,
+      "dense_density_operator_complex128_bytes": 291176552351352396960000
+    },
+    {
+      "M_spatial": 100,
+      "N": 10,
+      "N_alpha": 5,
+      "N_beta": 5,
+      "sector": "fixed_Nalpha_Nbeta_Ms_NOT_pure_total_spin_S",
+      "dimension": 5668210667750400,
+      "wavefunction_complex_coefficients": 5668210667750400,
+      "dense_density_operator_entries": 32128612173999435458596700160000,
+      "wavefunction_complex128_bytes": 90691370684006400,
+      "dense_density_operator_complex128_bytes": 514057794783990967337547202560000
+    }
+  ]
+}

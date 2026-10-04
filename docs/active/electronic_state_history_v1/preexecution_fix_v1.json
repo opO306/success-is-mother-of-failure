@@ -1,0 +1,6 @@
+{
+  "initial": "1 failed,25 passed; physical_equivalence_classification on valid synthetic control",
+  "cause": "same_pure_state returned numpy.bool_; strict is True and json expect Python bool",
+  "repair": "return bool(...) before sealing; thresholds/times unchanged",
+  "physical_execution_before_fix": false
+}

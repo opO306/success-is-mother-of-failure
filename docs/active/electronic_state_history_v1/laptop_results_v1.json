@@ -1,0 +1,280 @@
+{
+  "times_atomic": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "labels": [
+    "plus",
+    "minus",
+    "path_A",
+    "path_B",
+    "global_phase_input"
+  ],
+  "observations": [
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407967675e-18,
+          -6.908330546223738e-17,
+          -2.0469737016526324e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007872,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          3.553547678573083e-17,
+          4.315250850237693e-17,
+          -0.2730137516243195
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007873,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          4.755499251170581e-17,
+          1.309052591741563e-16,
+          -0.515488641060896
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407967675e-18,
+          -6.908330546223738e-17,
+          -2.0469737016526324e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000007,
+        "electronic_energy_hartree": -0.9476311618007872,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          -2.780964738802358e-17,
+          -1.8441015627452726e-16,
+          0.2730137516243159
+        ]
+      },
+      {
+        "norm": 1.0000000000000007,
+        "electronic_energy_hartree": -0.9476311618007872,
+        "electron_number_integral": 1.0000000000000007,
+        "electronic_dipole_au": [
+          -5.3298977037463263e-17,
+          -2.7762914873245903e-16,
+          0.5154886410608923
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007869,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407967632e-18,
+          -6.908330546223735e-17,
+          -1.8388068845354155e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000002,
+        "electronic_energy_hartree": -0.9476311618007873,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          3.553547678573074e-17,
+          4.315250850237682e-17,
+          -0.2730137516243197
+        ]
+      },
+      {
+        "norm": 1.0,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0,
+        "electronic_dipole_au": [
+          4.75549925117057e-17,
+          1.3090525917415627e-16,
+          -0.5154886410608959
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007872,
+        "electron_number_integral": 1.0000000000000009,
+        "electronic_dipole_au": [
+          8.510835407967626e-18,
+          -6.908330546223728e-17,
+          -1.7139067942650854e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000007,
+        "electronic_energy_hartree": -0.9476311618007875,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          3.553547678573077e-17,
+          4.315250850237693e-17,
+          -0.2730137516243194
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007874,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          4.755499251170579e-17,
+          1.3090525917415641e-16,
+          -0.515488641060896
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407967601e-18,
+          -6.908330546223739e-17,
+          -1.4988010832439613e-15
+        ]
+      },
+      {
+        "norm": 1.0,
+        "electronic_energy_hartree": -0.947631161800787,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          3.5535476785730763e-17,
+          4.315250850237687e-17,
+          -0.2730137516243193
+        ]
+      },
+      {
+        "norm": 1.0,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0,
+        "electronic_dipole_au": [
+          4.755499251170578e-17,
+          1.309052591741563e-16,
+          -0.515488641060896
+        ]
+      }
+    ]
+  ],
+  "initial_plus_minus_overlap_abs": 3.3306690738754696e-16,
+  "initial_plus_minus_density_kernel_max": 0.0,
+  "initial_plus_minus_energy_difference": 0.0,
+  "density_kernel_max_differences": [
+    0.0,
+    0.14670285053863147,
+    0.2769957652828824
+  ],
+  "dipole_z_differences": [
+    0.0,
+    -0.5460275032486355,
+    -1.0309772821217882
+  ],
+  "path_A_B_raw_initial_max": 1.3092278833360675e-16,
+  "phase_same_physical_state": true,
+  "path_A_B_same_physical_state": true,
+  "no_history_argument": true,
+  "input": {
+    "nuclei": [
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          -0.7
+        ]
+      },
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          0.7
+        ]
+      }
+    ],
+    "electrons": 1,
+    "sector": "doublet",
+    "basis": "cc-pVTZ",
+    "law": "isolated_clamped_nonrelativistic_coulomb"
+  },
+  "checker": {
+    "status": "PASS",
+    "errors": [],
+    "metrics": {
+      "full_spectrum_error": 1.509903313490213e-14,
+      "eigenvector_S_orthogonality": 3.019806626980426e-14,
+      "all_root_residual_max_S_metric": 4.736866568390036e-14,
+      "selected_root_residuals_S_metric": [
+        5.7914405037393356e-15,
+        1.0889698406939168e-14
+      ],
+      "initial_overlap_abs": 3.3306690738754696e-16,
+      "expm_vs_eigen_evolution_max": 7.810946158568893e-14,
+      "density_kernel_formula_error": 5.551115123125783e-17,
+      "norm_error_max": 6.661338147750939e-16,
+      "density_number_error_max": 8.881784197001252e-16,
+      "energy_conservation_max": 9.992007221626409e-16,
+      "projector_errors": {
+        "paths": [
+          7.473417450352271e-17,
+          6.986377042646527e-17,
+          1.110225322160808e-16
+        ],
+        "phase": [
+          8.32750928463773e-17,
+          9.717100128687288e-17,
+          8.326719941590216e-17
+        ]
+      },
+      "t0_density_kernel_difference": 0.0,
+      "dipole_z_differences": [
+        0.0,
+        -0.5460275032486352,
+        -1.030977282121788
+      ]
+    },
+    "P1": "PASS",
+    "P2": "PASS",
+    "P3": "PASS",
+    "P4": "PASS",
+    "scope": "author saved-matrix checker: finite closed fixed-nuclei pilot, no formal/external certification"
+  },
+  "status": "PASS",
+  "host": "DESKTOP-0EASI0F",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+  "versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "source_sha256": {
+    ".gitattributes": "730a35ae3d558080083c3103d9ac8100c3f6561678092abe341701dfa331eb1d",
+    "campaign.py": "0dda4bc16149c94eac9edc25bd1da4924f3fdca97e3c385ba545ae20ff1e02e1",
+    "checker.py": "ddcf7d0214f5413c255877cf19ce0b71bf0c1f58a7a0861f8d766d8b03cdbe75",
+    "core.py": "ffa7907dc99eb26d315f43ba680464b4902ec0c9a6d84c9d783e3c603d217ad8",
+    "protocol.json": "bc95ac00e6e3ba02ca8f30269d8443d9287e6efa3baa8bfd533a7d5fb1d96cd4",
+    "replay.py": "3ced3e9ca2c0f924f2eae212c6cdc0f76466838d13f0a0de53ec037bbae46d95",
+    "__init__.py": "8dda0dfe5c8399a7696ac0693e05a3de5b5c61024e7116c6e4890509cbab7f10"
+  },
+  "input_manifest_sha256": "0319cb54b277da9e8fbfea62efc629ca691369b304f7f3e9d8c87454f999cd07",
+  "scope": "SAVED_HAMILTONIAN_EIGENVECTORS_ENVIRONMENT_REPRODUCTION_NOT_PHYSICS_AUDIT",
+  "desktop_dipole_difference_max": 8.881784197001252e-16,
+  "desktop_density_metric_difference_max": 1.5210055437364645e-14
+}

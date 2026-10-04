@@ -1,0 +1,18 @@
+  Threads set to 1 by Python driver.
+{
+  "status": "PASS",
+  "E0_hartree": -1.2836621966579087,
+  "E1_hartree": -0.6116001269436644,
+  "gap_hartree": 0.6720620697142443,
+  "density_kernel_max_differences": [
+    0.0,
+    0.14670285053862833,
+    0.2769957652828672
+  ],
+  "dipole_z_differences": [
+    0.0,
+    -0.5460275032486346,
+    -1.0309772821217882
+  ],
+  "wall_seconds": 0.1331640279999995
+}

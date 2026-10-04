@@ -1,0 +1,17 @@
+F.........................                                               [100%]
+================================== FAILURES ===================================
+________________ test_closed_nonorthogonal_full_space_control _________________
+
+    def test_closed_nonorthogonal_full_space_control():
+        d,summary,spec=synthetic();verdict=check(d,summary,spec)
+>       assert verdict["status"]=="PASS",verdict
+E       AssertionError: {'status': 'FAIL', 'errors': ['physical_equivalence_classification'], 'metrics': {'full_spectrum_error': 5.55111512312...16, 'selected_root_residuals_S_metric': [9.774969145759689e-17, 2.2291010985433574e-16], ...}, 'P1': 'UNRESOLVED', ...}
+E       assert 'FAIL' == 'PASS'
+E         
+E         - PASS
+E         + FAIL
+
+tests\test_electronic_state_history.py:28: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_electronic_state_history.py::test_closed_nonorthogonal_full_space_control
+1 failed, 25 passed in 1.06s

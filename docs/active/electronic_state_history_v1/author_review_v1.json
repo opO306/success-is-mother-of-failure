@@ -1,0 +1,33 @@
+{
+  "status": "AUTHOR_CONCEPT_AND_SOURCE_REVIEW_PASS_NOT_EXTERNAL_AUDIT",
+  "P5": "PASS",
+  "findings": [
+    "strict nuclear/Ne/sector/basis/law inputs only; chemistry labels and history authority refused",
+    "fresh real S/h and exact original TZ shells, same R1.4 as Sector baseline; S/h hashes match",
+    "both real eigenstates S-orthonormal, different energies, no ground-state enforcement",
+    "Re(c c-dagger) initial density equality is a derived result, NOT averaging two densities; imaginary quantum coherence retained in full state",
+    "same instantaneous density, different future dipole demonstrates insufficient density; dipole sign checked using left s AO center",
+    "full current state sufficiency is conditional on CLOSED fixed-H spin-free Schr law; no necessity or universal impossibility of history proved",
+    "phase/gauge paths are different preparation representations, not two distinct physical past trajectories",
+    "complete28-orbital amplitudes for one fixed doublet spin projection, not general spinor or many-electron-world completion",
+    "all28roots/vectors stored and evolved; two-root support is initial preparation, not state-space cutoff",
+    "basis solver representation and physical state quotient distinguished by S-metric overlap and independent orthogonal projector"
+  ],
+  "density_realspace_grid": "NOT_EVALUATED; AO real quadratic kernel equality valid for all r in real basis; future dipole is a density integral. Pointwise max density and absolute L1 not claimed.",
+  "initial_physical_projector_frobenius_distance": 1.4142135623730938,
+  "tests": {
+    "new": 39,
+    "windows_related": 150,
+    "wsl_related": 159,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "actual_mutations": 10,
+    "synthetic_mutations": 10
+  },
+  "LOCAL_FULL": "OMITTED: new isolated research/tests and documentation only; shared runtime/frozen contracts preserved; baseline unchanged",
+  "next_designer_decision": "Representation Gate estimated cheaper to start from current saved H/state; no measured comparison against nuclear Dynamics Gate; both NOT_STARTED",
+  "previous_QZ": "UNSUPPORTED_UNRESOLVED_UNCHANGED",
+  "foundation": "NOT_APPROVED",
+  "push": "PROHIBITED_NOT_PERFORMED"
+}

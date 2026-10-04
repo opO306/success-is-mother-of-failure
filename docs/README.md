@@ -1,8 +1,13 @@
 # 프로젝트 문서 안내
 
+[Electronic State / History Gate V1](active/ELECTRONIC_STATE_HISTORY_GATE_V1.md):
+TZ28공간 closed fixed-H의 P1–P5 PASS/NOT CERTIFIED. 같은 순간 밀도의 두 상태가 다른 미래 dipole을 가진다.
+current full state 충분한 후보·별도 history 필요성 미확인·global phase 동등, 노트북 saved-H 재현 PASS.
+Representation / Electron–Nuclear Dynamics는 설계자 결정 대기, foundation 미승인·이번 push 금지.
+
 [Electronic Sector Panel V1](active/ELECTRONIC_SECTOR_PANEL_V1.md): 같은 TZ full-space의 Ne/sector18개 static 결과,
 P1–P5 PASS/NOT CERTIFIED. Q derived·화학 ID 거부·노트북 saved-AO 부분 재현을 구분한다.
-State/History는 다음 별도 Gate이며 기존 H₂ PARTIAL/QZ UNRESOLVED와 foundation 미승인을 유지한다.
+당시 다음 제안인 State/History는 위 후속 Gate로 진행했다. 기존 H₂ PARTIAL/QZ UNRESOLVED와 foundation 미승인을 유지한다.
 
 [H₂ QZ 최소점 주변 수치 Gate V1](active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md):
 PARTIAL, 독립 AO 두 좌표의 accepted controls 일치, R=1.3 두 번 거부/energy없음,

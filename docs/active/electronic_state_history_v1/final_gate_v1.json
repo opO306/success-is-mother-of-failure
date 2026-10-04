@@ -1,0 +1,14 @@
+{
+  "P1": "PASS",
+  "P2": "PASS",
+  "P3": "PASS",
+  "P4": "PASS",
+  "P5": "PASS",
+  "classification": "FINITE_CLOSED_FIXED_NUCLEI_COUNTEREXAMPLE_PASS_NOT_CERTIFIED",
+  "current_full_state": "SUFFICIENT_CANDIDATE_WITHIN_STATED_LAW_AND_STATE_SPACE",
+  "separate_history": "NECESSITY_NOT_ESTABLISHED",
+  "instantaneous_density_alone": "INSUFFICIENT_FOR_THIS_DYNAMIC_PROBLEM",
+  "foundation": "NOT_APPROVED",
+  "dual_machine": "SAVED_HAMILTONIAN_EIGENVECTORS_ENVIRONMENT_REPRODUCTION_PASS",
+  "external_physics_audit": "NOT_PERFORMED"
+}

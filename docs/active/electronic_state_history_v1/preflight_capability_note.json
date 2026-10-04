@@ -1,0 +1,5 @@
+{
+  "method": "Psi4 BasisSet.compute_phi capability discovery",
+  "result": "UNAVAILABLE_API: AttributeError; no AO, eigenstate or evolution executed",
+  "decision": "density equality via full real symmetric AO coefficient kernel; dipole AO matrix tests future density observable; real-space max/L1 not evaluated"
+}

@@ -701,3 +701,22 @@ causal 단계의 열도 마찬가지로 강화했다 — 기존 테스트는 "�
 | 같은 geometry인데 AO를 바꾸고 sector 효과라고 선언 | AO h hash 변조가 P1 UNRESOLVED, 실제5geometry의 세 sector AO bytes 동일 | hash는 provenance 대응이고 AO 정확도 증명은 아님 |
 | triplet 교환부호·singlet 정규화 오류 | 별도3orbital full-product 투영과 대조, h 결합 변이 작용 residual 검출; actual18개 product action PASS | 작성자 구현 검토이며 같은 저장 적분을 공유, 외부 physics 감사 아님 |
 | 누락·중복·노트북 부분 재현을 전체 PASS로 해석 | incomplete/invalid 집계 및 saved-AO replay scope 보존 | 노트북 fresh AO backend UNAVAILABLE/NOT RUN; 근본 state/history 충분성 미평가 |
+
+### Electronic State / History Gate V1 (2026-10-04)
+
+[18항목 결과·경계](../active/ELECTRONIC_STATE_HISTORY_GATE_V1.md).
+신규39시험 포함 Windows150/별도WSL159 PASS, 실패/error/실제skip0.
+LOCAL FULL 생략, 기존 실행·공용 모듈·동결 계약 불변, 공식 기준선 미갱신.
+
+| 결함·주입·위험 | 실제 검사 | 한계 |
+|---|---|---|
+| φ0=φ1, 직교성 파괴, ±i 동일 부호, 정규화 제거 | 합성 비직교3공간과 실제28공간 모두 별도 S-overlap/norm/projector guard에서 검출 | 유한 공간 표본이며 일반 spinor·전자 수의 충분성은 미검사 |
+| 잘못된 E0/E1, time-phase sign 반전 | S⁻¹ residual 및 별도 full-matrix expm가 합성/실측 변이를 검출 | 같은 저장 AO와 SciPy 공유; AO 정확도·엄밀 unitary 인증·외부 physics audit 아님 |
+| density의 imaginary amplitude 기여 누락 | executor의 real/imag 제곱합과 checker의 Re(c c†) 비교, 합성/실측 모두 검출 | AO density kernel 비교, 실공간 grid pointwise max/absolute L1 quadrature 미실행 |
+| global phase를 다른 state라고 분류, Ne/sector mismatch | S-metric overlap·정규직교 projector 및 strict metadata 검사로 합성/실측 검출 | global phase quotient만; 다른 relative phase는 보존 |
+| 같은 순간 density를 같은 full state라고 해석 | ψ±의 초기 K 차이0·projector 차이sqrt2, 이후 dipole 차이를 직접 확인 | full Γ와 diagonal density/reduced density를 구분; 일반 TDDFT 또는 모든 functional 불가능성 아님 |
+| 별도 history authority 필요성을 자동 선언 | current physical state가 같은 두 준비 경로의 미래 projectors 일치 | 실제 다른 nuclear history 두 개가 아니며 open/reduced system의 memory 미평가 |
+| 첫 preexecution 시험 실패를 숨김 | NumPy bool/Python True 대응 오류의 1 failed/25 passed와 수정 후26 passed 모두 보존 | 계산기/검사기 자체도 틀릴 수 있음; canonical 실행 전 수정·source seal 후 불변 |
+
+화학 labels로 H/evolution을 고르지 않는 조건은 strict 입력 refusal 시험과 별도 author concept review로 확인했다.
+노트북은 saved-H/eigenvectors 환경 재현이며 fresh AO/외부 physics 승인으로 세지 않는다.

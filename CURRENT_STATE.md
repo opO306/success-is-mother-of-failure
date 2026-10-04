@@ -4,6 +4,17 @@
 
 ## 현재 우선순위와 활성 Gate
 
+**별도 Electronic State / History Gate V1(2026-10-04):**
+[18항목 보고서·수치·미구현 범위](docs/active/ELECTRONIC_STATE_HISTORY_GATE_V1.md).
+고정 핵 R1.4·Ne1·doublet 한 spin projection·TZ 전체28공간에서 P1–P5 PASS / NOT CERTIFIED.
+ψ±의 초기 밀도는 같지만 t0.5/1의 dipole은 다르다: 순간 밀도 단독 dynamic authority 불충분.
+닫힌 고정-H의 current full state는 충분한 후보이며 별도 history 필요성은 미확인, global phase는 동등하다.
+본체 fresh AO 계산과 노트북 saved-H/eigenvectors worker1 재현 PASS; 외부 physics audit 아님.
+Windows150/별도WSL159 PASS, 신규39, 실패/error/실제skip0; 필수 변이10종 합성·실측 양쪽 검출.
+기존tracked217 및 이전 Sector raw95 해시 불변. LOCAL FULL 생략/새 격리 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
+기존 H₂ PARTIAL·QZ UNRESOLVED·foundation 미승인 유지. Representation / Electron–Nuclear Dynamics는 설계자 선택 대기, 자동 착수 없음.
+새 branch local commit만 보존, **최신 요청에 따라 push 금지**, master merge 없음.
+
 **별도 Electronic Sector Panel V1(2026-10-04):**
 [결과·한계·다음 State/History 질문](docs/active/ELECTRONIC_SECTOR_PANEL_V1.md).
 같은 TZ 전체 기저·같은 Coulomb 식의 핵/전자수/spin18개 static 계산, P1–P5 PASS / NOT CERTIFIED.
@@ -12,8 +23,8 @@ Ne1차원28 / singlet406 / triplet378, Q=ΣZ−Ne derived, 화학 ID 입력 거�
 Windows111/별도WSL120 PASS, 실패/error/실제skip0; 기존tracked187 및 QZ raw87 해시 불변.
 LOCAL FULL 생략/새 독립 연구·시험·문서/관련 시험 대체/공식 기준선 불변.
 기존 H₂ PARTIAL·QZ short-R UNSUPPORTED/UNRESOLVED·QZ minimum UNRESOLVED 유지.
-State/History Gate는 다음 제안, 미착수; production/ground-state BO foundation 미승인.
-이번 새 브랜치만 사용자 최신 직접 지시로 push 대상이며 master merge 없음.
+당시 State/History는 다음 제안이었으며 위 후속 Gate로 진행했다. production/ground-state BO foundation 미승인.
+Sector 브랜치는 당시 사용자 직접 지시로 push 완료(7b91cfff), master merge 없음. 새 State/History는 push 대상이 아니다.
 
 **별도 H₂ QZ Minimum-Bracket Numerical Gate V1(2026-10-04):**
 [결과·실패·미실행·다음 물리 질문](docs/active/H2_QZ_MINIMUM_BRACKET_NUMERICAL_GATE_V1.md).

@@ -1,0 +1,338 @@
+{
+  "times_atomic": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "labels": [
+    "plus",
+    "minus",
+    "path_A",
+    "path_B",
+    "global_phase_input"
+  ],
+  "observations": [
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007874,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407968934e-18,
+          -6.908330546223984e-17,
+          -2.306098020876668e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000002,
+        "electronic_energy_hartree": -0.9476311618007871,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          3.553547678573153e-17,
+          4.315250850237468e-17,
+          -0.27301375162431935
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007877,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          4.75549925117061e-17,
+          1.3090525917415494e-16,
+          -0.5154886410608964
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007874,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407968934e-18,
+          -6.908330546223984e-17,
+          -2.306098020876668e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000007,
+        "electronic_energy_hartree": -0.9476311618007867,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          -2.780964738802192e-17,
+          -1.844101562745293e-16,
+          0.2730137516243153
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007867,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          -5.329897703746197e-17,
+          -2.776291487324602e-16,
+          0.5154886410608917
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0,
+        "electronic_energy_hartree": -0.9476311618007867,
+        "electron_number_integral": 0.9999999999999998,
+        "electronic_dipole_au": [
+          8.510835407968995e-18,
+          -6.908330546223994e-17,
+          -1.652757791736903e-15
+        ]
+      },
+      {
+        "norm": 0.9999999999999996,
+        "electronic_energy_hartree": -0.9476311618007868,
+        "electron_number_integral": 0.9999999999999996,
+        "electronic_dipole_au": [
+          3.5535476785731614e-17,
+          4.3152508502374713e-17,
+          -0.27301375162431923
+        ]
+      },
+      {
+        "norm": 0.9999999999999997,
+        "electronic_energy_hartree": -0.9476311618007868,
+        "electron_number_integral": 0.9999999999999993,
+        "electronic_dipole_au": [
+          4.755499251170614e-17,
+          1.3090525917415474e-16,
+          -0.5154886410608954
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007873,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.510835407968963e-18,
+          -6.908330546223984e-17,
+          -1.981487890434508e-15
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007875,
+        "electron_number_integral": 1.0000000000000007,
+        "electronic_dipole_au": [
+          3.5535476785731626e-17,
+          4.315250850237485e-17,
+          -0.27301375162432
+        ]
+      },
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007873,
+        "electron_number_integral": 1.0000000000000002,
+        "electronic_dipole_au": [
+          4.755499251170614e-17,
+          1.3090525917415498e-16,
+          -0.5154886410608958
+        ]
+      }
+    ],
+    [
+      {
+        "norm": 1.0000000000000004,
+        "electronic_energy_hartree": -0.9476311618007873,
+        "electron_number_integral": 1.0000000000000004,
+        "electronic_dipole_au": [
+          8.51083540796907e-18,
+          -6.908330546224009e-17,
+          -2.104436416794364e-15
+        ]
+      },
+      {
+        "norm": 1.0,
+        "electronic_energy_hartree": -0.947631161800787,
+        "electron_number_integral": 1.0,
+        "electronic_dipole_au": [
+          3.5535476785731675e-17,
+          4.315250850237445e-17,
+          -0.2730137516243197
+        ]
+      },
+      {
+        "norm": 0.9999999999999999,
+        "electronic_energy_hartree": -0.9476311618007872,
+        "electron_number_integral": 0.9999999999999999,
+        "electronic_dipole_au": [
+          4.755499251170616e-17,
+          1.3090525917415452e-16,
+          -0.5154886410608951
+        ]
+      }
+    ]
+  ],
+  "initial_plus_minus_overlap_abs": 1.7537928635618229e-16,
+  "initial_plus_minus_density_kernel_max": 0.0,
+  "initial_plus_minus_energy_difference": 0.0,
+  "density_kernel_max_differences": [
+    0.0,
+    0.14670285053862833,
+    0.2769957652828672
+  ],
+  "dipole_z_differences": [
+    0.0,
+    -0.5460275032486346,
+    -1.0309772821217882
+  ],
+  "path_A_B_raw_initial_max": 1.3092278833360675e-16,
+  "phase_same_physical_state": true,
+  "path_A_B_same_physical_state": true,
+  "no_history_argument": true,
+  "input": {
+    "nuclei": [
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          -0.7
+        ]
+      },
+      {
+        "Z": 1,
+        "position_bohr": [
+          0.0,
+          0.0,
+          0.7
+        ]
+      }
+    ],
+    "electrons": 1,
+    "sector": "doublet",
+    "basis": "cc-pVTZ",
+    "law": "isolated_clamped_nonrelativistic_coulomb"
+  },
+  "E0_hartree": -1.2836621966579087,
+  "E1_hartree": -0.6116001269436644,
+  "gap_hartree": 0.6720620697142443,
+  "nuclear_repulsion_hartree": 0.7142857142857143,
+  "E0_total_hartree": -0.5693764823721944,
+  "E1_total_hartree": 0.10268558734204991,
+  "selected_residuals_S_metric": [
+    1.4760338735256414e-15,
+    3.793725413169906e-15
+  ],
+  "all_root_residuals_S_metric": [
+    1.4760338735256414e-15,
+    3.793725413169906e-15,
+    4.3696010858550965e-15,
+    1.93139814657248e-15,
+    1.5428021233386855e-15,
+    1.0940205123714933e-14,
+    2.7778155419004762e-15,
+    1.0854485023796364e-15,
+    1.777533989014241e-15,
+    4.916729762806272e-14,
+    2.9408615630488905e-15,
+    1.062210398970232e-14,
+    8.70141703535292e-16,
+    1.7354821502726403e-15,
+    2.4362906617944778e-15,
+    2.0998932973396826e-15,
+    4.625306578332802e-15,
+    2.702260870756494e-15,
+    2.520944071357932e-15,
+    3.010923451670096e-15,
+    2.660075642035891e-15,
+    3.470650612728617e-15,
+    3.4498222945457424e-15,
+    1.63016081721926e-13,
+    3.638130075637376e-15,
+    3.7054236291275564e-15,
+    1.8609084477759717e-14,
+    1.3437713596849387e-13
+  ],
+  "eigenstate_orthogonality": -8.348356728138384e-17,
+  "spatial_orbitals": 28,
+  "retained_eigenvectors": 28,
+  "original_TZ_exact_basis_match": true,
+  "backend_charge_e": 1,
+  "backend_multiplicity": 2,
+  "backend_positions_bohr": [
+    [
+      0.0,
+      0.0,
+      -0.7
+    ],
+    [
+      0.0,
+      0.0,
+      0.7
+    ]
+  ],
+  "dipole_sign_check_first_left_s_AO": 0.7,
+  "baseline_total_difference_hartree": 0.0,
+  "raw_AO_sha256": {
+    "s": "19328622a233aaef7030dd755c334038ccc92ea29c209e3376125b11aa916a33",
+    "h": "0622dc43498832d3eba234abd1c5f5e4d44bdf3ab46d05496263a90a2f3d31c3",
+    "dipoles": "eb4a78a3d0fe7647dac9d1c4f28b86f8dd11e1e389fbbb5b1a9ed2c5b984eae5"
+  },
+  "raw_AO_matches_prior_S_h": {
+    "s": true,
+    "h": true
+  },
+  "wall_seconds": 0.1331640279999995,
+  "cpu_seconds": 0.08133496900000003,
+  "checker": {
+    "status": "PASS",
+    "errors": [],
+    "metrics": {
+      "full_spectrum_error": 2.220446049250313e-15,
+      "eigenvector_S_orthogonality": 4.5630166312093934e-14,
+      "all_root_residual_max_S_metric": 1.63016081721926e-13,
+      "selected_root_residuals_S_metric": [
+        1.4760338735256414e-15,
+        3.793725413169906e-15
+      ],
+      "initial_overlap_abs": 1.7537928635618229e-16,
+      "expm_vs_eigen_evolution_max": 7.607185054156289e-14,
+      "density_kernel_formula_error": 5.551115123125783e-17,
+      "norm_error_max": 6.661338147750939e-16,
+      "density_number_error_max": 8.881784197001252e-16,
+      "energy_conservation_max": 1.1102230246251565e-15,
+      "projector_errors": {
+        "paths": [
+          1.3939604066313384e-16,
+          2.77561310066301e-16,
+          1.962615573354719e-16
+        ],
+        "phase": [
+          9.71445422331987e-17,
+          8.391472671209643e-17,
+          2.914338062859422e-16
+        ]
+      },
+      "t0_density_kernel_difference": 0.0,
+      "dipole_z_differences": [
+        0.0,
+        -0.5460275032486348,
+        -1.0309772821217882
+      ]
+    },
+    "P1": "PASS",
+    "P2": "PASS",
+    "P3": "PASS",
+    "P4": "PASS",
+    "scope": "author saved-matrix checker: finite closed fixed-nuclei pilot, no formal/external certification"
+  },
+  "status": "PASS",
+  "protected_bytes_unchanged": true,
+  "source_bytes_unchanged": true,
+  "artifact_sha256": {
+    "raw_AO.npz": "10e71acec74c832ac4be2fd2906714e563da3765b108cbd184873b0011bab7a9",
+    "eigenstates.npz": "0bd8e4fc74a668392e4d1a571bb96affb97e5674d7f81e8c70d1fa79db8ddf12",
+    "experiment.npz": "c0f80ae7622755457e93de662770abd5f234dd97b55504bf1628a5318c382db3"
+  }
+}
