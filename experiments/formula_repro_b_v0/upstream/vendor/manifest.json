@@ -1,0 +1,20 @@
+[
+  {
+    "path": "exact_expression_gate_v0/lang_iv.py",
+    "expected_git_blob": "c2da03610fd972eeb25e819b6b06cdf05671c94c",
+    "actual_git_blob": "c2da03610fd972eeb25e819b6b06cdf05671c94c",
+    "matches": true
+  },
+  {
+    "path": "exact_expression_gate_v1/common.py",
+    "expected_git_blob": "79ac5b5e8a87b856b9e9def0e6d454c2769b111b",
+    "actual_git_blob": "79ac5b5e8a87b856b9e9def0e6d454c2769b111b",
+    "matches": true
+  },
+  {
+    "path": "exact_expression_gate_v1/stream.py",
+    "expected_git_blob": "89d842804cc3702d385aee8a55ac54930af59a86",
+    "actual_git_blob": "89d842804cc3702d385aee8a55ac54930af59a86",
+    "matches": true
+  }
+]
