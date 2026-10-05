@@ -35,7 +35,8 @@ def raw(p):
 
 
 def git(*a):
-    return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True, encoding="utf-8",
+                          errors="replace").stdout.strip()
 
 
 def log(out, msg):
@@ -66,7 +67,8 @@ def job(out, args, name):
         return
     t = time.perf_counter()
     p = subprocess.Popen([sys.executable, "-m", f"{PKG}.harness", *args, str(path)], cwd=ROOT,
-                         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8",
+                         errors="replace")
     so, se = p.communicate()
     wall = time.perf_counter() - t
     if p.returncode != 0 or not path.exists():
@@ -102,11 +104,11 @@ def main(argv=None):
     ini = out / "empty_pytest.ini"
     ini.write_text("[pytest]\n", encoding="utf-8")
     t = subprocess.run([sys.executable, "-m", "pytest", "test_probe.py", "-q", "-p", "no:cacheprovider", "-c", str(ini),
-                        "--rootdir", "."], cwd=up, capture_output=True, text=True)
+                        "--rootdir", "."], cwd=up, capture_output=True, text=True, encoding="utf-8", errors="replace")
     (out / "upstream_pytest.txt").write_text(t.stdout + "\n" + t.stderr, encoding="utf-8")
     log(out, f"upstream tests rc={t.returncode}: {t.stdout.strip().splitlines()[-1] if t.stdout.strip() else ''}")
     tc = subprocess.run([sys.executable, "-m", f"{PKG}.transform_checks", str(out / "transform_checks.json")], cwd=ROOT,
-                        capture_output=True, text=True)
+                        capture_output=True, text=True, encoding="utf-8", errors="replace")
     log(out, f"transform checks rc={tc.returncode}: {tc.stdout.strip()}")
     if t.returncode != 0 or tc.returncode != 0 or not json.loads((out / "transform_checks.json").read_text())["PASS"]:
         log(out, "pre-run checks failed: STOP")
