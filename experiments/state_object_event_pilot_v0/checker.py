@@ -348,7 +348,7 @@ def check_part_b(d, cert_path):
     d = Path(d)
     seal = json.loads((d / "execution_seal.json").read_text(encoding="utf-8"))
     _binding(seal)
-    proto = json.loads((HERE / "protocol.json").read_text(encoding="utf-8"))["part_b"]
+    proto = json.loads((HERE / "protocol.json").read_text(encoding="utf-8"))["part_B"]
     with gzip.open(cert_path, "rb") as f:
         cert_sha = hashlib.sha256(json.dumps(json.loads(f.read()), sort_keys=True).encode()).hexdigest()
     plans = [(96, 100, [10, 100])]
