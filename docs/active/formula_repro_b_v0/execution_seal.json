@@ -1,0 +1,190 @@
+{
+ "head": "aa3862040f032fa2da7a5087be6a601ff763ebe9",
+ "sealed_sources_dirty": false,
+ "source_sha256_lf": {
+  "experiments/formula_repro_b_v0/protocol.json": "4e73adb17a85a5ca4bd98d000acdfc392e3aa5fde72e4f8ca25a9b471892f751",
+  "experiments/formula_repro_b_v0/harness.py": "b0217b82e8549d6f600de8732fe8c3f5c8ff790926c90bd07381efae0c360a99",
+  "experiments/formula_repro_b_v0/campaign.py": "23ca15797b9bbbd2066681b4ef7123578343ab82688ca0b2bedba6ae929a7463",
+  "experiments/formula_repro_b_v0/transform_checks.py": "f200f41a612a8a7c7e03adeb55222dcf78021f10f6b52e7108585e550f3b7192"
+ },
+ "upstream_sha256_raw": {
+  "test_probe.py": "5b00437c4a4c25b9c277b22a7f5f2b5fe4b7ee5356fe9e147f82cb886ebc6f79",
+  "probe.py": "2bae71e13f03ce51eafa7c2c97cbfdd67108f74bdcbdbbdb4bc2f324915e9917",
+  "vendor/manifest.json": "971cb6bb31bcb7e371640ff65ef65a773789a63a2d6f1d94d838ea984560c6a4",
+  "vendor/exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "vendor/exact_expression_gate_v0/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "vendor/exact_expression_gate_v1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "vendor/exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+  "vendor/exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+  "vendor/a_reference/ar2_lang2024.py": "61ee03ac78e68f3b1793f38637cc4c7194f7ec5a4f32272053b735dd6168fc11",
+  "vendor/a_reference/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "upstream_matches_SHA256SUMS": true,
+ "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+ "started": "2026-10-05 16:20:33",
+ "other_python_processes_at_start": [
+  {
+   "pid": 4456,
+   "cpu_s": 5.140625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -B -i"
+  },
+  {
+   "pid": 5992,
+   "cpu_s": 92.9375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 13788,
+   "cpu_s": 2.78125,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 15868,
+   "cpu_s": 5.109375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 16780,
+   "cpu_s": 1.3125,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -B -i"
+  },
+  {
+   "pid": 17152,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 18416,
+   "cpu_s": 4.59375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 18496,
+   "cpu_s": 4.65625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 21668,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 23676,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 23704,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 23784,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 25748,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 26876,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 28628,
+   "cpu_s": 2.484375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 32308,
+   "cpu_s": 91.140625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  }
+ ],
+ "other_python_processes_at_end": [
+  {
+   "pid": 4456,
+   "cpu_s": 5.140625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -B -i"
+  },
+  {
+   "pid": 5992,
+   "cpu_s": 102.5625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 15868,
+   "cpu_s": 5.109375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 16780,
+   "cpu_s": 1.3125,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -B -i"
+  },
+  {
+   "pid": 18416,
+   "cpu_s": 4.59375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 18496,
+   "cpu_s": 4.65625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 21668,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\rUhqWcVeBE9Zern2\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 23676,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\XL9OAG0pbrH2HjlM\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 23704,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 23784,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 25700,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 25748,
+   "cpu_s": 0.0,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 26876,
+   "cpu_s": 0.015625,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\Wi22ZgGYU5zMqdKs\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 28628,
+   "cpu_s": 2.484375,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\lNm1Nd24XSxfhw2f\\Scripts\\blender-mcp.exe"
+  },
+  {
+   "pid": 32308,
+   "cpu_s": 99.953125,
+   "cmd": "C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp\\.venv\\Scripts\\python.exe C:\\Users\\zun24\\AppData\\Roaming\\Claude\\Claude Extensions\\ant.dir.cursortouch.windows-mcp"
+  },
+  {
+   "pid": 34068,
+   "cpu_s": 2.421875,
+   "cmd": "C:\\Users\\zun24\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\zun24\\AppData\\Local\\uv\\cache\\archive-v0\\nr5Cn8mwbhiuGU9O\\Scripts\\blender-mcp.exe"
+  }
+ ],
+ "finished": "2026-10-05 16:52:18"
+}
