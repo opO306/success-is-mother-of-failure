@@ -1,0 +1,94 @@
+{
+ "gate": "STATE_OBJECT_EVENT_PILOT_V0",
+ "date": "2026-10-05",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NOT PRODUCTION APPROVED"],
+ "base_commit": "0ecfb7fc17d85ae644c36a17f9d1b673ccea41ec",
+ "design_source": "STATE_OBJECT_EVENT_ARCHITECTURE_V0_2.md (designer handover 2026-10-05) + designer implementation order of 2026-10-05",
+ "separation": "PART A (production C1-B1 rounded-state world) and PART B (Exact Expression V1 unrounded exact-real world) are different world semantics. Code, results and verdicts are never combined. PART A modules never import PART B modules and vice versa (a test enforces it).",
+ "frozen_read_only": ["a_reference/", "a_numeric/", "exact_expression_gate_v0/", "exact_expression_gate_v1/", "production C1-B1 runtime and checkers"],
+
+ "part_A": {
+  "executor": "a_reference.c1b1_two_atom.step (the REF executor), unchanged. Position profile FX(96,48), momentum profile FX(96,80), dt = 40.",
+  "cases": {
+   "e0.5_rho-0.005": "trusted origin docs/active/c1b1_trusted_test_origins_v1/e0.5_rho-0.005.json (low energy, near radial)",
+   "e1_b10": "trusted origin e1_b10.json (impact parameter 10 bohr)",
+   "e10_b0": "trusted origin e10_b0.json (high energy, head-on)",
+   "A2_sym": "new_run(FX(96,48), 40, r_i=(-71/20,0,0), p_i=(1,-3,0), r_j=(71/20,0,0), p_j=(-1,3,0), momentum_profile=FX(96,80), validated_only=True); comparison uses the stored raws after the initial rounding."
+  },
+  "origin_construction": "trusted origins: new_run from the exact values initial_raw / 2^F with validated_only=False (the reconstruction rule recorded in each origin file); the stored raws must equal initial_raw exactly, otherwise the case is not run (CheckError).",
+  "checkpoints": [1, 10, 100, 1000, 10000],
+  "max_steps": 10000,
+  "normal_stop": "a PhysicsDomainExceeded / IntegratorDomainExceeded / ExecutorLimitExceeded / ContractViolation raised by the executor before 10000 is the case's normal end: status = exception class name, completed_steps recorded. Not a failure of this gate.",
+  "canonical_record": "per step t (t = 0 is the initial state): 'v1|t|species_i|r_i|p_i|species_j|r_j|p_j|J|status' with raws as decimal ints, J = J_cache or 'None'. The stream SHA-256 hashes every record in order; the final record carries the stop status.",
+  "modes": {
+   "WORLD_ONLY": "the world keeps only the current Run. No snapshot list. Per step the canonical record goes into a streaming SHA-256; checkpoint records are copied into a fixed-size dict (5 entries).",
+   "OBSERVER_HISTORY": "identical physics loop; an observer appends (t, atoms raws, J, status) to its own list after every step. The observer only reads immutable tuples; nothing flows from observer data to the Run (a test enforces the direction).",
+   "PORT": "PhysicalObject / InteractionPort / InteractionEvent layer composed of the canonical primitives (c1b1_two_atom.impulse, _drift, segment_min_R2, relative, profile adds). The port produces one InteractionEvent per force evaluation carrying J once; impulse_i = -J and impulse_j = +J on raws; the event checks that the raw total momentum is unchanged by the event. The event object is dropped after the step; only the J needed by the next first half kick is kept (the canonical J_cache, a recomputable cache, not history).",
+   "PAIR": "A2_sym only. Current state stored as (S_r = r_i + r_j, D_r = r_j - r_i, S_p = p_i + p_j, D_p = p_j - p_i) raw integers (sum, not half-sum: lossless, no half-grid). Atoms reconstructed as r_i = (S_r - D_r)/2 etc. Stepping uses the canonical primitives and the symmetric shortcut (one displacement rounding, atom i gets the negated raw) ONLY while S_r = 0 and S_p = 0 hold; if they fail -> PAIR_STATE_REFUSED at that step. Range checks of both atoms are kept."
+  },
+  "processes": "every run is a fresh python process (subprocess). Timing runs: 3 per (case, mode), sequential, no concurrency, tracemalloc OFF. Memory run: 1 per (case, mode) with tracemalloc ON (its CPU time is not used for cost).",
+  "measurements": "wall (perf_counter) and CPU (process_time) of the stepping loop; peak RSS of the process (psutil peak_wset on Windows); RSS at every checkpoint; memory run: tracemalloc current and peak at every checkpoint, deep size of the live world state (Run atoms + J_cache) and of the observer history at every checkpoint. RSS and tracemalloc measure different things and are reported separately.",
+  "classification": {
+   "OBSERVER_ISOLATION": "PASS iff for every case all runs of WORLD_ONLY and OBSERVER_HISTORY agree on every checkpoint record, final record, stream SHA-256, status and completed_steps; else FAIL (OBSERVER_ISOLATION_FAIL).",
+   "WORLD_LIVE_MEMORY": "per case, WORLD_ONLY memory run: FLAT iff max/min of the live world state deep size over the checkpoints <= 1.25 AND tracemalloc current at the last checkpoint minus the previous checkpoint <= 65536 bytes (needs >= 1000 completed steps); GROWS otherwise; UNRESOLVED if a measurement is missing or fewer than 1000 steps completed. Overall: GROWS if any case GROWS, else UNRESOLVED if any case UNRESOLVED, else FLAT.",
+   "PORT_MODEL": "BIT_IDENTICAL iff every PORT run equals WORLD_ONLY (same items as observer isolation) for every case and every event satisfied impulse_i == -impulse_j and exact raw momentum conservation; else FAIL.",
+   "PORT_COST": "per case ratio r = median CPU(PORT) / median CPU(WORLD_ONLY): LOWER iff r < 0.90 for every case; WORSE iff r > 1.10 for some case; else TIE. PORT_STRUCTURE_ONLY iff BIT_IDENTICAL and PORT_COST in {TIE, WORSE} and the PORT live state deep size is not lower.",
+   "PAIR_CURRENT_STATE": "LOSSLESS iff the reconstructed atoms equal the canonical stored atoms at every step (stream SHA-256 and checkpoint records equal WORLD_ONLY) with the symmetric precondition holding throughout; REFUSED iff the precondition fails (PAIR_STATE_REFUSED, step recorded); FAIL iff any reconstructed record differs.",
+   "PAIR_COST": "ratio median CPU(PAIR)/median CPU(WORLD_ONLY) on A2_sym with the PORT_COST thresholds; state bytes reported next to it."
+  },
+  "not_claimed": "no N-body, composite or general memory claim; A2_sym results are not promoted to general pair or N-body statements."
+ },
+
+ "part_B": {
+  "world": "Exact Expression V1 semantics unchanged: exact real state of the UNROUNDED KDK map (dt = 40, h = 20, Ar40 mass of C1-B1, frozen C1-A Lang 2024 force with retardation). FX(96,48)/FX(96,80) projection is measurement only, never fed back.",
+  "scenario": "A2_bound: q = (-71/20,0,0), (71/20,0,0); p = (1,-3,0), (-1,3,0)",
+  "baseline": "exact_expression_gate_v1.stream.run(q0, p0, prec, last, want, exact=False) imported read-only (C_stream interval). Radii are taken from the baseline's own endpoint text.",
+  "candidate": {
+   "name": "EVENT_LINEAGE",
+   "form": "every state component is center (one working-precision mpf) + sum over inherited tags of coefficient (one mpf each) * eps_tag + remainder radius (mpf, rounded up). eps_tag in [-1, 1] is a fixed unknown number per tag. Rounding error of every center/coefficient operation is bounded by 2^(1-prec) * |rounded result| and added to the remainder (rounded up). No exact Fraction coefficients.",
+   "tags": "created ONLY by InteractionEvents. One event per force evaluation (one per step plus step 0). An event creates up to 3 tags: G (the new error of G(r^2), shared by all components) and one per non-zero impulse component k (all remaining uncertainty of J_k, including inherited remainders and rounding). Atom j receives +J, atom i receives -J with the SAME tag ids (opposite sign). The same event (same J) is used by the second half kick of step s and the first half kick of step s+1, as in the world.",
+   "event_G": "r2 form = d.d (form arithmetic). Range [a, b] outward. Domain obligation on [a, b] (V1 rule R >= r_min). s0 = center of r2 (inside [a, b]). G(s0) enclosed by exact_expression_gate_v0.lang_iv.G_of_R2 at the working precision (shared TCB with the baseline). G'([a, b]) = hull of the certificate cells covering [sqrt(a), sqrt(b)]; alpha = midpoint of that hull. G(s) = G(s0) + alpha (s - s0) + e with |e| <= max|G' - alpha| * max|s - s0| (mean value theorem). G form = mid G(s0) + alpha * (tags of r2) + one new G tag with coefficient = rad G(s0) + |e| bound + |alpha| * remainder(r2) + rounding.",
+   "event_J": "J_k = 20 * G * d_k (form product); its remainder and the widths are moved into the new tag of component k; J_k then has no remainder.",
+   "no_feedback": "centers are working-precision numbers of an enclosure; no midpoint, center or projected cell replaces the state."
+  },
+  "derivative_certificate": {
+   "source": "a_reference.c1b1_energy_bound.radial_derivatives(a, b) (existing, unchanged); never called at run time.",
+   "domain_R_bohr": ["7065/1024", "7680/1024"],
+   "covers": "[6.9, 7.5] bohr",
+   "cell_width": "1/1024 bohr",
+   "cells": 615,
+   "per_cell": "V' and V'' enclosures (exact rationals as returned) and G'(s) = (V'(R) - R V''(R)) / (2 R^3) enclosed by exact interval arithmetic over the cell's R interval.",
+   "outside": "any event whose R range is not inside the certificate -> EVENT_DERIVATIVE_DOMAIN_UNSUPPORTED (STOP, no extrapolation).",
+   "checker": "separate module, separate process: protocol hash, generator source hashes, cell coverage without gap or overlap, endpoint ordering, finiteness, domain, recomputation of every cell with radial_derivatives in a fresh process (stored values must equal), independent G' recomputation from the stored V', V'' with its own interval code, and an independent necessary check of V'' per cell: (V'(b) - V'(a)) / (b - a) from c1b1_two_atom._model_R point enclosures must intersect V''(cell), and _model_R's V' at both ends must intersect V'(cell). The generator's PASS flag is never read."
+  },
+  "soundness_tests_before_campaign": [
+   "same tag +X and -X cancel exactly",
+   "reusing one id for two events is detected (allocator guard; sampled exact oracle shows the false cancellation)",
+   "a forged zero nonlinear remainder is detected by the sampled exact oracle",
+   "inward rounding of the remainder is detected by the sampled exact oracle",
+   "domain R < r_min -> VIOLATED",
+   "domain R == r_min -> PROVEN",
+   "domain R > r_min -> PROVEN",
+   "certificate lookup at a cell boundary uses the hull of both cells",
+   "R range outside the certificate -> EVENT_DERIVATIVE_DOMAIN_UNSUPPORTED",
+   "reading/deciding a checkpoint does not change the state (no projection or midpoint feedback)"
+  ],
+  "campaign_gate": "if any PART B soundness test fails, no PART B campaign is run.",
+  "stage_1": {"precision_bits": [96], "checkpoints": [10, 100]},
+  "metrics": "per path and checkpoint: FX cell decided?, worst normalized position radius (radius / 2^-48), worst normalized momentum radius (radius / 2^-80), CPU and wall of the pass (median of 3 runs, fresh process each), peak RSS, tag count, max remainder.",
+  "soundness_in_campaign": "at every checkpoint the checker replays A2_bound itself at 512 bits (own interval code, shared lang_iv TCB). Candidate and baseline ranges must intersect the reference enclosure for every component; every decided cell must equal the reference cells; tag count <= 3 * (steps + 1).",
+  "extension_rule_fixed": "extend to stage 2 = {(96, 1000), (128, 1000)} with checkpoints 10/100/1000 iff (candidate DECIDED at 96-bit step 100 OR baseline worst normalized radius >= 2 x candidate worst normalized radius at 96-bit step 100) AND soundness PASS AND candidate CPU <= 10 x baseline CPU at stage 1. Otherwise stop: EVENT_LINEAGE_NO_SIGNAL (no signal), EVENT_LINEAGE_COST_WALL (CPU > 10x), EVENT_LINEAGE_SOUNDNESS_FAIL (soundness).",
+  "MAX_TAGS": 4096,
+  "tag_cap_rule": "tag count > MAX_TAGS -> the pass stops with LINEAGE_TAG_CAP (REFUSED). Fixed before running.",
+  "classification": {
+   "LINEAGE_SOUNDNESS": "PASS iff all soundness tests pass and every in-campaign soundness check passes; FAIL if any fails; UNRESOLVED if a check could not be performed.",
+   "LINEAGE_CORRELATION": "YES iff at 96-bit step 100 the candidate decides where the baseline does not, or the baseline worst normalized radius >= 2 x the candidate's; NO otherwise; UNRESOLVED if soundness is not PASS.",
+   "LINEAGE_COST": "ratio = candidate median CPU / baseline median CPU at stage 1: FASTER < 0.8, TIE 0.8..1.25, WORSE 1.25..10, COST_WALL > 10.",
+   "TAG_GROWTH": "CONTROLLED iff every run stays within 3 * (steps + 1) tags and MAX_TAGS; WALL otherwise."
+  },
+  "forbidden": ["DAG hidden inside tags", "unbounded exact Fraction coefficients", "changing tag rules after results", "dropping small coefficients", "midpoint as state", "projection feedback", "removing domain obligations", "reusing an id for different events", "new V'' engine", "runtime calls of radial_derivatives", "Vast"]
+ },
+
+ "final_wording_forbidden": ["DAG problem solved", "AFFINE replaced", "N-body solved", "composite atoms validated", "production ready", "memory problem solved globally"],
+ "no_post_hoc_changes": "cases, checkpoints, modes, thresholds, certificate domain and cell width, extension rule, caps and classifications are fixed before any campaign run."
+}
