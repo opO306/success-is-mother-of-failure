@@ -1,0 +1,55 @@
+{
+ "gate": "PRECISION_PILOT_A1 - precision policies on the unchanged C_stream evaluator",
+ "date": "2026-10-05",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NOT PRODUCTION APPROVED"],
+ "parent_commit": "e019b72 (FORMULA_REPRO_B_V0 results; stage-0 corrected checker b3cf203 underneath)",
+ "design_sources": "EVOLVING_CALCULATOR_DESIGN_V1 (06 precision search, 08 experiments), session merge proposal 2026-10-05, designer direction 2026-10-05 (A1 first; algebra later in A2 with the same frozen policies)",
+ "question": "Does using intermediate integer working precisions, and the order in which precisions are tried, change the total cost of deciding the same requests on the same evaluator? Not: find 129. Not: claim a minimum from a 128 success.",
+ "world": "Exact Expression V1 unrounded KDK (dt = 40, h = 20, Ar40 mass, Lang 2024 with retardation); FX(96,48)/FX(96,80) observation only, never fed back. A new precision always restarts from the exact initial state.",
+ "evaluator": {
+  "id": "original",
+  "implementation": "repository exact_expression_gate_v1.stream.run(q0, p0, p, T, {T}, exact=False), imported read-only; one pass = one call",
+  "registry": "evaluator ids are explicit; 'algebra' (A2) and later ids are registered but NOT used in A1",
+  "p_support": "D_library: mpmath iv accepts any integer prec; D_evaluator audited here: integers [64, 1024] (requested p must equal effective iv.prec after the pass; sample soundness vs a 1536-bit reference at non-grid p); D_run: [64, 1024]"
+ },
+ "scenarios": {
+  "A2_bound": "q = (-71/20,0,0),(71/20,0,0); p = (1,-3,0),(-1,3,0)",
+  "A3_low": "q = (0,0,0),(25,0,0),(0,25,0); p = (2,1,0),(-1,2,0),(-1,-3,0)",
+  "A3_high": "q = (0,0,0),(71/10,0,0),(71/20,6149/1000,0); p = (3,0,1/2),(-3/2,13/5,0),(-3/2,-13/5,-1/2)"
+ },
+ "requests": {
+  "unit": "(scenario, target step T): decide all FX cells of q and p at step T",
+  "training": {"T": [200, 2000], "note": "used only to fix P1 and P3; never evaluated"},
+  "evaluation_short": {"T": [100, 1000], "purpose": "selector logic and repeatable cost comparison"},
+  "evaluation_long": {"T": [3000, 5000, 10000], "purpose": "long horizon; earlier FOREST tables are NOT used as answers"}
+ },
+ "baseline_grid": [64, 96, 128, 192, 256, 384, 512, 768, 1024],
+ "pass_outcomes": ["DECIDED", "UNDECIDED_AT_PRECISION", "DOMAIN_UNPROVEN", "DOMAIN_VIOLATED_PROVEN", "OUT_OF_RANGE", "RESOURCE_REFUSED"],
+ "ledger_states": ["UNTRIED", "DECIDED", "UNDECIDED_AT_PRECISION", "DOMAIN_UNPROVEN", "DOMAIN_VIOLATED_PROVEN", "OUT_OF_RANGE", "RESOURCE_REFUSED", "INVALID_EVIDENCE", "RESULT_CONFLICT"],
+ "policies": {
+  "P0": "baseline grid ascending from 64.",
+  "P1": "start at one fixed integer s1, then the baseline grid values above the last tried p. s1 = the median of the lowest observed success p over all training requests (P2 runs), rounded up.",
+  "P2": "learning-free integer search, start 64. After a pass at p that reached T but was undecided: p_next = p + max over undecided components of ceil(log2(width / margin)) + 8, where width = scaled enclosure width and margin = distance of the enclosure midpoint to the nearest rounding boundary (margin <= 0 -> +32). After a pass that stopped at step k < T (DOMAIN_UNPROVEN): p_next = ceil(p * T / k) + 8. Always p_next > p; capped at 1024.",
+  "P3": "experience: per scenario, a line p = a + b T through the lowest observed success p of the two training horizons; start at ceil(a + b T) + 8 (at least 64); afterwards the P2 rules.",
+  "frozen": "P1 s1 and P3 lines are computed from training runs only and frozen (policy hash) before any evaluation run."
+ },
+ "modes": {
+  "SERVE": "each policy until the request is DECIDED, a final refusal, or the budget; every pass (also failed ones) is counted",
+  "INVESTIGATE": "short evaluation requests only: one pass at every integer p in [64, lowest_success - 1] not yet tried, recording each outcome; the lowest success is called MIN_SUCCESS_IN_DECLARED_DOMAIN [64, 1024] only if every lower integer is a recorded non-success. Long requests: no INVESTIGATE (their untried integers stay UNTRIED)."
+ },
+ "budgets": {
+  "per_request_max_passes": 24,
+  "per_request_cpu_s": 5400,
+  "p_cap": 1024,
+  "on_budget": "RESOURCE_REFUSED for the request (not a mathematical failure)"
+ },
+ "repetitions": {"training": 1, "evaluation_short": 3, "evaluation_long": 1, "investigate": 1},
+ "process": "every (request, policy, repetition) and every INVESTIGATE pass runs in a fresh python process; all runs sequential (no concurrency); order of policies rotated per repetition; the runner records its child PIDs and confirms exit.",
+ "no_result_cache": "no policy reuses another run's pass; equal (request, p) passes across runs must give identical outcomes and endpoints (checker).",
+ "evidence": "per pass: requested_p, effective_p, outcome, completed_steps, cells, exact endpoints at T when reached, CPU and wall; per request: policy, policy hash, pass sequence, totals.",
+ "cost": "C_policy = sum over passes of pass CPU (search, failed retries and the deciding pass); process wall from spawn to exit also kept; INVESTIGATE cost reported separately and never added to SERVE.",
+ "checker": "independent: recompute cells from endpoints; ledger consistency; re-derive every next-p choice of P0-P3 from the recorded outcomes with its own implementation of the sealed rules; agreement of all decided cells per request; same-(request, p) determinism; completeness before any summary.",
+ "git_at_start": {"recorded_in_execution_seal": ["HEAD", "branch", "status", "origin/master"], "origin_master_note": "origin/master moved 1c0e751 -> 0ecfb7f by a push outside this session (reflog 'update by push'); recorded as evidence only, not fetched or changed"},
+ "not_in_scope": ["algebra evaluator (A2)", "combined selector", "reverse-rule evaluators", "tag or memory changes", "new number systems", "GPU", "Vast", "changing physics, grid of observation, rounding, domain or STOP"],
+ "claims_forbidden": ["128 success means 128 is minimal", "a policy's win on these requests is general performance", "observed-cell agreement certifies the world state"]
+}
