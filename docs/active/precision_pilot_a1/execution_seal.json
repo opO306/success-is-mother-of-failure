@@ -1,0 +1,21 @@
+{
+ "head": "25b01f60b4a102fc63311fd6476d13bdf897531a",
+ "branch": "codex/precision-pilot-a1",
+ "status_porcelain": "",
+ "origin_master": "0ecfb7fc17d85ae644c36a17f9d1b673ccea41ec",
+ "origin_master_reflog": "0ecfb7f refs/remotes/origin/master@{0}: update by push\n1c0e751 refs/remotes/origin/master@{1}: update by push\n9dfd3f8 refs/remotes/origin/master@{2}: update by push",
+ "sealed_sources_dirty": false,
+ "source_sha256_lf": {
+  "experiments/precision_pilot_a1/protocol.json": "94e25a0cdd5d509f7d345f5ed2c6de7c4f308915e165b72fa6332bab69c60fba",
+  "experiments/precision_pilot_a1/evaluator_adapter.py": "7ecbaf3e22ec104fd62891a2209976c4428e0e38045bb5b752f69fb31230458d",
+  "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d232544379048506cd27c40a91dcf9d29a985b9e27ed274ff",
+  "experiments/precision_pilot_a1/runner.py": "a455ddf6092b04d35dea94f51c6669252c0fe99353c6dac9538cc260855d40be",
+  "experiments/precision_pilot_a1/campaign.py": "08653e0bb5872aca052e3c1a1bcd7b5dd2042719aa9dcebb1f423530791c174e",
+  "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+  "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+  "exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959"
+ },
+ "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+ "started": "2026-10-05 17:15:51"
+}
