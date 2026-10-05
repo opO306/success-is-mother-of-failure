@@ -1,0 +1,26 @@
+{
+ "head": "d3511f95a88eddeefe83881c8939278f6f0f6030",
+ "branch": "codex/precision-pilot-a2t",
+ "status_porcelain": "",
+ "origin_master": "0ecfb7fc17d85ae644c36a17f9d1b673ccea41ec",
+ "sealed_sources_dirty": false,
+ "source_sha256_lf": {
+  "experiments/precision_pilot_a2t/protocol.json": "988e9fa87ae6c02f8c903174119adcebf08d43019db0c365bb0d91c1bb692fda",
+  "experiments/precision_pilot_a2t/frozen_policy_params_a1.json": "c91190229b04abb4137deb8649f00a30cea169618c530076dca9e851145add96",
+  "experiments/precision_pilot_a2t/evaluator_adapter.py": "ed5cb22b85d6411e551e5adae2f495a8cc5d18c0606403d98d137197c8800ecf",
+  "experiments/precision_pilot_a2t/runner.py": "a3569c4a7fb5d927ea584bd9a522388f1b22a32ba1090acf1c63fef2bfb34458",
+  "experiments/precision_pilot_a2t/campaign.py": "6a6b52f412126eeab0a520192aac92152acf2cc23839dba4e616096b10c334bc",
+  "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d232544379048506cd27c40a91dcf9d29a985b9e27ed274ff",
+  "experiments/precision_pilot_a1/evaluator_adapter.py": "7ecbaf3e22ec104fd62891a2209976c4428e0e38045bb5b752f69fb31230458d",
+  "experiments/precision_pilot_a1/protocol.json": "94e25a0cdd5d509f7d345f5ed2c6de7c4f308915e165b72fa6332bab69c60fba",
+  "experiments/formula_repro_b_v0/harness.py": "b0217b82e8549d6f600de8732fe8c3f5c8ff790926c90bd07381efae0c360a99",
+  "experiments/formula_repro_b_v0/transform_checks.py": "f200f41a612a8a7c7e03adeb55222dcf78021f10f6b52e7108585e550f3b7192",
+  "experiments/formula_repro_b_v0/upstream/probe.py": "2bae71e13f03ce51eafa7c2c97cbfdd67108f74bdcbdbbdb4bc2f324915e9917",
+  "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+  "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+  "exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959"
+ },
+ "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+ "started": "2026-10-05 21:27:27"
+}

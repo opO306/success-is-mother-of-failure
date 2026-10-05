@@ -1,0 +1,9 @@
+{
+ "RET_B_all_positive": true,
+ "r_min_positive": true,
+ "point_checks": 192,
+ "point_failures": [],
+ "interval_checks": 48,
+ "interval_failures": [],
+ "PASS": true
+}
