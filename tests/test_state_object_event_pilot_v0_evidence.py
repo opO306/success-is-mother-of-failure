@@ -40,6 +40,10 @@ def test_evidence_rechecks_to_committed_verdict(tmp_path):
     b = CK.check_part_b(dirs["partB"], cert)
     for k in ("LINEAGE_SOUNDNESS", "LINEAGE_CORRELATION", "LINEAGE_COST", "TAG_GROWTH", "extension_rederived"):
         assert b[k] == verdict["part_B"][k], k
+    corrected = json.loads((EV / "checker_verdict_corrected.json").read_text(encoding="utf-8"))["part_B"]
+    assert b["invalid_evidence"] == corrected["invalid_evidence"] == [] and b["incomplete"] == []
+    for k in ("LINEAGE_SOUNDNESS", "LINEAGE_CORRELATION", "LINEAGE_COST", "TAG_GROWTH", "stage1_extension_eligibility"):
+        assert b[k] == corrected[k], k
     spread = list(range(CK.MLO, CK.MHI + 1, 41)) + [CK.MHI]
     c = CK.check_certificate(cert, recompute=spread, workers=1)
     assert c["problems"] == [] and verdict["certificate"]["problems"] == []

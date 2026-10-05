@@ -344,22 +344,60 @@ def own_cells(ranges):
     return out
 
 
+def _radii(rng):
+    """Worst normalized radii recomputed from raw endpoints: positions (first half) / 2^-48, momenta / 2^-80."""
+    n = len(rng) // 2
+    wq = max((hi - lo) / 2 * (1 << 48) for lo, hi in rng[:n])
+    wp = max((hi - lo) / 2 * (1 << 80) for lo, hi in rng[n:])
+    return wq, wp
+
+
+def _run_consistency(doc, path, prec, last, want, stem):
+    """F-COMPLETENESS: metadata and completion of one run must agree with its plan and its own reads."""
+    bad = []
+    meta = (doc.get("path"), doc.get("prec"), doc.get("last"), sorted(doc.get("want") or []))
+    if meta != (path, prec, last, sorted(want)):
+        bad.append(f"{stem}: metadata {meta} != plan {(path, prec, last, sorted(want))}")
+    cs, stop, read = doc.get("completed_steps"), doc.get("stop"), doc.get("read", {})
+    if not isinstance(cs, int) or not 0 <= cs <= last:
+        bad.append(f"{stem}: completed_steps {cs!r} outside 0..{last}")
+        return bad
+    if stop is None and cs != last:
+        bad.append(f"{stem}: completed_steps {cs} but no stop and last = {last}")
+    if stop is not None and doc.get("stop_step") is None:
+        bad.append(f"{stem}: stop without stop_step")
+    for k in read:
+        if int(k) not in want:
+            bad.append(f"{stem}: read step {k} was not requested")
+        elif int(k) > cs:
+            bad.append(f"{stem}: read step {k} beyond completed_steps {cs}")
+    for s in want:
+        if s <= cs and str(s) not in read:
+            bad.append(f"{stem}: requested step {s} <= completed_steps {cs} but not read")
+    return bad
+
+
 def check_part_b(d, cert_path):
+    """Corrected 2026-10-05 (stage 0): F-METRIC (radii recomputed from raw endpoints; stored derived values are only
+    compared), F-COMPLETENESS (per-run metadata/completion consistency), F-INCOMPLETE (final labels only after every
+    required piece of evidence is checked; stage-1 extension eligibility is reported separately and not rewritten)."""
     d = Path(d)
     seal = json.loads((d / "execution_seal.json").read_text(encoding="utf-8"))
     _binding(seal)
     proto = json.loads((HERE / "protocol.json").read_text(encoding="utf-8"))["part_B"]
     with gzip.open(cert_path, "rb") as f:
         cert_sha = hashlib.sha256(json.dumps(json.loads(f.read()), sort_keys=True).encode()).hexdigest()
-    plans = [(96, 100, [10, 100])]
+    stage1 = [(96, 100, [10, 100])]
+    stage2 = [(96, 1000, [10, 100, 1000]), (128, 1000, [10, 100, 1000])]
     dec_doc = json.loads((d / "decision.json").read_text(encoding="utf-8"))
-    if (d / "execution_seal_stage2.json").exists():
+    stage2_present = (d / "execution_seal_stage2.json").exists()
+    if stage2_present:
         s2 = json.loads((d / "execution_seal_stage2.json").read_text(encoding="utf-8"))
         bad = [s for s, h in s2["source_sha256_lf"].items() if lf(ROOT / s) != h]
         if bad:
             raise CheckError(f"stage-2 sources changed: {bad}")
-        plans += [(96, 1000, [10, 100, 1000]), (128, 1000, [10, 100, 1000])]
-    incomplete, sound, tag_ok, rows = [], [], True, {}
+    plans = stage1 + (stage2 if stage2_present else [])
+    incomplete, invalid, sound, tag_ok, rows = [], [], [], True, {}
     refs = {}
     for prec, last, want in plans:
         if last not in refs:
@@ -375,61 +413,91 @@ def check_part_b(d, cert_path):
                 if not f.exists():
                     incomplete.append(f"missing: {stem}")
                     continue
-                docs.append(json.loads(f.read_text(encoding="utf-8")))
-            for doc in docs:
+                doc = json.loads(f.read_text(encoding="utf-8"))
+                invalid += _run_consistency(doc, path, prec, last, want, stem)
+                docs.append((stem, doc))
+            radii = {}
+            for stem, doc in docs:
                 if path == "candidate" and doc.get("certificate_sha256") != cert_sha:
                     raise CheckError("candidate ran with another certificate")
                 if doc.get("stop") is not None:
                     sound.append(("stop", path, prec, last, doc["stop"]))
                 for s in want:
-                    r = doc["read"].get(str(s))
+                    r = doc.get("read", {}).get(str(s))
                     if r is None:
-                        incomplete.append(f"{path} p{prec} s{last}: step {s} missing")
+                        incomplete.append(f"{stem}: step {s} missing")
                         continue
                     rng = [(F(a), F(b)) for a, b in r["ranges"]]
+                    wq, wp = _radii(rng)
+                    if (F(r["norm_radius_pos_exact"]), F(r["norm_radius_mom_exact"])) != (wq, wp):
+                        invalid.append(f"{stem} step {s}: stored radius differs from the radius recomputed from endpoints")
+                    radii.setdefault(s, []).append((wq, wp))
                     if not all(lo <= rhi and rlo <= hi for (lo, hi), (rlo, rhi) in zip(rng, ref[s])):
-                        sound.append(("disjoint_from_reference", path, prec, s))
+                        sound.append(("disjoint_from_reference", path, prec, last, s))
                     mine = own_cells(rng)
                     if (mine is None) != (r["cells"] is None) or (mine is not None and mine != r["cells"]):
-                        sound.append(("cells_not_reproduced", path, prec, s))
+                        sound.append(("cells_not_reproduced", path, prec, last, s))
                     refc = own_cells(ref[s])
                     if r["cells"] is not None and refc is not None and r["cells"] != refc:
-                        sound.append(("cells_differ_from_reference", path, prec, s))
+                        sound.append(("cells_differ_from_reference", path, prec, last, s))
                     if path == "candidate" and (r["tags"] > 3 * (s + 1) or r["tags"] > proto["MAX_TAGS"]):
                         tag_ok = False
             if docs:
+                for s, vals in radii.items():
+                    if len(set(vals)) != 1:
+                        invalid.append(f"{path} p{prec} s{last} step {s}: recomputed radii differ between repetitions")
+                d0 = docs[0][1]
                 rows[f"{path}_p{prec}_s{last}"] = {
-                    "cpu_median": statistics.median(x["cpu_s"] for x in docs),
-                    "cpu_runs": [x["cpu_s"] for x in docs], "wall_median": statistics.median(x["wall_s"] for x in docs),
-                    "peak_rss_max": max(x["peak_rss"] for x in docs),
-                    "read": {s: {k: v for k, v in docs[0]["read"][str(s)].items() if k != "ranges"}
-                             for s in want if str(s) in docs[0]["read"]}}
-    soundness_pass = not sound and not incomplete
+                    "cpu_median": statistics.median(x["cpu_s"] for _, x in docs),
+                    "cpu_runs": [x["cpu_s"] for _, x in docs], "wall_median": statistics.median(x["wall_s"] for _, x in docs),
+                    "peak_rss_max": max(x["peak_rss"] for _, x in docs),
+                    "read": {s: {"cells": d0["read"][str(s)]["cells"],
+                                 "norm_radius_pos_recomputed": str(radii[s][0][0]),
+                                 "norm_radius_mom_recomputed": str(radii[s][0][1]),
+                                 **{k: v for k, v in d0["read"][str(s)].items()
+                                    if k in ("tags", "max_remainder", "max_coefficients_per_component")}}
+                             for s in want if s in radii}}
+    # stage-1 extension eligibility: from stage-1 evidence only (recomputed radii); not rewritten by later gaps
+    eligibility, cost, signal, s1 = None, None, None, None
     st1b, st1c = rows.get("baseline_p96_s100"), rows.get("candidate_p96_s100")
-    corr, cost, ext = "UNRESOLVED", None, None
-    if st1b and st1c:
+    stage1_evidence_ok = bool(st1b and st1c) and not any(("p96__s100" in x) or ("p96 s100" in x)
+                                                         for x in incomplete + invalid)
+    stage1_sound = not any(x[2] == 96 and x[3] == 100 for x in sound)
+    if st1b and st1c and 100 in st1b["read"] and 100 in st1c["read"]:
         rb, rc = st1b["read"][100], st1c["read"][100]
-        wb = max(F(rb["norm_radius_pos_exact"]), F(rb["norm_radius_mom_exact"]))
-        wc = max(F(rc["norm_radius_pos_exact"]), F(rc["norm_radius_mom_exact"]))
+        wb = max(F(rb["norm_radius_pos_recomputed"]), F(rb["norm_radius_mom_recomputed"]))
+        wc = max(F(rc["norm_radius_pos_recomputed"]), F(rc["norm_radius_mom_recomputed"]))
         signal = (rc["cells"] is not None and rb["cells"] is None) or wb >= 2 * wc
         ratio = st1c["cpu_median"] / st1b["cpu_median"]
         cost = "FASTER" if ratio < 0.8 else "TIE" if ratio <= 1.25 else "WORSE" if ratio <= 10 else "COST_WALL"
-        if soundness_pass:
-            corr = "YES" if signal else "NO"
-        ext = ("EVENT_LINEAGE_SOUNDNESS_FAIL" if not soundness_pass else "EVENT_LINEAGE_COST_WALL" if ratio > 10
-               else "EVENT_LINEAGE_NO_SIGNAL" if not signal else "EXTEND")
-        if ext != dec_doc.get("decision"):
-            raise CheckError(f"campaign extension decision {dec_doc.get('decision')} != re-derived {ext}")
-        if ext == "EXTEND" and len(plans) == 1:
-            incomplete.append("extension required by the rule but stage 2 missing")
-        if ext != "EXTEND" and len(plans) > 1:
-            raise CheckError("stage 2 ran although the rule did not allow it")
-        rows["stage1_summary"] = {"worst_norm_baseline": float(wb), "worst_norm_candidate": float(wc),
-                                  "radius_ratio": float(wb / wc) if wc else None, "cpu_ratio": ratio}
-    return {"incomplete": incomplete, "soundness_findings": sound,
-            "LINEAGE_SOUNDNESS": "PASS" if soundness_pass else ("UNRESOLVED" if incomplete and not sound else "FAIL"),
-            "LINEAGE_CORRELATION": corr, "LINEAGE_COST": cost, "TAG_GROWTH": "CONTROLLED" if tag_ok else "WALL",
-            "extension_rederived": ext, "rows": rows,
+        eligibility = ("EVENT_LINEAGE_SOUNDNESS_FAIL" if not stage1_sound else "UNRESOLVED" if not stage1_evidence_ok
+                       else "EVENT_LINEAGE_COST_WALL" if ratio > 10
+                       else "EVENT_LINEAGE_NO_SIGNAL" if not signal else "EXTEND")
+        s1 = {"worst_norm_baseline": float(wb), "worst_norm_candidate": float(wc),
+              "radius_ratio": float(wb / wc) if wc else None, "cpu_ratio": ratio}
+        rows["stage1_summary"] = s1
+    # campaign completeness against the rule (after all evidence is read)
+    if eligibility == "EXTEND" and not stage2_present:
+        incomplete.append("stage 2 required by the extension rule but missing")
+    if eligibility not in ("EXTEND", None, "UNRESOLVED") and stage2_present:
+        raise CheckError("stage 2 ran although the rule did not allow it")
+    if eligibility not in (None, "UNRESOLVED") and dec_doc.get("decision") != eligibility:
+        invalid.append(f"campaign decision {dec_doc.get('decision')} != re-derived stage-1 eligibility {eligibility}")
+    # final labels last: no positive label while evidence is missing or invalid
+    evidence_ok = not incomplete and not invalid
+    if sound:
+        soundness = "FAIL"
+    elif not evidence_ok:
+        soundness = "UNRESOLVED"
+    else:
+        soundness = "PASS"
+    corr = ("YES" if signal else "NO") if soundness == "PASS" and signal is not None else "UNRESOLVED"
+    return {"checker_revision": "stage0-2026-10-05 (F-METRIC, F-INCOMPLETE, F-COMPLETENESS)",
+            "incomplete": incomplete, "invalid_evidence": invalid, "soundness_findings": sound,
+            "LINEAGE_SOUNDNESS": soundness, "LINEAGE_CORRELATION": corr,
+            "LINEAGE_COST": cost if evidence_ok else "UNRESOLVED",
+            "TAG_GROWTH": ("CONTROLLED" if tag_ok else "WALL") if evidence_ok else "UNRESOLVED",
+            "stage1_extension_eligibility": eligibility, "extension_rederived": eligibility, "rows": rows,
             "reference": "own 512-bit interval replay, lang_iv shared TCB"}
 
 
