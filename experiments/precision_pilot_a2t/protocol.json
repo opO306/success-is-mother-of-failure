@@ -1,0 +1,60 @@
+{
+ "gate": "PRECISION_PILOT_A2T - transfer of the frozen A1 precision policies to the exact algebra evaluator",
+ "date": "2026-10-05",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NOT PRODUCTION APPROVED"],
+ "parent_commit": "942bcd4 (PRECISION_PILOT_A1 results; checker strengthening 0e49576 underneath)",
+ "question": "Do the precision policies frozen on the original evaluator in A1 carry over unchanged to the algebra evaluator, and where does any cost change come from: a cheaper pass at the same p, or fewer/lower passes because enclosures are narrower? Not: make algebra win. No retraining (that is A2-R, a separate later campaign).",
+ "world": "Exact Expression V1 unrounded KDK (dt = 40, h = 20, Ar40 mass, Lang 2024 with retardation); FX(96,48)/FX(96,80) observation only, never fed back. A new precision always restarts from the exact initial state.",
+ "evaluators": {
+  "original": "A1's adapter function experiments.precision_pilot_a1.evaluator_adapter._original, unchanged: repository exact_expression_gate_v1.stream.run(q0, p0, p, T, {T}, exact=False)",
+  "algebra": "the SAME repository stream.run call (same KDK loop, same domain check common.domain, same readout common.decide / endpoints_key, same A1 adapter function), with only the pair-force function replaced, inside the worker process, by the FORMULA_REPRO_B_V0 exact rearrangement probe.Force(Backend('mp', p), compiled=True). The replacement is a runtime attribute swap of stream.LI to a namespace {c: lang_iv.c, G_of_R2: algebra force}, restored after every pass; no source file changes. The upstream probe is loaded unchanged by experiments.formula_repro_b_v0.harness.load_probe (eager PROGRAM deferred) AFTER the repository modules are imported, so lang_iv, ar2_lang2024 constants and stream are the repository modules (recorded per run; checker verifies). exact_program() is the evaluator preparation (once per worker process, timed separately).",
+  "difference_from_B": "B measured the algebra inside the upstream probe.evolve loop with vendor constants; A2T uses the repository loop and repository constants for both evaluators so that the only difference is the force formula. Same-p speed factors may therefore differ from B's 5.6-7.1x; recorded, not tuned.",
+  "registry": "evaluator ids explicit: original, algebra; later ids (reverse-rule-X) not registered here"
+ },
+ "algebra_correctness_obligations": {
+  "source_binding": "upstream probe.py and vendor files equal upstream SHA256SUMS.json (LF-normalised bytes); harness.load_probe asserts the expected PROGRAM assignment; runs record module files; repository constants used",
+  "symbolic_identity": "re-run upstream test_compiler_exact_symbolic_identity (sympy CAS expansion = 0) once in the audit; this is a CAS check, not a formal proof",
+  "applicability_domain": "rearranged form divides by R and den(R) = 1 + sum RET_B R^(m+1): requires R > 0 and every RET_B > 0 (audit); every force call in the run happens only after common.domain proved R^2 >= r_min^2 > 0 for that pair (same loop as original)",
+  "enclosure_samples": "re-run FORMULA_REPRO_B_V0 transform_checks (48 radii x p in {64,96,128,192}; 12 interval inputs) in the audit, with repository modules",
+  "p_support": "algebra at non-grid p {65, 97, 129, 137, 193, 300, 458, 777} on A2_bound 20 steps: effective p = requested p; enclosure meets the 1024-bit ORIGINAL pass componentwise; decided cells equal",
+  "per_pass": "exact endpoints stored; cells recomputed from endpoints by the checker; completed_steps = T for DECIDED/UNDECIDED; effective_p = requested p",
+  "cross_evaluator": "per request every pair of passes (any evaluator, any p) that reached T must have intersecting enclosures in every component (both enclose the same exact value); all DECIDED cells equal across evaluators, policies, repetitions and the A1 bundle",
+  "evidence_levels_reported_separately": ["symbolic identity (CAS)", "interval/sample inclusion", "endpoint agreement (enclosure intersection)", "observed final raw agreement", "formal certification: none"]
+ },
+ "scenarios": "A2_bound, A3_low, A3_high (A1 initial states, identical strings)",
+ "requests": {
+  "evaluation_short": {"T": [100, 1000], "repetitions": 3},
+  "evaluation_long": {"T": [3000, 5000, 10000], "repetitions": 1},
+  "training": "none (A2T does not train)"
+ },
+ "policies": {
+  "source": "experiments.precision_pilot_a1.policies imported unchanged; parameters frozen_policy_params_a1.json = A1 policy_params.json (policy_hash 6d601462f31f5505a2656fe8e2b853fcce617174de279766947dbadda816348e, s1 = 110, A1 per-scenario lines), never re-fitted",
+  "P0": "grid 64,96,128,192,256,384,512,768,1024", "P1": "fixed start 110 then grid", "P2": "A1 learning-free rule (width/margin + 8; domain stop ceil(pT/k) + 8)", "P3": "A1 original-trained line + 8, then P2 rules"
+ },
+ "combinations": {
+  "required": ["original+P0", "original+P2", "original+P3", "algebra+P0", "algebra+P2", "algebra+P3"],
+  "added": ["algebra+P1 (cheap; tests the fixed start 110 under narrower enclosures)"],
+  "not_rerun": "original+P1: A1 values are quoted only as a different-session reference, never in a ratio"
+ },
+ "reuse_of_A1": {
+  "cost": "NOT reused. Every compared combination is run fresh in this campaign, cold processes, interleaved; baseline and candidate under the same conditions.",
+  "data": "A1 bundle (docs/active/precision_pilot_a1/results.json.gz, sha256 af5c13e6f61b52211c244a282fbd70ac4fb70cbede63d7c9b643d7ec477e357a, commit 942bcd4) is read by the checker only: (a) determinism: every new original pass at an (scenario, T, p) present in A1 must have the identical outcome and endpoints; (b) original short-horizon true minimum = A1 INVESTIGATE result (deterministic; valid only if (a) holds and the A1 sealed sources are unchanged)."
+ },
+ "modes": {
+  "SERVE": "each (request, evaluator, policy, repetition) in a fresh process; every pass counted",
+  "INVESTIGATE": "algebra only, short T only: one pass at every integer p in [64, lowest algebra SERVE success - 1] not tried by any algebra SERVE run of that request; one fresh process per pass; cost reported separately, never added to SERVE. Long: no INVESTIGATE (minimum only bracketed)."
+ },
+ "order": "audit; then for rep 0..2, scenario, T in short: the 7 combinations in an order rotated per repetition (reversed on odd repetitions); then algebra INVESTIGATE; then long T, 1 repetition, same interleaving. Sequential, no concurrency.",
+ "costs_recorded": {
+  "per_pass": "requested p, outcome, completed_steps, exact endpoints when T reached, cells, pass CPU and wall (includes building the force at p)",
+  "per_run": "load (imports, probe AST), evaluator preparation (algebra exact_program; original none), sum of pass CPU (search + failed retries + deciding pass), record cost (first JSON serialisation and write, measured and stored on rewrite), child total CPU/wall, parent process wall (spawn to exit)",
+  "verification": "checker CPU per run file and in total",
+  "total": "TOTAL_CPU = child total CPU (load + prepare + passes + record) + verification CPU share; parent wall also reported",
+  "effects": "same-p factor S = median over shared (scenario, T, p) passes that reached T of original pass CPU / algebra pass CPU; per request path factor = (cost ratio) / S, labelled derived; needed-p change from short true minima and long brackets (max non-success < minimum <= lowest success)"
+ },
+ "budgets": {"per_request_max_passes": 24, "per_request_cpu_s": 5400, "p_cap": 1024, "campaign_cpu_cap_s": 18000, "expected_cpu_s": "about 10000 (A1 original eval 8195 s minus P1; algebra about 1/6 per pass)", "on_cap": "stop the campaign and report RESOURCE_REFUSED for unplanned-out runs; no silent partial summary"},
+ "checker": "independent of the executor (imports none of A1 policies/runner/campaign/adapter, A2T adapter/runner/campaign, probe); own cell rounding, own re-derivation of every next-p choice from recorded outcomes with the A1 frozen parameters, completeness of the planned run and INVESTIGATE sets, enclosure intersection across evaluators, determinism, A1 cross-check, source binding hashes. Acceptance rules fixed here; a checker defect found later is fixed in a separate commit with before/after evidence.",
+ "git_at_start": {"recorded_in_execution_seal": ["HEAD", "branch", "status", "origin/master"]},
+ "not_in_scope": ["A2-R retraining", "new P3 lines, margins or start rules", "reverse calculation / factorisation candidates", "tags, lineage, memory", "Decimal/RNS/LNS/Posit", "GPU", "Vast", "physics, rounding, domain or STOP changes", "hyperparameter tuning", "post-hoc changes to match a ratio"],
+ "claims_forbidden": ["observed raw agreement certifies the exact state or general equivalence", "a win on these 3 scenarios is general performance", "a 128 success means 128 is minimal", "the 6-8x of B is reproduced unless measured here at the same p"]
+}
