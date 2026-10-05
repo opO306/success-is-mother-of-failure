@@ -221,7 +221,13 @@ def check(run_dir):
         serve[(scen, T, pol, rep)] = doc
     inv = {}
     for scen in SCEN:
-        for T in SHORT_T:
+        for T in SHORT_T:                                # planned INVESTIGATE set re-derived from the SERVE runs
+            runs = [serve[(scen, T, pol, r)] for pol in POLICIES for r in range(3) if (scen, T, pol, r) in serve]
+            tried = {h["requested_p"] for x in runs for h in x["passes"]}
+            low = min((h["requested_p"] for x in runs for h in x["passes"] if h["outcome"] == "DECIDED"), default=None)
+            for p in range(64, low or 64):
+                if p not in tried and not (d / f"inv__{scen}__T{T}__p{p}.json").exists():
+                    incomplete.append(f"missing investigate pass: {scen}@{T} p{p}")
             for f in sorted(d.glob(f"inv__{scen}__T{T}__p*.json")):
                 doc = load(f.stem)
                 if doc:
