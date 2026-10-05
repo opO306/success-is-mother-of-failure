@@ -87,7 +87,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     a = ap.parse_args(argv)
-    out = Path(a.out)
+    out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
     up = HERE / "upstream"
     sums = json.loads((up / "SHA256SUMS.json").read_text(encoding="utf-8"))
