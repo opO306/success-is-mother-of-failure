@@ -1,0 +1,62 @@
+{
+ "gate": "E2_PAIR_PARALLEL_V1 - do the E2 (rw:R1+R2) CPU gain and the pair-parallel wall gain survive together?",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "baseline": "origin/master = local master = 15ae151 (merge of claude/resource-xrepro-multiatom-v1); work on local branch claude/e2-pair-parallel-v1 in the main checkout (no worktree)",
+ "pre_seal_checks": {
+  "frozen_physics_diff_9dc9c2d_to_15ae151": "none for exact_expression_gate_v1/{stream,common}.py, exact_expression_gate_v0/lang_iv.py, a_reference/ar2_lang2024.py, precision_pilot_a1/a2t adapters, rewrite_pilot_a3/, formula_repro_b_v0/, multiatom_parallel_v1/, xrepro_resource_v1/",
+  "existing_evidence_diff": "none for docs/active/{multiatom_parallel_v1,xrepro_resource_v1,resource_evolution_v1}/ and their result documents",
+  "known_prior_results_disclosed": "MULTIATOM_PARALLEL_V1 (laptop): SER_E2/SER_E1 CPU 0.916-0.950; PAR_E1 W6 loop speedup up to ~3.98, W3 ~2.7; PAR_E1 wins loop from N=3, end-to-end from N=4 (T=100) / N=3 (T=1000); wall x CPU optimum serial for N<=6, W4 for N 8-16, W6 for N>=24 at T=100. The combination PAR_E2 has never been run; no PAR_E2 timing exists before this seal."
+ },
+ "question": "When E2 is used inside the pair workers, do the E2 CPU gain and the parallel wall gain both survive? Measured, never predicted by multiplying the two separate ratios.",
+ "unchanged_contract": "physics law, ALL pairs (no cutoff), KDK, dt 40, Ar40 mass, three-way domain obligation on every pair, rounding/readout (A1 cells), p = 128, the FCC_N initial-state rule of MULTIATOM_PARALLEL_V1 (experiments/multiatom_parallel_v1/scenarios.py, imported unchanged). Only the evaluator inside the pair workers and the schedule differ.",
+ "evaluators": {
+  "E1": "algebra = A2T probe Force(compiled=True) at p (the current BASE evaluator)",
+  "E2": "rw:R1+R2 = A3 RwForce(plan) constructed after iv.prec = p, exactly as the serial A3 path (experiments/multiatom_parallel_v1/run.run_serial with ev 'rw:R1+R2')"
+ },
+ "configurations": {
+  "SER_E1": "experiments/multiatom_parallel_v1/run.py serial algebra (imported unchanged; the repository stream.run loop with the force swapped for the pass)",
+  "SER_E2": "experiments/multiatom_parallel_v1/run.py serial rw:R1+R2 (unchanged)",
+  "PAR_E1_W3, PAR_E1_W4, PAR_E1_W6": "new runner experiments/e2_pair_parallel_v1/run.py with evaluator E1 - the same algorithm as MULTIATOM PAR_W (persistent pinned spawn workers, contiguous canonical pair blocks, main reduces in canonical pair order block by block, KDK and readout in the main)",
+  "PAR_E2_W3, PAR_E2_W4, PAR_E2_W6": "the same runner with evaluator E2 in every worker",
+  "W4_reason": "fixed before any run: MULTIATOM found W4 the wall x CPU optimum at N 8-16 (T=100), so W4 is needed to answer the wall x CPU question for both evaluators"
+ },
+ "bit_identity_requirement": "for every (horizon, N): all E1 runs (SER_E1, PAR_E1_W3/4/6, 3 repetitions) identical in outcome, completed steps, stop kind/step, the full endpoints key of all 6N components and cells; all E2 runs likewise among themselves. E1 vs E2 are different enclosure programs: their cells must be equal where both are DECIDED (endpoints may differ). SER_E1 and SER_E2 must also equal the MULTIATOM_PARALLEL_V1 laptop evidence records for the same (horizon, N) (read-only cross-run check).",
+ "scope": {
+  "N_list": [3, 4, 6, 12, 24, 48],
+  "N_reason": "3, 4, 6 bracket the known end-to-end / wall x CPU boundaries from both sides (the designer's examples were 4, 6, 12, 24, 48; 3 is added before any run so that a boundary at N=3 is not cut off); 12, 24, 48 are the large-N points; nothing else was selected from known results",
+  "H100": "T = 100 for every N",
+  "H1000": "T = 1000 for N in {3, 4, 6, 12}",
+  "repetitions": 3,
+  "order": "per repetition: H100 N ascending, then H1000 N ascending; within each (horizon, N) the 8 configurations in the order [SER_E1, SER_E2, PAR_E1_W3, PAR_E2_W3, PAR_E1_W4, PAR_E2_W4, PAR_E1_W6, PAR_E2_W6] rotated by 2 x repetition (E1/E2 neighbours stay adjacent so their comparison sees the same machine state)",
+  "estimated_cost_laptop": "about 6,500 CPU s (cycle-counted), about 60 min wall; cap 10,800 CPU s (campaign stops at the next run boundary)"
+ },
+ "machines": {
+  "laptop": {"role": "primary", "host": "DESKTOP-0EASI0F", "worker_cores": [1, 2, 3, 4, 5, 0], "main_cpu": 0, "serial_cpu": 1, "campaign_cpu": 0},
+  "desktop": {"role": "representative re-measurement of the boundaries after the laptop campaign", "host": "Ryzen 5 5600, 6 physical / 12 logical", "worker_cores": [2, 4, 6, 8, 10, 0], "main_cpu": 1, "serial_cpu": 2, "campaign_cpu": 3,
+              "desktop_scope": "N in {3, 4, 6, 12}, H100 and H1000, all 8 configurations, 3 repetitions",
+              "preconditions": "Roblox closed, no other large Python/Codex job; load snapshot before start and before every (horizon, N) group"}
+ },
+ "cpu_measurement": "primary CPU = QueryProcessCycleTime of every process (main + workers / the serial process) divided by the cycle rate calibrated once per campaign on the campaign core (max over 3 x 20 busy loops of 50 ms), as in MULTIATOM_PARALLEL_V1 amendment 3; the tick-sampled process_time figure is kept as total_cpu_tick_s (known to be unreliable on the laptop).",
+ "load_contamination_rule": "before every (horizon, N) group the campaign takes a 1 s process snapshot excluding its own process tree and the System Idle Process. The group is marked CONTAMINATED if (a) the summed CPU of all other processes >= 100 % of one logical CPU, or (b) any single other process whose name matches python / roblox / codex / node is >= 25 %. A CONTAMINATED group stays in the evidence, is checked for correctness, and is excluded from every performance number and boundary (reported separately). The same rule applies on both machines.",
+ "measurements_per_run": "end-to-end wall (campaign side), ready wall (start -> workers ready), loop wall, per-step wall, total CPU (cycles) and its main / worker split, tick CPU, main breakdown (send, wait, reduce, KDK+other), per-worker busy wall, spawn wall, IPC bytes of one step, peak working set of every process, outcome / steps / stop / endpoints key / cells / initial-state digest",
+ "derived": {
+  "E2_over_E1_same_W": "for W in {serial, 3, 4, 6}: total CPU ratio and loop / end-to-end wall ratio",
+  "par_over_ser": "per evaluator: loop and end-to-end speedup, CPU ratio",
+  "PAR_E2_vs_SER_E2": "speedup and CPU ratio of PAR_E2_W against SER_E2",
+  "combined_vs_product": "actual speedup PAR_E2_W vs SER_E1 compared with the product (PAR_E1_W vs SER_E1) x (SER_E1 vs SER_E2), for loop and end-to-end wall and for CPU; reported as actual / product",
+  "overhead_shares": "per evaluator and W: startup share of end-to-end wall, (send + reduce + KDK) share of loop wall, (wait - max worker busy) share of loop wall, worker busy wall per step",
+  "best_plan": "per (horizon, N) among the 8 configurations: min end-to-end wall, min total CPU, min wall x CPU; and per evaluator the W with minimum loop wall",
+  "first_N_PAR_E2_wall_min": "smallest N (per horizon) at which a PAR_E2 configuration is the end-to-end wall minimum, and whether it stays so for all larger N"
+ },
+ "answers_required": ["E2 CPU gain at W3", "E2 CPU gain at W6", "parallel 3-4x wall gain with E2", "does E2 raise the overhead shares", "W_opt E1 vs E2", "CPU-min plan", "first N where PAR_E2 is wall-min", "wall x CPU optimum", "why combined differs from the product", "bit identity at every W"],
+ "decision_classes_for_the_designer": {
+  "A": "PAR_E2 wins stably -> keep as current execution candidate (later input to a small Selector V1)",
+  "B": "E2 gain disappears in parallel -> split the reason into startup / IPC / reduction / worker overhead",
+  "C": "clear W6 bottleneck -> canonical reduction or worker/main placement redesign as a separate later step"
+ },
+ "E2_gates": "rerun the A3 runner refs / verify rw:R1+R2 / sympy rw:R1+R2 and the MULTIATOM new-domain containment gate (experiments/multiatom_parallel_v1/e2gate.py, unchanged) on each machine before its runs",
+ "checker": "experiments/e2_pair_parallel_v1/checker.py, independent of the executor: regenerates every initial state with the MULTIATOM checker's own generator, checks completeness, bit identity per evaluator, E1/E2 cells, cross-run equality with the MULTIATOM laptop evidence, cycle-CPU consistency, affinities, worker exits and evaluator identity of every worker, block partition, CPU sanity, contamination flags re-derived from the stored snapshots",
+ "not_in_scope": ["canonical reduction redesign", "tree reduction", "T11 Joint Genome", "neural selector", "A2-R", "GPU", "RNS/LNS/Posit", "new conditioning model", "new physics scenarios", "cutoffs or any force approximation", "Vast"],
+ "claims_forbidden": ["predicting the combined gain by multiplying separate ratios", "laptop vs desktop absolute times as a winner", "bit identity on these machines as a proof", "boundaries measured here hold for other p, T, machines or scenario families"]
+}
