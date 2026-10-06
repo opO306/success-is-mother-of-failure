@@ -1,20 +1,39 @@
 {
  "gate": "RESOURCE_EVOLUTION_PILOT_V1 (T0-T10) - execution strategy under core / CPU / wall / RAM / speculation budgets, risk profiles and cue conditioning",
  "date": "2026-10-06",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION"
+ ],
  "parent_commit": "e62e8c1 (handoff stored verbatim) on 7cba21d (REWRITE_PILOT_A3 results)",
  "design_source": "docs/active/RESOURCE_EVOLUTION_PILOT_V1_IMPLEMENTER_HANDOFF_20261006.md (sha256 6b44b23f...)",
  "invariant": "Correctness is the entry condition, not a cost term. Only VERIFIED_RESULT is returned: an interval pass that reached T, DECIDED, effective p = requested p, cells re-derived from its exact endpoints by the independent verifier. Physics, constants, inputs, domain, rounding, acceptance rule never change. Selectors choose what to try first, never what is correct.",
  "machine": {
   "cpu": "AMD Family 25 Model 33, 6 physical / 12 logical",
   "smt_siblings": "logical (2i, 2i+1) share physical core i (pre-seal probe: two burners on (0,1) 1.8x slower than on (0,2)); re-measured in T0 as evidence",
-  "physical_core_order": [2, 4, 6, 8, 10, 0],
+  "physical_core_order": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   0
+  ],
   "core_budget_k_means": "the first k logical CPUs of physical_core_order (one per physical core); 6 is the maximum, so the handoff's {1,2,3,4,6} is used as is",
   "ram_gb": 31.9,
   "affinity": "set by every worker as its first action (psutil), read back by the worker and by the parent, recorded"
  },
- "pre_seal_observations_disclosed": ["SMT sibling probe above", "a single request is single-threaded (Python + mpmath): one request cannot use more than one core except by speculation or pair splitting", "frozen P3 line + 0 already decides all 9 evaluation requests for algebra (from A2T/A3 minima), so 'aggressive' is defined at line - 16"],
- "evaluators": {"E1": "algebra (A2T adapter, main baseline)", "E2": "rw:R1+R2 (A3 adapter; its S1-S6 + sympy gates are re-run in T0)", "E0": "original (T0 regression subset only)"},
+ "pre_seal_observations_disclosed": [
+  "SMT sibling probe above",
+  "a single request is single-threaded (Python + mpmath): one request cannot use more than one core except by speculation or pair splitting",
+  "frozen P3 line + 0 already decides all 9 evaluation requests for algebra (from A2T/A3 minima), so 'aggressive' is defined at line - 16"
+ ],
+ "evaluators": {
+  "E1": "algebra (A2T adapter, main baseline)",
+  "E2": "rw:R1+R2 (A3 adapter; its S1-S6 + sympy gates are re-run in T0)",
+  "E0": "original (T0 regression subset only)"
+ },
  "requests": {
   "TRAIN (calibration only, never evaluated)": "A2_bound, A3_low, A3_high x T 200, 2000",
   "EVAL": "A2_bound, A3_low, A3_high x T 100, 1000, 3000 (9 requests); 5000/10000 excluded for cost",
@@ -34,15 +53,50 @@
   "cpu": "the parent polls every worker's CPU every 50 ms; when the request's summed worker CPU reaches the CPU budget all workers are killed",
   "wall": "the same poll kills on the wall budget",
   "ram": "admission: workers x 150 MB > RAM budget -> RESOURCE_REFUSED before start; measured peak working set recorded and compared after the run (RAM_BUDGET_EXCEEDED flag)",
-  "statuses": {"VERIFIED": "verified result", "RESOURCE_REFUSED": "no completed failed attempt before the budget ran out or admission refused", "BUDGET_STARVATION": "at least one attempt completed without success and the budget ran out before a fallback could finish", "NOT_VERIFIED": "a DECIDED claim failed the verifier (must never be accepted)"}
+  "statuses": {
+   "VERIFIED": "verified result",
+   "RESOURCE_REFUSED": "no completed failed attempt before the budget ran out or admission refused",
+   "BUDGET_STARVATION": "at least one attempt completed without success and the budget ran out before a fallback could finish",
+   "NOT_VERIFIED": "a DECIDED claim failed the verifier (must never be accepted)"
+  }
  },
- "calibration (phase CAL, before any evaluation run)": "BASE on TRAIN, 1 core, 3 repetitions. kappa_s = median over T in {200, 2000} and repetitions of (first-pass CPU / T). Predicted pass-equivalent u(s,T) = kappa_s * T.",
+ "calibration (phase CAL, before any evaluation run)": "BASE on TRAIN, 1 core, 3 repetitions. kappa_s = median over T in {200, 2000} and repetitions of (first-pass CPU / T); o = median over all CAL runs of (worker total CPU - pass CPU) = process start + imports + evaluator preparation. Predicted pass-equivalent u(s,T) = o + kappa_s * T (CPU seconds of one worker doing one pass).",
  "tiers (per request; u from CAL)": {
-  "H0": {"cores": 6, "cpu_u": 50, "wall": "600 s", "ram_mb": 4096, "spec": 3},
-  "H1": {"cores": 4, "cpu_u": 6, "wall": "cpu_budget + 5 s", "ram_mb": 2048, "spec": 3},
-  "H2": {"cores": 2, "cpu_u": 3, "wall": "cpu_budget + 5 s", "ram_mb": 1024, "spec": 2},
-  "H3": {"cores": 1, "cpu_u": 1.5, "wall": "cpu_budget + 5 s", "ram_mb": 512, "spec": 1},
-  "H4": {"cores": 1, "cpu_u": 0.7, "wall": "cpu_budget + 5 s", "ram_mb": 256, "spec": 1},
+  "H0": {
+   "cores": 6,
+   "cpu_u": 50,
+   "wall": "600 s",
+   "ram_mb": 4096,
+   "spec": 3
+  },
+  "H1": {
+   "cores": 4,
+   "cpu_u": 6,
+   "wall": "cpu_budget + 5 s",
+   "ram_mb": 2048,
+   "spec": 3
+  },
+  "H2": {
+   "cores": 2,
+   "cpu_u": 3,
+   "wall": "cpu_budget + 5 s",
+   "ram_mb": 1024,
+   "spec": 2
+  },
+  "H3": {
+   "cores": 1,
+   "cpu_u": 1.5,
+   "wall": "cpu_budget + 5 s",
+   "ram_mb": 512,
+   "spec": 1
+  },
+  "H4": {
+   "cores": 1,
+   "cpu_u": 0.7,
+   "wall": "cpu_budget + 5 s",
+   "ram_mb": 256,
+   "spec": 1
+  },
   "note": "the stored record always carries the actual budgets (cores, CPU s, wall s, RAM MB, spec), never only a pressure label"
  },
  "selectors": {
@@ -72,6 +126,24 @@
  "campaign_cpu_cap_s": 14400,
  "checker": "independent of the executor; re-verifies every accepted result from endpoints, cross-run RESULT_CONFLICT (including A1/A2T/A3 bundles), status consistency with budgets, CPU sanity (worker CPU <= cores x wall x 1.10 + 0.5 s per request), affinity within the allowed set, selector inputs within the allowed keys (leakage), Rescorla-Wagner values and every CONDITIONED choice re-derived, false accept = 0, completeness of every planned trial",
  "A2R": "not run; T11-T13 not implemented",
- "not_in_scope": ["undervolting / overclocking / thermal or hardware fault experiments", "accepting unverified results", "physics, constants, domain or rounding changes", "validator evolution", "free source generation", "neural selectors", "GPU", "RNS/LNS/Posit", "A2-R", "T11-T13", "Vast"],
- "claims_forbidden": ["a conditioned response is general intelligence", "an observed false-accept count of 0 is a proof", "one long run decides a winner", "parent-process CPU is total CPU"]
+ "not_in_scope": [
+  "undervolting / overclocking / thermal or hardware fault experiments",
+  "accepting unverified results",
+  "physics, constants, domain or rounding changes",
+  "validator evolution",
+  "free source generation",
+  "neural selectors",
+  "GPU",
+  "RNS/LNS/Posit",
+  "A2-R",
+  "T11-T13",
+  "Vast"
+ ],
+ "claims_forbidden": [
+  "a conditioned response is general intelligence",
+  "an observed false-accept count of 0 is a proof",
+  "one long run decides a winner",
+  "parent-process CPU is total CPU"
+ ],
+ "amendment_1_before_any_run": "u originally excluded the per-worker start/import overhead o although budgets are enforced on total worker CPU; T=100 requests would have been refused by overhead alone. Corrected before any CAL or evaluation run (no data existed)."
 }
