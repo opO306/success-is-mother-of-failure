@@ -1,0 +1,103 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "seal_machine_map": [
+   1,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "E2_gate_S1_S6": [
+   1,
+   0
+  ],
+  "E2_gate_sympy": [
+   1,
+   0
+  ],
+  "E2_gate_new_domain": [
+   1,
+   0
+  ],
+  "complete": [
+   336,
+   0
+  ],
+  "meta": [
+   336,
+   0
+  ],
+  "initial_state": [
+   336,
+   0
+  ],
+  "cycle_cpu_consistent": [
+   336,
+   0
+  ],
+  "cells_rederived": [
+   252,
+   0
+  ],
+  "serial_swap_restored": [
+   96,
+   0
+  ],
+  "affinity": [
+   336,
+   0
+  ],
+  "cpu_sanity": [
+   336,
+   0
+  ],
+  "workers_exited": [
+   240,
+   0
+  ],
+  "worker_precision": [
+   240,
+   0
+  ],
+  "blocks": [
+   240,
+   0
+  ],
+  "no_cells_unless_decided": [
+   84,
+   0
+  ],
+  "result_equal_serial_parallel_reps": [
+   288,
+   0
+  ],
+  "E2_reps_equal": [
+   48,
+   0
+  ],
+  "E2_cells_equal_E1": [
+   12,
+   0
+  ]
+ },
+ "issues": [],
+ "n_issues": 0,
+ "checker_wall_s": 0.434464999998454,
+ "verify_cost_cells_s_median": {
+  "H100__N2": 0.00017259997548535466,
+  "H100__N3": 0.0002454000059515238,
+  "H100__N4": 0.0003341000119689852,
+  "H100__N6": 0.0004838000168092549,
+  "H100__N8": 0.0006407999899238348,
+  "H100__N12": 0.0009320999961346388,
+  "H100__N16": 0.0012485999905038625,
+  "H100__N24": 0.0018417999963276088,
+  "H100__N32": 0.0024624000070616603,
+  "H100__N48": 0.003682100010337308,
+  "H1000__N2": 0.0001703999878372997,
+  "H1000__N3": 0.0002539999841246754
+ },
+ "decided_readouts_rederived": 252
+}
