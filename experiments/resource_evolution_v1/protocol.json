@@ -1,0 +1,77 @@
+{
+ "gate": "RESOURCE_EVOLUTION_PILOT_V1 (T0-T10) - execution strategy under core / CPU / wall / RAM / speculation budgets, risk profiles and cue conditioning",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION"],
+ "parent_commit": "e62e8c1 (handoff stored verbatim) on 7cba21d (REWRITE_PILOT_A3 results)",
+ "design_source": "docs/active/RESOURCE_EVOLUTION_PILOT_V1_IMPLEMENTER_HANDOFF_20261006.md (sha256 6b44b23f...)",
+ "invariant": "Correctness is the entry condition, not a cost term. Only VERIFIED_RESULT is returned: an interval pass that reached T, DECIDED, effective p = requested p, cells re-derived from its exact endpoints by the independent verifier. Physics, constants, inputs, domain, rounding, acceptance rule never change. Selectors choose what to try first, never what is correct.",
+ "machine": {
+  "cpu": "AMD Family 25 Model 33, 6 physical / 12 logical",
+  "smt_siblings": "logical (2i, 2i+1) share physical core i (pre-seal probe: two burners on (0,1) 1.8x slower than on (0,2)); re-measured in T0 as evidence",
+  "physical_core_order": [2, 4, 6, 8, 10, 0],
+  "core_budget_k_means": "the first k logical CPUs of physical_core_order (one per physical core); 6 is the maximum, so the handoff's {1,2,3,4,6} is used as is",
+  "ram_gb": 31.9,
+  "affinity": "set by every worker as its first action (psutil), read back by the worker and by the parent, recorded"
+ },
+ "pre_seal_observations_disclosed": ["SMT sibling probe above", "a single request is single-threaded (Python + mpmath): one request cannot use more than one core except by speculation or pair splitting", "frozen P3 line + 0 already decides all 9 evaluation requests for algebra (from A2T/A3 minima), so 'aggressive' is defined at line - 16"],
+ "evaluators": {"E1": "algebra (A2T adapter, main baseline)", "E2": "rw:R1+R2 (A3 adapter; its S1-S6 + sympy gates are re-run in T0)", "E0": "original (T0 regression subset only)"},
+ "requests": {
+  "TRAIN (calibration only, never evaluated)": "A2_bound, A3_low, A3_high x T 200, 2000",
+  "EVAL": "A2_bound, A3_low, A3_high x T 100, 1000, 3000 (9 requests); 5000/10000 excluded for cost",
+  "COND (conditioning trials)": "EVAL requests with T 1000 and 3000, cycled in the order A2_bound@1000, A3_low@1000, A3_high@1000, A2_bound@3000, A3_low@3000, A3_high@3000"
+ },
+ "line": "L(s,T) = ceil(a_s + b_s T) with the frozen A1 P3 lines (policy_hash 6d601462...)",
+ "plans (approved set)": {
+  "BASE": "E1, 1 worker, start L+8 (= frozen P3), then the frozen P2 rule in the same worker",
+  "CONS": "E1, 1 worker, start L+24, then P2; conservative: high first-try success",
+  "AGG1": "E2, 1 worker, start L-16, then P2",
+  "AGG3": "E2, 3 concurrent workers at L-16, L, L+16 (speculative precision); the first DECIDED to finish is verified and accepted, the others are killed (their CPU is speculative waste); if none decides, P2 continues serially from the highest tried p",
+  "SPEC_EVAL": "E1 and E2 concurrently at L+8 (2 workers); first DECIDED accepted",
+  "SPEC_P_E1": "as AGG3 but evaluator E1 (T2 placement test isolates placement from the evaluator)"
+ },
+ "workers": "one fresh process per worker, pinned to its logical CPU(s); workers of one request share the request's core set round-robin; more workers than cores = oversubscription (allowed for fixed plans, recorded)",
+ "budget_enforcement": {
+  "cpu": "the parent polls every worker's CPU every 50 ms; when the request's summed worker CPU reaches the CPU budget all workers are killed",
+  "wall": "the same poll kills on the wall budget",
+  "ram": "admission: workers x 150 MB > RAM budget -> RESOURCE_REFUSED before start; measured peak working set recorded and compared after the run (RAM_BUDGET_EXCEEDED flag)",
+  "statuses": {"VERIFIED": "verified result", "RESOURCE_REFUSED": "no completed failed attempt before the budget ran out or admission refused", "BUDGET_STARVATION": "at least one attempt completed without success and the budget ran out before a fallback could finish", "NOT_VERIFIED": "a DECIDED claim failed the verifier (must never be accepted)"}
+ },
+ "calibration (phase CAL, before any evaluation run)": "BASE on TRAIN, 1 core, 3 repetitions. kappa_s = median over T in {200, 2000} and repetitions of (first-pass CPU / T). Predicted pass-equivalent u(s,T) = kappa_s * T.",
+ "tiers (per request; u from CAL)": {
+  "H0": {"cores": 6, "cpu_u": 50, "wall": "600 s", "ram_mb": 4096, "spec": 3},
+  "H1": {"cores": 4, "cpu_u": 6, "wall": "cpu_budget + 5 s", "ram_mb": 2048, "spec": 3},
+  "H2": {"cores": 2, "cpu_u": 3, "wall": "cpu_budget + 5 s", "ram_mb": 1024, "spec": 2},
+  "H3": {"cores": 1, "cpu_u": 1.5, "wall": "cpu_budget + 5 s", "ram_mb": 512, "spec": 1},
+  "H4": {"cores": 1, "cpu_u": 0.7, "wall": "cpu_budget + 5 s", "ram_mb": 256, "spec": 1},
+  "note": "the stored record always carries the actual budgets (cores, CPU s, wall s, RAM MB, spec), never only a pressure label"
+ },
+ "selectors": {
+  "FIXED_BASE": "BASE always (does not read the environment)",
+  "FIXED_AGG3": "AGG3 always",
+  "ADAPTIVE": "reads the visible environment only: if cores >= 3 and cpu_u >= 4 and spec >= 3 -> AGG3; elif cpu_u >= 2 -> BASE; else -> CONS",
+  "CONDITIONED": "visible environment plentiful (H0 shown) -> AGG3, except: cue present and V[cue] > 0.5 -> CONS. V updated after every trial by Rescorla-Wagner V <- V + 0.3 (lambda - V) for each cue present, lambda = 1 if the trial's hidden budget was the pressure budget else 0 (the true budget is revealed only after the trial)",
+  "NO_LEARN (control)": "same visible environment -> AGG3 always",
+  "inputs_allowed": "visible environment, cue ids, V table; never the request's minimum p, evaluation outcomes, verifier results of the current trial, or future schedule (checked by the checker from the logged selector input)"
+ },
+ "phases": {
+  "T0": "regression seal: (a) single passes at L+8 for the 6 short EVAL requests and A2_bound@3000 with E1 and E2 (E0 for A2_bound@100 and A3_high@100) on logical CPU 2 and again on CPU 8 -> identical endpoints, and equal to A1/A2T/A3 bundle passes where the same (evaluator, request, p) exists; (b) E2 gates re-run (A3 verify + sympy for rw:R1+R2); (c) SMT probe; (d) worker-count invariance from T1 (k = 1 vs 6 identical results)",
+  "T1": "S1 batch of the 9 EVAL requests, plan BASE (E1) and BASE-with-E2, cores k in {1,2,3,4,6}, 3 repetitions, order counterbalanced; plus A3_high@1000 BASE alone pinned to 1 vs 6 cores (3 repetitions)",
+  "T2": "S0 = T1 k=1, S1 = T1 k=6; S2 = SPEC_P_E1 on 3 cores vs BASE on 1 core per EVAL request; S3 = SPEC_EVAL on 2 cores; S4 = pair-parallel KDK prototype (3 persistent pair workers, canonical fixed-order reduction) vs the serial loop, A3_low and A3_high at T 100 and 1000, p 128, bit-identity required; S5 = execution/verification pipeline (5 executor cores + concurrent verifier) vs verify-after; 3 repetitions each",
+  "T3_T4": "per tier H0..H4 and EVAL request: FIXED_BASE, FIXED_AGG3, ADAPTIVE consecutively (order rotated), 1 repetition",
+  "T5": "neutral cue: 12 trials [A,-,A,A,-,A,A,-,A,A,-,A] (A = cue A, no pressure)",
+  "T6": "acquisition 16 trials [A+,-,A+,A+,-,A+,A+,-,A+,A+,-,A+,A+,-,A+,A+] (A+ = cue A with hidden pressure H3 CPU budget, cores still 6), then test 4 trials A without pressure",
+  "T7A": "extinction: 12 trials A without pressure",
+  "T7B": "reversal: 16 trials alternating [B+, A, ...]",
+  "conditioning_note": "one CONDITIONED learner persists T5 -> T6 -> T7; every trial is also run by NO_LEARN on the same request and hidden budget",
+  "T8": "BASE, CONS, AGG1, AGG3 under H0 on the 9 EVAL requests, 3 repetitions, counterbalanced",
+  "T9": "per EVAL request: float64 candidate (same KDK and the algebra force in binary64) proposes cells -> verifier = BASE interval run; hit = equal cells; accepted result is always the verified interval result; fault injection: candidate cells + 1 must be rejected; Type B demonstration = float cells compared with verified cells (never accepted); Type A = E2 at L+8 with its domain refusal test",
+  "T10": "H1 (low), H2 (medium), H3 (high) x {AGG3, CONS} x 9 EVAL requests x 2 repetitions"
+ },
+ "latency_stats": "p50 always; p95 only with n >= 20, p99 only with n >= 100 (else INSUFFICIENT_SAMPLES)",
+ "cost_axes": "wall and total CPU (sum of worker CPU + orchestrator CPU) kept separate; retry CPU, speculative waste CPU (killed or unused workers), verify CPU, record CPU, peak working set; Pareto view, no single weighted score",
+ "campaign_cpu_cap_s": 14400,
+ "checker": "independent of the executor; re-verifies every accepted result from endpoints, cross-run RESULT_CONFLICT (including A1/A2T/A3 bundles), status consistency with budgets, CPU sanity (worker CPU <= cores x wall x 1.10 + 0.5 s per request), affinity within the allowed set, selector inputs within the allowed keys (leakage), Rescorla-Wagner values and every CONDITIONED choice re-derived, false accept = 0, completeness of every planned trial",
+ "A2R": "not run; T11-T13 not implemented",
+ "not_in_scope": ["undervolting / overclocking / thermal or hardware fault experiments", "accepting unverified results", "physics, constants, domain or rounding changes", "validator evolution", "free source generation", "neural selectors", "GPU", "RNS/LNS/Posit", "A2-R", "T11-T13", "Vast"],
+ "claims_forbidden": ["a conditioned response is general intelligence", "an observed false-accept count of 0 is a proof", "one long run decides a winner", "parent-process CPU is total CPU"]
+}
