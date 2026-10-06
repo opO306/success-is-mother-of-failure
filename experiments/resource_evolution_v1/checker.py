@@ -154,8 +154,10 @@ def check_run(name, rec, s, T, allowed_cores, invalid, false_accept, seen):
             if ws or nw * 150 <= env["ram_mb"]:
                 invalid.append(f"{name}: RAM refusal inconsistent")
         elif rec.get("budget_hit") == "cpu":
-            if rec["total_cpu_s"] < env["cpu_s"] - 1e-9:
-                invalid.append(f"{name}: cpu refusal below budget ({rec['total_cpu_s']:.3f} < {env['cpu_s']:.3f})")
+            trig = rec.get("cpu_at_trigger", rec["total_cpu_s"])
+            if trig < env["cpu_s"] - 1e-9 or rec["total_cpu_s"] < trig - 1e-9:
+                invalid.append(f"{name}: cpu refusal below budget (trigger {trig:.3f}, total {rec['total_cpu_s']:.3f}, "
+                               f"budget {env['cpu_s']:.3f})")
         elif rec.get("budget_hit") == "wall":
             if rec["wall_all_ended_s"] < env["wall_s"] - 0.2:
                 invalid.append(f"{name}: wall refusal below budget")
@@ -164,7 +166,8 @@ def check_run(name, rec, s, T, allowed_cores, invalid, false_accept, seen):
         failed = any(p["outcome"] != "DECIDED" for w in ws for p in w["passes"])
         if (status == "BUDGET_STARVATION") != failed:
             invalid.append(f"{name}: starvation flag inconsistent")
-        if any(my_verify(p, s, T) for w in ws for p in w["passes"]):
+        late = {(x["worker"], x["p"]) for x in rec.get("late_results_discarded", []) if x.get("verified")}
+        if any(my_verify(p, s, T) and (w["name"], p["requested_p"]) not in late for w in ws for p in w["passes"]):
             invalid.append(f"{name}: a verifiable DECIDED pass was not accepted")
     elif status == "NO_VERIFIED_RESULT":
         pass

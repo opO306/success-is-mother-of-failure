@@ -167,3 +167,26 @@ def test_budget_stop_records_trigger_point_and_late_results(tmp_path):
     if r["status"] != "VERIFIED":
         assert r["cpu_at_trigger"] >= 0.9 and r["total_cpu_s"] >= r["cpu_at_trigger"] - 1e-9
         assert "late_results_discarded" in r
+
+
+def test_checker_adjudicates_late_results_and_trigger_cpu(base_run):
+    """A verifiable DECIDED pass that was not accepted is invalid unless the record lists it as a late result read after
+    the budget stop; a CPU refusal must have its trigger at or above the budget and a total not below the trigger."""
+    d, r = base_run
+    rec = copy.deepcopy(r)
+    w = rec["workers"][0]
+    w["accepted"] = False
+    rec.update(status="RESOURCE_REFUSED", budget_hit="cpu", env=dict(rec["env"], cpu_s=0.5),
+               cpu_at_trigger=0.6, total_cpu_s=0.61, wall_all_ended_s=5.0)
+    rec.pop("result", None)
+    inv, fa = [], []
+    CK.check_run("late", rec, "A2_bound", 100, [2], inv, fa, {})
+    assert any("not accepted" in x for x in inv)                 # silent discard is flagged
+    rec["late_results_discarded"] = [{"worker": w["name"], "p": w["passes"][-1]["requested_p"], "verified": True}]
+    inv = []
+    CK.check_run("late", rec, "A2_bound", 100, [2], inv, fa, {})
+    assert not inv, inv                                         # recorded late discard is consistent
+    rec["total_cpu_s"] = 0.55                                   # booked below the trigger point
+    inv = []
+    CK.check_run("late", rec, "A2_bound", 100, [2], inv, fa, {})
+    assert any("below budget" in x for x in inv)
