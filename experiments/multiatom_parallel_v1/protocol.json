@@ -1,7 +1,12 @@
 {
  "gate": "MULTIATOM_PARALLEL_V1 - Multi-Atom Parallel Scaling Pilot: from which atom count N does splitting one trajectory's pair forces over worker processes pay off?",
  "date": "2026-10-06",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "NEW SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "NEW SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
  "parent": "RESOURCE_EVOLUTION_PILOT_V1 run 2 (7b09e53) and XREPRO_RESOURCE_V1 (same branch claude/resource-xrepro-multiatom-v1)",
  "question": "When N grows, the pair count N(N-1)/2 grows. From which N does intra-trajectory pair parallelism give a real net gain, and where does it stop paying?",
  "world_semantics_unchanged": "Same world as the 2/3-atom pilots: unrounded KDK map, dt 40, half kick 20, Ar40 mass of C1-B1, frozen C1-A Lang 2024 pair force with retardation (exact_expression_gate_v1.common / stream, exact_expression_gate_v0.lang_iv), interval arithmetic at a fixed working precision, three-way domain obligation R^2 >= R_MIN^2 on every pair before the force, readout = the A1 grid cells at step T. Pairwise-additive force over ALL pairs (no cutoff), exactly as stream.run. No three-body term exists in this world and none is added. Nothing in physics, constants, domain, rounding or readout is changed to reach larger N.",
@@ -10,8 +15,30 @@
   "rule": "positions: the first N points of the face-centred cubic lattice {(x, y, z) in Z^3 : x + y + z even}, sorted by (x^2 + y^2 + z^2, x, y, z) ascending, times 5 bohr (exact integers; nearest neighbour 5*sqrt(2) = 7.071 bohr, near the measured solid-argon nearest-neighbour distance 7.10 bohr). momenta (atomic units): raw p[i][k] = ((7 i + 3 k + 1) mod 5) - 2 for atom i = 0..N-1 and component k = 0..2, then the exact mean over atoms is subtracted per component (exact Fractions; total momentum exactly 0).",
   "why_this_rule": "deterministic, rational, compact (a cluster in vacuum, every pair interacting), physically ordinary spacing and small thermal-scale momenta; fixed BEFORE any timing of this family was taken and not adjusted afterwards",
   "pre_seal_facts_disclosed": "pair distances at step 0: min 7.07, max 25.50 bohr for N <= 48 (inside the [r_min, 30] bohr range of the A3 E2 S4 gate). One implementation smoke test was run before sealing (N = 8, T = 20, p 128, draft run.py, scratch only, not evidence): DECIDED; PAR_1/3/6 bit-identical to SER_E1; loop wall SER_E1 0.435 s, SER_E2 0.410 s, PAR_1 0.532 s, PAR_3 0.233 s, PAR_6 0.147 s; spawn 0.29-0.52 s. It exposed that per-step worker CPU (process_time, 15.6 ms tick) is too coarse, so a wall-clock busy measure was added. The N list, scenario rule, p and horizons were already written in this file before that test and were not changed by it.",
-  "N_list": [2, 3, 4, 6, 8, 12, 16, 24, 32, 48],
-  "pairs": [1, 3, 6, 15, 28, 66, 120, 276, 496, 1128],
+  "N_list": [
+   2,
+   3,
+   4,
+   6,
+   8,
+   12,
+   16,
+   24,
+   32,
+   48
+  ],
+  "pairs": [
+   1,
+   3,
+   6,
+   15,
+   28,
+   66,
+   120,
+   276,
+   496,
+   1128
+  ],
   "not_the_same_scope": "FCC_N results are a new survey family. They are never merged with the A2_bound / A3_low / A3_high results or their certification statements."
  },
  "precision_and_horizons": {
@@ -68,6 +95,26 @@
  "E2_gate_in_new_domain": "(a) rerun the A3 runner refs / verify rw:R1+R2 / sympy rw:R1+R2 gates (S1-S6 + S3b); (b) for every distinct step-0 pair distance of every FCC_N scenario: the E2 force interval at p 128 must contain the 1024-bit original (E0) point enclosure at that R^2, and E1 likewise; (c) serial E2 vs E1 cells equal where both DECIDED",
  "cpu_cap": "campaign CPU cap 10800 s (sum of run total CPU); the campaign stops at the next run boundary when exceeded and reports which runs are missing. Estimated need ~6000 CPU s.",
  "checker": "experiments/multiatom_parallel_v1/checker.py, independent of the executor: re-generates every FCC_N initial state with its own code and compares exact values with the recorded initial state; compares endpoints keys across all runs of a (horizon, N); re-derives cells from endpoints with the A1 checker rounding; checks completeness of the schedule, affinity read-backs inside the allowed sets, that every worker exited, CPU sanity (total CPU <= (W + 1) x end_to_end_wall x 1.1 + 1 s); recomputes nothing physical (the serial repository loop is the reference and is itself one of the compared runs).",
- "not_in_scope": ["T11 Joint Genome", "neural selector", "A2-R", "new conditioning model", "Pavlov learner", "float64 speculative path", "RNS/LNS/Posit", "GPU/Tensor Core", "voltage/temperature/ageing", "Vast", "cutoffs, neighbour lists or any force approximation", "precision policy changes (p fixed)"],
- "claims_forbidden": ["'6 cores is X times faster' as the result", "FCC_N results as part of the 2/3-atom certification scope", "bit identity on one machine is a proof", "a boundary measured at p 128 and these horizons holds for other p, T, machines or scenario families", "parent-process CPU is total CPU"]
+ "not_in_scope": [
+  "T11 Joint Genome",
+  "neural selector",
+  "A2-R",
+  "new conditioning model",
+  "Pavlov learner",
+  "float64 speculative path",
+  "RNS/LNS/Posit",
+  "GPU/Tensor Core",
+  "voltage/temperature/ageing",
+  "Vast",
+  "cutoffs, neighbour lists or any force approximation",
+  "precision policy changes (p fixed)"
+ ],
+ "claims_forbidden": [
+  "'6 cores is X times faster' as the result",
+  "FCC_N results as part of the 2/3-atom certification scope",
+  "bit identity on one machine is a proof",
+  "a boundary measured at p 128 and these horizons holds for other p, T, machines or scenario families",
+  "parent-process CPU is total CPU"
+ ],
+ "amendment_1_before_any_run": "Integration dry run before the code seal (scratch, not evidence): gates phase PASS (S1-S6, sympy, new-domain containment on 13 distinct step-0 R^2); runs at T = 10 (not a sealed horizon) for N = 2, 3, 8, all 7 configurations, rep 0 only: all DECIDED and bit-identical across configurations; N = 8 loop wall SER_E1 0.38 s, PAR_4/PAR_6 0.15 s, end-to-end SER_E1 0.83 s vs PAR_W 1.15-1.71 s; spawn overhead 0.37 s (W = 1) to 0.97 s (W = 6). Checker and analysis ran on these records (checker NOT_OK only for the dirty tree and the missing repetitions, as expected). Nothing in the scenario rule, N list, p, horizons, configurations, boundaries or thresholds was changed after it. Disclosed limitation of B5 found while reading the dry-run analysis: the sealed IPC criterion (loop_wall - max worker busy) / loop_wall also contains the main-side serial time and load imbalance, not only IPC; the analysis therefore also reports send, wait, reduce and KDK times separately, and the B5 criterion itself is kept as sealed."
 }
