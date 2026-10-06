@@ -22,8 +22,17 @@ PROTO = json.loads((Path(__file__).with_name("protocol.json")).read_text(encodin
 N_LIST = PROTO["scenario_family"]["N_list"]
 HORIZONS = [("H100", 100, N_LIST), ("H1000", 1000, [2, 3, 4, 6, 8, 12])]
 P = PROTO["precision_and_horizons"]["p"]
+MACHINES = PROTO["amendment_2_execution_machine"]["machines"]
 WORKER_CORES = [2, 4, 6, 8, 10, 0]
 MAIN_CPU, SERIAL_CPU, CAMPAIGN_CPU = 1, 2, 3
+MACHINE = "desktop"
+
+
+def set_machine(name):
+    global WORKER_CORES, MAIN_CPU, SERIAL_CPU, CAMPAIGN_CPU, MACHINE
+    m = MACHINES[name]
+    WORKER_CORES, MAIN_CPU, SERIAL_CPU, CAMPAIGN_CPU = m["worker_cores"], m["main_cpu"], m["serial_cpu"], m["campaign_cpu"]
+    MACHINE = name
 CONFIGS = ["SER_E1", "SER_E2", "PAR_1", "PAR_2", "PAR_3", "PAR_4", "PAR_6"]
 REPS = 3
 CPU_CAP = 10800.0
@@ -99,7 +108,8 @@ class Camp:
              "status_porcelain": git("status", "--porcelain"), "origin_master": git("rev-parse", "origin/master"),
              "sealed_sources_dirty": bool(git("status", "--porcelain", "--", *SEALED)),
              "source_sha256_lf": {x: lf(ROOT / x) for x in SEALED}, "python": sys.version,
-             "started": time.strftime("%Y-%m-%d %H:%M:%S"), "campaign_cpu": CAMPAIGN_CPU}
+             "started": time.strftime("%Y-%m-%d %H:%M:%S"), "campaign_cpu": CAMPAIGN_CPU,
+             "machine": MACHINE, "machine_map": MACHINES[MACHINE], "host": __import__("platform").node()}
         f.write_text(json.dumps(s, indent=1), encoding="utf-8")
 
     def run(self, name, cfg, n, T):
@@ -162,11 +172,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--phase", default="all")
+    ap.add_argument("--machine", default="desktop", choices=sorted(MACHINES))
     a = ap.parse_args()
+    set_machine(a.machine)
     psutil.Process().cpu_affinity([CAMPAIGN_CPU])
     c = Camp(a.out)
     c.seal()
-    c.log(f"MULTIATOM_PARALLEL_V1 phase {a.phase}")
+    c.log(f"MULTIATOM_PARALLEL_V1 phase {a.phase} machine {MACHINE} workers {WORKER_CORES} main {MAIN_CPU} "
+          f"serial {SERIAL_CPU} campaign {CAMPAIGN_CPU}")
     if a.phase in ("gates", "all"):
         phase_gates(c)
     if a.phase in ("runs", "all"):

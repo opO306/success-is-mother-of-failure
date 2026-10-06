@@ -58,6 +58,9 @@ def check(d):
             issues.append(f"{name}: {detail}")
 
     seal = json.loads((d / "execution_seal.json").read_text(encoding="utf-8"))
+    mm = PROTO["amendment_2_execution_machine"]["machines"][seal.get("machine", "desktop")]
+    WORKER_CORES, MAIN_CPU, SERIAL_CPU = mm["worker_cores"], mm["main_cpu"], mm["serial_cpu"]
+    ok("seal_machine_map", seal.get("machine_map", mm) == mm, str(seal.get("machine_map")))
     ok("seal_clean", seal["status_porcelain"] == "" and not seal["sealed_sources_dirty"], seal["status_porcelain"][:200])
     g = d / "gates"
     v = json.loads((g / "verify.json").read_text(encoding="utf-8"))
