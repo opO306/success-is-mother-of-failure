@@ -1,0 +1,69 @@
+16:46:16 XREPRO machine laptop core order [1, 2, 3, 4, 5, 0] orch 0 phase all
+16:46:16 phase env start
+16:46:19 done X1X2__env  wall 0.00 cpu 0.00
+16:46:19 phase env finished; CPU so far 0s
+16:46:19 phase gates start
+16:46:34 X3 E2 gates S1-S6 True sympy True wall 14.8
+16:46:34 phase gates finished; CPU so far 0s
+16:46:34 phase t0 start
+16:46:34 done X4__algebra__A2_bound_100__first VERIFIED wall 0.33 cpu 0.20
+16:46:34 done X4__algebra__A2_bound_100__last VERIFIED wall 0.31 cpu 0.09
+16:46:35 done X4__rw-R1_R2__A2_bound_100__first VERIFIED wall 0.33 cpu 0.22
+16:46:35 done X4__rw-R1_R2__A2_bound_100__last VERIFIED wall 0.31 cpu 0.09
+16:46:36 done X4__original__A2_bound_100__first VERIFIED wall 0.84 cpu 0.75
+16:46:37 done X4__original__A2_bound_100__last VERIFIED wall 0.84 cpu 0.64
+16:46:37 done X4__algebra__A3_low_100__first VERIFIED wall 0.55 cpu 0.42
+16:46:38 done X4__algebra__A3_low_100__last VERIFIED wall 0.52 cpu 0.30
+16:46:38 done X4__rw-R1_R2__A3_low_100__first VERIFIED wall 0.53 cpu 0.42
+16:46:39 done X4__rw-R1_R2__A3_low_100__last VERIFIED wall 0.50 cpu 0.27
+16:46:39 done X4__algebra__A3_high_100__first VERIFIED wall 0.54 cpu 0.42
+16:46:40 done X4__algebra__A3_high_100__last VERIFIED wall 0.53 cpu 0.31
+16:46:40 done X4__rw-R1_R2__A3_high_100__first VERIFIED wall 0.49 cpu 0.39
+16:46:41 done X4__rw-R1_R2__A3_high_100__last VERIFIED wall 0.51 cpu 0.30
+16:46:43 done X4__original__A3_high_100__first VERIFIED wall 2.13 cpu 1.98
+16:46:45 done X4__original__A3_high_100__last VERIFIED wall 2.14 cpu 1.91
+16:46:46 done X4__algebra__A2_bound_1000__first VERIFIED wall 1.25 cpu 1.14
+16:46:48 done X4__algebra__A2_bound_1000__last VERIFIED wall 1.24 cpu 1.03
+16:46:49 done X4__rw-R1_R2__A2_bound_1000__first VERIFIED wall 1.19 cpu 1.05
+16:46:50 done X4__rw-R1_R2__A2_bound_1000__last VERIFIED wall 1.21 cpu 0.97
+16:46:53 done X4__algebra__A3_low_1000__first VERIFIED wall 3.25 cpu 3.12
+16:46:57 done X4__algebra__A3_low_1000__last VERIFIED wall 3.25 cpu 3.02
+16:47:00 done X4__rw-R1_R2__A3_low_1000__first VERIFIED wall 2.99 cpu 2.89
+16:47:03 done X4__rw-R1_R2__A3_low_1000__last VERIFIED wall 3.00 cpu 2.72
+16:47:06 done X4__algebra__A3_high_1000__first VERIFIED wall 3.33 cpu 3.23
+16:47:09 done X4__algebra__A3_high_1000__last VERIFIED wall 3.35 cpu 3.14
+16:47:12 done X4__rw-R1_R2__A3_high_1000__first VERIFIED wall 3.13 cpu 2.98
+16:47:16 done X4__rw-R1_R2__A3_high_1000__last VERIFIED wall 3.10 cpu 2.86
+16:47:19 done X4__algebra__A2_bound_3000__first VERIFIED wall 3.48 cpu 3.38
+16:47:22 done X4__algebra__A2_bound_3000__last VERIFIED wall 3.41 cpu 3.20
+16:47:26 done X4__rw-R1_R2__A2_bound_3000__first VERIFIED wall 3.18 cpu 3.03
+16:47:29 done X4__rw-R1_R2__A2_bound_3000__last VERIFIED wall 3.19 cpu 3.00
+16:47:29 phase t0 finished; CPU so far 49s
+16:47:29 phase batch start
+16:47:31 load snapshot: system 0% busy [('System Idle Process', 0, 574.3), ('python.exe', 20800, 25.6)]
+16:48:03 done X6__BASE__k1__r0  wall 32.04 cpu 29.73
+16:48:33 done X6__BASE_E2__k1__r0  wall 29.78 cpu 27.56
+16:48:44 done X6__BASE__k3__r0  wall 11.22 cpu 30.81
+16:48:55 done X6__BASE_E2__k3__r0  wall 10.77 cpu 29.28
+16:49:07 done X6__BASE__k6__r0  wall 11.34 cpu 35.72
+16:49:17 done X6__BASE_E2__k6__r0  wall 10.25 cpu 31.94
+16:49:19 load snapshot: system 0% busy [('System Idle Process', 0, 575.2), ('python.exe', 20800, 24.1)]
+16:49:29 done X6__BASE_E2__k3__r1  wall 10.49 cpu 28.61
+16:49:41 done X6__BASE__k3__r1  wall 11.53 cpu 31.91
+16:49:51 done X6__BASE_E2__k6__r1  wall 10.33 cpu 32.64
+16:50:02 done X6__BASE__k6__r1  wall 10.97 cpu 34.27
+16:50:32 done X6__BASE_E2__k1__r1  wall 29.73 cpu 27.48
+16:51:04 done X6__BASE__k1__r1  wall 32.10 cpu 29.94
+16:51:06 load snapshot: system 0% busy [('System Idle Process', 0, 567.3), ('python.exe', 20800, 23.8)]
+16:51:17 done X6__BASE__k6__r2  wall 10.80 cpu 32.95
+16:51:27 done X6__BASE_E2__k6__r2  wall 10.13 cpu 31.19
+16:51:59 done X6__BASE__k1__r2  wall 32.13 cpu 29.95
+16:52:29 done X6__BASE_E2__k1__r2  wall 29.83 cpu 27.61
+16:52:40 done X6__BASE__k3__r2  wall 11.24 cpu 31.05
+16:52:51 done X6__BASE_E2__k3__r2  wall 10.67 cpu 29.25
+16:52:53 load snapshot: system 0% busy [('System Idle Process', 0, 572.0), ('python.exe', 20800, 22.4)]
+16:52:53 phase batch finished; CPU so far 601s
+16:52:53 phase s4 start
+16:52:55 done X8__S4__A3_low_100 BIT_IDENTICAL wall 1.27 cpu 0.34
+16:52:56 done X8__S4__A3_high_100 BIT_IDENTICAL wall 1.07 cpu 0.33
+16:52:56 phase s4 finished; CPU so far 602s
