@@ -1,0 +1,38 @@
+{
+ "gate": "FORMULA_REPRO_B_V0 - limited reproduction of the session's exact formula rearrangement candidate",
+ "date": "2026-10-05",
+ "classification": ["SURVEY_ONLY", "REPRODUCTION", "NOT CERTIFIED", "NOT PRODUCTION APPROVED"],
+ "parent_commit": "b3cf203 (stage 0 checker fix on top of 0491c79 / 0ecfb7f)",
+ "designer_scope": "Reproduce the existing formula candidate in an isolated comparison; confirm meaning and real cost on the same input, law and request. Not 'reach 8x'. No new formula search, no tag change, no new number system, no GPU, no precision predictor. Original execution path and defaults kept. Differences are recorded, not tuned away.",
+ "upstream": {
+  "source": "exact_expression_hybrid_probe.zip sha256 11cc651881fff36e0e3c2b14739c07bae7680983709265696be8a6e5b45f262b (numeric_hybrid_probe) and exact_expression_startup_comparison.zip sha256 de8f1c14cb1e00d865799ce4ab8e35c55b787504c25a129ff938ac01688a5499 (read for its method)",
+  "copied_verbatim": "upstream/probe.py, upstream/test_probe.py, upstream/vendor/** (byte hashes must equal upstream SHA256SUMS.json); never edited",
+  "vendor_constants": "upstream/vendor/a_reference/ar2_lang2024.py is a constants-only excerpt; its constants must equal the repository a_reference/ar2_lang2024.py exactly (test)"
+ },
+ "world": "Exact Expression V1 unrounded KDK (dt = 40, h = 20, Ar40 mass, Lang 2024 with retardation, all pairs, no cutoff). FX(96,48) positions / FX(96,80) momenta: observation only, never fed back.",
+ "scenarios": ["A2_bound", "A3_low", "A3_high"],
+ "evaluators": {
+  "original": "probe.Force(B, compiled=False) = exact_expression_gate_v0.lang_iv.G_of_R2 (upstream baseline)",
+  "cache": "probe.Force(B, compiled='cache') = same lang_iv code, constant conversions shared per precision (no algebra)",
+  "algebra": "probe.Force(B, compiled=True) = exact coefficient rearrangement + shared constants + Horner (the formula candidate)"
+ },
+ "excluded_candidates": ["decimal backend", "precision predictor (predict_next)", "RNS/extras"],
+ "precision_policy": "upstream default grid [64, 96, 128, 192, 256, 384, 512] ascending, cap 512, a new precision restarts from the exact initial state (upstream run_one / startup worker logic, unchanged).",
+ "axes": {
+  "A1_fixed_precision": "same working precision: one evolve() pass to step 1000 reading 100 and 1000, p in {96, 128, 192}; CPU of the pass; same work only when both evaluators complete the same steps (a domain stop is recorded and excluded from the per-pass ratio).",
+  "A2_policy_total": "same precision policy: grid ascending until the target step is DECIDED; total CPU including every failed pass; target steps 1, 10, 100, 1000 (one target per run, upstream shape).",
+  "A3_total_with_startup": "same runs as A2, fresh process: parent wall from spawn to exit, child phases load (import, AST), prepare (exact_program() only for algebra; deferred for original/cache exactly as the upstream startup comparison does), compute."
+ },
+ "repetitions": "3 per cell, each a fresh python process, sequential (no concurrency), order rotated per repetition.",
+ "observation_checks": {
+  "reference": "repository exact_expression_gate_v1.stream.run (not the vendor copy) at 384 bits for every scenario and target step; cells and exact endpoints stored.",
+  "per_run": "decided cells must equal the reference cells; cells equal across evaluators. Agreement of observed cells is NOT a certification of the exact state, the trajectory or world history."
+ },
+ "transformation_checks": {
+  "symbolic": "upstream test_compiler_exact_symbolic_identity (sympy) re-run on the copied PROGRAM",
+  "applicability": "the rearranged formula divides by R and by den(R) = 1 + sum RET_B[m] R^(m+1); valid for R > 0 when every RET_B > 0 (checked); the run's domain obligation R >= r_min > 0 guarantees it",
+  "enclosure": "algebra enclosure must contain a 1024-bit original enclosure at 48 radii in [r_min, 30] bohr and on 12 interval inputs, at p in {64, 96, 128, 192}"
+ },
+ "evidence": "every run stores its attempts (bits, status, CPU), decided cells and the exact endpoints of the deciding pass (no derived radius without endpoints).",
+ "no_post_hoc_changes": "scenarios, evaluators, axes, horizons, precisions, repetitions and checks are fixed before running."
+}

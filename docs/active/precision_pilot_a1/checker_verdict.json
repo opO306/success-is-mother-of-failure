@@ -1,0 +1,1263 @@
+{
+ "checker": "PRECISION_PILOT_A1 independent checker",
+ "incomplete": [],
+ "invalid_evidence": [],
+ "conflicts": [],
+ "EVIDENCE": "OK",
+ "frozen_params_rederived": {
+  "s1": 110,
+  "lines": {
+   "A2_bound": [
+    "925/9",
+    "47/1800"
+   ],
+   "A3_low": [
+    "299/3",
+    "1/600"
+   ],
+   "A3_high": [
+    "311/3",
+    "11/300"
+   ]
+  }
+ },
+ "tables": {
+  "A2_bound@100": {
+   "lowest_success": 97,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 38,
+   "investigate_cpu_s": 21.984375,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128
+     ],
+     "passes": 3,
+     "decided_p": 128,
+     "cpu_runs": [
+      1.6875,
+      1.578125,
+      1.515625
+     ],
+     "cpu_median": 1.578125,
+     "process_wall_median": 1.703926300004241,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      0.625,
+      0.578125,
+      0.578125
+     ],
+     "cpu_median": 0.578125,
+     "process_wall_median": 0.7267677000054391,
+     "cpu_vs_P0": 0.36633663366336633
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      104
+     ],
+     "passes": 2,
+     "decided_p": 104,
+     "cpu_runs": [
+      1.078125,
+      1.078125,
+      1.03125
+     ],
+     "cpu_median": 1.078125,
+     "process_wall_median": 1.2130869999964489,
+     "cpu_vs_P0": 0.6831683168316832
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      114
+     ],
+     "passes": 1,
+     "decided_p": 114,
+     "cpu_runs": [
+      0.59375,
+      0.59375,
+      0.546875
+     ],
+     "cpu_median": 0.59375,
+     "process_wall_median": 0.732725300011225,
+     "cpu_vs_P0": 0.37623762376237624
+    }
+   }
+  },
+  "A2_bound@1000": {
+   "lowest_success": 125,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 61,
+   "investigate_cpu_s": 325.4375,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128
+     ],
+     "passes": 3,
+     "decided_p": 128,
+     "cpu_runs": [
+      15.796875,
+      15.0,
+      14.734375
+     ],
+     "cpu_median": 15.0,
+     "process_wall_median": 15.186725999999908,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128
+     ],
+     "passes": 2,
+     "decided_p": 128,
+     "cpu_runs": [
+      10.8125,
+      10.078125,
+      9.953125
+     ],
+     "cpu_median": 10.078125,
+     "process_wall_median": 10.287305599995307,
+     "cpu_vs_P0": 0.671875
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      128
+     ],
+     "passes": 2,
+     "decided_p": 128,
+     "cpu_runs": [
+      10.59375,
+      9.984375,
+      9.734375
+     ],
+     "cpu_median": 9.984375,
+     "process_wall_median": 10.139785700011998,
+     "cpu_vs_P0": 0.665625
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      137
+     ],
+     "passes": 1,
+     "decided_p": 137,
+     "cpu_runs": [
+      6.15625,
+      5.1875,
+      5.109375
+     ],
+     "cpu_median": 5.1875,
+     "process_wall_median": 5.330675299992436,
+     "cpu_vs_P0": 0.3458333333333333
+    }
+   }
+  },
+  "A2_bound@3000": {
+   "lowest_success": 187,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 118,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192
+     ],
+     "passes": 4,
+     "decided_p": 192,
+     "cpu_runs": [
+      59.171875
+     ],
+     "cpu_median": 59.171875,
+     "process_wall_median": 59.712352000002284,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192
+     ],
+     "passes": 3,
+     "decided_p": 192,
+     "cpu_runs": [
+      48.21875
+     ],
+     "cpu_median": 48.21875,
+     "process_wall_median": 48.71722160000354,
+     "cpu_vs_P0": 0.8148930551888038
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      98,
+      187
+     ],
+     "passes": 3,
+     "decided_p": 187,
+     "cpu_runs": [
+      41.96875
+     ],
+     "cpu_median": 41.96875,
+     "process_wall_median": 42.50319780000427,
+     "cpu_vs_P0": 0.7092685503036704
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      190
+     ],
+     "passes": 1,
+     "decided_p": 190,
+     "cpu_runs": [
+      16.1875
+     ],
+     "cpu_median": 16.1875,
+     "process_wall_median": 16.432437900002697,
+     "cpu_vs_P0": 0.2735674676524954
+    }
+   }
+  },
+  "A2_bound@5000": {
+   "lowest_success": 236,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 166,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192,
+      256
+     ],
+     "passes": 5,
+     "decided_p": 256,
+     "cpu_runs": [
+      113.734375
+     ],
+     "cpu_median": 113.734375,
+     "process_wall_median": 117.28202909999527,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192,
+      256
+     ],
+     "passes": 4,
+     "decided_p": 256,
+     "cpu_runs": [
+      107.375
+     ],
+     "cpu_median": 107.375,
+     "process_wall_median": 108.11365739999746,
+     "cpu_vs_P0": 0.9440857260612722
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      158,
+      236
+     ],
+     "passes": 3,
+     "decided_p": 236,
+     "cpu_runs": [
+      70.03125
+     ],
+     "cpu_median": 70.03125,
+     "process_wall_median": 70.77897110000777,
+     "cpu_vs_P0": 0.6157439208682511
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      242
+     ],
+     "passes": 1,
+     "decided_p": 242,
+     "cpu_runs": [
+      29.296875
+     ],
+     "cpu_median": 29.296875,
+     "process_wall_median": 29.6776291999995,
+     "cpu_vs_P0": 0.2575903283418052
+    }
+   }
+  },
+  "A2_bound@10000": {
+   "lowest_success": 370,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 299,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192,
+      256,
+      384
+     ],
+     "passes": 6,
+     "decided_p": 384,
+     "cpu_runs": [
+      205.203125
+     ],
+     "cpu_median": 205.203125,
+     "process_wall_median": 206.38421110001218,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192,
+      256,
+      384
+     ],
+     "passes": 5,
+     "decided_p": 384,
+     "cpu_runs": [
+      197.140625
+     ],
+     "cpu_median": 197.140625,
+     "process_wall_median": 198.86182079999708,
+     "cpu_vs_P0": 0.9607096626817939
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      307,
+      370
+     ],
+     "passes": 3,
+     "decided_p": 370,
+     "cpu_runs": [
+      129.15625
+     ],
+     "cpu_median": 129.15625,
+     "process_wall_median": 129.97531490000256,
+     "cpu_vs_P0": 0.6294068377369983
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      372
+     ],
+     "passes": 1,
+     "decided_p": 372,
+     "cpu_runs": [
+      59.53125
+     ],
+     "cpu_median": 59.53125,
+     "process_wall_median": 60.03367679999792,
+     "cpu_vs_P0": 0.29010888601233537
+    }
+   }
+  },
+  "A3_low@100": {
+   "lowest_success": 94,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 31,
+   "investigate_cpu_s": 54.515625,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96
+     ],
+     "passes": 2,
+     "decided_p": 96,
+     "cpu_runs": [
+      3.296875,
+      3.09375,
+      3.046875
+     ],
+     "cpu_median": 3.09375,
+     "process_wall_median": 3.234088899989729,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      1.609375,
+      1.609375,
+      1.640625
+     ],
+     "cpu_median": 1.609375,
+     "process_wall_median": 1.751813500013668,
+     "cpu_vs_P0": 0.5202020202020202
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      99
+     ],
+     "passes": 2,
+     "decided_p": 99,
+     "cpu_runs": [
+      3.109375,
+      3.03125,
+      3.0
+     ],
+     "cpu_median": 3.03125,
+     "process_wall_median": 3.1841534999985015,
+     "cpu_vs_P0": 0.9797979797979798
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      108
+     ],
+     "passes": 1,
+     "decided_p": 108,
+     "cpu_runs": [
+      1.71875,
+      1.609375,
+      1.609375
+     ],
+     "cpu_median": 1.609375,
+     "process_wall_median": 1.764737100005732,
+     "cpu_vs_P0": 0.5202020202020202
+    }
+   }
+  },
+  "A3_low@1000": {
+   "lowest_success": 95,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 31,
+   "investigate_cpu_s": 489.96875,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96
+     ],
+     "passes": 2,
+     "decided_p": 96,
+     "cpu_runs": [
+      29.453125,
+      29.640625,
+      29.171875
+     ],
+     "cpu_median": 29.453125,
+     "process_wall_median": 29.706220099993516,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      15.21875,
+      15.171875,
+      14.734375
+     ],
+     "cpu_median": 15.171875,
+     "process_wall_median": 15.379760299998452,
+     "cpu_vs_P0": 0.5151193633952255
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      102
+     ],
+     "passes": 2,
+     "decided_p": 102,
+     "cpu_runs": [
+      32.1875,
+      29.15625,
+      29.046875
+     ],
+     "cpu_median": 29.15625,
+     "process_wall_median": 29.46233680000296,
+     "cpu_vs_P0": 0.9899204244031831
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      15.640625,
+      14.890625,
+      15.015625
+     ],
+     "cpu_median": 15.015625,
+     "process_wall_median": 15.197836499995901,
+     "cpu_vs_P0": 0.5098143236074271
+    }
+   }
+  },
+  "A3_low@3000": {
+   "lowest_success": 104,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 38,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128
+     ],
+     "passes": 3,
+     "decided_p": 128,
+     "cpu_runs": [
+      139.359375
+     ],
+     "cpu_median": 139.359375,
+     "process_wall_median": 140.57415119999496,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      46.734375
+     ],
+     "cpu_median": 46.734375,
+     "process_wall_median": 47.10547860000224,
+     "cpu_vs_P0": 0.3353514968045745
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      104
+     ],
+     "passes": 2,
+     "decided_p": 104,
+     "cpu_runs": [
+      95.40625
+     ],
+     "cpu_median": 95.40625,
+     "process_wall_median": 96.44475579999562,
+     "cpu_vs_P0": 0.6846058975221437
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      113
+     ],
+     "passes": 1,
+     "decided_p": 113,
+     "cpu_runs": [
+      47.359375
+     ],
+     "cpu_median": 47.359375,
+     "process_wall_median": 47.80021410000336,
+     "cpu_vs_P0": 0.33983630451844377
+    }
+   }
+  },
+  "A3_low@5000": {
+   "lowest_success": 105,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 39,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128
+     ],
+     "passes": 3,
+     "decided_p": 128,
+     "cpu_runs": [
+      229.796875
+     ],
+     "cpu_median": 229.796875,
+     "process_wall_median": 231.25235310000426,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      76.90625
+     ],
+     "cpu_median": 76.90625,
+     "process_wall_median": 77.43073320000258,
+     "cpu_vs_P0": 0.33467056503705717
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      105
+     ],
+     "passes": 2,
+     "decided_p": 105,
+     "cpu_runs": [
+      155.0625
+     ],
+     "cpu_median": 155.0625,
+     "process_wall_median": 156.3620113999932,
+     "cpu_vs_P0": 0.6747807166655334
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      116
+     ],
+     "passes": 1,
+     "decided_p": 116,
+     "cpu_runs": [
+      77.0625
+     ],
+     "cpu_median": 77.0625,
+     "process_wall_median": 77.5599407000118,
+     "cpu_vs_P0": 0.3353505133609846
+    }
+   }
+  },
+  "A3_low@10000": {
+   "lowest_success": 138,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 69,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192
+     ],
+     "passes": 4,
+     "decided_p": 192,
+     "cpu_runs": [
+      635.734375
+     ],
+     "cpu_median": 635.734375,
+     "process_wall_median": 639.3570635000069,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192
+     ],
+     "passes": 3,
+     "decided_p": 192,
+     "cpu_runs": [
+      478.65625
+     ],
+     "cpu_median": 478.65625,
+     "process_wall_median": 482.19052759998885,
+     "cpu_vs_P0": 0.7529186226558852
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      138
+     ],
+     "passes": 2,
+     "decided_p": 138,
+     "cpu_runs": [
+      321.015625
+     ],
+     "cpu_median": 321.015625,
+     "process_wall_median": 323.2308330000087,
+     "cpu_vs_P0": 0.5049524418118809
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      125,
+      139
+     ],
+     "passes": 2,
+     "decided_p": 139,
+     "cpu_runs": [
+      324.5625
+     ],
+     "cpu_median": 324.5625,
+     "process_wall_median": 326.37382660000003,
+     "cpu_vs_P0": 0.5105316194361835
+    }
+   }
+  },
+  "A3_high@100": {
+   "lowest_success": 100,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 40,
+   "investigate_cpu_s": 63.40625,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128
+     ],
+     "passes": 3,
+     "decided_p": 128,
+     "cpu_runs": [
+      4.53125,
+      4.453125,
+      4.484375
+     ],
+     "cpu_median": 4.484375,
+     "process_wall_median": 4.612453800000367,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110
+     ],
+     "passes": 1,
+     "decided_p": 110,
+     "cpu_runs": [
+      1.546875,
+      1.578125,
+      1.546875
+     ],
+     "cpu_median": 1.546875,
+     "process_wall_median": 1.692723100000876,
+     "cpu_vs_P0": 0.34494773519163763
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      106
+     ],
+     "passes": 2,
+     "decided_p": 106,
+     "cpu_runs": [
+      2.984375,
+      3.015625,
+      3.0
+     ],
+     "cpu_median": 3.0,
+     "process_wall_median": 3.1125974000024144,
+     "cpu_vs_P0": 0.6689895470383276
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      116
+     ],
+     "passes": 1,
+     "decided_p": 116,
+     "cpu_runs": [
+      1.5625,
+      1.546875,
+      1.5625
+     ],
+     "cpu_median": 1.5625,
+     "process_wall_median": 1.7134613999951398,
+     "cpu_vs_P0": 0.34843205574912894
+    }
+   }
+  },
+  "A3_high@1000": {
+   "lowest_success": 130,
+   "claim": "MIN_SUCCESS_IN_DECLARED_DOMAIN",
+   "untried_below": 0,
+   "investigate_passes": 69,
+   "investigate_cpu_s": 1057.28125,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192
+     ],
+     "passes": 4,
+     "decided_p": 192,
+     "cpu_runs": [
+      59.46875,
+      58.8125,
+      61.625
+     ],
+     "cpu_median": 59.46875,
+     "process_wall_median": 59.933967000004486,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192
+     ],
+     "passes": 3,
+     "decided_p": 192,
+     "cpu_runs": [
+      45.125,
+      45.8125,
+      59.078125
+     ],
+     "cpu_median": 45.8125,
+     "process_wall_median": 46.12801800000307,
+     "cpu_vs_P0": 0.7703625853914872
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      137
+     ],
+     "passes": 2,
+     "decided_p": 137,
+     "cpu_runs": [
+      29.40625,
+      29.203125,
+      29.53125
+     ],
+     "cpu_median": 29.40625,
+     "process_wall_median": 29.707750699992175,
+     "cpu_vs_P0": 0.49448239621650025
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      149
+     ],
+     "passes": 1,
+     "decided_p": 149,
+     "cpu_runs": [
+      15.75,
+      15.171875,
+      15.375
+     ],
+     "cpu_median": 15.375,
+     "process_wall_median": 15.542728399988846,
+     "cpu_vs_P0": 0.2585391487125591
+    }
+   }
+  },
+  "A3_high@3000": {
+   "lowest_success": 211,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 141,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192,
+      256
+     ],
+     "passes": 5,
+     "decided_p": 256,
+     "cpu_runs": [
+      207.359375
+     ],
+     "cpu_median": 207.359375,
+     "process_wall_median": 208.6708734999993,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192,
+      256
+     ],
+     "passes": 4,
+     "decided_p": 256,
+     "cpu_runs": [
+      195.453125
+     ],
+     "cpu_median": 195.453125,
+     "process_wall_median": 196.53253490000498,
+     "cpu_vs_P0": 0.9425815688343003
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      134,
+      211
+     ],
+     "passes": 3,
+     "decided_p": 211,
+     "cpu_runs": [
+      127.25
+     ],
+     "cpu_median": 127.25,
+     "process_wall_median": 130.6924871999945,
+     "cpu_vs_P0": 0.6136689021173989
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      222
+     ],
+     "passes": 1,
+     "decided_p": 222,
+     "cpu_runs": [
+      50.84375
+     ],
+     "cpu_median": 50.84375,
+     "process_wall_median": 51.37287500000093,
+     "cpu_vs_P0": 0.24519629266822396
+    }
+   }
+  },
+  "A3_high@5000": {
+   "lowest_success": 280,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 209,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192,
+      256,
+      384
+     ],
+     "passes": 6,
+     "decided_p": 384,
+     "cpu_runs": [
+      367.0
+     ],
+     "cpu_median": 367.0,
+     "process_wall_median": 368.92313330000616,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192,
+      256,
+      384
+     ],
+     "passes": 5,
+     "decided_p": 384,
+     "cpu_runs": [
+      364.40625
+     ],
+     "cpu_median": 364.40625,
+     "process_wall_median": 366.4020000999881,
+     "cpu_vs_P0": 0.9929325613079019
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      217,
+      280
+     ],
+     "passes": 3,
+     "decided_p": 280,
+     "cpu_runs": [
+      213.734375
+     ],
+     "cpu_median": 213.734375,
+     "process_wall_median": 215.29368770000292,
+     "cpu_vs_P0": 0.5823824931880109
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      295
+     ],
+     "passes": 1,
+     "decided_p": 295,
+     "cpu_runs": [
+      86.3125
+     ],
+     "cpu_median": 86.3125,
+     "process_wall_median": 86.99453820000053,
+     "cpu_vs_P0": 0.23518392370572208
+    }
+   }
+  },
+  "A3_high@10000": {
+   "lowest_success": 458,
+   "claim": "LOWEST_SUCCESS_OBSERVED",
+   "untried_below": 386,
+   "investigate_passes": 0,
+   "investigate_cpu_s": 0,
+   "policies": {
+    "P0": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      96,
+      128,
+      192,
+      256,
+      384,
+      512
+     ],
+     "passes": 7,
+     "decided_p": 512,
+     "cpu_runs": [
+      691.734375
+     ],
+     "cpu_median": 691.734375,
+     "process_wall_median": 695.6240442999988,
+     "cpu_vs_P0": 1.0
+    },
+    "P1": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      110,
+      128,
+      192,
+      256,
+      384,
+      512
+     ],
+     "passes": 6,
+     "decided_p": 512,
+     "cpu_runs": [
+      677.28125
+     ],
+     "cpu_median": 677.28125,
+     "process_wall_median": 683.7978147999966,
+     "cpu_vs_P0": 0.9791059610128526
+    },
+    "P2": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      64,
+      426,
+      458
+     ],
+     "passes": 3,
+     "decided_p": 458,
+     "cpu_runs": [
+      394.859375
+     ],
+     "cpu_median": 394.859375,
+     "process_wall_median": 397.30864020000445,
+     "cpu_vs_P0": 0.5708251451288654
+    },
+    "P3": {
+     "status": [
+      "DECIDED"
+     ],
+     "tried_p": [
+      479
+     ],
+     "passes": 1,
+     "decided_p": 479,
+     "cpu_runs": [
+      183.9375
+     ],
+     "cpu_median": 183.9375,
+     "process_wall_median": 185.05560589999368,
+     "cpu_vs_P0": 0.2659077048180524
+    }
+   }
+  }
+ },
+ "tables_unverified": null
+}

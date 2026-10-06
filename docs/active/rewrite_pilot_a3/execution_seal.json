@@ -1,0 +1,28 @@
+{
+ "head": "b9e2612517cf2a6b9d909165d9651aec5c93d11b",
+ "branch": "codex/rewrite-pilot-a3",
+ "status_porcelain": "",
+ "origin_master": "0ecfb7fc17d85ae644c36a17f9d1b673ccea41ec",
+ "sealed_sources_dirty": false,
+ "source_sha256_lf": {
+  "experiments/rewrite_pilot_a3/protocol.json": "395a6517e7ccc9cc3e91beff0b605438cf4ddb28f21c577c80cc43c327348af8",
+  "experiments/rewrite_pilot_a3/rules.py": "bdf5edb249b15ae075f2ba6bf05cb22dd23e9f3b17b5786b473fbb27801ccab0",
+  "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+  "experiments/rewrite_pilot_a3/symbolic.py": "4151c066323e6f2c60751937480f85d50b5f0884bcaee4b95fefb5fc377d4076",
+  "experiments/rewrite_pilot_a3/adapter.py": "5020fadef0b15a9cc7876efa541bb80b36a75d1c56f060e176e42a2a3682378e",
+  "experiments/rewrite_pilot_a3/runner.py": "a84f7100e5af157832f1a3c4e77e9c6433c288545a804fe8c98dbe914d3d2b0f",
+  "experiments/rewrite_pilot_a3/campaign.py": "0c0cd766d633ef2d4e7d2b9355cad1bec57a2915d0bc57d27343ba9bc0923bf0",
+  "experiments/precision_pilot_a2t/evaluator_adapter.py": "ed5cb22b85d6411e551e5adae2f495a8cc5d18c0606403d98d137197c8800ecf",
+  "experiments/precision_pilot_a2t/frozen_policy_params_a1.json": "c91190229b04abb4137deb8649f00a30cea169618c530076dca9e851145add96",
+  "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d232544379048506cd27c40a91dcf9d29a985b9e27ed274ff",
+  "experiments/precision_pilot_a1/evaluator_adapter.py": "7ecbaf3e22ec104fd62891a2209976c4428e0e38045bb5b752f69fb31230458d",
+  "experiments/formula_repro_b_v0/harness.py": "b0217b82e8549d6f600de8732fe8c3f5c8ff790926c90bd07381efae0c360a99",
+  "experiments/formula_repro_b_v0/upstream/probe.py": "2bae71e13f03ce51eafa7c2c97cbfdd67108f74bdcbdbbdb4bc2f324915e9917",
+  "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+  "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+  "exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959"
+ },
+ "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+ "started": "2026-10-06 11:46:44"
+}

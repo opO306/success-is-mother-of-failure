@@ -1,0 +1,59 @@
+17:51:47 MULTIATOM_PARALLEL_V1 phase all machine laptop workers [1, 2, 3, 4, 5, 0] main 0 serial 1 campaign 0
+17:52:02 E2 gates S1-S6 True sympy True new-domain containment True (13 distinct R^2)
+17:52:04 load snapshot: system 0% busy [('System Idle Process', 0, 575.2), ('python.exe', 12656, 20.2)]
+17:52:04 done H100__N2__SER_E1__r0 DECIDED steps 100 e2e 0.33 loop 0.10 cpu 0.11
+17:52:05 done H100__N2__SER_E2__r0 DECIDED steps 100 e2e 0.31 loop 0.10 cpu 0.11
+17:52:05 done H100__N2__PAR_1__r0 DECIDED steps 100 e2e 0.54 loop 0.12 cpu 0.00
+17:52:06 done H100__N2__PAR_2__r0 DECIDED steps 100 e2e 0.55 loop 0.12 cpu 0.00
+17:52:06 done H100__N2__PAR_3__r0 DECIDED steps 100 e2e 0.57 loop 0.12 cpu 0.00
+17:52:07 done H100__N2__PAR_4__r0 DECIDED steps 100 e2e 0.61 loop 0.12 cpu 0.12
+17:52:08 done H100__N2__PAR_6__r0 DECIDED steps 100 e2e 0.68 loop 0.12 cpu 0.25
+17:52:10 load snapshot: system 0% busy [('System Idle Process', 0, 573.0), ('python.exe', 12656, 22.3)]
+17:52:11 done H100__N3__SER_E1__r0 DECIDED steps 100 e2e 0.53 loop 0.31 cpu 0.31
+17:52:11 done H100__N3__SER_E2__r0 DECIDED steps 100 e2e 0.52 loop 0.28 cpu 0.30
+17:52:12 done H100__N3__PAR_1__r0 DECIDED steps 100 e2e 0.74 loop 0.33 cpu 0.00
+17:52:13 done H100__N3__PAR_2__r0 DECIDED steps 100 e2e 0.69 loop 0.23 cpu 0.00
+17:52:13 done H100__N3__PAR_3__r0 DECIDED steps 100 e2e 0.59 loop 0.13 cpu 0.00
+17:52:14 done H100__N3__PAR_4__r0 DECIDED steps 100 e2e 0.63 loop 0.13 cpu 0.14
+17:52:15 done H100__N3__PAR_6__r0 DECIDED steps 100 e2e 0.69 loop 0.13 cpu 0.25
+17:52:17 load snapshot: system 0% busy [('System Idle Process', 0, 573.0), ('python.exe', 12656, 24.7)]
+17:52:18 done H100__N4__SER_E1__r0 DECIDED steps 100 e2e 0.82 loop 0.59 cpu 0.61
+17:52:18 done H100__N4__SER_E2__r0 DECIDED steps 100 e2e 0.78 loop 0.56 cpu 0.56
+17:52:19 done H100__N4__PAR_1__r0 DECIDED steps 100 e2e 1.07 loop 0.64 cpu 0.02
+17:52:20 done H100__N4__PAR_2__r0 DECIDED steps 100 e2e 0.82 loop 0.37 cpu 0.00
+17:52:21 done H100__N4__PAR_3__r0 DECIDED steps 100 e2e 0.69 loop 0.23 cpu 0.20
+17:52:22 done H100__N4__PAR_4__r0 DECIDED steps 100 e2e 0.72 loop 0.23 cpu 0.00
+17:52:22 done H100__N4__PAR_6__r0 DECIDED steps 100 e2e 0.73 loop 0.17 cpu 0.55
+17:52:25 load snapshot: system 0% busy [('System Idle Process', 0, 573.6), ('python.exe', 12656, 22.9)]
+17:52:26 done H100__N6__SER_E1__r0 DECIDED steps 100 e2e 1.71 loop 1.48 cpu 1.48
+17:52:28 done H100__N6__SER_E2__r0 DECIDED steps 100 e2e 1.58 loop 1.35 cpu 1.36
+17:52:30 done H100__N6__PAR_1__r0 DECIDED steps 100 e2e 1.99 loop 1.58 cpu 0.00
+17:52:31 done H100__N6__PAR_2__r0 DECIDED steps 100 e2e 1.36 loop 0.93 cpu 0.03
+17:52:32 done H100__N6__PAR_3__r0 DECIDED steps 100 e2e 1.07 loop 0.63 cpu 0.00
+17:52:34 done H100__N6__PAR_4__r0 DECIDED steps 100 e2e 1.03 loop 0.55 cpu 0.00
+17:52:35 done H100__N6__PAR_6__r0 DECIDED steps 100 e2e 1.02 loop 0.44 cpu 0.66
+17:52:37 load snapshot: system 0% busy [('System Idle Process', 0, 542.3), ('python.exe', 12656, 24.7), ('explorer.exe', 6444, 6.5)]
+17:52:40 done H100__N8__SER_E1__r0 DECIDED steps 100 e2e 2.96 loop 2.74 cpu 2.81
+17:52:43 done H100__N8__SER_E2__r0 DECIDED steps 100 e2e 2.78 loop 2.56 cpu 2.62
+17:52:46 done H100__N8__PAR_1__r0 DECIDED steps 100 e2e 3.33 loop 2.92 cpu 0.33
+17:52:48 done H100__N8__PAR_2__r0 DECIDED steps 100 e2e 2.03 loop 1.60 cpu 0.55
+17:52:50 done H100__N8__PAR_3__r0 DECIDED steps 100 e2e 1.65 loop 1.21 cpu 0.38
+17:52:51 done H100__N8__PAR_4__r0 DECIDED steps 100 e2e 1.40 loop 0.91 cpu 0.36
+17:52:53 done H100__N8__PAR_6__r0 DECIDED steps 100 e2e 1.32 loop 0.77 cpu 1.00
+17:52:55 load snapshot: system 0% busy [('System Idle Process', 0, 551.4), ('python.exe', 12656, 24.7)]
+17:53:01 done H100__N12__SER_E1__r0 DECIDED steps 100 e2e 6.64 loop 6.41 cpu 6.48
+17:53:08 done H100__N12__SER_E2__r0 DECIDED steps 100 e2e 6.15 loop 5.94 cpu 6.02
+17:53:15 done H100__N12__PAR_1__r0 DECIDED steps 100 e2e 7.01 loop 6.60 cpu 5.42
+17:53:19 done H100__N12__PAR_2__r0 DECIDED steps 100 e2e 4.01 loop 3.57 cpu 0.02
+17:53:22 done H100__N12__PAR_3__r0 DECIDED steps 100 e2e 2.97 loop 2.48 cpu 0.00
+17:53:24 done H100__N12__PAR_4__r0 DECIDED steps 100 e2e 2.51 loop 2.03 cpu 0.03
+17:53:27 done H100__N12__PAR_6__r0 DECIDED steps 100 e2e 2.43 loop 1.81 cpu 1.81
+17:53:29 load snapshot: system 0% busy [('System Idle Process', 0, 549.1), ('python.exe', 12656, 31.1)]
+17:53:41 done H100__N16__SER_E1__r0 DECIDED steps 100 e2e 11.93 loop 11.72 cpu 11.73
+17:53:52 done H100__N16__SER_E2__r0 DECIDED steps 100 e2e 10.99 loop 10.77 cpu 10.86
+17:54:05 done H100__N16__PAR_1__r0 DECIDED steps 100 e2e 12.37 loop 11.94 cpu 11.53
+17:54:11 done H100__N16__PAR_2__r0 DECIDED steps 100 e2e 6.71 loop 6.26 cpu 9.64
+17:54:16 done H100__N16__PAR_3__r0 DECIDED steps 100 e2e 4.80 loop 4.34 cpu 4.25
+17:54:20 done H100__N16__PAR_4__r0 DECIDED steps 100 e2e 4.18 loop 3.67 cpu 3.41
+17:54:24 done H100__N16__PAR_6__r0 DECIDED steps 100 e2e 3.78 loop 3.22 cpu 4.52
+17:54:26 load snapshot: system 0% busy [('System Idle Process', 0, 566.8), ('python.exe', 12656, 23.5)]

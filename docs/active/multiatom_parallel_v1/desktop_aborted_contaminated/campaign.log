@@ -1,0 +1,203 @@
+17:00:24 MULTIATOM_PARALLEL_V1 phase all
+17:00:40 E2 gates S1-S6 True sympy True new-domain containment True (13 distinct R^2)
+17:00:44 load snapshot: system 29% busy [('System Idle Process', 0, 651.4), ('RobloxPlayerBeta.exe', 40016, 255.2), ('python.exe', 26080, 48.4), ('dwm.exe', 1808, 30.3), ('Discord.exe', 21336, 19.1), ('System', 4, 17.8)]
+17:00:45 done H100__N2__SER_E1__r0 DECIDED steps 100 e2e 0.45 loop 0.11 cpu 0.33
+17:00:45 done H100__N2__SER_E2__r0 DECIDED steps 100 e2e 0.45 loop 0.08 cpu 0.30
+17:00:46 done H100__N2__PAR_1__r0 DECIDED steps 100 e2e 0.86 loop 0.16 cpu 0.59
+17:00:47 done H100__N2__PAR_2__r0 DECIDED steps 100 e2e 0.86 loop 0.14 cpu 0.98
+17:00:48 done H100__N2__PAR_3__r0 DECIDED steps 100 e2e 1.14 loop 0.22 cpu 1.55
+17:00:49 done H100__N2__PAR_4__r0 DECIDED steps 100 e2e 1.03 loop 0.20 cpu 1.73
+17:00:50 done H100__N2__PAR_6__r0 DECIDED steps 100 e2e 1.29 loop 0.20 cpu 2.12
+17:00:55 load snapshot: system 42% busy [('System Idle Process', 0, 741.8), ('RobloxPlayerBeta.exe', 40016, 225.5), ('MsMpEng.exe', 5888, 91.4), ('python.exe', 26080, 55.1), ('dwm.exe', 1808, 40.6), ('codex.exe', 21596, 21.0)]
+17:00:56 done H100__N3__SER_E1__r0 DECIDED steps 100 e2e 1.04 loop 0.54 cpu 0.67
+17:00:57 done H100__N3__SER_E2__r0 DECIDED steps 100 e2e 0.80 loop 0.32 cpu 0.53
+17:00:59 done H100__N3__PAR_1__r0 DECIDED steps 100 e2e 1.34 loop 0.45 cpu 1.02
+17:01:00 done H100__N3__PAR_2__r0 DECIDED steps 100 e2e 1.56 loop 0.45 cpu 1.44
+17:01:02 done H100__N3__PAR_3__r0 DECIDED steps 100 e2e 1.65 loop 0.26 cpu 1.80
+17:01:03 done H100__N3__PAR_4__r0 DECIDED steps 100 e2e 1.25 loop 0.32 cpu 2.00
+17:01:04 done H100__N3__PAR_6__r0 DECIDED steps 100 e2e 1.36 loop 0.30 cpu 2.97
+17:01:09 load snapshot: system 42% busy [('System Idle Process', 0, 638.3), ('RobloxPlayerBeta.exe', 40016, 244.5), ('python.exe', 17524, 103.8), ('python.exe', 26080, 54.7), ('dwm.exe', 1808, 36.8), ('System', 4, 35.4)]
+17:01:10 done H100__N4__SER_E1__r0 DECIDED steps 100 e2e 1.22 loop 0.79 cpu 0.88
+17:01:11 done H100__N4__SER_E2__r0 DECIDED steps 100 e2e 1.02 loop 0.66 cpu 0.86
+17:01:13 done H100__N4__PAR_1__r0 DECIDED steps 100 e2e 1.64 loop 0.80 cpu 1.25
+17:01:15 done H100__N4__PAR_2__r0 DECIDED steps 100 e2e 1.43 loop 0.46 cpu 1.47
+17:01:16 done H100__N4__PAR_3__r0 DECIDED steps 100 e2e 1.57 loop 0.51 cpu 2.19
+17:01:18 done H100__N4__PAR_4__r0 DECIDED steps 100 e2e 1.56 loop 0.46 cpu 2.38
+17:01:20 done H100__N4__PAR_6__r0 DECIDED steps 100 e2e 2.11 loop 0.43 cpu 3.64
+17:01:26 load snapshot: system 30% busy [('System Idle Process', 0, 305.6), ('RobloxPlayerBeta.exe', 40016, 272.4), ('python.exe', 26080, 49.1), ('Discord.exe', 21336, 40.1), ('dwm.exe', 1808, 36.9), ('System', 4, 33.7)]
+17:01:28 done H100__N6__SER_E1__r0 DECIDED steps 100 e2e 1.84 loop 1.47 cpu 1.55
+17:01:30 done H100__N6__SER_E2__r0 DECIDED steps 100 e2e 1.69 loop 1.29 cpu 1.50
+17:01:32 done H100__N6__PAR_1__r0 DECIDED steps 100 e2e 2.30 loop 1.57 cpu 1.91
+17:01:34 done H100__N6__PAR_2__r0 DECIDED steps 100 e2e 1.79 loop 0.94 cpu 2.20
+17:01:36 done H100__N6__PAR_3__r0 DECIDED steps 100 e2e 1.93 loop 0.92 cpu 3.09
+17:01:38 done H100__N6__PAR_4__r0 DECIDED steps 100 e2e 1.67 loop 0.67 cpu 3.11
+17:01:40 done H100__N6__PAR_6__r0 DECIDED steps 100 e2e 1.84 loop 0.62 cpu 3.61
+17:01:44 load snapshot: system 38% busy [('System Idle Process', 0, 696.9), ('RobloxPlayerBeta.exe', 40016, 205.5), ('MsMpEng.exe', 5888, 68.3), ('python.exe', 26080, 56.8), ('dwm.exe', 1808, 42.1), ('codex.exe', 21596, 22.7)]
+17:01:47 done H100__N8__SER_E1__r0 DECIDED steps 100 e2e 3.15 loop 2.70 cpu 2.73
+17:01:50 done H100__N8__SER_E2__r0 DECIDED steps 100 e2e 2.95 loop 2.57 cpu 2.61
+17:01:54 done H100__N8__PAR_1__r0 DECIDED steps 100 e2e 4.00 loop 3.25 cpu 3.44
+17:01:57 done H100__N8__PAR_2__r0 DECIDED steps 100 e2e 2.54 loop 1.70 cpu 3.36
+17:01:59 done H100__N8__PAR_3__r0 DECIDED steps 100 e2e 2.32 loop 1.44 cpu 3.91
+17:02:02 done H100__N8__PAR_4__r0 DECIDED steps 100 e2e 2.62 loop 1.48 cpu 5.45
+17:02:04 done H100__N8__PAR_6__r0 DECIDED steps 100 e2e 2.10 loop 1.05 cpu 5.00
+17:02:09 load snapshot: system 33% busy [('System Idle Process', 0, 670.2), ('RobloxPlayerBeta.exe', 40016, 278.8), ('MsMpEng.exe', 5888, 67.3), ('python.exe', 26080, 45.4), ('dwm.exe', 1808, 41.5), ('YouTube Music.exe', 8732, 37.2)]
+17:02:17 done H100__N12__SER_E1__r0 DECIDED steps 100 e2e 7.23 loop 6.85 cpu 6.38
+17:02:24 done H100__N12__SER_E2__r0 DECIDED steps 100 e2e 6.95 loop 6.58 cpu 6.08
+17:02:31 done H100__N12__PAR_1__r0 DECIDED steps 100 e2e 7.87 loop 7.15 cpu 6.77
+17:02:36 done H100__N12__PAR_2__r0 DECIDED steps 100 e2e 4.49 loop 3.67 cpu 6.53
+17:02:41 done H100__N12__PAR_3__r0 DECIDED steps 100 e2e 4.58 loop 3.65 cpu 7.88
+17:02:45 done H100__N12__PAR_4__r0 DECIDED steps 100 e2e 4.06 loop 2.89 cpu 9.28
+17:02:48 done H100__N12__PAR_6__r0 DECIDED steps 100 e2e 3.76 loop 2.51 cpu 10.75
+17:02:56 load snapshot: system 41% busy [('System Idle Process', 0, 420.8), ('RobloxPlayerBeta.exe', 40016, 271.2), ('python.exe', 26080, 51.1), ('dwm.exe', 1808, 34.0), ('NVDisplay.Container.exe', 3456, 22.1), ('System', 4, 18.6)]
+17:03:10 done H100__N16__SER_E1__r0 DECIDED steps 100 e2e 14.36 loop 13.76 cpu 11.67
+17:03:22 done H100__N16__SER_E2__r0 DECIDED steps 100 e2e 12.13 loop 11.69 cpu 10.77
+17:03:38 done H100__N16__PAR_1__r0 DECIDED steps 100 e2e 15.50 loop 14.72 cpu 12.25
+17:03:46 done H100__N16__PAR_2__r0 DECIDED steps 100 e2e 7.90 loop 7.02 cpu 11.97
+17:03:52 done H100__N16__PAR_3__r0 DECIDED steps 100 e2e 6.56 loop 5.72 cpu 12.88
+17:03:58 done H100__N16__PAR_4__r0 DECIDED steps 100 e2e 5.75 loop 4.53 cpu 14.03
+17:04:03 done H100__N16__PAR_6__r0 DECIDED steps 100 e2e 4.80 loop 3.57 cpu 14.41
+17:04:07 load snapshot: system 34% busy [('System Idle Process', 0, 725.2), ('RobloxPlayerBeta.exe', 40016, 257.3), ('python.exe', 26080, 50.0), ('dwm.exe', 1808, 40.0), ('MemCompression', 3720, 19.3), ('System', 4, 15.7)]
+17:04:36 done H100__N24__SER_E1__r0 DECIDED steps 100 e2e 28.88 loop 28.42 cpu 25.11
+17:05:06 done H100__N24__SER_E2__r0 DECIDED steps 100 e2e 29.46 loop 29.06 cpu 24.52
+17:05:37 done H100__N24__PAR_1__r0 DECIDED steps 100 e2e 31.02 loop 30.28 cpu 26.16
+17:05:53 done H100__N24__PAR_2__r0 DECIDED steps 100 e2e 16.33 loop 15.58 cpu 25.98
+17:06:07 done H100__N24__PAR_3__r0 DECIDED steps 100 e2e 13.63 loop 12.68 cpu 29.20
+17:06:17 done H100__N24__PAR_4__r0 DECIDED steps 100 e2e 10.01 loop 9.13 cpu 27.86
+17:06:25 done H100__N24__PAR_6__r0 DECIDED steps 100 e2e 8.35 loop 7.20 cpu 29.83
+17:06:29 load snapshot: system 31% busy [('System Idle Process', 0, 801.4), ('RobloxPlayerBeta.exe', 40016, 245.6), ('python.exe', 26080, 49.3), ('dwm.exe', 1808, 29.1), ('System', 4, 14.4), ('audiodg.exe', 4436, 8.6)]
+17:07:35 done H100__N32__SER_E1__r0 DECIDED steps 100 e2e 65.20 loop 64.83 cpu 48.69
+17:08:53 done H100__N32__SER_E2__r0 DECIDED steps 100 e2e 78.22 loop 77.80 cpu 47.77
+17:09:52 done H100__N32__PAR_1__r0 DECIDED steps 100 e2e 58.97 loop 57.78 cpu 49.34
+17:10:23 done H100__N32__PAR_2__r0 DECIDED steps 100 e2e 31.32 loop 30.56 cpu 48.47
+17:10:45 done H100__N32__PAR_3__r0 DECIDED steps 100 e2e 21.36 loop 20.56 cpu 49.34
+17:11:04 done H100__N32__PAR_4__r0 DECIDED steps 100 e2e 18.95 loop 18.04 cpu 52.67
+17:11:19 done H100__N32__PAR_6__r0 DECIDED steps 100 e2e 15.81 loop 14.59 cpu 55.44
+17:11:25 load snapshot: system 63% busy [('System Idle Process', 0, 521.1), ('RobloxPlayerBeta.exe', 40016, 269.3), ('MsMpEng.exe', 5888, 85.2), ('python.exe', 26080, 50.8), ('dwm.exe', 1808, 34.8), ('YouTube Music.exe', 8732, 25.2)]
+17:14:39 done H100__N48__SER_E1__r0 DECIDED steps 100 e2e 193.18 loop 192.57 cpu 133.81
+17:16:51 done H100__N48__SER_E2__r0 DECIDED steps 100 e2e 132.56 loop 132.01 cpu 106.41
+17:19:03 done H100__N48__PAR_1__r0 DECIDED steps 100 e2e 131.83 loop 131.05 cpu 111.11
+17:20:15 done H100__N48__PAR_2__r0 DECIDED steps 100 e2e 71.75 loop 70.71 cpu 110.12
+17:21:40 done H100__N48__PAR_3__r0 DECIDED steps 100 e2e 84.97 loop 82.98 cpu 146.36
+17:22:48 done H100__N48__PAR_4__r0 DECIDED steps 100 e2e 67.55 loop 66.41 cpu 144.31
+17:23:39 done H100__N48__PAR_6__r0 DECIDED steps 100 e2e 51.75 loop 50.07 cpu 150.50
+17:23:44 load snapshot: system 38% busy [('System Idle Process', 0, 615.4), ('RobloxPlayerBeta.exe', 40016, 225.1), ('SearchIndexer.exe', 14068, 86.1), ('python.exe', 26080, 51.2), ('dwm.exe', 1808, 31.7), ('svchost.exe', 21196, 14.6)]
+17:23:46 done H1000__N2__SER_E1__r0 DECIDED steps 1000 e2e 1.47 loop 1.08 cpu 1.27
+17:23:47 done H1000__N2__SER_E2__r0 DECIDED steps 1000 e2e 1.32 loop 0.95 cpu 1.14
+17:23:50 done H1000__N2__PAR_1__r0 DECIDED steps 1000 e2e 3.06 loop 2.07 cpu 2.03
+17:23:53 done H1000__N2__PAR_2__r0 DECIDED steps 1000 e2e 2.75 loop 1.70 cpu 2.27
+17:23:56 done H1000__N2__PAR_3__r0 DECIDED steps 1000 e2e 3.16 loop 2.15 cpu 2.61
+17:24:00 done H1000__N2__PAR_4__r0 DECIDED steps 1000 e2e 3.55 loop 2.48 cpu 3.20
+17:24:04 done H1000__N2__PAR_6__r0 DECIDED steps 1000 e2e 4.37 loop 3.08 cpu 4.31
+17:24:09 load snapshot: system 61% busy [('System Idle Process', 0, 558.5), ('RobloxPlayerBeta.exe', 40016, 284.3), ('SearchIndexer.exe', 14068, 98.8), ('System', 4, 46.9), ('python.exe', 26080, 46.8), ('dwm.exe', 1808, 40.2)]
+17:24:14 done H1000__N3__SER_E1__r0 DECIDED steps 1000 e2e 4.72 loop 4.31 cpu 3.44
+17:24:18 done H1000__N3__SER_E2__r0 DECIDED steps 1000 e2e 3.68 loop 3.21 cpu 3.14
+17:24:23 done H1000__N3__PAR_1__r0 DECIDED steps 1000 e2e 5.22 loop 4.31 cpu 3.94
+17:24:28 done H1000__N3__PAR_2__r0 DECIDED steps 1000 e2e 4.27 loop 3.38 cpu 4.08
+17:24:32 done H1000__N3__PAR_3__r0 DECIDED steps 1000 e2e 4.13 loop 3.23 cpu 5.14
+17:24:36 done H1000__N3__PAR_4__r0 DECIDED steps 1000 e2e 4.60 loop 3.38 cpu 5.67
+17:24:41 done H1000__N3__PAR_6__r0 DECIDED steps 1000 e2e 4.50 loop 3.27 cpu 6.38
+17:24:46 load snapshot: system 45% busy [('System Idle Process', 0, 653.2), ('RobloxPlayerBeta.exe', 40016, 276.9), ('SearchIndexer.exe', 14068, 106.6), ('python.exe', 26080, 53.0), ('dwm.exe', 1808, 27.7), ('svchost.exe', 21196, 20.9)]
+17:24:54 done H1000__N4__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 8.44 loop 8.03 cpu 6.28
+17:25:02 done H1000__N4__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 7.76 loop 7.19 cpu 6.14
+17:25:11 done H1000__N4__PAR_1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 9.17 loop 8.26 cpu 7.05
+17:25:17 done H1000__N4__PAR_2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.65 loop 4.89 cpu 7.17
+17:25:23 done H1000__N4__PAR_3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.41 loop 4.56 cpu 8.23
+17:25:29 done H1000__N4__PAR_4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 6.15 loop 5.23 cpu 8.25
+17:25:34 done H1000__N4__PAR_6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.34 loop 3.96 cpu 10.22
+17:25:39 load snapshot: system 38% busy [('System Idle Process', 0, 749.6), ('RobloxPlayerBeta.exe', 40016, 255.2), ('python.exe', 26080, 51.2), ('System', 4, 26.5), ('dwm.exe', 1808, 21.9), ('ChatGPT.exe', 6952, 10.4)]
+17:25:57 done H1000__N6__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 18.14 loop 17.64 cpu 14.77
+17:26:13 done H1000__N6__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 15.70 loop 15.31 cpu 13.20
+17:26:33 done H1000__N6__PAR_1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 19.92 loop 19.03 cpu 15.66
+17:26:44 done H1000__N6__PAR_2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 11.47 loop 10.69 cpu 15.33
+17:26:55 done H1000__N6__PAR_3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 10.70 loop 9.75 cpu 16.88
+17:27:05 done H1000__N6__PAR_4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 9.72 loop 8.72 cpu 17.27
+17:27:13 done H1000__N6__PAR_6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 8.63 loop 7.50 cpu 18.69
+17:27:18 load snapshot: system 59% busy [('System Idle Process', 0, 735.9), ('RobloxPlayerBeta.exe', 40016, 279.3), ('python.exe', 26080, 50.3), ('dwm.exe', 1808, 27.8), ('YouTube Music.exe', 8732, 25.0), ('System', 4, 13.9)]
+17:27:51 done H1000__N8__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 32.43 loop 32.07 cpu 27.23
+17:28:20 done H1000__N8__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 29.03 loop 28.61 cpu 24.38
+17:28:55 done H1000__N8__PAR_1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 34.73 loop 33.97 cpu 28.11
+17:29:20 done H1000__N8__PAR_2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 24.63 loop 23.70 cpu 32.42
+17:29:38 done H1000__N8__PAR_3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 18.54 loop 16.93 cpu 30.83
+17:29:52 done H1000__N8__PAR_4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 13.54 loop 12.58 cpu 30.59
+17:30:06 done H1000__N8__PAR_6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 14.57 loop 13.28 cpu 35.70
+17:30:14 load snapshot: system 64% busy [('System Idle Process', 0, 342.1), ('python.exe', 30200, 296.2), ('RobloxPlayerBeta.exe', 40016, 269.8), ('python.exe', 26080, 49.8), ('dwm.exe', 1808, 35.5), ('System', 4, 30.5)]
+17:32:29 done H1000__N12__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 135.12 loop 134.37 cpu 81.73
+17:33:49 done H1000__N12__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 80.45 loop 80.08 cpu 60.39
+17:35:12 done H1000__N12__PAR_1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 82.51 loop 81.61 cpu 65.03
+17:35:58 done H1000__N12__PAR_2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 45.77 loop 44.87 cpu 66.08
+17:36:33 done H1000__N12__PAR_3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 35.15 loop 34.09 cpu 71.02
+17:37:01 done H1000__N12__PAR_4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 28.18 loop 27.13 cpu 69.75
+17:37:25 done H1000__N12__PAR_6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 24.08 loop 22.89 cpu 76.55
+17:37:25 repetition 0 finished; campaign CPU 2572s
+17:37:31 load snapshot: system 49% busy [('System Idle Process', 0, 578.0), ('RobloxPlayerBeta.exe', 40016, 285.3), ('dwm.exe', 1808, 55.4), ('python.exe', 26080, 47.9), ('ChatGPT.exe', 28548, 33.2), ('System', 4, 32.2)]
+17:37:32 done H100__N2__SER_E2__r1 DECIDED steps 100 e2e 0.57 loop 0.10 cpu 0.45
+17:37:33 done H100__N2__PAR_1__r1 DECIDED steps 100 e2e 1.21 loop 0.16 cpu 0.77
+17:37:34 done H100__N2__PAR_2__r1 DECIDED steps 100 e2e 1.01 loop 0.15 cpu 1.00
+17:37:36 done H100__N2__PAR_3__r1 DECIDED steps 100 e2e 1.35 loop 0.20 cpu 1.72
+17:37:38 done H100__N2__PAR_4__r1 DECIDED steps 100 e2e 2.13 loop 0.28 cpu 2.33
+17:37:40 done H100__N2__PAR_6__r1 DECIDED steps 100 e2e 1.47 loop 0.17 cpu 2.62
+17:37:40 done H100__N2__SER_E1__r1 DECIDED steps 100 e2e 0.47 loop 0.11 cpu 0.36
+17:37:46 load snapshot: system 34% busy [('System Idle Process', 0, 559.8), ('RobloxPlayerBeta.exe', 40016, 344.9), ('dwm.exe', 1808, 51.0), ('python.exe', 26080, 49.0), ('System', 4, 48.7), ('ChatGPT.exe', 46004, 27.3)]
+17:37:46 done H100__N3__SER_E2__r1 DECIDED steps 100 e2e 0.76 loop 0.30 cpu 0.52
+17:37:48 done H100__N3__PAR_1__r1 DECIDED steps 100 e2e 1.27 loop 0.33 cpu 1.03
+17:37:49 done H100__N3__PAR_2__r1 DECIDED steps 100 e2e 1.13 loop 0.25 cpu 1.27
+17:37:50 done H100__N3__PAR_3__r1 DECIDED steps 100 e2e 1.10 loop 0.21 cpu 1.67
+17:37:52 done H100__N3__PAR_4__r1 DECIDED steps 100 e2e 1.30 loop 0.18 cpu 2.05
+17:37:54 done H100__N3__PAR_6__r1 DECIDED steps 100 e2e 2.37 loop 0.33 cpu 3.00
+17:37:55 done H100__N3__SER_E1__r1 DECIDED steps 100 e2e 0.76 loop 0.32 cpu 0.58
+17:38:02 load snapshot: system 64% busy [('System Idle Process', 0, 514.5), ('RobloxPlayerBeta.exe', 40016, 267.1), ('ChatGPT.exe', 6952, 79.2), ('ChatGPT.exe', 28548, 74.3), ('dwm.exe', 1808, 69.4), ('System', 4, 42.2)]
+17:38:04 done H100__N4__SER_E2__r1 DECIDED steps 100 e2e 1.18 loop 0.62 cpu 0.91
+17:38:06 done H100__N4__PAR_1__r1 DECIDED steps 100 e2e 1.80 loop 0.75 cpu 1.39
+17:38:07 done H100__N4__PAR_2__r1 DECIDED steps 100 e2e 1.43 loop 0.39 cpu 1.42
+17:38:09 done H100__N4__PAR_3__r1 DECIDED steps 100 e2e 2.36 loop 0.51 cpu 2.72
+17:38:11 done H100__N4__PAR_4__r1 DECIDED steps 100 e2e 1.91 loop 0.47 cpu 2.80
+17:38:14 done H100__N4__PAR_6__r1 DECIDED steps 100 e2e 2.33 loop 0.28 cpu 3.55
+17:38:15 done H100__N4__SER_E1__r1 DECIDED steps 100 e2e 1.44 loop 0.87 cpu 1.06
+17:38:21 load snapshot: system 66% busy [('System Idle Process', 0, 584.2), ('RobloxPlayerBeta.exe', 40016, 292.1), ('dwm.exe', 1808, 58.9), ('python.exe', 26080, 51.3), ('System', 4, 31.0), ('YouTube Music.exe', 8732, 25.3)]
+17:38:25 done H100__N6__SER_E2__r1 DECIDED steps 100 e2e 3.26 loop 2.33 cpu 1.89
+17:38:28 done H100__N6__PAR_1__r1 DECIDED steps 100 e2e 2.56 loop 1.53 cpu 2.19
+17:38:30 done H100__N6__PAR_2__r1 DECIDED steps 100 e2e 2.04 loop 1.19 cpu 2.62
+17:38:32 done H100__N6__PAR_3__r1 DECIDED steps 100 e2e 2.02 loop 0.80 cpu 3.20
+17:38:34 done H100__N6__PAR_4__r1 DECIDED steps 100 e2e 2.20 loop 0.91 cpu 3.95
+17:38:38 done H100__N6__PAR_6__r1 DECIDED steps 100 e2e 2.96 loop 0.85 cpu 4.94
+17:38:41 done H100__N6__SER_E1__r1 DECIDED steps 100 e2e 2.85 loop 1.71 cpu 1.77
+17:38:47 load snapshot: system 45% busy [('System Idle Process', 0, 556.2), ('RobloxPlayerBeta.exe', 40016, 304.1), ('python.exe', 26080, 53.1), ('dwm.exe', 1808, 47.4), ('ChatGPT.exe', 30400, 19.4), ('ChatGPT.exe', 6952, 16.5)]
+17:38:51 done H100__N8__SER_E2__r1 DECIDED steps 100 e2e 3.93 loop 3.51 cpu 2.91
+17:38:57 done H100__N8__PAR_1__r1 DECIDED steps 100 e2e 6.07 loop 4.42 cpu 4.27
+17:39:01 done H100__N8__PAR_2__r1 DECIDED steps 100 e2e 4.01 loop 2.59 cpu 4.77
+17:39:04 done H100__N8__PAR_3__r1 DECIDED steps 100 e2e 2.76 loop 1.44 cpu 4.94
+17:39:06 done H100__N8__PAR_4__r1 DECIDED steps 100 e2e 2.45 loop 1.10 cpu 4.83
+17:39:09 done H100__N8__PAR_6__r1 DECIDED steps 100 e2e 2.81 loop 0.92 cpu 5.80
+17:39:16 done H100__N8__SER_E1__r1 DECIDED steps 100 e2e 6.13 loop 5.44 cpu 4.02
+17:39:22 load snapshot: system 38% busy [('System Idle Process', 0, 415.5), ('RobloxPlayerBeta.exe', 40016, 281.1), ('python.exe', 24868, 89.4), ('dwm.exe', 1808, 69.0), ('python.exe', 26080, 51.3), ('YouTube Music.exe', 8732, 46.2)]
+17:39:30 done H100__N12__SER_E2__r1 DECIDED steps 100 e2e 7.79 loop 7.36 cpu 6.34
+17:39:40 done H100__N12__PAR_1__r1 DECIDED steps 100 e2e 10.61 loop 9.76 cpu 7.59
+17:39:45 done H100__N12__PAR_2__r1 DECIDED steps 100 e2e 4.66 loop 3.76 cpu 7.08
+17:39:48 done H100__N12__PAR_3__r1 DECIDED steps 100 e2e 3.46 loop 2.59 cpu 7.77
+17:39:52 done H100__N12__PAR_4__r1 DECIDED steps 100 e2e 3.31 loop 2.25 cpu 8.86
+17:39:55 done H100__N12__PAR_6__r1 DECIDED steps 100 e2e 2.85 loop 1.90 cpu 9.83
+17:40:03 done H100__N12__SER_E1__r1 DECIDED steps 100 e2e 7.83 loop 7.41 cpu 6.59
+17:40:08 load snapshot: system 39% busy [('System Idle Process', 0, 639.7), ('RobloxPlayerBeta.exe', 40016, 272.4), ('python.exe', 26080, 54.5), ('YouTube Music.exe', 8732, 38.5), ('dwm.exe', 1808, 38.2), ('System', 4, 23.4)]
+17:40:22 done H100__N16__SER_E2__r1 DECIDED steps 100 e2e 13.57 loop 13.20 cpu 10.75
+17:40:38 done H100__N16__PAR_1__r1 DECIDED steps 100 e2e 16.26 loop 15.43 cpu 12.44
+17:40:49 done H100__N16__PAR_2__r1 DECIDED steps 100 e2e 11.03 loop 10.04 cpu 13.98
+17:40:58 done H100__N16__PAR_3__r1 DECIDED steps 100 e2e 8.30 loop 7.24 cpu 15.52
+17:41:03 done H100__N16__PAR_4__r1 DECIDED steps 100 e2e 5.66 loop 4.53 cpu 15.02
+17:41:09 done H100__N16__PAR_6__r1 DECIDED steps 100 e2e 5.16 loop 3.85 cpu 16.66
+17:41:24 done H100__N16__SER_E1__r1 DECIDED steps 100 e2e 15.53 loop 15.04 cpu 11.95
+17:41:30 load snapshot: system 47% busy [('System Idle Process', 0, 630.7), ('RobloxPlayerBeta.exe', 40016, 273.6), ('dwm.exe', 1808, 57.9), ('python.exe', 26080, 54.0), ('System', 4, 41.1), ('YouTube Music.exe', 8732, 32.1)]
+17:42:08 done H100__N24__SER_E2__r1 DECIDED steps 100 e2e 38.00 loop 37.57 cpu 26.89
+17:42:51 done H100__N24__PAR_1__r1 DECIDED steps 100 e2e 43.17 loop 42.01 cpu 31.06
+17:43:13 done H100__N24__PAR_2__r1 DECIDED steps 100 e2e 21.55 loop 20.52 cpu 29.05
+17:43:29 done H100__N24__PAR_3__r1 DECIDED steps 100 e2e 16.56 loop 15.27 cpu 31.66
+17:43:41 done H100__N24__PAR_4__r1 DECIDED steps 100 e2e 11.95 loop 11.00 cpu 30.27
+17:43:56 done H100__N24__PAR_6__r1 DECIDED steps 100 e2e 15.09 loop 13.06 cpu 38.56
+17:44:37 done H100__N24__SER_E1__r1 DECIDED steps 100 e2e 40.90 loop 40.27 cpu 30.47
+17:44:44 load snapshot: system 50% busy [('System Idle Process', 0, 576.8), ('RobloxPlayerBeta.exe', 40016, 250.2), ('dwm.exe', 1808, 61.9), ('python.exe', 26080, 58.4), ('YouTube Music.exe', 8732, 25.4), ('System', 4, 23.9)]
+17:45:43 done H100__N32__SER_E2__r1 DECIDED steps 100 e2e 58.63 loop 58.25 cpu 46.12
+17:46:43 done H100__N32__PAR_1__r1 DECIDED steps 100 e2e 60.25 loop 59.34 cpu 49.64
+17:47:25 done H100__N32__PAR_2__r1 DECIDED steps 100 e2e 41.74 loop 40.82 cpu 53.75
+17:47:52 done H100__N32__PAR_3__r1 DECIDED steps 100 e2e 27.53 loop 26.28 cpu 53.39
+17:48:12 done H100__N32__PAR_4__r1 DECIDED steps 100 e2e 19.96 loop 19.00 cpu 51.53
+17:48:34 done H100__N32__PAR_6__r1 DECIDED steps 100 e2e 21.87 loop 20.15 cpu 58.34
+17:49:59 done H100__N32__SER_E1__r1 DECIDED steps 100 e2e 84.42 loop 83.72 cpu 54.06

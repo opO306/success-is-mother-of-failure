@@ -1,0 +1,194 @@
+{
+ "checks": {
+  "X1_clean_tree": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X1_seal_head_equals_env_head": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X2_no_gmpy2": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X3_E2_S1_S6": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X3_E2_sympy": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X3_gate_output_equal_run2": {
+   "pass": 3,
+   "fail": 0
+  },
+  "X5_T0_equal_run2": {
+   "pass": 32,
+   "fail": 0
+  },
+  "X5_cells_rederived": {
+   "pass": 194,
+   "fail": 0
+  },
+  "X5_status_verified": {
+   "pass": 32,
+   "fail": 0
+  },
+  "X7_affinity": {
+   "pass": 194,
+   "fail": 0
+  },
+  "X6_batch_equal_run2": {
+   "pass": 162,
+   "fail": 0
+  },
+  "X6_status_verified": {
+   "pass": 162,
+   "fail": 0
+  },
+  "X8_bit_identical_local": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X8_equal_run2": {
+   "pass": 4,
+   "fail": 0
+  }
+ },
+ "first_differences": [],
+ "perf": {
+  "laptop": {
+   "BASE@k1": {
+    "n": 3,
+    "wall_median_s": 32.09982040000614,
+    "cpu_median_s": 29.9375,
+    "walls": [
+     32.04317400002037,
+     32.09982040000614,
+     32.13174579999759
+    ],
+    "cpus": [
+     29.734375,
+     29.9375,
+     29.953125
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0,
+    "e2_over_e1_cpu": 0.9206680584551148,
+    "e2_over_e1_wall": 0.9276998104329705
+   },
+   "BASE@k3": {
+    "n": 3,
+    "wall_median_s": 11.244874099997105,
+    "cpu_median_s": 31.046875,
+    "walls": [
+     11.21682060000603,
+     11.529563000018243,
+     11.244874099997105
+    ],
+    "cpus": [
+     30.8125,
+     31.90625,
+     31.046875
+    ],
+    "speedup": 2.8546180343641554,
+    "efficiency": 0.9515393447880518,
+    "e2_over_e1_cpu": 0.9421238047307499,
+    "e2_over_e1_wall": 0.9490591984463873
+   },
+   "BASE@k6": {
+    "n": 3,
+    "wall_median_s": 10.974382899992634,
+    "cpu_median_s": 34.265625,
+    "walls": [
+     11.33577599999262,
+     10.974382899992634,
+     10.798158100020373
+    ],
+    "cpus": [
+     35.71875,
+     34.265625,
+     32.953125
+    ],
+    "speedup": 2.9249772577214963,
+    "efficiency": 0.48749620962024937,
+    "e2_over_e1_cpu": 0.9320565435476517,
+    "e2_over_e1_wall": 0.9335446278286382
+   },
+   "BASE_E2@k1": {
+    "n": 3,
+    "wall_median_s": 29.77899730001809,
+    "cpu_median_s": 27.5625,
+    "walls": [
+     29.77899730001809,
+     29.731867900001816,
+     29.83087269999669
+    ],
+    "cpus": [
+     27.5625,
+     27.484375,
+     27.609375
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0
+   },
+   "BASE_E2@k3": {
+    "n": 3,
+    "wall_median_s": 10.672051199973794,
+    "cpu_median_s": 29.25,
+    "walls": [
+     10.773523799987743,
+     10.491119999991497,
+     10.672051199973794
+    ],
+    "cpus": [
+     29.28125,
+     28.609375,
+     29.25
+    ],
+    "speedup": 2.790372416887507,
+    "efficiency": 0.9301241389625022
+   },
+   "BASE_E2@k6": {
+    "n": 3,
+    "wall_median_s": 10.245076200022595,
+    "cpu_median_s": 31.9375,
+    "walls": [
+     10.245076200022595,
+     10.328525500022806,
+     10.128076899971347
+    ],
+    "cpus": [
+     31.9375,
+     32.640625,
+     31.1875
+    ],
+    "speedup": 2.9066643057230177,
+    "efficiency": 0.4844440509538363
+   }
+  }
+ },
+ "env": {
+  "laptop": {
+   "host": "DESKTOP-0EASI0F",
+   "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+   "platform": "Windows-11-10.0.22631-SP0",
+   "cpu_name": "AMD Ryzen 5 4500U with Radeon Graphics",
+   "os_version": "10.0.22631",
+   "cpu_count_logical": 6,
+   "cpu_count_physical": 6,
+   "ram_bytes": 7968595968,
+   "mpmath": "1.3.0",
+   "mpmath_backend": "python",
+   "psutil": "7.2.2",
+   "sympy": "1.14.0",
+   "gmpy2_importable": false,
+   "git_head": "05843232716896522b7b74ee4f0fc82a888fc0ec",
+   "git_branch": "claude/resource-xrepro-multiatom-v1",
+   "git_status_clean": true
+  }
+ },
+ "verdict": "REPRODUCED"
+}

@@ -1,0 +1,41 @@
+{
+ "gate": "XREPRO_RESOURCE_V1 - laptop cross-reproduction of RESOURCE_EVOLUTION_PILOT_V1 (minimal set, not the 80-minute campaign)",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION"],
+ "parent_commit": "7b09e53 (RESOURCE_EVOLUTION_PILOT_V1 results, run 2) on branch codex/resource-evolution-v1; this work on claude/resource-xrepro-multiatom-v1",
+ "purpose": "Check that a different CPU/OS machine computes the same thing: same source, same dependency versions, same E2 gates, same exact interval endpoints and cells for the representative requests, same results on 1 core and on many cores. Performance is secondary and is compared only as scaling inside each machine, never as absolute time across machines.",
+ "reference": "docs/active/resource_evolution_v1/run2/results.json.gz (desktop run 2, EVIDENCE OK). run 1 is not a reference. The reference is read, never modified.",
+ "machines": {
+  "desktop": {"host": "(recorded)", "cpu": "AMD Ryzen 5 5600 (Family 25 Model 33), 6 physical / 12 logical (SMT)", "os": "Windows 11 Home 10.0.26200", "worker_core_order": [2, 4, 6, 8, 10, 0], "orchestrator_cpu": 1, "note": "the run-2 map, unchanged"},
+  "laptop": {"host": "DESKTOP-0EASI0F", "cpu": "AMD Ryzen 5 4500U, 6 physical / 6 logical (no SMT)", "ram_gb": 7.4, "os": "Windows 11 Home 10.0.22631", "worker_core_order": [1, 2, 3, 4, 5, 0], "orchestrator_cpu": 0, "note": "no SMT: with 6 worker cores the orchestrator shares logical CPU 0 with the sixth worker (recorded, it only polls)"}
+ },
+ "transport": "git bundle of the branch (full history, so commit hashes are preserved), sent over the LAN 192.168.0.2 -> 192.168.0.4 by a temporary http server that is stopped afterwards; sha256 of the bundle checked on both sides; `git bundle verify`, clone, checkout of the sealed commit on the laptop; HEAD must equal the desktop seal commit and the working tree must be clean.",
+ "laptop_installs_allowed": {"Git": "winget Git.Git", "mpmath": "1.3.0", "psutil": "7.2.2", "sympy": "1.14.0 (same as desktop; used by the E2 sympy gate)", "gmpy2": "NOT installed (both machines must use the mpmath python backend; recorded as mpmath.libmp.BACKEND)", "location": "a separate venv C:\\Users\\zun24\\ResourceXReproV1\\venv with the system Python 3.12.7"},
+ "python_version_rule": "Both machines run CPython 3.12.7 (tags/v3.12.7:0b05ead, MSC v.1941 64 bit). If versions differed, the difference is recorded as an environment variable and a bit-identity failure is not called an algorithm error before the first difference is located.",
+ "core_map_injection": "The sealed executor (experiments/resource_evolution_v1/orch.py, worker.py, verifier.py, selector.py) is imported unchanged. Only the in-memory constants selector.PHYS_ORDER and selector.ORCH_CPU are set to the machine's map at the start of the run; nothing is written to the sealed files.",
+ "required_checks": {
+  "X1_source": "git HEAD, branch, porcelain status, sha256 (LF-normalised) of every file in resource_evolution_v1.campaign.SEALED plus this package; laptop HEAD == desktop seal commit; hashes equal",
+  "X2_dependencies": "python version string, platform, processor, mpmath version and libmp BACKEND, psutil, sympy, gmpy2 importable (must be False), logical/physical core counts, RAM",
+  "X3_E2_gates": "experiments.rewrite_pilot_a3.runner refs / verify rw:R1+R2 / sympy rw:R1+R2 as in run-2 T0; PASS_S1_S6_except_S3b and sympy_zero must be true; refs.json is also compared exactly with run 2 (it holds 1024-bit enclosures and the S4 input set)",
+  "X4_T0_representative": "the run-2 T0 set: A2_bound, A3_low, A3_high at T 100 and 1000, plus A2_bound at 3000; evaluators algebra (E1) and rw:R1+R2 (E2), and original (E0) for A2_bound@100 and A3_high@100; one pass at the frozen line + 8 (mode single); each on the FIRST and on the LAST logical CPU of the machine's worker order (two different cores)",
+  "X5_exact_equality": "for every X4 record and every batch record: outcome, completed_steps, effective_p, requested_p, cells and every exact scaled endpoint (rational string of both interval ends, positions x 2^48, momenta x 2^80) equal to the run-2 record of the same (evaluator, scenario, T, p); for policy passes the whole pass sequence must be equal. Exact rational equality of mpf endpoints = bit equality of the enclosures.",
+  "X6_core_invariance": "the 9 EVAL requests (A2_bound, A3_low, A3_high x T 100, 1000, 3000) as the run-2 S1 batch (plan BASE, E1) on k = 1 and on k = max worker cores: every request's pass sequence equal across k, across repetitions, and to run 2 T1 BASE",
+  "X7_affinity": "every worker's requested and read-back affinity (child) and parent-side pin are recorded; read-back must be a single CPU inside the machine's worker order",
+  "X8_pair_parallel": "the run-2 S4 prototype (resource_evolution_v1.pairloop) for A3_low and A3_high at T 100, p 128, 3 pair workers, cpus = the first 4 of the machine's order: bit identity with the serial pass, and endpoints equal to run-2 S4"
+ },
+ "performance_secondary": {
+  "what": "S1 batch (9 EVAL requests, one worker per request, LPT order, no CPU cap) for plans BASE (E1) and BASE_E2 (E2) on k in {1, 3, max} worker cores, 3 repetitions, plan order alternated per repetition, k order rotated",
+  "report": "per machine: median wall and total CPU per (plan, k); speedup(k) = wall(1)/wall(k); efficiency = speedup/k; E2/E1 CPU ratio per k. Machines are compared only by these ratios. Absolute seconds across machines are not a winner comparison.",
+  "note": "the laptop is a 15 W mobile CPU; boost/thermal behaviour is not controlled and is recorded only as wall time per record"
+ },
+ "verdicts": {
+  "REPRODUCED": "X1-X8 all pass on the laptop and on the fresh desktop run",
+  "ENV_DIFFERENCE": "X5/X6/X8 fail and the dependency or Python versions differ: located first difference reported, no algorithm verdict",
+  "MISMATCH": "X5/X6/X8 fail with identical versions: first differing record, component and endpoint reported, then the contingent diagnosis below",
+  "INCOMPLETE": "a required check could not be run (reason recorded)"
+ },
+ "contingent_diagnosis_on_mismatch": "for the smallest failing request, both machines re-run the pass recording the endpoints key after every step (same code path); the first differing step and component are reported. Not run if everything matches.",
+ "comparator": "experiments/xrepro_resource_v1/compare.py reads only JSON records (laptop, desktop fresh, run-2 reference) and the A1 checker's own half-even rounding to re-derive cells from endpoints; it imports no executor module (orch, worker, selector, adapters, stream).",
+ "not_in_scope": ["repeating the 80-minute T0-T10 campaign", "T11 Joint Genome", "A2-R", "neural selector", "float64 speculative path", "GPU", "Vast", "physics, constants, domain or rounding changes"],
+ "claims_forbidden": ["laptop vs desktop absolute speed as a winner", "bit identity on two machines is a proof of correctness", "equal results on two CPUs prove all CPUs agree"]
+}

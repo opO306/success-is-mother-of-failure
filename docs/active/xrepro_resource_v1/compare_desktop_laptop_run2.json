@@ -1,0 +1,331 @@
+{
+ "checks": {
+  "X1_clean_tree": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X1_seal_head_equals_env_head": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X2_no_gmpy2": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X3_E2_S1_S6": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X3_E2_sympy": {
+   "pass": 2,
+   "fail": 0
+  },
+  "X3_gate_output_equal_run2": {
+   "pass": 6,
+   "fail": 0
+  },
+  "X5_T0_equal_run2": {
+   "pass": 64,
+   "fail": 0
+  },
+  "X5_cells_rederived": {
+   "pass": 388,
+   "fail": 0
+  },
+  "X5_status_verified": {
+   "pass": 64,
+   "fail": 0
+  },
+  "X7_affinity": {
+   "pass": 388,
+   "fail": 0
+  },
+  "X6_batch_equal_run2": {
+   "pass": 324,
+   "fail": 0
+  },
+  "X6_status_verified": {
+   "pass": 324,
+   "fail": 0
+  },
+  "X8_bit_identical_local": {
+   "pass": 4,
+   "fail": 0
+  },
+  "X8_equal_run2": {
+   "pass": 8,
+   "fail": 0
+  },
+  "X1_same_head": {
+   "pass": 1,
+   "fail": 0
+  },
+  "X1_same_source_hashes": {
+   "pass": 1,
+   "fail": 0
+  }
+ },
+ "first_differences": [],
+ "perf": {
+  "desktop": {
+   "BASE@k1": {
+    "n": 3,
+    "wall_median_s": 27.301649400003953,
+    "cpu_median_s": 25.84375,
+    "walls": [
+     27.155464600014966,
+     27.62201749999076,
+     27.301649400003953
+    ],
+    "cpus": [
+     25.8125,
+     26.234375,
+     25.84375
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0,
+    "e2_over_e1_cpu": 0.9068923821039904,
+    "e2_over_e1_wall": 0.9071881679055163
+   },
+   "BASE@k3": {
+    "n": 3,
+    "wall_median_s": 9.500226699979976,
+    "cpu_median_s": 26.359375,
+    "walls": [
+     8.587727999984054,
+     9.608996999973897,
+     9.500226699979976
+    ],
+    "cpus": [
+     24.5625,
+     26.359375,
+     26.484375
+    ],
+    "speedup": 2.873789253898699,
+    "efficiency": 0.9579297512995663,
+    "e2_over_e1_cpu": 0.8796680497925311,
+    "e2_over_e1_wall": 0.8692331520908179
+   },
+   "BASE@k6": {
+    "n": 3,
+    "wall_median_s": 9.617555200005881,
+    "cpu_median_s": 27.6875,
+    "walls": [
+     8.798875199980102,
+     10.115705199976219,
+     9.617555200005881
+    ],
+    "cpus": [
+     25.625,
+     27.6875,
+     29.109375
+    ],
+    "speedup": 2.8387307202548997,
+    "efficiency": 0.47312178670914995,
+    "e2_over_e1_cpu": 0.9260722347629797,
+    "e2_over_e1_wall": 0.8674472073725723
+   },
+   "BASE_E2@k1": {
+    "n": 3,
+    "wall_median_s": 24.767733299988322,
+    "cpu_median_s": 23.4375,
+    "walls": [
+     24.767733299988322,
+     38.97395179999876,
+     24.41335999997682
+    ],
+    "cpus": [
+     23.4375,
+     27.578125,
+     23.34375
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0
+   },
+   "BASE_E2@k3": {
+    "n": 3,
+    "wall_median_s": 8.257912000000942,
+    "cpu_median_s": 23.1875,
+    "walls": [
+     7.9243755000061356,
+     8.257912000000942,
+     8.438023900002008
+    ],
+    "cpus": [
+     22.828125,
+     23.1875,
+     23.90625
+    ],
+    "speedup": 2.999273097120131,
+    "efficiency": 0.9997576990400437
+   },
+   "BASE_E2@k6": {
+    "n": 3,
+    "wall_median_s": 8.342721399996663,
+    "cpu_median_s": 25.640625,
+    "walls": [
+     7.8212241000146605,
+     9.135645700007444,
+     8.342721399996663
+    ],
+    "cpus": [
+     24.015625,
+     27.40625,
+     25.640625
+    ],
+    "speedup": 2.9687834595553233,
+    "efficiency": 0.49479724325922053
+   }
+  },
+  "laptop": {
+   "BASE@k1": {
+    "n": 3,
+    "wall_median_s": 32.09982040000614,
+    "cpu_median_s": 29.9375,
+    "walls": [
+     32.04317400002037,
+     32.09982040000614,
+     32.13174579999759
+    ],
+    "cpus": [
+     29.734375,
+     29.9375,
+     29.953125
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0,
+    "e2_over_e1_cpu": 0.9206680584551148,
+    "e2_over_e1_wall": 0.9276998104329705
+   },
+   "BASE@k3": {
+    "n": 3,
+    "wall_median_s": 11.244874099997105,
+    "cpu_median_s": 31.046875,
+    "walls": [
+     11.21682060000603,
+     11.529563000018243,
+     11.244874099997105
+    ],
+    "cpus": [
+     30.8125,
+     31.90625,
+     31.046875
+    ],
+    "speedup": 2.8546180343641554,
+    "efficiency": 0.9515393447880518,
+    "e2_over_e1_cpu": 0.9421238047307499,
+    "e2_over_e1_wall": 0.9490591984463873
+   },
+   "BASE@k6": {
+    "n": 3,
+    "wall_median_s": 10.974382899992634,
+    "cpu_median_s": 34.265625,
+    "walls": [
+     11.33577599999262,
+     10.974382899992634,
+     10.798158100020373
+    ],
+    "cpus": [
+     35.71875,
+     34.265625,
+     32.953125
+    ],
+    "speedup": 2.9249772577214963,
+    "efficiency": 0.48749620962024937,
+    "e2_over_e1_cpu": 0.9320565435476517,
+    "e2_over_e1_wall": 0.9335446278286382
+   },
+   "BASE_E2@k1": {
+    "n": 3,
+    "wall_median_s": 29.77899730001809,
+    "cpu_median_s": 27.5625,
+    "walls": [
+     29.77899730001809,
+     29.731867900001816,
+     29.83087269999669
+    ],
+    "cpus": [
+     27.5625,
+     27.484375,
+     27.609375
+    ],
+    "speedup": 1.0,
+    "efficiency": 1.0
+   },
+   "BASE_E2@k3": {
+    "n": 3,
+    "wall_median_s": 10.672051199973794,
+    "cpu_median_s": 29.25,
+    "walls": [
+     10.773523799987743,
+     10.491119999991497,
+     10.672051199973794
+    ],
+    "cpus": [
+     29.28125,
+     28.609375,
+     29.25
+    ],
+    "speedup": 2.790372416887507,
+    "efficiency": 0.9301241389625022
+   },
+   "BASE_E2@k6": {
+    "n": 3,
+    "wall_median_s": 10.245076200022595,
+    "cpu_median_s": 31.9375,
+    "walls": [
+     10.245076200022595,
+     10.328525500022806,
+     10.128076899971347
+    ],
+    "cpus": [
+     31.9375,
+     32.640625,
+     31.1875
+    ],
+    "speedup": 2.9066643057230177,
+    "efficiency": 0.4844440509538363
+   }
+  }
+ },
+ "env": {
+  "desktop": {
+   "host": "\uc73c\uc545",
+   "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+   "platform": "Windows-11-10.0.26200-SP0",
+   "cpu_name": "AMD Ryzen 5 5600 6-Core Processor",
+   "os_version": "10.0.26200",
+   "cpu_count_logical": 12,
+   "cpu_count_physical": 6,
+   "ram_bytes": 34278981632,
+   "mpmath": "1.3.0",
+   "mpmath_backend": "python",
+   "psutil": "7.2.2",
+   "sympy": "1.14.0",
+   "gmpy2_importable": false,
+   "git_head": "05843232716896522b7b74ee4f0fc82a888fc0ec",
+   "git_branch": "claude/resource-xrepro-multiatom-v1",
+   "git_status_clean": true
+  },
+  "laptop": {
+   "host": "DESKTOP-0EASI0F",
+   "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+   "platform": "Windows-11-10.0.22631-SP0",
+   "cpu_name": "AMD Ryzen 5 4500U with Radeon Graphics",
+   "os_version": "10.0.22631",
+   "cpu_count_logical": 6,
+   "cpu_count_physical": 6,
+   "ram_bytes": 7968595968,
+   "mpmath": "1.3.0",
+   "mpmath_backend": "python",
+   "psutil": "7.2.2",
+   "sympy": "1.14.0",
+   "gmpy2_importable": false,
+   "git_head": "05843232716896522b7b74ee4f0fc82a888fc0ec",
+   "git_branch": "claude/resource-xrepro-multiatom-v1",
+   "git_status_clean": true
+  }
+ },
+ "env_versions_identical": true,
+ "verdict": "REPRODUCED"
+}
