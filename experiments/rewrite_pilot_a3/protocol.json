@@ -1,0 +1,69 @@
+{
+ "gate": "REWRITE_PILOT_A3 - bounded, rule-based equivalent rewrites of the algebra pair force",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NOT PRODUCTION APPROVED"],
+ "parent_commit": "1c6557c (PRECISION_PILOT_A2T results, branch codex/precision-pilot-a2t)",
+ "question": "Is there a calculation of the SAME exact force value, built only from a small set of exact rewrite rules, that costs less per pass, gives a narrower enclosure, lowers the required precision or lowers the total serve cost compared with the current algebra evaluator? Not an approximation search; not 'reach a ratio'.",
+ "world_unchanged": "Exact Expression V1 unrounded KDK (dt 40, h 20, Ar40 mass, Lang 2024 with retardation, repository constants), domain R >= r_min checked by the unchanged loop BEFORE every force call, FX(96,48)/FX(96,80) observation only and never fed back. Only the arithmetic route of the pair force G(R^2) changes.",
+ "block_choice": {
+  "block": "the pair-force function G(R^2) of the algebra evaluator (probe.Force(compiled=True).__call__ with its Laurent/Horner blocks)",
+  "reason": "cProfile of one algebra pass (A3_high, p 128, 200 steps, before sealing): the force is 1.135 s of 1.284 s (88%); its Laurent polynomial evaluation is 0.775 s (60% of the pass); the 9 exponentials about 0.09 s. Everything outside the force (KDK adds, domain check, readout) is about 12% and is left untouched (Amdahl bound for this block: at most about 1/0.12 = 8x even if the force cost became 0).",
+  "pre_seal_exploration_disclosed": "Before sealing, a throw-away prototype (scratchpad, not evidence) timed three variants per force call on 7 interval inputs at p 128/512: zero folding alone 0.96-0.98x, zero folding + reciprocal reuse 1.06-1.13x, plus collect-by-power 0.97-1.12x of algebra speed, the last with per-call width change -2.8..+0.9 bits. These numbers motivated the rule set and are NOT used as results."
+ },
+ "evaluators": {
+  "original": "A1 adapter _original (repository stream.run, lang_iv force)",
+  "algebra": "A2T adapter _algebra (same loop, probe exact rearrangement force)",
+  "rw:<rules>": "same loop and same A1 adapter call with the pair force replaced by the fixed interpreter experiments/rewrite_pilot_a3/rwforce.py running a candidate PLAN (pure data of exact rationals produced by the generator); no generated source code. rw:R0 (empty rule set) must reproduce algebra's enclosures bit for bit (interpreter control)."
+ },
+ "rules": {
+  "R1_ZERO_FOLD": {"what": "drop coefficients that are exactly 0 (Fraction == 0) and evaluate with gap-aware Horner (x^gap from a per-call shared power table)", "premise": "exact zero only (a tiny nonzero coefficient is never dropped); inverse powers need R > 0: the loop's R >= r_min > 0 duty is kept AND the interpreter refuses an R interval whose lower end is <= 0 even if every inverse-power term was folded away (0 * f(x) keeps f's domain duty)"},
+  "R2_RECIP_POWER_REUSE": {"what": "retardation part: 1/den once, g = num*(1/den), dg = dn*(1/den)^2; inv^(2k) shared, c*((2k g inv - dg) * inv^(2k)) (common factor inv^(2k) pulled out)", "premise": "den(R) = 1 + sum RET_B R^(m+1) > 0 needs every RET_B > 0 and R > 0 (checked at build) and the den enclosure lower end > 0 at run time (else refuse)"},
+  "R3_COLLECT_BY_POWER": {"what": "sum_i e^(-a_i R) P_i(R) + tail = sum_d x^d (sum_i c_id e^(-a_i R) + t_d): one coefficient interval per degree, then one Horner over degrees", "premise": "requires R1 (works on folded tables); same 9 exponentials; exact regrouping of a finite sum"},
+  "R4_REVERSE_HORNER": {"what": "evaluate each Laurent block as ONE Horner in inv = 1/R (reverse direction): P = R^dmax * Q(inv), dmax = max(0, top degree)", "premise": "R > 0"},
+  "R5_FOLD_FINAL_INV": {"what": "fold the final -1/R into every coefficient (degree shift -1, sign flip) instead of one multiplication at the end", "premise": "R > 0; interval sub-distributivity predicts equal or wider enclosures (kept as a known-risk candidate)"},
+  "R6_PREDICATE_REVERSE": {"what": "sqrt(x) < y  ->  x < y^2 only where only a predicate is needed", "premise": "y >= 0 proven (strictness preserved); catalogued and tested on counterexamples; NO applicable site in the chosen block (the force must return a value; the loop's only predicate, the domain check, already compares R^2 with r_min^2)"}
+ },
+ "value_vs_predicate": "Every request needs the force VALUE (it feeds the next state); no predicate-only site exists inside the block. R6 is therefore not applied.",
+ "generator": {
+  "space": "every subset of {R1, R2, R3, R4, R5} with at most 4 rules, excluding subsets containing R3 without R1",
+  "candidates": 23,
+  "max_rules_per_candidate (depth)": 4,
+  "max_candidates": 24,
+  "max_ops_per_force_call": 400,
+  "deterministic": "fixed enumeration order (size, then lexicographic)"
+ },
+ "validation_order (no cost before correctness)": [
+  "S1 form: plan builds, every coefficient an exact Fraction, op count <= 400, rule premises (RET_B > 0, r_min > 0)",
+  "S2 domain duties: guards present (R > 0; den > 0 when R2); refusal tests on R intervals touching 0",
+  "S3a exact canonical form: from the plan's actual tables, rebuild {(alpha, degree): coefficient} and the retardation part exactly and compare with algebra's PROGRAM (Fraction equality); S3b sympy: expand(candidate expression - algebra expression) == 0 (the algebra PROGRAM itself is upstream-sympy-checked against the original formula). CAS, not formal proof. S3 timeout 300 s per candidate -> REFUSED (not INVALID)",
+  "S4 interval inclusion: 48 radii in [r_min, 30] plus the potential-minimum radius (force sign change) x p {64, 96, 128, 192, 512}: candidate enclosure contains the 1024-bit ORIGINAL enclosure; 12 interval inputs plus 12 fixed-seed random intervals from very narrow (2^-p relative) to very wide (up to [r_min, 30]): contains the 1024-bit original at both ends and the midpoint",
+  "S5 endpoints: per scenario, T 100, p {96, 128}: candidate enclosures intersect the original and algebra enclosures in every component",
+  "S6 final raw: wherever both decided, cells equal",
+  "S7 independent checker over the campaign",
+  "S8 only then cost"
+ ],
+ "screening (A same-p cost, B width) for every candidate passing S1-S6": {
+  "cost": "pass CPU at T 1000, p 128, 3 scenarios, 3 repetitions (fresh process per pass, candidates interleaved, algebra and rw:R0 as controls)",
+  "width": "one pass at T 3000, p 192 per scenario: log2(max component width of algebra / candidate)",
+  "budget_cpu_s": 3600
+ },
+ "selection for the serve campaign (fixed before results)": {
+  "FAST": "lowest median screening pass CPU summed over the 3 scenarios, among candidates passing S1-S6",
+  "NARROW": "largest median width gain over the 3 scenarios at T 3000, if it is a different candidate and the gain is > 0.5 bit",
+  "max_rewrite_candidates_in_campaign": 2,
+  "harmful_or_rejected_candidates": "kept in the screening record with the reason"
+ },
+ "serve_campaign (C required p, D total serve cost)": {
+  "policies": "A1 frozen P0, P2, P3 (frozen_policy_params_a1.json, policy_hash 6d601462...), never re-fitted",
+  "short": "T 100, 1000; 3 repetitions; evaluators original, algebra, FAST (+NARROW)",
+  "long": "T 3000, 5000, 10000; 1 repetition; algebra and FAST (+NARROW) with P0, P2, P3; original with P3 only (A1 and A2T measured original P0/P2 twice; its long paths are deterministic)",
+  "investigate": "rewrite candidates only, short T: every untried integer p in [64, lowest SERVE success - 1]; separate cost; algebra short minima are read from the A2T bundle (deterministic, cross-checked)",
+  "budget_cpu_s": 10800
+ },
+ "costs_recorded": "load, evaluator preparation (plan build + constant lifting), per-pass CPU/wall, failed retries, record cost, child total, parent wall, verification CPU (checker), screening and search CPU (generator + S1-S6 + screening) for the recovery estimate",
+ "checker": "independent (imports none of the generator, interpreter, adapter, runner, campaign); re-derives cells from stored endpoints, every policy choice with its own A1-checker rule implementation, completeness, determinism, enclosure intersection across all evaluators (A1 and A2T bundles included), decided-cell agreement, source hashes, and re-verifies S3a canonical forms from the stored plans independently",
+ "A2R_preregistered_but_not_run": "A2-R (algebra-specific P3 retraining) is a separate later step. Its meaningful-improvement bar, fixed now: median total serve CPU over the 15 evaluation requests at least 10% lower than frozen P3 on the same evaluator AND no request more than 5% worse; otherwise the retraining complexity is not added.",
+ "git_at_start": {"recorded_in_execution_seal": ["HEAD", "branch", "status", "origin/master"]},
+ "not_in_scope": ["RNS/LNS/Posit", "Decimal", "GPU/Tensor Core", "tags/lineage/memory", "new physics", "free source generation", "checker self-modification", "unbounded evolution", "post-hoc tuning", "mpmath wrapper bypass or other implementation-level speedups (not a mathematical rewrite)", "mean-value/centered interval forms (a different enclosure method, later)", "A2-R"],
+ "claims_forbidden": ["observed raw agreement certifies equivalence", "CAS identity is a formal proof", "a win on 3 scenarios is general", "a candidate is better before S1-S6 pass"]
+}
