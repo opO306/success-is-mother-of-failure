@@ -18,7 +18,7 @@ from experiments.precision_pilot_a1 import checker as A1C
 
 PASS_KEYS = ("outcome", "completed_steps", "stop", "stop_step", "effective_p", "requested_p", "evaluator", "scenario",
              "T", "cells", "endpoints_scaled")
-VOLATILE = re.compile(r"(_cpu_s|_wall_s)$|^(pid|python|probe_file|modules|t_wall|t_cpu)$")
+VOLATILE = re.compile(r"(^|_)(cpu_s|wall_s)$|^(pid|python|probe_file|modules|t_wall|t_cpu)$")
 
 
 def strip(x):
