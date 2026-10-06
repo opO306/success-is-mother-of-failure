@@ -1,0 +1,80 @@
+{
+ "logical": 6,
+ "physical": 6,
+ "cores": [
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      0
+     ]
+    ]
+   ]
+  },
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      1
+     ]
+    ]
+   ]
+  },
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      2
+     ]
+    ]
+   ]
+  },
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      3
+     ]
+    ]
+   ]
+  },
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      4
+     ]
+    ]
+   ]
+  },
+  {
+   "smt": false,
+   "group_cpus": [
+    [
+     0,
+     [
+      5
+     ]
+    ]
+   ]
+  }
+ ],
+ "core_of_cpu": {
+  "0": 0,
+  "1": 1,
+  "2": 2,
+  "3": 3,
+  "4": 4,
+  "5": 5
+ }
+}

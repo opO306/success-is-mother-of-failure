@@ -1,0 +1,157 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "seal_clean": [
+   1,
+   0
+  ],
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_contracts_equal_source": [
+   1,
+   0
+  ],
+  "bundle_records_single_contract": [
+   1,
+   0
+  ],
+  "bundle_records_all_verified": [
+   1,
+   0
+  ],
+  "bundle_exact_equals_source": [
+   6,
+   0
+  ],
+  "bundle_exact_keys_equal_source": [
+   1,
+   0
+  ],
+  "bundle_summary_from_verified_records_only": [
+   6,
+   0
+  ],
+  "bundle_family_equals_source": [
+   2,
+   0
+  ],
+  "store_opened_with_sealed_bundle": [
+   1,
+   0
+  ],
+  "campaign_contracts_equal_current_and_training": [
+   1,
+   0
+  ],
+  "service_complete": [
+   81,
+   0
+  ],
+  "decision_file_equals_run_decision": [
+   81,
+   0
+  ],
+  "decision_bundle_sha": [
+   96,
+   0
+  ],
+  "decision_rederived": [
+   96,
+   0
+  ],
+  "service_meta": [
+   81,
+   0
+  ],
+  "first_p_is_decision": [
+   81,
+   0
+  ],
+  "pass_index": [
+   120,
+   0
+  ],
+  "selector_input_allowed_keys_only": [
+   120,
+   0
+  ],
+  "plan_rederived": [
+   120,
+   0
+  ],
+  "pass_meta": [
+   120,
+   0
+  ],
+  "pass_executed_as_planned": [
+   120,
+   0
+  ],
+  "p2_rederived": [
+   39,
+   0
+  ],
+  "cells_rederived": [
+   81,
+   0
+  ],
+  "final_status": [
+   81,
+   0
+  ],
+  "p_sequence_recorded": [
+   81,
+   0
+  ],
+  "partB_exact_lookup_present": [
+   15,
+   0
+  ],
+  "partB_exact_memory_is_miss": [
+   15,
+   0
+  ],
+  "reference_present": [
+   33,
+   0
+  ],
+  "reference_is_serial": [
+   33,
+   0
+  ],
+  "bit_identical_to_serial_reference": [
+   120,
+   0
+  ],
+  "reference_equals_SELECTOR_SERVICE_V1_serial": [
+   13,
+   0
+  ],
+  "no_true_minimum_label": [
+   1,
+   0
+  ],
+  "sample_pre_run_features_only": [
+   81,
+   0
+  ],
+  "sample_unverified_until_checker": [
+   81,
+   0
+  ]
+ },
+ "issues": [],
+ "bit_mismatches": 0,
+ "own_training_family": {
+  "100": [
+   106,
+   109
+  ],
+  "1000": [
+   145,
+   163
+  ]
+ }
+}

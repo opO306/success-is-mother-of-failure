@@ -1,0 +1,1107 @@
+{
+ "A": {
+  "N5_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 1.7711603000061586,
+    "cpu_s": 4.0008013880524365,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 0.8558024000085425,
+    "first_cpu_s": 1.9779496397346839,
+    "failed_wall_s": 0.8558024000085425,
+    "failed_cpu_s": 1.9779496397346839,
+    "final_wall_s": 0.8705191999906674,
+    "final_cpu_s": 2.0187609651913774,
+    "retry_wall_fraction": 0.4957375265471591,
+    "retry_cpu_fraction": 0.49541085163087867,
+    "starting_p": 64,
+    "final_success_p": 106,
+    "overshoot": -42,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      106
+     ]
+    ],
+    "walls": [
+     1.7520499000092968,
+     1.7711603000061586,
+     1.8975825000088662
+    ],
+    "cpus": [
+     4.0008013880524365,
+     3.9544217474387295,
+     4.010095952512991
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 0.8891142999927979,
+    "cpu_s": 1.9765419986146486,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 0.8692990000126883,
+    "first_cpu_s": 1.9765419986146486,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 0.8692990000126883,
+    "final_cpu_s": 1.9765419986146486,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 106,
+    "final_success_p": 106,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      106
+     ]
+    ],
+    "walls": [
+     0.8891142999927979,
+     0.8836141999927349,
+     1.1781110000156332
+    ],
+    "cpus": [
+     1.9741494530802355,
+     1.9765419986146486,
+     2.100708906000186
+    ],
+    "wall_vs_base": 0.5019953868600748,
+    "cpu_vs_base": 0.4940365209123306
+   }
+  },
+  "N8_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 2.9081526000227313,
+    "cpu_s": 7.779874961532392,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 1.4064483999973163,
+    "first_cpu_s": 3.817062114845331,
+    "failed_wall_s": 1.4064483999973163,
+    "failed_cpu_s": 3.817062114845331,
+    "final_wall_s": 1.453087299974868,
+    "final_cpu_s": 3.971196401445598,
+    "retry_wall_fraction": 0.491845022256934,
+    "retry_cpu_fraction": 0.48955524078713514,
+    "starting_p": 64,
+    "final_success_p": 107,
+    "overshoot": -43,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      107
+     ]
+    ],
+    "walls": [
+     2.824659200006863,
+     2.9081526000227313,
+     3.089742500014836
+    ],
+    "cpus": [
+     7.714367364460488,
+     7.779874961532392,
+     7.858054828000594
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 1.4189811999967787,
+    "cpu_s": 3.8338508796781947,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 1.3933630999817979,
+    "first_cpu_s": 3.8338508796781947,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 1.3933630999817979,
+    "final_cpu_s": 3.8338508796781947,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 107,
+    "final_success_p": 107,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      107
+     ]
+    ],
+    "walls": [
+     1.393819999997504,
+     1.4189811999967787,
+     1.5870639000204392
+    ],
+    "cpus": [
+     3.8108000629335277,
+     3.8338508796781947,
+     4.064657127717161
+    ],
+    "wall_vs_base": 0.48793216696595887,
+    "cpu_vs_base": 0.4927908094454832
+   }
+  },
+  "N16_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 6.8057281000074,
+    "cpu_s": 29.292908701226168,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 3.3233341999875847,
+    "first_cpu_s": 14.312927890912153,
+    "failed_wall_s": 3.3233341999875847,
+    "failed_cpu_s": 14.312927890912153,
+    "final_wall_s": 3.531035599997267,
+    "final_cpu_s": 15.018220252086444,
+    "retry_wall_fraction": 0.4848489791132847,
+    "retry_cpu_fraction": 0.488085776766524,
+    "starting_p": 64,
+    "final_success_p": 109,
+    "overshoot": -45,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      109
+     ]
+    ],
+    "walls": [
+     6.886804700014181,
+     6.764972800010582,
+     6.8057281000074
+    ],
+    "cpus": [
+     29.072075969380915,
+     29.337376401118025,
+     29.292908701226168
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 3.3070168000122067,
+    "cpu_s": 14.615755248553283,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 3.2730863000033423,
+    "first_cpu_s": 14.615755248553283,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 3.2730863000033423,
+    "final_cpu_s": 14.615755248553283,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 109,
+    "final_success_p": 109,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      109
+     ]
+    ],
+    "walls": [
+     3.511375300004147,
+     3.1168246000015642,
+     3.3070168000122067
+    ],
+    "cpus": [
+     14.615755248553283,
+     14.483844170415297,
+     15.100663460301938
+    ],
+    "wall_vs_base": 0.48591667951127976,
+    "cpu_vs_base": 0.49895199543435864
+   }
+  },
+  "N32_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 23.388493400008883,
+    "cpu_s": 112.05918191841825,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 11.307036199985305,
+    "first_cpu_s": 55.56079163538814,
+    "failed_wall_s": 11.307036199985305,
+    "failed_cpu_s": 55.56079163538814,
+    "final_wall_s": 11.879425300023286,
+    "final_cpu_s": 56.498390283030105,
+    "retry_wall_fraction": 0.48749312995612765,
+    "retry_cpu_fraction": 0.49370151684289376,
+    "starting_p": 64,
+    "final_success_p": 109,
+    "overshoot": -45,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      109
+     ]
+    ],
+    "walls": [
+     23.20805929999915,
+     23.428905799984932,
+     23.388493400008883
+    ],
+    "cpus": [
+     110.96109704387517,
+     113.52435211445453,
+     112.05918191841825
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 11.741542900010245,
+    "cpu_s": 57.555705542324986,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 11.691849099996034,
+    "first_cpu_s": 57.555705542324986,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 11.691849099996034,
+    "final_cpu_s": 57.555705542324986,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 109,
+    "final_success_p": 109,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      109
+     ]
+    ],
+    "walls": [
+     11.741542900010245,
+     11.461723699991126,
+     11.748231600009603
+    ],
+    "cpus": [
+     57.555705542324986,
+     56.20007991076388,
+     57.64124572201784
+    ],
+    "wall_vs_base": 0.5020221995148172,
+    "cpu_vs_base": 0.5136188267394894
+   }
+  },
+  "N5_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 6.857996100006858,
+    "cpu_s": 25.57020443274227,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 3.3549907999986317,
+    "first_cpu_s": 12.417007824117302,
+    "failed_wall_s": 3.3549907999986317,
+    "failed_cpu_s": 12.417007824117302,
+    "final_wall_s": 3.458798800013028,
+    "final_cpu_s": 13.223342847288972,
+    "retry_wall_fraction": 0.49238250620372703,
+    "retry_cpu_fraction": 0.4828612777785743,
+    "starting_p": 64,
+    "final_success_p": 145,
+    "overshoot": -81,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      145
+     ]
+    ],
+    "walls": [
+     6.857996100006858,
+     6.711572299973341,
+     6.915554200008046
+    ],
+    "cpus": [
+     25.57020443274227,
+     25.915853310549416,
+     25.52907637169583
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 3.6387033999781124,
+    "cpu_s": 13.508651950287739,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 3.6030729999765754,
+    "first_cpu_s": 13.508651950287739,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 3.6030729999765754,
+    "final_cpu_s": 13.508651950287739,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 145,
+    "final_success_p": 145,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      145
+     ]
+    ],
+    "walls": [
+     3.6709032999933697,
+     3.5637481000158004,
+     3.6387033999781124
+    ],
+    "cpus": [
+     13.728722063439152,
+     13.089043304674313,
+     13.508651950287739
+    ],
+    "wall_vs_base": 0.5305782253178117,
+    "cpu_vs_base": 0.5282965955872496
+   }
+  },
+  "N8_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 23.488160000008065,
+    "cpu_s": 103.61204762174613,
+    "passes": 3,
+    "failed_passes": 2,
+    "first_wall_s": 7.533707299997332,
+    "first_cpu_s": 32.39194199760148,
+    "failed_wall_s": 15.410377499996684,
+    "failed_cpu_s": 68.4191740480959,
+    "final_wall_s": 8.040100600017468,
+    "final_cpu_s": 35.19287357365023,
+    "retry_wall_fraction": 0.6563144208696593,
+    "retry_cpu_fraction": 0.6594998853687324,
+    "starting_p": 64,
+    "final_success_p": 163,
+    "overshoot": -99,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      152,
+      163
+     ]
+    ],
+    "walls": [
+     23.649417000007816,
+     23.33038349999697,
+     23.488160000008065
+    ],
+    "cpus": [
+     103.06082145299075,
+     104.2096760396769,
+     103.61204762174613
+    ]
+   },
+   "EXACT_MEMORY": {
+    "service_wall_s": 8.270823099999689,
+    "cpu_s": 34.96092572031589,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 8.221719499997562,
+    "first_cpu_s": 34.96092572031589,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 8.221719499997562,
+    "final_cpu_s": 34.96092572031589,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 163,
+    "final_success_p": 163,
+    "overshoot": 0,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      163
+     ]
+    ],
+    "walls": [
+     8.413195800007088,
+     8.204943099990487,
+     8.270823099999689
+    ],
+    "cpus": [
+     34.96092572031589,
+     34.59217416673712,
+     35.45044110725347
+    ],
+    "wall_vs_base": 0.3521273313872542,
+    "cpu_vs_base": 0.3374214343099063
+   }
+  }
+ },
+ "B": {
+  "N7_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 2.627926299988758,
+    "cpu_s": 6.516371318592224,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 1.2592979000182822,
+    "first_cpu_s": 3.2360678514216916,
+    "failed_wall_s": 1.2592979000182822,
+    "failed_cpu_s": 3.2360678514216916,
+    "final_wall_s": 1.2760882999864407,
+    "final_cpu_s": 3.2121306257278337,
+    "retry_wall_fraction": 0.499341528220596,
+    "retry_cpu_fraction": 0.49660580915465713,
+    "starting_p": 64,
+    "final_success_p": 107,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      107
+     ]
+    ],
+    "walls": [
+     2.5499258000054397,
+     2.981038800004171,
+     2.627926299988758
+    ],
+    "cpus": [
+     6.345719325888998,
+     6.647721791871985,
+     6.516371318592224
+    ],
+    "overshoot": null
+   },
+   "FAMILY_MIN": {
+    "service_wall_s": 1.305637499986915,
+    "cpu_s": 3.216137816616525,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 1.2701606999908108,
+    "first_cpu_s": 3.216137816616525,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 1.2701606999908108,
+    "final_cpu_s": 3.216137816616525,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 106,
+    "final_success_p": 106,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      106
+     ]
+    ],
+    "walls": [
+     1.290009700023802,
+     1.305637499986915,
+     1.4880170999967959
+    ],
+    "cpus": [
+     3.154285758939731,
+     3.216137816616525,
+     3.369154576879754
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.49683185559370535,
+    "cpu_vs_base": 0.4935473531780459
+   },
+   "FAMILY_MAX": {
+    "service_wall_s": 1.3102190000063274,
+    "cpu_s": 3.2150010721154842,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 1.2672429000085685,
+    "first_cpu_s": 3.2150010721154842,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 1.2672429000085685,
+    "final_cpu_s": 3.2150010721154842,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 109,
+    "final_success_p": 109,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      109
+     ]
+    ],
+    "walls": [
+     1.3471171999990474,
+     1.2913641999766696,
+     1.3102190000063274
+    ],
+    "cpus": [
+     3.2325575055659153,
+     3.1963185504233924,
+     3.2150010721154842
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.4985752454366519,
+    "cpu_vs_base": 0.4933729087755611
+   }
+  },
+  "N10_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 4.0606523000169545,
+    "cpu_s": 11.303581309155707,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 1.9580541000177618,
+    "first_cpu_s": 5.589429629855948,
+    "failed_wall_s": 1.9580541000177618,
+    "failed_cpu_s": 5.589429629855948,
+    "final_wall_s": 2.0378896000038367,
+    "final_cpu_s": 5.714151679299758,
+    "retry_wall_fraction": 0.48501280022222354,
+    "retry_cpu_fraction": 0.4944830737253693,
+    "starting_p": 64,
+    "final_success_p": 108,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      108
+     ]
+    ],
+    "walls": [
+     4.041318500007037,
+     4.125666800013278,
+     4.0606523000169545
+    ],
+    "cpus": [
+     11.147499563079808,
+     11.303581309155707,
+     11.471376239331164
+    ],
+    "overshoot": null
+   },
+   "FAMILY_MIN": {
+    "service_wall_s": 1.9374806999985594,
+    "cpu_s": 5.502880940458197,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 1.881861800007755,
+    "first_cpu_s": 5.502880940458197,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 1.881861800007755,
+    "final_cpu_s": 5.502880940458197,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 106,
+    "final_success_p": 106,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      106
+     ]
+    ],
+    "walls": [
+     1.9140304000175092,
+     1.9374806999985594,
+     2.315836499998113
+    ],
+    "cpus": [
+     5.502880940458197,
+     5.500861789121068,
+     5.882463295363782
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.47713533611101594,
+    "cpu_vs_base": 0.4868263243261636
+   },
+   "FAMILY_MAX": {
+    "service_wall_s": 1.9859300999960396,
+    "cpu_s": 5.602957581007119,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 1.9314625000115484,
+    "first_cpu_s": 5.602957581007119,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 1.9314625000115484,
+    "final_cpu_s": 5.602957581007119,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 109,
+    "final_success_p": 109,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      109
+     ]
+    ],
+    "walls": [
+     1.9859300999960396,
+     1.969073499989463,
+     2.0859353999840096
+    ],
+    "cpus": [
+     5.6414977929775985,
+     5.602957581007119,
+     5.58612771092652
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.4890667689000971,
+    "cpu_vs_base": 0.495679858247122
+   }
+  },
+  "N20_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 10.235797100001946,
+    "cpu_s": 45.86289376257233,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 4.974157799995737,
+    "first_cpu_s": 22.743499236072903,
+    "failed_wall_s": 4.974157799995737,
+    "failed_cpu_s": 22.743499236072903,
+    "final_wall_s": 5.336670999997295,
+    "final_cpu_s": 23.053318355382686,
+    "retry_wall_fraction": 0.48912926512793514,
+    "retry_cpu_fraction": 0.4948098153103138,
+    "starting_p": 64,
+    "final_success_p": 109,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      109
+     ]
+    ],
+    "walls": [
+     10.235797100001946,
+     10.544009500008542,
+     10.222253100015223
+    ],
+    "cpus": [
+     44.64730440597665,
+     45.86289376257233,
+     45.964123047578596
+    ],
+    "overshoot": null
+   },
+   "FAMILY_MIN": {
+    "service_wall_s": 4.860602100001415,
+    "cpu_s": 22.658882930680438,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 4.804402600013418,
+    "first_cpu_s": 22.658882930680438,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 4.804402600013418,
+    "final_cpu_s": 22.658882930680438,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 106,
+    "final_success_p": 106,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      106
+     ]
+    ],
+    "walls": [
+     4.820406800019555,
+     5.281120500003453,
+     4.860602100001415
+    ],
+    "cpus": [
+     22.658882930680438,
+     22.37417585103319,
+     23.208567185732537
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.47486307636954733,
+    "cpu_vs_base": 0.4940569831459663
+   },
+   "FAMILY_MAX": {
+    "service_wall_s": 5.397986399999354,
+    "cpu_s": 22.939238485311066,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 5.346196900005452,
+    "first_cpu_s": 22.939238485311066,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 5.346196900005452,
+    "final_cpu_s": 22.939238485311066,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 109,
+    "final_success_p": 109,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      109
+     ]
+    ],
+    "walls": [
+     5.3488075000059325,
+     5.4424981999909505,
+     5.397986399999354
+    ],
+    "cpus": [
+     22.939238485311066,
+     22.690410450521767,
+     22.94161149690293
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.5273635601860776,
+    "cpu_vs_base": 0.5001698890625009
+   }
+  },
+  "N7_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 12.368222399993101,
+    "cpu_s": 52.038153481303254,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 6.180755999987014,
+    "first_cpu_s": 25.2520489270386,
+    "failed_wall_s": 6.180755999987014,
+    "failed_cpu_s": 25.2520489270386,
+    "final_wall_s": 6.227336600015406,
+    "final_cpu_s": 26.786104554264657,
+    "retry_wall_fraction": 0.492638052183313,
+    "retry_cpu_fraction": 0.48372270613475515,
+    "starting_p": 64,
+    "final_success_p": 149,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      149
+     ]
+    ],
+    "walls": [
+     12.368222399993101,
+     12.334113799995976,
+     12.955749400018249
+    ],
+    "cpus": [
+     51.50201176865076,
+     52.038153481303254,
+     52.74525552161069
+    ],
+    "overshoot": null
+   },
+   "FAMILY_MIN": {
+    "service_wall_s": 6.4983754999993835,
+    "cpu_s": 26.54440023562566,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 6.452918700000737,
+    "first_cpu_s": 26.54440023562566,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 6.452918700000737,
+    "final_cpu_s": 26.54440023562566,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 145,
+    "final_success_p": 145,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      145
+     ]
+    ],
+    "walls": [
+     6.4983754999993835,
+     6.458443699986674,
+     6.56324700001278
+    ],
+    "cpus": [
+     26.54440023562566,
+     26.307504594770798,
+     27.23462726809586
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.5254090110801216,
+    "cpu_vs_base": 0.5100949680153961
+   },
+   "FAMILY_MAX": {
+    "service_wall_s": 6.39280790000339,
+    "cpu_s": 26.85181044801966,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 6.337932700000238,
+    "first_cpu_s": 26.85181044801966,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 6.337932700000238,
+    "final_cpu_s": 26.85181044801966,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 163,
+    "final_success_p": 163,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      163
+     ]
+    ],
+    "walls": [
+     6.619560799997998,
+     6.200009099993622,
+     6.39280790000339
+    ],
+    "cpus": [
+     26.828521558738057,
+     26.989515568936895,
+     26.85181044801966
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.5168736212252261,
+    "cpu_vs_base": 0.516002368486561
+   }
+  },
+  "N10_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "P2_BASE": {
+    "service_wall_s": 24.921799500007182,
+    "cpu_s": 109.9024510089395,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 11.993375100020785,
+    "first_cpu_s": 53.10004752104789,
+    "failed_wall_s": 11.993375100020785,
+    "failed_cpu_s": 53.10004752104789,
+    "final_wall_s": 12.820130300009623,
+    "final_cpu_s": 56.802403487891596,
+    "retry_wall_fraction": 0.49053010252946677,
+    "retry_cpu_fraction": 0.48117415551177284,
+    "starting_p": 64,
+    "final_success_p": 159,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      64,
+      159
+     ]
+    ],
+    "walls": [
+     24.364353400014807,
+     25.456566899985773,
+     24.921799500007182
+    ],
+    "cpus": [
+     107.96588625657196,
+     109.9024510089395,
+     110.53795346980618
+    ],
+    "overshoot": null
+   },
+   "FAMILY_MIN": {
+    "service_wall_s": 24.9399090000079,
+    "cpu_s": 111.4974798753988,
+    "passes": 2,
+    "failed_passes": 1,
+    "first_wall_s": 12.296175200026482,
+    "first_cpu_s": 55.41588010655837,
+    "failed_wall_s": 12.296175200026482,
+    "failed_cpu_s": 55.41588010655837,
+    "final_wall_s": 12.552691099990625,
+    "final_cpu_s": 56.396052644462486,
+    "retry_wall_fraction": 0.4948384788089112,
+    "retry_cpu_fraction": 0.4959361097551034,
+    "starting_p": 145,
+    "final_success_p": 160,
+    "first_pass_success_reps": 0,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      145,
+      160
+     ]
+    ],
+    "walls": [
+     24.852534000005107,
+     24.9399090000079,
+     25.8990780999884
+    ],
+    "cpus": [
+     111.4974798753988,
+     111.4568485960607,
+     115.12654762943693
+    ],
+    "overshoot": null,
+    "wall_vs_base": 1.000726652985099,
+    "cpu_vs_base": 1.0145131327992818
+   },
+   "FAMILY_MAX": {
+    "service_wall_s": 12.620939599990379,
+    "cpu_s": 56.418715657714046,
+    "passes": 1,
+    "failed_passes": 0,
+    "first_wall_s": 12.560949700011406,
+    "first_cpu_s": 56.418715657714046,
+    "failed_wall_s": 0,
+    "failed_cpu_s": 0,
+    "final_wall_s": 12.560949700011406,
+    "final_cpu_s": 56.418715657714046,
+    "retry_wall_fraction": 0.0,
+    "retry_cpu_fraction": 0.0,
+    "starting_p": 163,
+    "final_success_p": 163,
+    "first_pass_success_reps": 3,
+    "statuses": [
+     "DECIDED"
+    ],
+    "p_sequences": [
+     [
+      163
+     ]
+    ],
+    "walls": [
+     12.561704899999313,
+     12.666975300002377,
+     12.620939599990379
+    ],
+    "cpus": [
+     55.87012179061937,
+     56.418715657714046,
+     56.4837309724997
+    ],
+    "overshoot": null,
+    "wall_vs_base": 0.5064216811465296,
+    "cpu_vs_base": 0.5133526608348792
+   }
+  }
+ },
+ "excluded": [],
+ "rules": {
+  "EXACT_MEMORY_useful_candidate": true,
+  "FAMILY_MIN_generalization_candidate": true,
+  "FAMILY_MAX_service_candidate": false,
+  "both_family_unstable": false
+ }
+}
