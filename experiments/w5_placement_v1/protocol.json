@@ -1,13 +1,26 @@
 {
  "gate": "W5_PLACEMENT_V1 - dedicated-main W5 counterexample pilot: is the W6 straggler caused by the main and the sixth worker sharing CPU 0?",
  "date": "2026-10-06",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
  "baseline": {
   "branch_parent": "claude/e2-pair-parallel-v1 at 38f2dee (= origin/claude/e2-pair-parallel-v1)",
   "master": "15ae151 = origin/master",
   "this_branch": "claude/w5-placement-pilot-v1 in the main checkout (no worktree)",
   "working_tree": "clean at start",
-  "E2_PAIR_PARALLEL_V1_sha256_lf_prefix": {"experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7", "experiments/e2_pair_parallel_v1/campaign.py": "0819e08885990730", "experiments/e2_pair_parallel_v1/checker.py": "fb1ba2cc618b4eaa", "experiments/e2_pair_parallel_v1/analyze.py": "f11e552aec379618", "experiments/e2_pair_parallel_v1/protocol.json": "f6ed672c9e8f9ce4", "docs/active/e2_pair_parallel_v1/laptop_run/records.json.gz": "62dc28014b885a8a", "docs/active/E2_PAIR_PARALLEL_V1.md": "cbf29d7ec1a7d0d1"}
+  "E2_PAIR_PARALLEL_V1_sha256_lf_prefix": {
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7",
+   "experiments/e2_pair_parallel_v1/campaign.py": "0819e08885990730",
+   "experiments/e2_pair_parallel_v1/checker.py": "fb1ba2cc618b4eaa",
+   "experiments/e2_pair_parallel_v1/analyze.py": "f11e552aec379618",
+   "experiments/e2_pair_parallel_v1/protocol.json": "f6ed672c9e8f9ce4",
+   "docs/active/e2_pair_parallel_v1/laptop_run/records.json.gz": "62dc28014b885a8a",
+   "docs/active/E2_PAIR_PARALLEL_V1.md": "cbf29d7ec1a7d0d1"
+  }
  },
  "machine_topology_checked_before_seal": {
   "host": "DESKTOP-0EASI0F (laptop), AMD Ryzen 5 4500U",
@@ -20,16 +33,67 @@
  "unchanged_contract": "evaluator E2 = rw:R1+R2 only; physics, all pairs, no cutoff, KDK, dt, mass, domain, rounding/readout, p = 128, FCC_N initial-state rule, the E2_PAIR_PARALLEL_V1 parallel algorithm (experiments/e2_pair_parallel_v1/run.run_parallel imported unchanged) and the MULTIATOM serial path (experiments/multiatom_parallel_v1/run.run_serial imported unchanged). Only CPU placement and worker count differ.",
  "execution_plan": "every run is described by an ExecutionPlan {evaluator, precision, backend, worker_count, main_cpu, worker_cpus}; backend CPU_SERIAL and CPU_PARALLEL are implemented by delegating to the unchanged runners; GPU is a reserved backend name that raises NotImplementedError (no GPU code in this step)",
  "configurations": {
-  "SER_E2": {"backend": "CPU_SERIAL", "worker_count": 0, "main_cpu": 1, "worker_cpus": [], "role": "correctness reference and serial timing"},
-  "W4_DEDICATED": {"backend": "CPU_PARALLEL", "worker_count": 4, "main_cpu": 0, "worker_cpus": [1, 2, 3, 4], "role": "near control (main also alone on its core)"},
-  "W5_DEDICATED": {"backend": "CPU_PARALLEL", "worker_count": 5, "main_cpu": 0, "worker_cpus": [1, 2, 3, 4, 5], "role": "candidate: main alone on core 0"},
-  "W6_SHARED": {"backend": "CPU_PARALLEL", "worker_count": 6, "main_cpu": 0, "worker_cpus": [1, 2, 3, 4, 5, 0], "role": "existing layout: worker 6 shares core 0 with the main"},
+  "SER_E2": {
+   "backend": "CPU_SERIAL",
+   "worker_count": 0,
+   "main_cpu": 1,
+   "worker_cpus": [],
+   "role": "correctness reference and serial timing"
+  },
+  "W4_DEDICATED": {
+   "backend": "CPU_PARALLEL",
+   "worker_count": 4,
+   "main_cpu": 0,
+   "worker_cpus": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "role": "near control (main also alone on its core)"
+  },
+  "W5_DEDICATED": {
+   "backend": "CPU_PARALLEL",
+   "worker_count": 5,
+   "main_cpu": 0,
+   "worker_cpus": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "role": "candidate: main alone on core 0"
+  },
+  "W6_SHARED": {
+   "backend": "CPU_PARALLEL",
+   "worker_count": 6,
+   "main_cpu": 0,
+   "worker_cpus": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    0
+   ],
+   "role": "existing layout: worker 6 shares core 0 with the main"
+  },
   "campaign_process": "pinned to CPU 0; it only launches runs and waits (disclosed: it is on the main's core in every configuration)"
  },
- "scope": {"N": [12, 24, 48], "T": 100, "p": 128, "repetitions": 5,
-           "order": "per repetition: N ascending; within each N the 4 configurations [SER_E2, W4_DEDICATED, W5_DEDICATED, W6_SHARED] rotated by the repetition index",
-           "no_additions": "no N, T, p or configuration is added after seeing results; further experiments need a separate protocol",
-           "estimated_cost": "about 1,600 CPU s and 22 min wall on the laptop; cap 5,000 CPU s"},
+ "scope": {
+  "N": [
+   12,
+   24,
+   48
+  ],
+  "T": 100,
+  "p": 128,
+  "repetitions": 5,
+  "order": "per repetition: N ascending; within each N the 4 configurations [SER_E2, W4_DEDICATED, W5_DEDICATED, W6_SHARED] rotated by the repetition index",
+  "no_additions": "no N, T, p or configuration is added after seeing results; further experiments need a separate protocol",
+  "estimated_cost": "about 1,600 CPU s and 22 min wall on the laptop; cap 5,000 CPU s"
+ },
  "load_contamination_rule": "same as E2_PAIR_PARALLEL_V1: 1 s snapshot before every (N, repetition) group excluding the own process tree and the System Idle Process; CONTAMINATED if other processes sum >= 100 % of one logical CPU or a python/roblox/codex/node process >= 25 %. Contaminated groups are kept, checked for correctness and excluded from performance numbers.",
  "measurements_per_run": "end-to-end wall, loop wall, ready/spawn wall, total CPU (QueryProcessCycleTime / calibrated rate) and its main / per-worker split, tick CPU, per-worker busy wall, main send / wait / reduce / KDK+other, peak working set per process, main and worker affinity (requested, child read-back, parent pin, at exit), outcome / completed steps / stop kind / stop step / cells / endpoints key / initial-state digest",
  "correctness": "for each N: W4, W5, W6 (all repetitions) bit-identical to SER_E2 (and SER_E2 identical across repetitions) in completed steps, stop kind, stop step, cells, the full endpoints key and the initial-state digest; SER_E2 also equal to the E2_PAIR_PARALLEL_V1 SER_E2 record of the same N. Any mismatch -> verdict D, performance judgement stops.",
@@ -50,6 +114,23 @@
   "Q7": "per N: is W6 loop wall >= W5 loop wall (sixth worker adds more contention than compute)?",
   "Q8": "bit identity"
  },
- "not_in_scope": ["GPU / CUDA E2", "limb size search", "Selector V1", "neural selector", "P3 retraining", "reduction order change", "tree reduction", "physics change", "new precision policy", "master merge", "desktop runs"],
- "claims_forbidden": ["a laptop result holds for the desktop (SMT) or other machines", "a 1-2 % difference is a winner", "bit identity is a proof"]
+ "not_in_scope": [
+  "GPU / CUDA E2",
+  "limb size search",
+  "Selector V1",
+  "neural selector",
+  "P3 retraining",
+  "reduction order change",
+  "tree reduction",
+  "physics change",
+  "new precision policy",
+  "master merge",
+  "desktop runs"
+ ],
+ "claims_forbidden": [
+  "a laptop result holds for the desktop (SMT) or other machines",
+  "a 1-2 % difference is a winner",
+  "bit identity is a proof"
+ ],
+ "amendment_1_before_any_run": "Before the code seal: integration dry run on the desktop (scratch; N = 3, T = 5 - not sealed values - 2 repetitions; the topology guard was bypassed for this dry run only because the desktop has SMT): all runs DECIDED and bit-identical across SER_E2/W4/W5/W6; the sealed load rule flagged repetition 1 (ChatGPT/System/dwm 223 %). It exposed a checker defect already fixed once in E2_PAIR_PARALLEL_V1 and not carried over: the comparison with the prior SER_E2 evidence did not require equal T and p, so T = 5 runs were compared with T = 100 records (false mismatch -> false verdict D). Fixed before the seal: the comparison now requires equal T and p. No timing of the dry run is used. The desktop topology reader result (12 logical, 6 cores, SMT pairs (2k, 2k+1)) is consistent with the earlier desktop maps."
 }
