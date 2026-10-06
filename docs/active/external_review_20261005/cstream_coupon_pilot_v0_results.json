@@ -1,0 +1,42 @@
+{
+  "classification": "C_STREAM_COUPON_TOY_PILOT_V0",
+  "scope": "force-free exact rational streaming + obligation-carrying zero*G coupon; no Lang force execution",
+  "free_flight_10000": {
+    "working_state_scalars": 6,
+    "max_state_integer_bits": 45,
+    "final_q": [
+      "10971598180882/1998119156185",
+      "21943196361764/1998119156185",
+      "32914794542646/1998119156185"
+    ],
+    "sparse_vs_every_step_final_state_identical": true,
+    "attached_dag_comparison_note": "attached recheck observed 20,004 retained DAG nodes at 10,000 steps for a different force-free initial condition; this pilot stores only current 6 scalars and checkpoints requested by caller"
+  },
+  "halfway_case": {
+    "q1_exact": "1/562949953421312",
+    "F48_half_even_raw": 0,
+    "decided": true
+  },
+  "coupon_domain_obligation": {
+    "invalid_r2_zero": {
+      "value": "0",
+      "obligation_ok": false,
+      "details": [
+        "r2=0, require > 1"
+      ]
+    },
+    "valid_r2_four": {
+      "value": "0",
+      "obligation_ok": true,
+      "details": [
+        "r2=4, require > 1"
+      ]
+    }
+  },
+  "what_this_does_not_show": [
+    "No interacting Lang trajectory was computed",
+    "No mpmath interval containment proof was implemented",
+    "No wall-time superiority over A/B/C was measured",
+    "No production or certification claim"
+  ]
+}

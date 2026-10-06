@@ -1,0 +1,39 @@
+{
+  "classification": "EXACT_RATIONAL_INTERVAL_COUNTEREXAMPLE",
+  "model": "pinned Lang formula, retardation ON, unrounded KDK",
+  "scenario": "A2_bound, EXACT sealed protocol initial state, first step",
+  "q0": [
+    "(-71/20,0,0)",
+    "(71/20,0,0)"
+  ],
+  "p0": [
+    "(1,-3,0)",
+    "(-1,3,0)"
+  ],
+  "dt": "40",
+  "mass_exact": "399623831237000000/5485799090441",
+  "precision_bits": 256,
+  "R1_enclosure_bohr": {
+    "lo": "7.098902779947443360866622",
+    "hi": "7.098902779947443360866623",
+    "denominator": 1000000000000000000000000,
+    "lo_numerator": 7098902779947443360866622,
+    "hi_numerator": 7098902779947443360866623
+  },
+  "energy_change_enclosure_hartree": {
+    "lo": "0.000000000000174246863802",
+    "hi": "0.000000000000174246863803",
+    "denominator": 1000000000000000000000000,
+    "lo_numerator": 174246863802,
+    "hi_numerator": 174246863803
+  },
+  "energy_change_exact_dyadic_endpoints": [
+    "20176408402784700876741370923005375089511444561975754587824679313/115792089237316195423570985008687907853269984665640564039457584007913129639936",
+    "2522051050348087609592671365375671886188930570246969324690529513/14474011154664524427946373126085988481658748083205070504932198000989141204992"
+  ],
+  "excludes_zero": true,
+  "sign": "positive",
+  "world_semantics": "unrounded KDK, not the production rounded C1-B1 step",
+  "whole_drift_domain_certificate": "relative x coordinate remains > R_MIN throughout the straight drift",
+  "qualification": "one-step energy counterexample, not a replay of the sealed 10/100/1000 checkpoint campaign"
+}
