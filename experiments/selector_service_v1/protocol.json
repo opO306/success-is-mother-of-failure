@@ -1,7 +1,12 @@
 {
  "gate": "SELECTOR_SERVICE_V1 - one request end to end: ServiceRequest -> Selector V1 -> ExecutionPlan -> existing runner -> pass -> P2 -> retry at higher p -> DECIDED or a legitimate STOP / REFUSED",
  "date": "2026-10-06",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
  "baseline": {
   "parent": "claude/w5-placement-pilot-v1 @ 375a5a4 (= origin/claude/w5-placement-pilot-v1, checked)",
   "master": "15ae151 = origin/master",
@@ -14,7 +19,13 @@
  "P3_not_used": "P3 lines exist only for A2_bound / A3_low / A3_high; FCC_N has none. P3 is not used and not retrained.",
  "selector_v1": {
   "evaluator": "E2 = rw:R1+R2 (fixed)",
-  "allowed_inputs": ["N", "T", "p", "goal", "topology"],
+  "allowed_inputs": [
+   "N",
+   "T",
+   "p",
+   "goal",
+   "topology"
+  ],
   "forbidden_inputs": "outcome of the current or any future pass, the true minimum p, verifier results, shadow results, timings",
   "goals": {
    "CPU_MIN": "always CPU_SERIAL (E2) on CPU 1",
@@ -26,7 +37,32 @@
   "not_production_truth": "the rule is a hypothesis under test; it is not changed during this experiment whatever the results"
  },
  "evaluation_requests": {
-  "requests": [{"N": 5, "T": 100}, {"N": 8, "T": 100}, {"N": 16, "T": 100}, {"N": 32, "T": 100}, {"N": 5, "T": 1000}, {"N": 8, "T": 1000}],
+  "requests": [
+   {
+    "N": 5,
+    "T": 100
+   },
+   {
+    "N": 8,
+    "T": 100
+   },
+   {
+    "N": 16,
+    "T": 100
+   },
+   {
+    "N": 32,
+    "T": 100
+   },
+   {
+    "N": 5,
+    "T": 1000
+   },
+   {
+    "N": 8,
+    "T": 1000
+   }
+  ],
   "why": "none of these N were used to make the rule (3, 4, 6, 12, 24, 48)",
   "pre_seal_cost_probe": "laptop, serial E2, 10 steps (no outcome at T is visible from it): per step N=5 9.7/10.2/11.3 ms, N=8 26.9/28.0/31.3 ms, N=16 114/119/133 ms, N=32 469/489/547 ms at p = 64/128/256; one serial pass of all six requests ~ 110 s. No request removed.",
   "repetitions": 3
@@ -45,7 +81,16 @@
   "bit_identity": "for every executed pass (all strategies, shadow, repetitions) at the same (N, T, p): outcome, completed_steps, stop, stop_step, cells, endpoints_key and initial-state digest identical to the CPU_SERIAL pass",
   "same_p_sequence": "SEL_WALL, SEL_CPU and FIXED_W6 of one request must try the same p sequence (it depends only on bit-identical outcomes)",
   "checker_independence": "the checker reimplements the P2 next-p rule and the Selector V1 table itself (it imports neither policies.py nor selector.py) and re-derives every next p from the recorded previous pass and every plan from the recorded selector input; DECIDED cells are re-derived from the stored endpoints with the A1 checker rounding",
-  "fault_injection_tests": ["selector input contains a future outcome", "selector input contains the true minimum p", "P2 next p changed", "ExecutionPlan worker count changed", "endpoint changed", "a middle pass deleted", "an unsupported T executed", "a GPU plan recorded as success"]
+  "fault_injection_tests": [
+   "selector input contains a future outcome",
+   "selector input contains the true minimum p",
+   "P2 next p changed",
+   "ExecutionPlan worker count changed",
+   "endpoint changed",
+   "a middle pass deleted",
+   "an unsupported T executed",
+   "a GPU plan recorded as success"
+  ]
  },
  "probes_in_evidence": "the campaign also submits {N: 5, T: 500} (must be refused UNSUPPORTED_SELECTOR_DOMAIN with zero passes) and one GPU plan (must be refused, NotImplementedError, zero passes)",
  "measurements": "per pass: plan, selector input, requested/effective p, outcome, completed steps, stop, cells, endpoints, initial digest, end-to-end wall, loop wall, ready wall, total CPU (QueryProcessCycleTime / calibrated rate) and main / worker split, main breakdown, worker busy walls, affinities; per service run: total wall (all passes + orchestration), total CPU, number of passes, final status and p",
@@ -64,6 +109,26 @@
  "noise_rule": "a plan is 'wall-best' at (N, T, p) when its median end-to-end wall is lowest; a difference below 3 % of the best is reported as a TIE, not as a change of the best plan",
  "cpu_cap": "12,000 CPU s (cycle-counted, all runs); the campaign stops at the next run boundary when exceeded",
  "load_rule": "E2_PAIR_PARALLEL_V1 / W5 rule: 1 s snapshot before every (request, repetition) group; CONTAMINATED if others >= 1 logical CPU or a python/roblox/codex/node process >= 25 %; contaminated groups are kept, checked for correctness and excluded from performance numbers",
- "not_in_scope": ["P3 FCC_N retraining", "A2-R", "neural selector", "decision tree learning", "GPU / CUDA E2", "limb size search", "W6 weighted partition", "canonical reduction change", "new physics", "new evaluator search", "master merge", "changing the selector rule during the experiment", "desktop runs"],
- "claims_forbidden": ["the V1 rule is production truth", "a laptop result holds for SMT machines", "bit identity is a proof", "a 1-3 % wall difference picks a winner"]
+ "not_in_scope": [
+  "P3 FCC_N retraining",
+  "A2-R",
+  "neural selector",
+  "decision tree learning",
+  "GPU / CUDA E2",
+  "limb size search",
+  "W6 weighted partition",
+  "canonical reduction change",
+  "new physics",
+  "new evaluator search",
+  "master merge",
+  "changing the selector rule during the experiment",
+  "desktop runs"
+ ],
+ "claims_forbidden": [
+  "the V1 rule is production truth",
+  "a laptop result holds for SMT machines",
+  "bit identity is a proof",
+  "a 1-3 % wall difference picks a winner"
+ ],
+ "amendment_1_before_any_run": "Before the code seal, on the desktop (scratch): (1) the checker fault-injection test fixture runs a real N = 5, T = 100 request (1 repetition, all three strategies + shadows) with the laptop topology map as selector input; its outcomes and timings were not looked at (the tests only assert which checks fail). (2) dry run with N = 3, T = 100 (not an evaluation request): P2 tried p 64 -> 105, DECIDED under all strategies, bit-identical, probes refused with zero passes; the sealed load rule flagged the desktop group as CONTAMINATED. (3) defect found by the dry run and fixed before the seal: analysis crashed when a request had no clean repetition; it now reports such a request as excluded. An ignore_load switch exists for dry runs only; the campaign analysis always honours the load rule. Nothing in the selector rule, requests, strategies, shadow scope, thresholds or cap changed."
 }
