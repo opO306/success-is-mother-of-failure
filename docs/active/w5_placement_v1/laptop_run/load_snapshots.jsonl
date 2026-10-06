@@ -1,0 +1,17 @@
+{"tag": "start", "time": "22:31:42", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N12__r0", "time": "22:31:44", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N24__r0", "time": "22:31:59", "rows": [["System", 4, 15.9], ["svchost.exe", 1160, 2.3], ["explorer.exe", 6444, 1.2], ["SearchIndexer.exe", 9284, 1.2], ["services.exe", 1036, 1.1], ["svchost.exe", 1264, 1.1]], "other_total_pct": 22.8, "suspects": [], "contaminated": false}
+{"tag": "N48__r0", "time": "22:32:47", "rows": [["System", 4, 25.9]], "other_total_pct": 25.9, "suspects": [], "contaminated": false}
+{"tag": "N12__r1", "time": "22:35:56", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N24__r1", "time": "22:36:11", "rows": [["System", 4, 7.1]], "other_total_pct": 7.1, "suspects": [], "contaminated": false}
+{"tag": "N48__r1", "time": "22:37:00", "rows": [["services.exe", 1036, 9.3], ["System", 4, 2.3], ["MsMpEng.exe", 5004, 1.1]], "other_total_pct": 12.7, "suspects": [], "contaminated": false}
+{"tag": "N12__r2", "time": "22:40:11", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N24__r2", "time": "22:40:26", "rows": [["System", 4, 2.3], ["svchost.exe", 2068, 1.1], ["svchost.exe", 4748, 1.1]], "other_total_pct": 4.5, "suspects": [], "contaminated": false}
+{"tag": "N48__r2", "time": "22:41:16", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N12__r3", "time": "22:44:24", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N24__r3", "time": "22:44:40", "rows": [["explorer.exe", 6444, 9.3], ["svchost.exe", 4760, 4.1], ["System", 4, 3.3], ["svchost.exe", 1160, 3.1], ["svchost.exe", 1264, 3.1], ["svchost.exe", 21480, 3.1], ["AsusSystemAnalysis.exe", 4716, 1.0], ["chrome.exe", 21672, 1.0]], "other_total_pct": 28.0, "suspects": [], "contaminated": false}
+{"tag": "N48__r3", "time": "22:45:29", "rows": [["System", 4, 1.1]], "other_total_pct": 1.1, "suspects": [], "contaminated": false}
+{"tag": "N12__r4", "time": "22:48:38", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N24__r4", "time": "22:48:53", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N48__r4", "time": "22:49:42", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "end", "time": "22:52:50", "rows": [["svchost.exe", 1264, 1.1]], "other_total_pct": 1.1, "suspects": [], "contaminated": false}
