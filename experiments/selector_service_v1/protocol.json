@@ -1,0 +1,69 @@
+{
+ "gate": "SELECTOR_SERVICE_V1 - one request end to end: ServiceRequest -> Selector V1 -> ExecutionPlan -> existing runner -> pass -> P2 -> retry at higher p -> DECIDED or a legitimate STOP / REFUSED",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "baseline": {
+  "parent": "claude/w5-placement-pilot-v1 @ 375a5a4 (= origin/claude/w5-placement-pilot-v1, checked)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/selector-service-v1 in the main checkout (no worktree); working tree clean at start",
+  "existing_evidence_diff": "none (docs/active and experiments unchanged since their result commits)",
+  "desktop_topology": "12 logical / 6 physical, SMT pairs (2k, 2k+1) - not used for the campaign",
+  "laptop_topology": "6 physical cores, one logical CPU each (0..5), no SMT (W5_PLACEMENT_V1 topology.json); rechecked by the campaign at start"
+ },
+ "pipeline": "ServiceRequest{N, T, goal} -> loop: p = P2 (experiments/precision_pilot_a1/policies.next_p('P2', None, history, T), imported unchanged: first p = 64, then p2_next, P_MAX = 1024, 'CAP' when 1024 was already tried) -> Selector V1(N, T, p, goal, topology) -> ExecutionPlan -> experiments/w5_placement_v1/run (unchanged; CPU_SERIAL -> multiatom run_serial, CPU_PARALLEL -> e2_pair_parallel run_parallel, GPU refused) in a fresh process -> pass record -> history. Every pass recomputes the trajectory from step 0. Final when the pass outcome is DECIDED, DOMAIN_VIOLATED_PROVEN or OUT_OF_RANGE (STOP), or P2 returns CAP (REFUSED_AT_CAP). Safety bound 24 passes.",
+ "P3_not_used": "P3 lines exist only for A2_bound / A3_low / A3_high; FCC_N has none. P3 is not used and not retrained.",
+ "selector_v1": {
+  "evaluator": "E2 = rw:R1+R2 (fixed)",
+  "allowed_inputs": ["N", "T", "p", "goal", "topology"],
+  "forbidden_inputs": "outcome of the current or any future pass, the true minimum p, verifier results, shadow results, timings",
+  "goals": {
+   "CPU_MIN": "always CPU_SERIAL (E2) on CPU 1",
+   "WALL_MIN": "frozen initial rule from the p = 128 data of MULTIATOM / E2_PAIR_PARALLEL: T = 100: N <= 4 SERIAL, 5 <= N < 12 W4, N >= 12 W6; T = 1000: N = 3 W3, N >= 4 W6"
+  },
+  "p_is_input_but_unused_in_V1": "the worker count does not depend on p in V1; whether it should is measured (shadow)",
+  "domain": "T in {100, 1000} only; T = 1000 with N < 3 and any N < 2 are outside the rule; topology must be 6 physical cores without SMT with one logical CPU per core (the laptop); anything else -> UNSUPPORTED_SELECTOR_DOMAIN (no pass is executed)",
+  "placement": "main CPU 0, workers on CPUs 1..W for W <= 5, W6 = [1, 2, 3, 4, 5, 0] (the W5_PLACEMENT_V1 layouts; serial on CPU 1)",
+  "not_production_truth": "the rule is a hypothesis under test; it is not changed during this experiment whatever the results"
+ },
+ "evaluation_requests": {
+  "requests": [{"N": 5, "T": 100}, {"N": 8, "T": 100}, {"N": 16, "T": 100}, {"N": 32, "T": 100}, {"N": 5, "T": 1000}, {"N": 8, "T": 1000}],
+  "why": "none of these N were used to make the rule (3, 4, 6, 12, 24, 48)",
+  "pre_seal_cost_probe": "laptop, serial E2, 10 steps (no outcome at T is visible from it): per step N=5 9.7/10.2/11.3 ms, N=8 26.9/28.0/31.3 ms, N=16 114/119/133 ms, N=32 469/489/547 ms at p = 64/128/256; one serial pass of all six requests ~ 110 s. No request removed.",
+  "repetitions": 3
+ },
+ "strategies": {
+  "SEL_WALL": "the service with goal WALL_MIN (Selector V1)",
+  "SEL_CPU": "the service with goal CPU_MIN; Selector V1 returns CPU_SERIAL at every pass, which is exactly the 'always SERIAL E2 + P2' baseline B, so SEL_CPU is run once and serves as baseline B (the checker verifies that every chosen plan is CPU_SERIAL)",
+  "FIXED_W6": "baseline C: always W6 E2 + P2 (same service loop, plan fixed)"
+ },
+ "shadow": {
+  "what": "after the three service runs of a (request, repetition), for every p that the service tried, run the plans W3 and W4 (SERIAL and W6 at that p come from SEL_CPU and FIXED_W6) - so every tried (N, T, p) has SERIAL, W3, W4, W6 measured",
+  "isolation": "shadow runs happen after the service runs, are stored separately and are never an input of the selector",
+  "order": "per repetition: requests in the listed order; within a request the three strategies rotated by repetition index, then the shadow runs (W3, W4 alternated per p)"
+ },
+ "correctness": {
+  "bit_identity": "for every executed pass (all strategies, shadow, repetitions) at the same (N, T, p): outcome, completed_steps, stop, stop_step, cells, endpoints_key and initial-state digest identical to the CPU_SERIAL pass",
+  "same_p_sequence": "SEL_WALL, SEL_CPU and FIXED_W6 of one request must try the same p sequence (it depends only on bit-identical outcomes)",
+  "checker_independence": "the checker reimplements the P2 next-p rule and the Selector V1 table itself (it imports neither policies.py nor selector.py) and re-derives every next p from the recorded previous pass and every plan from the recorded selector input; DECIDED cells are re-derived from the stored endpoints with the A1 checker rounding",
+  "fault_injection_tests": ["selector input contains a future outcome", "selector input contains the true minimum p", "P2 next p changed", "ExecutionPlan worker count changed", "endpoint changed", "a middle pass deleted", "an unsupported T executed", "a GPU plan recorded as success"]
+ },
+ "probes_in_evidence": "the campaign also submits {N: 5, T: 500} (must be refused UNSUPPORTED_SELECTOR_DOMAIN with zero passes) and one GPU plan (must be refused, NotImplementedError, zero passes)",
+ "measurements": "per pass: plan, selector input, requested/effective p, outcome, completed steps, stop, cells, endpoints, initial digest, end-to-end wall, loop wall, ready wall, total CPU (QueryProcessCycleTime / calibrated rate) and main / worker split, main breakdown, worker busy walls, affinities; per service run: total wall (all passes + orchestration), total CPU, number of passes, final status and p",
+ "analysis_questions": {
+  "Q1": "did every request end correctly (DECIDED with verified cells, or a legitimate STOP/REFUSED) under all strategies?",
+  "Q2": "CPU_MIN: was SERIAL the cheapest in total CPU per request (vs SEL_WALL, FIXED_W6, and per p vs W3/W4)?",
+  "Q3": "was SEL_WALL faster than SERIAL in total wall for every request?",
+  "Q4": "was SEL_WALL better than FIXED_W6 (wall, CPU, wall x CPU)?",
+  "Q5": "per (N, T): does the wall-best plan among {SERIAL, W3, W4, W6} change with p?",
+  "Q6": "does the p = 128 rule's choice equal the wall-best plan at every tried p?",
+  "Q7": "regret: SEL_WALL chosen-plan wall vs the per-p best plan wall, summed over the passes of each request (ratio)",
+  "Q8": "number of P2 passes per request and the p sequence",
+  "Q9": "cost split: precision-retry share = wall/CPU of non-final passes / total; parallel-overhead share = (parallel CPU - serial CPU at the same p) / parallel total CPU, and startup share of pass wall",
+  "Q10": "is there evidence to make p a real selector variable (does the best W differ between tried p for the same (N, T) by more than the repetition spread)?"
+ },
+ "noise_rule": "a plan is 'wall-best' at (N, T, p) when its median end-to-end wall is lowest; a difference below 3 % of the best is reported as a TIE, not as a change of the best plan",
+ "cpu_cap": "12,000 CPU s (cycle-counted, all runs); the campaign stops at the next run boundary when exceeded",
+ "load_rule": "E2_PAIR_PARALLEL_V1 / W5 rule: 1 s snapshot before every (request, repetition) group; CONTAMINATED if others >= 1 logical CPU or a python/roblox/codex/node process >= 25 %; contaminated groups are kept, checked for correctness and excluded from performance numbers",
+ "not_in_scope": ["P3 FCC_N retraining", "A2-R", "neural selector", "decision tree learning", "GPU / CUDA E2", "limb size search", "W6 weighted partition", "canonical reduction change", "new physics", "new evaluator search", "master merge", "changing the selector rule during the experiment", "desktop runs"],
+ "claims_forbidden": ["the V1 rule is production truth", "a laptop result holds for SMT machines", "bit identity is a proof", "a 1-3 % wall difference picks a winner"]
+}
