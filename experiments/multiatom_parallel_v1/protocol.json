@@ -116,5 +116,44 @@
   "a boundary measured at p 128 and these horizons holds for other p, T, machines or scenario families",
   "parent-process CPU is total CPU"
  ],
- "amendment_1_before_any_run": "Integration dry run before the code seal (scratch, not evidence): gates phase PASS (S1-S6, sympy, new-domain containment on 13 distinct step-0 R^2); runs at T = 10 (not a sealed horizon) for N = 2, 3, 8, all 7 configurations, rep 0 only: all DECIDED and bit-identical across configurations; N = 8 loop wall SER_E1 0.38 s, PAR_4/PAR_6 0.15 s, end-to-end SER_E1 0.83 s vs PAR_W 1.15-1.71 s; spawn overhead 0.37 s (W = 1) to 0.97 s (W = 6). Checker and analysis ran on these records (checker NOT_OK only for the dirty tree and the missing repetitions, as expected). Nothing in the scenario rule, N list, p, horizons, configurations, boundaries or thresholds was changed after it. Disclosed limitation of B5 found while reading the dry-run analysis: the sealed IPC criterion (loop_wall - max worker busy) / loop_wall also contains the main-side serial time and load imbalance, not only IPC; the analysis therefore also reports send, wait, reduce and KDK times separately, and the B5 criterion itself is kept as sealed."
+ "amendment_1_before_any_run": "Integration dry run before the code seal (scratch, not evidence): gates phase PASS (S1-S6, sympy, new-domain containment on 13 distinct step-0 R^2); runs at T = 10 (not a sealed horizon) for N = 2, 3, 8, all 7 configurations, rep 0 only: all DECIDED and bit-identical across configurations; N = 8 loop wall SER_E1 0.38 s, PAR_4/PAR_6 0.15 s, end-to-end SER_E1 0.83 s vs PAR_W 1.15-1.71 s; spawn overhead 0.37 s (W = 1) to 0.97 s (W = 6). Checker and analysis ran on these records (checker NOT_OK only for the dirty tree and the missing repetitions, as expected). Nothing in the scenario rule, N list, p, horizons, configurations, boundaries or thresholds was changed after it. Disclosed limitation of B5 found while reading the dry-run analysis: the sealed IPC criterion (loop_wall - max worker busy) / loop_wall also contains the main-side serial time and load imbalance, not only IPC; the analysis therefore also reports send, wait, reduce and KDK times separately, and the B5 criterion itself is kept as sealed.",
+ "amendment_2_execution_machine": {
+  "date": "2026-10-06",
+  "reason": "The first desktop campaign (started 17:00 at seal 8e655b6) ran under external load: Roblox ~2.0-3.4 logical cores at every load snapshot from the first one, a separate Codex task ~1 core, plus Defender/SearchIndexer bursts (system 29-66 % busy). Timing with up to 6 workers on 6 physical cores is distorted by that load. The run was stopped after 175 records (repetition 0 complete, repetition 1 partial). It is preserved unchanged as 'desktop_aborted_contaminated' and is NOT used for any boundary. Its correctness content (bit identity) is still checked and reported.",
+  "decision": "designer suggestion 2026-10-06: run the campaign on the idle laptop with all 6 cores",
+  "machines": {
+   "desktop": {
+    "worker_cores": [
+     2,
+     4,
+     6,
+     8,
+     10,
+     0
+    ],
+    "main_cpu": 1,
+    "serial_cpu": 2,
+    "campaign_cpu": 3
+   },
+   "laptop": {
+    "host": "DESKTOP-0EASI0F",
+    "cpu": "AMD Ryzen 5 4500U, 6 physical / 6 logical (no SMT), 15 W class",
+    "ram_gb": 7.4,
+    "worker_cores": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     0
+    ],
+    "main_cpu": 0,
+    "serial_cpu": 1,
+    "campaign_cpu": 0,
+    "note": "no SMT: the main shares logical 0 with the campaign process (which only waits) and, at W = 6, with worker 6 (the main mostly waits while workers compute). Clock behaviour of a 15 W mobile chip under all-core load is not controlled; XREPRO_RESOURCE_V1 measured +14-16 % CPU for the same work at 6 busy cores vs 1."
+   }
+  },
+  "unchanged": "scenario rule, N list, p, horizons, configurations, repetitions, boundaries, thresholds, CPU cap. Code changes: only the machine map becomes a campaign argument (--machine) recorded in the seal, and the checker reads the map from the seal.",
+  "transport": "same branch pushed to GitHub (designer-approved for this branch only); the laptop pulls the sealed commit and returns its raw records by one commit pushed to the same branch, as in XREPRO_RESOURCE_V1"
+ }
 }
