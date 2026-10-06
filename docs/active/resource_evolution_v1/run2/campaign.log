@@ -1,0 +1,734 @@
+14:58:15 phase CAL start
+14:58:18 load snapshot: system 18% busy [('System Idle Process', 0, 1127.1), ('python.exe', 36624, 31.6), ('ChatGPT.exe', 28548, 7.4), ('dwm.exe', 1808, 6.2), ('ChatGPT.exe', 6952, 5.2)]
+14:58:18 done CAL__A2_bound_200__r0 VERIFIED wall 0.48 cpu 0.36
+14:58:20 done CAL__A2_bound_2000__r0 VERIFIED wall 1.95 cpu 1.89
+14:58:21 done CAL__A3_low_200__r0 VERIFIED wall 0.86 cpu 0.75
+14:58:26 done CAL__A3_low_2000__r0 VERIFIED wall 4.89 cpu 4.73
+14:58:26 done CAL__A3_high_200__r0 VERIFIED wall 0.73 cpu 0.64
+14:58:33 done CAL__A3_high_2000__r0 VERIFIED wall 6.44 cpu 6.22
+14:58:33 done CAL__A2_bound_200__r1 VERIFIED wall 0.43 cpu 0.34
+14:58:35 done CAL__A2_bound_2000__r1 VERIFIED wall 1.90 cpu 1.78
+14:58:36 done CAL__A3_low_200__r1 VERIFIED wall 0.73 cpu 0.62
+14:58:41 done CAL__A3_low_2000__r1 VERIFIED wall 4.84 cpu 4.77
+14:58:42 done CAL__A3_high_200__r1 VERIFIED wall 0.74 cpu 0.62
+14:58:47 done CAL__A3_high_2000__r1 VERIFIED wall 5.56 cpu 5.42
+14:58:48 done CAL__A2_bound_200__r2 VERIFIED wall 0.43 cpu 0.36
+14:58:49 done CAL__A2_bound_2000__r2 VERIFIED wall 1.90 cpu 1.80
+14:58:50 done CAL__A3_low_200__r2 VERIFIED wall 0.76 cpu 0.67
+14:58:55 done CAL__A3_low_2000__r2 VERIFIED wall 4.99 cpu 4.88
+14:58:56 done CAL__A3_high_200__r2 VERIFIED wall 0.74 cpu 0.66
+14:59:01 done CAL__A3_high_2000__r2 VERIFIED wall 5.50 cpu 5.27
+14:59:01 calibration o=0.195 kappa={'A2_bound': 0.0008046875000000001, 'A3_low': 0.0022734375, 'A3_high': 0.00244140625}
+14:59:01 phase CAL finished; campaign CPU 42s
+14:59:01 phase T0 start
+14:59:05 load snapshot: system 9% busy [('System Idle Process', 0, 709.7), ('MsMpEng.exe', 5888, 52.2), ('python.exe', 36624, 46.2), ('YouTube Music.exe', 8732, 41.7), ('dwm.exe', 1808, 23.5), ('System', 4, 19.7)]
+14:59:05 done T0__algebra__A2_bound_100__cpu2 VERIFIED wall 0.38 cpu 0.33
+14:59:05 done T0__algebra__A2_bound_100__cpu8 VERIFIED wall 0.33 cpu 0.28
+14:59:06 done T0__rw-R1_R2__A2_bound_100__cpu2 VERIFIED wall 0.33 cpu 0.33
+14:59:06 done T0__rw-R1_R2__A2_bound_100__cpu8 VERIFIED wall 0.33 cpu 0.30
+14:59:07 done T0__original__A2_bound_100__cpu2 VERIFIED wall 0.78 cpu 0.67
+14:59:08 done T0__original__A2_bound_100__cpu8 VERIFIED wall 0.73 cpu 0.67
+14:59:08 done T0__algebra__A3_low_100__cpu2 VERIFIED wall 0.53 cpu 0.42
+14:59:09 done T0__algebra__A3_low_100__cpu8 VERIFIED wall 0.48 cpu 0.42
+14:59:09 done T0__rw-R1_R2__A3_low_100__cpu2 VERIFIED wall 0.53 cpu 0.44
+14:59:10 done T0__rw-R1_R2__A3_low_100__cpu8 VERIFIED wall 0.50 cpu 0.44
+14:59:10 done T0__algebra__A3_high_100__cpu2 VERIFIED wall 0.48 cpu 0.44
+14:59:11 done T0__algebra__A3_high_100__cpu8 VERIFIED wall 0.53 cpu 0.45
+14:59:11 done T0__rw-R1_R2__A3_high_100__cpu2 VERIFIED wall 0.48 cpu 0.47
+14:59:12 done T0__rw-R1_R2__A3_high_100__cpu8 VERIFIED wall 0.48 cpu 0.47
+14:59:13 done T0__original__A3_high_100__cpu2 VERIFIED wall 1.75 cpu 1.70
+14:59:15 done T0__original__A3_high_100__cpu8 VERIFIED wall 1.75 cpu 1.66
+14:59:16 done T0__algebra__A2_bound_1000__cpu2 VERIFIED wall 1.09 cpu 0.98
+14:59:17 done T0__algebra__A2_bound_1000__cpu8 VERIFIED wall 1.04 cpu 0.95
+14:59:18 done T0__rw-R1_R2__A2_bound_1000__cpu2 VERIFIED wall 0.99 cpu 0.91
+14:59:19 done T0__rw-R1_R2__A2_bound_1000__cpu8 VERIFIED wall 1.05 cpu 0.98
+14:59:22 done T0__algebra__A3_low_1000__cpu2 VERIFIED wall 2.66 cpu 2.50
+14:59:24 done T0__algebra__A3_low_1000__cpu8 VERIFIED wall 2.51 cpu 2.41
+14:59:27 done T0__rw-R1_R2__A3_low_1000__cpu2 VERIFIED wall 2.41 cpu 2.33
+14:59:29 done T0__rw-R1_R2__A3_low_1000__cpu8 VERIFIED wall 2.41 cpu 2.36
+14:59:32 done T0__algebra__A3_high_1000__cpu2 VERIFIED wall 2.66 cpu 2.59
+14:59:35 done T0__algebra__A3_high_1000__cpu8 VERIFIED wall 2.66 cpu 2.55
+14:59:37 done T0__rw-R1_R2__A3_high_1000__cpu2 VERIFIED wall 2.56 cpu 2.42
+14:59:40 done T0__rw-R1_R2__A3_high_1000__cpu8 VERIFIED wall 2.46 cpu 2.45
+14:59:42 done T0__algebra__A2_bound_3000__cpu2 VERIFIED wall 2.71 cpu 2.62
+14:59:45 done T0__algebra__A2_bound_3000__cpu8 VERIFIED wall 2.71 cpu 2.59
+14:59:48 done T0__rw-R1_R2__A2_bound_3000__cpu2 VERIFIED wall 2.61 cpu 2.50
+14:59:50 done T0__rw-R1_R2__A2_bound_3000__cpu8 VERIFIED wall 2.56 cpu 2.45
+15:00:03 T0 E2 gates S1-S6 True sympy True
+15:00:04 done T0__smt_2_3__r0  wall 1.21 cpu 2.14
+15:00:04 done T0__smt_2_4__r0  wall 0.72 cpu 1.19
+15:00:06 done T0__smt_2_3__r1  wall 1.20 cpu 2.16
+15:00:06 done T0__smt_2_4__r1  wall 0.67 cpu 1.17
+15:00:08 done T0__smt_2_3__r2  wall 1.21 cpu 2.09
+15:00:08 done T0__smt_2_4__r2  wall 0.89 cpu 1.17
+15:00:08 phase T0 finished; campaign CPU 95s
+15:00:08 phase T1 start
+15:00:11 load snapshot: system 5% busy [('System Idle Process', 0, 963.3), ('python.exe', 36624, 35.6), ('YouTube Music.exe', 8732, 34.0), ('dwm.exe', 1808, 22.4), ('YouTube Music.exe', 20292, 17.0), ('System', 4, 8.9)]
+15:00:38 done T1__BASE__k1__r0  wall 26.42 cpu 25.48
+15:01:03 done T1__BASE_E2__k1__r0  wall 25.43 cpu 24.61
+15:01:16 done T1__BASE__k2__r0  wall 12.85 cpu 24.48
+15:01:28 done T1__BASE_E2__k2__r0  wall 12.27 cpu 23.06
+15:01:39 done T1__BASE__k3__r0  wall 10.62 cpu 28.64
+15:01:48 done T1__BASE_E2__k3__r0  wall 9.30 cpu 26.22
+15:01:57 done T1__BASE__k4__r0  wall 8.36 cpu 25.52
+15:02:04 done T1__BASE_E2__k4__r0  wall 7.90 cpu 24.06
+15:02:13 done T1__BASE__k6__r0  wall 8.72 cpu 26.45
+15:02:21 done T1__BASE_E2__k6__r0  wall 8.24 cpu 24.86
+15:02:24 done T1__single_A3_high_1000__c1__r0 VERIFIED wall 2.67 cpu 2.55
+15:02:27 done T1__single_A3_high_1000__c6__r0 VERIFIED wall 2.61 cpu 2.52
+15:02:51 done T1__BASE_E2__k1__r1  wall 23.97 cpu 23.17
+15:03:17 done T1__BASE__k1__r1  wall 25.85 cpu 24.80
+15:03:24 done T1__BASE_E2__k6__r1  wall 7.92 cpu 24.48
+15:03:33 done T1__BASE__k6__r1  wall 8.84 cpu 25.98
+15:03:41 done T1__BASE_E2__k4__r1  wall 7.90 cpu 23.98
+15:03:50 done T1__BASE__k4__r1  wall 8.30 cpu 25.39
+15:03:58 done T1__BASE_E2__k3__r1  wall 8.19 cpu 23.28
+15:04:07 done T1__BASE__k3__r1  wall 8.87 cpu 25.20
+15:04:19 done T1__BASE_E2__k2__r1  wall 12.21 cpu 23.55
+15:04:32 done T1__BASE__k2__r1  wall 12.97 cpu 24.94
+15:04:34 done T1__single_A3_high_1000__c1__r1 VERIFIED wall 2.61 cpu 2.59
+15:04:37 done T1__single_A3_high_1000__c6__r1 VERIFIED wall 2.61 cpu 2.50
+15:04:46 done T1__BASE__k3__r2  wall 9.00 cpu 25.78
+15:04:54 done T1__BASE_E2__k3__r2  wall 8.19 cpu 23.42
+15:05:03 done T1__BASE__k4__r2  wall 8.45 cpu 25.42
+15:05:10 done T1__BASE_E2__k4__r2  wall 7.81 cpu 23.70
+15:05:19 done T1__BASE__k6__r2  wall 8.78 cpu 26.52
+15:05:27 done T1__BASE_E2__k6__r2  wall 7.86 cpu 24.22
+15:05:55 done T1__BASE__k1__r2  wall 27.40 cpu 26.47
+15:06:19 done T1__BASE_E2__k1__r2  wall 24.32 cpu 23.50
+15:06:32 done T1__BASE__k2__r2  wall 13.09 cpu 25.03
+15:06:44 done T1__BASE_E2__k2__r2  wall 11.94 cpu 23.03
+15:06:46 done T1__single_A3_high_1000__c1__r2 VERIFIED wall 2.61 cpu 2.53
+15:06:49 done T1__single_A3_high_1000__c6__r2 VERIFIED wall 2.58 cpu 2.50
+15:06:49 phase T1 finished; campaign CPU 855s
+15:06:49 phase T2 start
+15:06:52 load snapshot: system 5% busy [('System Idle Process', 0, 998.8), ('python.exe', 36624, 36.6), ('YouTube Music.exe', 8732, 32.0), ('claude.exe', 26340, 23.8), ('MsMpEng.exe', 5888, 18.8), ('dwm.exe', 1808, 17.5)]
+15:06:52 done T2__BASE__A2_bound_100__r0 VERIFIED wall 0.33 cpu 0.28
+15:06:52 done T2__SPEC_P_E1__A2_bound_100__r0 VERIFIED wall 0.37 cpu 0.92
+15:06:53 done T2__SPEC_EVAL__A2_bound_100__r0 VERIFIED wall 0.35 cpu 0.53
+15:06:53 done T2__SPEC_EVAL__A3_low_100__r0 VERIFIED wall 0.50 cpu 0.86
+15:06:54 done T2__SPEC_P_E1__A3_low_100__r0 VERIFIED wall 0.60 cpu 1.41
+15:06:54 done T2__BASE__A3_low_100__r0 VERIFIED wall 0.48 cpu 0.44
+15:06:55 done T2__BASE__A3_high_100__r0 VERIFIED wall 0.53 cpu 0.47
+15:06:55 done T2__SPEC_P_E1__A3_high_100__r0 VERIFIED wall 0.53 cpu 1.36
+15:06:56 done T2__SPEC_EVAL__A3_high_100__r0 VERIFIED wall 0.63 cpu 0.84
+15:06:57 done T2__SPEC_EVAL__A2_bound_1000__r0 VERIFIED wall 1.01 cpu 1.89
+15:06:58 done T2__SPEC_P_E1__A2_bound_1000__r0 VERIFIED wall 1.11 cpu 3.16
+15:06:59 done T2__BASE__A2_bound_1000__r0 VERIFIED wall 1.09 cpu 1.03
+15:07:02 done T2__BASE__A3_low_1000__r0 VERIFIED wall 2.62 cpu 2.53
+15:07:04 done T2__SPEC_P_E1__A3_low_1000__r0 VERIFIED wall 2.51 cpu 7.30
+15:07:07 done T2__SPEC_EVAL__A3_low_1000__r0 VERIFIED wall 2.34 cpu 4.41
+15:07:09 done T2__SPEC_EVAL__A3_high_1000__r0 VERIFIED wall 2.44 cpu 4.73
+15:07:12 done T2__SPEC_P_E1__A3_high_1000__r0 VERIFIED wall 2.62 cpu 7.64
+15:07:15 done T2__BASE__A3_high_1000__r0 VERIFIED wall 2.71 cpu 2.62
+15:07:17 done T2__BASE__A2_bound_3000__r0 VERIFIED wall 2.85 cpu 2.73
+15:07:20 done T2__SPEC_P_E1__A2_bound_3000__r0 VERIFIED wall 2.78 cpu 7.97
+15:07:23 done T2__SPEC_EVAL__A2_bound_3000__r0 VERIFIED wall 2.59 cpu 5.02
+15:07:29 done T2__SPEC_EVAL__A3_low_3000__r0 VERIFIED wall 6.62 cpu 13.08
+15:07:37 done T2__SPEC_P_E1__A3_low_3000__r0 VERIFIED wall 7.18 cpu 21.20
+15:07:44 done T2__BASE__A3_low_3000__r0 VERIFIED wall 7.47 cpu 7.31
+15:07:52 done T2__BASE__A3_high_3000__r0 VERIFIED wall 8.39 cpu 8.27
+15:08:01 done T2__SPEC_P_E1__A3_high_3000__r0 VERIFIED wall 8.15 cpu 24.16
+15:08:08 done T2__SPEC_EVAL__A3_high_3000__r0 VERIFIED wall 7.23 cpu 14.30
+15:08:09 done T2__S4__A3_low_100__r0 BIT_IDENTICAL wall 1.20 cpu 1.39
+15:08:13 done T2__S4__A3_low_1000__r0 BIT_IDENTICAL wall 4.22 cpu 5.34
+15:08:14 done T2__S4__A3_high_100__r0 BIT_IDENTICAL wall 1.18 cpu 1.25
+15:08:19 done T2__S4__A3_high_1000__r0 BIT_IDENTICAL wall 4.30 cpu 5.52
+15:08:28 done T2__S5_inline__r0  wall 8.88 cpu 26.28
+15:08:36 done T2__S5_after__r0  wall 8.85 cpu 26.48
+15:08:45 done T2__S5_pipeline__r0  wall 8.73 cpu 26.20
+15:08:46 done T2__SPEC_EVAL__A2_bound_100__r1 VERIFIED wall 0.35 cpu 0.50
+15:08:46 done T2__SPEC_P_E1__A2_bound_100__r1 VERIFIED wall 0.38 cpu 0.83
+15:08:46 done T2__BASE__A2_bound_100__r1 VERIFIED wall 0.38 cpu 0.28
+15:08:47 done T2__BASE__A3_low_100__r1 VERIFIED wall 0.53 cpu 0.42
+15:08:47 done T2__SPEC_P_E1__A3_low_100__r1 VERIFIED wall 0.53 cpu 1.31
+15:08:48 done T2__SPEC_EVAL__A3_low_100__r1 VERIFIED wall 0.50 cpu 0.91
+15:08:48 done T2__SPEC_EVAL__A3_high_100__r1 VERIFIED wall 0.51 cpu 0.81
+15:08:49 done T2__SPEC_P_E1__A3_high_100__r1 VERIFIED wall 0.71 cpu 1.50
+15:08:50 done T2__BASE__A3_high_100__r1 VERIFIED wall 0.53 cpu 0.48
+15:08:51 done T2__BASE__A2_bound_1000__r1 VERIFIED wall 1.15 cpu 1.06
+15:08:52 done T2__SPEC_P_E1__A2_bound_1000__r1 VERIFIED wall 1.09 cpu 3.02
+15:08:53 done T2__SPEC_EVAL__A2_bound_1000__r1 VERIFIED wall 1.01 cpu 1.91
+15:08:55 done T2__SPEC_EVAL__A3_low_1000__r1 VERIFIED wall 2.33 cpu 4.52
+15:08:58 done T2__SPEC_P_E1__A3_low_1000__r1 VERIFIED wall 2.47 cpu 7.27
+15:09:00 done T2__BASE__A3_low_1000__r1 VERIFIED wall 2.62 cpu 2.47
+15:09:03 done T2__BASE__A3_high_1000__r1 VERIFIED wall 2.71 cpu 2.53
+15:09:06 done T2__SPEC_P_E1__A3_high_1000__r1 VERIFIED wall 2.62 cpu 7.59
+15:09:08 done T2__SPEC_EVAL__A3_high_1000__r1 VERIFIED wall 2.43 cpu 4.75
+15:09:11 done T2__SPEC_EVAL__A2_bound_3000__r1 VERIFIED wall 2.54 cpu 4.89
+15:09:13 done T2__SPEC_P_E1__A2_bound_3000__r1 VERIFIED wall 2.72 cpu 8.02
+15:09:16 done T2__BASE__A2_bound_3000__r1 VERIFIED wall 2.71 cpu 2.67
+15:09:24 done T2__BASE__A3_low_3000__r1 VERIFIED wall 7.47 cpu 7.34
+15:09:31 done T2__SPEC_P_E1__A3_low_3000__r1 VERIFIED wall 7.44 cpu 21.05
+15:09:39 done T2__SPEC_EVAL__A3_low_3000__r1 VERIFIED wall 8.04 cpu 15.25
+15:09:47 done T2__SPEC_EVAL__A3_high_3000__r1 VERIFIED wall 7.69 cpu 14.67
+15:09:55 done T2__SPEC_P_E1__A3_high_3000__r1 VERIFIED wall 8.13 cpu 23.73
+15:10:03 done T2__BASE__A3_high_3000__r1 VERIFIED wall 8.04 cpu 7.84
+15:10:04 done T2__S4__A3_low_100__r1 BIT_IDENTICAL wall 1.12 cpu 1.08
+15:10:08 done T2__S4__A3_low_1000__r1 BIT_IDENTICAL wall 4.14 cpu 5.31
+15:10:09 done T2__S4__A3_high_100__r1 BIT_IDENTICAL wall 1.15 cpu 1.16
+15:10:14 done T2__S4__A3_high_1000__r1 BIT_IDENTICAL wall 4.13 cpu 5.39
+15:10:22 done T2__S5_pipeline__r1  wall 8.68 cpu 25.98
+15:10:31 done T2__S5_after__r1  wall 8.45 cpu 25.28
+15:10:39 done T2__S5_inline__r1  wall 8.50 cpu 25.95
+15:10:40 done T2__BASE__A2_bound_100__r2 VERIFIED wall 0.38 cpu 0.28
+15:10:40 done T2__SPEC_P_E1__A2_bound_100__r2 VERIFIED wall 0.37 cpu 0.80
+15:10:40 done T2__SPEC_EVAL__A2_bound_100__r2 VERIFIED wall 0.35 cpu 0.50
+15:10:41 done T2__SPEC_EVAL__A3_low_100__r2 VERIFIED wall 0.50 cpu 0.84
+15:10:41 done T2__SPEC_P_E1__A3_low_100__r2 VERIFIED wall 0.53 cpu 1.41
+15:10:42 done T2__BASE__A3_low_100__r2 VERIFIED wall 0.53 cpu 0.45
+15:10:42 done T2__BASE__A3_high_100__r2 VERIFIED wall 0.53 cpu 0.41
+15:10:43 done T2__SPEC_P_E1__A3_high_100__r2 VERIFIED wall 0.52 cpu 1.28
+15:10:43 done T2__SPEC_EVAL__A3_high_100__r2 VERIFIED wall 0.50 cpu 0.86
+15:10:44 done T2__SPEC_EVAL__A2_bound_1000__r2 VERIFIED wall 1.01 cpu 1.89
+15:10:46 done T2__SPEC_P_E1__A2_bound_1000__r2 VERIFIED wall 1.03 cpu 2.89
+15:10:47 done T2__BASE__A2_bound_1000__r2 VERIFIED wall 1.09 cpu 1.02
+15:10:49 done T2__BASE__A3_low_1000__r2 VERIFIED wall 2.56 cpu 2.45
+15:10:52 done T2__SPEC_P_E1__A3_low_1000__r2 VERIFIED wall 2.51 cpu 7.33
+15:10:54 done T2__SPEC_EVAL__A3_low_1000__r2 VERIFIED wall 2.33 cpu 4.56
+15:10:57 done T2__SPEC_EVAL__A3_high_1000__r2 VERIFIED wall 2.49 cpu 4.78
+15:10:59 done T2__SPEC_P_E1__A3_high_1000__r2 VERIFIED wall 2.62 cpu 7.59
+15:11:02 done T2__BASE__A3_high_1000__r2 VERIFIED wall 2.66 cpu 2.59
+15:11:05 done T2__BASE__A2_bound_3000__r2 VERIFIED wall 2.76 cpu 2.62
+15:11:07 done T2__SPEC_P_E1__A2_bound_3000__r2 VERIFIED wall 2.73 cpu 7.92
+15:11:10 done T2__SPEC_EVAL__A2_bound_3000__r2 VERIFIED wall 2.48 cpu 4.56
+15:11:16 done T2__SPEC_EVAL__A3_low_3000__r2 VERIFIED wall 6.55 cpu 12.88
+15:11:24 done T2__SPEC_P_E1__A3_low_3000__r2 VERIFIED wall 7.14 cpu 20.95
+15:11:31 done T2__BASE__A3_low_3000__r2 VERIFIED wall 7.37 cpu 7.08
+15:11:39 done T2__BASE__A3_high_3000__r2 VERIFIED wall 8.07 cpu 7.84
+15:11:47 done T2__SPEC_P_E1__A3_high_3000__r2 VERIFIED wall 7.89 cpu 23.12
+15:11:54 done T2__SPEC_EVAL__A3_high_3000__r2 VERIFIED wall 7.01 cpu 13.78
+15:11:55 done T2__S4__A3_low_100__r2 BIT_IDENTICAL wall 1.17 cpu 1.20
+15:11:59 done T2__S4__A3_low_1000__r2 BIT_IDENTICAL wall 4.21 cpu 5.50
+15:12:00 done T2__S4__A3_high_100__r2 BIT_IDENTICAL wall 1.12 cpu 1.14
+15:12:05 done T2__S4__A3_high_1000__r2 BIT_IDENTICAL wall 4.13 cpu 5.45
+15:12:13 done T2__S5_inline__r2  wall 8.17 cpu 24.75
+15:12:21 done T2__S5_after__r2  wall 8.13 cpu 24.75
+15:12:29 done T2__S5_pipeline__r2  wall 8.26 cpu 25.03
+15:12:29 phase T2 finished; campaign CPU 1562s
+15:12:29 phase T34 start
+15:12:31 load snapshot: system 11% busy [('System Idle Process', 0, 1088.9), ('claude.exe', 26340, 31.5), ('python.exe', 36624, 30.1), ('MsMpEng.exe', 5888, 10.9)]
+15:12:32 done T34__H0__FIXED_BASE__A2_bound_100 VERIFIED wall 0.33 cpu 0.30
+15:12:32 done T34__H0__FIXED_AGG3__A2_bound_100 VERIFIED wall 0.37 cpu 0.81
+15:12:33 done T34__H0__ADAPTIVE__A2_bound_100 VERIFIED wall 0.37 cpu 0.83
+15:12:33 done T34__H0__FIXED_AGG3__A3_low_100 VERIFIED wall 0.47 cpu 1.31
+15:12:33 done T34__H0__ADAPTIVE__A3_low_100 VERIFIED wall 0.47 cpu 1.34
+15:12:34 done T34__H0__FIXED_BASE__A3_low_100 VERIFIED wall 0.48 cpu 0.38
+15:12:34 done T34__H0__ADAPTIVE__A3_high_100 VERIFIED wall 0.52 cpu 1.28
+15:12:35 done T34__H0__FIXED_BASE__A3_high_100 VERIFIED wall 0.48 cpu 0.44
+15:12:35 done T34__H0__FIXED_AGG3__A3_high_100 VERIFIED wall 0.52 cpu 1.31
+15:12:37 done T34__H0__FIXED_BASE__A2_bound_1000 VERIFIED wall 1.03 cpu 0.95
+15:12:38 done T34__H0__FIXED_AGG3__A2_bound_1000 VERIFIED wall 0.98 cpu 2.75
+15:12:39 done T34__H0__ADAPTIVE__A2_bound_1000 VERIFIED wall 1.27 cpu 3.28
+15:12:41 done T34__H0__FIXED_AGG3__A3_low_1000 VERIFIED wall 2.43 cpu 7.08
+15:12:44 done T34__H0__ADAPTIVE__A3_low_1000 VERIFIED wall 2.36 cpu 6.88
+15:12:46 done T34__H0__FIXED_BASE__A3_low_1000 VERIFIED wall 2.50 cpu 2.44
+15:12:49 done T34__H0__ADAPTIVE__A3_high_1000 VERIFIED wall 2.46 cpu 7.02
+15:12:51 done T34__H0__FIXED_BASE__A3_high_1000 VERIFIED wall 2.60 cpu 2.53
+15:12:54 done T34__H0__FIXED_AGG3__A3_high_1000 VERIFIED wall 2.41 cpu 7.06
+15:12:56 done T34__H0__FIXED_BASE__A2_bound_3000 VERIFIED wall 2.85 cpu 2.66
+15:12:59 done T34__H0__FIXED_AGG3__A2_bound_3000 VERIFIED wall 2.57 cpu 7.33
+15:13:02 done T34__H0__ADAPTIVE__A2_bound_3000 VERIFIED wall 2.56 cpu 7.34
+15:13:08 done T34__H0__FIXED_AGG3__A3_low_3000 VERIFIED wall 6.39 cpu 18.94
+15:13:14 done T34__H0__ADAPTIVE__A3_low_3000 VERIFIED wall 6.39 cpu 18.88
+15:13:21 done T34__H0__FIXED_BASE__A3_low_3000 VERIFIED wall 7.05 cpu 6.95
+15:13:29 done T34__H0__ADAPTIVE__A3_high_3000 VERIFIED wall 7.16 cpu 21.16
+15:13:36 done T34__H0__FIXED_BASE__A3_high_3000 VERIFIED wall 7.81 cpu 7.70
+15:13:44 done T34__H0__FIXED_AGG3__A3_high_3000 VERIFIED wall 7.06 cpu 20.66
+15:13:44 done T34__H1__FIXED_BASE__A2_bound_100 VERIFIED wall 0.33 cpu 0.30
+15:13:44 done T34__H1__FIXED_AGG3__A2_bound_100 VERIFIED wall 0.37 cpu 0.83
+15:13:45 done T34__H1__ADAPTIVE__A2_bound_100 VERIFIED wall 0.37 cpu 0.77
+15:13:45 done T34__H1__FIXED_AGG3__A3_low_100 VERIFIED wall 0.47 cpu 1.27
+15:13:46 done T34__H1__ADAPTIVE__A3_low_100 VERIFIED wall 0.47 cpu 1.27
+15:13:46 done T34__H1__FIXED_BASE__A3_low_100 VERIFIED wall 0.48 cpu 0.45
+15:13:47 done T34__H1__ADAPTIVE__A3_high_100 VERIFIED wall 0.47 cpu 1.27
+15:13:47 done T34__H1__FIXED_BASE__A3_high_100 VERIFIED wall 0.48 cpu 0.41
+15:13:48 done T34__H1__FIXED_AGG3__A3_high_100 VERIFIED wall 0.53 cpu 1.30
+15:13:49 done T34__H1__FIXED_BASE__A2_bound_1000 VERIFIED wall 1.03 cpu 0.97
+15:13:50 done T34__H1__FIXED_AGG3__A2_bound_1000 VERIFIED wall 0.98 cpu 2.70
+15:13:51 done T34__H1__ADAPTIVE__A2_bound_1000 VERIFIED wall 0.98 cpu 2.83
+15:13:53 done T34__H1__FIXED_AGG3__A3_low_1000 VERIFIED wall 2.31 cpu 6.72
+15:13:55 done T34__H1__ADAPTIVE__A3_low_1000 VERIFIED wall 2.30 cpu 6.72
+15:13:58 done T34__H1__FIXED_BASE__A3_low_1000 VERIFIED wall 2.50 cpu 2.42
+15:14:00 done T34__H1__ADAPTIVE__A3_high_1000 VERIFIED wall 2.46 cpu 7.23
+15:14:03 done T34__H1__FIXED_BASE__A3_high_1000 VERIFIED wall 2.60 cpu 2.52
+15:14:05 done T34__H1__FIXED_AGG3__A3_high_1000 VERIFIED wall 2.46 cpu 6.97
+15:14:08 done T34__H1__FIXED_BASE__A2_bound_3000 VERIFIED wall 2.65 cpu 2.61
+15:14:11 done T34__H1__FIXED_AGG3__A2_bound_3000 VERIFIED wall 3.41 cpu 9.02
+15:14:14 done T34__H1__ADAPTIVE__A2_bound_3000 VERIFIED wall 2.84 cpu 8.09
+15:14:24 done T34__H1__FIXED_AGG3__A3_low_3000 VERIFIED wall 9.50 cpu 23.30
+15:14:31 done T34__H1__ADAPTIVE__A3_low_3000 VERIFIED wall 7.70 cpu 20.73
+15:14:39 done T34__H1__FIXED_BASE__A3_low_3000 VERIFIED wall 7.73 cpu 7.64
+15:14:47 done T34__H1__ADAPTIVE__A3_high_3000 VERIFIED wall 7.79 cpu 22.30
+15:14:55 done T34__H1__FIXED_BASE__A3_high_3000 VERIFIED wall 7.72 cpu 7.62
+15:15:02 done T34__H1__FIXED_AGG3__A3_high_3000 VERIFIED wall 7.34 cpu 21.30
+15:15:02 done T34__H2__FIXED_BASE__A2_bound_100 VERIFIED wall 0.33 cpu 0.31
+15:15:03 done T34__H2__FIXED_AGG3__A2_bound_100 VERIFIED wall 0.36 cpu 0.66
+15:15:03 done T34__H2__ADAPTIVE__A2_bound_100 VERIFIED wall 0.38 cpu 0.28
+15:15:04 done T34__H2__FIXED_AGG3__A3_low_100 VERIFIED wall 0.52 cpu 0.92
+15:15:04 done T34__H2__ADAPTIVE__A3_low_100 VERIFIED wall 0.53 cpu 0.47
+15:15:05 done T34__H2__FIXED_BASE__A3_low_100 VERIFIED wall 0.54 cpu 0.42
+15:15:05 done T34__H2__ADAPTIVE__A3_high_100 VERIFIED wall 0.48 cpu 0.45
+15:15:06 done T34__H2__FIXED_BASE__A3_high_100 VERIFIED wall 0.53 cpu 0.45
+15:15:06 done T34__H2__FIXED_AGG3__A3_high_100 VERIFIED wall 0.52 cpu 0.89
+15:15:07 done T34__H2__FIXED_BASE__A2_bound_1000 VERIFIED wall 1.09 cpu 1.00
+15:15:08 done T34__H2__FIXED_AGG3__A2_bound_1000 VERIFIED wall 1.03 cpu 1.94
+15:15:09 done T34__H2__ADAPTIVE__A2_bound_1000 VERIFIED wall 1.04 cpu 0.95
+15:15:12 done T34__H2__FIXED_AGG3__A3_low_1000 VERIFIED wall 2.36 cpu 4.58
+15:15:14 done T34__H2__ADAPTIVE__A3_low_1000 VERIFIED wall 2.67 cpu 2.47
+15:15:17 done T34__H2__FIXED_BASE__A3_low_1000 VERIFIED wall 2.56 cpu 2.50
+15:15:20 done T34__H2__ADAPTIVE__A3_high_1000 VERIFIED wall 2.76 cpu 2.70
+15:15:23 done T34__H2__FIXED_BASE__A3_high_1000 VERIFIED wall 2.87 cpu 2.80
+15:15:25 done T34__H2__FIXED_AGG3__A3_high_1000 VERIFIED wall 2.46 cpu 4.77
+15:15:28 done T34__H2__FIXED_BASE__A2_bound_3000 VERIFIED wall 2.71 cpu 2.64
+15:15:31 done T34__H2__FIXED_AGG3__A2_bound_3000 VERIFIED wall 2.66 cpu 5.08
+15:15:33 done T34__H2__ADAPTIVE__A2_bound_3000 VERIFIED wall 2.76 cpu 2.70
+15:15:40 done T34__H2__FIXED_AGG3__A3_low_3000 VERIFIED wall 6.68 cpu 12.97
+15:15:47 done T34__H2__ADAPTIVE__A3_low_3000 VERIFIED wall 7.27 cpu 7.14
+15:15:56 done T34__H2__FIXED_BASE__A3_low_3000 VERIFIED wall 8.35 cpu 8.11
+15:16:04 done T34__H2__ADAPTIVE__A3_high_3000 VERIFIED wall 8.08 cpu 7.92
+15:16:12 done T34__H2__FIXED_BASE__A3_high_3000 VERIFIED wall 8.40 cpu 8.09
+15:16:19 done T34__H2__FIXED_AGG3__A3_high_3000 VERIFIED wall 7.27 cpu 14.44
+15:16:20 done T34__H3__FIXED_BASE__A2_bound_100 VERIFIED wall 0.38 cpu 0.31
+15:16:20 done T34__H3__FIXED_AGG3__A2_bound_100 RESOURCE_REFUSED wall 0.45 cpu 0.42
+15:16:21 done T34__H3__ADAPTIVE__A2_bound_100 VERIFIED wall 0.33 cpu 0.27
+15:16:21 done T34__H3__FIXED_AGG3__A3_low_100 RESOURCE_REFUSED wall 0.66 cpu 0.64
+15:16:22 done T34__H3__ADAPTIVE__A3_low_100 VERIFIED wall 0.53 cpu 0.44
+15:16:22 done T34__H3__FIXED_BASE__A3_low_100 VERIFIED wall 0.53 cpu 0.44
+15:16:23 done T34__H3__ADAPTIVE__A3_high_100 VERIFIED wall 0.53 cpu 0.47
+15:16:23 done T34__H3__FIXED_BASE__A3_high_100 VERIFIED wall 0.53 cpu 0.47
+15:16:24 done T34__H3__FIXED_AGG3__A3_high_100 RESOURCE_REFUSED wall 0.75 cpu 0.69
+15:16:25 done T34__H3__FIXED_BASE__A2_bound_1000 VERIFIED wall 1.04 cpu 0.97
+15:16:27 done T34__H3__FIXED_AGG3__A2_bound_1000 BUDGET_STARVATION wall 1.57 cpu 1.50
+15:16:28 done T34__H3__ADAPTIVE__A2_bound_1000 VERIFIED wall 1.09 cpu 0.97
+15:16:32 done T34__H3__FIXED_AGG3__A3_low_1000 BUDGET_STARVATION wall 3.80 cpu 3.70
+15:16:34 done T34__H3__ADAPTIVE__A3_low_1000 VERIFIED wall 2.71 cpu 2.62
+15:16:37 done T34__H3__FIXED_BASE__A3_low_1000 VERIFIED wall 2.61 cpu 2.55
+15:16:40 done T34__H3__ADAPTIVE__A3_high_1000 VERIFIED wall 2.71 cpu 2.67
+15:16:43 done T34__H3__FIXED_BASE__A3_high_1000 VERIFIED wall 2.93 cpu 2.72
+15:16:47 done T34__H3__FIXED_AGG3__A3_high_1000 RESOURCE_REFUSED wall 4.07 cpu 4.00
+15:16:49 done T34__H3__FIXED_BASE__A2_bound_3000 VERIFIED wall 2.76 cpu 2.69
+15:16:53 done T34__H3__FIXED_AGG3__A2_bound_3000 RESOURCE_REFUSED wall 4.03 cpu 3.94
+15:16:56 done T34__H3__ADAPTIVE__A2_bound_3000 VERIFIED wall 2.76 cpu 2.66
+15:17:07 done T34__H3__FIXED_AGG3__A3_low_3000 RESOURCE_REFUSED wall 10.80 cpu 10.56
+15:17:15 done T34__H3__ADAPTIVE__A3_low_3000 VERIFIED wall 7.62 cpu 7.47
+15:17:22 done T34__H3__FIXED_BASE__A3_low_3000 VERIFIED wall 7.43 cpu 7.34
+15:17:31 done T34__H3__ADAPTIVE__A3_high_3000 VERIFIED wall 8.44 cpu 8.33
+15:17:39 done T34__H3__FIXED_BASE__A3_high_3000 VERIFIED wall 8.34 cpu 8.27
+15:17:50 done T34__H3__FIXED_AGG3__A3_high_3000 RESOURCE_REFUSED wall 11.53 cpu 11.30
+15:17:51 done T34__H4__FIXED_BASE__A2_bound_100 RESOURCE_REFUSED wall 0.22 cpu 0.20
+15:17:51 done T34__H4__FIXED_AGG3__A2_bound_100 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:17:51 done T34__H4__ADAPTIVE__A2_bound_100 RESOURCE_REFUSED wall 0.22 cpu 0.20
+15:17:51 done T34__H4__FIXED_AGG3__A3_low_100 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:17:51 done T34__H4__ADAPTIVE__A3_low_100 RESOURCE_REFUSED wall 0.37 cpu 0.31
+15:17:52 done T34__H4__FIXED_BASE__A3_low_100 RESOURCE_REFUSED wall 0.33 cpu 0.31
+15:17:52 done T34__H4__ADAPTIVE__A3_high_100 RESOURCE_REFUSED wall 0.38 cpu 0.34
+15:17:52 done T34__H4__FIXED_BASE__A3_high_100 RESOURCE_REFUSED wall 0.32 cpu 0.31
+15:17:52 done T34__H4__FIXED_AGG3__A3_high_100 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:17:53 done T34__H4__FIXED_BASE__A2_bound_1000 RESOURCE_REFUSED wall 0.73 cpu 0.72
+15:17:53 done T34__H4__FIXED_AGG3__A2_bound_1000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:17:54 done T34__H4__ADAPTIVE__A2_bound_1000 RESOURCE_REFUSED wall 0.78 cpu 0.70
+15:17:54 done T34__H4__FIXED_AGG3__A3_low_1000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:17:56 done T34__H4__ADAPTIVE__A3_low_1000 RESOURCE_REFUSED wall 1.85 cpu 1.75
+15:17:57 done T34__H4__FIXED_BASE__A3_low_1000 RESOURCE_REFUSED wall 1.74 cpu 1.73
+15:17:59 done T34__H4__ADAPTIVE__A3_high_1000 RESOURCE_REFUSED wall 1.90 cpu 1.86
+15:18:01 done T34__H4__FIXED_BASE__A3_high_1000 RESOURCE_REFUSED wall 2.00 cpu 1.89
+15:18:01 done T34__H4__FIXED_AGG3__A3_high_1000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:18:03 done T34__H4__FIXED_BASE__A2_bound_3000 RESOURCE_REFUSED wall 1.85 cpu 1.83
+15:18:03 done T34__H4__FIXED_AGG3__A2_bound_3000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:18:05 done T34__H4__ADAPTIVE__A2_bound_3000 RESOURCE_REFUSED wall 1.90 cpu 1.88
+15:18:05 done T34__H4__FIXED_AGG3__A3_low_3000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:18:10 done T34__H4__ADAPTIVE__A3_low_3000 RESOURCE_REFUSED wall 5.05 cpu 4.95
+15:18:15 done T34__H4__FIXED_BASE__A3_low_3000 RESOURCE_REFUSED wall 5.24 cpu 4.94
+15:18:21 done T34__H4__ADAPTIVE__A3_high_3000 RESOURCE_REFUSED wall 5.34 cpu 5.30
+15:18:26 done T34__H4__FIXED_BASE__A3_high_3000 RESOURCE_REFUSED wall 5.34 cpu 5.30
+15:18:26 done T34__H4__FIXED_AGG3__A3_high_3000 RESOURCE_REFUSED wall 0.00 cpu 0.00
+15:18:26 phase T34 finished; campaign CPU 2112s
+15:18:26 phase T567 start
+15:18:29 load snapshot: system 5% busy [('System Idle Process', 0, 1031.9), ('python.exe', 36624, 42.7), ('claude.exe', 26340, 31.8), ('YouTube Music.exe', 8732, 24.3), ('YouTube Music.exe', 20292, 16.4), ('MsMpEng.exe', 5888, 14.4)]
+15:18:30 done T5__00__COND VERIFIED wall 1.05 cpu 2.88
+15:18:31 done T5__00__NOLEARN VERIFIED wall 1.06 cpu 2.92
+15:18:33 done T5__01__COND VERIFIED wall 2.62 cpu 7.30
+15:18:36 done T5__01__NOLEARN VERIFIED wall 2.50 cpu 7.08
+15:18:39 done T5__02__COND VERIFIED wall 2.64 cpu 7.34
+15:18:41 done T5__02__NOLEARN VERIFIED wall 2.48 cpu 7.20
+15:18:44 done T5__03__COND VERIFIED wall 2.63 cpu 7.78
+15:18:46 done T5__03__NOLEARN VERIFIED wall 2.63 cpu 7.67
+15:18:53 done T5__04__COND VERIFIED wall 6.72 cpu 19.69
+15:19:00 done T5__04__NOLEARN VERIFIED wall 6.65 cpu 19.25
+15:19:08 done T5__05__COND VERIFIED wall 8.21 cpu 23.72
+15:19:16 done T5__05__NOLEARN VERIFIED wall 8.31 cpu 23.55
+15:19:17 done T5__06__COND VERIFIED wall 1.23 cpu 3.28
+15:19:19 done T5__06__NOLEARN VERIFIED wall 1.16 cpu 3.25
+15:19:21 done T5__07__COND VERIFIED wall 2.44 cpu 7.05
+15:19:24 done T5__07__NOLEARN VERIFIED wall 3.20 cpu 8.72
+15:19:28 done T5__08__COND VERIFIED wall 3.19 cpu 9.00
+15:19:33 done T5__08__NOLEARN VERIFIED wall 5.24 cpu 9.44
+15:19:38 done T5__09__COND VERIFIED wall 4.73 cpu 9.55
+15:19:42 done T5__09__NOLEARN VERIFIED wall 4.72 cpu 10.09
+15:19:51 done T5__10__COND VERIFIED wall 8.66 cpu 22.50
+15:19:58 done T5__10__NOLEARN VERIFIED wall 6.56 cpu 19.34
+15:20:05 done T5__11__COND VERIFIED wall 7.87 cpu 22.66
+15:20:13 done T5__11__NOLEARN VERIFIED wall 7.50 cpu 22.25
+15:20:13 T5 done V={'A': 0.0}
+15:20:13 done T6__00__COND RESOURCE_REFUSED wall 0.54 cpu 1.50
+15:20:14 done T6__00__NOLEARN RESOURCE_REFUSED wall 0.64 cpu 1.62
+15:20:17 done T6__01__COND VERIFIED wall 2.93 cpu 7.95
+15:20:20 done T6__01__NOLEARN VERIFIED wall 2.79 cpu 7.56
+15:20:21 done T6__02__COND RESOURCE_REFUSED wall 1.41 cpu 4.03
+15:20:23 done T6__02__NOLEARN RESOURCE_REFUSED wall 1.40 cpu 4.06
+15:20:26 done T6__03__COND VERIFIED wall 2.92 cpu 2.81
+15:20:27 done T6__03__NOLEARN RESOURCE_REFUSED wall 1.39 cpu 4.03
+15:20:35 done T6__04__COND VERIFIED wall 7.86 cpu 22.05
+15:20:42 done T6__04__NOLEARN VERIFIED wall 7.27 cpu 20.53
+15:20:52 done T6__05__COND VERIFIED wall 9.59 cpu 8.95
+15:20:56 done T6__05__NOLEARN RESOURCE_REFUSED wall 3.92 cpu 11.31
+15:20:57 done T6__06__COND VERIFIED wall 1.30 cpu 1.19
+15:20:58 done T6__06__NOLEARN RESOURCE_REFUSED wall 0.59 cpu 1.59
+15:21:00 done T6__07__COND VERIFIED wall 2.53 cpu 7.36
+15:21:03 done T6__07__NOLEARN VERIFIED wall 2.74 cpu 7.25
+15:21:06 done T6__08__COND VERIFIED wall 2.72 cpu 2.58
+15:21:07 done T6__08__NOLEARN RESOURCE_REFUSED wall 1.41 cpu 4.05
+15:21:10 done T6__09__COND VERIFIED wall 2.76 cpu 2.61
+15:21:11 done T6__09__NOLEARN RESOURCE_REFUSED wall 1.41 cpu 4.00
+15:21:18 done T6__10__COND VERIFIED wall 6.88 cpu 20.17
+15:21:25 done T6__10__NOLEARN VERIFIED wall 6.85 cpu 19.98
+15:21:33 done T6__11__COND VERIFIED wall 8.56 cpu 8.27
+15:21:37 done T6__11__NOLEARN RESOURCE_REFUSED wall 3.87 cpu 11.36
+15:21:39 done T6__12__COND VERIFIED wall 1.33 cpu 1.12
+15:21:39 done T6__12__NOLEARN RESOURCE_REFUSED wall 0.57 cpu 1.56
+15:21:42 done T6__13__COND VERIFIED wall 2.41 cpu 7.00
+15:21:44 done T6__13__NOLEARN VERIFIED wall 2.46 cpu 7.23
+15:21:47 done T6__14__COND VERIFIED wall 2.76 cpu 2.66
+15:21:48 done T6__14__NOLEARN RESOURCE_REFUSED wall 1.40 cpu 4.05
+15:21:51 done T6__15__COND VERIFIED wall 2.76 cpu 2.72
+15:21:52 done T6__15__NOLEARN RESOURCE_REFUSED wall 1.39 cpu 3.97
+15:22:00 done T6__16__COND VERIFIED wall 7.68 cpu 7.56
+15:22:07 done T6__16__NOLEARN VERIFIED wall 6.71 cpu 19.78
+15:22:16 done T6__17__COND VERIFIED wall 8.87 cpu 8.64
+15:22:32 done T6__17__NOLEARN VERIFIED wall 16.55 cpu 26.56
+15:22:35 done T6__18__COND VERIFIED wall 2.48 cpu 4.30
+15:22:37 done T6__18__NOLEARN VERIFIED wall 2.41 cpu 4.17
+15:22:40 done T6__19__COND VERIFIED wall 2.90 cpu 7.86
+15:22:43 done T6__19__NOLEARN VERIFIED wall 2.71 cpu 7.69
+15:22:43 T6 done V={'A': 0.23535243849005705}
+15:22:46 done T7A__00__COND VERIFIED wall 3.16 cpu 8.31
+15:22:49 done T7A__00__NOLEARN VERIFIED wall 3.03 cpu 8.16
+15:22:53 done T7A__01__COND VERIFIED wall 3.92 cpu 10.27
+15:22:57 done T7A__01__NOLEARN VERIFIED wall 3.54 cpu 9.72
+15:23:05 done T7A__02__COND VERIFIED wall 8.11 cpu 22.31
+15:23:12 done T7A__02__NOLEARN VERIFIED wall 7.61 cpu 21.50
+15:23:21 done T7A__03__COND VERIFIED wall 8.79 cpu 24.33
+15:23:29 done T7A__03__NOLEARN VERIFIED wall 8.31 cpu 24.14
+15:23:31 done T7A__04__COND VERIFIED wall 1.21 cpu 3.34
+15:23:32 done T7A__04__NOLEARN VERIFIED wall 1.11 cpu 3.14
+15:23:34 done T7A__05__COND VERIFIED wall 2.66 cpu 7.69
+15:23:37 done T7A__05__NOLEARN VERIFIED wall 2.69 cpu 7.81
+15:23:40 done T7A__06__COND VERIFIED wall 3.03 cpu 8.45
+15:23:43 done T7A__06__NOLEARN VERIFIED wall 2.70 cpu 7.83
+15:23:46 done T7A__07__COND VERIFIED wall 3.10 cpu 8.47
+15:23:50 done T7A__07__NOLEARN VERIFIED wall 3.46 cpu 9.28
+15:23:57 done T7A__08__COND VERIFIED wall 7.94 cpu 22.52
+15:24:05 done T7A__08__NOLEARN VERIFIED wall 7.70 cpu 21.88
+15:24:14 done T7A__09__COND VERIFIED wall 8.65 cpu 24.64
+15:24:23 done T7A__09__NOLEARN VERIFIED wall 8.81 cpu 25.30
+15:24:24 done T7A__10__COND VERIFIED wall 1.18 cpu 3.33
+15:24:25 done T7A__10__NOLEARN VERIFIED wall 1.16 cpu 3.28
+15:24:28 done T7A__11__COND VERIFIED wall 2.59 cpu 7.55
+15:24:30 done T7A__11__NOLEARN VERIFIED wall 2.70 cpu 7.70
+15:24:30 T7A done V={'A': 0.0032575806945965673}
+15:24:32 done T7B__00__COND RESOURCE_REFUSED wall 1.53 cpu 4.02
+15:24:34 done T7B__00__NOLEARN RESOURCE_REFUSED wall 1.65 cpu 3.98
+15:24:37 done T7B__01__COND VERIFIED wall 3.60 cpu 9.17
+15:24:40 done T7B__01__NOLEARN VERIFIED wall 3.30 cpu 9.02
+15:24:44 done T7B__02__COND RESOURCE_REFUSED wall 3.79 cpu 10.64
+15:24:48 done T7B__02__NOLEARN RESOURCE_REFUSED wall 4.19 cpu 10.62
+15:24:59 done T7B__03__COND VERIFIED wall 10.58 cpu 28.55
+15:25:09 done T7B__03__NOLEARN VERIFIED wall 9.98 cpu 27.62
+15:25:10 done T7B__04__COND VERIFIED wall 1.15 cpu 1.06
+15:25:11 done T7B__04__NOLEARN RESOURCE_REFUSED wall 0.63 cpu 1.56
+15:25:13 done T7B__05__COND VERIFIED wall 2.59 cpu 7.45
+15:25:16 done T7B__05__NOLEARN VERIFIED wall 2.59 cpu 7.50
+15:25:19 done T7B__06__COND VERIFIED wall 2.71 cpu 2.55
+15:25:20 done T7B__06__NOLEARN RESOURCE_REFUSED wall 1.40 cpu 4.05
+15:25:23 done T7B__07__COND VERIFIED wall 2.69 cpu 7.70
+15:25:26 done T7B__07__NOLEARN VERIFIED wall 2.76 cpu 7.80
+15:25:33 done T7B__08__COND VERIFIED wall 7.68 cpu 7.48
+15:25:37 done T7B__08__NOLEARN RESOURCE_REFUSED wall 3.60 cpu 10.53
+15:25:45 done T7B__09__COND VERIFIED wall 7.97 cpu 23.05
+15:25:53 done T7B__09__NOLEARN VERIFIED wall 7.84 cpu 22.91
+15:25:54 done T7B__10__COND VERIFIED wall 1.19 cpu 1.05
+15:25:54 done T7B__10__NOLEARN RESOURCE_REFUSED wall 0.58 cpu 1.56
+15:25:57 done T7B__11__COND VERIFIED wall 2.53 cpu 7.36
+15:26:00 done T7B__11__NOLEARN VERIFIED wall 2.90 cpu 8.09
+15:26:03 done T7B__12__COND VERIFIED wall 3.13 cpu 2.97
+15:26:05 done T7B__12__NOLEARN RESOURCE_REFUSED wall 1.46 cpu 4.09
+15:26:08 done T7B__13__COND VERIFIED wall 3.44 cpu 9.66
+15:26:11 done T7B__13__NOLEARN VERIFIED wall 2.94 cpu 8.36
+15:26:19 done T7B__14__COND VERIFIED wall 7.94 cpu 7.73
+15:26:23 done T7B__14__NOLEARN RESOURCE_REFUSED wall 3.66 cpu 10.64
+15:26:31 done T7B__15__COND VERIFIED wall 8.15 cpu 23.42
+15:26:38 done T7B__15__NOLEARN VERIFIED wall 7.35 cpu 21.72
+15:26:38 T7B done V={'A': 0.00018779304445790986, 'B': 0.94235199}
+15:26:38 phase T567 finished; campaign CPU 3314s
+15:26:38 phase T8 start
+15:26:41 load snapshot: system 30% busy [('System Idle Process', 0, 991.5), ('python.exe', 36624, 48.4), ('MsMpEng.exe', 5888, 19.0), ('ChatGPT.exe', 6952, 16.7), ('chrome.exe', 25832, 12.2), ('chrome.exe', 34680, 10.3)]
+15:26:42 done T8__BASE__A2_bound_100__r0 VERIFIED wall 0.38 cpu 0.28
+15:26:42 done T8__CONS__A2_bound_100__r0 VERIFIED wall 0.49 cpu 0.33
+15:26:43 done T8__AGG1__A2_bound_100__r0 VERIFIED wall 0.89 cpu 0.59
+15:26:44 done T8__AGG3__A2_bound_100__r0 VERIFIED wall 0.50 cpu 1.00
+15:26:45 done T8__CONS__A3_low_100__r0 VERIFIED wall 0.85 cpu 0.47
+15:26:45 done T8__AGG1__A3_low_100__r0 VERIFIED wall 0.85 cpu 0.64
+15:26:46 done T8__AGG3__A3_low_100__r0 VERIFIED wall 0.59 cpu 1.36
+15:26:47 done T8__BASE__A3_low_100__r0 VERIFIED wall 0.65 cpu 0.42
+15:26:47 done T8__AGG1__A3_high_100__r0 VERIFIED wall 0.85 cpu 0.73
+15:26:48 done T8__AGG3__A3_high_100__r0 VERIFIED wall 0.54 cpu 1.48
+15:26:49 done T8__BASE__A3_high_100__r0 VERIFIED wall 0.59 cpu 0.52
+15:26:49 done T8__CONS__A3_high_100__r0 VERIFIED wall 0.70 cpu 0.61
+15:26:51 done T8__AGG3__A2_bound_1000__r0 VERIFIED wall 1.26 cpu 3.48
+15:26:52 done T8__BASE__A2_bound_1000__r0 VERIFIED wall 1.26 cpu 1.20
+15:26:53 done T8__CONS__A2_bound_1000__r0 VERIFIED wall 1.25 cpu 1.14
+15:26:55 done T8__AGG1__A2_bound_1000__r0 VERIFIED wall 2.08 cpu 1.80
+15:26:58 done T8__BASE__A3_low_1000__r0 VERIFIED wall 2.56 cpu 2.47
+15:27:01 done T8__CONS__A3_low_1000__r0 VERIFIED wall 2.77 cpu 2.61
+15:27:06 done T8__AGG1__A3_low_1000__r0 VERIFIED wall 5.02 cpu 4.86
+15:27:08 done T8__AGG3__A3_low_1000__r0 VERIFIED wall 2.53 cpu 7.34
+15:27:11 done T8__CONS__A3_high_1000__r0 VERIFIED wall 3.23 cpu 3.02
+15:27:17 done T8__AGG1__A3_high_1000__r0 VERIFIED wall 5.22 cpu 5.06
+15:27:19 done T8__AGG3__A3_high_1000__r0 VERIFIED wall 2.64 cpu 7.69
+15:27:22 done T8__BASE__A3_high_1000__r0 VERIFIED wall 2.88 cpu 2.80
+15:27:27 done T8__AGG1__A2_bound_3000__r0 VERIFIED wall 5.06 cpu 4.94
+15:27:30 done T8__AGG3__A2_bound_3000__r0 VERIFIED wall 2.89 cpu 8.31
+15:27:33 done T8__BASE__A2_bound_3000__r0 VERIFIED wall 2.98 cpu 2.84
+15:27:36 done T8__CONS__A2_bound_3000__r0 VERIFIED wall 2.93 cpu 2.78
+15:27:43 done T8__AGG3__A3_low_3000__r0 VERIFIED wall 6.83 cpu 19.89
+15:27:50 done T8__BASE__A3_low_3000__r0 VERIFIED wall 7.38 cpu 7.28
+15:27:58 done T8__CONS__A3_low_3000__r0 VERIFIED wall 7.99 cpu 7.72
+15:28:14 done T8__AGG1__A3_low_3000__r0 VERIFIED wall 15.75 cpu 14.64
+15:28:25 done T8__BASE__A3_high_3000__r0 VERIFIED wall 11.40 cpu 9.77
+15:28:36 done T8__CONS__A3_high_3000__r0 VERIFIED wall 10.26 cpu 9.27
+15:28:46 done T8__AGG1__A3_high_3000__r0 VERIFIED wall 10.25 cpu 9.31
+15:28:55 done T8__AGG3__A3_high_3000__r0 VERIFIED wall 9.61 cpu 27.11
+15:28:56 done T8__CONS__A2_bound_100__r1 VERIFIED wall 0.48 cpu 0.39
+15:28:56 done T8__AGG1__A2_bound_100__r1 VERIFIED wall 0.49 cpu 0.41
+15:28:57 done T8__AGG3__A2_bound_100__r1 VERIFIED wall 0.50 cpu 1.17
+15:28:57 done T8__BASE__A2_bound_100__r1 VERIFIED wall 0.44 cpu 0.34
+15:28:58 done T8__AGG1__A3_low_100__r1 VERIFIED wall 0.79 cpu 0.73
+15:28:59 done T8__AGG3__A3_low_100__r1 VERIFIED wall 0.59 cpu 1.52
+15:28:59 done T8__BASE__A3_low_100__r1 VERIFIED wall 0.59 cpu 0.50
+15:29:00 done T8__CONS__A3_low_100__r1 VERIFIED wall 0.58 cpu 0.50
+15:29:01 done T8__AGG3__A3_high_100__r1 VERIFIED wall 0.60 cpu 1.56
+15:29:01 done T8__BASE__A3_high_100__r1 VERIFIED wall 0.58 cpu 0.50
+15:29:02 done T8__CONS__A3_high_100__r1 VERIFIED wall 0.59 cpu 0.48
+15:29:03 done T8__AGG1__A3_high_100__r1 VERIFIED wall 0.75 cpu 0.67
+15:29:04 done T8__BASE__A2_bound_1000__r1 VERIFIED wall 1.19 cpu 1.06
+15:29:05 done T8__CONS__A2_bound_1000__r1 VERIFIED wall 1.19 cpu 1.11
+15:29:07 done T8__AGG1__A2_bound_1000__r1 VERIFIED wall 1.97 cpu 1.83
+15:29:08 done T8__AGG3__A2_bound_1000__r1 VERIFIED wall 1.21 cpu 3.36
+15:29:11 done T8__CONS__A3_low_1000__r1 VERIFIED wall 3.21 cpu 3.00
+15:29:16 done T8__AGG1__A3_low_1000__r1 VERIFIED wall 5.02 cpu 4.83
+15:29:19 done T8__AGG3__A3_low_1000__r1 VERIFIED wall 2.65 cpu 7.73
+15:29:22 done T8__BASE__A3_low_1000__r1 VERIFIED wall 2.77 cpu 2.73
+15:29:27 done T8__AGG1__A3_high_1000__r1 VERIFIED wall 5.22 cpu 5.09
+15:29:30 done T8__AGG3__A3_high_1000__r1 VERIFIED wall 2.70 cpu 7.84
+15:29:33 done T8__BASE__A3_high_1000__r1 VERIFIED wall 2.93 cpu 2.81
+15:29:36 done T8__CONS__A3_high_1000__r1 VERIFIED wall 3.18 cpu 2.95
+15:29:39 done T8__AGG3__A2_bound_3000__r1 VERIFIED wall 2.98 cpu 8.38
+15:29:42 done T8__BASE__A2_bound_3000__r1 VERIFIED wall 2.71 cpu 2.61
+15:29:44 done T8__CONS__A2_bound_3000__r1 VERIFIED wall 2.87 cpu 2.75
+15:29:50 done T8__AGG1__A2_bound_3000__r1 VERIFIED wall 5.73 cpu 5.41
+15:29:58 done T8__BASE__A3_low_3000__r1 VERIFIED wall 7.79 cpu 7.62
+15:30:07 done T8__CONS__A3_low_3000__r1 VERIFIED wall 8.58 cpu 8.31
+15:30:22 done T8__AGG1__A3_low_3000__r1 VERIFIED wall 15.15 cpu 14.47
+15:30:29 done T8__AGG3__A3_low_3000__r1 VERIFIED wall 7.62 cpu 21.86
+15:30:38 done T8__CONS__A3_high_3000__r1 VERIFIED wall 9.13 cpu 8.80
+15:30:46 done T8__AGG1__A3_high_3000__r1 VERIFIED wall 8.01 cpu 7.80
+15:30:55 done T8__AGG3__A3_high_3000__r1 VERIFIED wall 8.54 cpu 24.42
+15:31:07 done T8__BASE__A3_high_3000__r1 VERIFIED wall 12.33 cpu 9.72
+15:31:08 done T8__AGG1__A2_bound_100__r2 VERIFIED wall 0.44 cpu 0.31
+15:31:08 done T8__AGG3__A2_bound_100__r2 VERIFIED wall 0.39 cpu 1.00
+15:31:09 done T8__BASE__A2_bound_100__r2 VERIFIED wall 0.43 cpu 0.38
+15:31:09 done T8__CONS__A2_bound_100__r2 VERIFIED wall 0.54 cpu 0.34
+15:31:10 done T8__AGG3__A3_low_100__r2 VERIFIED wall 0.53 cpu 1.39
+15:31:10 done T8__BASE__A3_low_100__r2 VERIFIED wall 0.58 cpu 0.56
+15:31:11 done T8__CONS__A3_low_100__r2 VERIFIED wall 0.69 cpu 0.56
+15:31:12 done T8__AGG1__A3_low_100__r2 VERIFIED wall 0.95 cpu 0.81
+15:31:13 done T8__BASE__A3_high_100__r2 VERIFIED wall 0.69 cpu 0.59
+15:31:13 done T8__CONS__A3_high_100__r2 VERIFIED wall 0.54 cpu 0.44
+15:31:14 done T8__AGG1__A3_high_100__r2 VERIFIED wall 0.74 cpu 0.69
+15:31:15 done T8__AGG3__A3_high_100__r2 VERIFIED wall 0.59 cpu 1.53
+15:31:16 done T8__CONS__A2_bound_1000__r2 VERIFIED wall 1.25 cpu 1.17
+15:31:18 done T8__AGG1__A2_bound_1000__r2 VERIFIED wall 1.97 cpu 1.86
+15:31:19 done T8__AGG3__A2_bound_1000__r2 VERIFIED wall 1.10 cpu 3.17
+15:31:20 done T8__BASE__A2_bound_1000__r2 VERIFIED wall 1.14 cpu 1.05
+15:31:25 done T8__AGG1__A3_low_1000__r2 VERIFIED wall 4.90 cpu 4.72
+15:31:27 done T8__AGG3__A3_low_1000__r2 VERIFIED wall 2.36 cpu 6.92
+15:31:30 done T8__BASE__A3_low_1000__r2 VERIFIED wall 2.71 cpu 2.58
+15:31:33 done T8__CONS__A3_low_1000__r2 VERIFIED wall 2.61 cpu 2.52
+15:31:35 done T8__AGG3__A3_high_1000__r2 VERIFIED wall 2.47 cpu 7.20
+15:31:38 done T8__BASE__A3_high_1000__r2 VERIFIED wall 2.66 cpu 2.50
+15:31:41 done T8__CONS__A3_high_1000__r2 VERIFIED wall 2.76 cpu 2.67
+15:31:45 done T8__AGG1__A3_high_1000__r2 VERIFIED wall 4.74 cpu 4.67
+15:31:48 done T8__BASE__A2_bound_3000__r2 VERIFIED wall 2.71 cpu 2.69
+15:31:51 done T8__CONS__A2_bound_3000__r2 VERIFIED wall 2.76 cpu 2.66
+15:31:55 done T8__AGG1__A2_bound_3000__r2 VERIFIED wall 4.74 cpu 4.69
+15:31:58 done T8__AGG3__A2_bound_3000__r2 VERIFIED wall 2.58 cpu 7.38
+15:32:05 done T8__CONS__A3_low_3000__r2 VERIFIED wall 7.37 cpu 7.23
+15:32:19 done T8__AGG1__A3_low_3000__r2 VERIFIED wall 13.88 cpu 13.73
+15:32:27 done T8__AGG3__A3_low_3000__r2 VERIFIED wall 8.10 cpu 21.92
+15:32:36 done T8__BASE__A3_low_3000__r2 VERIFIED wall 8.24 cpu 7.94
+15:32:44 done T8__AGG1__A3_high_3000__r2 VERIFIED wall 7.91 cpu 7.67
+15:32:53 done T8__AGG3__A3_high_3000__r2 VERIFIED wall 9.72 cpu 26.45
+15:33:02 done T8__BASE__A3_high_3000__r2 VERIFIED wall 8.62 cpu 8.47
+15:33:11 done T8__CONS__A3_high_3000__r2 VERIFIED wall 9.00 cpu 8.64
+15:33:11 phase T8 finished; campaign CPU 3834s
+15:33:11 phase T9 start
+15:33:14 load snapshot: system 29% busy [('System Idle Process', 0, 860.1), ('ChatGPT.exe', 28548, 52.8), ('python.exe', 36624, 48.4), ('dwm.exe', 1808, 41.9), ('claude.exe', 26340, 30.4), ('ChatGPT.exe', 8760, 20.8)]
+15:33:15 done T9__float__A2_bound_100  wall 0.30 cpu 0.11
+15:33:15 done T9__verifier_BASE__A2_bound_100 VERIFIED wall 0.39 cpu 0.33
+15:33:15 done T9__typeA_E2__A2_bound_100 VERIFIED wall 0.39 cpu 0.30
+15:33:15 done T9__decision__A2_bound_100  wall 0.00 cpu 0.00
+15:33:16 done T9__float__A3_low_100  wall 0.27 cpu 0.14
+15:33:16 done T9__verifier_BASE__A3_low_100 VERIFIED wall 0.54 cpu 0.45
+15:33:17 done T9__typeA_E2__A3_low_100 VERIFIED wall 0.59 cpu 0.48
+15:33:17 done T9__decision__A3_low_100  wall 0.00 cpu 0.00
+15:33:17 done T9__float__A3_high_100  wall 0.36 cpu 0.12
+15:33:18 done T9__verifier_BASE__A3_high_100 VERIFIED wall 0.69 cpu 0.58
+15:33:19 done T9__typeA_E2__A3_high_100 VERIFIED wall 0.64 cpu 0.56
+15:33:19 done T9__decision__A3_high_100  wall 0.00 cpu 0.00
+15:33:19 done T9__float__A2_bound_1000  wall 0.31 cpu 0.16
+15:33:20 done T9__verifier_BASE__A2_bound_1000 VERIFIED wall 1.36 cpu 1.20
+15:33:21 done T9__typeA_E2__A2_bound_1000 VERIFIED wall 1.10 cpu 0.94
+15:33:21 done T9__decision__A2_bound_1000  wall 0.00 cpu 0.00
+15:33:22 done T9__float__A3_low_1000  wall 0.31 cpu 0.17
+15:33:24 done T9__verifier_BASE__A3_low_1000 VERIFIED wall 2.74 cpu 2.64
+15:33:27 done T9__typeA_E2__A3_low_1000 VERIFIED wall 2.67 cpu 2.56
+15:33:27 done T9__decision__A3_low_1000  wall 0.00 cpu 0.00
+15:33:27 done T9__float__A3_high_1000  wall 0.34 cpu 0.17
+15:33:30 done T9__verifier_BASE__A3_high_1000 VERIFIED wall 3.04 cpu 2.83
+15:33:33 done T9__typeA_E2__A3_high_1000 VERIFIED wall 2.67 cpu 2.58
+15:33:33 done T9__decision__A3_high_1000  wall 0.00 cpu 0.00
+15:33:33 done T9__float__A2_bound_3000  wall 0.33 cpu 0.19
+15:33:36 done T9__verifier_BASE__A2_bound_3000 VERIFIED wall 3.03 cpu 2.94
+15:33:39 done T9__typeA_E2__A2_bound_3000 VERIFIED wall 2.83 cpu 2.72
+15:33:39 done T9__decision__A2_bound_3000  wall 0.00 cpu 0.00
+15:33:40 done T9__float__A3_low_3000  wall 0.58 cpu 0.31
+15:33:48 done T9__verifier_BASE__A3_low_3000 VERIFIED wall 7.70 cpu 7.36
+15:33:54 done T9__typeA_E2__A3_low_3000 VERIFIED wall 6.76 cpu 6.56
+15:33:54 done T9__decision__A3_low_3000  wall 0.00 cpu 0.00
+15:33:55 done T9__float__A3_high_3000  wall 0.49 cpu 0.30
+15:34:05 done T9__verifier_BASE__A3_high_3000 VERIFIED wall 9.67 cpu 8.98
+15:34:13 done T9__typeA_E2__A3_high_3000 VERIFIED wall 8.73 cpu 8.17
+15:34:13 done T9__decision__A3_high_3000  wall 0.00 cpu 0.00
+15:34:13 phase T9 finished; campaign CPU 3888s
+15:34:13 phase T10 start
+15:34:17 load snapshot: system 18% busy [('System Idle Process', 0, 850.3), ('ChatGPT.exe', 28548, 61.7), ('dwm.exe', 1808, 60.7), ('python.exe', 36624, 50.4), ('ChatGPT.exe', 6952, 29.3), ('ChatGPT.exe', 8760, 25.0)]
+15:34:17 done T10__H1__AGG3__A2_bound_100__r0 VERIFIED wall 0.44 cpu 0.94
+15:34:18 done T10__H1__CONS__A2_bound_100__r0 VERIFIED wall 0.49 cpu 0.39
+15:34:19 done T10__H1__CONS__A3_low_100__r0 VERIFIED wall 0.65 cpu 0.53
+15:34:19 done T10__H1__AGG3__A3_low_100__r0 VERIFIED wall 0.59 cpu 1.52
+15:34:20 done T10__H1__AGG3__A3_high_100__r0 VERIFIED wall 0.60 cpu 1.55
+15:34:20 done T10__H1__CONS__A3_high_100__r0 VERIFIED wall 0.59 cpu 0.52
+15:34:22 done T10__H1__CONS__A2_bound_1000__r0 VERIFIED wall 1.25 cpu 1.08
+15:34:23 done T10__H1__AGG3__A2_bound_1000__r0 VERIFIED wall 1.21 cpu 3.39
+15:34:26 done T10__H1__AGG3__A3_low_1000__r0 VERIFIED wall 2.70 cpu 7.62
+15:34:28 done T10__H1__CONS__A3_low_1000__r0 VERIFIED wall 2.82 cpu 2.81
+15:34:31 done T10__H1__CONS__A3_high_1000__r0 VERIFIED wall 2.97 cpu 2.84
+15:34:34 done T10__H1__AGG3__A3_high_1000__r0 VERIFIED wall 2.75 cpu 7.98
+15:34:37 done T10__H1__AGG3__A2_bound_3000__r0 VERIFIED wall 2.84 cpu 8.31
+15:34:40 done T10__H1__CONS__A2_bound_3000__r0 VERIFIED wall 3.26 cpu 2.94
+15:34:50 done T10__H1__CONS__A3_low_3000__r0 VERIFIED wall 9.97 cpu 9.02
+15:34:57 done T10__H1__AGG3__A3_low_3000__r0 VERIFIED wall 7.23 cpu 21.22
+15:35:06 done T10__H1__AGG3__A3_high_3000__r0 VERIFIED wall 8.89 cpu 24.53
+15:35:15 done T10__H1__CONS__A3_high_3000__r0 VERIFIED wall 8.25 cpu 8.05
+15:35:15 done T10__H2__AGG3__A2_bound_100__r0 VERIFIED wall 0.36 cpu 0.59
+15:35:15 done T10__H2__CONS__A2_bound_100__r0 VERIFIED wall 0.33 cpu 0.28
+15:35:16 done T10__H2__CONS__A3_low_100__r0 VERIFIED wall 0.53 cpu 0.45
+15:35:16 done T10__H2__AGG3__A3_low_100__r0 VERIFIED wall 0.52 cpu 0.91
+15:35:17 done T10__H2__AGG3__A3_high_100__r0 VERIFIED wall 0.57 cpu 0.92
+15:35:17 done T10__H2__CONS__A3_high_100__r0 VERIFIED wall 0.53 cpu 0.45
+15:35:19 done T10__H2__CONS__A2_bound_1000__r0 VERIFIED wall 1.14 cpu 1.08
+15:35:20 done T10__H2__AGG3__A2_bound_1000__r0 VERIFIED wall 1.10 cpu 1.92
+15:35:22 done T10__H2__AGG3__A3_low_1000__r0 VERIFIED wall 2.71 cpu 4.89
+15:35:25 done T10__H2__CONS__A3_low_1000__r0 VERIFIED wall 2.98 cpu 2.91
+15:35:28 done T10__H2__CONS__A3_high_1000__r0 VERIFIED wall 2.98 cpu 2.80
+15:35:31 done T10__H2__AGG3__A3_high_1000__r0 VERIFIED wall 2.64 cpu 5.23
+15:35:34 done T10__H2__AGG3__A2_bound_3000__r0 VERIFIED wall 2.91 cpu 5.62
+15:35:37 done T10__H2__CONS__A2_bound_3000__r0 VERIFIED wall 3.29 cpu 3.09
+15:35:46 done T10__H2__CONS__A3_low_3000__r0 VERIFIED wall 8.31 cpu 8.02
+15:35:52 done T10__H2__AGG3__A3_low_3000__r0 VERIFIED wall 6.61 cpu 12.97
+15:36:00 done T10__H2__AGG3__A3_high_3000__r0 VERIFIED wall 7.29 cpu 14.42
+15:36:08 done T10__H2__CONS__A3_high_3000__r0 VERIFIED wall 8.35 cpu 8.09
+15:36:08 done T10__H3__AGG3__A2_bound_100__r0 RESOURCE_REFUSED wall 0.47 cpu 0.47
+15:36:09 done T10__H3__CONS__A2_bound_100__r0 VERIFIED wall 0.44 cpu 0.33
+15:36:09 done T10__H3__CONS__A3_low_100__r0 VERIFIED wall 0.54 cpu 0.47
+15:36:10 done T10__H3__AGG3__A3_low_100__r0 RESOURCE_REFUSED wall 0.71 cpu 0.66
+15:36:11 done T10__H3__AGG3__A3_high_100__r0 RESOURCE_REFUSED wall 0.81 cpu 0.70
+15:36:11 done T10__H3__CONS__A3_high_100__r0 VERIFIED wall 0.54 cpu 0.47
+15:36:13 done T10__H3__CONS__A2_bound_1000__r0 VERIFIED wall 1.15 cpu 1.06
+15:36:14 done T10__H3__AGG3__A2_bound_1000__r0 BUDGET_STARVATION wall 1.55 cpu 1.50
+15:36:18 done T10__H3__AGG3__A3_low_1000__r0 RESOURCE_REFUSED wall 3.75 cpu 3.70
+15:36:21 done T10__H3__CONS__A3_low_1000__r0 VERIFIED wall 2.72 cpu 2.59
+15:36:23 done T10__H3__CONS__A3_high_1000__r0 VERIFIED wall 2.71 cpu 2.61
+15:36:27 done T10__H3__AGG3__A3_high_1000__r0 RESOURCE_REFUSED wall 4.05 cpu 3.97
+15:36:31 done T10__H3__AGG3__A2_bound_3000__r0 RESOURCE_REFUSED wall 4.07 cpu 3.92
+15:36:35 done T10__H3__CONS__A2_bound_3000__r0 VERIFIED wall 3.08 cpu 2.84
+15:36:43 done T10__H3__CONS__A3_low_3000__r0 VERIFIED wall 8.05 cpu 7.84
+15:36:54 done T10__H3__AGG3__A3_low_3000__r0 RESOURCE_REFUSED wall 11.07 cpu 10.56
+15:37:05 done T10__H3__AGG3__A3_high_3000__r0 RESOURCE_REFUSED wall 11.60 cpu 11.30
+15:37:15 done T10__H3__CONS__A3_high_3000__r0 VERIFIED wall 9.55 cpu 9.11
+15:37:15 done T10__H1__CONS__A2_bound_100__r1 VERIFIED wall 0.38 cpu 0.30
+15:37:16 done T10__H1__AGG3__A2_bound_100__r1 VERIFIED wall 0.39 cpu 1.02
+15:37:16 done T10__H1__AGG3__A3_low_100__r1 VERIFIED wall 0.55 cpu 1.42
+15:37:17 done T10__H1__CONS__A3_low_100__r1 VERIFIED wall 0.53 cpu 0.50
+15:37:17 done T10__H1__CONS__A3_high_100__r1 VERIFIED wall 0.54 cpu 0.48
+15:37:18 done T10__H1__AGG3__A3_high_100__r1 VERIFIED wall 0.54 cpu 1.42
+15:37:19 done T10__H1__AGG3__A2_bound_1000__r1 VERIFIED wall 1.10 cpu 3.11
+15:37:20 done T10__H1__CONS__A2_bound_1000__r1 VERIFIED wall 1.14 cpu 1.06
+15:37:23 done T10__H1__CONS__A3_low_1000__r1 VERIFIED wall 2.87 cpu 2.78
+15:37:25 done T10__H1__AGG3__A3_low_1000__r1 VERIFIED wall 2.56 cpu 7.36
+15:37:29 done T10__H1__AGG3__A3_high_1000__r1 VERIFIED wall 3.23 cpu 8.73
+15:37:32 done T10__H1__CONS__A3_high_1000__r1 VERIFIED wall 2.93 cpu 2.80
+15:37:35 done T10__H1__CONS__A2_bound_3000__r1 VERIFIED wall 3.24 cpu 3.05
+15:37:38 done T10__H1__AGG3__A2_bound_3000__r1 VERIFIED wall 2.91 cpu 8.25
+15:37:45 done T10__H1__AGG3__A3_low_3000__r1 VERIFIED wall 6.88 cpu 20.03
+15:37:53 done T10__H1__CONS__A3_low_3000__r1 VERIFIED wall 8.45 cpu 7.91
+15:38:02 done T10__H1__CONS__A3_high_3000__r1 VERIFIED wall 8.92 cpu 8.73
+15:38:10 done T10__H1__AGG3__A3_high_3000__r1 VERIFIED wall 8.00 cpu 23.23
+15:38:10 done T10__H2__CONS__A2_bound_100__r1 VERIFIED wall 0.38 cpu 0.34
+15:38:11 done T10__H2__AGG3__A2_bound_100__r1 VERIFIED wall 0.42 cpu 0.73
+15:38:12 done T10__H2__AGG3__A3_low_100__r1 VERIFIED wall 0.57 cpu 1.03
+15:38:12 done T10__H2__CONS__A3_low_100__r1 VERIFIED wall 0.64 cpu 0.47
+15:38:13 done T10__H2__CONS__A3_high_100__r1 VERIFIED wall 0.59 cpu 0.48
+15:38:13 done T10__H2__AGG3__A3_high_100__r1 VERIFIED wall 0.58 cpu 1.00
+15:38:14 done T10__H2__AGG3__A2_bound_1000__r1 VERIFIED wall 1.09 cpu 2.08
+15:38:16 done T10__H2__CONS__A2_bound_1000__r1 VERIFIED wall 1.20 cpu 1.16
+15:38:19 done T10__H2__CONS__A3_low_1000__r1 VERIFIED wall 3.17 cpu 2.92
+15:38:21 done T10__H2__AGG3__A3_low_1000__r1 VERIFIED wall 2.49 cpu 4.75
+15:38:24 done T10__H2__AGG3__A3_high_1000__r1 VERIFIED wall 2.70 cpu 5.14
+15:38:27 done T10__H2__CONS__A3_high_1000__r1 VERIFIED wall 2.71 cpu 2.55
+15:38:30 done T10__H2__CONS__A2_bound_3000__r1 VERIFIED wall 2.77 cpu 2.67
+15:38:32 done T10__H2__AGG3__A2_bound_3000__r1 VERIFIED wall 2.62 cpu 5.05
+15:38:39 done T10__H2__AGG3__A3_low_3000__r1 VERIFIED wall 6.91 cpu 13.30
+15:38:47 done T10__H2__CONS__A3_low_3000__r1 VERIFIED wall 8.16 cpu 8.02
+15:38:58 done T10__H2__CONS__A3_high_3000__r1 VERIFIED wall 10.60 cpu 9.34
+15:39:09 done T10__H2__AGG3__A3_high_3000__r1 VERIFIED wall 11.50 cpu 17.70
+15:39:10 done T10__H3__CONS__A2_bound_100__r1 VERIFIED wall 0.38 cpu 0.27
+15:39:10 done T10__H3__AGG3__A2_bound_100__r1 RESOURCE_REFUSED wall 0.48 cpu 0.42
+15:39:11 done T10__H3__AGG3__A3_low_100__r1 RESOURCE_REFUSED wall 0.70 cpu 0.66
+15:39:15 done T10__H3__CONS__A3_low_100__r1 RESOURCE_REFUSED wall 4.12 cpu 0.64
+15:39:16 done T10__H3__CONS__A3_high_100__r1 RESOURCE_REFUSED wall 1.32 cpu 0.67
+15:39:19 done T10__H3__AGG3__A3_high_100__r1 RESOURCE_REFUSED wall 2.89 cpu 0.69
+15:39:22 done T10__H3__AGG3__A2_bound_1000__r1 RESOURCE_REFUSED wall 2.80 cpu 1.52
+15:39:26 done T10__H3__CONS__A2_bound_1000__r1 RESOURCE_REFUSED wall 3.61 cpu 1.53
+15:39:32 done T10__H3__CONS__A3_low_1000__r1 VERIFIED wall 5.86 cpu 3.44
+15:39:36 done T10__H3__AGG3__A3_low_1000__r1 RESOURCE_REFUSED wall 4.22 cpu 3.72
+15:39:40 done T10__H3__AGG3__A3_high_1000__r1 RESOURCE_REFUSED wall 4.39 cpu 3.98
+15:39:43 done T10__H3__CONS__A3_high_1000__r1 VERIFIED wall 3.03 cpu 2.89
+15:39:46 done T10__H3__CONS__A2_bound_3000__r1 VERIFIED wall 2.92 cpu 2.86
+15:39:51 done T10__H3__AGG3__A2_bound_3000__r1 RESOURCE_REFUSED wall 4.35 cpu 3.95
+15:40:02 done T10__H3__AGG3__A3_low_3000__r1 RESOURCE_REFUSED wall 11.44 cpu 10.56
+15:40:10 done T10__H3__CONS__A3_low_3000__r1 VERIFIED wall 8.09 cpu 7.86
+15:40:19 done T10__H3__CONS__A3_high_3000__r1 VERIFIED wall 9.33 cpu 8.78
+15:40:32 done T10__H3__AGG3__A3_high_3000__r1 RESOURCE_REFUSED wall 12.13 cpu 11.31
+15:40:32 phase T10 finished; campaign CPU 4379s
