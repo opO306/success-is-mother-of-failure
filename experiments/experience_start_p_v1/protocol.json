@@ -1,0 +1,61 @@
+{
+ "gate": "EXPERIENCE_START_P_V1 - does a start p chosen from verified past precision experience cut the total retry cost while correctness is unchanged?",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "NOT A LEARNED MODEL", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "baseline": {
+  "parent": "claude/selector-service-v1 @ e018090 (local; origin/claude/selector-service-v1 = 0e6953b, local 1 commit ahead, checked)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/experience-start-p-v1 in the main checkout (no worktree); clean, no untracked files at start",
+  "training_source_evidence": {"path": "docs/active/selector_service_v1/laptop_run/records.json.gz", "sha256_raw": "7093c3c7c0dedd08b6794b70e9d366f734c7848a6f8492cdab725c1be2007f13", "checker_verdict": "EVIDENCE OK (docs/active/selector_service_v1/laptop_run/checker_verdict.json)"},
+  "code_sha256_lf_prefix_at_start": {"experiments/selector_service_v1/selector.py": "6a55849672b5c3f0", "experiments/selector_service_v1/service.py": "ed521201867989e1", "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d", "experiments/w5_placement_v1/run.py": "bad88888efe173bb", "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7", "experiments/multiatom_parallel_v1/run.py": "6fce260f79a82795", "exact_expression_gate_v1/stream.py": "1f19074aced1f68e", "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a"}
+ },
+ "terms": {
+  "lowest_observed_success_p": "the lowest p among the passes actually run (and verified) that ended DECIDED",
+  "highest_observed_failure_p": "the highest p among the passes actually run (and verified) that did not end DECIDED",
+  "forbidden": "minimum_required_p / true_minimum_p are never written: no p was searched exhaustively below the observed success"
+ },
+ "reused_unchanged": "E2 rw:R1+R2, CPU serial / parallel runners (experiments/w5_placement_v1/run), ExecutionPlan, Selector V1 (experiments/selector_service_v1/selector.select, frozen including its N=8 boundary error), P2 (experiments/precision_pilot_a1/policies.next_p / p2_next), FCC_N generation, cell readout, cycle CPU, load rule, GPU reserved name",
+ "contracts": {
+  "physics_contract_hash": "sha256 over the sorted 'path:sha256_lf' lines of exact_expression_gate_v1/stream.py, exact_expression_gate_v1/common.py, exact_expression_gate_v0/lang_iv.py, a_reference/ar2_lang2024.py",
+  "numeric_contract_hash": "the same over experiments/rewrite_pilot_a3/{adapter,rules,rwforce}.py, experiments/precision_pilot_a2t/evaluator_adapter.py, experiments/precision_pilot_a1/evaluator_adapter.py, experiments/formula_repro_b_v0/harness.py, experiments/formula_repro_b_v0/upstream/probe.py",
+  "training_side": "computed from the source_sha256_lf table recorded in the training evidence's execution_seal.json (the code that produced the evidence)",
+  "evaluation_side": "computed from the files at campaign start; memory is trusted only if both hashes are equal"
+ },
+ "experience_keys": {
+  "level1_exact": "request_fingerprint = sha256(physics_contract_hash, numeric_contract_hash, evaluator, initial_state_digest, T); N is recorded but the initial-state digest is the identifier",
+  "level2_family": "('FCC_N', T, evaluator, physics_contract_hash, numeric_contract_hash); T values never mixed; no other scenario family"
+ },
+ "experience_store": {
+  "training_bundle": "built once from the training source evidence only: one ExperienceRecord per executed pass (service passes and shadow passes; probes have no passes); verification_status = VERIFIED only if the source checker verdict is EVIDENCE OK; per exact key: lowest_observed_success_p, highest_observed_failure_p; per family: FAMILY_MIN = min over exact keys of lowest_observed_success_p, FAMILY_MAX = max of the same. Only VERIFIED records enter any summary.",
+  "seal": "the bundle file and its sha256 are committed before any policy code; the campaign verifies the hash at load and refuses to run if it differs",
+  "read_only": "the store is never written during the campaign; evaluation passes are written to separate candidate_experience files that no policy reads; they become dataset candidates only after the independent checker",
+  "no_online_update": "no result of this campaign changes any decision of this campaign"
+ },
+ "policies": {
+  "P2_BASE": "start p = 64",
+  "EXACT_MEMORY": "start p = lowest_observed_success_p of the exact key if present in the sealed bundle, else 64 (miss)",
+  "FAMILY_MIN": "start p = FAMILY_MIN of the family key if present, else 64",
+  "FAMILY_MAX": "start p = FAMILY_MAX of the family key if present, else 64",
+  "after_first_pass": "identical for all policies: the unchanged P2 (p2_next, cap 1024) decides every later p; final when DECIDED / STOP; REFUSED_AT_CAP when P2 returns CAP",
+  "no_correctness_role": "a policy only picks the first p; acceptance is the unchanged DECIDED readout"
+ },
+ "worker_selector": "Selector V1 frozen, goal WALL_MIN (main comparison); CPU of every pass recorded",
+ "part_A_exact_replay": {"requests": [{"N": 5, "T": 100}, {"N": 8, "T": 100}, {"N": 16, "T": 100}, {"N": 32, "T": 100}, {"N": 5, "T": 1000}, {"N": 8, "T": 1000}], "policies": ["P2_BASE", "EXACT_MEMORY"], "repetitions": 3, "note": "the same requests as the training bundle: this measures reuse of experience for the identical job and is NOT evidence of generalization"},
+ "part_B_unseen_N": {"requests": [{"N": 7, "T": 100}, {"N": 10, "T": 100}, {"N": 20, "T": 100}, {"N": 7, "T": 1000}, {"N": 10, "T": 1000}], "candidate_check": "a search over every docs/active/**/records.json.gz found no FCC_N record (any experiment, any p) with these (N, T); the first-priority list is used unchanged", "policies": ["P2_BASE", "FAMILY_MIN", "FAMILY_MAX"], "exact_memory": "the EXACT_MEMORY lookup is recorded for every Part B request and must be a miss (the checker verifies); it is not executed separately because a miss is the P2_BASE plan", "repetitions": 3},
+ "order": "Part A then Part B; per repetition requests in the listed order; within a request the policies rotated by repetition index",
+ "serial_reference": "after both parts, one CPU_SERIAL pass for every distinct (N, T, p) that any policy ran (Part A p values must also equal the SELECTOR_SERVICE_V1 serial passes at the same (N, T, p))",
+ "correctness_hard_gate": "every pass bit-identical (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial-state digest) to the serial reference at the same (N, T, p); a policy that changes any final result fails",
+ "cost_metrics_per_service_run": ["service wall", "total CPU", "passes", "failed passes", "first pass wall/CPU", "failed passes wall/CPU", "final success pass wall/CPU", "retry_cpu_fraction", "retry_wall_fraction", "starting_p", "final_success_p", "overshoot = starting_p - lowest_observed_success_p (training value; only for Part A keys that have one)"],
+ "experience_sample": "one per service run: pre_run_features {N, T, pair_count, evaluator, topology_class, physics_contract_hash, numeric_contract_hash, initial_state_digest}; attempts [{p, outcome, completed_steps, backend, workers, cpu_s, wall_s}]; observed_summary {highest_observed_failure_p, lowest_observed_success_p, total_service_wall_s, total_service_cpu_s}; no true-minimum label. Recommended future target: the start p that minimizes the expected total service cost, not a minimum-p prediction.",
+ "decision_rules_sealed": {
+  "EXACT_MEMORY_useful_candidate": "no correctness difference, first-pass success in >= 5 of the 6 Part A requests (all clean repetitions), and median total service wall reduced by >= 20 % vs P2_BASE in >= 5 of 6; labelled reuse, not generalization",
+  "FAMILY_MIN_generalization_candidate": "first-pass success in >= 4 of the 5 Part B requests (all clean repetitions) and median total wall AND CPU lower than P2_BASE in >= 4 of 5",
+  "FAMILY_MAX_service_candidate": "median total wall AND CPU lower than P2_BASE in >= 4 of 5 Part B requests, and lower than FAMILY_MIN in >= 3 of 5",
+  "both_unstable": "if neither family rule qualifies: no model is built; more diverse experience is collected first"
+ },
+ "cost_estimate": "from the SELECTOR_SERVICE_V1 probe (~1 ms per pair-step serial, p 64-256 within ~15 %): Part A ~ 900 CPU s, Part B ~ 2,200 CPU s, serial references ~ 700 CPU s; cap 8,000 CPU s (cycle-counted); the campaign stops at the next run boundary when exceeded",
+ "load_rule": "unchanged from E2_PAIR_PARALLEL_V1 (others >= 1 logical CPU or python/roblox/codex/node >= 25 % -> CONTAMINATED; kept, checked, excluded from performance numbers)",
+ "fault_injection_tests": ["unverified experience used as trusted memory", "experience from another physics/evaluator contract mixed in", "exact memory with a different initial-state digest", "a result of this campaign used by a later request", "lowest_observed_success_p altered", "FAMILY_MIN / FAMILY_MAX altered", "first p record altered", "P2 fallback p altered", "endpoint altered", "failed pass deleted"],
+ "not_in_scope": ["neural network", "decision tree", "regression model", "P3 retraining", "true-minimum search", "GPU / CUDA E2", "limb search", "W6 weighted partition", "reduction change", "worker selector rule change", "new physics", "master merge"],
+ "claims_forbidden": ["lowest_observed_success_p is the minimum required p", "Part A shows generalization", "one laptop result holds elsewhere", "bit identity is a proof"]
+}
