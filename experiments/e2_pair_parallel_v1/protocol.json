@@ -1,7 +1,12 @@
 {
  "gate": "E2_PAIR_PARALLEL_V1 - do the E2 (rw:R1+R2) CPU gain and the pair-parallel wall gain survive together?",
  "date": "2026-10-06",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
  "baseline": "origin/master = local master = 15ae151 (merge of claude/resource-xrepro-multiatom-v1); work on local branch claude/e2-pair-parallel-v1 in the main checkout (no worktree)",
  "pre_seal_checks": {
   "frozen_physics_diff_9dc9c2d_to_15ae151": "none for exact_expression_gate_v1/{stream,common}.py, exact_expression_gate_v0/lang_iv.py, a_reference/ar2_lang2024.py, precision_pilot_a1/a2t adapters, rewrite_pilot_a3/, formula_repro_b_v0/, multiatom_parallel_v1/, xrepro_resource_v1/",
@@ -23,7 +28,14 @@
  },
  "bit_identity_requirement": "for every (horizon, N): all E1 runs (SER_E1, PAR_E1_W3/4/6, 3 repetitions) identical in outcome, completed steps, stop kind/step, the full endpoints key of all 6N components and cells; all E2 runs likewise among themselves. E1 vs E2 are different enclosure programs: their cells must be equal where both are DECIDED (endpoints may differ). SER_E1 and SER_E2 must also equal the MULTIATOM_PARALLEL_V1 laptop evidence records for the same (horizon, N) (read-only cross-run check).",
  "scope": {
-  "N_list": [3, 4, 6, 12, 24, 48],
+  "N_list": [
+   3,
+   4,
+   6,
+   12,
+   24,
+   48
+  ],
   "N_reason": "3, 4, 6 bracket the known end-to-end / wall x CPU boundaries from both sides (the designer's examples were 4, 6, 12, 24, 48; 3 is added before any run so that a boundary at N=3 is not cut off); 12, 24, 48 are the large-N points; nothing else was selected from known results",
   "H100": "T = 100 for every N",
   "H1000": "T = 1000 for N in {3, 4, 6, 12}",
@@ -32,10 +44,38 @@
   "estimated_cost_laptop": "about 6,500 CPU s (cycle-counted), about 60 min wall; cap 10,800 CPU s (campaign stops at the next run boundary)"
  },
  "machines": {
-  "laptop": {"role": "primary", "host": "DESKTOP-0EASI0F", "worker_cores": [1, 2, 3, 4, 5, 0], "main_cpu": 0, "serial_cpu": 1, "campaign_cpu": 0},
-  "desktop": {"role": "representative re-measurement of the boundaries after the laptop campaign", "host": "Ryzen 5 5600, 6 physical / 12 logical", "worker_cores": [2, 4, 6, 8, 10, 0], "main_cpu": 1, "serial_cpu": 2, "campaign_cpu": 3,
-              "desktop_scope": "N in {3, 4, 6, 12}, H100 and H1000, all 8 configurations, 3 repetitions",
-              "preconditions": "Roblox closed, no other large Python/Codex job; load snapshot before start and before every (horizon, N) group"}
+  "laptop": {
+   "role": "primary",
+   "host": "DESKTOP-0EASI0F",
+   "worker_cores": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    0
+   ],
+   "main_cpu": 0,
+   "serial_cpu": 1,
+   "campaign_cpu": 0
+  },
+  "desktop": {
+   "role": "representative re-measurement of the boundaries after the laptop campaign",
+   "host": "Ryzen 5 5600, 6 physical / 12 logical",
+   "worker_cores": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    0
+   ],
+   "main_cpu": 1,
+   "serial_cpu": 2,
+   "campaign_cpu": 3,
+   "desktop_scope": "N in {3, 4, 6, 12}, H100 and H1000, all 8 configurations, 3 repetitions",
+   "preconditions": "Roblox closed, no other large Python/Codex job; load snapshot before start and before every (horizon, N) group"
+  }
  },
  "cpu_measurement": "primary CPU = QueryProcessCycleTime of every process (main + workers / the serial process) divided by the cycle rate calibrated once per campaign on the campaign core (max over 3 x 20 busy loops of 50 ms), as in MULTIATOM_PARALLEL_V1 amendment 3; the tick-sampled process_time figure is kept as total_cpu_tick_s (known to be unreliable on the laptop).",
  "load_contamination_rule": "before every (horizon, N) group the campaign takes a 1 s process snapshot excluding its own process tree and the System Idle Process. The group is marked CONTAMINATED if (a) the summed CPU of all other processes >= 100 % of one logical CPU, or (b) any single other process whose name matches python / roblox / codex / node is >= 25 %. A CONTAMINATED group stays in the evidence, is checked for correctness, and is excluded from every performance number and boundary (reported separately). The same rule applies on both machines.",
@@ -49,7 +89,18 @@
   "best_plan": "per (horizon, N) among the 8 configurations: min end-to-end wall, min total CPU, min wall x CPU; and per evaluator the W with minimum loop wall",
   "first_N_PAR_E2_wall_min": "smallest N (per horizon) at which a PAR_E2 configuration is the end-to-end wall minimum, and whether it stays so for all larger N"
  },
- "answers_required": ["E2 CPU gain at W3", "E2 CPU gain at W6", "parallel 3-4x wall gain with E2", "does E2 raise the overhead shares", "W_opt E1 vs E2", "CPU-min plan", "first N where PAR_E2 is wall-min", "wall x CPU optimum", "why combined differs from the product", "bit identity at every W"],
+ "answers_required": [
+  "E2 CPU gain at W3",
+  "E2 CPU gain at W6",
+  "parallel 3-4x wall gain with E2",
+  "does E2 raise the overhead shares",
+  "W_opt E1 vs E2",
+  "CPU-min plan",
+  "first N where PAR_E2 is wall-min",
+  "wall x CPU optimum",
+  "why combined differs from the product",
+  "bit identity at every W"
+ ],
  "decision_classes_for_the_designer": {
   "A": "PAR_E2 wins stably -> keep as current execution candidate (later input to a small Selector V1)",
   "B": "E2 gain disappears in parallel -> split the reason into startup / IPC / reduction / worker overhead",
@@ -57,6 +108,24 @@
  },
  "E2_gates": "rerun the A3 runner refs / verify rw:R1+R2 / sympy rw:R1+R2 and the MULTIATOM new-domain containment gate (experiments/multiatom_parallel_v1/e2gate.py, unchanged) on each machine before its runs",
  "checker": "experiments/e2_pair_parallel_v1/checker.py, independent of the executor: regenerates every initial state with the MULTIATOM checker's own generator, checks completeness, bit identity per evaluator, E1/E2 cells, cross-run equality with the MULTIATOM laptop evidence, cycle-CPU consistency, affinities, worker exits and evaluator identity of every worker, block partition, CPU sanity, contamination flags re-derived from the stored snapshots",
- "not_in_scope": ["canonical reduction redesign", "tree reduction", "T11 Joint Genome", "neural selector", "A2-R", "GPU", "RNS/LNS/Posit", "new conditioning model", "new physics scenarios", "cutoffs or any force approximation", "Vast"],
- "claims_forbidden": ["predicting the combined gain by multiplying separate ratios", "laptop vs desktop absolute times as a winner", "bit identity on these machines as a proof", "boundaries measured here hold for other p, T, machines or scenario families"]
+ "not_in_scope": [
+  "canonical reduction redesign",
+  "tree reduction",
+  "T11 Joint Genome",
+  "neural selector",
+  "A2-R",
+  "GPU",
+  "RNS/LNS/Posit",
+  "new conditioning model",
+  "new physics scenarios",
+  "cutoffs or any force approximation",
+  "Vast"
+ ],
+ "claims_forbidden": [
+  "predicting the combined gain by multiplying separate ratios",
+  "laptop vs desktop absolute times as a winner",
+  "bit identity on these machines as a proof",
+  "boundaries measured here hold for other p, T, machines or scenario families"
+ ],
+ "amendment_1_before_any_run": "Before the code seal: (1) bit-identity smoke test (N = 6, T = 5, scratch): PAR_E2_W3 == SER_E2 and PAR_E1_W3 == SER_E1 endpoint keys, E1 vs E2 endpoints differ, cells equal. (2) integration dry run on the desktop (scratch, T = 10 - not a sealed horizon - N = 3, 4, one repetition, all 8 configurations): all DECIDED, gates PASS; both groups flagged CONTAMINATED by the sealed rule (RobloxPlayerBeta.exe 227-276 %, other processes 373-516 %), so no timing from it is used or was interpreted. (3) checker fix found by the dry run: the cross-run comparison with the MULTIATOM evidence now also requires equal T and N (the dry run compared T = 10 runs with T = 100 records). Nothing in scope, configurations, rules or thresholds changed. The desktop re-measurement needs Roblox closed first (designer)."
 }
