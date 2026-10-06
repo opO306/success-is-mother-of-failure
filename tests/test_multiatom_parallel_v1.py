@@ -74,3 +74,13 @@ def test_domain_stop_identical(monkeypatch):
     for k in ("outcome", "completed_steps", "stop", "stop_step", "endpoints_key", "cells"):
         assert p[k] == s[k], k
     assert p["workers_exited"] == [0, 0]
+
+
+def test_cycle_counter_counts_busy_time():
+    rate = RUN.cycle_rate(trials=5, ms=30)
+    c0, w0 = RUN.cycles(), __import__("time").perf_counter()
+    x = 0
+    while __import__("time").perf_counter() - w0 < 0.2:
+        x += 1
+    secs = (RUN.cycles() - c0) / rate
+    assert 0.15 < secs < 0.3

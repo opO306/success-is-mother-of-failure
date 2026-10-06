@@ -70,6 +70,7 @@ def check(d):
     ok("E2_gate_sympy", sy.get("sympy_zero") is True)
     ok("E2_gate_new_domain", dm.get("PASS") is True and dm.get("p") == P and
        all(r["E1_contains_E0_1024"] and r["E2_contains_E0_1024"] for r in dm["rows"]))
+    rate = json.loads((d / "cycle_rate.json").read_text(encoding="utf-8"))["rate_hz"]
     digests = {n: my_digest(*my_initial(n)) for n in N_LIST}
     reps = 3
     groups, e2groups, verify_cells, vcost = {}, {}, 0, {}
@@ -85,6 +86,9 @@ def check(d):
                     r = json.loads(f.read_text(encoding="utf-8"))
                     ok("meta", (r["N"], r["T"], r["p"], r["effective_p"], r["config"]) == (n, T, P, P, cfg), name)
                     ok("initial_state", r["initial_sha256"] == digests[n], name)
+                    cyc = r["main_cycles"] + sum(b["cycles"] for b in r.get("worker_bye", []))
+                    ok("cycle_cpu_consistent", cyc == r["total_cycles"] and r["cycle_rate_hz"] == rate and
+                       abs(r["total_cpu_s"] - cyc / rate) < 1e-9, name)
                     if r["outcome"] == "DECIDED":
                         verify_cells += 1
                         tv = time.perf_counter()

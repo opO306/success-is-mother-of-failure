@@ -25,6 +25,32 @@ def _now():
     return time.process_time(), time.perf_counter()
 
 
+def cycles():
+    """CPU cycles charged to this process (all threads, user + kernel) by Windows QueryProcessCycleTime. Unlike
+    GetProcessTimes (process_time / psutil), it is not sampled at clock ticks (amendment 3)."""
+    import ctypes
+    import ctypes.wintypes as wt
+    k = ctypes.WinDLL("kernel32")
+    k.GetCurrentProcess.restype = wt.HANDLE
+    k.QueryProcessCycleTime.argtypes = [wt.HANDLE, ctypes.POINTER(ctypes.c_ulonglong)]
+    v = ctypes.c_ulonglong()
+    if not k.QueryProcessCycleTime(k.GetCurrentProcess(), ctypes.byref(v)):
+        raise OSError("QueryProcessCycleTime failed")
+    return v.value
+
+
+def cycle_rate(trials=20, ms=50):
+    """Cycles per second of on-CPU time: the largest cycles/wall over short busy loops (a preempted loop only lowers it)."""
+    best = 0.0
+    for _ in range(trials):
+        c0, w0 = cycles(), time.perf_counter()
+        x = 0
+        while time.perf_counter() - w0 < ms / 1000:
+            x += 1
+        best = max(best, (cycles() - c0) / (time.perf_counter() - w0))
+    return best
+
+
 def _mem():
     import psutil
     mi = psutil.Process().memory_info()
@@ -124,7 +150,8 @@ def _pair_worker(conn, cpu, prec, block):
         busy += time.process_time() - c0
         busy_wall += time.perf_counter() - b0
         conn.send(out)
-    conn.send({"busy_cpu_s": busy, "busy_wall_s": busy_wall, "cpu_s": time.process_time(), "peak_wset_mb": _mem(),
+    conn.send({"busy_cpu_s": busy, "busy_wall_s": busy_wall, "cpu_s": time.process_time(), "cycles": cycles(),
+               "peak_wset_mb": _mem(),
                "affinity_end": me.cpu_affinity()})
 
 
@@ -255,7 +282,7 @@ def main():
         n, T, prec, W, mcpu = (int(x) for x in sys.argv[2:7])
         cpus, outp = [int(x) for x in sys.argv[7].split(",")], sys.argv[8]
         rec = run_parallel(n, T, prec, W, mcpu, cpus)
-    rec.update(N=n, T=T, p=prec, main_cpu_s=time.process_time(), main_peak_wset_mb=_mem(),
+    rec.update(N=n, T=T, p=prec, main_cpu_s=time.process_time(), main_cycles=cycles(), main_peak_wset_mb=_mem(),
                main_wall_s=time.perf_counter() - T0[1], python=sys.version)
     with open(outp, "w", encoding="utf-8") as f:
         json.dump(rec, f)

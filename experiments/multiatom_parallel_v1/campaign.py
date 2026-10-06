@@ -70,6 +70,7 @@ class Camp:
         self.out.mkdir(parents=True, exist_ok=True)
         self.w = self.out / "work"
         self.w.mkdir(exist_ok=True)
+        self.rate = None
 
     def log(self, msg):
         line = time.strftime("%H:%M:%S ") + msg
@@ -100,6 +101,18 @@ class Camp:
         self.log(f"load snapshot: system {psutil.cpu_percent(interval=0.5):.0f}% busy "
                  f"{sorted(busy, key=lambda x: -x[2])[:6]}")
 
+    def calibrate(self):
+        """Cycle rate on the campaign core, measured once per campaign and stored (amendment 3)."""
+        f = self.out / "cycle_rate.json"
+        if not f.exists():
+            from experiments.multiatom_parallel_v1.run import cycle_rate
+            rates = [cycle_rate() for _ in range(3)]
+            f.write_text(json.dumps({"rates_hz": rates, "rate_hz": max(rates), "core": CAMPAIGN_CPU,
+                                     "method": "max over 3 x 20 busy loops of 50 ms of cycles/wall"}, indent=1),
+                         encoding="utf-8")
+        self.rate = json.loads(f.read_text(encoding="utf-8"))["rate_hz"]
+        self.log(f"cycle rate {self.rate / 1e9:.4f} GHz")
+
     def seal(self):
         f = self.out / "execution_seal.json"
         if f.exists():
@@ -128,8 +141,10 @@ class Camp:
             self.log(f"ERROR {name}: rc {r.returncode} {r.stderr[-600:]}")
             raise SystemExit(3)
         d = json.loads(tmp.read_text(encoding="utf-8"))
-        d.update(name=name, config=cfg, end_to_end_wall_s=e2e, command=cmd[3:],
-                 total_cpu_s=d["main_cpu_s"] + sum(d.get("worker_cpu_s", [])),
+        cyc = d["main_cycles"] + sum(b["cycles"] for b in d.get("worker_bye", []))
+        d.update(name=name, config=cfg, end_to_end_wall_s=e2e, command=cmd[3:], total_cycles=cyc,
+                 cycle_rate_hz=self.rate, total_cpu_s=cyc / self.rate,
+                 total_cpu_tick_s=d["main_cpu_s"] + sum(d.get("worker_cpu_s", [])),
                  cpu_percent_after=psutil.cpu_percent(interval=None))
         f.write_text(json.dumps(d), encoding="utf-8")
         tmp.unlink()
@@ -178,6 +193,7 @@ def main():
     psutil.Process().cpu_affinity([CAMPAIGN_CPU])
     c = Camp(a.out)
     c.seal()
+    c.calibrate()
     c.log(f"MULTIATOM_PARALLEL_V1 phase {a.phase} machine {MACHINE} workers {WORKER_CORES} main {MAIN_CPU} "
           f"serial {SERIAL_CPU} campaign {CAMPAIGN_CPU}")
     if a.phase in ("gates", "all"):
