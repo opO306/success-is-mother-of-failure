@@ -1,0 +1,1122 @@
+{
+ "requests": {
+  "N5_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    106
+   ],
+   "n_passes": 2,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 2.0212201999966055,
+     "cpu": 3.941011494865732,
+     "walls": [
+      1.7439298999961466,
+      2.20592750000651,
+      2.0212201999966055
+     ],
+     "cpus": [
+      3.941011494865732,
+      4.186851466482651,
+      3.939227045592578
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 2.274547300010454,
+     "cpu": 2.1047151913790523,
+     "walls": [
+      2.2673231000080705,
+      2.274547300010454,
+      2.30218599998625
+     ],
+     "cpus": [
+      2.1034599641591716,
+      2.104886925847031,
+      2.1047151913790523
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 1.9962888000009116,
+     "cpu": 5.197211292673934,
+     "walls": [
+      1.7815395999932662,
+      1.9962888000009116,
+      2.2347768000036012
+     ],
+     "cpus": [
+      5.06135476293238,
+      5.197211292673934,
+      5.722393673312225
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 1.1253337464242015
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 1.0124888743530909,
+    "cpu_ratio": 0.758293491053758,
+    "wallxcpu_ratio": 0.767763723186295,
+    "wall_per_rep": [
+     0.9788892147010025,
+     1.105014214378953,
+     0.9044394053103417
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 1.1000480000220705,
+       "loop": 0.8725648999970872,
+       "cpu": 1.0344350238625175
+      },
+      "W6": {
+       "e2e": 0.8894789000041783,
+       "loop": 0.25130209999042563,
+       "cpu": 2.547810069143454
+      },
+      "W3": {
+       "e2e": 0.9197198000038043,
+       "loop": 0.4562488000083249,
+       "cpu": 1.7512367840742877
+      },
+      "W4": {
+       "e2e": 0.8393090000026859,
+       "loop": 0.3299330000008922,
+       "cpu": 1.93523504662136
+      }
+     },
+     "best_wall": "W4",
+     "within_3pct_of_best": [
+      "W4"
+     ],
+     "rule_choice": "W4",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 1.0679172000091057,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "106": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 1.1353181999875233,
+       "loop": 0.9080242000054568,
+       "cpu": 1.0704519019845136
+      },
+      "W6": {
+       "e2e": 1.0194323000032455,
+       "loop": 0.3065414000011515,
+       "cpu": 2.682746788708213
+      },
+      "W3": {
+       "e2e": 0.959663499990711,
+       "loop": 0.48243939998792484,
+       "cpu": 1.8115212794288436
+      },
+      "W4": {
+       "e2e": 0.853377499995986,
+       "loop": 0.3447364999738056,
+       "cpu": 1.9765169950360535
+      }
+     },
+     "best_wall": "W4",
+     "within_3pct_of_best": [
+      "W4"
+     ],
+     "rule_choice": "W4",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 0.8648524000018369,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": true,
+   "Q7_regret_sum_ratio": 1.0,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.5528154958987265,
+     "retry_share_cpu": 0.5011442650122357,
+     "parallel_overhead_share_cpu": 0.46626393581964537,
+     "startup_share_wall": 0.6485419274859456
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.4921108675694163,
+     "retry_share_cpu": 0.49144446248401147,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.20226055132238738
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.4636884272670166,
+     "retry_share_cpu": 0.48381032872574337,
+     "parallel_overhead_share_cpu": 0.5949968536368512,
+     "startup_share_wall": 0.7052411563214867
+    }
+   }
+  },
+  "N8_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    107
+   ],
+   "n_passes": 2,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 2.8882236999925226,
+     "cpu": 7.725320771470347,
+     "walls": [
+      2.8507160000153817,
+      3.001496299984865,
+      2.8882236999925226
+     ],
+     "cpus": [
+      7.667509852632989,
+      7.726680868264795,
+      7.725320771470347
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 5.470273399987491,
+     "cpu": 5.2835235287867786,
+     "walls": [
+      5.454547999979695,
+      5.470273399987491,
+      5.478436500008684
+     ],
+     "cpus": [
+      5.2835235287867786,
+      5.288507102288189,
+      5.268052531088882
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 2.7583071000117343,
+     "cpu": 9.021362634152146,
+     "walls": [
+      2.6975138999987394,
+      2.7583071000117343,
+      2.8102993999782484
+     ],
+     "cpus": [
+      8.917037815291925,
+      9.021362634152146,
+      9.262500727824222
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 1.893992283216031
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 1.04710012165804,
+    "cpu_ratio": 0.8563363523626268,
+    "wallxcpu_ratio": 0.8966698987391087,
+    "wall_per_rep": [
+     1.0567938130056398,
+     1.0881661073823492,
+     1.0277281132447587
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 2.682841500005452,
+       "loop": 2.4562188999843784,
+       "cpu": 2.615819446284754
+      },
+      "W6": {
+       "e2e": 1.3079861000005621,
+       "loop": 0.6820059999881778,
+       "cpu": 4.397634592904129
+      },
+      "W3": {
+       "e2e": 1.6078429000044707,
+       "loop": 1.1253459999861661,
+       "cpu": 3.514416869950094
+      },
+      "W4": {
+       "e2e": 1.3874928999866825,
+       "loop": 0.8819168999907561,
+       "cpu": 3.832141579133884
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W4",
+     "rule_choice_ok": false,
+     "selector_pass_e2e_median": 1.3882811999937985,
+     "regret_ratio": 1.0607856612437137,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "107": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 2.7388787000090815,
+       "loop": 2.5028711000049952,
+       "cpu": 2.6677040825020244
+      },
+      "W6": {
+       "e2e": 1.383134500007145,
+       "loop": 0.7590199999976903,
+       "cpu": 4.623728041248016
+      },
+      "W3": {
+       "e2e": 1.5813355999998748,
+       "loop": 1.1096921999996994,
+       "cpu": 3.5140756300549203
+      },
+      "W4": {
+       "e2e": 1.4050101999891922,
+       "loop": 0.8880504000117071,
+       "cpu": 3.879717773654834
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W4",
+      "W6"
+     ],
+     "rule_choice": "W4",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 1.3971071999985725,
+     "regret_ratio": 1.0158160323395404,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": false,
+   "Q7_regret_sum_ratio": 1.0376729678959304,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.4983211746328562,
+     "retry_share_cpu": 0.49968729582830185,
+     "parallel_overhead_share_cpu": 0.31555253899390756,
+     "startup_share_wall": 0.36742242621052884
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.4948321567753091,
+     "retry_share_cpu": 0.49508995881871426,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.08521799040985853
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.4834730128067071,
+     "retry_share_cpu": 0.48974168489995246,
+     "parallel_overhead_share_cpu": 0.41377956781523195,
+     "startup_share_wall": 0.4673512342786623
+    }
+   }
+  },
+  "N16_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    109
+   ],
+   "n_passes": 2,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 6.835100299998885,
+     "cpu": 29.27122320114398,
+     "walls": [
+      6.835100299998885,
+      7.059541399998125,
+      6.515538999985438
+     ],
+     "cpus": [
+      29.028039471758625,
+      29.27122320114398,
+      29.857059588966543
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 21.55533090000972,
+     "cpu": 21.327959389618567,
+     "walls": [
+      21.55533090000972,
+      21.57757289998699,
+      21.51702440000372
+     ],
+     "cpus": [
+      21.36402981958028,
+      21.327959389618567,
+      21.278391610880302
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 6.882188599993242,
+     "cpu": 28.968379726485754,
+     "walls": [
+      6.882188599993242,
+      6.5071051999984775,
+      7.017757200024789
+     ],
+     "cpus": [
+      28.968379726485754,
+      28.418256827960633,
+      29.639120718340283
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 3.1536232028684696
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 0.9931579468783516,
+    "cpu_ratio": 1.0104542773022729,
+    "wallxcpu_ratio": 1.003540695459974,
+    "wall_per_rep": [
+     0.9931579468783516,
+     1.084897382633337,
+     0.928436082109313
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 10.589977899973746,
+       "loop": 10.354038799996488,
+       "cpu": 10.506402799172156
+      },
+      "W6": {
+       "e2e": 3.293939399998635,
+       "loop": 2.656174600007944,
+       "cpu": 14.014958470948192
+      },
+      "W3": {
+       "e2e": 4.389823299978161,
+       "loop": 3.912041900010081,
+       "cpu": 11.658672380373902
+      },
+      "W4": {
+       "e2e": 3.8386093999724835,
+       "loop": 3.321442799991928,
+       "cpu": 13.007199106951987
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 3.2799419999937527,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "109": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 10.919729599991115,
+       "loop": 10.665522299997974,
+       "cpu": 10.821556590446411
+      },
+      "W6": {
+       "e2e": 3.551941199984867,
+       "loop": 2.8944416000158526,
+       "cpu": 15.041589623026464
+      },
+      "W3": {
+       "e2e": 4.607582500000717,
+       "loop": 4.114620300009847,
+       "cpu": 12.206991474276466
+      },
+      "W4": {
+       "e2e": 3.8958467999764252,
+       "loop": 3.3825771000119857,
+       "cpu": 13.250070193322074
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 3.403023899998516,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": true,
+   "Q7_regret_sum_ratio": 1.0,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.4882253501374231,
+     "retry_share_cpu": 0.4898342216356896,
+     "parallel_overhead_share_cpu": 0.2713676759232588,
+     "startup_share_wall": 0.19149884910743661
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.4920466304128275,
+     "retry_share_cpu": 0.49261172188306823,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.022006386058209836
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.482966465081871,
+     "retry_share_cpu": 0.4807583384004747,
+     "parallel_overhead_share_cpu": 0.26250518595462985,
+     "startup_share_wall": 0.18920347514720418
+    }
+   }
+  },
+  "N32_T100": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    109
+   ],
+   "n_passes": 2,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 23.239630600000964,
+     "cpu": 112.6498679819386,
+     "walls": [
+      23.353506200015545,
+      22.915672000002814,
+      23.239630600000964
+     ],
+     "cpus": [
+      111.20893201582034,
+      112.6498679819386,
+      113.450912168303
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 87.07223569997586,
+     "cpu": 86.7826943990217,
+     "walls": [
+      86.89472420001402,
+      87.07223569997586,
+      87.84844989998965
+     ],
+     "cpus": [
+      86.5769105160642,
+      86.7826943990217,
+      87.56053272923482
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 22.779357100022025,
+     "cpu": 111.34274238655999,
+     "walls": [
+      22.604266500013182,
+      22.779357100022025,
+      22.85190860001603
+     ],
+     "cpus": [
+      111.18361811714394,
+      111.34274238655999,
+      113.9333516347836
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 3.746713413765374
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 1.020205728281001,
+    "cpu_ratio": 1.0117396569130706,
+    "wallxcpu_ratio": 1.0321825935117694,
+    "wall_per_rep": [
+     1.0331459417186541,
+     1.0059841416674862,
+     1.0169667228576549
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 42.81934429999092,
+       "loop": 42.57595199998468,
+       "cpu": 42.701451378448475
+      },
+      "W6": {
+       "e2e": 11.186252499988768,
+       "loop": 10.530418600013945,
+       "cpu": 54.59027354527835
+      },
+      "W3": {
+       "e2e": 16.60172230002354,
+       "loop": 16.058987800002797,
+       "cpu": 46.471444149402735
+      },
+      "W4": {
+       "e2e": 13.7147994999832,
+       "loop": 13.183293899986893,
+       "cpu": 50.10474117659465
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 11.44044470001245,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "109": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 44.179080700007034,
+       "loop": 43.94334289999097,
+       "cpu": 44.08124302057321
+      },
+      "W6": {
+       "e2e": 11.443599299993366,
+       "loop": 10.820825200004037,
+       "cpu": 56.75980744574599
+      },
+      "W3": {
+       "e2e": 16.876724200003082,
+       "loop": 16.359435300022596,
+       "cpu": 47.460994204931175
+      },
+      "W4": {
+       "e2e": 14.069155499979388,
+       "loop": 13.54473439999856,
+       "cpu": 51.1527890424116
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 11.651625600003172,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": true,
+   "Q7_regret_sum_ratio": 1.0,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.49114448831910057,
+     "retry_share_cpu": 0.49571448804063084,
+     "parallel_overhead_share_cpu": 0.22820776796100264,
+     "startup_share_wall": 0.053777372023832974
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.4929964765489997,
+     "retry_share_cpu": 0.49255894351008533,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.0055424003368068145
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.4927811934762533,
+     "retry_share_cpu": 0.48949486977529905,
+     "parallel_overhead_share_cpu": 0.22131594580016198,
+     "startup_share_wall": 0.05552238184682039
+    }
+   }
+  },
+  "N5_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    145
+   ],
+   "n_passes": 2,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 7.133837100001983,
+     "cpu": 26.122967507488926,
+     "walls": [
+      7.029731800023001,
+      7.393553300003987,
+      7.133837100001983
+     ],
+     "cpus": [
+      25.910524907468655,
+      26.122967507488926,
+      26.563331671030816
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 18.513725099997828,
+     "cpu": 18.296395607834697,
+     "walls": [
+      18.466175400011707,
+      18.513725099997828,
+      18.55045959999552
+     ],
+     "cpus": [
+      18.257982812605047,
+      18.296395607834697,
+      18.320155938935972
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 7.099221900018165,
+     "cpu": 25.774736382883326,
+     "walls": [
+      7.099221900018165,
+      7.36558040001546,
+      7.097379400016507
+     ],
+     "cpus": [
+      25.66544782527101,
+      25.774736382883326,
+      26.184115923261977
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 2.595198746547308
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 1.004875914638438,
+    "cpu_ratio": 1.0135105600861491,
+    "wallxcpu_ratio": 1.0184523510622847,
+    "wall_per_rep": [
+     0.9902115892454374,
+     1.0037977862529974,
+     1.0051367833013678
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 8.979887399997097,
+       "loop": 8.742169200006174,
+       "cpu": 8.905540757158363
+      },
+      "W6": {
+       "e2e": 3.3674887999950442,
+       "loop": 2.725231899996288,
+       "cpu": 12.365690282179497
+      },
+      "W3": {
+       "e2e": 5.1351584999938495,
+       "loop": 4.65285660000518,
+       "cpu": 11.321428536663472
+      },
+      "W4": {
+       "e2e": 3.9412799999990966,
+       "loop": 3.439851200004341,
+       "cpu": 11.26755518039015
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 3.50015269999858,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "145": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 9.443510199984303,
+       "loop": 9.192691700009163,
+       "cpu": 9.352442055446684
+      },
+      "W6": {
+       "e2e": 3.686300100001972,
+       "loop": 2.966022000007797,
+       "cpu": 13.40904610070383
+      },
+      "W3": {
+       "e2e": 5.249317600013455,
+       "loop": 4.772064199991291,
+       "cpu": 11.851359513527555
+      },
+      "W4": {
+       "e2e": 4.39225069998065,
+       "loop": 3.8736200999992434,
+       "cpu": 12.38378406159879
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 3.472105199994985,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": true,
+   "Q7_regret_sum_ratio": 1.0,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.5020113642098366,
+     "retry_share_cpu": 0.4846316639127859,
+     "parallel_overhead_share_cpu": 0.2996050084053624,
+     "startup_share_wall": 0.17896632882849958
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.4874175542955314,
+     "retry_share_cpu": 0.4877614821178442,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.025260201972618416
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.47740141472003345,
+     "retry_share_cpu": 0.48179339565389107,
+     "parallel_overhead_share_cpu": 0.29014227978738516,
+     "startup_share_wall": 0.19046016407597316
+    }
+   }
+  },
+  "N8_T1000": {
+   "clean_reps": [
+    0,
+    1,
+    2
+   ],
+   "status": {
+    "SEL_WALL": [
+     "DECIDED"
+    ],
+    "SEL_CPU": [
+     "DECIDED"
+    ],
+    "FIXED_W6": [
+     "DECIDED"
+    ]
+   },
+   "p_sequence": [
+    64,
+    152,
+    163
+   ],
+   "n_passes": 3,
+   "totals": {
+    "SEL_WALL": {
+     "wall": 23.549264100001892,
+     "cpu": 103.89026267513313,
+     "walls": [
+      23.381701199978124,
+      23.657772100006696,
+      23.549264100001892
+     ],
+     "cpus": [
+      103.17109548866085,
+      103.89026267513313,
+      104.79512332275078
+     ]
+    },
+    "SEL_CPU": {
+     "wall": 77.09517159999814,
+     "cpu": 76.69001572386694,
+     "walls": [
+      77.09517159999814,
+      76.76590570001281,
+      77.12617830000818
+     ],
+     "cpus": [
+      76.69001572386694,
+      76.41968674889812,
+      76.73646726476474
+     ]
+    },
+    "FIXED_W6": {
+     "wall": 23.524524400010705,
+     "cpu": 101.88253106862453,
+     "walls": [
+      23.46139270000276,
+      23.524524400010705,
+      23.612119299999904
+     ],
+     "cpus": [
+      101.5297367637269,
+      101.88253106862453,
+      102.9967371295044
+     ]
+    }
+   },
+   "Q3_SEL_WALL_faster_than_SERIAL": {
+    "per_rep": [
+     true,
+     true,
+     true
+    ],
+    "speedup_median": 3.273782623211226
+   },
+   "Q4_SEL_WALL_vs_FIXED_W6": {
+    "wall_ratio": 1.0010516556921838,
+    "cpu_ratio": 1.0197063381273503,
+    "wallxcpu_ratio": 1.020778718102198,
+    "wall_per_rep": [
+     0.9966032920106815,
+     1.0056642037785866,
+     0.9973380110781496
+    ]
+   },
+   "Q2_cpu_min_is_serial": true,
+   "per_p": {
+    "64": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 24.214752800005954,
+       "loop": 23.985334099998,
+       "cpu": 24.129354015670835
+      },
+      "W6": {
+       "e2e": 7.254295499995351,
+       "loop": 6.6569131999858655,
+       "cpu": 31.357981473338217
+      },
+      "W3": {
+       "e2e": 11.537976699997671,
+       "loop": 11.013249800016638,
+       "cpu": 28.578950283007526
+      },
+      "W4": {
+       "e2e": 9.49632889998611,
+       "loop": 8.986367400008021,
+       "cpu": 30.52317775828481
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 7.437520500010578,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "152": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 26.406944799993653,
+       "loop": 26.177716599981068,
+       "cpu": 26.321871955301305
+      },
+      "W6": {
+       "e2e": 8.027241399977356,
+       "loop": 7.415809500002069,
+       "cpu": 35.339648529571946
+      },
+      "W3": {
+       "e2e": 12.444035199994687,
+       "loop": 11.96798280000803,
+       "cpu": 31.01239362733226
+      },
+      "W4": {
+       "e2e": 10.2793952000211,
+       "loop": 9.747009899991099,
+       "cpu": 33.1602536274031
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 7.817731700022705,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "UNDECIDED_AT_PRECISION"
+    },
+    "163": {
+     "stats": {
+      "SERIAL": {
+       "e2e": 26.236447200004477,
+       "loop": 25.99245510000037,
+       "cpu": 26.14717328255496
+      },
+      "W6": {
+       "e2e": 8.159611999988556,
+       "loop": 7.5589513999875635,
+       "cpu": 35.224764457131904
+      },
+      "W3": {
+       "e2e": 12.302776700002141,
+       "loop": 11.810622900025919,
+       "cpu": 30.748609442738207
+      },
+      "W4": {
+       "e2e": 10.11371569999028,
+       "loop": 9.588171299983514,
+       "cpu": 32.92093534676576
+      }
+     },
+     "best_wall": "W6",
+     "within_3pct_of_best": [
+      "W6"
+     ],
+     "rule_choice": "W6",
+     "rule_choice_ok": true,
+     "selector_pass_e2e_median": 8.120199799974216,
+     "regret_ratio": 1.0,
+     "best_cpu": "SERIAL",
+     "outcome": "DECIDED"
+    }
+   },
+   "Q5_best_changes_with_p": false,
+   "Q6_rule_ok_at_every_p": true,
+   "Q7_regret_sum_ratio": 1.0,
+   "Q9_cost_split": {
+    "SEL_WALL": {
+     "retry_share_wall": 0.6509206267868772,
+     "retry_share_cpu": 0.6588304388037124,
+     "parallel_overhead_share_cpu": 0.2644191593983744,
+     "startup_share_wall": 0.07846951292370918
+    },
+    "SEL_CPU": {
+     "retry_share_wall": 0.6590907676955406,
+     "retry_share_cpu": 0.6590537498818425,
+     "parallel_overhead_share_cpu": 0.0,
+     "startup_share_wall": 0.008883918355356232
+    },
+    "FIXED_W6": {
+     "retry_share_wall": 0.6527084122180917,
+     "retry_share_cpu": 0.6565039867393246,
+     "parallel_overhead_share_cpu": 0.24992355463347812,
+     "startup_share_wall": 0.08148170128812054
+    }
+   }
+  }
+ },
+ "excluded": [],
+ "summary": {
+  "Q1_all_final_ok": true,
+  "Q2_serial_cheapest_everywhere": true,
+  "Q3_sel_wall_faster_than_serial_every_request_median": true,
+  "Q6_rule_ok_everywhere": false,
+  "Q5_any_request_best_changes_with_p": false
+ }
+}

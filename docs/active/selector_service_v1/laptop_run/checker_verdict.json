@@ -1,0 +1,116 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "seal_clean": [
+   1,
+   0
+  ],
+  "contamination_rederived": [
+   20,
+   0
+  ],
+  "service_complete": [
+   54,
+   0
+  ],
+  "service_meta": [
+   54,
+   0
+  ],
+  "pass_index": [
+   117,
+   0
+  ],
+  "p2_rederived": [
+   117,
+   0
+  ],
+  "selector_input_allowed_keys_only": [
+   78,
+   0
+  ],
+  "selector_input_values": [
+   78,
+   0
+  ],
+  "pass_T_supported": [
+   195,
+   0
+  ],
+  "pass_backend_cpu": [
+   195,
+   0
+  ],
+  "pass_meta": [
+   195,
+   0
+  ],
+  "pass_plan_shape": [
+   195,
+   0
+  ],
+  "plan_rederived": [
+   195,
+   0
+  ],
+  "pass_executed_as_planned": [
+   195,
+   0
+  ],
+  "initial_state": [
+   195,
+   0
+  ],
+  "cycle_cpu_consistent": [
+   195,
+   0
+  ],
+  "cells_rederived": [
+   90,
+   0
+  ],
+  "final_status": [
+   54,
+   0
+  ],
+  "p_sequence_recorded": [
+   54,
+   0
+  ],
+  "fixed_has_no_selector_input": [
+   39,
+   0
+  ],
+  "same_p_sequence_all_strategies": [
+   18,
+   0
+  ],
+  "shadow_complete": [
+   78,
+   0
+  ],
+  "probe_gpu_refused": [
+   1,
+   0
+  ],
+  "probe_unsupported_T_refused": [
+   2,
+   0
+  ],
+  "no_unsupported_or_gpu_pass_anywhere": [
+   54,
+   0
+  ],
+  "serial_reference_present": [
+   13,
+   0
+  ],
+  "bit_identical_to_serial": [
+   195,
+   0
+  ]
+ },
+ "issues": [],
+ "bit_mismatches": 0,
+ "n_tried_ntp": 13
+}

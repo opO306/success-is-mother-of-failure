@@ -1,0 +1,20 @@
+{"tag": "start", "time": "23:20:53", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N5_T100__r0", "time": "23:20:55", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N8_T100__r0", "time": "23:21:06", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N16_T100__r0", "time": "23:21:24", "rows": [["System", 4, 20.2]], "other_total_pct": 20.2, "suspects": [], "contaminated": false}
+{"tag": "N32_T100__r0", "time": "23:22:18", "rows": [["System", 4, 1.2], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}
+{"tag": "N5_T1000__r0", "time": "23:25:34", "rows": [["System", 4, 1.2], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}
+{"tag": "N8_T1000__r0", "time": "23:26:27", "rows": [["System", 4, 1.2], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}
+{"tag": "N5_T100__r1", "time": "23:29:39", "rows": [["System", 4, 2.4], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 3.6, "suspects": [], "contaminated": false}
+{"tag": "N8_T100__r1", "time": "23:29:51", "rows": [["System", 4, 2.4], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 3.6, "suspects": [], "contaminated": false}
+{"tag": "N16_T100__r1", "time": "23:30:10", "rows": [["System", 4, 2.4], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 3.6, "suspects": [], "contaminated": false}
+{"tag": "N32_T100__r1", "time": "23:31:04", "rows": [["System", 4, 2.4], ["svchost.exe", 1440, 1.2], ["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 4.8, "suspects": [], "contaminated": false}
+{"tag": "N5_T1000__r1", "time": "23:34:20", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N8_T1000__r1", "time": "23:35:14", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N5_T100__r2", "time": "23:38:26", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N8_T100__r2", "time": "23:38:38", "rows": [["explorer.exe", 6444, 5.6], ["svchost.exe", 1264, 3.1], ["ShellExperienceHost.exe", 7492, 2.3], ["svchost.exe", 5964, 2.2], ["svchost.exe", 1160, 2.1], ["dwm.exe", 2148, 2.1], ["SearchIndexer.exe", 9284, 1.2], ["svchost.exe", 4760, 1.1], ["System", 4, 1.0]], "other_total_pct": 20.7, "suspects": [], "contaminated": false}
+{"tag": "N16_T100__r2", "time": "23:38:57", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N32_T100__r2", "time": "23:39:51", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "N5_T1000__r2", "time": "23:43:08", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "N8_T1000__r2", "time": "23:44:01", "rows": [["SearchIndexer.exe", 9284, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "end", "time": "23:47:13", "rows": [["System", 4, 1.2], ["MsMpEng.exe", 5004, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}

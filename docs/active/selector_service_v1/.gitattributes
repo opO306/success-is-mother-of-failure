@@ -1,0 +1,5 @@
+*.gz binary
+*.json -text
+*.log -text
+*.txt -text
+*.jsonl -text
