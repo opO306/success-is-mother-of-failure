@@ -155,5 +155,13 @@
   },
   "unchanged": "scenario rule, N list, p, horizons, configurations, repetitions, boundaries, thresholds, CPU cap. Code changes: only the machine map becomes a campaign argument (--machine) recorded in the seal, and the checker reads the map from the seal.",
   "transport": "same branch pushed to GitHub (designer-approved for this branch only); the laptop pulls the sealed commit and returns its raw records by one commit pushed to the same branch, as in XREPRO_RESOURCE_V1"
+ },
+ "amendment_3_cpu_measurement": {
+  "date": "2026-10-06",
+  "defect": "On the laptop, Windows GetProcessTimes (used by time.process_time and psutil cpu_times) is sampled at clock ticks and under-charged the bursty pipe-driven workers massively: e.g. FCC_N N = 12, PAR_3, 3 workers each busy 2.14-2.21 s wall -> reported CPU 0.0 s for all three and for the main. A toy probe on the laptop (3 pinned spawned workers, 100 x 20 ms bursts) reported process_time 0.03-0.09 s for 2.0 s of busy work. On the desktop the same probe gave process_time ~= busy time (the desktop timer resolution was likely raised by running applications). The serial process (long uninterrupted compute) was charged correctly on both machines.",
+  "laptop_attempt_1": "the laptop campaign started at seal 49c37c0 was stopped after 49 records (H100 rep 0 up to N = 16) because its total_cpu_s is invalid; preserved unchanged as 'laptop_attempt1_tick_cpu_defect'; its wall times and bit identity remain readable but are not used for boundaries",
+  "fix": "every process reports QueryProcessCycleTime (cycles of all its threads, user + kernel, not tick-sampled; on these machines it advances at the invariant TSC rate, laptop probe 2.369-2.370 GHz on 3 cores = 4500U base clock, desktop calibration 3.48 GHz = 5600 base clock). The campaign calibrates the rate once (max over 3 x 20 busy loops of 50 ms of cycles/wall on its core; preemption can only lower a sample) and stores it in cycle_rate.json. total_cpu_s := total cycles / rate (primary CPU figure from now on); the tick-sampled figure is kept as total_cpu_tick_s and labelled unreliable on the laptop.",
+  "check": "desktop dry run (scratch, N = 12, T = 20): cycle CPU 1.96 / 3.15 / 4.57 s vs tick CPU 2.02 / 3.05 / 4.59 s for SER_E1 / PAR_3 / PAR_6 (agreement where ticks work); laptop probe as above (disagreement where ticks fail)",
+  "unchanged": "scenario rule, N list, p, horizons, configurations, repetitions, boundaries, thresholds, cap (now applied to cycle CPU), machine maps; the fresh laptop run starts from an empty output directory"
  }
 }
