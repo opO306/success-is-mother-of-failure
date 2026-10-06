@@ -1,0 +1,32 @@
+{"tag": "start", "time": "20:12:51", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N3__r0", "time": "20:13:07", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N4__r0", "time": "20:13:14", "rows": [["OneDrive.Sync.Service.exe", 10172, 1.1]], "other_total_pct": 1.1, "suspects": [], "contaminated": false}
+{"tag": "H100__N6__r0", "time": "20:13:23", "rows": [["svchost.exe", 1440, 3.4], ["svchost.exe", 1160, 2.2], ["csrss.exe", 692, 1.1], ["RuntimeBroker.exe", 2960, 1.1], ["ShellExperienceHost.exe", 7492, 1.1], ["svchost.exe", 10076, 1.1], ["svchost.exe", 18424, 1.1]], "other_total_pct": 11.1, "suspects": [], "contaminated": false}
+{"tag": "H100__N12__r0", "time": "20:13:34", "rows": [["svchost.exe", 1160, 3.0], ["svchost.exe", 1264, 1.0], ["svchost.exe", 1440, 1.0]], "other_total_pct": 5.0, "suspects": [], "contaminated": false}
+{"tag": "H100__N24__r0", "time": "20:14:05", "rows": [["System", 4, 2.2], ["svchost.exe", 1160, 1.1], ["svchost.exe", 18424, 1.1]], "other_total_pct": 4.4, "suspects": [], "contaminated": false}
+{"tag": "H100__N48__r0", "time": "20:15:50", "rows": [["System", 4, 2.3], ["SearchIndexer.exe", 9284, 1.1]], "other_total_pct": 3.4, "suspects": [], "contaminated": false}
+{"tag": "H1000__N3__r0", "time": "20:22:43", "rows": [["System", 4, 11.9]], "other_total_pct": 11.9, "suspects": [], "contaminated": false}
+{"tag": "H1000__N4__r0", "time": "20:23:02", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N6__r0", "time": "20:23:32", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N12__r0", "time": "20:24:38", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N3__r1", "time": "20:28:51", "rows": [["chrome.exe", 14636, 1.2], ["chrome.exe", 21672, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}
+{"tag": "H100__N4__r1", "time": "20:28:57", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N6__r1", "time": "20:29:06", "rows": [["dwm.exe", 2148, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "H100__N12__r1", "time": "20:29:19", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N24__r1", "time": "20:29:49", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N48__r1", "time": "20:31:35", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N3__r1", "time": "20:38:37", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N4__r1", "time": "20:38:56", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N6__r1", "time": "20:39:27", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N12__r1", "time": "20:40:33", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N3__r2", "time": "20:44:45", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H100__N4__r2", "time": "20:44:52", "rows": [["System", 4, 1.2], ["SearchProtocolHost.exe", 15068, 1.2]], "other_total_pct": 2.4, "suspects": [], "contaminated": false}
+{"tag": "H100__N6__r2", "time": "20:45:00", "rows": [["System", 4, 3.5], ["explorer.exe", 6444, 1.2]], "other_total_pct": 4.7, "suspects": [], "contaminated": false}
+{"tag": "H100__N12__r2", "time": "20:45:12", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "H100__N24__r2", "time": "20:45:43", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "H100__N48__r2", "time": "20:47:28", "rows": [["System", 4, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "H1000__N3__r2", "time": "20:54:23", "rows": [["chrome.exe", 21672, 1.2]], "other_total_pct": 1.2, "suspects": [], "contaminated": false}
+{"tag": "H1000__N4__r2", "time": "20:54:42", "rows": [["System", 4, 8.2]], "other_total_pct": 8.2, "suspects": [], "contaminated": false}
+{"tag": "H1000__N6__r2", "time": "20:55:12", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "H1000__N12__r2", "time": "20:56:18", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}
+{"tag": "end", "time": "21:00:30", "rows": [], "other_total_pct": 0, "suspects": [], "contaminated": false}

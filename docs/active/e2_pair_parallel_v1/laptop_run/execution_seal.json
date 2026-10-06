@@ -1,0 +1,50 @@
+{
+ "head": "24624e3cfb398ccc1c6c137753e8a19f30da9187",
+ "branch": "claude/e2-pair-parallel-v1",
+ "status_porcelain": "",
+ "untracked": "",
+ "origin_master": "origin/master",
+ "sealed_sources_dirty": false,
+ "source_sha256_lf": {
+  "experiments/e2_pair_parallel_v1/protocol.json": "f6ed672c9e8f9ce40a921f3a9da8ff84803bbc31a2d2403177115396a4012bbe",
+  "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5",
+  "experiments/e2_pair_parallel_v1/campaign.py": "0819e08885990730cb38a9c357cddec26ff8acf4f0eb6b9fec723cc7fc4207e2",
+  "experiments/e2_pair_parallel_v1/checker.py": "fb1ba2cc618b4eaaa2b3af16b29817afcd6a49dce952b48fc762def976f88b3b",
+  "experiments/e2_pair_parallel_v1/analyze.py": "f11e552aec37961871eafe509ee95e12f26f928e8baa36a41c9254f1e7ee9285",
+  "experiments/multiatom_parallel_v1/run.py": "6fce260f79a82795eab515d1eec598bdfcca872b36327a05749b18159e7ba9e0",
+  "experiments/multiatom_parallel_v1/scenarios.py": "7908425757c1df4340f812de9de8e68fc6481e5254370664668dfebae3a9eb62",
+  "experiments/multiatom_parallel_v1/e2gate.py": "c1d36cf7ce4e8751be8516e66087472a8fb0a554be26d846aa2b89b9c836c33b",
+  "experiments/multiatom_parallel_v1/checker.py": "4cbadb1194402585f03382cd1f076f34f3f5125c2956c69ff05ff50cac5d751f",
+  "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+  "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+  "exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+  "a_reference/ar2_lang2024.py": "2a454adf1ca6ce1f27ae7e9e6f622a9d6d6c9a576ff2c59d5a48e62264977959",
+  "experiments/precision_pilot_a2t/evaluator_adapter.py": "ed5cb22b85d6411e551e5adae2f495a8cc5d18c0606403d98d137197c8800ecf",
+  "experiments/precision_pilot_a1/evaluator_adapter.py": "7ecbaf3e22ec104fd62891a2209976c4428e0e38045bb5b752f69fb31230458d",
+  "experiments/rewrite_pilot_a3/adapter.py": "5020fadef0b15a9cc7876efa541bb80b36a75d1c56f060e176e42a2a3682378e",
+  "experiments/rewrite_pilot_a3/rules.py": "bdf5edb249b15ae075f2ba6bf05cb22dd23e9f3b17b5786b473fbb27801ccab0",
+  "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+  "experiments/rewrite_pilot_a3/runner.py": "a84f7100e5af157832f1a3c4e77e9c6433c288545a804fe8c98dbe914d3d2b0f",
+  "experiments/formula_repro_b_v0/harness.py": "b0217b82e8549d6f600de8732fe8c3f5c8ff790926c90bd07381efae0c360a99",
+  "experiments/formula_repro_b_v0/upstream/probe.py": "2bae71e13f03ce51eafa7c2c97cbfdd67108f74bdcbdbbdb4bc2f324915e9917"
+ },
+ "python": "3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)]",
+ "started": "2026-10-06 20:12:45",
+ "machine": "laptop",
+ "machine_map": {
+  "role": "primary",
+  "host": "DESKTOP-0EASI0F",
+  "worker_cores": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   0
+  ],
+  "main_cpu": 0,
+  "serial_cpu": 1,
+  "campaign_cpu": 0
+ },
+ "host": "DESKTOP-0EASI0F"
+}

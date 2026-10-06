@@ -1,0 +1,279 @@
+20:12:49 cycle rate 2.3686 GHz
+20:12:49 E2_PAIR_PARALLEL_V1 phase all machine laptop map {'role': 'primary', 'host': 'DESKTOP-0EASI0F', 'worker_cores': [1, 2, 3, 4, 5, 0], 'main_cpu': 0, 'serial_cpu': 1, 'campaign_cpu': 0} pid 9796
+20:12:51 load start: others 0% suspects [] clean top []
+20:13:06 E2 gates S1-S6 True sympy True new-domain containment True (13 distinct R^2)
+20:13:07 load H100__N3__r0: others 0% suspects [] clean top []
+20:13:08 done H100__N3__SER_E1__r0 DECIDED steps 100 e2e 0.53 loop 0.31 cpu 0.47
+20:13:08 done H100__N3__SER_E2__r0 DECIDED steps 100 e2e 0.51 loop 0.29 cpu 0.44
+20:13:09 done H100__N3__PAR_E1_W3__r0 DECIDED steps 100 e2e 0.61 loop 0.14 cpu 1.05
+20:13:10 done H100__N3__PAR_E2_W3__r0 DECIDED steps 100 e2e 0.59 loop 0.12 cpu 1.01
+20:13:10 done H100__N3__PAR_E1_W4__r0 DECIDED steps 100 e2e 0.65 loop 0.14 cpu 1.27
+20:13:11 done H100__N3__PAR_E2_W4__r0 DECIDED steps 100 e2e 0.74 loop 0.16 cpu 1.31
+20:13:12 done H100__N3__PAR_E1_W6__r0 DECIDED steps 100 e2e 0.86 loop 0.14 cpu 1.83
+20:13:13 done H100__N3__PAR_E2_W6__r0 DECIDED steps 100 e2e 0.73 loop 0.12 cpu 1.78
+20:13:14 load H100__N4__r0: others 1.1% suspects [] clean top [('OneDrive.Sync.Service.exe', 10172, 1.1)]
+20:13:15 done H100__N4__SER_E1__r0 DECIDED steps 100 e2e 0.83 loop 0.60 cpu 0.76
+20:13:16 done H100__N4__SER_E2__r0 DECIDED steps 100 e2e 0.77 loop 0.56 cpu 0.71
+20:13:17 done H100__N4__PAR_E1_W3__r0 DECIDED steps 100 e2e 0.69 loop 0.24 cpu 1.32
+20:13:18 done H100__N4__PAR_E2_W3__r0 DECIDED steps 100 e2e 0.67 loop 0.22 cpu 1.27
+20:13:18 done H100__N4__PAR_E1_W4__r0 DECIDED steps 100 e2e 0.73 loop 0.24 cpu 1.56
+20:13:19 done H100__N4__PAR_E2_W4__r0 DECIDED steps 100 e2e 0.74 loop 0.22 cpu 1.51
+20:13:20 done H100__N4__PAR_E1_W6__r0 DECIDED steps 100 e2e 0.78 loop 0.17 cpu 2.15
+20:13:21 done H100__N4__PAR_E2_W6__r0 DECIDED steps 100 e2e 0.94 loop 0.17 cpu 2.17
+20:13:23 load H100__N6__r0: others 11.1% suspects [] clean top [('svchost.exe', 1440, 3.4), ('svchost.exe', 1160, 2.2), ('csrss.exe', 692, 1.1), ('RuntimeBroker.exe', 2960, 1.1)]
+20:13:24 done H100__N6__SER_E1__r0 DECIDED steps 100 e2e 1.71 loop 1.49 cpu 1.65
+20:13:26 done H100__N6__SER_E2__r0 DECIDED steps 100 e2e 1.61 loop 1.37 cpu 1.53
+20:13:27 done H100__N6__PAR_E1_W3__r0 DECIDED steps 100 e2e 1.12 loop 0.64 cpu 2.34
+20:13:28 done H100__N6__PAR_E2_W3__r0 DECIDED steps 100 e2e 1.07 loop 0.61 cpu 2.24
+20:13:29 done H100__N6__PAR_E1_W4__r0 DECIDED steps 100 e2e 1.05 loop 0.55 cpu 2.65
+20:13:30 done H100__N6__PAR_E2_W4__r0 DECIDED steps 100 e2e 1.02 loop 0.51 cpu 2.50
+20:13:31 done H100__N6__PAR_E1_W6__r0 DECIDED steps 100 e2e 1.03 loop 0.44 cpu 3.24
+20:13:32 done H100__N6__PAR_E2_W6__r0 DECIDED steps 100 e2e 1.06 loop 0.40 cpu 3.24
+20:13:34 load H100__N12__r0: others 5.0% suspects [] clean top [('svchost.exe', 1160, 3.0), ('svchost.exe', 1264, 1.0), ('svchost.exe', 1440, 1.0)]
+20:13:41 done H100__N12__SER_E1__r0 DECIDED steps 100 e2e 6.65 loop 6.42 cpu 6.57
+20:13:47 done H100__N12__SER_E2__r0 DECIDED steps 100 e2e 6.17 loop 5.95 cpu 6.10
+20:13:50 done H100__N12__PAR_E1_W3__r0 DECIDED steps 100 e2e 2.98 loop 2.52 cpu 7.61
+20:13:53 done H100__N12__PAR_E2_W3__r0 DECIDED steps 100 e2e 2.82 loop 2.35 cpu 7.08
+20:13:56 done H100__N12__PAR_E1_W4__r0 DECIDED steps 100 e2e 2.59 loop 2.08 cpu 8.14
+20:13:58 done H100__N12__PAR_E2_W4__r0 DECIDED steps 100 e2e 2.50 loop 2.01 cpu 7.85
+20:14:01 done H100__N12__PAR_E1_W6__r0 DECIDED steps 100 e2e 2.71 loop 2.10 cpu 9.60
+20:14:03 done H100__N12__PAR_E2_W6__r0 DECIDED steps 100 e2e 2.31 loop 1.62 cpu 8.85
+20:14:05 load H100__N24__r0: others 4.4% suspects [] clean top [('System', 4, 2.2), ('svchost.exe', 1160, 1.1), ('svchost.exe', 18424, 1.1)]
+20:14:32 done H100__N24__SER_E1__r0 DECIDED steps 100 e2e 26.97 loop 26.73 cpu 26.87
+20:14:57 done H100__N24__SER_E2__r0 DECIDED steps 100 e2e 24.87 loop 24.64 cpu 24.80
+20:15:07 done H100__N24__PAR_E1_W3__r0 DECIDED steps 100 e2e 10.24 loop 9.72 cpu 28.57
+20:15:17 done H100__N24__PAR_E2_W3__r0 DECIDED steps 100 e2e 9.69 loop 9.21 cpu 26.93
+20:15:26 done H100__N24__PAR_E1_W4__r0 DECIDED steps 100 e2e 8.76 loop 8.24 cpu 31.57
+20:15:34 done H100__N24__PAR_E2_W4__r0 DECIDED steps 100 e2e 8.21 loop 7.70 cpu 29.28
+20:15:42 done H100__N24__PAR_E1_W6__r0 DECIDED steps 100 e2e 7.79 loop 7.12 cpu 35.52
+20:15:49 done H100__N24__PAR_E2_W6__r0 DECIDED steps 100 e2e 6.72 loop 6.12 cpu 32.84
+20:15:50 load H100__N48__r0: others 3.4% suspects [] clean top [('System', 4, 2.3), ('SearchIndexer.exe', 9284, 1.1)]
+20:17:40 done H100__N48__SER_E1__r0 DECIDED steps 100 e2e 109.89 loop 109.65 cpu 109.72
+20:19:22 done H100__N48__SER_E2__r0 DECIDED steps 100 e2e 101.23 loop 100.98 cpu 101.13
+20:20:03 done H100__N48__PAR_E1_W3__r0 DECIDED steps 100 e2e 40.89 loop 40.35 cpu 116.68
+20:20:41 done H100__N48__PAR_E2_W3__r0 DECIDED steps 100 e2e 38.04 loop 37.54 cpu 108.75
+20:21:15 done H100__N48__PAR_E1_W4__r0 DECIDED steps 100 e2e 34.22 loop 33.66 cpu 127.37
+20:21:47 done H100__N48__PAR_E2_W4__r0 DECIDED steps 100 e2e 31.57 loop 31.04 cpu 116.86
+20:22:15 done H100__N48__PAR_E1_W6__r0 DECIDED steps 100 e2e 28.36 loop 27.75 cpu 140.06
+20:22:42 done H100__N48__PAR_E2_W6__r0 DECIDED steps 100 e2e 26.64 loop 26.03 cpu 131.83
+20:22:43 load H1000__N3__r0: others 11.9% suspects [] clean top [('System', 4, 11.9)]
+20:22:47 done H1000__N3__SER_E1__r0 DECIDED steps 1000 e2e 3.23 loop 3.01 cpu 3.16
+20:22:50 done H1000__N3__SER_E2__r0 DECIDED steps 1000 e2e 2.99 loop 2.77 cpu 2.92
+20:22:51 done H1000__N3__PAR_E1_W3__r0 DECIDED steps 1000 e2e 1.79 loop 1.33 cpu 4.04
+20:22:53 done H1000__N3__PAR_E2_W3__r0 DECIDED steps 1000 e2e 1.63 loop 1.18 cpu 3.72
+20:22:55 done H1000__N3__PAR_E1_W4__r0 DECIDED steps 1000 e2e 1.83 loop 1.32 cpu 4.36
+20:22:57 done H1000__N3__PAR_E2_W4__r0 DECIDED steps 1000 e2e 1.69 loop 1.17 cpu 4.06
+20:22:59 done H1000__N3__PAR_E1_W6__r0 DECIDED steps 1000 e2e 1.93 loop 1.33 cpu 5.10
+20:23:00 done H1000__N3__PAR_E2_W6__r0 DECIDED steps 1000 e2e 1.85 loop 1.25 cpu 4.89
+20:23:02 load H1000__N4__r0: others 0% suspects [] clean top []
+20:23:08 done H1000__N4__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 6.13 loop 5.91 cpu 6.06
+20:23:14 done H1000__N4__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.72 loop 5.50 cpu 5.66
+20:23:17 done H1000__N4__PAR_E1_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.79 loop 2.30 cpu 6.92
+20:23:20 done H1000__N4__PAR_E2_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.62 loop 2.16 cpu 6.49
+20:23:22 done H1000__N4__PAR_E1_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.87 loop 2.38 cpu 7.51
+20:23:25 done H1000__N4__PAR_E2_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.75 loop 2.25 cpu 7.01
+20:23:28 done H1000__N4__PAR_E1_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.76 loop 2.12 cpu 9.31
+20:23:31 done H1000__N4__PAR_E2_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 2.51 loop 1.85 cpu 8.70
+20:23:32 load H1000__N6__r0: others 0% suspects [] clean top []
+20:23:47 done H1000__N6__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 14.76 loop 14.55 cpu 14.70
+20:24:01 done H1000__N6__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 13.86 loop 13.64 cpu 13.79
+20:24:08 done H1000__N6__PAR_E1_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 6.77 loop 6.30 cpu 16.92
+20:24:14 done H1000__N6__PAR_E2_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 6.52 loop 6.04 cpu 16.08
+20:24:21 done H1000__N6__PAR_E1_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 6.27 loop 5.74 cpu 19.21
+20:24:27 done H1000__N6__PAR_E2_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.90 loop 5.40 cpu 17.78
+20:24:32 done H1000__N6__PAR_E1_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 5.23 loop 4.62 cpu 20.60
+20:24:37 done H1000__N6__PAR_E2_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 4.90 loop 4.32 cpu 19.17
+20:24:38 load H1000__N12__r0: others 0% suspects [] clean top []
+20:25:43 done H1000__N12__SER_E1__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 64.15 loop 63.92 cpu 64.05
+20:26:42 done H1000__N12__SER_E2__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 59.26 loop 59.03 cpu 59.17
+20:27:08 done H1000__N12__PAR_E1_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 25.58 loop 25.07 cpu 69.97
+20:27:32 done H1000__N12__PAR_E2_W3__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 24.14 loop 23.64 cpu 65.94
+20:27:54 done H1000__N12__PAR_E1_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 22.24 loop 21.72 cpu 76.12
+20:28:15 done H1000__N12__PAR_E2_W4__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 20.64 loop 20.09 cpu 70.10
+20:28:32 done H1000__N12__PAR_E1_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 17.51 loop 16.86 cpu 83.84
+20:28:49 done H1000__N12__PAR_E2_W6__r0 UNDECIDED_AT_PRECISION steps 1000 e2e 16.61 loop 16.00 cpu 77.68
+20:28:49 repetition 0 finished; campaign CPU 2086s
+20:28:51 load H100__N3__r1: others 2.4% suspects [] clean top [('chrome.exe', 14636, 1.2), ('chrome.exe', 21672, 1.2)]
+20:28:51 done H100__N3__PAR_E1_W3__r1 DECIDED steps 100 e2e 0.59 loop 0.13 cpu 1.04
+20:28:52 done H100__N3__PAR_E2_W3__r1 DECIDED steps 100 e2e 0.61 loop 0.12 cpu 1.02
+20:28:52 done H100__N3__PAR_E1_W4__r1 DECIDED steps 100 e2e 0.64 loop 0.14 cpu 1.26
+20:28:53 done H100__N3__PAR_E2_W4__r1 DECIDED steps 100 e2e 0.64 loop 0.12 cpu 1.25
+20:28:54 done H100__N3__PAR_E1_W6__r1 DECIDED steps 100 e2e 0.74 loop 0.13 cpu 1.81
+20:28:55 done H100__N3__PAR_E2_W6__r1 DECIDED steps 100 e2e 0.72 loop 0.12 cpu 1.77
+20:28:55 done H100__N3__SER_E1__r1 DECIDED steps 100 e2e 0.52 loop 0.31 cpu 0.47
+20:28:56 done H100__N3__SER_E2__r1 DECIDED steps 100 e2e 0.50 loop 0.28 cpu 0.44
+20:28:57 load H100__N4__r1: others 0% suspects [] clean top []
+20:28:58 done H100__N4__PAR_E1_W3__r1 DECIDED steps 100 e2e 0.69 loop 0.24 cpu 1.32
+20:28:59 done H100__N4__PAR_E2_W3__r1 DECIDED steps 100 e2e 0.69 loop 0.22 cpu 1.27
+20:29:00 done H100__N4__PAR_E1_W4__r1 DECIDED steps 100 e2e 0.73 loop 0.24 cpu 1.56
+20:29:01 done H100__N4__PAR_E2_W4__r1 DECIDED steps 100 e2e 1.12 loop 0.51 cpu 2.15
+20:29:02 done H100__N4__PAR_E1_W6__r1 DECIDED steps 100 e2e 1.05 loop 0.17 cpu 2.22
+20:29:03 done H100__N4__PAR_E2_W6__r1 DECIDED steps 100 e2e 0.87 loop 0.17 cpu 2.20
+20:29:04 done H100__N4__SER_E1__r1 DECIDED steps 100 e2e 0.89 loop 0.67 cpu 0.76
+20:29:05 done H100__N4__SER_E2__r1 DECIDED steps 100 e2e 0.79 loop 0.56 cpu 0.72
+20:29:06 load H100__N6__r1: others 1.2% suspects [] clean top [('dwm.exe', 2148, 1.2)]
+20:29:07 done H100__N6__PAR_E1_W3__r1 DECIDED steps 100 e2e 1.11 loop 0.64 cpu 2.35
+20:29:09 done H100__N6__PAR_E2_W3__r1 DECIDED steps 100 e2e 1.10 loop 0.61 cpu 2.26
+20:29:10 done H100__N6__PAR_E1_W4__r1 DECIDED steps 100 e2e 1.06 loop 0.55 cpu 2.64
+20:29:11 done H100__N6__PAR_E2_W4__r1 DECIDED steps 100 e2e 1.15 loop 0.57 cpu 2.74
+20:29:12 done H100__N6__PAR_E1_W6__r1 DECIDED steps 100 e2e 1.27 loop 0.49 cpu 3.32
+20:29:13 done H100__N6__PAR_E2_W6__r1 DECIDED steps 100 e2e 1.03 loop 0.41 cpu 3.27
+20:29:15 done H100__N6__SER_E1__r1 DECIDED steps 100 e2e 1.74 loop 1.49 cpu 1.64
+20:29:17 done H100__N6__SER_E2__r1 DECIDED steps 100 e2e 1.59 loop 1.36 cpu 1.53
+20:29:19 load H100__N12__r1: others 0% suspects [] clean top []
+20:29:22 done H100__N12__PAR_E1_W3__r1 DECIDED steps 100 e2e 3.00 loop 2.52 cpu 7.62
+20:29:24 done H100__N12__PAR_E2_W3__r1 DECIDED steps 100 e2e 2.80 loop 2.32 cpu 7.09
+20:29:27 done H100__N12__PAR_E1_W4__r1 DECIDED steps 100 e2e 2.62 loop 2.12 cpu 8.32
+20:29:30 done H100__N12__PAR_E2_W4__r1 DECIDED steps 100 e2e 2.53 loop 2.02 cpu 7.89
+20:29:32 done H100__N12__PAR_E1_W6__r1 DECIDED steps 100 e2e 2.55 loop 1.91 cpu 9.95
+20:29:35 done H100__N12__PAR_E2_W6__r1 DECIDED steps 100 e2e 2.30 loop 1.62 cpu 9.22
+20:29:41 done H100__N12__SER_E1__r1 DECIDED steps 100 e2e 6.59 loop 6.37 cpu 6.53
+20:29:48 done H100__N12__SER_E2__r1 DECIDED steps 100 e2e 6.30 loop 6.08 cpu 6.13
+20:29:49 load H100__N24__r1: others 0% suspects [] clean top []
+20:30:00 done H100__N24__PAR_E1_W3__r1 DECIDED steps 100 e2e 10.29 loop 9.81 cpu 28.61
+20:30:09 done H100__N24__PAR_E2_W3__r1 DECIDED steps 100 e2e 9.81 loop 9.32 cpu 27.23
+20:30:18 done H100__N24__PAR_E1_W4__r1 DECIDED steps 100 e2e 8.85 loop 8.34 cpu 31.88
+20:30:27 done H100__N24__PAR_E2_W4__r1 DECIDED steps 100 e2e 8.27 loop 7.75 cpu 29.49
+20:30:35 done H100__N24__PAR_E1_W6__r1 DECIDED steps 100 e2e 7.97 loop 7.33 cpu 35.55
+20:30:41 done H100__N24__PAR_E2_W6__r1 DECIDED steps 100 e2e 6.68 loop 5.96 cpu 32.99
+20:31:09 done H100__N24__SER_E1__r1 DECIDED steps 100 e2e 27.38 loop 27.15 cpu 27.30
+20:31:34 done H100__N24__SER_E2__r1 DECIDED steps 100 e2e 24.88 loop 24.62 cpu 24.80
+20:31:35 load H100__N48__r1: others 0% suspects [] clean top []
+20:32:16 done H100__N48__PAR_E1_W3__r1 DECIDED steps 100 e2e 40.75 loop 40.25 cpu 116.90
+20:32:55 done H100__N48__PAR_E2_W3__r1 DECIDED steps 100 e2e 38.42 loop 37.93 cpu 109.70
+20:33:30 done H100__N48__PAR_E1_W4__r1 DECIDED steps 100 e2e 34.75 loop 34.23 cpu 128.10
+20:34:08 done H100__N48__PAR_E2_W4__r1 DECIDED steps 100 e2e 38.57 loop 37.95 cpu 122.43
+20:34:37 done H100__N48__PAR_E1_W6__r1 DECIDED steps 100 e2e 29.04 loop 28.31 cpu 143.58
+20:35:05 done H100__N48__PAR_E2_W6__r1 DECIDED steps 100 e2e 27.65 loop 26.97 cpu 133.54
+20:36:55 done H100__N48__SER_E1__r1 DECIDED steps 100 e2e 109.59 loop 109.36 cpu 109.47
+20:38:36 done H100__N48__SER_E2__r1 DECIDED steps 100 e2e 101.13 loop 100.89 cpu 101.03
+20:38:37 load H1000__N3__r1: others 0% suspects [] clean top []
+20:38:39 done H1000__N3__PAR_E1_W3__r1 DECIDED steps 1000 e2e 1.80 loop 1.33 cpu 4.05
+20:38:41 done H1000__N3__PAR_E2_W3__r1 DECIDED steps 1000 e2e 1.66 loop 1.19 cpu 3.74
+20:38:43 done H1000__N3__PAR_E1_W4__r1 DECIDED steps 1000 e2e 1.82 loop 1.33 cpu 4.38
+20:38:45 done H1000__N3__PAR_E2_W4__r1 DECIDED steps 1000 e2e 1.68 loop 1.20 cpu 4.07
+20:38:47 done H1000__N3__PAR_E1_W6__r1 DECIDED steps 1000 e2e 1.90 loop 1.30 cpu 5.03
+20:38:48 done H1000__N3__PAR_E2_W6__r1 DECIDED steps 1000 e2e 1.82 loop 1.23 cpu 4.78
+20:38:52 done H1000__N3__SER_E1__r1 DECIDED steps 1000 e2e 3.23 loop 3.01 cpu 3.17
+20:38:55 done H1000__N3__SER_E2__r1 DECIDED steps 1000 e2e 2.98 loop 2.77 cpu 2.92
+20:38:56 load H1000__N4__r1: others 0% suspects [] clean top []
+20:38:59 done H1000__N4__PAR_E1_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 2.79 loop 2.31 cpu 6.90
+20:39:02 done H1000__N4__PAR_E2_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 3.03 loop 2.54 cpu 6.58
+20:39:05 done H1000__N4__PAR_E1_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 2.87 loop 2.36 cpu 7.42
+20:39:08 done H1000__N4__PAR_E2_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 2.76 loop 2.24 cpu 6.96
+20:39:11 done H1000__N4__PAR_E1_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 2.78 loop 2.15 cpu 9.30
+20:39:14 done H1000__N4__PAR_E2_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 2.65 loop 1.97 cpu 8.83
+20:39:20 done H1000__N4__SER_E1__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 6.12 loop 5.90 cpu 6.06
+20:39:26 done H1000__N4__SER_E2__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 5.72 loop 5.51 cpu 5.66
+20:39:27 load H1000__N6__r1: others 0% suspects [] clean top []
+20:39:34 done H1000__N6__PAR_E1_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 6.79 loop 6.31 cpu 16.99
+20:39:41 done H1000__N6__PAR_E2_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 6.53 loop 6.06 cpu 16.16
+20:39:47 done H1000__N6__PAR_E1_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 6.47 loop 5.97 cpu 19.08
+20:39:53 done H1000__N6__PAR_E2_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 5.93 loop 5.40 cpu 17.77
+20:39:58 done H1000__N6__PAR_E1_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 5.20 loop 4.62 cpu 20.62
+20:40:03 done H1000__N6__PAR_E2_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 4.51 loop 3.91 cpu 18.84
+20:40:18 done H1000__N6__SER_E1__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 14.89 loop 14.66 cpu 14.82
+20:40:32 done H1000__N6__SER_E2__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 13.60 loop 13.37 cpu 13.53
+20:40:33 load H1000__N12__r1: others 0% suspects [] clean top []
+20:40:59 done H1000__N12__PAR_E1_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 25.62 loop 25.13 cpu 70.07
+20:41:23 done H1000__N12__PAR_E2_W3__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 24.40 loop 23.91 cpu 65.99
+20:41:46 done H1000__N12__PAR_E1_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 22.58 loop 22.03 cpu 76.47
+20:42:07 done H1000__N12__PAR_E2_W4__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 20.63 loop 20.12 cpu 70.57
+20:42:24 done H1000__N12__PAR_E1_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 17.29 loop 16.66 cpu 84.66
+20:42:40 done H1000__N12__PAR_E2_W6__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 16.29 loop 15.64 cpu 79.29
+20:43:44 done H1000__N12__SER_E1__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 63.46 loop 63.23 cpu 63.37
+20:44:43 done H1000__N12__SER_E2__r1 UNDECIDED_AT_PRECISION steps 1000 e2e 59.12 loop 58.86 cpu 59.00
+20:44:43 repetition 1 finished; campaign CPU 4189s
+20:44:45 load H100__N3__r2: others 0% suspects [] clean top []
+20:44:45 done H100__N3__PAR_E1_W4__r2 DECIDED steps 100 e2e 0.64 loop 0.14 cpu 1.27
+20:44:46 done H100__N3__PAR_E2_W4__r2 DECIDED steps 100 e2e 0.63 loop 0.13 cpu 1.25
+20:44:47 done H100__N3__PAR_E1_W6__r2 DECIDED steps 100 e2e 0.72 loop 0.13 cpu 1.79
+20:44:48 done H100__N3__PAR_E2_W6__r2 DECIDED steps 100 e2e 0.73 loop 0.13 cpu 1.77
+20:44:48 done H100__N3__SER_E1__r2 DECIDED steps 100 e2e 0.54 loop 0.31 cpu 0.47
+20:44:49 done H100__N3__SER_E2__r2 DECIDED steps 100 e2e 0.50 loop 0.28 cpu 0.44
+20:44:50 done H100__N3__PAR_E1_W3__r2 DECIDED steps 100 e2e 0.61 loop 0.14 cpu 1.04
+20:44:50 done H100__N3__PAR_E2_W3__r2 DECIDED steps 100 e2e 0.58 loop 0.12 cpu 1.00
+20:44:52 load H100__N4__r2: others 2.4% suspects [] clean top [('System', 4, 1.2), ('SearchProtocolHost.exe', 15068, 1.2)]
+20:44:53 done H100__N4__PAR_E1_W4__r2 DECIDED steps 100 e2e 0.72 loop 0.24 cpu 1.55
+20:44:53 done H100__N4__PAR_E2_W4__r2 DECIDED steps 100 e2e 0.74 loop 0.22 cpu 1.51
+20:44:54 done H100__N4__PAR_E1_W6__r2 DECIDED steps 100 e2e 0.75 loop 0.17 cpu 2.14
+20:44:55 done H100__N4__PAR_E2_W6__r2 DECIDED steps 100 e2e 0.86 loop 0.20 cpu 2.13
+20:44:56 done H100__N4__SER_E1__r2 DECIDED steps 100 e2e 0.86 loop 0.62 cpu 0.76
+20:44:57 done H100__N4__SER_E2__r2 DECIDED steps 100 e2e 0.78 loop 0.55 cpu 0.72
+20:44:58 done H100__N4__PAR_E1_W3__r2 DECIDED steps 100 e2e 0.72 loop 0.24 cpu 1.33
+20:44:58 done H100__N4__PAR_E2_W3__r2 DECIDED steps 100 e2e 0.70 loop 0.22 cpu 1.28
+20:45:00 load H100__N6__r2: others 4.7% suspects [] clean top [('System', 4, 3.5), ('explorer.exe', 6444, 1.2)]
+20:45:01 done H100__N6__PAR_E1_W4__r2 DECIDED steps 100 e2e 1.04 loop 0.55 cpu 2.63
+20:45:02 done H100__N6__PAR_E2_W4__r2 DECIDED steps 100 e2e 1.02 loop 0.53 cpu 2.57
+20:45:03 done H100__N6__PAR_E1_W6__r2 DECIDED steps 100 e2e 1.03 loop 0.44 cpu 3.26
+20:45:05 done H100__N6__PAR_E2_W6__r2 DECIDED steps 100 e2e 1.60 loop 0.56 cpu 4.03
+20:45:07 done H100__N6__SER_E1__r2 DECIDED steps 100 e2e 1.72 loop 1.51 cpu 1.62
+20:45:08 done H100__N6__SER_E2__r2 DECIDED steps 100 e2e 1.59 loop 1.37 cpu 1.53
+20:45:10 done H100__N6__PAR_E1_W3__r2 DECIDED steps 100 e2e 1.10 loop 0.62 cpu 2.32
+20:45:11 done H100__N6__PAR_E2_W3__r2 DECIDED steps 100 e2e 1.08 loop 0.61 cpu 2.26
+20:45:12 load H100__N12__r2: others 1.2% suspects [] clean top [('System', 4, 1.2)]
+20:45:15 done H100__N12__PAR_E1_W4__r2 DECIDED steps 100 e2e 2.56 loop 2.06 cpu 8.09
+20:45:17 done H100__N12__PAR_E2_W4__r2 DECIDED steps 100 e2e 2.47 loop 1.93 cpu 7.62
+20:45:20 done H100__N12__PAR_E1_W6__r2 DECIDED steps 100 e2e 2.50 loop 1.86 cpu 9.64
+20:45:22 done H100__N12__PAR_E2_W6__r2 DECIDED steps 100 e2e 2.23 loop 1.49 cpu 8.79
+20:45:29 done H100__N12__SER_E1__r2 DECIDED steps 100 e2e 6.65 loop 6.43 cpu 6.59
+20:45:35 done H100__N12__SER_E2__r2 DECIDED steps 100 e2e 6.26 loop 6.03 cpu 6.19
+20:45:38 done H100__N12__PAR_E1_W3__r2 DECIDED steps 100 e2e 2.99 loop 2.52 cpu 7.64
+20:45:41 done H100__N12__PAR_E2_W3__r2 DECIDED steps 100 e2e 2.80 loop 2.32 cpu 7.09
+20:45:43 load H100__N24__r2: others 1.2% suspects [] clean top [('System', 4, 1.2)]
+20:45:51 done H100__N24__PAR_E1_W4__r2 DECIDED steps 100 e2e 8.55 loop 8.06 cpu 30.86
+20:46:00 done H100__N24__PAR_E2_W4__r2 DECIDED steps 100 e2e 8.20 loop 7.68 cpu 29.45
+20:46:08 done H100__N24__PAR_E1_W6__r2 DECIDED steps 100 e2e 7.84 loop 7.21 cpu 35.69
+20:46:14 done H100__N24__PAR_E2_W6__r2 DECIDED steps 100 e2e 6.70 loop 6.02 cpu 32.90
+20:46:42 done H100__N24__SER_E1__r2 DECIDED steps 100 e2e 27.10 loop 26.88 cpu 27.03
+20:47:07 done H100__N24__SER_E2__r2 DECIDED steps 100 e2e 25.11 loop 24.88 cpu 25.04
+20:47:17 done H100__N24__PAR_E1_W3__r2 DECIDED steps 100 e2e 10.18 loop 9.71 cpu 28.56
+20:47:27 done H100__N24__PAR_E2_W3__r2 DECIDED steps 100 e2e 9.84 loop 9.34 cpu 27.15
+20:47:28 load H100__N48__r2: others 1.2% suspects [] clean top [('System', 4, 1.2)]
+20:48:02 done H100__N48__PAR_E1_W4__r2 DECIDED steps 100 e2e 33.81 loop 33.30 cpu 126.24
+20:48:34 done H100__N48__PAR_E2_W4__r2 DECIDED steps 100 e2e 31.85 loop 31.34 cpu 118.20
+20:49:03 done H100__N48__PAR_E1_W6__r2 DECIDED steps 100 e2e 28.37 loop 27.75 cpu 140.40
+20:49:31 done H100__N48__PAR_E2_W6__r2 DECIDED steps 100 e2e 27.84 loop 27.20 cpu 130.90
+20:51:20 done H100__N48__SER_E1__r2 DECIDED steps 100 e2e 109.82 loop 109.57 cpu 109.65
+20:53:02 done H100__N48__SER_E2__r2 DECIDED steps 100 e2e 101.00 loop 100.76 cpu 100.90
+20:53:43 done H100__N48__PAR_E1_W3__r2 DECIDED steps 100 e2e 41.05 loop 40.50 cpu 117.14
+20:54:21 done H100__N48__PAR_E2_W3__r2 DECIDED steps 100 e2e 38.34 loop 37.82 cpu 109.09
+20:54:23 load H1000__N3__r2: others 1.2% suspects [] clean top [('chrome.exe', 21672, 1.2)]
+20:54:25 done H1000__N3__PAR_E1_W4__r2 DECIDED steps 1000 e2e 1.84 loop 1.32 cpu 4.41
+20:54:26 done H1000__N3__PAR_E2_W4__r2 DECIDED steps 1000 e2e 1.68 loop 1.18 cpu 4.06
+20:54:28 done H1000__N3__PAR_E1_W6__r2 DECIDED steps 1000 e2e 1.92 loop 1.31 cpu 5.07
+20:54:30 done H1000__N3__PAR_E2_W6__r2 DECIDED steps 1000 e2e 1.83 loop 1.24 cpu 4.85
+20:54:33 done H1000__N3__SER_E1__r2 DECIDED steps 1000 e2e 3.25 loop 3.03 cpu 3.18
+20:54:36 done H1000__N3__SER_E2__r2 DECIDED steps 1000 e2e 2.97 loop 2.75 cpu 2.91
+20:54:38 done H1000__N3__PAR_E1_W3__r2 DECIDED steps 1000 e2e 1.82 loop 1.35 cpu 4.07
+20:54:40 done H1000__N3__PAR_E2_W3__r2 DECIDED steps 1000 e2e 1.70 loop 1.23 cpu 3.87
+20:54:42 load H1000__N4__r2: others 8.2% suspects [] clean top [('System', 4, 8.2)]
+20:54:45 done H1000__N4__PAR_E1_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.84 loop 2.33 cpu 7.33
+20:54:47 done H1000__N4__PAR_E2_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.70 loop 2.20 cpu 6.90
+20:54:50 done H1000__N4__PAR_E1_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.82 loop 2.23 cpu 9.39
+20:54:53 done H1000__N4__PAR_E2_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.49 loop 1.83 cpu 8.81
+20:54:59 done H1000__N4__SER_E1__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 6.15 loop 5.92 cpu 6.04
+20:55:05 done H1000__N4__SER_E2__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 5.75 loop 5.51 cpu 5.67
+20:55:08 done H1000__N4__PAR_E1_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.78 loop 2.30 cpu 6.93
+20:55:10 done H1000__N4__PAR_E2_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 2.62 loop 2.14 cpu 6.42
+20:55:12 load H1000__N6__r2: others 0% suspects [] clean top []
+20:55:18 done H1000__N6__PAR_E1_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 6.05 loop 5.56 cpu 18.52
+20:55:24 done H1000__N6__PAR_E2_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 5.96 loop 5.40 cpu 17.88
+20:55:30 done H1000__N6__PAR_E1_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 5.29 loop 4.70 cpu 20.73
+20:55:34 done H1000__N6__PAR_E2_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 4.53 loop 3.94 cpu 19.01
+20:55:49 done H1000__N6__SER_E1__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 14.82 loop 14.59 cpu 14.67
+20:56:03 done H1000__N6__SER_E2__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 13.71 loop 13.48 cpu 13.64
+20:56:10 done H1000__N6__PAR_E1_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 6.73 loop 6.26 cpu 16.81
+20:56:16 done H1000__N6__PAR_E2_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 6.53 loop 6.05 cpu 16.06
+20:56:18 load H1000__N12__r2: others 0% suspects [] clean top []
+20:56:40 done H1000__N12__PAR_E1_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 22.24 loop 21.69 cpu 75.81
+20:57:01 done H1000__N12__PAR_E2_W4__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 20.65 loop 20.08 cpu 70.27
+20:57:18 done H1000__N12__PAR_E1_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 17.09 loop 16.41 cpu 84.78
+20:57:35 done H1000__N12__PAR_E2_W6__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 16.60 loop 15.98 cpu 78.36
+20:58:39 done H1000__N12__SER_E1__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 63.93 loop 63.69 cpu 63.83
+20:59:38 done H1000__N12__SER_E2__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 59.15 loop 58.91 cpu 59.06
+21:00:03 done H1000__N12__PAR_E1_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 25.49 loop 24.98 cpu 70.08
+21:00:28 done H1000__N12__PAR_E2_W3__r2 UNDECIDED_AT_PRECISION steps 1000 e2e 24.52 loop 24.04 cpu 66.19
+21:00:28 repetition 2 finished; campaign CPU 6276s
+21:00:30 load end: others 0% suspects [] clean top []
+21:00:30 finished

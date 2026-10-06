@@ -1,0 +1,10 @@
+{
+ "rates_hz": [
+  2368512576.281777,
+  2368596709.255356,
+  2368543465.799787
+ ],
+ "rate_hz": 2368596709.255356,
+ "core": 0,
+ "method": "max over 3 x 20 busy loops of 50 ms of cycles/wall"
+}

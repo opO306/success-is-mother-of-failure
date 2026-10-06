@@ -1,0 +1,107 @@
+{
+ "verdict": "EVIDENCE OK",
+ "machine": "laptop",
+ "counts": {
+  "seal_clean": [
+   1,
+   0
+  ],
+  "seal_machine_map": [
+   1,
+   0
+  ],
+  "E2_gate_S1_S6": [
+   1,
+   0
+  ],
+  "E2_gate_sympy": [
+   1,
+   0
+  ],
+  "E2_gate_new_domain": [
+   1,
+   0
+  ],
+  "contamination_rederived": [
+   32,
+   0
+  ],
+  "snapshot_present": [
+   30,
+   0
+  ],
+  "complete": [
+   240,
+   0
+  ],
+  "meta": [
+   240,
+   0
+  ],
+  "initial_state": [
+   240,
+   0
+  ],
+  "group_flag": [
+   240,
+   0
+  ],
+  "cycle_cpu_consistent": [
+   240,
+   0
+  ],
+  "cells_rederived": [
+   168,
+   0
+  ],
+  "serial_swap_restored": [
+   60,
+   0
+  ],
+  "affinity": [
+   240,
+   0
+  ],
+  "equal_to_MULTIATOM_evidence": [
+   60,
+   0
+  ],
+  "cpu_sanity": [
+   240,
+   0
+  ],
+  "worker_evaluator": [
+   180,
+   0
+  ],
+  "workers_exited": [
+   180,
+   0
+  ],
+  "blocks": [
+   180,
+   0
+  ],
+  "no_cells_unless_decided": [
+   72,
+   0
+  ],
+  "bit_identical_E1_all_W_reps": [
+   120,
+   0
+  ],
+  "bit_identical_E2_all_W_reps": [
+   120,
+   0
+  ],
+  "E1_E2_cells_equal": [
+   7,
+   0
+  ]
+ },
+ "issues": [],
+ "n_issues": 0,
+ "contaminated_groups": [],
+ "multiatom_evidence_used": true,
+ "checker_wall_s": 0.36449169999104924
+}
