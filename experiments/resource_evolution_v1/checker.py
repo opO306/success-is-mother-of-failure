@@ -406,7 +406,7 @@ def build_tables(R, us, cond_rows, t9, gates):
     for plan in ("BASE", "SPEC_P_E1", "SPEC_EVAL"):
         rs = [R[f"T2__{plan}__{s}_{T_}__r{r}"] for r in range(3) for s, T_ in EVAL]
         t2[plan] = {"wall": lat([x["wall_s"] for x in rs]), "cpu_med": med([x["total_cpu_s"] for x in rs]),
-                    "waste_med": med([x["waste_cpu_s"] for x in rs]),
+                    "waste_med": med([x.get("waste_cpu_s", 0.0) for x in rs]),
                     "verified": sum(x["status"] == "VERIFIED" for x in rs), "n": len(rs)}
     per = {}
     for s, T_ in EVAL:
@@ -444,7 +444,7 @@ def build_tables(R, us, cond_rows, t9, gates):
                                     "plans": sorted({x["plan"] for x in rs}),
                                     "wall_sum_verified": sum(x["wall_s"] for x in rs if x["status"] == "VERIFIED"),
                                     "cpu_sum": sum(x["total_cpu_s"] for x in rs),
-                                    "waste_sum": sum(x["waste_cpu_s"] for x in rs)}
+                                    "waste_sum": sum(x.get("waste_cpu_s", 0.0) for x in rs)}
     T["T34"] = t34
     cr = {}
     for ph in ("T5", "T6", "T7A", "T7B"):
@@ -459,7 +459,7 @@ def build_tables(R, us, cond_rows, t9, gates):
         rs = [R[f"T8__{plan}__{s}_{T_}__r{r}"] for r in range(3) for s, T_ in EVAL]
         t8[plan] = {"verified": sum(x["status"] == "VERIFIED" for x in rs), "n": len(rs),
                     "wall": lat([x["wall_s"] for x in rs]), "cpu_sum": sum(x["total_cpu_s"] for x in rs),
-                    "waste_sum": sum(x["waste_cpu_s"] for x in rs),
+                    "waste_sum": sum(x.get("waste_cpu_s", 0.0) for x in rs),
                     "first_try_success": sum(1 for x in rs if x["status"] == "VERIFIED" and
                                              len([p for w in x["workers"] if w["accepted"] for p in w["passes"]]) == 1
                                              and not any(e.get("fallback_start_p") for e in x["events"])),
@@ -481,7 +481,7 @@ def build_tables(R, us, cond_rows, t9, gates):
                                      "starvation": sum(x["status"] == "BUDGET_STARVATION" for x in rs),
                                      "wall_verified": lat([x["wall_s"] for x in rs if x["status"] == "VERIFIED"]),
                                      "cpu_sum": sum(x["total_cpu_s"] for x in rs),
-                                     "waste_sum": sum(x["waste_cpu_s"] for x in rs)}
+                                     "waste_sum": sum(x.get("waste_cpu_s", 0.0) for x in rs)}
     T["T10"] = t10
     return T
 
