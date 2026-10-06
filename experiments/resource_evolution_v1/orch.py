@@ -75,8 +75,10 @@ class Worker:
         return [x for x in self.lines if x["kind"] == "pass"]
 
     def cpu_final(self):
+        """One consistent figure: the larger of the OS-polled CPU and the worker's own report (the report misses the
+        interpreter start before its T0; the poll may miss the last <50 ms)."""
         e = self.end()
-        return e["child_cpu_s"] if e else self.cpu
+        return max(self.cpu, e["child_cpu_s"]) if e else self.cpu
 
 
 def _read_all(w):
@@ -134,6 +136,7 @@ def run_workers(wdir, tag, specs, env, scenario, T, fallback=None):
             break
         if total_cpu >= env["cpu_s"] or wall >= env["wall_s"]:
             budget_hit = "cpu" if total_cpu >= env["cpu_s"] else "wall"
+            rec["cpu_at_trigger"], rec["kill_t"] = total_cpu, wall
             for w in ws:
                 w.kill()
             break
@@ -144,9 +147,16 @@ def run_workers(wdir, tag, specs, env, scenario, T, fallback=None):
             stage = 1
             ws.append(Worker(wdir, f"{tag}__fallback", dict(spec, cpus=[cores[0]])))
             rec["events"].append({"t": wall, "fallback_start_p": spec["start_p"]})
+    late = []
     for w in ws:
-        _read_all(w)
+        for row in _read_all(w):                         # lines first read after the stop decision
+            if budget_hit and row["kind"] == "pass" and row["outcome"] == "DECIDED":
+                v = VF.verify(row, scenario, T)
+                verify_cpu += v["verify_cpu_s"]
+                late.append({"worker": w.name, "p": row["requested_p"], "verified": v["verified"],
+                             "worker_t_cpu": row.get("t_cpu")})
         w.poll()
+    rec["late_results_discarded"] = late
     rec["wall_s"] = accepted[2] if accepted else time.perf_counter() - t0
     rec["wall_all_ended_s"] = time.perf_counter() - t0
     for w in ws:

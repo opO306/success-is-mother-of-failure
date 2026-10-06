@@ -148,3 +148,22 @@ def test_checker_and_verifier_import_no_executor_module():
             elif isinstance(node, ast.Import):
                 names.update(a.name for a in node.names)
         assert not any(n.split(".")[-1] in banned + extra for n in names), (f, names)
+
+
+def test_cpu_figure_is_consistent_max_of_poll_and_self_report():
+    """run-1 defect 2: a worker ending between the budget decision and the kill was booked with its self-report
+    (which misses the interpreter start), so a CPU refusal was recorded below its budget."""
+    import types
+    fake = types.SimpleNamespace(cpu=0.38, end=lambda: {"child_cpu_s": 0.359})
+    assert O.Worker.cpu_final(fake) == 0.38
+    fake2 = types.SimpleNamespace(cpu=0.30, end=lambda: {"child_cpu_s": 0.359})
+    assert O.Worker.cpu_final(fake2) == 0.359
+
+
+def test_budget_stop_records_trigger_point_and_late_results(tmp_path):
+    """run-1 defect 1: a DECIDED line read only after the stop decision must be recorded as a discarded late result,
+    and the trigger point must be on the record so the checker can adjudicate."""
+    r = O.run_plan(tmp_path, "trig", "AGG3", env(cores=(2, 4, 6), cpu=0.9), "A3_low", 100)
+    if r["status"] != "VERIFIED":
+        assert r["cpu_at_trigger"] >= 0.9 and r["total_cpu_s"] >= r["cpu_at_trigger"] - 1e-9
+        assert "late_results_discarded" in r
