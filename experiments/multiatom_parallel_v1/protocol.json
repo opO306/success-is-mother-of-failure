@@ -1,0 +1,73 @@
+{
+ "gate": "MULTIATOM_PARALLEL_V1 - Multi-Atom Parallel Scaling Pilot: from which atom count N does splitting one trajectory's pair forces over worker processes pay off?",
+ "date": "2026-10-06",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "NEW SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "parent": "RESOURCE_EVOLUTION_PILOT_V1 run 2 (7b09e53) and XREPRO_RESOURCE_V1 (same branch claude/resource-xrepro-multiatom-v1)",
+ "question": "When N grows, the pair count N(N-1)/2 grows. From which N does intra-trajectory pair parallelism give a real net gain, and where does it stop paying?",
+ "world_semantics_unchanged": "Same world as the 2/3-atom pilots: unrounded KDK map, dt 40, half kick 20, Ar40 mass of C1-B1, frozen C1-A Lang 2024 pair force with retardation (exact_expression_gate_v1.common / stream, exact_expression_gate_v0.lang_iv), interval arithmetic at a fixed working precision, three-way domain obligation R^2 >= R_MIN^2 on every pair before the force, readout = the A1 grid cells at step T. Pairwise-additive force over ALL pairs (no cutoff), exactly as stream.run. No three-body term exists in this world and none is added. Nothing in physics, constants, domain, rounding or readout is changed to reach larger N.",
+ "scenario_family": {
+  "name": "FCC_N",
+  "rule": "positions: the first N points of the face-centred cubic lattice {(x, y, z) in Z^3 : x + y + z even}, sorted by (x^2 + y^2 + z^2, x, y, z) ascending, times 5 bohr (exact integers; nearest neighbour 5*sqrt(2) = 7.071 bohr, near the measured solid-argon nearest-neighbour distance 7.10 bohr). momenta (atomic units): raw p[i][k] = ((7 i + 3 k + 1) mod 5) - 2 for atom i = 0..N-1 and component k = 0..2, then the exact mean over atoms is subtracted per component (exact Fractions; total momentum exactly 0).",
+  "why_this_rule": "deterministic, rational, compact (a cluster in vacuum, every pair interacting), physically ordinary spacing and small thermal-scale momenta; fixed BEFORE any timing of this family was taken and not adjusted afterwards",
+  "pre_seal_facts_disclosed": "pair distances at step 0: min 7.07, max 25.50 bohr for N <= 48 (inside the [r_min, 30] bohr range of the A3 E2 S4 gate). One implementation smoke test was run before sealing (N = 8, T = 20, p 128, draft run.py, scratch only, not evidence): DECIDED; PAR_1/3/6 bit-identical to SER_E1; loop wall SER_E1 0.435 s, SER_E2 0.410 s, PAR_1 0.532 s, PAR_3 0.233 s, PAR_6 0.147 s; spawn 0.29-0.52 s. It exposed that per-step worker CPU (process_time, 15.6 ms tick) is too coarse, so a wall-clock busy measure was added. The N list, scenario rule, p and horizons were already written in this file before that test and were not changed by it.",
+  "N_list": [2, 3, 4, 6, 8, 12, 16, 24, 32, 48],
+  "pairs": [1, 3, 6, 15, 28, 66, 120, 276, 496, 1128],
+  "not_the_same_scope": "FCC_N results are a new survey family. They are never merged with the A2_bound / A3_low / A3_high results or their certification statements."
+ },
+ "precision_and_horizons": {
+  "p": 128,
+  "p_reason": "the S4 pair-parallel test of run 2 used p 128; one fixed p isolates the parallel question from the precision policy. Whether step T is DECIDED at p 128 is recorded but is not a goal.",
+  "H100": "T = 100 for every N in N_list",
+  "H1000": "T = 1000 for N in {2, 3, 4, 6, 8, 12} (larger N at 1000 steps is outside the CPU cap)",
+  "domain_stop": "if the serial reference stops (VIOLATED / UNPROVEN / OUT_OF_RANGE), every parallel run must stop at the same step with the same kind; time is then reported per completed step"
+ },
+ "pre_seal_cost_probe_disclosed": "desktop, p 128, one pair-force call: E1 algebra ~0.63-0.73 ms, E2 rw:R1+R2 ~0.52-0.68 ms, E0 original ~4.6-6.0 ms; per-pair differences + R^2 + domain ~21 us; per-pair accumulation ~16-31 us; one pickled interval ~75 bytes. Expected serial step cost ~0.75 ms x pairs.",
+ "configurations": {
+  "SER_E1": "serial reference: one fresh process pinned to one core runs the repository loop exactly as the A2T 'algebra' evaluator (stream.LI swapped to the probe Force(compiled=True) at p for the pass, then restored); this IS the current BASE evaluator path, with the FCC_N initial state passed to stream.run",
+  "SER_E2": "the same with rw:R1+R2 (A3 adapter path); for the E2 question only",
+  "PAR_W (W in {1, 2, 3, 4, 6})": "one fresh main process + W persistent worker processes (multiprocessing spawn), each pinned to its own physical core, each preparing the E1 force at p. Per step the main sends the current positions (exact interval endpoints) to every worker; worker w owns a fixed contiguous block of the canonical pair list (i < j, lexicographic; block sizes differ by at most 1) and returns, per pair, the domain status and the three products t_k = (h * g) * d_k computed with exactly the serial operations. The main reduces in the canonical pair order (F[j][k] += t_k, F[i][k] -= t_k), block by block as they arrive in block order, raising the domain stop at the first non-PROVEN pair in canonical order, and performs the KDK updates and the readout exactly as stream.run. W = 1 measures the pure overhead of the machinery."
+ },
+ "bit_identity_argument": "Each F[a][k] receives the same operands in the same order as in stream.run (the canonical order restricted to atom a), every t is produced by the same interval operations on the same inputs at the same precision, and the mpf endpoints travel between processes as exact (sign, mantissa, exponent, bitcount) tuples. Therefore the endpoints must be bit-identical; this is checked, not assumed.",
+ "machine": {
+  "host": "desktop (AMD Ryzen 5 5600, 6 physical / 12 logical, SMT siblings (2i, 2i+1))",
+  "worker_cores": "logical [2, 4, 6, 8, 10, 0][:W] (one per physical core, run-2 order)",
+  "main_core": "logical 1 (SMT sibling of physical core 0); with W = 6 it shares physical core 0 with worker 6 - the main mostly waits while workers compute; recorded",
+  "serial_core": "logical 2",
+  "W_max": "6 = physical cores; the main is extra",
+  "laptop": "not used for this pilot (cross-machine semantics are XREPRO_RESOURCE_V1's job)"
+ },
+ "schedule": "3 repetitions. In each repetition: H100 for N ascending, then H1000 for N ascending; for each (horizon, N) the 7 configurations run consecutively, their order rotated by the repetition index. Every run is a fresh process launched by the campaign; the campaign itself is pinned to logical 3 (sibling of a worker core, idle while it waits).",
+ "measurements": {
+  "end_to_end_wall": "campaign-side wall from launch to exit of the run's main process (includes interpreter start, imports, force preparation, worker spawn and shutdown)",
+  "ready_wall": "main-side wall from its own start to 'all workers ready' (serial: to evaluator prepared)",
+  "loop_wall": "wall of the KDK loop only (step 0 force through step T readout)",
+  "per_step_wall": "loop_wall / completed steps",
+  "total_cpu": "main process CPU + sum of worker process CPU (psutil user+system read before shutdown, and the worker's own report; the larger is used); parent-process CPU alone is never called total CPU",
+  "speedup_loop": "loop_wall(SER_E1) / loop_wall(PAR_W)",
+  "speedup_e2e": "end_to_end_wall(SER_E1) / end_to_end_wall(PAR_W)",
+  "cpu_ratio": "total_cpu(PAR_W) / total_cpu(SER_E1)",
+  "parallel_efficiency": "speedup_loop / W",
+  "spawn_overhead": "ready_wall(PAR_W) - ready_wall(SER_E1)",
+  "main_breakdown": "per run: send time, wait time (main idle for worker results), reduction time (canonical accumulation), KDK update + readout time, all perf_counter sums",
+  "worker_busy": "per worker: CPU spent computing its block during the loop (process_time sums)",
+  "ipc_bytes": "pickled bytes of one step's outgoing and incoming messages (measured at step 0)",
+  "peak_ram": "peak working set of the main and of every worker (psutil peak_wset); their sum is reported as an upper bound of the run's peak",
+  "verifier_cost": "checker time to compare endpoints and to re-derive cells from endpoints (only DECIDED readouts)",
+  "result_equality": "endpoints key of all 6N components at T (or the stop kind and step) identical across SER_E1 and every PAR_W and every repetition"
+ },
+ "boundaries (all from medians over the 3 repetitions, per horizon)": {
+  "B1_first_loop_win": "smallest N with min over W of loop_wall(PAR_W) < loop_wall(SER_E1)",
+  "B2_first_e2e_win": "smallest N with min over W of end_to_end_wall(PAR_W) < end_to_end_wall(SER_E1) (start cost included; depends on T, reported for H100 and H1000, plus the break-even horizon T* = spawn_overhead / (per_step_wall(SER) - per_step_wall(PAR)) when the denominator is positive)",
+  "B3_wall_beats_cpu": "smallest N with some W such that speedup_e2e(W) >= cpu_ratio(W), i.e. the wall x CPU product falls (wall drops by a larger factor than CPU grows)",
+  "B4_worker_saturation": "per N: W_opt = argmin loop_wall; W_sat = smallest W whose next listed W improves loop_wall by less than 5 %; reported as a curve over N, and the N above which W = 6 is still improving by >= 5 % over W = 4",
+  "B5_bottleneck_onset": "smallest N at which, for W = 6, (send + reduction + KDK) main-side serial time >= 20 % of loop_wall, or (loop_wall - max worker busy) >= 20 % of loop_wall (IPC/wait overhead), or summed peak RAM >= 2048 MB; each criterion reported separately, 'not reached' allowed",
+  "E2_question": "per N: total_cpu(SER_E2) / total_cpu(SER_E1) and loop wall ratio; E2 cells must equal E1 cells where both are DECIDED",
+  "adaptive_question": "per N and objective (min wall / min CPU / min wall x CPU): which configuration is best; a resource-adaptive plan is 'needed' where the best configuration differs between objectives or between N",
+  "T11_question": "answered qualitatively from the above; no T11 component is built"
+ },
+ "E2_gate_in_new_domain": "(a) rerun the A3 runner refs / verify rw:R1+R2 / sympy rw:R1+R2 gates (S1-S6 + S3b); (b) for every distinct step-0 pair distance of every FCC_N scenario: the E2 force interval at p 128 must contain the 1024-bit original (E0) point enclosure at that R^2, and E1 likewise; (c) serial E2 vs E1 cells equal where both DECIDED",
+ "cpu_cap": "campaign CPU cap 10800 s (sum of run total CPU); the campaign stops at the next run boundary when exceeded and reports which runs are missing. Estimated need ~6000 CPU s.",
+ "checker": "experiments/multiatom_parallel_v1/checker.py, independent of the executor: re-generates every FCC_N initial state with its own code and compares exact values with the recorded initial state; compares endpoints keys across all runs of a (horizon, N); re-derives cells from endpoints with the A1 checker rounding; checks completeness of the schedule, affinity read-backs inside the allowed sets, that every worker exited, CPU sanity (total CPU <= (W + 1) x end_to_end_wall x 1.1 + 1 s); recomputes nothing physical (the serial repository loop is the reference and is itself one of the compared runs).",
+ "not_in_scope": ["T11 Joint Genome", "neural selector", "A2-R", "new conditioning model", "Pavlov learner", "float64 speculative path", "RNS/LNS/Posit", "GPU/Tensor Core", "voltage/temperature/ageing", "Vast", "cutoffs, neighbour lists or any force approximation", "precision policy changes (p fixed)"],
+ "claims_forbidden": ["'6 cores is X times faster' as the result", "FCC_N results as part of the 2/3-atom certification scope", "bit identity on one machine is a proof", "a boundary measured at p 128 and these horizons holds for other p, T, machines or scenario families", "parent-process CPU is total CPU"]
+}
