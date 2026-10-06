@@ -1,13 +1,32 @@
 {
  "gate": "EXPERIENCE_START_P_V1 - does a start p chosen from verified past precision experience cut the total retry cost while correctness is unchanged?",
  "date": "2026-10-07",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "NOT A LEARNED MODEL", "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "NOT A LEARNED MODEL",
+  "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
  "baseline": {
   "parent": "claude/selector-service-v1 @ e018090 (local; origin/claude/selector-service-v1 = 0e6953b, local 1 commit ahead, checked)",
   "master": "15ae151 = origin/master",
   "this_branch": "claude/experience-start-p-v1 in the main checkout (no worktree); clean, no untracked files at start",
-  "training_source_evidence": {"path": "docs/active/selector_service_v1/laptop_run/records.json.gz", "sha256_raw": "7093c3c7c0dedd08b6794b70e9d366f734c7848a6f8492cdab725c1be2007f13", "checker_verdict": "EVIDENCE OK (docs/active/selector_service_v1/laptop_run/checker_verdict.json)"},
-  "code_sha256_lf_prefix_at_start": {"experiments/selector_service_v1/selector.py": "6a55849672b5c3f0", "experiments/selector_service_v1/service.py": "ed521201867989e1", "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d", "experiments/w5_placement_v1/run.py": "bad88888efe173bb", "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7", "experiments/multiatom_parallel_v1/run.py": "6fce260f79a82795", "exact_expression_gate_v1/stream.py": "1f19074aced1f68e", "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a"}
+  "training_source_evidence": {
+   "path": "docs/active/selector_service_v1/laptop_run/records.json.gz",
+   "sha256_raw": "7093c3c7c0dedd08b6794b70e9d366f734c7848a6f8492cdab725c1be2007f13",
+   "checker_verdict": "EVIDENCE OK (docs/active/selector_service_v1/laptop_run/checker_verdict.json)"
+  },
+  "code_sha256_lf_prefix_at_start": {
+   "experiments/selector_service_v1/selector.py": "6a55849672b5c3f0",
+   "experiments/selector_service_v1/service.py": "ed521201867989e1",
+   "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d",
+   "experiments/w5_placement_v1/run.py": "bad88888efe173bb",
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7",
+   "experiments/multiatom_parallel_v1/run.py": "6fce260f79a82795",
+   "exact_expression_gate_v1/stream.py": "1f19074aced1f68e",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a"
+  }
  },
  "terms": {
   "lowest_observed_success_p": "the lowest p among the passes actually run (and verified) that ended DECIDED",
@@ -40,12 +59,89 @@
   "no_correctness_role": "a policy only picks the first p; acceptance is the unchanged DECIDED readout"
  },
  "worker_selector": "Selector V1 frozen, goal WALL_MIN (main comparison); CPU of every pass recorded",
- "part_A_exact_replay": {"requests": [{"N": 5, "T": 100}, {"N": 8, "T": 100}, {"N": 16, "T": 100}, {"N": 32, "T": 100}, {"N": 5, "T": 1000}, {"N": 8, "T": 1000}], "policies": ["P2_BASE", "EXACT_MEMORY"], "repetitions": 3, "note": "the same requests as the training bundle: this measures reuse of experience for the identical job and is NOT evidence of generalization"},
- "part_B_unseen_N": {"requests": [{"N": 7, "T": 100}, {"N": 10, "T": 100}, {"N": 20, "T": 100}, {"N": 7, "T": 1000}, {"N": 10, "T": 1000}], "candidate_check": "a search over every docs/active/**/records.json.gz found no FCC_N record (any experiment, any p) with these (N, T); the first-priority list is used unchanged", "policies": ["P2_BASE", "FAMILY_MIN", "FAMILY_MAX"], "exact_memory": "the EXACT_MEMORY lookup is recorded for every Part B request and must be a miss (the checker verifies); it is not executed separately because a miss is the P2_BASE plan", "repetitions": 3},
+ "part_A_exact_replay": {
+  "requests": [
+   {
+    "N": 5,
+    "T": 100
+   },
+   {
+    "N": 8,
+    "T": 100
+   },
+   {
+    "N": 16,
+    "T": 100
+   },
+   {
+    "N": 32,
+    "T": 100
+   },
+   {
+    "N": 5,
+    "T": 1000
+   },
+   {
+    "N": 8,
+    "T": 1000
+   }
+  ],
+  "policies": [
+   "P2_BASE",
+   "EXACT_MEMORY"
+  ],
+  "repetitions": 3,
+  "note": "the same requests as the training bundle: this measures reuse of experience for the identical job and is NOT evidence of generalization"
+ },
+ "part_B_unseen_N": {
+  "requests": [
+   {
+    "N": 7,
+    "T": 100
+   },
+   {
+    "N": 10,
+    "T": 100
+   },
+   {
+    "N": 20,
+    "T": 100
+   },
+   {
+    "N": 7,
+    "T": 1000
+   },
+   {
+    "N": 10,
+    "T": 1000
+   }
+  ],
+  "candidate_check": "a search over every docs/active/**/records.json.gz found no FCC_N record (any experiment, any p) with these (N, T); the first-priority list is used unchanged",
+  "policies": [
+   "P2_BASE",
+   "FAMILY_MIN",
+   "FAMILY_MAX"
+  ],
+  "exact_memory": "the EXACT_MEMORY lookup is recorded for every Part B request and must be a miss (the checker verifies); it is not executed separately because a miss is the P2_BASE plan",
+  "repetitions": 3
+ },
  "order": "Part A then Part B; per repetition requests in the listed order; within a request the policies rotated by repetition index",
  "serial_reference": "after both parts, one CPU_SERIAL pass for every distinct (N, T, p) that any policy ran (Part A p values must also equal the SELECTOR_SERVICE_V1 serial passes at the same (N, T, p))",
  "correctness_hard_gate": "every pass bit-identical (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial-state digest) to the serial reference at the same (N, T, p); a policy that changes any final result fails",
- "cost_metrics_per_service_run": ["service wall", "total CPU", "passes", "failed passes", "first pass wall/CPU", "failed passes wall/CPU", "final success pass wall/CPU", "retry_cpu_fraction", "retry_wall_fraction", "starting_p", "final_success_p", "overshoot = starting_p - lowest_observed_success_p (training value; only for Part A keys that have one)"],
+ "cost_metrics_per_service_run": [
+  "service wall",
+  "total CPU",
+  "passes",
+  "failed passes",
+  "first pass wall/CPU",
+  "failed passes wall/CPU",
+  "final success pass wall/CPU",
+  "retry_cpu_fraction",
+  "retry_wall_fraction",
+  "starting_p",
+  "final_success_p",
+  "overshoot = starting_p - lowest_observed_success_p (training value; only for Part A keys that have one)"
+ ],
  "experience_sample": "one per service run: pre_run_features {N, T, pair_count, evaluator, topology_class, physics_contract_hash, numeric_contract_hash, initial_state_digest}; attempts [{p, outcome, completed_steps, backend, workers, cpu_s, wall_s}]; observed_summary {highest_observed_failure_p, lowest_observed_success_p, total_service_wall_s, total_service_cpu_s}; no true-minimum label. Recommended future target: the start p that minimizes the expected total service cost, not a minimum-p prediction.",
  "decision_rules_sealed": {
   "EXACT_MEMORY_useful_candidate": "no correctness difference, first-pass success in >= 5 of the 6 Part A requests (all clean repetitions), and median total service wall reduced by >= 20 % vs P2_BASE in >= 5 of 6; labelled reuse, not generalization",
@@ -55,7 +151,37 @@
  },
  "cost_estimate": "from the SELECTOR_SERVICE_V1 probe (~1 ms per pair-step serial, p 64-256 within ~15 %): Part A ~ 900 CPU s, Part B ~ 2,200 CPU s, serial references ~ 700 CPU s; cap 8,000 CPU s (cycle-counted); the campaign stops at the next run boundary when exceeded",
  "load_rule": "unchanged from E2_PAIR_PARALLEL_V1 (others >= 1 logical CPU or python/roblox/codex/node >= 25 % -> CONTAMINATED; kept, checked, excluded from performance numbers)",
- "fault_injection_tests": ["unverified experience used as trusted memory", "experience from another physics/evaluator contract mixed in", "exact memory with a different initial-state digest", "a result of this campaign used by a later request", "lowest_observed_success_p altered", "FAMILY_MIN / FAMILY_MAX altered", "first p record altered", "P2 fallback p altered", "endpoint altered", "failed pass deleted"],
- "not_in_scope": ["neural network", "decision tree", "regression model", "P3 retraining", "true-minimum search", "GPU / CUDA E2", "limb search", "W6 weighted partition", "reduction change", "worker selector rule change", "new physics", "master merge"],
- "claims_forbidden": ["lowest_observed_success_p is the minimum required p", "Part A shows generalization", "one laptop result holds elsewhere", "bit identity is a proof"]
+ "fault_injection_tests": [
+  "unverified experience used as trusted memory",
+  "experience from another physics/evaluator contract mixed in",
+  "exact memory with a different initial-state digest",
+  "a result of this campaign used by a later request",
+  "lowest_observed_success_p altered",
+  "FAMILY_MIN / FAMILY_MAX altered",
+  "first p record altered",
+  "P2 fallback p altered",
+  "endpoint altered",
+  "failed pass deleted"
+ ],
+ "not_in_scope": [
+  "neural network",
+  "decision tree",
+  "regression model",
+  "P3 retraining",
+  "true-minimum search",
+  "GPU / CUDA E2",
+  "limb search",
+  "W6 weighted partition",
+  "reduction change",
+  "worker selector rule change",
+  "new physics",
+  "master merge"
+ ],
+ "claims_forbidden": [
+  "lowest_observed_success_p is the minimum required p",
+  "Part A shows generalization",
+  "one laptop result holds elsewhere",
+  "bit identity is a proof"
+ ],
+ "amendment_1_before_any_run": "Before the code seal, on the desktop (scratch; desktop load groups CONTAMINATED by the sealed rule): the test fixture and one dry run used Part A N = 5, T = 100 (a training request whose outcome is already in the bundle) and Part B N = 6, T = 100 (NOT an evaluation request; never in the training bundle). Seen: N = 5 P2_BASE 64 -> 106, EXACT_MEMORY first pass at 106 DECIDED; N = 6 P2_BASE 64 -> 107, FAMILY_MIN (106) and FAMILY_MAX (109) DECIDED at the first pass; all passes bit-identical to serial references. This is disclosed because it is family-level information about a neighbouring N; the Part B requests, policies, rules and thresholds were already sealed and are unchanged. Defect found by the clean-fixture test and fixed before the seal: the checker compared the bundle record count with a count of distinct p values instead of records."
 }
