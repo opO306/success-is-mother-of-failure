@@ -1,0 +1,5 @@
+JOB_START 2026-10-07T01:21:41Z head 1045921ffae83b5834137b0fb2ea8800b82fc436
+CAMPAIGN_EXIT rc=0 2026-10-07T01:58:32Z
+{"FAMILY_MIN_cost_policy": "INFO_ONLY", "FAMILY_MAX_cost_policy": "USEFUL_COST_POLICY_CANDIDATE", "MIN_vs_MAX": "MAX_WIN", "stop_candidate": "A_keep_simple_policy", "stop_candidate_A_policies": ["FAMILY_MAX"], "requests_where_both_first_pass_failed": 0} excluded [] totals {'BASE64': (127.84, 655.29), 'FAMILY_MIN': (108.93, 563.4), 'FAMILY_MAX': (54.45, 281.42)}
+EVIDENCE OK bit mismatches 0 {} [] own family {'100': (106, 109), '1000': (145, 163)} own rules {'FAMILY_MIN_cost_policy': 'INFO_ONLY', 'FAMILY_MAX_cost_policy': 'USEFUL_COST_POLICY_CANDIDATE', 'MIN_vs_MAX': 'MAX_WIN'} analysis checked True
+DONE_MARKER 2026-10-07T01:58:33Z grace 1800s

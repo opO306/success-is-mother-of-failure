@@ -1,0 +1,7 @@
+{
+ "method": "linux:CLOCK_PROCESS_CPUTIME_ID_ns",
+ "rate_hz": 1000000000.0,
+ "child_process_check": "linux:CLOCK_PROCESS_CPUTIME_ID_ns",
+ "pythonpath": "/workspace/esp2/repo/experiments/experience_start_p_v2/linux_shim:/workspace/esp2/repo",
+ "flag": "1"
+}

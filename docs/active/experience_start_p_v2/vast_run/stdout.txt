@@ -1,0 +1,148 @@
+01:21:41 clock linux:CLOCK_PROCESS_CPUTIME_ID_ns rate 1.0000 GHz-equivalent
+01:21:41 store opened sha ec19eda9c6966be2 contracts match True
+01:21:41 EXPERIENCE_START_P_V2 pid 1723158 requests [(40, 100), (64, 100), (12, 1000), (16, 1000)] reps 3 policies ['BASE64', 'FAMILY_MIN', 'FAMILY_MAX']
+01:21:42 load anchor: others 1.0% suspects [] clean info {'loadavg_1m': 0.63, 'loadavg_5m': 0.56, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top [('proot', 1713629, 1.0)]
+01:21:44   pass N8 T100 p107 CPU_SERIAL W0 DECIDED e2e 1.71 cpu 1.66
+01:21:44 cross-platform anchor N8 T100 p107: IDENTICAL to laptop serial
+01:21:45 load N40_T100__r0: others 0% suspects [] clean info {'loadavg_1m': 0.82, 'loadavg_5m': 0.6, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:21:54   pass N40 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.84 cpu 45.70
+01:22:03   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 8.99 cpu 46.37
+01:22:03 service N40_T100__BASE64__r0: start 64 (DEFAULT_64) DECIDED passes [64, 109] wall 17.83
+01:22:12   pass N40 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 9.02 cpu 47.22
+01:22:21   pass N40 T100 p116 CPU_PARALLEL W6 DECIDED e2e 9.00 cpu 46.74
+01:22:21 service N40_T100__FAMILY_MIN__r0: start 106 (FAMILY_MIN) DECIDED passes [106, 116] wall 18.02
+01:22:30   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 9.02 cpu 46.64
+01:22:30 service N40_T100__FAMILY_MAX__r0: start 109 (FAMILY_MAX) DECIDED passes [109] wall 9.03
+01:22:31 load N64_T100__r0: others 0% suspects [] clean info {'loadavg_1m': 3.81, 'loadavg_5m': 1.42, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:22:53   pass N64 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 22.30 cpu 116.71
+01:23:16   pass N64 T100 p110 CPU_PARALLEL W6 DECIDED e2e 22.75 cpu 119.44
+01:23:16 service N64_T100__BASE64__r0: start 64 (DEFAULT_64) DECIDED passes [64, 110] wall 45.06
+01:23:39   pass N64 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 23.00 cpu 119.46
+01:24:02   pass N64 T100 p118 CPU_PARALLEL W6 DECIDED e2e 22.63 cpu 119.29
+01:24:02 service N64_T100__FAMILY_MIN__r0: start 106 (FAMILY_MIN) DECIDED passes [106, 118] wall 45.63
+01:24:24   pass N64 T100 p109 CPU_PARALLEL W6 DECIDED e2e 22.59 cpu 118.77
+01:24:24 service N64_T100__FAMILY_MAX__r0: start 109 (FAMILY_MAX) DECIDED passes [109] wall 22.59
+01:24:25 load N12_T1000__r0: others 0% suspects [] clean info {'loadavg_1m': 5.93, 'loadavg_5m': 2.83, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:24:33   pass N12 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 7.73 cpu 38.33
+01:24:41   pass N12 T1000 p73 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 7.77 cpu 38.46
+01:24:49   pass N12 T1000 p161 CPU_PARALLEL W6 DECIDED e2e 8.22 cpu 41.21
+01:24:49 service N12_T1000__BASE64__r0: start 64 (DEFAULT_64) DECIDED passes [64, 73, 161] wall 23.73
+01:24:57   pass N12 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.09 cpu 40.60
+01:25:05   pass N12 T1000 p165 CPU_PARALLEL W6 DECIDED e2e 8.29 cpu 41.25
+01:25:05 service N12_T1000__FAMILY_MIN__r0: start 145 (FAMILY_MIN) DECIDED passes [145, 165] wall 16.39
+01:25:13   pass N12 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 8.19 cpu 41.16
+01:25:13 service N12_T1000__FAMILY_MAX__r0: start 163 (FAMILY_MAX) DECIDED passes [163] wall 8.19
+01:25:14 load N16_T1000__r0: others 1.0% suspects [] clean info {'loadavg_1m': 6.08, 'loadavg_5m': 3.34, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top [('frpc', 47, 1.0)]
+01:25:28   pass N16 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 13.14 cpu 64.56
+01:25:41   pass N16 T1000 p78 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 13.63 cpu 69.47
+01:25:56   pass N16 T1000 p166 CPU_PARALLEL W6 DECIDED e2e 14.75 cpu 75.14
+01:25:56 service N16_T1000__BASE64__r0: start 64 (DEFAULT_64) DECIDED passes [64, 78, 166] wall 41.53
+01:26:10   pass N16 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 14.40 cpu 73.75
+01:26:25   pass N16 T1000 p171 CPU_PARALLEL W6 DECIDED e2e 14.54 cpu 74.92
+01:26:25 service N16_T1000__FAMILY_MIN__r0: start 145 (FAMILY_MIN) DECIDED passes [145, 171] wall 28.95
+01:26:39   pass N16 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 14.44 cpu 74.38
+01:26:39 service N16_T1000__FAMILY_MAX__r0: start 163 (FAMILY_MAX) DECIDED passes [163] wall 14.44
+01:26:39 repetition 0 finished; campaign CPU 1501s
+01:26:40 load N40_T100__r1: others 0% suspects [] clean info {'loadavg_1m': 7.02, 'loadavg_5m': 4.27, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:26:49   pass N40 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 9.05 cpu 46.81
+01:26:58   pass N40 T100 p116 CPU_PARALLEL W6 DECIDED e2e 9.02 cpu 46.90
+01:26:58 service N40_T100__FAMILY_MIN__r1: start 106 (FAMILY_MIN) DECIDED passes [106, 116] wall 18.08
+01:27:08   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 9.05 cpu 46.84
+01:27:08 service N40_T100__FAMILY_MAX__r1: start 109 (FAMILY_MAX) DECIDED passes [109] wall 9.05
+01:27:16   pass N40 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.90 cpu 45.94
+01:27:25   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 9.03 cpu 46.84
+01:27:25 service N40_T100__BASE64__r1: start 64 (DEFAULT_64) DECIDED passes [64, 109] wall 17.94
+01:27:26 load N64_T100__r1: others 0% suspects [] clean info {'loadavg_1m': 7.02, 'loadavg_5m': 4.65, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:27:49   pass N64 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 22.83 cpu 119.44
+01:28:12   pass N64 T100 p118 CPU_PARALLEL W6 DECIDED e2e 22.49 cpu 119.31
+01:28:12 service N64_T100__FAMILY_MIN__r1: start 106 (FAMILY_MIN) DECIDED passes [106, 118] wall 45.34
+01:28:35   pass N64 T100 p109 CPU_PARALLEL W6 DECIDED e2e 22.69 cpu 119.02
+01:28:35 service N64_T100__FAMILY_MAX__r1: start 109 (FAMILY_MAX) DECIDED passes [109] wall 22.69
+01:28:57   pass N64 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 22.33 cpu 116.93
+01:29:20   pass N64 T100 p110 CPU_PARALLEL W6 DECIDED e2e 22.72 cpu 119.13
+01:29:20 service N64_T100__BASE64__r1: start 64 (DEFAULT_64) DECIDED passes [64, 110] wall 45.06
+01:29:21 load N12_T1000__r1: others 0% suspects [] clean info {'loadavg_1m': 6.13, 'loadavg_5m': 5.08, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:29:29   pass N12 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.12 cpu 40.71
+01:29:37   pass N12 T1000 p165 CPU_PARALLEL W6 DECIDED e2e 8.26 cpu 41.28
+01:29:37 service N12_T1000__FAMILY_MIN__r1: start 145 (FAMILY_MIN) DECIDED passes [145, 165] wall 16.39
+01:29:45   pass N12 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 8.22 cpu 41.20
+01:29:45 service N12_T1000__FAMILY_MAX__r1: start 163 (FAMILY_MAX) DECIDED passes [163] wall 8.23
+01:29:53   pass N12 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 7.77 cpu 38.38
+01:30:01   pass N12 T1000 p73 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 7.76 cpu 38.40
+01:30:09   pass N12 T1000 p161 CPU_PARALLEL W6 DECIDED e2e 8.32 cpu 41.27
+01:30:09 service N12_T1000__BASE64__r1: start 64 (DEFAULT_64) DECIDED passes [64, 73, 161] wall 23.88
+01:30:10 load N16_T1000__r1: others 1.0% suspects [] clean info {'loadavg_1m': 6.35, 'loadavg_5m': 5.29, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top [('kaalia', 4001548, 1.0)]
+01:30:25   pass N16 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 14.59 cpu 73.65
+01:30:39   pass N16 T1000 p171 CPU_PARALLEL W6 DECIDED e2e 14.61 cpu 75.11
+01:30:39 service N16_T1000__FAMILY_MIN__r1: start 145 (FAMILY_MIN) DECIDED passes [145, 171] wall 29.22
+01:30:54   pass N16 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 14.49 cpu 74.47
+01:30:54 service N16_T1000__FAMILY_MAX__r1: start 163 (FAMILY_MAX) DECIDED passes [163] wall 14.50
+01:31:07   pass N16 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 12.82 cpu 64.18
+01:31:20   pass N16 T1000 p78 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 13.62 cpu 69.44
+01:31:35   pass N16 T1000 p166 CPU_PARALLEL W6 DECIDED e2e 14.49 cpu 74.88
+01:31:35 service N16_T1000__BASE64__r1: start 64 (DEFAULT_64) DECIDED passes [64, 78, 166] wall 40.95
+01:31:35 repetition 1 finished; campaign CPU 3001s
+01:31:36 load N40_T100__r2: others 0% suspects [] clean info {'loadavg_1m': 6.15, 'loadavg_5m': 5.37, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:31:45   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 9.02 cpu 46.83
+01:31:45 service N40_T100__FAMILY_MAX__r2: start 109 (FAMILY_MAX) DECIDED passes [109] wall 9.03
+01:31:54   pass N40 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.95 cpu 46.01
+01:32:03   pass N40 T100 p109 CPU_PARALLEL W6 DECIDED e2e 9.02 cpu 46.67
+01:32:03 service N40_T100__BASE64__r2: start 64 (DEFAULT_64) DECIDED passes [64, 109] wall 17.99
+01:32:12   pass N40 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 9.03 cpu 46.95
+01:32:21   pass N40 T100 p116 CPU_PARALLEL W6 DECIDED e2e 9.06 cpu 46.94
+01:32:21 service N40_T100__FAMILY_MIN__r2: start 106 (FAMILY_MIN) DECIDED passes [106, 116] wall 18.10
+01:32:22 load N64_T100__r2: others 0% suspects [] clean info {'loadavg_1m': 5.22, 'loadavg_5m': 5.25, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:32:45   pass N64 T100 p109 CPU_PARALLEL W6 DECIDED e2e 22.78 cpu 119.27
+01:32:45 service N64_T100__FAMILY_MAX__r2: start 109 (FAMILY_MAX) DECIDED passes [109] wall 22.79
+01:33:07   pass N64 T100 p64 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 22.41 cpu 116.96
+01:33:30   pass N64 T100 p110 CPU_PARALLEL W6 DECIDED e2e 22.72 cpu 119.09
+01:33:30 service N64_T100__BASE64__r2: start 64 (DEFAULT_64) DECIDED passes [64, 110] wall 45.14
+01:33:53   pass N64 T100 p106 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 22.73 cpu 119.15
+01:34:15   pass N64 T100 p118 CPU_PARALLEL W6 DECIDED e2e 22.77 cpu 119.80
+01:34:15 service N64_T100__FAMILY_MIN__r2: start 106 (FAMILY_MIN) DECIDED passes [106, 118] wall 45.51
+01:34:16 load N12_T1000__r2: others 0% suspects [] clean info {'loadavg_1m': 5.41, 'loadavg_5m': 5.31, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:34:25   pass N12 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 8.25 cpu 41.28
+01:34:25 service N12_T1000__FAMILY_MAX__r2: start 163 (FAMILY_MAX) DECIDED passes [163] wall 8.26
+01:34:32   pass N12 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 7.77 cpu 38.42
+01:34:40   pass N12 T1000 p73 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 7.83 cpu 38.61
+01:34:49   pass N12 T1000 p161 CPU_PARALLEL W6 DECIDED e2e 8.30 cpu 41.36
+01:34:49 service N12_T1000__BASE64__r2: start 64 (DEFAULT_64) DECIDED passes [64, 73, 161] wall 23.93
+01:34:57   pass N12 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 8.66 cpu 41.43
+01:35:05   pass N12 T1000 p165 CPU_PARALLEL W6 DECIDED e2e 8.18 cpu 41.13
+01:35:05 service N12_T1000__FAMILY_MIN__r2: start 145 (FAMILY_MIN) DECIDED passes [145, 165] wall 16.86
+01:35:06 load N16_T1000__r2: others 1.0% suspects [] clean info {'loadavg_1m': 5.46, 'loadavg_5m': 5.33, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top [('kaalia', 4001548, 1.0)]
+01:35:21   pass N16 T1000 p163 CPU_PARALLEL W6 DECIDED e2e 14.50 cpu 74.19
+01:35:21 service N16_T1000__FAMILY_MAX__r2: start 163 (FAMILY_MAX) DECIDED passes [163] wall 14.51
+01:35:34   pass N16 T1000 p64 CPU_PARALLEL W6 DOMAIN_UNPROVEN e2e 12.61 cpu 64.02
+01:35:47   pass N16 T1000 p78 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 13.66 cpu 69.41
+01:36:02   pass N16 T1000 p166 CPU_PARALLEL W6 DECIDED e2e 14.49 cpu 74.90
+01:36:02 service N16_T1000__BASE64__r2: start 64 (DEFAULT_64) DECIDED passes [64, 78, 166] wall 40.81
+01:36:16   pass N16 T1000 p145 CPU_PARALLEL W6 UNDECIDED_AT_PRECISION e2e 14.33 cpu 73.60
+01:36:31   pass N16 T1000 p171 CPU_PARALLEL W6 DECIDED e2e 14.58 cpu 75.30
+01:36:31 service N16_T1000__FAMILY_MIN__r2: start 145 (FAMILY_MIN) DECIDED passes [145, 171] wall 28.93
+01:36:31 repetition 2 finished; campaign CPU 4503s
+01:36:32 load references: others 0% suspects [] clean info {'loadavg_1m': 5.85, 'loadavg_5m': 5.47, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top []
+01:37:07   pass N12 T1000 p64 CPU_SERIAL W0 DOMAIN_UNPROVEN e2e 35.24 cpu 35.20
+01:37:42   pass N12 T1000 p73 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 34.77 cpu 34.72
+01:38:19   pass N12 T1000 p145 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 36.75 cpu 36.70
+01:38:56   pass N12 T1000 p161 CPU_SERIAL W0 DECIDED e2e 37.36 cpu 37.32
+01:39:33   pass N12 T1000 p163 CPU_SERIAL W0 DECIDED e2e 37.46 cpu 37.41
+01:40:11   pass N12 T1000 p165 CPU_SERIAL W0 DECIDED e2e 37.43 cpu 37.38
+01:41:11   pass N16 T1000 p64 CPU_SERIAL W0 DOMAIN_UNPROVEN e2e 60.61 cpu 60.57
+01:42:14   pass N16 T1000 p78 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 62.91 cpu 62.83
+01:43:21   pass N16 T1000 p145 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 66.18 cpu 66.07
+01:44:28   pass N16 T1000 p163 CPU_SERIAL W0 DECIDED e2e 67.31 cpu 67.22
+01:45:36   pass N16 T1000 p166 CPU_SERIAL W0 DECIDED e2e 67.75 cpu 67.68
+01:46:43   pass N16 T1000 p171 CPU_SERIAL W0 DECIDED e2e 67.67 cpu 67.60
+01:47:25   pass N40 T100 p64 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 41.30 cpu 41.25
+01:48:07   pass N40 T100 p106 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 41.95 cpu 41.90
+01:48:49   pass N40 T100 p109 CPU_SERIAL W0 DECIDED e2e 41.93 cpu 41.88
+01:49:30   pass N40 T100 p116 CPU_SERIAL W0 DECIDED e2e 41.93 cpu 41.88
+01:51:17   pass N64 T100 p64 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 106.75 cpu 106.68
+01:53:06   pass N64 T100 p106 CPU_SERIAL W0 UNDECIDED_AT_PRECISION e2e 108.71 cpu 108.64
+01:54:53   pass N64 T100 p109 CPU_SERIAL W0 DECIDED e2e 107.21 cpu 107.15
+01:56:42   pass N64 T100 p110 CPU_SERIAL W0 DECIDED e2e 108.79 cpu 108.73
+01:58:31   pass N64 T100 p118 CPU_SERIAL W0 DECIDED e2e 109.22 cpu 109.16
+01:58:31 references done (21); campaign CPU 5821s
+01:58:32 load end: others 1.0% suspects [] clean info {'loadavg_1m': 1.71, 'loadavg_5m': 1.69, 'proc_stat_steal_ticks': 0, 'steal_ticks_in_1s': 0} top [('python3', 46, 1.0)]
+01:58:32 finished

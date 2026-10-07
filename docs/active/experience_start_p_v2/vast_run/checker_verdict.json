@@ -1,0 +1,229 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "seal_clean": [
+   1,
+   0
+  ],
+  "mpmath_python_backend": [
+   1,
+   0
+  ],
+  "sources_verified_single_contract": [
+   1,
+   0
+  ],
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_contracts_equal_source": [
+   1,
+   0
+  ],
+  "bundle_sources_allowed": [
+   1,
+   0
+  ],
+  "bundle_records_single_contract": [
+   1,
+   0
+  ],
+  "bundle_records_all_verified": [
+   1,
+   0
+  ],
+  "bundle_no_duplicates": [
+   1,
+   0
+  ],
+  "bundle_record_hashes_intact": [
+   1,
+   0
+  ],
+  "bundle_records_equal_rebuilt_from_sources": [
+   1,
+   0
+  ],
+  "bundle_contains_no_evaluation_request": [
+   1,
+   0
+  ],
+  "bundle_exact_equals_source": [
+   11,
+   0
+  ],
+  "bundle_exact_keys_equal_source": [
+   1,
+   0
+  ],
+  "bundle_family_equals_source": [
+   2,
+   0
+  ],
+  "bundle_family_keys_equal_source": [
+   1,
+   0
+  ],
+  "store_opened_with_sealed_bundle": [
+   1,
+   0
+  ],
+  "campaign_contracts_equal_current_and_training": [
+   1,
+   0
+  ],
+  "exact_lookup_present": [
+   12,
+   0
+  ],
+  "decision_bundle_sha": [
+   48,
+   0
+  ],
+  "decision_rederived": [
+   48,
+   0
+  ],
+  "exact_lookup_is_miss": [
+   12,
+   0
+  ],
+  "service_complete": [
+   36,
+   0
+  ],
+  "decision_file_equals_run_decision": [
+   36,
+   0
+  ],
+  "decision_exact_miss": [
+   36,
+   0
+  ],
+  "service_meta": [
+   36,
+   0
+  ],
+  "first_p_is_decision": [
+   36,
+   0
+  ],
+  "pass_index": [
+   66,
+   0
+  ],
+  "plan_is_fixed_W6": [
+   66,
+   0
+  ],
+  "pass_meta": [
+   66,
+   0
+  ],
+  "pass_executed_as_planned": [
+   66,
+   0
+  ],
+  "p2_rederived": [
+   30,
+   0
+  ],
+  "cells_rederived": [
+   47,
+   0
+  ],
+  "final_status": [
+   36,
+   0
+  ],
+  "p_sequence_recorded": [
+   36,
+   0
+  ],
+  "reference_present": [
+   21,
+   0
+  ],
+  "reference_is_serial": [
+   21,
+   0
+  ],
+  "bit_identical_to_serial_reference": [
+   66,
+   0
+  ],
+  "anchor_present": [
+   1,
+   0
+  ],
+  "anchor_bit_identical_to_laptop_serial": [
+   1,
+   0
+  ],
+  "anchor_is_serial": [
+   1,
+   0
+  ],
+  "candidate_present": [
+   2,
+   0
+  ],
+  "no_true_minimum_label": [
+   2,
+   0
+  ],
+  "sample_pre_run_features_only": [
+   36,
+   0
+  ],
+  "sample_unverified_until_checker": [
+   36,
+   0
+  ],
+  "candidate_record_unverified": [
+   66,
+   0
+  ],
+  "analysis_verdict_rederived": [
+   3,
+   0
+  ],
+  "analysis_totals_rederived": [
+   3,
+   0
+  ]
+ },
+ "issues": [],
+ "bit_mismatches": 0,
+ "own_training_family": {
+  "100": [
+   106,
+   109
+  ],
+  "1000": [
+   145,
+   163
+  ]
+ },
+ "own_cost_rules": {
+  "FAMILY_MIN_cost_policy": "INFO_ONLY",
+  "FAMILY_MAX_cost_policy": "USEFUL_COST_POLICY_CANDIDATE",
+  "MIN_vs_MAX": "MAX_WIN"
+ },
+ "own_totals": {
+  "BASE64": [
+   127.8447138920892,
+   655.285187218
+  ],
+  "FAMILY_MIN": [
+   108.92772577609867,
+   563.402231245
+  ],
+  "FAMILY_MAX": [
+   54.450151553959586,
+   281.423163375
+  ]
+ },
+ "analysis_checked": true
+}
