@@ -1,0 +1,104 @@
+{
+ "gate": "GPU_PAIR_VECTOR_V1 - Gate A: does the GPU compute every pair's 3-D impulse J = (h*g)*d exactly as the CPU E2? Gate B (only if A passes): does an in-GPU canonical atom reduction give the CPU's per-atom force F endpoint for endpoint?",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FORCES ONLY - NO MOMENTUM / POSITION UPDATE, NO KDK, NO TRAJECTORY ON GPU"],
+ "baseline": {
+  "parent": "claude/gpu-force-feasibility-v1 @ 92eaaff (= origin, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/gpu-pair-vector-v1 in the main checkout (no worktree); clean at start",
+  "sha256_lf": {
+   "experiments/gpu_force_feasibility_v1/g0.cu (G0 CUDA, reused verbatim, not modified)": "dc519a9cd3ddc4b2a778cb1497bba324bdedcd8bb3e42b6a4514dc2ee49c21de",
+   "experiments/gpu_force_feasibility_v1/compile_plan.py": "cc63a1e53da6e2c4221b9f7f1d298f987bbe35fdcb46231baa3833a5975ac63b",
+   "experiments/gpu_force_feasibility_v1/gpu_host.py": "dd255cb31b7f07ecb428515b36432f829bed124e75536de89af8a3c201163abe",
+   "experiments/gpu_force_feasibility_v1/dyadic.py": "3df1a486c94d8adb9451ddf3961191ecd3ef18bfef4d60a39cfb7e9deb8e6aef",
+   "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+   "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+   "experiments/multiatom_parallel_v1/scenarios.py": "7908425757c1df4340f812de9de8e68fc6481e5254370664668dfebae3a9eb62",
+   "mpmath 1.3.0 libmp/libmpf.py": "be93f490d56449c6c2568668809e166ad97823b09ed1de1dcc75637d57b9eeca",
+   "mpmath 1.3.0 libmp/libmpi.py": "bb4239122c24a9afb8f9d5c44e2e64eccb9ac417996ef0803c5b65f7753d605d",
+   "mpmath 1.3.0 libmp/libelefun.py": "8e80593f814e7713df89e5aca352cfb52afa747c9da46fcb42217f6d841858c8",
+   "mpmath 1.3.0 ctx_iv.py": "b6a74cafe1837e4664d4486819e0806a3cbba50bfe456b6b56a8588df23caf88"
+  },
+  "g0_evidence_sha256_raw": {
+   "docs/active/gpu_force_feasibility_v1/samples.json.gz": "6c4c73a31f3c3fac1d1a9e587815230032b3ba4ff8ad0d54b967df4bca0b7559",
+   "docs/active/gpu_force_feasibility_v1/vast_run/checker_verdict.json": "def40f189a0e201c37cc7a750c2a76363a896d1343fcee1d24566949332e8aad",
+   "docs/active/gpu_force_feasibility_v1/vast_run/analysis.json": "11566454c235719888053f91431baf52e2f1914b0a72df96078226ed4ccacb0f",
+   "docs/active/GPU_FORCE_FEASIBILITY_V1.md": "113189bd9025bafa452dacb0f6b86552b06bb116de02e73975b0572b900d22b4"
+  },
+  "frozen_untouched": "no G0 file, no existing evidence, no executor, no mpmath file is modified"
+ },
+ "reference_semantics": {
+  "cpu_forces": "exact_expression_gate_v1.stream.run's forces(q, step) with the E2 force (rw:R1+R2 at iv.prec = p), non-exact path: for (i, j) in canonical order (i < j, lexicographic): d[k] = q[j][k] - q[i][k]; r2 = (d0*d0 + d1*d1) + d2*d2; st = K.domain(r2) (PROVEN if lo >= R_MIN2, VIOLATED if hi < R_MIN2, else UNPROVEN; exact rational comparison) - not PROVEN raises DomainStop(st, step); g = G(r2); for k in 0, 1, 2: t = (h*g)*d[k] (h*g recomputed per k as in the source); F[j][k] = F[j][k] + t; F[i][k] = F[i][k] - t; F starts at the lifted 0",
+  "every_operation": "mpmath 1.3.0 interval arithmetic (mpi_sub, mpi_mul incl. sign cases, mpi_add) - replicated on the GPU with the G0 device arithmetic (g0.cu, included verbatim); G(R^2) by the G0 traced program; G0's exp is a replica of mpmath's integer algorithm, not a correctly rounded exp, and the same holds here",
+  "not_the_same": "(h*g)*d is not h*(g*d); the order of additions into F[a][k] is the canonical pair order and is not commutative for intervals"
+ },
+ "gate_A": {
+  "gpu": "input: the N x 3 position intervals of one state (exact dyadic words); device: canonical pair table (i, j) by pair id; kernel 1 per pair: d, r2, domain status (exact comparison with R_MIN2 = a / b, uploaded as integers); kernel 2 per pair: G (G0 program interpreter, only for PROVEN pairs); kernel 3 per pair: J[k] = (h*g)*d[k], each k computing h*g as the source does; output per pair: status, pair id echo, obligation mask, device precision echo, r2, G, J0, J1, J2",
+  "classes": {"PAIR_EXACT": "domain status equal and all 6 endpoints of J equal", "PAIR_SOUND_ONLY": "status equal, every component contains the CPU interval, some endpoint differs", "PAIR_UNSOUND": "some component does not contain the CPU interval", "DOMAIN_MISMATCH": "status differs"},
+  "pass": "PAIR_UNSOUND = 0, DOMAIN_MISMATCH = 0, no missing / reordered pair, all layouts identical; target PAIR_EXACT 100 %. If EXACT breaks, the cause is investigated before any performance number is used",
+  "A1_correctness_path": "all pair outputs (incl. r2 and G) copied back and decoded",
+  "A2_performance_path": "host position encode, H2D, kernel d/r2, kernel G, kernel J, D2H of J records, host decode (+ the host canonical reduction of the decoded J to F, reported separately) - CUDA events between the three kernels"
+ },
+ "gate_B": {
+  "start_condition": "only if gate A passes on the whole sample bundle",
+  "alternatives_compared_before_implementation": {
+   "B1_store_then_reduce": "J of every pair stays in GPU memory (O(N^2)); one thread per (atom a, component k) adds, in canonical pair order, +J for the pairs (i, a), i < a, then -J for the pairs (a, j), j > a (this is exactly the order in which the CPU loop touches F[a][k]). G and J are computed once per pair. Device memory per pair: d 3 x 88 B + r2 88 + G 88 + J record 16 + 3 x 88 + debug copy 176 = 896 B",
+   "B2_recompute_per_atom": "one thread per atom recomputes d, r2, G, J for its N-1 pairs in canonical order and accumulates directly: O(N) memory, but every pair's G (the dominant cost, ~5-7 ms per thread on the GPU in G0) is computed twice and the per-atom thread does N-1 G evaluations serially (N = 64: 63 sequential G per thread vs 1 in B1) - the kernel latency grows ~N times",
+   "choice": "B1: simpler to verify (the pair results are the exact gate-A results already checked), one G per pair, O(N^2) memory is small for the target sizes (estimates below). B2 is not implemented in V1"
+  },
+  "gpu": "kernel 4 (B1): thread per (a, k) over the pre-computed J buffer in the order above; F starts as the exact interval 0; F = mpi_add(F, J) when a is j, F = mpi_sub(F, J) when a is i; no atomics, no tree, no partial sums; output per (a, k): F interval with atom and component echo; only N x 3 intervals are copied back",
+  "domain_stop": "if any pair of the state is not PROVEN the CPU raises DomainStop at the first such pair; the GPU reports the first non-PROVEN pair id and kind (the host scans statuses in canonical order) and F is not used",
+  "pass": "100 % endpoint equality of every F[a][k] with the CPU reduction; any difference = B_FAIL"
+ },
+ "sample_bundle": {
+  "states": "the same four trajectories as G0 (N = 40, 64 at T = 100, p = 109; N = 12, 16 at T = 1000, p = 163) at steps 0, T/10, T/2, T: the exact position intervals q passed to forces(q, step) and the force F that call returned, recorded from a run of stream.run's own source with one inserted observer line before 'return F' (built at runtime from inspect.getsource; no file changed); every run must end equal to its verified V2 Vast serial reference, else no bundle",
+  "test_only": "domain probe states (N = 3 positions chosen so that one pair is VIOLATED, one UNPROVEN) at p = 109 and 163, with their CPU statuses; and p = 128 / 192 replays of the N = 40 step-50 state (positions re-used, CPU F recomputed at that p)",
+  "encoding": "G0 dyadic encoding (sign, odd mantissa hex, binary exponent, bitcount); positions echoed by the device and compared exactly",
+  "seal": "bundle + sha256 committed before any GPU code of this stage"
+ },
+ "checker": "independent: imports none of this stage's GPU host / CUDA code and none of G0's GPU code; with its own literal forces loop (mpmath iv, frozen RwForce, K.domain, K.H) recomputes d, r2, G, J for every pair and F for every state; its F must equal the F recorded from the real run (validates the checker's loop); compares statuses, pair identity and order (id echo), position echo, precision echo, all J and F endpoints, obligation masks, and all layouts bit for bit",
+ "layouts": "every bundle state with block 32, 64, 128, 256 and grid 1, 7, ceil(n / block) for all kernels (12 layouts); every output byte identical",
+ "performance": {
+  "official_host": "Vast 52763685 (Threadripper PRO 3975WX + RTX 3090; the designer starts it on request); any host change = amendment before the run; desktop RTX 4060 = correctness cross-check only",
+  "paths": {
+   "CPU_W6_E2": "the validated E2 pair path: six unchanged e2_pair_parallel_v1.run._pair_worker processes (pinned 1,2,3,4,5,0, main on 0) receive the positions, return (status, J) for their contiguous canonical blocks; the main reduces in canonical order exactly as run_parallel's forces does; timed per state (one force evaluation)",
+   "GPU_A_PAIR_VECTOR": "encode positions, H2D, 3 kernels, D2H of P x 3 J, decode; plus a host canonical reduction to F (separate number)",
+   "GPU_B_ATOM_REDUCE": "encode positions, H2D, 4 kernels, D2H of N x 3 F, decode"
+  },
+  "combinations (sealed; information value over a full cartesian product)": [
+   {"N": 40, "p": 109, "state": "bundle N=40 step 50"},
+   {"N": 64, "p": 109, "state": "bundle N=64 step 50"},
+   {"N": 96, "p": 109, "state": "FCC_N initial state (step 0, lifted at p)"},
+   {"N": 128, "p": 109, "state": "FCC_N initial state (step 0, lifted at p)"},
+   {"N": 12, "p": 163, "state": "bundle N=12 step 500"},
+   {"N": 16, "p": 163, "state": "bundle N=16 step 500"},
+   {"N": 64, "p": 163, "state": "FCC_N initial state (step 0, lifted at p): the p effect at the same N"}
+  ],
+  "repetitions": "GPU warm median of 5 (first call per size discarded), cold once per p in a fresh process; CPU_W6 median of 3 after spawn",
+  "resource_sweep": "after correctness only: block 32, 64, 128, 256 (grid = ceil) for N = 64 and N = 128 at p = 109; outputs must be identical; recorded, no rule changed",
+  "cost_estimate": "GPU per state ~10-30 ms; CPU_W6 per state ~0.1 s (N = 40) to ~1.5 s (N = 128); total campaign well under 15 min on the host",
+  "memory": "exact allocated bytes per N (pair table, d, r2, G, J records, debug copies, atom output, positions) recorded, plus a computed table for N = 64, 128, 256, 512, 1024"
+ },
+ "gpu_execution_plan_record": "every run stores a GpuExecutionPlan {block_size, grid_blocks, batch_size (= pair count), pair_storage_mode, atom_reduction_mode, precision} with wall, per-kernel times, encode, decode, memory and correctness - data only, no learning",
+ "fault_injections": [
+  "1 dx sign reversed (device)", "2 dy taken from another pair (device)", "3 dz component of J not written (device)",
+  "4 h*(g*d) instead of (h*g)*d (device)", "5 one R^2 term missing (device)", "6 K.domain check removed (device; detected on the domain probe states)",
+  "7 one pair output dropped (host)", "8 two pair outputs swapped (host)", "9 + / - reversed in the atom reduction (device)",
+  "10 atom reduction order changed: (a, j) pairs before (i, a) pairs (device)", "11 layout-dependent (unordered) reduction order: start rotated by block index (device)",
+  "12 two atom outputs swapped (host)", "13 p altered: the program uploaded at p = 128 for a p = 109 state (host)",
+  "14 device overflow treated as success (reduced work limbs with the poison check off, as G0 fault 8)"
+ ],
+ "decision_rules_sealed": {
+  "A_FAIL": "any PAIR_UNSOUND or PAIR_SOUND_ONLY left unexplained, DOMAIN_MISMATCH, missing / reordered pair, or a layout difference in gate A",
+  "B_FAIL": "gate A exact but some F endpoint differs",
+  "A_EXACT_B_BOTTLENECK": "gate A exact, gate B not yet run or failed for reasons outside correctness, and the pair-vector path is dominated by encode / decode / output volume",
+  "B_EXACT_NOT_FASTER": "A and B exact, but GPU_B total is not clearly faster than CPU_W6 at N = 40 and 64",
+  "GPU_PAIR_PROMISING": "A exact, B exact, layout independent, no silent overflow, and GPU_B total (encode + transfers + kernels + decode) <= 0.5 x CPU_W6 at both N = 40 and N = 64 (p = 109)",
+  "next_if_promising": "GPU_ONE_STEP_V1 (one full KDK step compared CPU vs GPU) - not started here"
+ },
+ "questions_to_answer": 12,
+ "not_in_scope": ["neural network", "self-evolving selector", "choosing physical GPU cores", "atomic reduction", "unordered reduction", "new physics", "cutoff", "neighbour list", "FAMILY_MAX change", "precision policy change", "momentum / position update", "KDK", "trajectory on GPU", "master merge"],
+ "claims_forbidden": ["bit identity on the samples is a proof", "THROUGHPUT numbers are trajectory speed", "kernel time alone is GPU speed"]
+}
