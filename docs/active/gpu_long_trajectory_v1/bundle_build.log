@@ -1,0 +1,11 @@
+{"id": "N12_p73", "outcome": "UNDECIDED_AT_PRECISION", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 122.5}
+{"id": "N12_p64", "outcome": "DOMAIN_UNPROVEN", "completed": 995, "stop": {"status": "DOMAIN_STOP_UNPROVEN", "stop_state": 996, "stop_pair": 0}, "tie": true, "steps": 996, "gate_P_states": 6, "wall_s": 124.8}
+{"id": "N12_p161", "outcome": "DECIDED", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 133.3}
+{"id": "N12_p163", "outcome": "DECIDED", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 137.8}
+{"id": "N16_p64", "outcome": "DOMAIN_UNPROVEN", "completed": 917, "stop": {"status": "DOMAIN_STOP_UNPROVEN", "stop_state": 918, "stop_pair": 0}, "tie": true, "steps": 918, "gate_P_states": 6, "wall_s": 196.6}
+{"id": "N16_p78", "outcome": "UNDECIDED_AT_PRECISION", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 204.8}
+{"id": "N16_p166", "outcome": "DECIDED", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 217.4}
+{"id": "N16_p163", "outcome": "DECIDED", "completed": 1000, "stop": null, "tie": true, "steps": 1000, "gate_P_states": 5, "wall_s": 218.0}
+{"id": "N40_p109", "outcome": "UNDECIDED_AT_PRECISION", "completed": 1000, "stop": null, "tie": null, "steps": 1000, "gate_P_states": 0, "wall_s": 836.6}
+trajectories 9 gate_P_states 42 sha256 e993112f2c666fa62c905153a5a4381b64498e96a7650ed29224e380b05be174 bytes 2813505
+exit 0
