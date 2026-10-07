@@ -1,0 +1,118 @@
+{
+ "gate": "GPU_FORCE_FEASIBILITY_V1 (G0) - is there a realistic path to evaluate the E2 scalar G(R^2) interval on a GPU without changing the meaning of the current world?",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "G(R^2) SCALAR ONLY - NO VECTOR IMPULSE, NO REDUCTION, NO KDK, NO TRAJECTORY ON GPU"],
+ "baseline": {
+  "parent": "claude/experience-start-p-v2 @ 1a73d95 (= origin, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/gpu-force-feasibility-v1 in the main checkout (no worktree); clean, 0 untracked at start",
+  "sha256_lf": {
+   "a_physics_native/ar2_b2.cu": "a2393150c26b22b4ae6d8f392fa404fda36df31552d4d39530ef7dfe297ed1f5",
+   "a_numeric_native/b2_cuda.cu": "43c7173346aa7cc4307af57e08d4d7e9abb224ed6d8cecde1b0a36da6f618825",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+   "experiments/rewrite_pilot_a3/rules.py": "bdf5edb249b15ae075f2ba6bf05cb22dd23e9f3b17b5786b473fbb27801ccab0",
+   "experiments/rewrite_pilot_a3/adapter.py": "5020fadef0b15a9cc7876efa541bb80b36a75d1c56f060e176e42a2a3682378e",
+   "exact_expression_gate_v0/lang_iv.py": "79a0211f8c950c3cf4ba81838bd5a9135502784a49cf6c5c325cbb624e7cfa48",
+   "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5",
+   "mpmath 1.3.0 libmp/libmpf.py": "be93f490d56449c6c2568668809e166ad97823b09ed1de1dcc75637d57b9eeca",
+   "mpmath 1.3.0 libmp/libmpi.py": "bb4239122c24a9afb8f9d5c44e2e64eccb9ac417996ef0803c5b65f7753d605d",
+   "mpmath 1.3.0 libmp/libelefun.py": "8e80593f814e7713df89e5aca352cfb52afa747c9da46fcb42217f6d841858c8",
+   "mpmath 1.3.0 ctx_iv.py": "b6a74cafe1837e4664d4486819e0806a3cbba50bfe456b6b56a8588df23caf88"
+  },
+  "frozen_untouched": "no existing evidence, no existing CUDA executor, no file of rewrite_pilot_a3 / exact_expression_gate_* / mpmath is modified"
+ },
+ "reference_semantics": {
+  "evaluator": "E2 = rw:R1+R2: experiments/rewrite_pilot_a3/rwforce.RwForce(adapter._PLAN) at iv.prec = p, exactly as the E2 pair worker constructs it (make_force); plan: fold, recip, split mode, no collect, final_fold False, k 3, rat_shift 0, 9 exponential blocks, 201 plan ops",
+  "what_the_cpu_does": "mpmath 1.3.0 interval arithmetic, pure-python backend: every interval operation (mpi_add, mpi_sub, mpi_mul incl. its sign-case branches, mpi_div, mpi_neg, mpi_sqrt, mpi_exp) rounds its lower end with round_floor and its upper end with round_ceiling to p bits",
+  "reading_of_mpmath_source (checked before the seal)": {
+   "mpf_add / mpf_sub / mpf_mul": "exact result, then directed rounding to p bits (the far-exponent shortcut of mpf_add only perturbs below the rounding position, which for directed rounding gives the same result as exact rounding)",
+   "mpf_div": "quotient with >= 5 extra bits plus a sticky bit when the remainder is nonzero, then directed rounding = correctly rounded",
+   "mpf_sqrt": "floor root (isqrt) for round_floor, sqrtrem with sticky bit for round_ceiling = correctly rounded",
+   "mpf_exp": "NOT correctly rounded: a deterministic fixed-point integer algorithm (wp = p + 14; for mag > 1 reduction by ln2_fixed(wp + mag) with Python floor divmod; exp_basecase with r = int(wp ** 0.5) argument halvings, a two-sum Taylor loop with floor divisions and r squarings; then from_man_exp with the directed rounding). The GPU replicates this integer algorithm step by step; ln2_fixed values are host constants"
+  },
+  "consequence": "exact bit-for-bit replication of every endpoint is possible in principle; the GPU aims for EXACT; the hard gate is containment (below)"
+ },
+ "g0_scope": {
+  "gpu_computes": "for a batch of R^2 intervals at one precision p: G(R^2) interval (or the domain refusal) - nothing else",
+  "cpu_does": "trajectory, R^2 collection, encoding, constants (model), decoding, independent comparison",
+  "not_done": ["vector impulse", "pair reduction", "KDK", "trajectory", "Selector integration"]
+ },
+ "gpu_design": {
+  "program": "the per-call operation sequence of RwForce.__call__ is recorded once per p by a tracer that runs the frozen RwForce.__call__ with symbolic values (rwforce.iv and rwforce._pos are replaced only in memory during tracing and restored; no file changes). Ops: SQRT, DIV, MUL, ADD, SUB, NEG, EXP, REQUIRE_POS (domain obligation). Registers are re-used by a liveness pass. The tracer is checked by evaluating its program with mpmath iv on the host and comparing with RwForce on every sample (host replay)",
+  "constants (model upload)": "every interval constant RwForce lifts at construction (at iv.prec = p) is taken from the frozen object and uploaded exactly; plus ln2_fixed(wp + mag) for mag 2..24 and r = int(wp ** 0.5) per p",
+  "number_format": "mpf = (sign, odd mantissa, binary exponent, bitcount) as in mpmath; mantissa up to 6 x 32-bit limbs (192 bits) - supported p = 64, 109, 128, 163, 192; any other p is REFUSED_DEVICE_PRECISION before launch; workspace 16 limbs (512 bits)",
+  "statuses": {
+   "OK": "G computed",
+   "DOMAIN_UNPROVEN": "a REQUIRE_POS obligation failed (the CPU raises DomainStop UNPROVEN at the same point)",
+   "REFUSED_DEVICE_WIDTH": "any intermediate would not fit the fixed width (poison propagates; never truncated, never wrapped)",
+   "REFUSED_DEVICE_PRECISION": "unsupported p, an exp argument outside the uploaded ln2 table or in an unimplemented mpmath branch (mag < -wp perturbation, p > 600 path), or a non-finite interval result (mpmath would produce +-inf)"
+  },
+  "obligations": "every OK / DOMAIN_UNPROVEN output carries a bitmask of the REQUIRE_POS obligations executed and passed; the rw:R1+R2 recip plan has exactly two (R^2 > 0 before sqrt, den > 0 before 1/den)",
+  "layout": "grid-stride loop, one thread evaluates one sample end-to-end; block and grid sizes must not change any bit",
+  "reuse": "32-bit limb magnitude primitives (DN: trim, copy, bitlen, cmp, add, sub, mul, mul_small, shl, low_zero, shr floor/ceil, div_small, Knuth div, poison on overflow) copied from a_physics_native/ar2_b2.cu lines 44-256 (sha256_lf a2393150...) with the width constant changed; isqrt, signed handling, mpf/mpi layers, exp replication and the interpreter are new. b2_cuda.cu: only its layout-independence / fault-injection test pattern is followed, no code copied",
+  "interface": "a shared library (nvcc -shared) called through ctypes: init, upload model, evaluate batch (block, grid, fault flag, work-limb limit), with cudaEvent timings for H2D, kernel, D2H"
+ },
+ "sample_bundle": {
+  "trajectories": [
+   {"N": 40, "T": 100, "p": 109}, {"N": 64, "T": 100, "p": 109}, {"N": 12, "T": 1000, "p": 163}, {"N": 16, "T": 1000, "p": 163}
+  ],
+  "how": "run the unchanged E2 serial loop (stream.run through the same force swap as multiatom_parallel_v1.run_serial) with the force wrapped by a recorder that only observes: call c of the run is step c // P, pair pairs[c % P] (canonical order, every step evaluates every pair once when all are PROVEN); at steps 0, T/10, T/2 and T every pair's R^2 interval is recorded together with the CPU G interval the run itself produced",
+  "identity_check": "each recorded run's final readout (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial digest) must equal the verified serial reference of the same (N, T, p) in docs/active/experience_start_p_v2/vast_run (Linux) - otherwise the bundle is not built",
+  "sizes": "N=40: 780 pairs x 4 steps = 3,120; N=64: 2,016 x 4 = 8,064; N=12: 66 x 4 = 264; N=16: 120 x 4 = 480; total 11,928 main samples",
+  "test_only": "p = 64, 128, 192: the first 64 R^2 inputs of each main trajectory's step T/2 (256 inputs) evaluated with the frozen RwForce at that p; plus domain probes R^2 = [-1, 4], [0, 4], [0, 0] (expected DOMAIN_UNPROVEN). Marked TEST_ONLY, not used for the main correctness verdict",
+  "encoding": "each endpoint exactly as mpmath's raw tuple: sign (0/1), mantissa as lowercase hex of the odd integer (0 for zero), binary exponent (int), bitcount; zero = (0, '0', 0, 0); no float, no decimal; decode(encode(x)) == x is asserted for every endpoint",
+  "seal": "the bundle (gzip JSON, mtime 0) and its sha256 are committed before any CUDA code; the GPU host and the checker verify the hash; samples are never chosen after a GPU result"
+ },
+ "correctness_hard_gate": {
+  "containment": "for every main sample with CPU status OK: GPU status OK and Lg <= Lc and Uc <= Ug (exact dyadic comparison); a GPU refusal on a sample the CPU evaluates is reported separately as REFUSED (not a pass, not UNSOUND); a GPU OK where the CPU raised DomainStop, or a domain refusal where the CPU evaluated, is a DOMAIN_MISMATCH = FAIL",
+  "classes": {
+   "EXACT": "Lg == Lc and Ug == Uc",
+   "SOUND_TIGHT": "contains, not exact, and width_gpu / width_cpu <= 2",
+   "SOUND_WIDE": "contains and width_gpu / width_cpu > 2",
+   "UNSOUND": "does not contain"
+  },
+  "zero_width_rule": "if width_cpu == 0: EXACT when both ends equal, else (containing) SOUND_WIDE with ratio recorded as 'inf'; if width_cpu > 0 the ratio is the exact rational width_gpu / width_cpu reported as a float",
+  "no_narrower_credit": "a GPU interval narrower than the CPU interval in any end is UNSOUND by definition (it does not contain it)",
+  "independent_checker": "the checker never imports the GPU host, tracer or CUDA code; with its own decoder it verifies the bundle hash, sample identity and order (the device echoes the sample index and the input endpoints), recomputes every CPU interval with the frozen RwForce at p, classifies, counts pairs, checks the obligation masks, and compares all layouts bit for bit"
+ },
+ "layout_independence": "the main bundle at p = 109 and 163 is evaluated with block 32, 64, 128, 256 and grid 1, 7 and ceil(n / block); every output byte must be identical across all twelve layouts; any difference = FAIL",
+ "fault_injections": {
+  "mechanism": "a runtime fault flag of the library (device faults) or a host-side tamper in the test (host faults); the default flag is 0 and the evidence runs record it",
+  "list": [
+   "1 lower endpoint rounded inward (round_ceiling for the lower end of MUL)",
+   "2 upper endpoint rounded inward (round_floor for the upper end of ADD)",
+   "3 carry dropped in limb addition",
+   "4 high limb dropped in limb multiplication",
+   "5 exp with too few guard bits (wp = p) reported as OK",
+   "6 sqrt upper end with the floor root only",
+   "7 denominator domain obligation removed",
+   "8 device width overflow ignored (a reduced work-limb limit with the poison check disabled truncates silently)",
+   "9 one pair's output dropped by the host",
+   "10 block-size dependent branch (block 64 rounds the exp result the other way)",
+   "11 one H2D input limb altered by the host before upload",
+   "12 two outputs swapped in order by the host"
+  ],
+  "required": "the checker reports a failure for every injected fault on the test fixture"
+ },
+ "performance": {
+  "official_host": "the Vast RTX 3090 node (the designer starts it on request); CPU and GPU measured on the same host, same inputs; the desktop RTX 4060 is a correctness / build cross-check only (desktop CPU timings are not used: external load)",
+  "baselines": {
+   "CPU_SERIAL_E2": "one Python process: RwForce at p over the batch",
+   "CPU_W6_E2": "six persistent worker processes pinned to CPUs 1,2,3,4,5,0 (main on 0) as in the E2 pair worker; the batch is split into 6 contiguous blocks; R^2 raw tuples go through pipes, G raw tuples come back; spawn and warm-up are setup, not timed per batch",
+   "GPU_E2_G0": "the library after setup"
+  },
+  "gpu_breakdown": "setup (context creation, allocation, model upload) separately; per batch: host encode (Python), H2D, kernel, D2H (cudaEvents), host decode (Python), total; cold = the first batch after setup in a fresh process including setup; warm = buffers and context reused, median of 5",
+  "batch_sizes": "THROUGHPUT_PROBE with 128, 512, 780, 2016, 2048, 8192, 32768 pairs (780 and 2016 = the real per-step pair counts of N = 40 and 64), built by repeating the main samples of the matching p in bundle order; reported with N ~ sqrt(2 x pairs); never called a trajectory measurement",
+  "precisions": "p = 109 and p = 163"
+ },
+ "decision_rules_sealed": {
+  "G0_FAIL": "any UNSOUND main sample, any DOMAIN_MISMATCH, any layout difference, any silent overflow / truncation (an injected-fault class result appearing in the clean run), or a wrong domain decision",
+  "G0_PROMISING": "not G0_FAIL, and REFUSED = 0 on the main bundle, and SOUND_WIDE <= 1 % of main samples with p95 width ratio <= 2, and at both p the warm GPU total (encode + H2D + kernel + D2H + decode) <= 0.5 x CPU_W6_E2 wall for every batch size >= 2048",
+  "G0_SOUND_BUT_NOT_USEFUL": "not G0_FAIL and not G0_PROMISING (the reason is stated: width, refusals, or speed)",
+  "next_if_promising": "GPU_PAIR_VECTOR_V1 (d, R^2, G, (H*G)*d on the GPU) - not started in this stage"
+ },
+ "questions_to_answer": 12,
+ "not_in_scope": ["whole trajectory on GPU", "KDK on GPU", "canonical reduction change", "atom force reduction on GPU", "GPU in the Selector", "FAMILY_MAX change", "precision policy change", "physics change", "cutoff", "neighbour list", "float64 fallback", "neural selector", "PyTorch", "editing frozen CUDA code", "master merge"],
+ "claims_forbidden": ["a GPU interval narrower than the CPU interval is 'more accurate'", "THROUGHPUT_PROBE speed is trajectory speed", "kernel time alone is the GPU speed", "bit identity on the samples is a proof"]
+}
