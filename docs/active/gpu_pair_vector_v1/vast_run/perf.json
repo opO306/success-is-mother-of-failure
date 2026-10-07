@@ -1,0 +1,966 @@
+{
+ "label": "one force evaluation per state (no KDK)",
+ "rows": [
+  {
+   "N": 40,
+   "p": 109,
+   "state": "bundle N=40 step 50",
+   "source": "bundle state 2",
+   "pairs": 780,
+   "gpu_A": {
+    "h2d_ms": 0.0071680000983178616,
+    "k_dr2_ms": 0.16896000504493713,
+    "k_G_ms": 4.5649919509887695,
+    "k_J_ms": 0.22118400037288666,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.04022400081157684,
+    "d2h_atoms_ms": 0.0017920000245794654,
+    "encode_ms": 0.44876395259052515,
+    "device_call_ms": 5.0461950013414025,
+    "decode_ms": 4.46335703600198,
+    "host_reduce_ms": 6.280922912992537,
+    "total_to_pairs_ms": 9.947175974957645,
+    "total_to_forces_ms": 16.154136043041945
+   },
+   "gpu_B": {
+    "h2d_ms": 0.0071680000983178616,
+    "k_dr2_ms": 0.16998399794101715,
+    "k_G_ms": 4.560895919799805,
+    "k_J_ms": 0.2181120067834854,
+    "k_reduce_ms": 0.7976959943771362,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.013248000293970108,
+    "encode_ms": 0.4482540534809232,
+    "device_call_ms": 5.822679027915001,
+    "decode_ms": 0.20449596922844648,
+    "total_ms": 6.482428987510502
+   },
+   "gpu_A_all": [
+    16.109324991703033,
+    16.247930005192757,
+    16.154136043041945,
+    16.38035394717008,
+    16.121934982948005
+   ],
+   "gpu_B_all": [
+    6.478050025179982,
+    6.490278989076614,
+    6.469199084676802,
+    6.482428987510502,
+    6.493789027445018
+   ],
+   "cpu_w6_ms": 82.47693593148142,
+   "cpu_w6_all": [
+    86.4847800694406,
+    82.47693593148142,
+    82.35225290991366
+   ],
+   "w6_spawn_ms": 479.20851106755435,
+   "memory": {
+    "N": 40,
+    "pairs": 780,
+    "bytes": {
+     "pair_table": 6240,
+     "status": 3120,
+     "mask": 3120,
+     "positions": 10560,
+     "d": 205920,
+     "r2": 68640,
+     "G": 68640,
+     "J": 205920,
+     "full_records": 355680,
+     "compact_records": 212160,
+     "atom_records": 12480
+    },
+    "total_bytes": 1152480,
+    "alloc_ms": 0.079342
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 780,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 109
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 780,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   }
+  },
+  {
+   "N": 64,
+   "p": 109,
+   "state": "bundle N=64 step 50",
+   "source": "bundle state 6",
+   "pairs": 2016,
+   "gpu_A": {
+    "h2d_ms": 0.008191999979317188,
+    "k_dr2_ms": 0.16896000504493713,
+    "k_G_ms": 4.576255798339844,
+    "k_J_ms": 0.2242559939622879,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.08294399827718735,
+    "d2h_atoms_ms": 0.0017920000245794654,
+    "encode_ms": 0.6936111021786928,
+    "device_call_ms": 5.1127070328220725,
+    "decode_ms": 11.084670899435878,
+    "host_reduce_ms": 16.179976984858513,
+    "total_to_pairs_ms": 16.89790899399668,
+    "total_to_forces_ms": 33.11551897786558
+   },
+   "gpu_B": {
+    "h2d_ms": 0.008191999979317188,
+    "k_dr2_ms": 0.16998399794101715,
+    "k_G_ms": 4.588543891906738,
+    "k_J_ms": 0.2252800017595291,
+    "k_reduce_ms": 1.1909120082855225,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.011872000060975552,
+    "encode_ms": 0.7024119840934873,
+    "device_call_ms": 6.254991982132196,
+    "decode_ms": 0.3138099564239383,
+    "total_ms": 7.263723993673921
+   },
+   "gpu_A_all": [
+    33.78631907980889,
+    33.11551897786558,
+    32.78888901695609,
+    33.221221063286066,
+    32.96128404326737
+   ],
+   "gpu_B_all": [
+    7.263723993673921,
+    7.291584042832255,
+    7.258612895384431,
+    7.289223955012858,
+    7.261742954142392
+   ],
+   "cpu_w6_ms": 218.0950199253857,
+   "cpu_w6_all": [
+    219.17303302325308,
+    217.08923007827252,
+    218.0950199253857
+   ],
+   "w6_spawn_ms": 456.3158230157569,
+   "memory": {
+    "N": 64,
+    "pairs": 2016,
+    "bytes": {
+     "pair_table": 16128,
+     "status": 8064,
+     "mask": 8064,
+     "positions": 16896,
+     "d": 532224,
+     "r2": 177408,
+     "G": 177408,
+     "J": 532224,
+     "full_records": 919296,
+     "compact_records": 548352,
+     "atom_records": 19968
+    },
+    "total_bytes": 2956032,
+    "alloc_ms": 0.30374
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 109
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   }
+  },
+  {
+   "N": 96,
+   "p": 109,
+   "state": "FCC_N initial state (step 0, lifted at p)",
+   "source": "FCC_N initial state lifted at p",
+   "pairs": 4560,
+   "gpu_A": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 0.10444799810647964,
+    "k_G_ms": 4.582272052764893,
+    "k_J_ms": 0.19148799777030945,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.1613440066576004,
+    "d2h_atoms_ms": 0.0018240000354126096,
+    "encode_ms": 0.9561988990753889,
+    "device_call_ms": 5.135917919687927,
+    "decode_ms": 22.5984959397465,
+    "host_reduce_ms": 32.91147307027131,
+    "total_to_pairs_ms": 28.685502940788865,
+    "total_to_forces_ms": 61.30688695702702
+   },
+   "gpu_B": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 0.10649599879980087,
+    "k_G_ms": 4.611072063446045,
+    "k_J_ms": 0.18943999707698822,
+    "k_reduce_ms": 2.116607904434204,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.016896000131964684,
+    "encode_ms": 0.9589190594851971,
+    "device_call_ms": 7.099549053236842,
+    "decode_ms": 0.452424050308764,
+    "total_ms": 8.517083013430238
+   },
+   "gpu_A_all": [
+    66.79645599797368,
+    60.36336801480502,
+    61.30688695702702,
+    64.79121395386755,
+    61.24330498278141
+   ],
+   "gpu_B_all": [
+    8.532002102583647,
+    8.481071912683547,
+    8.523092023096979,
+    8.517083013430238,
+    8.50820099003613
+   ],
+   "cpu_w6_ms": 487.94304695911705,
+   "cpu_w6_all": [
+    489.10937109030783,
+    487.94304695911705,
+    486.8205669336021
+   ],
+   "w6_spawn_ms": 450.9011599002406,
+   "memory": {
+    "N": 96,
+    "pairs": 4560,
+    "bytes": {
+     "pair_table": 36480,
+     "status": 18240,
+     "mask": 18240,
+     "positions": 25344,
+     "d": 1203840,
+     "r2": 401280,
+     "G": 401280,
+     "J": 1203840,
+     "full_records": 2079360,
+     "compact_records": 1240320,
+     "atom_records": 29952
+    },
+    "total_bytes": 6658176,
+    "alloc_ms": 0.404493
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 4560,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 109
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 4560,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   }
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "state": "FCC_N initial state (step 0, lifted at p)",
+   "source": "FCC_N initial state lifted at p",
+   "pairs": 8128,
+   "gpu_A": {
+    "h2d_ms": 0.010239999741315842,
+    "k_dr2_ms": 0.11776000261306763,
+    "k_G_ms": 5.16812801361084,
+    "k_J_ms": 0.22835199534893036,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.24988800287246704,
+    "d2h_atoms_ms": 0.001888000057078898,
+    "encode_ms": 1.284669036976993,
+    "device_call_ms": 5.9155820636078715,
+    "decode_ms": 45.24047393351793,
+    "host_reduce_ms": 59.20286395121366,
+    "total_to_pairs_ms": 52.43544594850391,
+    "total_to_forces_ms": 112.33291204553097
+   },
+   "gpu_B": {
+    "h2d_ms": 0.011264000087976456,
+    "k_dr2_ms": 0.12399999797344208,
+    "k_G_ms": 5.160863876342773,
+    "k_J_ms": 0.22937600314617157,
+    "k_reduce_ms": 3.078144073486328,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.017696000635623932,
+    "encode_ms": 1.305780024267733,
+    "device_call_ms": 8.718358003534377,
+    "decode_ms": 0.6145390216261148,
+    "total_ms": 10.625128052197397
+   },
+   "gpu_A_all": [
+    113.3233520668,
+    112.33291204553097,
+    115.26558198966086,
+    111.59402795601636,
+    108.39137993752956
+   ],
+   "gpu_B_all": [
+    10.652087978087366,
+    10.609566932544112,
+    10.628927033394575,
+    10.598147055134177,
+    10.625128052197397
+   ],
+   "cpu_w6_ms": 873.8858039723709,
+   "cpu_w6_all": [
+    873.8858039723709,
+    873.371340916492,
+    894.0718099474907
+   ],
+   "w6_spawn_ms": 449.3480520322919,
+   "memory": {
+    "N": 128,
+    "pairs": 8128,
+    "bytes": {
+     "pair_table": 65024,
+     "status": 32512,
+     "mask": 32512,
+     "positions": 33792,
+     "d": 2145792,
+     "r2": 715264,
+     "G": 715264,
+     "J": 2145792,
+     "full_records": 3706368,
+     "compact_records": 2210816,
+     "atom_records": 39936
+    },
+    "total_bytes": 11843072,
+    "alloc_ms": 0.685271
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 109
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   }
+  },
+  {
+   "N": 12,
+   "p": 163,
+   "state": "bundle N=12 step 500",
+   "source": "bundle state 10",
+   "pairs": 66,
+   "gpu_A": {
+    "h2d_ms": 0.008191999979317188,
+    "k_dr2_ms": 0.20684799551963806,
+    "k_G_ms": 6.578176021575928,
+    "k_J_ms": 0.26419198513031006,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.01616000011563301,
+    "d2h_atoms_ms": 0.002208000048995018,
+    "encode_ms": 0.1312539679929614,
+    "device_call_ms": 7.118540001101792,
+    "decode_ms": 0.3739310195669532,
+    "host_reduce_ms": 0.5042450502514839,
+    "total_to_pairs_ms": 7.622594945132732,
+    "total_to_forces_ms": 8.12522100750357
+   },
+   "gpu_B": {
+    "h2d_ms": 0.008191999979317188,
+    "k_dr2_ms": 0.20582400262355804,
+    "k_G_ms": 6.57919979095459,
+    "k_J_ms": 0.26419198513031006,
+    "k_reduce_ms": 0.37990400195121765,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.013407999649643898,
+    "encode_ms": 0.13025396037846804,
+    "device_call_ms": 7.494222023524344,
+    "decode_ms": 0.07094198372215033,
+    "total_ms": 7.6942379819229245
+   },
+   "gpu_A_all": [
+    8.175392053090036,
+    8.122071041725576,
+    8.128610905259848,
+    8.121930062770844,
+    8.12522100750357
+   ],
+   "gpu_B_all": [
+    7.705238065682352,
+    7.678497000597417,
+    7.689457968808711,
+    7.696778047829866,
+    7.6942379819229245
+   ],
+   "cpu_w6_ms": 7.485840003937483,
+   "cpu_w6_all": [
+    9.084201068617404,
+    7.332756998948753,
+    7.485840003937483
+   ],
+   "w6_spawn_ms": 457.06842094659805,
+   "memory": {
+    "N": 12,
+    "pairs": 66,
+    "bytes": {
+     "pair_table": 528,
+     "status": 264,
+     "mask": 264,
+     "positions": 3168,
+     "d": 17424,
+     "r2": 5808,
+     "G": 5808,
+     "J": 17424,
+     "full_records": 30096,
+     "compact_records": 17952,
+     "atom_records": 3744
+    },
+    "total_bytes": 102480,
+    "alloc_ms": 0.686461
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 66,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 163
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 66,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 163
+   }
+  },
+  {
+   "N": 16,
+   "p": 163,
+   "state": "bundle N=16 step 500",
+   "source": "bundle state 14",
+   "pairs": 120,
+   "gpu_A": {
+    "h2d_ms": 0.006144000217318535,
+    "k_dr2_ms": 0.21302400529384613,
+    "k_G_ms": 6.67033576965332,
+    "k_J_ms": 0.27955201268196106,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.01587199978530407,
+    "d2h_atoms_ms": 0.0018240000354126096,
+    "encode_ms": 0.1760059967637062,
+    "device_call_ms": 7.22181296441704,
+    "decode_ms": 0.6795109948143363,
+    "host_reduce_ms": 0.8916980586946011,
+    "total_to_pairs_ms": 8.073969976976514,
+    "total_to_forces_ms": 8.959166007116437
+   },
+   "gpu_B": {
+    "h2d_ms": 0.007040000054985285,
+    "k_dr2_ms": 0.21401600539684296,
+    "k_G_ms": 6.667263984680176,
+    "k_J_ms": 0.27852800488471985,
+    "k_reduce_ms": 0.4546560049057007,
+    "d2h_full_ms": 0.0010239999974146485,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.011872000060975552,
+    "encode_ms": 0.17589610069990158,
+    "device_call_ms": 7.669626967981458,
+    "decode_ms": 0.0941429752856493,
+    "total_ms": 7.939425064250827
+   },
+   "gpu_A_all": [
+    9.285876993089914,
+    8.953396929427981,
+    8.957967045716941,
+    8.993347990326583,
+    8.959166007116437
+   ],
+   "gpu_B_all": [
+    7.95830599963665,
+    7.958256057463586,
+    7.939425064250827,
+    7.935875095427036,
+    7.938685943372548
+   ],
+   "cpu_w6_ms": 13.390384032391012,
+   "cpu_w6_all": [
+    15.87532996200025,
+    13.24570900760591,
+    13.390384032391012
+   ],
+   "w6_spawn_ms": 451.0380910942331,
+   "memory": {
+    "N": 16,
+    "pairs": 120,
+    "bytes": {
+     "pair_table": 960,
+     "status": 480,
+     "mask": 480,
+     "positions": 4224,
+     "d": 31680,
+     "r2": 10560,
+     "G": 10560,
+     "J": 31680,
+     "full_records": 54720,
+     "compact_records": 32640,
+     "atom_records": 4992
+    },
+    "total_bytes": 182976,
+    "alloc_ms": 0.262399
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 120,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 163
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 120,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 163
+   }
+  },
+  {
+   "N": 64,
+   "p": 163,
+   "state": "FCC_N initial state (step 0, lifted at p): the p effect at the same N",
+   "source": "FCC_N initial state lifted at p",
+   "pairs": 2016,
+   "gpu_A": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 0.1085439994931221,
+    "k_G_ms": 6.6211838722229,
+    "k_J_ms": 0.21305599808692932,
+    "k_reduce_ms": 0.002047999994829297,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.08380799740552902,
+    "d2h_atoms_ms": 0.0018240000354126096,
+    "encode_ms": 0.6484300829470158,
+    "device_call_ms": 7.098229951225221,
+    "decode_ms": 11.086591985076666,
+    "host_reduce_ms": 14.08504496794194,
+    "total_to_pairs_ms": 18.823502003215253,
+    "total_to_forces_ms": 33.10799307655543
+   },
+   "gpu_B": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 0.1085439994931221,
+    "k_G_ms": 6.627327919006348,
+    "k_J_ms": 0.21503999829292297,
+    "k_reduce_ms": 1.7274880409240723,
+    "d2h_full_ms": 0.0010239999974146485,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.013567999936640263,
+    "encode_ms": 0.6539099849760532,
+    "device_call_ms": 8.758440031670034,
+    "decode_ms": 0.3566410159692168,
+    "total_ms": 9.768292075023055
+   },
+   "gpu_A_all": [
+    33.10799307655543,
+    32.90389699395746,
+    33.41323300264776,
+    37.13497705757618,
+    32.62547799386084
+   ],
+   "gpu_B_all": [
+    9.765680995769799,
+    9.769522002898157,
+    9.781662025488913,
+    9.760600980371237,
+    9.768292075023055
+   ],
+   "cpu_w6_ms": 223.36742200423032,
+   "cpu_w6_all": [
+    225.99868290126324,
+    223.36742200423032,
+    222.86936698947102
+   ],
+   "w6_spawn_ms": 451.11305895261467,
+   "memory": {
+    "N": 64,
+    "pairs": 2016,
+    "bytes": {
+     "pair_table": 16128,
+     "status": 8064,
+     "mask": 8064,
+     "positions": 16896,
+     "d": 532224,
+     "r2": 177408,
+     "G": 177408,
+     "J": 532224,
+     "full_records": 919296,
+     "compact_records": 548352,
+     "atom_records": 19968
+    },
+    "total_bytes": 2956032,
+    "alloc_ms": 0.315679
+   },
+   "F_equal_A_W6": true,
+   "F_equal_B_W6": true,
+   "plan_A": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "NONE",
+    "precision": 163
+   },
+   "plan_B": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 163
+   }
+  }
+ ],
+ "sweep": [
+  {
+   "N": 64,
+   "p": 109,
+   "plan": {
+    "block_size": 32,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 6.62220823764801,
+   "k_G_ms": 4.945919990539551,
+   "k_reduce_ms": 1.2830719947814941,
+   "wall_ms": 7.360627059824765,
+   "atoms_sha256": "5c8d6653fb5f93e2a5eb3d0a2a849b0e8df9356e66fc049e421c75fb27b700f4"
+  },
+  {
+   "N": 64,
+   "p": 109,
+   "plan": {
+    "block_size": 64,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 6.637568026781082,
+   "k_G_ms": 4.947968006134033,
+   "k_reduce_ms": 1.2881920337677002,
+   "wall_ms": 7.376877008937299,
+   "atoms_sha256": "5c8d6653fb5f93e2a5eb3d0a2a849b0e8df9356e66fc049e421c75fb27b700f4"
+  },
+  {
+   "N": 64,
+   "p": 109,
+   "plan": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 6.787071764469147,
+   "k_G_ms": 5.042175769805908,
+   "k_reduce_ms": 1.3127679824829102,
+   "wall_ms": 7.520232000388205,
+   "atoms_sha256": "5c8d6653fb5f93e2a5eb3d0a2a849b0e8df9356e66fc049e421c75fb27b700f4"
+  },
+  {
+   "N": 64,
+   "p": 109,
+   "plan": {
+    "block_size": 256,
+    "grid_blocks": 0,
+    "batch_size": 2016,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 7.532543793320656,
+   "k_G_ms": 5.611519813537598,
+   "k_reduce_ms": 1.4069759845733643,
+   "wall_ms": 8.265694021247327,
+   "atoms_sha256": "5c8d6653fb5f93e2a5eb3d0a2a849b0e8df9356e66fc049e421c75fb27b700f4"
+  },
+  {
+   "N": 64,
+   "p": 109,
+   "outputs_identical_across_blocks": true
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "plan": {
+    "block_size": 32,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 8.487935788929462,
+   "k_G_ms": 5.139455795288086,
+   "k_reduce_ms": 3.008512020111084,
+   "wall_ms": 9.890045039355755,
+   "atoms_sha256": "308e602425947ad31ebc02e5795b3a25dedc0dcc02bd2723999a0afb0e7266f7"
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "plan": {
+    "block_size": 64,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 8.494079828262329,
+   "k_G_ms": 5.134335994720459,
+   "k_reduce_ms": 3.01363205909729,
+   "wall_ms": 9.959098068065941,
+   "atoms_sha256": "308e602425947ad31ebc02e5795b3a25dedc0dcc02bd2723999a0afb0e7266f7"
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "plan": {
+    "block_size": 128,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 8.59443186968565,
+   "k_G_ms": 5.173247814178467,
+   "k_reduce_ms": 3.077120065689087,
+   "wall_ms": 9.94913699105382,
+   "atoms_sha256": "308e602425947ad31ebc02e5795b3a25dedc0dcc02bd2723999a0afb0e7266f7"
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "plan": {
+    "block_size": 256,
+    "grid_blocks": 0,
+    "batch_size": 8128,
+    "pair_storage_mode": "DEVICE_PAIR_BUFFER",
+    "atom_reduction_mode": "CANONICAL_PER_ATOM_COMPONENT",
+    "precision": 109
+   },
+   "kernels_ms": 8.738815873861313,
+   "k_G_ms": 5.238783836364746,
+   "k_reduce_ms": 3.1354880332946777,
+   "wall_ms": 10.129192029125988,
+   "atoms_sha256": "308e602425947ad31ebc02e5795b3a25dedc0dcc02bd2723999a0afb0e7266f7"
+  },
+  {
+   "N": 128,
+   "p": 109,
+   "outputs_identical_across_blocks": true
+  }
+ ],
+ "memory_table": [
+  {
+   "N": 64,
+   "pairs": 2016,
+   "pair_interval_buffer_bytes": 1419264,
+   "atom_output_bytes": 19968,
+   "scratch_bytes": 1499904,
+   "positions_bytes": 16896,
+   "total_gpu_bytes": 2956032,
+   "b2_recompute_bytes_estimate": 36864
+  },
+  {
+   "N": 128,
+   "pairs": 8128,
+   "pair_interval_buffer_bytes": 5722112,
+   "atom_output_bytes": 39936,
+   "scratch_bytes": 6047232,
+   "positions_bytes": 33792,
+   "total_gpu_bytes": 11843072,
+   "b2_recompute_bytes_estimate": 73728
+  },
+  {
+   "N": 256,
+   "pairs": 32640,
+   "pair_interval_buffer_bytes": 22978560,
+   "atom_output_bytes": 79872,
+   "scratch_bytes": 24284160,
+   "positions_bytes": 67584,
+   "total_gpu_bytes": 47410176,
+   "b2_recompute_bytes_estimate": 147456
+  },
+  {
+   "N": 512,
+   "pairs": 130816,
+   "pair_interval_buffer_bytes": 92094464,
+   "atom_output_bytes": 159744,
+   "scratch_bytes": 97327104,
+   "positions_bytes": 135168,
+   "total_gpu_bytes": 189716480,
+   "b2_recompute_bytes_estimate": 294912
+  },
+  {
+   "N": 1024,
+   "pairs": 523776,
+   "pair_interval_buffer_bytes": 368738304,
+   "atom_output_bytes": 319488,
+   "scratch_bytes": 389689344,
+   "positions_bytes": 270336,
+   "total_gpu_bytes": 759017472,
+   "b2_recompute_bytes_estimate": 589824
+  }
+ ],
+ "cold": {
+  "109": {
+   "p": 109,
+   "N": 64,
+   "init_ms": 93.26734393835068,
+   "setup": {
+    "context_ms": 91.264681,
+    "model_trace_ms": 19.36687796842307,
+    "model_upload_ms": 0.224727,
+    "n_ops": 221,
+    "n_consts": 98,
+    "n_regs": 7
+   },
+   "mem": {
+    "N": 64,
+    "pairs": 2016,
+    "bytes": {
+     "pair_table": 16128,
+     "status": 8064,
+     "mask": 8064,
+     "positions": 16896,
+     "d": 532224,
+     "r2": 177408,
+     "G": 177408,
+     "J": 532224,
+     "full_records": 919296,
+     "compact_records": 548352,
+     "atom_records": 19968
+    },
+    "total_bytes": 2956032,
+    "alloc_ms": 0.121134
+   },
+   "first_state_B_ms": 15.91508206911385,
+   "first_state_timing": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 2.4596478939056396,
+    "k_G_ms": 9.790464401245117,
+    "k_J_ms": 0.25088000297546387,
+    "k_reduce_ms": 1.3250559568405151,
+    "d2h_full_ms": 0.0030720001086592674,
+    "d2h_compact_ms": 0.0010239999974146485,
+    "d2h_atoms_ms": 0.0191040001809597
+   }
+  },
+  "163": {
+   "p": 163,
+   "N": 64,
+   "init_ms": 91.92481101490557,
+   "setup": {
+    "context_ms": 89.900659,
+    "model_trace_ms": 19.48390295729041,
+    "model_upload_ms": 0.219406,
+    "n_ops": 221,
+    "n_consts": 98,
+    "n_regs": 7
+   },
+   "mem": {
+    "N": 64,
+    "pairs": 2016,
+    "bytes": {
+     "pair_table": 16128,
+     "status": 8064,
+     "mask": 8064,
+     "positions": 16896,
+     "d": 532224,
+     "r2": 177408,
+     "G": 177408,
+     "J": 532224,
+     "full_records": 919296,
+     "compact_records": 548352,
+     "atom_records": 19968
+    },
+    "total_bytes": 2956032,
+    "alloc_ms": 0.120564
+   },
+   "first_state_B_ms": 17.955215997062624,
+   "first_state_timing": {
+    "h2d_ms": 0.009216000325977802,
+    "k_dr2_ms": 2.372607946395874,
+    "k_G_ms": 12.111871719360352,
+    "k_J_ms": 0.24063999950885773,
+    "k_reduce_ms": 1.9046399593353271,
+    "d2h_full_ms": 0.002047999994829297,
+    "d2h_compact_ms": 0.002047999994829297,
+    "d2h_atoms_ms": 0.013632000423967838
+   }
+  }
+ },
+ "setup": {
+  "context_ms": 0.00136,
+  "model_trace_ms": 9.90044604986906,
+  "model_upload_ms": 0.049481,
+  "n_ops": 221,
+  "n_consts": 98,
+  "n_regs": 7
+ }
+}

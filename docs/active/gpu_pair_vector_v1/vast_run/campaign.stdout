@@ -1,0 +1,33 @@
+device NVIDIA GeForce RTX 3090
+state main0 N40 p109: 12 layouts; last k_G 5.0 ms
+state main1 N40 p109: 12 layouts; last k_G 5.0 ms
+state main2 N40 p109: 12 layouts; last k_G 5.0 ms
+state main3 N40 p109: 12 layouts; last k_G 5.0 ms
+state main4 N64 p109: 12 layouts; last k_G 5.0 ms
+state main5 N64 p109: 12 layouts; last k_G 5.1 ms
+state main6 N64 p109: 12 layouts; last k_G 5.6 ms
+state main7 N64 p109: 12 layouts; last k_G 5.6 ms
+state main8 N12 p163: 12 layouts; last k_G 6.1 ms
+state main9 N12 p163: 12 layouts; last k_G 6.6 ms
+state main10 N12 p163: 12 layouts; last k_G 6.6 ms
+state main11 N12 p163: 12 layouts; last k_G 6.6 ms
+state main12 N16 p163: 12 layouts; last k_G 6.3 ms
+state main13 N16 p163: 12 layouts; last k_G 6.6 ms
+state main14 N16 p163: 12 layouts; last k_G 6.7 ms
+state main15 N16 p163: 12 layouts; last k_G 6.7 ms
+state test0 N40 p128: 1 layouts; last k_G 5.0 ms
+state test1 N40 p192: 1 layouts; last k_G 7.4 ms
+state test2 N3 p109: 1 layouts; last k_G 4.1 ms
+state test3 N3 p109: 1 layouts; last k_G 3.7 ms
+state test4 N3 p109: 1 layouts; last k_G 3.7 ms
+state test5 N3 p163: 1 layouts; last k_G 5.7 ms
+state test6 N3 p163: 1 layouts; last k_G 5.1 ms
+state test7 N3 p163: 1 layouts; last k_G 5.1 ms
+perf N40 p109: W6 82 ms | A 16.2 (decode 4.5, host reduce 6.3) | B 6.5 (kernels 5.7) | equal A True B True
+perf N64 p109: W6 218 ms | A 33.1 (decode 11.1, host reduce 16.2) | B 7.3 (kernels 6.2) | equal A True B True
+perf N96 p109: W6 488 ms | A 61.3 (decode 22.6, host reduce 32.9) | B 8.5 (kernels 7.0) | equal A True B True
+perf N128 p109: W6 874 ms | A 112.3 (decode 45.2, host reduce 59.2) | B 10.6 (kernels 8.6) | equal A True B True
+perf N12 p163: W6 7 ms | A 8.1 (decode 0.4, host reduce 0.5) | B 7.7 (kernels 7.4) | equal A True B True
+perf N16 p163: W6 13 ms | A 9.0 (decode 0.7, host reduce 0.9) | B 7.9 (kernels 7.6) | equal A True B True
+perf N64 p163: W6 223 ms | A 33.1 (decode 11.1, host reduce 14.1) | B 9.8 (kernels 8.7) | equal A True B True
+finished

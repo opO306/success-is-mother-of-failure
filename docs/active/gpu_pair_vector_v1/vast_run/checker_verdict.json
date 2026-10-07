@@ -1,0 +1,125 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_trajectory_equals_reference": [
+   4,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "run_state_known": [
+   200,
+   0
+  ],
+  "run_output_hashes": [
+   200,
+   0
+  ],
+  "run_settings_clean": [
+   200,
+   0
+  ],
+  "positions_echo_equals_bundle": [
+   200,
+   0
+  ],
+  "cpu_first_stop_equals_bundle": [
+   24,
+   0
+  ],
+  "own_loop_F_equals_recorded_run_F": [
+   20,
+   0
+  ],
+  "pair_count": [
+   200,
+   0
+  ],
+  "pair_id_echo": [
+   144714,
+   0
+  ],
+  "precision_echo": [
+   144714,
+   0
+  ],
+  "domain_status": [
+   144714,
+   0
+  ],
+  "r2_equal": [
+   144714,
+   0
+  ],
+  "obligations_complete": [
+   144710,
+   0
+  ],
+  "G_equal": [
+   144710,
+   0
+  ],
+  "pair_J_exact": [
+   144710,
+   0
+  ],
+  "first_stop_pair": [
+   200,
+   0
+  ],
+  "atom_count": [
+   200,
+   0
+  ],
+  "atom_id_echo": [
+   19266,
+   0
+  ],
+  "atom_precision_echo": [
+   19266,
+   0
+  ],
+  "atom_status": [
+   19266,
+   0
+  ],
+  "atom_F_exact": [
+   19266,
+   0
+  ],
+  "layouts_bit_identical": [
+   24,
+   0
+  ],
+  "layouts_complete": [
+   16,
+   0
+  ],
+  "state_present": [
+   24,
+   0
+  ]
+ },
+ "issues": [],
+ "stats": {
+  "PAIR_EXACT": 13502,
+  "PAIR_SOUND_ONLY": 0,
+  "PAIR_UNSOUND": 0,
+  "DOMAIN_MISMATCH": 0,
+  "REFUSED": 0,
+  "F_EXACT": 1842,
+  "F_DIFF": 0,
+  "pairs_checked": 13502,
+  "states_checked": 24
+ }
+}

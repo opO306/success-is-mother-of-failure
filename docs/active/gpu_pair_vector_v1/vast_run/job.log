@@ -1,0 +1,15 @@
+JOB_START 2026-10-07T05:56:53Z head 3019a04e4ef108a53fe8377b2550c5cf8233942d
+== pytest (REMOTE LINUX related set)
+..................                                                       [100%]
+18 passed in 6.13s
+CAMPAIGN_EXIT rc=0 2026-10-07T05:57:32Z
+EVIDENCE OK {} [] {'PAIR_EXACT': 13502, 'PAIR_SOUND_ONLY': 0, 'PAIR_UNSOUND': 0, 'DOMAIN_MISMATCH': 0, 'REFUSED': 0, 'F_EXACT': 1842, 'F_DIFF': 0, 'pairs_checked': 13502, 'states_checked': 24}
+GPU_PAIR_PROMISING {'PAIR_EXACT': 13502, 'PAIR_SOUND_ONLY': 0, 'PAIR_UNSOUND': 0, 'DOMAIN_MISMATCH': 0, 'REFUSED': 0, 'F_EXACT': 1842, 'F_DIFF': 0, 'pairs_checked': 13502, 'states_checked': 24} []
+N40 p109: W6 82 | A 16.2 (0.196) | B 6.5 (0.079) equal True True
+N64 p109: W6 218 | A 33.1 (0.152) | B 7.3 (0.033) equal True True
+N96 p109: W6 488 | A 61.3 (0.126) | B 8.5 (0.017) equal True True
+N128 p109: W6 874 | A 112.3 (0.129) | B 10.6 (0.012) equal True True
+N12 p163: W6 7 | A 8.1 (1.085) | B 7.7 (1.028) equal True True
+N16 p163: W6 13 | A 9.0 (0.669) | B 7.9 (0.593) equal True True
+N64 p163: W6 223 | A 33.1 (0.148) | B 9.8 (0.044) equal True True
+DONE_MARKER 2026-10-07T05:57:45Z grace 1800s
