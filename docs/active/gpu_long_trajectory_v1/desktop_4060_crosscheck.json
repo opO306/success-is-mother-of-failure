@@ -1,0 +1,16 @@
+{
+ "desktop": {
+  "device": "NVIDIA GeForce RTX 4060 (Windows)",
+  "dir": "desktop pre-seal run (amendment 1), not committed"
+ },
+ "vast": {
+  "device": "NVIDIA GeForce RTX 4060 Ti (Linux)",
+  "dir": "docs/active/gpu_long_trajectory_v1/vast_run"
+ },
+ "fixed_runs_and_services_identical": 16,
+ "different": [],
+ "gateP_decompressed_device_word_files_identical": 168,
+ "gateP_different": 0,
+ "compared": "fixed runs and every service pass: per-step digests, checkpoint endpoints, stop, force evaluations, device precision echo, start state, and the pass record identity fields (outcome, completed_steps, stop, stop_step, cells, endpoints_key, endpoints_scaled, effective_p); timing fields excluded. gate P: the decompressed raw pair and atom records byte for byte",
+ "correction": "a first version of this file compared gzip bytes (zlib differs between the two systems) and run_serial's timing fields; both were comparison mistakes, not result differences"
+}

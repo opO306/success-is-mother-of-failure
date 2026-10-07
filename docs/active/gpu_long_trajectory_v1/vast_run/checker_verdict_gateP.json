@@ -1,0 +1,179 @@
+{
+ "phase": "gateP",
+ "support": {
+  "verified_in_gate_P": [
+   64,
+   73,
+   78,
+   161,
+   163,
+   166
+  ],
+  "failed_in_gate_P": [],
+  "earlier_stage_p": [
+   64,
+   109,
+   128,
+   163,
+   192
+  ],
+  "GPU_SUPPORTED_P": [
+   64,
+   73,
+   78,
+   109,
+   128,
+   161,
+   163,
+   166,
+   192
+  ],
+  "GPU_UNSUPPORTED_P": [],
+  "per_p": {
+   "161": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "163": {
+    "bad": 0,
+    "pairs_exact": 1860,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 20
+   },
+   "64": {
+    "bad": 0,
+    "pairs_exact": 2186,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 24
+   },
+   "73": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "166": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "78": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   }
+  }
+ },
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "gateP_state_known": [
+   84,
+   0
+  ],
+  "gateP_requested_p_equals_state_p": [
+   84,
+   0
+  ],
+  "gateP_settings_clean": [
+   84,
+   0
+  ],
+  "gateP_device_p_equals_requested": [
+   84,
+   0
+  ],
+  "gateP_pair_count": [
+   84,
+   0
+  ],
+  "gateP_precision_echo": [
+   7812,
+   0
+  ],
+  "gateP_pair_id": [
+   7812,
+   0
+  ],
+  "gateP_r2_equal": [
+   7812,
+   0
+  ],
+  "gateP_obligations_complete": [
+   7766,
+   0
+  ],
+  "gateP_G_equal": [
+   7766,
+   0
+  ],
+  "gateP_J_exact": [
+   7766,
+   0
+  ],
+  "gateP_first_stop_pair": [
+   84,
+   0
+  ],
+  "gateP_atom_precision_echo": [
+   80,
+   0
+  ],
+  "gateP_atom_F_equal": [
+   80,
+   0
+  ],
+  "gateP_layouts_identical": [
+   42,
+   0
+  ],
+  "gateP_baseline_p_exact": [
+   2,
+   0
+  ],
+  "gateP_state_present": [
+   42,
+   0
+  ]
+ },
+ "issues": []
+}

@@ -1,0 +1,89 @@
+device NVIDIA GeForce RTX 4060 Ti
+gateP N12_p64_s995 LAST_COMPLETED: OK device p 64
+gateP N12_p64_s996 STOP_STATE: OK device p 64
+gateP N12_p64_s0 TRAJECTORY: OK device p 64
+gateP N12_p64_s250 TRAJECTORY: OK device p 64
+gateP N12_p64_s500 TRAJECTORY: OK device p 64
+gateP N12_p64_s750 TRAJECTORY: OK device p 64
+gateP N12_p73_s0 TRAJECTORY: OK device p 73
+gateP N12_p73_s250 TRAJECTORY: OK device p 73
+gateP N12_p73_s500 TRAJECTORY: OK device p 73
+gateP N12_p73_s750 TRAJECTORY: OK device p 73
+gateP N12_p73_s1000 TRAJECTORY: OK device p 73
+gateP N12_p161_s0 TRAJECTORY: OK device p 161
+gateP N12_p161_s250 TRAJECTORY: OK device p 161
+gateP N12_p161_s500 TRAJECTORY: OK device p 161
+gateP N12_p161_s750 TRAJECTORY: OK device p 161
+gateP N12_p161_s1000 TRAJECTORY: OK device p 161
+gateP N12_p163_s0 TRAJECTORY: OK device p 163
+gateP N12_p163_s250 TRAJECTORY: OK device p 163
+gateP N12_p163_s500 TRAJECTORY: OK device p 163
+gateP N12_p163_s750 TRAJECTORY: OK device p 163
+gateP N12_p163_s1000 TRAJECTORY: OK device p 163
+gateP N16_p64_s917 LAST_COMPLETED: OK device p 64
+gateP N16_p64_s918 STOP_STATE: OK device p 64
+gateP N16_p64_s0 TRAJECTORY: OK device p 64
+gateP N16_p64_s250 TRAJECTORY: OK device p 64
+gateP N16_p64_s500 TRAJECTORY: OK device p 64
+gateP N16_p64_s750 TRAJECTORY: OK device p 64
+gateP N16_p78_s0 TRAJECTORY: OK device p 78
+gateP N16_p78_s250 TRAJECTORY: OK device p 78
+gateP N16_p78_s500 TRAJECTORY: OK device p 78
+gateP N16_p78_s750 TRAJECTORY: OK device p 78
+gateP N16_p78_s1000 TRAJECTORY: OK device p 78
+gateP N16_p166_s0 TRAJECTORY: OK device p 166
+gateP N16_p166_s250 TRAJECTORY: OK device p 166
+gateP N16_p166_s500 TRAJECTORY: OK device p 166
+gateP N16_p166_s750 TRAJECTORY: OK device p 166
+gateP N16_p166_s1000 TRAJECTORY: OK device p 166
+gateP N16_p163_s0 TRAJECTORY: OK device p 163
+gateP N16_p163_s250 TRAJECTORY: OK device p 163
+gateP N16_p163_s500 TRAJECTORY: OK device p 163
+gateP N16_p163_s750 TRAJECTORY: OK device p 163
+gateP N16_p163_s1000 TRAJECTORY: OK device p 163
+finished gateP
+device NVIDIA GeForce RTX 4060 Ti
+fixed N12_p163 b32: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 7.0 s
+fixed N12_p163 b64: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 6.8 s
+fixed N12_p163 b128: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 6.8 s
+fixed N12_p163 b256: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 6.8 s
+fixed N16_p163 b32: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 7.3 s
+fixed N16_p163 b64: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 7.3 s
+fixed N16_p163 b128: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 7.4 s
+fixed N16_p163 b256: OK stop None pair None completed 1000 evals 1001 outcome DECIDED dump None 7.4 s
+fixed N40_p109 b32: OK stop None pair None completed 1000 evals 1001 outcome UNDECIDED_AT_PRECISION dump None 8.6 s
+fixed N12_p64 b32: DOMAIN_STOP_UNPROVEN stop 996 pair 0 completed 995 evals 997 outcome DOMAIN_UNPROVEN dump None 4.0 s
+fixed N16_p64 b32: DOMAIN_STOP_UNPROVEN stop 918 pair 0 completed 917 evals 919 outcome DOMAIN_UNPROVEN dump None 4.1 s
+finished fixed
+device NVIDIA GeForce RTX 4060 Ti
+service N12_BASE64: DECIDED seq [64, 73, 161] backends ['GPU', 'GPU', 'GPU'] label GPU_FULL_RETRY 15.1 s
+service N12_FAMILY_MAX: DECIDED seq [163] backends ['GPU'] label GPU_FULL_RETRY 6.8 s
+service N16_BASE64: DECIDED seq [64, 78, 166] backends ['GPU', 'GPU', 'GPU'] label GPU_FULL_RETRY 16.5 s
+service N16_FAMILY_MAX: DECIDED seq [163] backends ['GPU'] label GPU_FULL_RETRY 7.3 s
+service N12_BASE64__demo_no73: DECIDED seq [64, 73, 161] backends ['GPU', 'CPU_E2_FALLBACK', 'GPU'] label GPU_WITH_CPU_PRECISION_FALLBACK 84.4 s
+finished service
+  fixed N12 rep 0: GPU 6213 W6 18074 ms
+  fixed N12 rep 1: GPU 6190 W6 15188 ms
+  fixed N12 rep 2: GPU 6247 W6 15358 ms
+  fixed N12 rep 3: GPU 6211 W6 15177 ms
+  fixed N12 rep 4: GPU 6241 W6 15148 ms
+perf fixed N12 p163 T1000: GPU 6213 W6 15188 -> 0.409 GPU_WIN | load 0% ['12.12', '11.68', '12.47']
+  fixed N16 rep 0: GPU 6567 W6 28868 ms
+  fixed N16 rep 1: GPU 6543 W6 29112 ms
+  fixed N16 rep 2: GPU 6555 W6 27393 ms
+  fixed N16 rep 3: GPU 6532 W6 30349 ms
+  fixed N16 rep 4: GPU 6602 W6 27219 ms
+perf fixed N16 p163 T1000: GPU 6555 W6 28868 -> 0.227 GPU_WIN | load 0% ['8.20', '11.21', '12.27']
+perf service N12 BASE64: GPU 13429 CPU_W6 45570 ms seq [64, 73, 161] ratio 0.295
+perf service N12 FAMILY_MAX: GPU 6257 CPU_W6 15850 ms seq [163] ratio 0.395
+perf service N16 BASE64: GPU 14618 CPU_W6 82081 ms seq [64, 78, 166] ratio 0.178
+perf service N16 FAMILY_MAX: GPU 6550 CPU_W6 27950 ms seq [163] ratio 0.234
+cold N12 BASE64: 13553 ms (context 135) seq [64, 73, 161]
+cold N12 BASE64: 13530 ms (context 130) seq [64, 73, 161]
+cold N12 FAMILY_MAX: 6344 ms (context 130) seq [163]
+cold N12 FAMILY_MAX: 6630 ms (context 431) seq [163]
+cold N16 BASE64: 14522 ms (context 135) seq [64, 78, 166]
+cold N16 BASE64: 14778 ms (context 146) seq [64, 78, 166]
+cold N16 FAMILY_MAX: 6697 ms (context 135) seq [163]
+cold N16 FAMILY_MAX: 6867 ms (context 311) seq [163]
+finished perf
