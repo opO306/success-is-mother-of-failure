@@ -1,0 +1,30 @@
+JOB_START 2026-10-07T15:12:54Z head 608f2464807b4e301072f6e742f2b2ee607147b3
+== pytest (REMOTE LINUX related set) 15:12:54
+.........................                                                [100%]
+============================= slowest 8 durations ==============================
+60.42s call     tests/test_gpu_long_trajectory_v1.py::test_service_cpu_fallback_for_unsupported_p
+59.50s call     tests/test_gpu_long_trajectory_v1.py::test_3_step_label_skipped
+51.95s setup    tests/test_gpu_long_trajectory_v1.py::test_own_passes_equal_bundle_v2_and_p2
+26.69s call     tests/test_gpu_long_trajectory_v1.py::test_service_base64_and_family_max
+18.60s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[13-service_p2_sequence-support1]
+18.28s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[17-checkpoint_endpoints_equal-support5]
+18.15s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[16-service_start_p-support4]
+17.24s call     tests/test_gpu_long_trajectory_v1.py::test_18_block_dependent_after_500
+25 passed in 399.50s (0:06:39)
+== GATE P 15:19:34
+EVIDENCE OK {} [] None [64, 73, 78, 109, 128, 161, 163, 166, 192]
+== FIXED 15:19:45
+EVIDENCE OK {} [] {'passes': 11, 'passes_exact': 11, 'passes_mismatch': 0, 'stops_exact': 2, 'steps_compared': 10914, 'gpu_passes': 11, 'cpu_fallback_passes': 0, 'services': 0, 'services_exact': 0} [64, 73, 78, 109, 128, 161, 163, 166, 192]
+== SERVICE 15:30:53
+EVIDENCE OK {} [] {'passes': 22, 'passes_exact': 22, 'passes_mismatch': 0, 'stops_exact': 5, 'steps_compared': 20824, 'gpu_passes': 21, 'cpu_fallback_passes': 1, 'services': 5, 'services_exact': 5} [64, 73, 78, 109, 128, 161, 163, 166, 192]
+== PERF 15:42:28
+== FINISHED 15:58:28
+JOB_EXIT rc=0 2026-10-07T15:58:28Z
+GPU_V1_READY {'passes': 22, 'passes_exact': 22, 'passes_mismatch': 0, 'stops_exact': 5, 'steps_compared': 20824, 'gpu_passes': 21, 'cpu_fallback_passes': 1, 'services': 5, 'services_exact': 5} [64, 73, 78, 109, 128, 161, 163, 166, 192] []
+fixed N12 p163 T1000: GPU 8061 W6 10027 ms ratio 0.804 GPU_WIN
+fixed N16 p163 T1000: GPU 8428 W6 24153 ms ratio 0.349 GPU_WIN
+service N12 BASE64: GPU 16971 CPU_W6 42597 ms seq [64, 73, 161]
+service N12 FAMILY_MAX: GPU 8052 CPU_W6 14089 ms seq [163]
+service N16 BASE64: GPU 17775 CPU_W6 58130 ms seq [64, 78, 166]
+service N16 FAMILY_MAX: GPU 8364 CPU_W6 27861 ms seq [163]
+DONE_MARKER 2026-10-07T15:58:29Z grace 1800s

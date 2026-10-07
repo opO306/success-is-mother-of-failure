@@ -1,0 +1,312 @@
+{
+ "phase": "fixed",
+ "support": {
+  "verified_in_gate_P": [
+   64,
+   73,
+   78,
+   161,
+   163,
+   166
+  ],
+  "failed_in_gate_P": [],
+  "earlier_stage_p": [
+   64,
+   109,
+   128,
+   163,
+   192
+  ],
+  "GPU_SUPPORTED_P": [
+   64,
+   73,
+   78,
+   109,
+   128,
+   161,
+   163,
+   166,
+   192
+  ],
+  "GPU_UNSUPPORTED_P": [],
+  "per_p": {
+   "161": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "163": {
+    "bad": 0,
+    "pairs_exact": 1860,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 20
+   },
+   "64": {
+    "bad": 0,
+    "pairs_exact": 2186,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 24
+   },
+   "73": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "166": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "78": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   }
+  }
+ },
+ "final_cells_across_policies_equal": {},
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "gateP_state_known": [
+   84,
+   0
+  ],
+  "gateP_requested_p_equals_state_p": [
+   84,
+   0
+  ],
+  "gateP_settings_clean": [
+   84,
+   0
+  ],
+  "gateP_device_p_equals_requested": [
+   84,
+   0
+  ],
+  "gateP_pair_count": [
+   84,
+   0
+  ],
+  "gateP_precision_echo": [
+   7812,
+   0
+  ],
+  "gateP_pair_id": [
+   7812,
+   0
+  ],
+  "gateP_r2_equal": [
+   7812,
+   0
+  ],
+  "gateP_obligations_complete": [
+   7766,
+   0
+  ],
+  "gateP_G_equal": [
+   7766,
+   0
+  ],
+  "gateP_J_exact": [
+   7766,
+   0
+  ],
+  "gateP_first_stop_pair": [
+   84,
+   0
+  ],
+  "gateP_atom_precision_echo": [
+   80,
+   0
+  ],
+  "gateP_atom_F_equal": [
+   80,
+   0
+  ],
+  "gateP_layouts_identical": [
+   42,
+   0
+  ],
+  "gateP_baseline_p_exact": [
+   2,
+   0
+  ],
+  "own_initial_equals_bundle": [
+   5,
+   0
+  ],
+  "own_steps_equal_bundle_replica": [
+   5,
+   0
+  ],
+  "own_stop_equals_bundle": [
+   5,
+   0
+  ],
+  "own_full_equals_bundle": [
+   79,
+   0
+  ],
+  "own_record_equals_bundle": [
+   35,
+   0
+  ],
+  "own_record_equals_V2_reference": [
+   24,
+   0
+  ],
+  "run_settings_clean": [
+   11,
+   0
+  ],
+  "C0_pass_starts_from_original_state": [
+   11,
+   0
+  ],
+  "pass_outcome_equal": [
+   11,
+   0
+  ],
+  "pass_completed_steps_equal": [
+   11,
+   0
+  ],
+  "pass_stop_equal": [
+   11,
+   0
+  ],
+  "pass_stop_step_equal": [
+   11,
+   0
+  ],
+  "pass_cells_equal": [
+   11,
+   0
+  ],
+  "pass_endpoints_key_equal": [
+   11,
+   0
+  ],
+  "pass_endpoints_scaled_equal": [
+   11,
+   0
+  ],
+  "gpu_only_for_supported_p": [
+   11,
+   0
+  ],
+  "device_p_equals_requested": [
+   11,
+   0
+  ],
+  "device_precision_echo": [
+   11,
+   0
+  ],
+  "stop_equal": [
+   11,
+   0
+  ],
+  "step_indices_contiguous": [
+   11,
+   0
+  ],
+  "step_count_equal": [
+   11,
+   0
+  ],
+  "per_step_digests_equal": [
+   11,
+   0
+  ],
+  "force_evaluations_reuse": [
+   11,
+   0
+  ],
+  "executor_persistent_in_pass": [
+   11,
+   0
+  ],
+  "checkpoint_present": [
+   181,
+   0
+  ],
+  "checkpoint_endpoints_equal": [
+   181,
+   0
+  ],
+  "digest_self_consistent": [
+   181,
+   0
+  ],
+  "layouts_identical": [
+   5,
+   0
+  ],
+  "fixed_p163_layouts_complete": [
+   2,
+   0
+  ],
+  "fixed_p64_long_stop_present": [
+   2,
+   0
+  ],
+  "fixed_N40_present": [
+   1,
+   0
+  ]
+ },
+ "issues": [],
+ "stats": {
+  "passes": 11,
+  "passes_exact": 11,
+  "passes_mismatch": 0,
+  "stops_exact": 2,
+  "steps_compared": 10914,
+  "gpu_passes": 11,
+  "cpu_fallback_passes": 0,
+  "services": 0,
+  "services_exact": 0
+ },
+ "first_divergence": []
+}

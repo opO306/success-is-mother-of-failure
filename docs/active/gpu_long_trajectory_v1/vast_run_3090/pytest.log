@@ -1,0 +1,11 @@
+.........................                                                [100%]
+============================= slowest 8 durations ==============================
+60.42s call     tests/test_gpu_long_trajectory_v1.py::test_service_cpu_fallback_for_unsupported_p
+59.50s call     tests/test_gpu_long_trajectory_v1.py::test_3_step_label_skipped
+51.95s setup    tests/test_gpu_long_trajectory_v1.py::test_own_passes_equal_bundle_v2_and_p2
+26.69s call     tests/test_gpu_long_trajectory_v1.py::test_service_base64_and_family_max
+18.60s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[13-service_p2_sequence-support1]
+18.28s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[17-checkpoint_endpoints_equal-support5]
+18.15s call     tests/test_gpu_long_trajectory_v1.py::test_service_faults[16-service_start_p-support4]
+17.24s call     tests/test_gpu_long_trajectory_v1.py::test_18_block_dependent_after_500
+25 passed in 399.50s (0:06:39)

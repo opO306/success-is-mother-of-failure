@@ -1,0 +1,20 @@
+{
+ "hosts": {
+  "first": "Vast 54645489 RTX 4060 Ti (sm_89) + Threadripper PRO 3995WX, run at 2747161",
+  "second": "Vast 52763685 RTX 3090 (sm_86) + Threadripper PRO 3975WX, run at 608f246"
+ },
+ "fixed_runs_and_services_identical": 16,
+ "different": 0,
+ "gateP_decompressed_device_word_files_identical": "168 of 168",
+ "checker_verdicts_identical_content": [
+  "gateP",
+  "fixed",
+  "service",
+  "gpu_support"
+ ],
+ "analysis_verdict": [
+  "GPU_V1_READY",
+  "GPU_V1_READY"
+ ],
+ "compared": "per-step digests, checkpoint endpoints, stop, force evaluations, device precision echo, start state, pass-record identity fields; gate-P raw device words byte for byte; timing fields excluded"
+}

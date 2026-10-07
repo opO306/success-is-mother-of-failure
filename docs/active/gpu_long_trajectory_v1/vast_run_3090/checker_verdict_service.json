@@ -1,0 +1,375 @@
+{
+ "phase": "service",
+ "support": {
+  "verified_in_gate_P": [
+   64,
+   73,
+   78,
+   161,
+   163,
+   166
+  ],
+  "failed_in_gate_P": [],
+  "earlier_stage_p": [
+   64,
+   109,
+   128,
+   163,
+   192
+  ],
+  "GPU_SUPPORTED_P": [
+   64,
+   73,
+   78,
+   109,
+   128,
+   161,
+   163,
+   166,
+   192
+  ],
+  "GPU_UNSUPPORTED_P": [],
+  "per_p": {
+   "161": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "163": {
+    "bad": 0,
+    "pairs_exact": 1860,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 20
+   },
+   "64": {
+    "bad": 0,
+    "pairs_exact": 2186,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 20,
+    "refused": 0,
+    "states": 24
+   },
+   "73": {
+    "bad": 0,
+    "pairs_exact": 660,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "166": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   },
+   "78": {
+    "bad": 0,
+    "pairs_exact": 1200,
+    "unsound": 0,
+    "domain_mismatch": 0,
+    "echo_bad": 0,
+    "atoms_exact": 10,
+    "refused": 0,
+    "states": 10
+   }
+  }
+ },
+ "final_cells_across_policies_equal": {
+  "12": true,
+  "16": true
+ },
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "gateP_state_known": [
+   84,
+   0
+  ],
+  "gateP_requested_p_equals_state_p": [
+   84,
+   0
+  ],
+  "gateP_settings_clean": [
+   84,
+   0
+  ],
+  "gateP_device_p_equals_requested": [
+   84,
+   0
+  ],
+  "gateP_pair_count": [
+   84,
+   0
+  ],
+  "gateP_precision_echo": [
+   7812,
+   0
+  ],
+  "gateP_pair_id": [
+   7812,
+   0
+  ],
+  "gateP_r2_equal": [
+   7812,
+   0
+  ],
+  "gateP_obligations_complete": [
+   7766,
+   0
+  ],
+  "gateP_G_equal": [
+   7766,
+   0
+  ],
+  "gateP_J_exact": [
+   7766,
+   0
+  ],
+  "gateP_first_stop_pair": [
+   84,
+   0
+  ],
+  "gateP_atom_precision_echo": [
+   80,
+   0
+  ],
+  "gateP_atom_F_equal": [
+   80,
+   0
+  ],
+  "gateP_layouts_identical": [
+   42,
+   0
+  ],
+  "gateP_baseline_p_exact": [
+   2,
+   0
+  ],
+  "own_initial_equals_bundle": [
+   9,
+   0
+  ],
+  "own_steps_equal_bundle_replica": [
+   9,
+   0
+  ],
+  "own_stop_equals_bundle": [
+   9,
+   0
+  ],
+  "own_full_equals_bundle": [
+   147,
+   0
+  ],
+  "own_record_equals_bundle": [
+   63,
+   0
+  ],
+  "own_record_equals_V2_reference": [
+   48,
+   0
+  ],
+  "run_settings_clean": [
+   22,
+   0
+  ],
+  "C0_pass_starts_from_original_state": [
+   22,
+   0
+  ],
+  "pass_outcome_equal": [
+   22,
+   0
+  ],
+  "pass_completed_steps_equal": [
+   22,
+   0
+  ],
+  "pass_stop_equal": [
+   22,
+   0
+  ],
+  "pass_stop_step_equal": [
+   22,
+   0
+  ],
+  "pass_cells_equal": [
+   22,
+   0
+  ],
+  "pass_endpoints_key_equal": [
+   22,
+   0
+  ],
+  "pass_endpoints_scaled_equal": [
+   22,
+   0
+  ],
+  "gpu_only_for_supported_p": [
+   21,
+   0
+  ],
+  "device_p_equals_requested": [
+   21,
+   0
+  ],
+  "device_precision_echo": [
+   21,
+   0
+  ],
+  "stop_equal": [
+   21,
+   0
+  ],
+  "step_indices_contiguous": [
+   21,
+   0
+  ],
+  "step_count_equal": [
+   21,
+   0
+  ],
+  "per_step_digests_equal": [
+   21,
+   0
+  ],
+  "force_evaluations_reuse": [
+   21,
+   0
+  ],
+  "executor_persistent_in_pass": [
+   21,
+   0
+  ],
+  "checkpoint_present": [
+   343,
+   0
+  ],
+  "checkpoint_endpoints_equal": [
+   343,
+   0
+  ],
+  "digest_self_consistent": [
+   343,
+   0
+  ],
+  "fallback_only_for_unsupported_p": [
+   1,
+   0
+  ],
+  "fallback_p_unchanged": [
+   1,
+   0
+  ],
+  "layouts_identical": [
+   5,
+   0
+  ],
+  "service_settings_clean": [
+   5,
+   0
+  ],
+  "service_start_p": [
+   5,
+   0
+  ],
+  "service_p2_sequence": [
+   5,
+   0
+  ],
+  "service_p_source": [
+   5,
+   0
+  ],
+  "service_every_pass_from_original_state": [
+   5,
+   0
+  ],
+  "service_final_status": [
+   5,
+   0
+  ],
+  "service_final_p": [
+   5,
+   0
+  ],
+  "service_final_cells_equal_cpu": [
+   5,
+   0
+  ],
+  "service_backend_label": [
+   5,
+   0
+  ],
+  "service_support_set_recorded": [
+   5,
+   0
+  ],
+  "service_support_subset_of_checker_verified": [
+   5,
+   0
+  ],
+  "fixed_p163_layouts_complete": [
+   2,
+   0
+  ],
+  "fixed_p64_long_stop_present": [
+   2,
+   0
+  ],
+  "fixed_N40_present": [
+   1,
+   0
+  ],
+  "service_present": [
+   4,
+   0
+  ],
+  "fallback_demonstration_present": [
+   1,
+   0
+  ]
+ },
+ "issues": [],
+ "stats": {
+  "passes": 22,
+  "passes_exact": 22,
+  "passes_mismatch": 0,
+  "stops_exact": 5,
+  "steps_compared": 20824,
+  "gpu_passes": 21,
+  "cpu_fallback_passes": 1,
+  "services": 5,
+  "services_exact": 5
+ },
+ "first_divergence": []
+}
