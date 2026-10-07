@@ -1,0 +1,192 @@
+{
+ "gate": "EXPERIENCE_START_P_V2 - Large-N holdout / cost policy: do FAMILY_MIN / FAMILY_MAX start-p policies from verified experience keep correctness, cut retries and cut the total service cost at larger N?",
+ "date": "2026-10-07",
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "NOT A LEARNED MODEL",
+  "FCC_N SCENARIO FAMILY - NOT THE 2/3-ATOM CERTIFICATION SCOPE"
+ ],
+ "baseline": {
+  "parent": "claude/experience-start-p-v1 @ 3a39577 (= origin/claude/experience-start-p-v1, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/experience-start-p-v2 in the main checkout (no worktree); clean, 0 untracked at start",
+  "v1_evidence_sha256_raw": {
+   "docs/active/experience_start_p_v1/laptop_run/records.json.gz": "bb9684b07aa9d0d3f7b3d6330477f911e1f88b1c0216d57d34777f8f0ffb0ba3",
+   "docs/active/experience_start_p_v1/laptop_run/checker_verdict.json": "a0a95e21195948be291b0330dba39287d984919df08ef04a3feac4548b8948f9",
+   "docs/active/experience_start_p_v1/training_bundle.json": "5210d0a9e7d6c8ed6674d05a3847e54f15c4fe0a0039c37f289d88c43aa04d69",
+   "docs/active/EXPERIENCE_START_P_V1.md": "ec99a4affcc08341447107f448ed2874381b8d8d4aae540a2b10c1798810d8b2",
+   "docs/active/selector_service_v1/laptop_run/records.json.gz": "7093c3c7c0dedd08b6794b70e9d366f734c7848a6f8492cdab725c1be2007f13"
+  },
+  "executor_sha256_lf_prefix_at_start": {
+   "experiments/w5_placement_v1/run.py": "bad88888efe173bb",
+   "experiments/w5_placement_v1/plan.py": "054e8e801e7ff2fc",
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7",
+   "experiments/multiatom_parallel_v1/run.py": "6fce260f79a82795",
+   "experiments/precision_pilot_a1/policies.py": "2033869fe6455e5d",
+   "experiments/selector_service_v1/selector.py": "6a55849672b5c3f0",
+   "experiments/selector_service_v1/service.py": "ed521201867989e1",
+   "experiments/experience_start_p_v1/experience.py": "f2d512fddf106be8",
+   "exact_expression_gate_v1/stream.py": "1f19074aced1f68e",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a"
+  },
+  "contracts_now": {
+   "physics_contract_hash": "5d76fa2ab73bc3139519815c399d3d3e9d782362ab94a9f0cb1227bec460021a",
+   "numeric_contract_hash": "85653a0a815e4f1f2d5f548e17545c5cb0cf38bf17ea788c409ab85bc7748f55"
+  }
+ },
+ "terms": {
+  "lowest_observed_success_p": "the lowest p among the verified passes actually run that ended DECIDED",
+  "highest_observed_failure_p": "the highest p among the verified passes actually run that did not end DECIDED",
+  "forbidden": "true_minimum / minimum_required are never written: no p was searched exhaustively"
+ },
+ "already_established_not_retested": "V1: EXACT_MEMORY 18/18 first-pass on identical requests (~55 % wall/CPU cut), FAMILY_MIN 4/5 and FAMILY_MAX 5/5 first-pass on unseen N, zero correctness difference, P2 fallback worked. EXACT replay is not run again.",
+ "training_bundle_v2": {
+  "sources": [
+   "SELECTOR_SERVICE_V1@0e6953b:docs/active/selector_service_v1/laptop_run - every executed pass (service + shadow), checker EVIDENCE OK",
+   "EXPERIENCE_START_P_V1@abf5ac7:docs/active/experience_start_p_v1/laptop_run - every service pass (the candidate experience), checker EVIDENCE OK (re-run on the desktop, identical)"
+  ],
+  "not_included": "V1 serial reference passes (re-measurements, not candidate experience), every p=128 timing record of other experiments, and anything produced by this V2 campaign",
+  "records": "one ExperienceRecord per executed pass, rebuilt from the source runner records (not copied from the candidate file); VERIFIED only when the source checker verdict is EVIDENCE OK with 0 bit mismatches",
+  "dedup": "key = (source_evidence_id, run_id); a second record with the same key or the same record content hash is dropped and counted; the bundle stores record_sha256 for every record",
+  "contracts": "the physics / numeric contract hashes of each source are computed from its execution_seal source table; every source must equal the current contracts, every record must carry them and evaluator rw:R1+R2, else the build fails",
+  "summary": "per exact key lowest_observed_success_p / highest_observed_failure_p; per family (FCC_N, T, evaluator, contracts) FAMILY_MIN / FAMILY_MAX = min / max over exact keys of lowest_observed_success_p; VERIFIED records only",
+  "seal": "the bundle file and its sha256 are committed before any policy / service / campaign code; the campaign verifies the hash at load and refuses to run otherwise; read-only during the campaign"
+ },
+ "policies": {
+  "BASE64": "start p = 64",
+  "FAMILY_MIN": "start p = FAMILY_MIN of the request's family key in the sealed V2 bundle (else 64)",
+  "FAMILY_MAX": "start p = FAMILY_MAX of the request's family key in the sealed V2 bundle (else 64)",
+  "after_first_pass": "identical for all policies: the unchanged P2 (precision_pilot_a1.policies.next_p('P2', ...), p2_next, cap 1024) chooses every later p; DECIDED / STOP is final; REFUSED_AT_CAP when P2 returns CAP",
+  "no_correctness_role": "a policy only picks the first p",
+  "exact_memory": "not compared; for every evaluation request the exact-memory lookup is recorded before the runs and must be a MISS (checker)"
+ },
+ "evaluation_requests": {
+  "requests": [
+   {
+    "N": 40,
+    "T": 100
+   },
+   {
+    "N": 64,
+    "T": 100
+   },
+   {
+    "N": 12,
+    "T": 1000
+   },
+   {
+    "N": 16,
+    "T": 1000
+   }
+  ],
+  "repetitions": 3,
+  "order": "per repetition the requests in the listed order; within a request the three policies rotated by repetition index",
+  "holdout_check": "none of the four (N, T) is an exact key of the V2 bundle; a search of every docs/active/**/records.json.gz found (12, 1000) only as p = 128 timing records of E2_PAIR_PARALLEL_V1 / MULTIATOM_PARALLEL_V1 (allowed; never read by any V2 code and their outcomes were not looked at); (40, 100), (64, 100), (16, 1000) appear nowhere"
+ },
+ "execution_plan": {
+  "service_passes": "fixed W6: evaluator rw:R1+R2, backend CPU_PARALLEL, worker_count 6, main_cpu 0, worker_cpus [1, 2, 3, 4, 5, 0] (selector_service_v1.selector.fixed_plan('W6', p); the validated W6 placement); Selector V1 is not called and not changed",
+  "serial_reference": "fixed_plan('SERIAL', p): CPU_SERIAL on CPU 1",
+  "campaign_process": "pinned to CPU 0 as in SELECTOR_SERVICE_V1 / V1"
+ },
+ "platform": {
+  "machine": "Vast.ai instance 52763629 (rented by the designer for this stage): AMD Ryzen 9 5950X 16 cores / 32 threads, 32 CPUs visible, Linux container (vastbridge / proot); first run of this executor family on Linux and on this CPU",
+  "placement_check": "at setup the campaign reads /sys/devices/system/cpu/cpu{0..5}/topology; CPUs 0-5 must be six different physical cores (no SMT siblings among them) and all in the affinity mask, else it stops before any pass",
+  "cpu_clock_on_linux": "the unchanged executor measures CPU with Windows QueryProcessCycleTime, which does not exist on Linux. A measurement shim experiments/experience_start_p_v2/linux_shim/sitecustomize.py, active only when ESP2_LINUX_CLOCK=1 and on Linux, replaces exactly two measurement functions of experiments/multiatom_parallel_v1/run (cycles -> CLOCK_PROCESS_CPUTIME_ID nanoseconds of the whole process, _mem -> peak RSS MB) in every process including spawned workers; cycle rate is then exactly 1e9. No physics, numeric, scheduling or result code is touched; the executor files keep their hashes (sealed). On Windows (test fixture) the shim is inactive.",
+  "mpmath": "mpmath 1.3.0 with the pure-python backend (no gmpy2), psutil 7.2.2, in a separate venv; backend recorded and must be 'python'",
+  "cross_platform_anchor": "before the evaluation: one CPU_SERIAL pass N = 8, T = 100, p = 107 (a training request, not an evaluation request) must be bit-identical (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial digest) to the laptop SELECTOR_SERVICE_V1 serial pass at the same (N, T, p); a mismatch stops the campaign",
+  "transport": "code goes to the node as a git bundle of this branch (no push); evidence comes back by scp; no node-side git commit",
+  "node_power": "the job stops the instance itself at the end (after a grace period for fetching the evidence) unless a process not belonging to this job is using >= 25 % CPU, in which case it is left running and reported",
+  "desktop": "not measured (external load); laptop not used for this stage",
+  "scheduling": "processes on the node run at nice 10 (the container default, observed before the seal); placement CPUs 0-5 are cores 0-5 (SMT siblings 16-21 unused by this job); recorded in the setup"
+ },
+ "cost_estimate": {
+  "basis": "laptop V1 / SELECTOR_SERVICE_V1 DECIDED W6 passes: ~1.25e-3 CPU s per pair-step (N = 20, 32 at T = 100; N = 7, 10 at T = 1000), serial ~0.89e-3; no full request probe; Vast per-core speed unknown before the run",
+  "per_pass_w6_cpu_s": {
+   "N40_T100": 98,
+   "N64_T100": 252,
+   "N12_T1000": 83,
+   "N16_T1000": 150
+  },
+  "expected": "~5 passes per request per repetition (BASE64 2, MIN 1-2, MAX 1-2): 582 x 5 x 3 = ~8,700 CPU s service + ~1,900 CPU s serial references (~4.5 distinct p per request) = ~10,600 CPU s; wall ~ 60 min at laptop speed",
+  "worst_plausible": "8 passes per request per repetition and 7 distinct p per request: ~16,900 CPU s",
+  "cap": "20,000 CPU s (process CPU, cycle-counted / CLOCK_PROCESS_CPUTIME_ID), ~1.9 x expected and above the worst plausible chain; the campaign stops at the next pass boundary when exceeded",
+  "smoke": "allowed: a cost-only N = 64, T = 3 pass at p = 64 (W6 and serial) on the node to check the shim and the per-pass overhead; its outcome is not used by any policy and is not an evaluation request"
+ },
+ "load_rule": "unchanged rule from E2_PAIR_PARALLEL_V1 (other processes >= 100 % of one logical CPU, or a python / roblox / codex / node process >= 25 % -> CONTAMINATED; kept, checked, excluded from performance numbers); additionally recorded for information only: /proc/loadavg and the /proc/stat steal counter at each snapshot",
+ "correctness_hard_gate": "every pass bit-identical (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial-state digest) to one CPU_SERIAL reference pass at the same (N, T, p) run after the evaluation; final cells re-derived by the checker from the stored endpoints; any difference fails the stage",
+ "p2_fallback_record": "every pass stores its index, p, plan and runner record; the checker re-derives each later p with its own P2 implementation from the stored earlier passes",
+ "leakage": "the V2 bundle is read-only; evaluation results go only to candidate_v2/ (records UNVERIFIED, samples UNVERIFIED_UNTIL_CHECKER); no decision of this campaign reads them",
+ "experience_sample_v2": "one per service run: pre_run_features {N, T, pair_count, evaluator, topology_class, physics_contract_hash, numeric_contract_hash, initial_state_digest}; policy; starting_p; attempts [{p, outcome, completed_steps, backend, workers, cpu_s, wall_s}]; observed_summary {highest_observed_failure_p, lowest_observed_success_p, total_service_wall_s, total_service_cpu_s}; no true-minimum label",
+ "metrics": {
+  "per_service_run": "service wall, total CPU, passes, failed passes, first-pass success, first / failed / final pass wall and CPU, retry_cpu_fraction, retry_wall_fraction, starting_p, final_success_p",
+  "per_request_per_policy": "medians over clean repetitions",
+  "per_policy": "first_try_success_requests (all clean repetitions first-pass DECIDED), first_try_success_runs, retry_count (failed passes summed over clean runs), retry_cpu_fraction and retry_wall_fraction (failed-pass cost / total, over clean runs)",
+  "totals": "SUM over the 4 requests of the per-request median service wall and median CPU",
+  "equal_weight": "for each request the ratio policy median / reference median (wall and CPU separately), averaged over the 4 requests (arithmetic mean)"
+ },
+ "decision_rules_sealed": {
+  "precondition": "the correctness hard gate passes and the checker verdict is EVIDENCE OK; otherwise no performance verdict is issued",
+  "USEFUL_COST_POLICY_CANDIDATE": "for FAMILY_MIN and for FAMILY_MAX separately: total wall <= 0.80 x BASE64 total wall AND total CPU <= 0.80 x BASE64 total CPU; otherwise INFO_ONLY",
+  "min_vs_max": {
+   "definitions": "Sw = MAX total wall / MIN total wall, Sc = the same for CPU; Ew = mean over requests of (MAX median wall / MIN median wall), Ec = the same for CPU",
+   "MAX_WIN": "Sw <= 0.95 and Sc <= 0.95 and Ew <= 1.02 and Ec <= 1.02",
+   "MIN_WIN": "1/Sw <= 0.95 and 1/Sc <= 0.95 and mean(MIN/MAX wall) <= 1.02 and mean(MIN/MAX CPU) <= 1.02",
+   "DISTRIBUTION_SENSITIVE": "not MAX_WIN / MIN_WIN, and for wall or for CPU one policy wins the total by >= 5 % (S <= 0.95 or 1/S <= 0.95) while the equal-weight mean of the same metric points the other way by more than 2 % (for a MAX total win: E > 1.02; for a MIN total win: mean(MIN/MAX) > 1.02)",
+   "TIE": "none of the above and |S - 1| < 0.05 and |E - 1| < 0.05 for both wall and CPU",
+   "MIXED": "anything else (reported with all four numbers)",
+   "order": "MAX_WIN, MIN_WIN, DISTRIBUTION_SENSITIVE, TIE, MIXED"
+  },
+  "first_try_counts": "recorded and reported, not used alone for any verdict",
+  "stop_candidates": {
+   "A_keep_simple_policy": "FAMILY_MIN or FAMILY_MAX passes the hard gate, is first-pass successful in every clean run of at least 3 of 4 requests, and is a USEFUL_COST_POLICY_CANDIDATE -> report: keep the simple experience table, no regression / neural model, next GPU pair pilot",
+   "B_table_range_limit": "both MIN and MAX first-pass fail in 2 or more requests, or neither is a USEFUL_COST_POLICY_CANDIDATE -> report the range limit of the family table; decide on data needs before any model",
+   "otherwise": "report as is; the designer decides"
+  }
+ },
+ "counterexamples_sought": [
+  "A: FAMILY_MAX first-pass failure at large N (range limit of the table)",
+  "B: FAMILY_MAX succeeds but the higher p raises the pass cost substantially",
+  "C: FAMILY_MIN always succeeds, so the MAX insurance is unnecessary",
+  "D: T = 100 and T = 1000 behave differently",
+  "E: at the same p the cost profile changes with N"
+ ],
+ "fault_injection_tests": [
+  "a V2 evaluation result placed in the training bundle",
+  "duplicate training evidence counted twice",
+  "data of another contract mixed in",
+  "FAMILY_MIN altered",
+  "FAMILY_MAX altered",
+  "first p altered",
+  "P2 fallback p altered",
+  "a failed pass deleted",
+  "an endpoint altered",
+  "an exact-memory hit forged for an evaluation request",
+  "a worker plan other than the fixed W6 used",
+  "the total-cost verdict computation altered"
+ ],
+ "fixture": "tests run on the desktop (Windows, shim inactive) with a scratch evaluation request N = 6, T = 100 (not an evaluation request, already disclosed in V1 amendment 1: P2 64 -> 107, MIN 106 / MAX 109 first-pass); its outputs are scratch and never evidence",
+ "not_in_scope": [
+  "neural network",
+  "regression",
+  "decision tree",
+  "new P3",
+  "true-minimum search",
+  "GPU",
+  "CUDA",
+  "limb search",
+  "worker selector change",
+  "W6 load balancing change",
+  "reduction change",
+  "new physics",
+  "master merge",
+  "EXACT replay"
+ ],
+ "claims_forbidden": [
+  "lowest_observed_success_p is the minimum required p",
+  "one Vast machine result holds elsewhere",
+  "bit identity is a proof",
+  "Vast timings equal laptop timings"
+ ]
+}
