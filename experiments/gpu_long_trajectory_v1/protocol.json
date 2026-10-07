@@ -217,5 +217,13 @@
   "performance": "the CPU changed too: CPU W6 and GPU baselines are measured again only on this host; no absolute time of the 3090 / 5950X host or of any earlier stage is compared with this host's",
   "shared_host_noise": "other tenants' load is recorded (loadavg every 10 s, load snapshots per condition); W6 workers are pinned to CPUs 1-5 and 0 as before, which other tenants may also use: the performance numbers carry this noise and are reported as such",
   "unchanged": "the sealed questions, samples (bundle 674d1ef), gates, faults and decision rules of e776f87 + amendment 1 are not changed; no scope reduction and no precision-policy change because of the GPU model"
+ },
+ "amendment_3_second_official_host (before the second official run)": {
+  "change": "a SECOND official run on Vast 52763685 (Norway, RTX 3090 24GB + Threadripper PRO 3975WX), requested by the designer after the first official run on 54645489 (RTX 4060 Ti) had finished (evidence aa5bfe3, results d5b8000, verdict GPU_V1_READY); the first run's evidence and document are kept unchanged",
+  "host_facts_checked": "GPU NVIDIA GeForce RTX 3090, 24576 MiB, compute capability 8.6, driver 565.57.01, 0 % utilisation, no GPU process; nvcc 12.8; g++ 13.3.0; CPU AMD Ryzen Threadripper PRO 3975WX (64 threads), affinity 0-63, cgroup CPU quota 15.36 CPUs (cpu.max 1536000 / 100000), memory limit about 121 GB; disk 8 GB overlay (1.1 GB used); load average 5.8-6.2, CPU pressure avg10 0.00; a fresh work dir /workspace/lt2 and venv (Python 3.12.3, mpmath 1.3.0 backend python, psutil 7.2.2, pytest 9.1.1); the older /workspace/venv and /workspace/repo of an earlier stage are not used",
+  "correctness": "every gate (tests, gate P, fixed T1000, long stops, services) runs again on this RTX 3090",
+  "performance": "CPU W6 and GPU baselines are measured again on this host only; no absolute time of 54645489, of the earlier 52763629 or of any earlier stage is mixed with this host's; each host's verdict and numbers are reported separately",
+  "evidence": "docs/active/gpu_long_trajectory_v1/vast_run_3090/ (the first run stays in vast_run/)",
+  "unchanged": "questions, samples (bundle 674d1ef), gates, faults and decision rules of e776f87 + amendments 1 and 2"
  }
 }
