@@ -1,0 +1,228 @@
+{
+ "what": "desktop RTX 4060 run of the sealed code (correctness only, no performance) compared with the official Vast RTX 3090 run",
+ "env": {
+  "head": "98aadcf27c56c12044caeac1215cd9ff755c8154",
+  "status_porcelain": "",
+  "sealed_sources_dirty": false,
+  "nvidia_smi": "NVIDIA GeForce RTX 4060, 617.14, 8188 MiB, 8.9",
+  "arch": "sm_89",
+  "lib_sha256": "c59cbee020d262791d857a7d6ff8a278e1d6cd82b02c07f32edd602e644dbef3",
+  "platform": "win32",
+  "mpmath": "1.3.0",
+  "mpmath_backend": "python"
+ },
+ "checker_verdict": "EVIDENCE OK",
+ "checker_summary": {
+  "main_p109": {
+   "EXACT": 11184,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 12,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "main_p163": {
+   "EXACT": 744,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 12,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "probe_p109": {
+   "EXACT": 0,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 3,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": null,
+   "width_ratio_p95": null,
+   "width_ratio_max": null
+  },
+  "probe_p163": {
+   "EXACT": 0,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 3,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": null,
+   "width_ratio_p95": null,
+   "width_ratio_max": null
+  },
+  "test_p128": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "test_p192": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "test_p64": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  }
+ },
+ "runs": {
+  "main_p109__b128_g0.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b128_g1.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b128_g7.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b256_g0.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b256_g1.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b256_g7.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b32_g0.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b32_g1.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b32_g7.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b64_g0.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b64_g1.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p109__b64_g7.json": {
+   "desktop_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3",
+   "vast_out_sha256": "df5134f7b8adda1653e02a634af88734d660c4db4ba2839f3c6d765f73a435e3"
+  },
+  "main_p163__b128_g0.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b128_g1.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b128_g7.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b256_g0.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b256_g1.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b256_g7.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b32_g0.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b32_g1.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b32_g7.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b64_g0.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b64_g1.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "main_p163__b64_g7.json": {
+   "desktop_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5",
+   "vast_out_sha256": "8d7be5371ac1e4242af3577f7da9c716ad025266b20ab4dead627642bb6218e5"
+  },
+  "probe_p109__b128_g0.json": {
+   "desktop_out_sha256": "2be284be2207b3c9c6302739a207e459e18a8c91760c46b9091cedc7f9302ebd",
+   "vast_out_sha256": "2be284be2207b3c9c6302739a207e459e18a8c91760c46b9091cedc7f9302ebd"
+  },
+  "probe_p163__b128_g0.json": {
+   "desktop_out_sha256": "2be284be2207b3c9c6302739a207e459e18a8c91760c46b9091cedc7f9302ebd",
+   "vast_out_sha256": "2be284be2207b3c9c6302739a207e459e18a8c91760c46b9091cedc7f9302ebd"
+  },
+  "test_p128__b128_g0.json": {
+   "desktop_out_sha256": "4b03b85a45ec2ee2fffe9cc29a36afc3aa4e8b2b7ea005972fdf525a88b58b3e",
+   "vast_out_sha256": "4b03b85a45ec2ee2fffe9cc29a36afc3aa4e8b2b7ea005972fdf525a88b58b3e"
+  },
+  "test_p192__b128_g0.json": {
+   "desktop_out_sha256": "b8268556f2f4b34f624f15b25c7a4e0aaac544863a0a50573f6e98ab46a6a53a",
+   "vast_out_sha256": "b8268556f2f4b34f624f15b25c7a4e0aaac544863a0a50573f6e98ab46a6a53a"
+  },
+  "test_p64__b128_g0.json": {
+   "desktop_out_sha256": "e08580af8cc9f46771dc696fb974fee140f0e2b6282c3b93f9e7867e55f87959",
+   "vast_out_sha256": "e08580af8cc9f46771dc696fb974fee140f0e2b6282c3b93f9e7867e55f87959"
+  }
+ },
+ "identical": 29,
+ "total": 29
+}

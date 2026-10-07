@@ -1,0 +1,45 @@
+device NVIDIA GeForce RTX 3090 {'context_ms': 233.194205}
+run main_p109 b32 g1: n 11184 kernel 1586.7 ms
+run main_p109 b32 g7: n 11184 kernel 223.9 ms
+run main_p109 b32 g0: n 11184 kernel 5.1 ms
+run main_p109 b64 g1: n 11184 kernel 788.6 ms
+run main_p109 b64 g7: n 11184 kernel 112.6 ms
+run main_p109 b64 g0: n 11184 kernel 5.3 ms
+run main_p109 b128 g1: n 11184 kernel 403.2 ms
+run main_p109 b128 g7: n 11184 kernel 59.7 ms
+run main_p109 b128 g0: n 11184 kernel 5.4 ms
+run main_p109 b256 g1: n 11184 kernel 221.3 ms
+run main_p109 b256 g7: n 11184 kernel 35.5 ms
+run main_p109 b256 g0: n 11184 kernel 5.6 ms
+run main_p163 b32 g1: n 744 kernel 155.3 ms
+run main_p163 b32 g7: n 744 kernel 25.8 ms
+run main_p163 b32 g0: n 744 kernel 6.6 ms
+run main_p163 b64 g1: n 744 kernel 78.2 ms
+run main_p163 b64 g7: n 744 kernel 13.2 ms
+run main_p163 b64 g0: n 744 kernel 6.6 ms
+run main_p163 b128 g1: n 744 kernel 40.0 ms
+run main_p163 b128 g7: n 744 kernel 6.7 ms
+run main_p163 b128 g0: n 744 kernel 6.8 ms
+run main_p163 b256 g1: n 744 kernel 22.2 ms
+run main_p163 b256 g7: n 744 kernel 7.5 ms
+run main_p163 b256 g0: n 744 kernel 7.5 ms
+run test_p64 b128 g0: n 256 kernel 3.3 ms
+run test_p128 b128 g0: n 256 kernel 5.1 ms
+run test_p192 b128 g0: n 256 kernel 7.5 ms
+run probe_p109 b128 g0: n 3 kernel 0.0 ms
+run probe_p163 b128 g0: n 3 kernel 0.0 ms
+perf p109 n128: gpu 5.6 ms (kernel 4.5) serial 84 w6 15 equal True
+perf p109 n512: gpu 8.7 ms (kernel 4.6) serial 346 w6 64 equal True
+perf p109 n780: gpu 11.9 ms (kernel 5.2) serial 536 w6 94 equal True
+perf p109 n2016: gpu 23.6 ms (kernel 5.2) serial 1377 w6 338 equal True
+perf p109 n2048: gpu 24.1 ms (kernel 5.2) serial 1427 w6 246 equal True
+perf p109 n8192: gpu 88.7 ms (kernel 5.3) serial 5676 w6 996 equal True
+perf p109 n32768: gpu 351.5 ms (kernel 10.8) serial 22563 w6 3845 equal True
+perf p163 n128: gpu 8.7 ms (kernel 7.5) serial 90 w6 15 equal True
+perf p163 n512: gpu 12.3 ms (kernel 7.5) serial 365 w6 62 equal True
+perf p163 n780: gpu 15.3 ms (kernel 7.6) serial 561 w6 95 equal True
+perf p163 n2016: gpu 27.5 ms (kernel 7.6) serial 1440 w6 254 equal True
+perf p163 n2048: gpu 27.7 ms (kernel 7.6) serial 1485 w6 283 equal True
+perf p163 n8192: gpu 96.0 ms (kernel 7.7) serial 5904 w6 1154 equal True
+perf p163 n32768: gpu 358.3 ms (kernel 14.5) serial 23228 w6 4997 equal True
+finished

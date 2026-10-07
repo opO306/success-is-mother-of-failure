@@ -1,0 +1,180 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_trajectory_equals_reference": [
+   4,
+   0
+  ],
+  "bundle_pair_count": [
+   4,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "run_subset_known": [
+   29,
+   0
+  ],
+  "run_covers_subset": [
+   29,
+   0
+  ],
+  "run_output_hash": [
+   29,
+   0
+  ],
+  "run_settings_clean": [
+   29,
+   0
+  ],
+  "pair_count": [
+   29,
+   0
+  ],
+  "output_index_echo": [
+   143910,
+   0
+  ],
+  "input_echo_equals_bundle": [
+   143910,
+   0
+  ],
+  "bundle_cpu_equals_recomputed": [
+   12702,
+   0
+  ],
+  "obligations_complete": [
+   143904,
+   0
+  ],
+  "output_canonical": [
+   143904,
+   0
+  ],
+  "containment": [
+   143904,
+   0
+  ],
+  "domain_decision": [
+   6,
+   0
+  ],
+  "layouts_bit_identical": [
+   7,
+   0
+  ],
+  "layouts_complete": [
+   2,
+   0
+  ],
+  "subset_present": [
+   7,
+   0
+  ]
+ },
+ "issues": [],
+ "summary": {
+  "main_p109": {
+   "EXACT": 11184,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 12,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "main_p163": {
+   "EXACT": 744,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 12,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "probe_p109": {
+   "EXACT": 0,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 3,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": null,
+   "width_ratio_p95": null,
+   "width_ratio_max": null
+  },
+  "probe_p163": {
+   "EXACT": 0,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 3,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": null,
+   "width_ratio_p95": null,
+   "width_ratio_max": null
+  },
+  "test_p128": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "test_p192": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  },
+  "test_p64": {
+   "EXACT": 256,
+   "SOUND_TIGHT": 0,
+   "SOUND_WIDE": 0,
+   "UNSOUND": 0,
+   "REFUSED": 0,
+   "DOMAIN_OK": 0,
+   "DOMAIN_MISMATCH": 0,
+   "runs": 1,
+   "width_ratio_median": 1.0,
+   "width_ratio_p95": 1.0,
+   "width_ratio_max": 1.0
+  }
+ },
+ "main_unsound": 0
+}

@@ -1,0 +1,29 @@
+JOB_START 2026-10-07T02:59:51Z head 98aadcf27c56c12044caeac1215cd9ff755c8154
+== pytest (REMOTE LINUX related set)
+..................                                                       [100%]
+18 passed in 4.86s
+CAMPAIGN_EXIT rc=0 2026-10-07T03:04:11Z
+EVIDENCE OK {} []
+main_p109 {'EXACT': 11184, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 0, 'DOMAIN_MISMATCH': 0, 'runs': 12, 'width_ratio_median': 1.0, 'width_ratio_p95': 1.0, 'width_ratio_max': 1.0}
+main_p163 {'EXACT': 744, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 0, 'DOMAIN_MISMATCH': 0, 'runs': 12, 'width_ratio_median': 1.0, 'width_ratio_p95': 1.0, 'width_ratio_max': 1.0}
+probe_p109 {'EXACT': 0, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 3, 'DOMAIN_MISMATCH': 0, 'runs': 1, 'width_ratio_median': None, 'width_ratio_p95': None, 'width_ratio_max': None}
+probe_p163 {'EXACT': 0, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 3, 'DOMAIN_MISMATCH': 0, 'runs': 1, 'width_ratio_median': None, 'width_ratio_p95': None, 'width_ratio_max': None}
+test_p128 {'EXACT': 256, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 0, 'DOMAIN_MISMATCH': 0, 'runs': 1, 'width_ratio_median': 1.0, 'width_ratio_p95': 1.0, 'width_ratio_max': 1.0}
+test_p192 {'EXACT': 256, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 0, 'DOMAIN_MISMATCH': 0, 'runs': 1, 'width_ratio_median': 1.0, 'width_ratio_p95': 1.0, 'width_ratio_max': 1.0}
+test_p64 {'EXACT': 256, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_OK': 0, 'DOMAIN_MISMATCH': 0, 'runs': 1, 'width_ratio_median': 1.0, 'width_ratio_p95': 1.0, 'width_ratio_max': 1.0}
+G0_PROMISING {'EXACT': 11928, 'SOUND_TIGHT': 0, 'SOUND_WIDE': 0, 'UNSOUND': 0, 'REFUSED': 0, 'DOMAIN_MISMATCH': 0} p95 1.0
+p109 n128: gpu 5.6 (kernel 4.5) serial 84 w6 15 -> gpu/w6 0.373
+p109 n512: gpu 8.7 (kernel 4.6) serial 346 w6 64 -> gpu/w6 0.136
+p109 n780: gpu 11.9 (kernel 5.2) serial 536 w6 94 -> gpu/w6 0.126
+p109 n2016: gpu 23.6 (kernel 5.2) serial 1377 w6 338 -> gpu/w6 0.070
+p109 n2048: gpu 24.1 (kernel 5.2) serial 1427 w6 246 -> gpu/w6 0.098
+p109 n8192: gpu 88.7 (kernel 5.3) serial 5676 w6 996 -> gpu/w6 0.089
+p109 n32768: gpu 351.5 (kernel 10.8) serial 22563 w6 3845 -> gpu/w6 0.091
+p163 n128: gpu 8.7 (kernel 7.5) serial 90 w6 15 -> gpu/w6 0.566
+p163 n512: gpu 12.3 (kernel 7.5) serial 365 w6 62 -> gpu/w6 0.198
+p163 n780: gpu 15.3 (kernel 7.6) serial 561 w6 95 -> gpu/w6 0.162
+p163 n2016: gpu 27.5 (kernel 7.6) serial 1440 w6 254 -> gpu/w6 0.108
+p163 n2048: gpu 27.7 (kernel 7.6) serial 1485 w6 283 -> gpu/w6 0.098
+p163 n8192: gpu 96.0 (kernel 7.7) serial 5904 w6 1154 -> gpu/w6 0.083
+p163 n32768: gpu 358.3 (kernel 14.5) serial 23228 w6 4997 -> gpu/w6 0.072
+DONE_MARKER 2026-10-07T03:04:27Z grace 1800s
