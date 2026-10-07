@@ -1,0 +1,98 @@
+{
+ "gate": "GPU_ONE_STEP_V1 - with GPU atom forces (GPU_PAIR_VECTOR_V1) and CPU kicks / drift, does one full KDK step give exactly the CPU E2 state, endpoint for endpoint, including domain stops? Performance only after correctness.",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "ONE STEP ONLY - NOT TRAJECTORY CORRECTNESS"],
+ "baseline": {
+  "parent": "claude/gpu-pair-vector-v1 @ 464c69e (= origin, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/gpu-one-step-v1 in the main checkout (no worktree); clean at start",
+  "sha256_lf": {
+   "experiments/gpu_pair_vector_v1/pv1.cu (reused unchanged)": "840d503768ace8f960ae7550139836878c548d183c249e309a1754365ab583c1",
+   "experiments/gpu_pair_vector_v1/pv_host.py (reused unchanged)": "bded5b8e8080db947612f0d1101adda766b66157d8bc57a10e6df0da55b376f2",
+   "experiments/gpu_pair_vector_v1/campaign.py (W6E2 baseline class reused unchanged)": "66a52c9dca87cfdf905d04f1a3f2315b5f16933adecf01fcdb5992059ec2d41b",
+   "experiments/gpu_pair_vector_v1/checker.py": "b59760f1be13c23b51a1268b6d831cddcb98bb63ffae1f2654ff219755126a6a",
+   "experiments/gpu_force_feasibility_v1/g0.cu": "dc519a9cd3ddc4b2a778cb1497bba324bdedcd8bb3e42b6a4514dc2ee49c21de",
+   "experiments/gpu_force_feasibility_v1/gpu_host.py": "dd255cb31b7f07ecb428515b36432f829bed124e75536de89af8a3c201163abe",
+   "experiments/e2_pair_parallel_v1/run.py (CPU E2 W6 runner)": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5",
+   "exact_expression_gate_v1/stream.py (CPU E2 serial runner)": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+   "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf"
+  },
+  "pv1_evidence_sha256_raw": {
+   "docs/active/gpu_pair_vector_v1/states.json.gz": "bd8c8a2d9182033cef28798b091c109b61af4435b0cecf061ae1b9144abb22eb",
+   "docs/active/gpu_pair_vector_v1/vast_run/checker_verdict.json": "86dcde28d869e907b20364ffcd10d4950f3191fa13103287d556b61e18faab36",
+   "docs/active/gpu_pair_vector_v1/vast_run/analysis.json": "bc428073de906449ace7310ada9ff82d25695732a8ea09b845686d094a60b785",
+   "docs/active/GPU_PAIR_VECTOR_V1.md": "e4326b0d6b01dc08324418d247e36ebd28ecc28f94eab466b8068ca9fc48b23f"
+  },
+  "frozen_untouched": "no GPU_PAIR_VECTOR_V1 / G0 file, no existing evidence, no executor is modified"
+ },
+ "reference_semantics": {
+  "step": "as stream.run and e2_pair_parallel_v1.run_parallel: with F_s = forces(q_s) (an impulse already: h * G * d, h = K.H = DT / 2): p_half = p_s + F_s; q1 = q_s + p_half * cdt (cdt = LI.c(K.CDT) lifted at p; elementwise q + (p * cdt)); F1 = forces(q1); p1 = p_half + F1. No extra 1/2, no merged formulas, no reordering",
+  "domain_stop": "forces raises DomainStop(kind, step) at the first non-PROVEN pair in canonical order; nothing after it runs (no second kick)",
+  "note_on_commutativity": "mpmath's single interval product is symmetric (mpi_mul(a, b) == mpi_mul(b, a) bit for bit), so 'CDT * p' instead of 'p * CDT' cannot change any endpoint; the sealed structural fault is drift = q + (p * DT) / MASS instead"
+ },
+ "division_of_work": "GPU: q -> pairs -> G -> J -> canonical atom reduction -> F (GPU_PAIR_VECTOR_V1 kernels, unchanged); CPU: p = p + F and q = q + p * cdt (mpmath iv at p). No momentum / position update on the GPU",
+ "executor": "GpuForceExecutor keeps one CUDA context, the uploaded model and constants for p, and the position / pair / atom buffers for N, and reuses them for every force evaluation (pv_host.PV with alloc once per N); persistence must not change any bit (the layout and repeat checks cover it)",
+ "statuses": {
+  "OK": "step completed (then the measuring device: cells decided or UNDECIDED_AT_PRECISION, or OUT_OF_RANGE, as K.decide)",
+  "DOMAIN_STOP_VIOLATED / DOMAIN_STOP_UNPROVEN": "physics domain duty at F0 or F1, with the first stopping pair id",
+  "REFUSED_DEVICE_WIDTH": "a GPU width limit (executor limit, not physics)",
+  "REFUSED_DEVICE_PRECISION": "a GPU unsupported p (refused before launch) or unsupported device branch",
+  "OUT_OF_RANGE": "the measuring grid word overflowed in K.decide (measurement, not physics)",
+  "UNDECIDED_AT_PRECISION": "the final state's cells are not decided at this p (precision, not physics)"
+ },
+ "bundle": {
+  "states": "the four verified trajectories (N = 40, 64 at T = 100, p = 109; N = 12, 16 at T = 1000, p = 163) at steps s = T/10, T/2, 9T/10: (q_s, p_s, F_s) and the next state (q_{s+1}, p_{s+1}, F_{s+1}), recorded from a runtime replica of stream.run with one observer line after the second kick (no file changed); every run must end equal to its verified V2 Vast serial reference",
+  "test_only": "N = 3 domain probes at p = 109 and 163 built by a small search over initial momenta (positions exact): F1 stops VIOLATED, F1 stops UNPROVEN (an interval position), F0 stops VIOLATED, and a normal step (all PROVEN); each with its CPU outcome",
+  "encoding": "G0 dyadic endpoints for every q, p, F interval; sealed (sha256 committed) before any one-step runner code"
+ },
+ "checkpoints": {
+  "C0": "q0 and p0 the runner used (host echo) and the GPU position echo equal the bundle",
+  "C1": "F0 (GPU) == F0 (CPU literal) for every atom x 3 x both ends",
+  "C2": "p_half equal",
+  "C3": "q1 equal",
+  "C4": "F1 equal",
+  "C5": "p1 equal",
+  "C6": "K.endpoints_key(q1 + p1) equal (and K.decide recorded); a cell-only agreement does not pass",
+  "stops": "same stage (F0 / F1), same first pair id, same kind; nothing after a stop",
+  "against_the_real_run": "for bundle states the checker's own step must also equal the recorded next state (q_{s+1}, p_{s+1}) and F_{s+1}"
+ },
+ "checker": "independent: imports none of the one-step runner, pv_host, campaigns or GPU code; its own literal forces loop and KDK (mpmath iv, frozen RwForce, K.domain, K.H, K.CDT, K.endpoints_key, K.decide)",
+ "layouts": "every bundle state with block 32, 64, 128, 256 (grid = ceil) and two states also with grid 1 and 7: all checkpoint bytes identical",
+ "performance": {
+  "official_host": "an available Vast RTX 3090 node checked at run time (52763629 or 52763685 preferred); any change of host = amendment before the run; the EXPERIENCE_START_P_V2 Linux measurement shim is set by the launcher (the unchanged E2 W6 worker reports CPU with Windows-only code)",
+  "paths": {
+   "CPU_W6": "steady step = CPU kick + CPU drift + E2 W6 forces (GPU_PAIR_VECTOR_V1 W6E2: unchanged E2 workers, canonical reduction in the main) + CPU kick",
+   "GPU_HYBRID": "steady step = CPU kick + CPU drift + encode q1 + H2D + GPU pair / G / J + GPU canonical atom reduction + D2H + decode F + CPU kick"
+  },
+  "steady_vs_init": "a steady step reuses F_s (computed by the previous step) and evaluates ONE force; INIT = context + allocation + model upload + F(q0) (GPU) or worker spawn + F(q0) (W6), recorded separately; no step computes two fresh forces in the performance model",
+  "conditions (sealed)": [
+   {"N": 12, "p": 163, "state": "bundle N=12 s=500"}, {"N": 16, "p": 163, "state": "bundle N=16 s=500"},
+   {"N": 40, "p": 109, "state": "bundle N=40 s=50"}, {"N": 64, "p": 109, "state": "bundle N=64 s=50"},
+   {"N": 128, "p": 109, "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"},
+   {"N": 64, "p": 163, "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"}
+  ],
+  "repetitions": "5 steady steps per path and condition from the same state, the order CPU_W6 / GPU_HYBRID alternating by repetition; medians; block 32 (observed best in GPU_PAIR_VECTOR_V1, not a law); a load snapshot (E2_PAIR_PARALLEL_V1 contamination rule) and /proc/loadavg before each condition",
+  "breakdown_gpu": "kick1, drift, encode, H2D, k_dr2 + k_G + k_J, k_reduce, D2H, decode, kick2, total",
+  "classification_per_N": "GPU_WIN if GPU <= 0.97 x CPU; TIE if 0.97 < GPU / CPU < 1.03; CPU_WIN if GPU >= 1.03 x CPU (steady-step medians)",
+  "regions": "CPU confirmed / UNKNOWN / GPU confirmed - unmeasured N (17-39, 65-127, > 128) stay UNKNOWN",
+  "cost_estimate": "per condition 5 x (W6 force 0.01-0.9 s + GPU 8-11 ms + KDK) + INIT; whole performance part < 5 min"
+ },
+ "gpu_plan_record": "per run: block, grid, precision, N, pair count, GPU memory, setup, force times, encode / decode, one-step total, correctness",
+ "fault_injections": [
+  "1 a wrong F0 (one atom's component replaced by 0)", "2 first kick missing", "3 first kick done twice",
+  "4 drift structure changed: q + (p * DT) / MASS", "5 drift with the old p (p0 instead of p_half)",
+  "6 F1 computed at the old q", "7 second kick missing", "8 F1 atoms 0 and 1 swapped",
+  "9 one q0 endpoint changed by one unit in the last place before encoding", "10 one p0 endpoint changed by one unit in the last place",
+  "11 continuing after a domain stop (second kick with the partial force)", "12 precision altered (program at 128 for a 109 state)",
+  "13 a GPU refusal reported as a completed step", "14 a layout-dependent result (GPU_PAIR_VECTOR_V1 device fault 11 with different block sizes)"
+ ],
+ "decision_rules_sealed": {
+  "ONE_STEP_FAIL": "any checkpoint mismatch, domain stop mismatch, layout-dependent result, silent overflow, or p / state alteration not detected",
+  "ONE_STEP_EXACT_BUT_NO_GAIN": "exact, but GPU_HYBRID is not GPU_WIN at N = 40, 64 and 128",
+  "ONE_STEP_PROMISING": "exact (all checkpoints, stops, refusals), layout independent, GPU_WIN at N = 64 and N = 128, and at N = 40 GPU / CPU < 1.03 (not CPU_WIN)",
+  "next_if_promising": "GPU_SHORT_TRAJECTORY_V1 (10 / 100 / maybe 1000 steps); one-step exactness is not trajectory exactness"
+ },
+ "not_in_scope": ["position update on GPU", "momentum update on GPU", "multi-step trajectory as evidence", "GPU KDK", "cutoff", "neighbour list", "new reduction", "atomic", "neural selector", "FAMILY_MAX change", "precision policy change", "master merge"],
+ "claims_forbidden": ["one-step exactness implies trajectory exactness", "block 32 is generally best", "unmeasured N belong to the CPU or GPU region"]
+}
