@@ -172,5 +172,10 @@
   "desktop_results_before_seal": "RTX 4060: 18 tests PASS (14 fault injections detected); full bundle in 12 layouts: 13,502 / 13,502 pair impulses PAIR_EXACT (incl. r2, G, obligations), 1,842 / 1,842 atom force components exact, 0 domain mismatches (probe states: VIOLATED and UNPROVEN at pair 1 as the CPU), all layouts bit-identical; only seal_clean failed (uncommitted code)",
   "position_echo": "a pv_echo_positions call (device position buffer copied back) was added so that the GPU input positions are compared with the bundle exactly (protocol item 3)",
   "perf_dry_run": "desktop, N = 40 and 64 at p = 109, 1 CPU repetition, to exercise the code path only (desktop timings are not used)"
+ },
+ "amendment_2_official_host_change (designer decision, before any official run)": {
+  "decision": "official host changed from Vast 52763685 (3975WX + RTX 3090; could not be started) to Vast 52763629 (Ryzen 9 5950X + RTX 3090, ~$0.191/h, started by the designer). Every CPU_W6 and GPU baseline is measured from scratch on this host; no absolute time is compared with another host (including G0's 52763685 numbers)",
+  "host_as_checked": "RTX 3090 24 GB, driver 580.126.09, nvcc 12.8, g++ 13 (Ubuntu 24.04); 32 logical CPUs (16 cores x 2), cpu.max unlimited, cpuset 0-31, CPUs 0-5 = cores 0-5; venv /workspace/esp2/venv: python 3.12.3, mpmath 1.3.0 pure-python, psutil 7.2.2, pytest 9.1.1; processes run at nice 10 under the container's proot (as in EXPERIENCE_START_P_V2); loadavg 0.08 / 0.21 / 0.66 before the run",
+  "unchanged": "code b9413fc, state bundle, layouts, combinations, decision rules"
  }
 }
