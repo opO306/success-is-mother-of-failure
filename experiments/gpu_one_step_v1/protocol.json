@@ -1,7 +1,12 @@
 {
  "gate": "GPU_ONE_STEP_V1 - with GPU atom forces (GPU_PAIR_VECTOR_V1) and CPU kicks / drift, does one full KDK step give exactly the CPU E2 state, endpoint for endpoint, including domain stops? Performance only after correctness.",
  "date": "2026-10-07",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "ONE STEP ONLY - NOT TRAJECTORY CORRECTNESS"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "ONE STEP ONLY - NOT TRAJECTORY CORRECTNESS"
+ ],
  "baseline": {
   "parent": "claude/gpu-pair-vector-v1 @ 464c69e (= origin, checked after fetch)",
   "master": "15ae151 = origin/master",
@@ -67,10 +72,36 @@
   },
   "steady_vs_init": "a steady step reuses F_s (computed by the previous step) and evaluates ONE force; INIT = context + allocation + model upload + F(q0) (GPU) or worker spawn + F(q0) (W6), recorded separately; no step computes two fresh forces in the performance model",
   "conditions (sealed)": [
-   {"N": 12, "p": 163, "state": "bundle N=12 s=500"}, {"N": 16, "p": 163, "state": "bundle N=16 s=500"},
-   {"N": 40, "p": 109, "state": "bundle N=40 s=50"}, {"N": 64, "p": 109, "state": "bundle N=64 s=50"},
-   {"N": 128, "p": 109, "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"},
-   {"N": 64, "p": 163, "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"}
+   {
+    "N": 12,
+    "p": 163,
+    "state": "bundle N=12 s=500"
+   },
+   {
+    "N": 16,
+    "p": 163,
+    "state": "bundle N=16 s=500"
+   },
+   {
+    "N": 40,
+    "p": 109,
+    "state": "bundle N=40 s=50"
+   },
+   {
+    "N": 64,
+    "p": 109,
+    "state": "bundle N=64 s=50"
+   },
+   {
+    "N": 128,
+    "p": 109,
+    "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"
+   },
+   {
+    "N": 64,
+    "p": 163,
+    "state": "FCC_N initial state (q0, p0) lifted at p; F0 from INIT"
+   }
   ],
   "repetitions": "5 steady steps per path and condition from the same state, the order CPU_W6 / GPU_HYBRID alternating by repetition; medians; block 32 (observed best in GPU_PAIR_VECTOR_V1, not a law); a load snapshot (E2_PAIR_PARALLEL_V1 contamination rule) and /proc/loadavg before each condition",
   "breakdown_gpu": "kick1, drift, encode, H2D, k_dr2 + k_G + k_J, k_reduce, D2H, decode, kick2, total",
@@ -80,12 +111,20 @@
  },
  "gpu_plan_record": "per run: block, grid, precision, N, pair count, GPU memory, setup, force times, encode / decode, one-step total, correctness",
  "fault_injections": [
-  "1 a wrong F0 (one atom's component replaced by 0)", "2 first kick missing", "3 first kick done twice",
-  "4 drift structure changed: q + (p * DT) / MASS", "5 drift with the old p (p0 instead of p_half)",
-  "6 F1 computed at the old q", "7 second kick missing", "8 F1 atoms 0 and 1 swapped",
-  "9 one q0 endpoint changed by one unit in the last place before encoding", "10 one p0 endpoint changed by one unit in the last place",
-  "11 continuing after a domain stop (second kick with the partial force)", "12 precision altered (program at 128 for a 109 state)",
-  "13 a GPU refusal reported as a completed step", "14 a layout-dependent result (GPU_PAIR_VECTOR_V1 device fault 11 with different block sizes)"
+  "1 a wrong F0 (one atom's component replaced by 0)",
+  "2 first kick missing",
+  "3 first kick done twice",
+  "4 drift structure changed: q + (p * DT) / MASS",
+  "5 drift with the old p (p0 instead of p_half)",
+  "6 F1 computed at the old q",
+  "7 second kick missing",
+  "8 F1 atoms 0 and 1 swapped",
+  "9 one q0 endpoint changed by one unit in the last place before encoding",
+  "10 one p0 endpoint changed by one unit in the last place",
+  "11 continuing after a domain stop (second kick with the partial force)",
+  "12 precision altered (program at 128 for a 109 state)",
+  "13 a GPU refusal reported as a completed step",
+  "14 a layout-dependent result (GPU_PAIR_VECTOR_V1 device fault 11 with different block sizes)"
  ],
  "decision_rules_sealed": {
   "ONE_STEP_FAIL": "any checkpoint mismatch, domain stop mismatch, layout-dependent result, silent overflow, or p / state alteration not detected",
@@ -93,6 +132,28 @@
   "ONE_STEP_PROMISING": "exact (all checkpoints, stops, refusals), layout independent, GPU_WIN at N = 64 and N = 128, and at N = 40 GPU / CPU < 1.03 (not CPU_WIN)",
   "next_if_promising": "GPU_SHORT_TRAJECTORY_V1 (10 / 100 / maybe 1000 steps); one-step exactness is not trajectory exactness"
  },
- "not_in_scope": ["position update on GPU", "momentum update on GPU", "multi-step trajectory as evidence", "GPU KDK", "cutoff", "neighbour list", "new reduction", "atomic", "neural selector", "FAMILY_MAX change", "precision policy change", "master merge"],
- "claims_forbidden": ["one-step exactness implies trajectory exactness", "block 32 is generally best", "unmeasured N belong to the CPU or GPU region"]
+ "not_in_scope": [
+  "position update on GPU",
+  "momentum update on GPU",
+  "multi-step trajectory as evidence",
+  "GPU KDK",
+  "cutoff",
+  "neighbour list",
+  "new reduction",
+  "atomic",
+  "neural selector",
+  "FAMILY_MAX change",
+  "precision policy change",
+  "master merge"
+ ],
+ "claims_forbidden": [
+  "one-step exactness implies trajectory exactness",
+  "block 32 is generally best",
+  "unmeasured N belong to the CPU or GPU region"
+ ],
+ "amendment_1_before_code_seal": {
+  "order_disclosure": "one_step.py, campaign.py, checker.py, analyze.py and the tests were written while the bundle was being built; no runner touched a bundle state before the bundle commit f8bd809",
+  "desktop_results_before_seal": "RTX 4060: 18 tests PASS (all 14 faults detected; fault 11 is caught at C4 / C5 because the stop status itself is kept); full bundle: 54 / 54 completed-step runs exact at C0-C6 (incl. endpoints_key and K.decide), 6 / 6 domain-stop runs exact (F0 VIOLATED, F1 VIOLATED, F1 UNPROVEN at pair 0, nothing after the stop), 12 main states x 4 blocks (+ grid 1 / 7 for two states) identical; the checker's own step equals the recorded real next state for every main state; only seal_clean failed (uncommitted code)",
+  "perf_dry_run": "desktop, N = 12 p = 163 and N = 64 p = 109, 2 repetitions, code path only (the desktop was loaded 154-225 % by other processes; not used)"
+ }
 }
