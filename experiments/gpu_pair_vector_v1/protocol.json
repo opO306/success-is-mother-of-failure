@@ -177,5 +177,10 @@
   "decision": "official host changed from Vast 52763685 (3975WX + RTX 3090; could not be started) to Vast 52763629 (Ryzen 9 5950X + RTX 3090, ~$0.191/h, started by the designer). Every CPU_W6 and GPU baseline is measured from scratch on this host; no absolute time is compared with another host (including G0's 52763685 numbers)",
   "host_as_checked": "RTX 3090 24 GB, driver 580.126.09, nvcc 12.8, g++ 13 (Ubuntu 24.04); 32 logical CPUs (16 cores x 2), cpu.max unlimited, cpuset 0-31, CPUs 0-5 = cores 0-5; venv /workspace/esp2/venv: python 3.12.3, mpmath 1.3.0 pure-python, psutil 7.2.2, pytest 9.1.1; processes run at nice 10 under the container's proot (as in EXPERIENCE_START_P_V2); loadavg 0.08 / 0.21 / 0.66 before the run",
   "unchanged": "code b9413fc, state bundle, layouts, combinations, decision rules"
+ },
+ "amendment_3_linux_measurement_shim (before the official run)": {
+  "what_happened": "the first launch on 52763629 (HEAD 29ccafb) passed the 18 Linux tests and finished the correctness runs, then the CPU_W6_E2 baseline crashed at worker shutdown: the unchanged e2_pair_parallel_v1 worker reports its CPU with Windows QueryProcessCycleTime (multiatom_parallel_v1.run.cycles), which does not exist on Linux. Its processes were stopped by PID (SIGKILL, so the launcher's stop trap did not run); its outputs were not inspected beyond the state count and are discarded",
+  "fix": "the launcher (not sealed code) sets ESP2_LINUX_CLOCK=1 and PYTHONPATH=<repo>/experiments/experience_start_p_v2/linux_shim:<repo>, the EXPERIENCE_START_P_V2 shim that replaces only the measurement functions cycles / _mem of multiatom_parallel_v1.run (CLOCK_PROCESS_CPUTIME_ID, peak RSS) in every process; no physics, numerics, scheduling or result code; the W6 timing of this stage is the main's perf_counter and does not use cycles",
+  "rerun": "a clean rerun from an empty output directory at the commit carrying this amendment"
  }
 }
