@@ -1,0 +1,127 @@
+{
+ "gate": "GPU_SHORT_TRAJECTORY_V1 - when the CPU + GPU hybrid path (GPU atom forces, CPU kicks / drift) runs 10 and 100 consecutive KDK steps, is every step's state equal to the CPU E2 trajectory endpoint for endpoint, including where and how a domain stop happens? Performance only after correctness.",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "SHORT TRAJECTORY ONLY (T <= 100) - NOT LONG-TRAJECTORY CORRECTNESS"],
+ "baseline": {
+  "parent": "claude/gpu-one-step-v1 @ 5511d9f (= origin/claude/gpu-one-step-v1, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/gpu-short-trajectory-v1 from 5511d9f in the main checkout (no worktree); clean at start",
+  "sha256_lf (reused unchanged)": {
+   "experiments/gpu_one_step_v1/one_step.py (GpuForceExecutor, kick, drift, lifted)": "cacf8077d8eee6c67d140060fcae467737e97c1c7c4d34c3029738bfde112300",
+   "experiments/gpu_pair_vector_v1/pv1.cu": "840d503768ace8f960ae7550139836878c548d183c249e309a1754365ab583c1",
+   "experiments/gpu_pair_vector_v1/pv_host.py": "bded5b8e8080db947612f0d1101adda766b66157d8bc57a10e6df0da55b376f2",
+   "experiments/gpu_pair_vector_v1/campaign.py (W6E2)": "66a52c9dca87cfdf905d04f1a3f2315b5f16933adecf01fcdb5992059ec2d41b",
+   "experiments/gpu_force_feasibility_v1/g0.cu": "dc519a9cd3ddc4b2a778cb1497bba324bdedcd8bb3e42b6a4514dc2ee49c21de",
+   "experiments/gpu_force_feasibility_v1/gpu_host.py": "dd255cb31b7f07ecb428515b36432f829bed124e75536de89af8a3c201163abe",
+   "exact_expression_gate_v1/stream.py (CPU E2 serial trajectory)": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+   "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+   "experiments/e2_pair_parallel_v1/run.py (W6 worker)": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5",
+   "experiments/multiatom_parallel_v1/scenarios.py (FCC_N initial)": "7908425757c1df4340f812de9de8e68fc6481e5254370664668dfebae3a9eb62"
+  },
+  "one_step_evidence_sha256_raw (not modified)": {
+   "docs/active/gpu_one_step_v1/states.json.gz": "50b8ebacfae39b59d9c6d1bd2255f7b776a630ba346102c6f23dd79411864670",
+   "docs/active/gpu_one_step_v1/vast_run/checker_verdict.json": "d8a1b1ab8ba684b8426c6443d6e6e347f620a4f2fecd918db48e439e5f8d8cd7",
+   "docs/active/gpu_one_step_v1/vast_run/analysis.json": "fbf5c8251d42cc5bbe19acea492d6e48a49ba9ce2059b3da69c84f9a37c151b5",
+   "docs/active/GPU_ONE_STEP_V1.md": "26f9621301b20fbf4b42c5c8d812bd329a403fb77ae1b14cad812dedecf5c0a2"
+  },
+  "frozen_untouched": "no GPU_FORCE_FEASIBILITY_V1 / GPU_PAIR_VECTOR_V1 / GPU_ONE_STEP_V1 file or evidence and no executor is modified; new files only under experiments/gpu_short_trajectory_v1, docs/active/gpu_short_trajectory_v1, tests/test_gpu_short_trajectory_v1.py and docs/active/GPU_SHORT_TRAJECTORY_V1.md"
+ },
+ "reference_semantics": {
+  "trajectory": "exactly exact_expression_gate_v1.stream.run (exact=False): F_0 = forces(q_0); for s = 0 .. T-1: p_half = p_s + F_s; q_{s+1} = q_s + p_half * cdt; F_{s+1} = forces(q_{s+1}); p_{s+1} = p_half + F_{s+1}. F_{s+1} of step s is the F used by step s + 1 (force reuse): exactly T + 1 force evaluations for T completed steps",
+  "forces": "canonical pairs i < j; d = q_j - q_i; r2 = (d0 d0 + d1 d1) + d2 d2; K.domain(r2) must be PROVEN, else DomainStop at the first such pair; g = G(r2) (rw:R1+R2); t = (H g) d_k; F_j += t; F_i -= t",
+  "domain_stop": "stream.run's stop_step = the state index s whose forces(q_s) stopped (0 = the initial force); the stop pair id = the first non-PROVEN canonical pair at q_s; nothing after a stop runs (no kick, no later step)",
+  "measurement": "K.decide and K.endpoints_key on (q_T, p_T) only at the final T (stream.run want = {T}): cells, UNDECIDED_AT_PRECISION (decide None) or OUT_OF_RANGE (measuring grid; not physics)",
+  "step_indexing": "record of step s (s = 0 .. T-1) = (F_s, p_half, q_{s+1}, F_{s+1}, p_{s+1}); a stop at state k >= 1 leaves step k-1 partial (F_s, p_half, q_k only)"
+ },
+ "division_of_work": "GPU: q -> pairs -> G -> J -> canonical atom reduction -> F (GPU_PAIR_VECTOR_V1 kernels and GPU_ONE_STEP_V1 GpuForceExecutor, unchanged); CPU: kicks and drift with mpmath interval primitives at p (one_step.kick / one_step.drift, unchanged). No momentum / position update on the GPU",
+ "executor_persistence": "one GpuForceExecutor (CUDA context, uploaded model / constants for p, device buffers for N) for the whole trajectory; inside a trajectory no context creation, no model upload and no allocation (counted per trajectory and checked = 0)",
+ "statuses": {
+  "OK": "T steps completed; then the final measurement (cells / UNDECIDED_AT_PRECISION / OUT_OF_RANGE)",
+  "DOMAIN_STOP_VIOLATED / DOMAIN_STOP_UNPROVEN": "physics domain duty: stop state index + first stopping pair id",
+  "REFUSED_DEVICE_WIDTH": "a GPU width limit (executor, not physics)",
+  "REFUSED_DEVICE_PRECISION": "a p the GPU does not support (refused before launch)",
+  "rule": "a REFUSED run is neither exact nor a mismatch nor INVALID: it is counted separately and carries no state"
+ },
+ "digests": {
+  "vector_serialization": "for an N x 3 interval vector X with label L in {F, P, Q}: the ASCII text L + ':' + N + ':' followed by, for atom a = 0..N-1, component k = 0, 1, 2, end = lower, upper: sign '.' mantissa-hex '.' exponent '.' bitcount of the normalized mpmath mpf of that endpoint (a zero mantissa written 0.0.0.0), items joined by ','; digest = sha256 hex of that text",
+  "per_step": "F_s, p_half (label P), q1 (Q), F1 (F), p1 (P), state = sha256(text(Q, q1) + '|' + text(P, p1)), force = digest of F1",
+  "who_computes": "the sampler (bundle), the runner and the checker each implement this rule separately; the checker also recomputes the digests of every full state the runner recorded",
+  "full_endpoints": "full (q_s, p_s, F_s) in G0 dyadic encoding at state indices T = 10: 0, 1, 2, 5, 10; T = 100: 0, 1, 2, 5, 10, 20, 50, 100 (relative to the trajectory start); and at the first step whose digests differ from the bundle's CPU digests the runner dumps all five vectors of that step"
+ },
+ "bundle": {
+  "main_trajectories": [
+   {"id": "N12_p163_s0", "start": "FCC_N initial", "tie": "replica to T = 1000 equals the verified V2 Vast reference N12_T1000__p163"},
+   {"id": "N16_p163_s0", "start": "FCC_N initial", "tie": "replica to T = 1000 equals N16_T1000__p163"},
+   {"id": "N12_p163_s500", "start": "state 500 of the same replica run", "tie": "as N12_p163_s0"},
+   {"id": "N16_p163_s500", "start": "state 500 of the same replica run", "tie": "as N16_p163_s0"},
+   {"id": "N40_p109_s0", "start": "FCC_N initial", "tie": "replica T = 100 equals N40_T100__p109"},
+   {"id": "N64_p109_s0", "start": "FCC_N initial", "tie": "replica T = 100 equals N64_T100__p109"},
+   {"id": "N128_p109_s0", "start": "FCC_N initial", "tie": "no verified reference exists; the replica of the unchanged stream.run source is the CPU reference and the checker recomputes it"},
+   {"id": "N64_p163_s0", "start": "FCC_N initial", "tie": "as N128_p109_s0"}
+  ],
+  "replica": "a runtime replica of stream.run (its own source + TWO observer lines: after the drift (q_{s+1}, p_half, F_s) and after the second kick (q_{s+1}, p_{s+1}, F_{s+1})); no file is changed; per-step digests for steps 0..99 from the start, full states at the checkpoint indices, decide / endpoints_key at relative T = 10 and 100",
+  "probes (T = 10, both p = 109 and 163)": {
+   "P3_F0_VIOLATED": "N = 3: atoms (0,0,0), (1,0,0), (0,20,0) at rest: stop at state 0",
+   "P3_MULTI_VIOLATED": "N = 3: atom 1 at (6,0,0) with momentum (-m,0,0); m = the first of 0, 50, 100, ... giving a VIOLATED stop at a state index 4..7",
+   "P3_MULTI_UNPROVEN": "as above with atom 1 at x = [6, 6.5] (an interval position); first m giving an UNPROVEN stop at state 4..7",
+   "N12_MULTI_PAIR": "FCC_N N = 12 initial state; atom i = 3 and j = the smallest j > 3 that is a nearest neighbour of 3; p_j += m (site_i - site_j) (exact integers); first m of 0, 5, 10, ... giving any stop at state 4..7 with a stop pair id != 0",
+   "outcome": "the CPU outcome (stop state index, kind, first pair id) recorded by the replica / sampler; per-step digests up to the stop"
+  },
+  "seal": "the bundle (sha256 committed) is built and committed before any trajectory runner code exists"
+ },
+ "gates": {
+  "S10": "every main trajectory T = 10 with blocks 32, 64, 128, 256 (grid = ceil) + every probe (block 32) + one refusal run (p = 100, REFUSED_DEVICE_PRECISION); the independent checker must give EVIDENCE OK before anything longer runs",
+  "S100": "only if S10 passed: every main trajectory T = 100 with block 32; the checker again (S100's first 10 steps must also equal S10's)",
+  "T1000": "not in this gate (GPU_LONG_TRAJECTORY_V1)"
+ },
+ "checks_per_step": "F_s, p_half, q_{s+1}, F_{s+1}, p_{s+1} digests equal the checker's own literal CPU trajectory (every atom x 3 x both ends through the digest) AND the bundle's replica digests; step indices contiguous 0..completed-1; force evaluations = completed + 1 (or stop state + 1); no upload / allocation inside the trajectory; full states at the checkpoint indices equal endpoint for endpoint; the recorded digests equal the checker's recomputation from the recorded full states; final decide and endpoints_key equal; stop (state index, pair, kind) equal; nothing recorded after a stop",
+ "first_divergence": "for any run with a mismatch the checker reports the first (step, stage in F_s / p_half / q1 / F1 / p1) and, from the runner's dump or a checkpoint, the first (atom, component, end) with the CPU endpoint and the GPU endpoint; values-equal-but-digest-different is reported as a digest serialization fault",
+ "checker": "independent: imports none of the trajectory runner, the one-step runner, pv_host, campaigns or GPU code; its own literal loop: F = forces(q); for each step: p = p + F; q = q + p * CDT; F = literal E2 forces(q); p = p + F (mpmath iv objects, frozen RwForce, K.domain, K.H, K.CDT, K.endpoints_key, K.decide); its own digest code; it starts N12 / N16 s500 from the FCC initial state and runs 600 steps itself",
+ "layouts": "S10: every main trajectory with blocks 32 / 64 / 128 / 256: all per-step digests, checkpoints and the final outcome identical",
+ "performance": {
+  "only_after": "S10 and S100 checker EVIDENCE OK",
+  "official_host": "an available Vast RTX 3090 node (52763629 or 52763685 preferred); any change = amendment before the run; the EXPERIENCE_START_P_V2 Linux measurement shim in the launcher",
+  "conditions (sealed)": [{"N": 12, "p": 163}, {"N": 16, "p": 163}, {"N": 40, "p": 109}, {"N": 64, "p": 109}, {"N": 128, "p": 109}, {"N": 64, "p": 163}],
+  "state_and_length": "FCC_N initial state lifted at p, T = 100, the same for both paths",
+  "paths": {
+   "CPU_W6_TRAJECTORY": "E2 W6 (GPU_PAIR_VECTOR_V1 W6E2: unchanged E2 pair workers on CPUs 1-5, 0, canonical reduction in the main) forces + CPU kick / drift; initial F + 100 steps",
+   "GPU_HYBRID_TRAJECTORY": "GpuForceExecutor forces (block 32) + the same CPU kick / drift; initial F + 100 steps"
+  },
+  "warm": "context / model / buffers (GPU) or worker processes (W6) ready before the clock; timed = initial F + 100 steps; 5 repetitions, order alternating CPU -> GPU / GPU -> CPU; medians",
+  "cold": "a fresh subprocess per run: timed from before the executor (library load + CUDA context) / before the worker spawn to the end of step 100 (= context + allocation + model upload + initial F + trajectory); Python start-up and imports measured separately and excluded; 3 repetitions alternating",
+  "breakdown": "GPU: encode, H2D, pair/G/J kernels, atom reduction kernel, D2H, decode, CPU kicks, CPU drift, summed over the trajectory; W6: forces, CPU kicks, CPU drift; total / T also reported",
+  "load": "E2_PAIR_PARALLEL_V1 contamination snapshot and /proc/loadavg before each condition",
+  "equality": "each timed run's final (q, p, F) digest must equal the bundle's state 100",
+  "classification_per_N": "ratio = GPU warm median / W6 warm median; GPU_WIN <= 0.97, TIE between, CPU_WIN >= 1.03; cold ratios reported, not used for the class",
+  "regions": "per p: CPU confirmed / TIE / GPU confirmed at the measured N only; every unmeasured N UNKNOWN",
+  "cost_estimate": "W6 force 0.01-0.9 s x 101 per trajectory x 8 runs per condition -> about 20-25 min; GPU < 2 s per trajectory; checker S100 about 10 min (parallel trajectories); bundle build about 20 min on the desktop"
+ },
+ "fault_injections (all at step 3 unless stated; the checker must detect each)": [
+  "1 a wrong F: step 3 kicks with F_2 (the previous step's force) instead of F_3",
+  "2 F_s recomputed at every step instead of reused (endpoints stay identical by determinism; detected by the force evaluation count)",
+  "3 one force computation missing: F_4 := F_3",
+  "4 one step label skipped: no record 5, T - 1 physical steps",
+  "5 second kick missing",
+  "6 first kick done twice",
+  "7 drift with the old momentum p_s instead of p_half",
+  "8 F_{s+1} computed at the old q_s",
+  "9 precision changed after step 5: GPU program at 128 for p = 109 (192 for p = 163), kicks at p",
+  "10 q_{s+1}: atom 0 x upper endpoint + one unit in the last place",
+  "11 p_{s+1}: same",
+  "12 F_{s+1}: same",
+  "13 continuing after a domain stop (F := 0, the trajectory goes on)",
+  "14 digest serialization order changed (component-major)",
+  "15 a block-size-dependent branch from step 2 (block != 32: F_{s+1} atom N-1 x upper + one ulp)",
+  "16 a GPU refusal (work limbs 8 at step 3) reported as a normal zero force"
+ ],
+ "decision_rules_sealed": {
+  "SHORT_TRAJ_FAIL": "any endpoint / state digest / force digest mismatch, stop step / pair / kind mismatch, layout-dependent trajectory, silent overflow, force-reuse or persistence violation, or an undetected fault; performance is then not run",
+  "SHORT_TRAJ_EXACT_NO_GAIN": "exact, but GPU_HYBRID is not GPU_WIN at any of N = 40, 64, 128 (p = 109)",
+  "SHORT_TRAJ_PROMISING": "S10 exact, S100 exact, stop semantics exact, layout independent, GPU_WIN at N = 64 and N = 128 (p = 109), N = 40 ratio < 1.03, every timed final state equal to the CPU reference",
+  "SHORT_TRAJ_EXACT_MIXED": "exact and none of the above",
+  "next_if_promising": "GPU_LONG_TRAJECTORY_V1 (T = 1000 with the service precision, long-run domain stops, precision retry with the GPU)"
+ },
+ "not_in_scope": ["T = 1000 official", "KDK on the GPU", "position / momentum update on the GPU", "cutoff", "neighbour list", "atomic", "reduction change", "automatic GPU selector", "neural network", "precision policy change", "FAMILY_MAX change", "block-rule re-learning", "master merge"],
+ "claims_forbidden": ["100-step exactness implies 1000-step or long-run exactness", "block 32 is generally best", "unmeasured N belong to the CPU or GPU region", "a REFUSED run is a failure of physics"]
+}
