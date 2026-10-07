@@ -1,0 +1,134 @@
+{
+ "gate": "GPU_LONG_TRAJECTORY_V1 - (A) does the CPU + GPU hybrid path stay endpoint-identical to CPU E2 for 1000 consecutive steps; (B) can the existing P2 precision retry (restart from the original state at the next p) run on the GPU path without any change of meaning, including the precisions P2 actually produces (73, 78, 161, 166); (C) can the GPU path be frozen as a selectable execution candidate (GPU backend semantic contract) for ADAPTIVE_EXECUTION_V1? Correctness first; performance only after every correctness gate.",
+ "date": "2026-10-07",
+ "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "T <= 1000 ONLY", "A FROZEN CANDIDATE IS NOT A SELECTOR: the GPU is not put into any selector in this gate"],
+ "baseline": {
+  "parent": "claude/gpu-short-trajectory-v1 @ b307cc1 (= origin, checked after fetch)",
+  "master": "15ae151 = origin/master",
+  "this_branch": "claude/gpu-long-trajectory-v1 from b307cc1 in the main checkout (no worktree); clean at start",
+  "sha256_lf (reused unchanged)": {
+   "experiments/gpu_short_trajectory_v1/traj.py": "ff4f126e5299189326f5f5590c4d99b4f13ad8310cdb3c13c2c4b3e6ae777eab",
+   "experiments/gpu_short_trajectory_v1/samples.py (replica_run, digests reused by the new sampler)": "7e3b124c02c43ce8cea801a536c41cd95b3234ecd9cdee3ec5d41391eb7cb346",
+   "experiments/gpu_one_step_v1/one_step.py (GpuForceExecutor, kick, drift)": "cacf8077d8eee6c67d140060fcae467737e97c1c7c4d34c3029738bfde112300",
+   "experiments/gpu_pair_vector_v1/pv1.cu": "840d503768ace8f960ae7550139836878c548d183c249e309a1754365ab583c1",
+   "experiments/gpu_pair_vector_v1/pv_host.py": "bded5b8e8080db947612f0d1101adda766b66157d8bc57a10e6df0da55b376f2",
+   "experiments/gpu_pair_vector_v1/campaign.py (W6E2)": "66a52c9dca87cfdf905d04f1a3f2315b5f16933adecf01fcdb5992059ec2d41b",
+   "experiments/gpu_force_feasibility_v1/g0.cu": "dc519a9cd3ddc4b2a778cb1497bba324bdedcd8bb3e42b6a4514dc2ee49c21de",
+   "experiments/gpu_force_feasibility_v1/gpu_host.py (SUPPORTED_P = 64, 109, 128, 163, 192; NOT modified)": "dd255cb31b7f07ecb428515b36432f829bed124e75536de89af8a3c201163abe",
+   "experiments/gpu_force_feasibility_v1/compile_plan.py": "cc63a1e53da6e2c4221b9f7f1d298f987bbe35fdcb46231baa3833a5975ac63b",
+   "experiments/precision_pilot_a1/policies.py (P2, unchanged)": "2033869fe6455e5d232544379048506cd27c40a91dcf9d29a985b9e27ed274ff",
+   "experiments/precision_pilot_a1/evaluator_adapter.py (_scaled_endpoints)": "7ecbaf3e22ec104fd62891a2209976c4428e0e38045bb5b752f69fb31230458d",
+   "experiments/multiatom_parallel_v1/run.py (_readout, initial_digest)": "6fce260f79a82795eab515d1eec598bdfcca872b36327a05749b18159e7ba9e0",
+   "exact_expression_gate_v1/stream.py": "1f19074aced1f68efb0be4de524798b52d70f3cc8d9074d80d29c375912e84ab",
+   "exact_expression_gate_v1/common.py": "e23849415f9c69cd8dd71957af97ce3644036d5ddba6769277d97b4ec4cfb50e",
+   "experiments/rewrite_pilot_a3/rwforce.py": "675d1b8ba64b0c6a4ca26d1238a54ef2a9ca6163b45992bbdf24729eb35fe0bf",
+   "experiments/e2_pair_parallel_v1/run.py": "102d0aa6835298a7909462797dd158a0ebf41e0481f58612b2d9be65122a91e5"
+  },
+  "reference_evidence_sha256_raw (not modified)": {
+   "docs/active/experience_start_p_v2/vast_run/records.json.gz": "bbf07850591c8bb333a5dccd1e1aed7b344db4735fc1fd324382b4d180d38fc0",
+   "docs/active/gpu_short_trajectory_v1/bundle.json.gz": "2bca7c26307df9ceeda0786accd7db570173917823b0d6c9e70cfffc2abeba00",
+   "docs/active/gpu_short_trajectory_v1/vast_run/checker_verdict_s100.json": "c98f7936ccec20829a2f0df962c387f2e1f8bfe8f812eda871c990fa207f8fbc",
+   "docs/active/GPU_SHORT_TRAJECTORY_V1.md": "c323b8dabd64503d168dd330d03e141e856950350024565fae2582a41e11aa34"
+  },
+  "mpmath": "1.3.0, backend python (the G0 exp replication depends on it)"
+ },
+ "v2_facts_rederived_from_the_raw_evidence (records.json.gz, not from summaries)": {
+  "N12_T1000_p64": "completed_steps 995, stop UNPROVEN, stop_step (state index) 996, outcome DOMAIN_UNPROVEN; P2: ceil(64 * 1000 / 995) + 8 = 73",
+  "N12_T1000_p73": "completed 1000, UNDECIDED_AT_PRECISION; P2 -> 161 (= 73 + 80 + 8)",
+  "N12_T1000_p161": "DECIDED",
+  "N16_T1000_p64": "completed_steps 917, stop UNPROVEN, stop_step 918; P2: ceil(64000 / 917) + 8 = 78",
+  "N16_T1000_p78": "completed 1000, UNDECIDED_AT_PRECISION; P2 -> 166",
+  "N16_T1000_p166": "DECIDED",
+  "N12 / N16 T1000 p163": "DECIDED (FAMILY_MAX first pass)",
+  "service": "V2 BASE64: N12 [64, 73, 161], N16 [64, 78, 166] in 3 / 3 repetitions; FAMILY_MAX [163] for both",
+  "stop_pair": "V2 did not record the stop pair; the bundle sampler derives it from q at the stop state with its own literal loop and seals it; the checker re-derives it"
+ },
+ "reference_semantics": {
+  "trajectory": "exactly stream.run (exact=False) at one p: F_0 = forces(q_0); for s = 0..T-1: p_half = p_s + F_s; q_{s+1} = q_s + p_half * cdt; F_{s+1} = forces(q_{s+1}); p_{s+1} = p_half + F_{s+1}; F_{s+1} reused as the next F: T + 1 force evaluations for a completed pass",
+  "pass_record": "as multiatom_parallel_v1.run._readout: completed_steps, stop (VIOLATED / UNPROVEN / OUT_OF_RANGE), stop_step (state index), and at T: cells (K.decide), endpoints_key, endpoints_scaled (evaluator_adapter._scaled_endpoints: positions x 2^48, momenta x 2^80); outcome = DOMAIN_VIOLATED_PROVEN / DOMAIN_UNPROVEN / OUT_OF_RANGE / DECIDED / UNDECIDED_AT_PRECISION",
+  "service": "as experience_start_p_v2.service.run_request: first p = start p (BASE64: 64, FAMILY_MAX: 163); every later p = precision_pilot_a1.policies.next_p('P2', None, history, T) on the pass records (p2_view); stop when P2 returns None (final outcome), CAP or 24 passes; EVERY pass starts from the original (q0, p0)",
+  "comparison_rule": "a pass at p is compared with the CPU at the same p (endpoint for endpoint); between policies / precisions only the final DECIDED cells (the physical result) are compared, never endpoints"
+ },
+ "gate_P_gpu_precision_support": {
+  "question": "can the GPU evaluate the precisions P2 actually produced in the verified T = 1000 requests exactly?",
+  "precisions": {"new": [73, 78, 161, 166], "baseline (already supported)": [64, 163]},
+  "no_full_sweep": "64..192 is not swept; only the p with information value for this question",
+  "mechanism": "a new host layer in experiments/gpu_long_trajectory_v1 (support.py): ExtPV = pv_host.PV whose upload accepts p in SEALED_EXT_P = {64, 73, 78, 109, 128, 161, 163, 166, 192} by calling the unchanged PV / G0 upload with gpu_host.SUPPORTED_P temporarily widened by that one p for the duration of the call (a runtime scope, no file change); any other p -> REFUSED_DEVICE_PRECISION. The CUDA code, rounding, limbs, exp algorithm, working precision (wp = p + 14) and gpu_host.py are NOT changed; trace, constants and exp tables are produced by the unchanged code for that p",
+  "states": "real positions from the bundle trajectories at that p: N12 (p 64, 73, 161, 163) and N16 (p 64, 78, 166, 163) at states 0, 250, 500, 750, 1000, and for p = 64 also the last completed state and the stop state (which contains the UNPROVEN pair)",
+  "per_state_checks": "every pair: status (domain) equal, r2 equal, obligations mask complete, G equal, J x/y/z equal (PAIR_EXACT; PAIR_UNSOUND counted separately), device precision echo == requested p, first stopping pair equal; atom F equal when all pairs PROVEN; positions echo equal; layouts 32 and 128 identical. d is not a device output: it is covered through r2 and J (disclosed)",
+  "targets": "endpoint EXACT 100 %, UNSOUND 0, domain mismatch 0, silent overflow 0, precision echo mismatch 0",
+  "outcome": "GPU_SUPPORTED_P = the baseline p that pass plus every new p that passes all checks; GPU_UNSUPPORTED_P = every new p that fails or is refused. A failing baseline p -> LONG_FAIL. The independent checker writes gpu_support.json; the service phase reads only that file",
+  "disguise_faults": "requested 73 / device 78 and requested 161 / device 163 must be detected (device precision echo and values)"
+ },
+ "bundle": {
+  "trajectories": "stream.run replica (GPU_SHORT_TRAJECTORY_V1 samples.replica_run, unchanged: observers after the drift and after the second kick) at N12 p 64, 73, 161, 163; N16 p 64, 78, 166, 163; N40 p 109; T = 1000 from the FCC_N initial state; per-step digests for every step reached, full (q, p, F) at the checkpoints, the pass record (_readout) and, for a stop, the stop state / kind / first pair (sampler's literal loop at q of the stop state)",
+  "tie": "the 8 N12 / N16 runs must equal the V2 Vast references (identity keys: outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial_sha256); N40 p109 T1000 has no external reference",
+  "gate_P_states": "q of the states listed in gate_P (from the same replica runs)",
+  "checkpoints": [0, 1, 2, 5, 10, 20, 50, 100, 200, 250, 500, 750, 900, 950, 990, 999, 1000],
+  "digests": "GPU_SHORT_TRAJECTORY_V1 protocol 'digests' unchanged",
+  "seal": "built and committed (sha256) before any long runner / service code"
+ },
+ "phases": {
+  "gateP": "every gate-P state at blocks 32 and 128 -> checker gateP -> gpu_support.json",
+  "fixed": "only if gate P passed for 64 and 163: N12 / N16 p163 T1000 with blocks 32, 64, 128, 256; N40 p109 T1000 block 32; N12 / N16 p64 T1000 block 32 (the long domain stops) -> checker",
+  "service": "only if fixed passed: SERVICE_BASE64 and SERVICE_FAMILY_MAX for N12 and N16 (GPU passes for p in GPU_SUPPORTED_P, CPU E2 fallback otherwise), and one demonstration N12 BASE64 with 73 treated as unsupported (expected GPU 64 -> CPU 73 -> GPU 161, status GPU_WITH_CPU_PRECISION_FALLBACK) -> checker (all runs)",
+  "perf": "only if the service checker passed"
+ },
+ "long_runner": {
+  "executor": "LongExecutor: GpuForceExecutor semantics (unchanged force path) on ExtPV, counting model uploads, allocations and force evaluations, recording the device precision echo of every force (atom record word 2)",
+  "persistence": "inside a pass: no context creation, no model upload, no allocation (checked = 0); between passes of a service: one model upload when p changes (counted and timed), allocation reused for the same N",
+  "first_divergence": "the runner dumps the five vectors of the first step whose digests differ from the bundle; the checker reports first_divergence_state, stage, atom, component, end, CPU endpoint, GPU endpoint, precision",
+  "fallback": "a requested p not in GPU_SUPPORTED_P runs on the CPU E2 serial path (stream.run unchanged, the pass record by _readout) at exactly that p; the pass is marked backend CPU_E2_FALLBACK; the request status is GPU_FULL_RETRY when every pass ran on the GPU and GPU_WITH_CPU_PRECISION_FALLBACK otherwise; a p is never replaced by another p"
+ },
+ "checker": "independent: imports none of the long runner, service, campaign, support (precision wrapper), traj, one_step, pv_host or GPU code; own literal CPU forces / KDK (iv objects), own digests, own pass readout (K.decide, K.endpoints_key, own scaled endpoints), own P2 implementation from the rule text above (not policies.py), own service restart semantics (every pass from the own FCC initial state); compares per pass: p sequence, outcome, completed steps, stop state, stop pair, per-step digests, checkpoint endpoints, final endpoints and cells, force evaluation counts, persistence counters, device precision echo; compares its own pass records with the V2 references where (N, T, p) exist; for gate P its own per-pair r2 / G / J / statuses",
+ "fault_injections (the checker must detect each)": [
+  "1 step 500 uses the previous step's F",
+  "2 step 500 force computation missing (F_{s+1} := F_s)",
+  "3 one step label skipped",
+  "4 second kick missing (step 500)",
+  "5 drift with the old momentum (step 500)",
+  "6 F_{s+1} at the old q (step 500)",
+  "7 q endpoint + 1 ulp (step 500)",
+  "8 p endpoint + 1 ulp (step 500)",
+  "9 F endpoint + 1 ulp (step 500)",
+  "10 continuing after the long domain stop",
+  "11 stop pair recorded + 1",
+  "12 the retry pass starts from the failed pass's last state",
+  "13 the P2 p altered (+1)",
+  "14 an unsupported p silently raised to the next supported p",
+  "15 GPU model at the old p while the record says the new p",
+  "16 the failed pass deleted from the record",
+  "17 the final successful pass's endpoint altered",
+  "18 a block-size-dependent result after step 500",
+  "P1 gate P: requested 73, device 78",
+  "P2 gate P: requested 161, device 163"
+ ],
+ "performance": {
+  "only_after": "every correctness gate",
+  "official_host": "Vast 52763629 (5950X + RTX 3090) if available; otherwise an amendment before the run; the Linux measurement shim in the launcher; no absolute time from another host is compared",
+  "fixed_p163_T1000": "N12 and N16: CPU_W6 (W6E2 forces + CPU KDK) vs GPU_HYBRID (warm: executor / workers ready, timed = initial F + 1000 steps); 5 repetitions, order alternating; medians; GPU_WIN <= 0.97 < TIE < 1.03 <= CPU_WIN",
+  "service_totals": "BASE64 and FAMILY_MAX for N12 and N16: GPU service (passes on the GPU, model re-upload when p changes, timed per pass) vs CPU W6 service (V2 behaviour: W6 workers spawned per pass at that p); 3 repetitions alternating; per pass p, outcome, wall, re-upload / spawn; failed-pass cost and final-pass cost; outcomes must equal the correctness runs",
+  "cold": "GPU service first request in a fresh process (CUDA context + upload + allocation + passes), 2 repetitions per (N, policy); recorded, not used for a class",
+  "breakdown": "GPU: encode, H2D, pair/G/J, reduction, D2H, decode, kicks, drift, model upload per p; W6: spawn, forces, kicks, drift"
+ },
+ "cost_estimate (before the run)": {
+  "cpu_serial_E2_T1000 (V2 Vast references, same host type)": "N12 35-37 s, N16 60-68 s per pass; N40 p109 about 6 min (0.35 s per force); N64 p109 about 30 min, N128 p109 about 65 min per pass",
+  "gpu_T1000": "about 6-8 s (N12 / N16), about 7 s (N40)",
+  "bundle (desktop, parallel)": "about 15 min (N40 dominates)",
+  "checker (Vast, parallel own trajectories)": "fixed phase about 6 min, service phase about 6 min",
+  "perf": "fixed p163 about 3.5 min; service totals about 8 min; cold about 2 min",
+  "tests": "about 5 min (fault tests re-run N12 T1000 passes; the checker's own N12 trajectories cached per process)",
+  "total_vast": "about 40 min plus the 30 min grace (the node is stopped by hand right after the evidence is fetched): about 0.15 USD at 0.19 USD / h",
+  "not_run": "N64 / N128 T1000: about 30-65 min CPU serial per pass for the bundle and again for the checker, and 15 min per W6 performance repetition at N128; the 100-step exactness at these N is already established and a 1000-step repeat adds little for this gate's questions"
+ },
+ "decision_rules_sealed": {
+  "LONG_FAIL": "any fixed-p T1000 endpoint / digest mismatch, a long-stop mismatch, an UNSOUND or inexact GPU result at a baseline p, silent overflow, a P2 sequence mismatch, a retry not restarting from the original state, a precision disguise (requested != device), or an undetected fault",
+  "LONG_EXACT_GPU_PRECISION_LIMITED": "the GPU path itself is exact but some p produced by P2 is in GPU_UNSUPPORTED_P (handled by explicit CPU fallback)",
+  "LONG_EXACT_NO_PERF_VALUE": "exact, but N16 p163 T1000 is not GPU_WIN",
+  "GPU_V1_READY": "N12 p163 T1000 exact, N16 p163 T1000 exact, long stops exact, P2 retry semantics exact, silent precision substitution 0, final physical result exact (service cells = CPU), N16 GPU_WIN, and every P2-produced p in GPU_SUPPORTED_P (N12 may be TIE)",
+  "next_if_ready": "ADAPTIVE_EXECUTION_V1 (the GPU becomes a selectable candidate only there)"
+ },
+ "contract_to_record_if_ready": ["GPU backend semantic contract", "supported p set", "unsupported p behaviour", "supported N evidence", "known CPU / GPU crossover evidence", "CUDA source hash", "mpmath version", "block default", "device width", "overflow / refusal behaviour", "model upload rule", "force reuse rule", "KDK ownership = CPU"],
+ "not_in_scope": ["GPU kernel optimisation (5-7.5 ms floor)", "splitting the 221-op G program", "GPU pipeline / specialists", "DRAM-PIM", "KDK / position / momentum on the GPU", "neighbour list", "cutoff", "new physics", "neural selector", "CPU / GPU automatic selector", "new-environment learning mode", "changing gpu_host.SUPPORTED_P or any frozen file", "precision policy change", "master merge"],
+ "claims_forbidden": ["1000-step exactness implies longer-run exactness", "exactness at the tested p implies every p", "an unsupported p is an error of physics", "endpoints at different p should be equal"]
+}
