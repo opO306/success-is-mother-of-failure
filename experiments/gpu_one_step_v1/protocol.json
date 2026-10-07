@@ -155,5 +155,10 @@
   "order_disclosure": "one_step.py, campaign.py, checker.py, analyze.py and the tests were written while the bundle was being built; no runner touched a bundle state before the bundle commit f8bd809",
   "desktop_results_before_seal": "RTX 4060: 18 tests PASS (all 14 faults detected; fault 11 is caught at C4 / C5 because the stop status itself is kept); full bundle: 54 / 54 completed-step runs exact at C0-C6 (incl. endpoints_key and K.decide), 6 / 6 domain-stop runs exact (F0 VIOLATED, F1 VIOLATED, F1 UNPROVEN at pair 0, nothing after the stop), 12 main states x 4 blocks (+ grid 1 / 7 for two states) identical; the checker's own step equals the recorded real next state for every main state; only seal_clean failed (uncommitted code)",
   "perf_dry_run": "desktop, N = 12 p = 163 and N = 64 p = 109, 2 repetitions, code path only (the desktop was loaded 154-225 % by other processes; not used)"
+ },
+ "amendment_2_official_host (before any official run)": {
+  "host": "Vast 52763629 (Ryzen 9 5950X + RTX 3090; started by the designer): driver 580.126.09, nvcc 12.8, g++ 13, venv /workspace/esp2/venv (mpmath 1.3.0 pure-python, psutil 7.2.2), nice 10 under proot, loadavg 0.23 / 0.34 / 0.34 before the run; CPUs 0-5 = cores 0-5",
+  "launcher": "sets ESP2_LINUX_CLOCK=1 and PYTHONPATH=<repo>/experiments/experience_start_p_v2/linux_shim:<repo> (GPU_PAIR_VECTOR_V1 amendment 3: the unchanged E2 W6 worker reports CPU with Windows-only code; the shim replaces only that measurement)",
+  "comparison": "every CPU_W6 and GPU_HYBRID number is measured on this host in this run; no time from another host or stage is compared"
  }
 }
