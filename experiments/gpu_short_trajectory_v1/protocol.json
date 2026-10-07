@@ -1,7 +1,12 @@
 {
  "gate": "GPU_SHORT_TRAJECTORY_V1 - when the CPU + GPU hybrid path (GPU atom forces, CPU kicks / drift) runs 10 and 100 consecutive KDK steps, is every step's state equal to the CPU E2 trajectory endpoint for endpoint, including where and how a domain stop happens? Performance only after correctness.",
  "date": "2026-10-07",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "SHORT TRAJECTORY ONLY (T <= 100) - NOT LONG-TRAJECTORY CORRECTNESS"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "SHORT TRAJECTORY ONLY (T <= 100) - NOT LONG-TRAJECTORY CORRECTNESS"
+ ],
  "baseline": {
   "parent": "claude/gpu-one-step-v1 @ 5511d9f (= origin/claude/gpu-one-step-v1, checked after fetch)",
   "master": "15ae151 = origin/master",
@@ -51,14 +56,46 @@
  },
  "bundle": {
   "main_trajectories": [
-   {"id": "N12_p163_s0", "start": "FCC_N initial", "tie": "replica to T = 1000 equals the verified V2 Vast reference N12_T1000__p163"},
-   {"id": "N16_p163_s0", "start": "FCC_N initial", "tie": "replica to T = 1000 equals N16_T1000__p163"},
-   {"id": "N12_p163_s500", "start": "state 500 of the same replica run", "tie": "as N12_p163_s0"},
-   {"id": "N16_p163_s500", "start": "state 500 of the same replica run", "tie": "as N16_p163_s0"},
-   {"id": "N40_p109_s0", "start": "FCC_N initial", "tie": "replica T = 100 equals N40_T100__p109"},
-   {"id": "N64_p109_s0", "start": "FCC_N initial", "tie": "replica T = 100 equals N64_T100__p109"},
-   {"id": "N128_p109_s0", "start": "FCC_N initial", "tie": "no verified reference exists; the replica of the unchanged stream.run source is the CPU reference and the checker recomputes it"},
-   {"id": "N64_p163_s0", "start": "FCC_N initial", "tie": "as N128_p109_s0"}
+   {
+    "id": "N12_p163_s0",
+    "start": "FCC_N initial",
+    "tie": "replica to T = 1000 equals the verified V2 Vast reference N12_T1000__p163"
+   },
+   {
+    "id": "N16_p163_s0",
+    "start": "FCC_N initial",
+    "tie": "replica to T = 1000 equals N16_T1000__p163"
+   },
+   {
+    "id": "N12_p163_s500",
+    "start": "state 500 of the same replica run",
+    "tie": "as N12_p163_s0"
+   },
+   {
+    "id": "N16_p163_s500",
+    "start": "state 500 of the same replica run",
+    "tie": "as N16_p163_s0"
+   },
+   {
+    "id": "N40_p109_s0",
+    "start": "FCC_N initial",
+    "tie": "replica T = 100 equals N40_T100__p109"
+   },
+   {
+    "id": "N64_p109_s0",
+    "start": "FCC_N initial",
+    "tie": "replica T = 100 equals N64_T100__p109"
+   },
+   {
+    "id": "N128_p109_s0",
+    "start": "FCC_N initial",
+    "tie": "no verified reference exists; the replica of the unchanged stream.run source is the CPU reference and the checker recomputes it"
+   },
+   {
+    "id": "N64_p163_s0",
+    "start": "FCC_N initial",
+    "tie": "as N128_p109_s0"
+   }
   ],
   "replica": "a runtime replica of stream.run (its own source + TWO observer lines: after the drift (q_{s+1}, p_half, F_s) and after the second kick (q_{s+1}, p_{s+1}, F_{s+1})); no file is changed; per-step digests for steps 0..99 from the start, full states at the checkpoint indices, decide / endpoints_key at relative T = 10 and 100",
   "probes (T = 10, both p = 109 and 163)": {
@@ -82,7 +119,32 @@
  "performance": {
   "only_after": "S10 and S100 checker EVIDENCE OK",
   "official_host": "an available Vast RTX 3090 node (52763629 or 52763685 preferred); any change = amendment before the run; the EXPERIENCE_START_P_V2 Linux measurement shim in the launcher",
-  "conditions (sealed)": [{"N": 12, "p": 163}, {"N": 16, "p": 163}, {"N": 40, "p": 109}, {"N": 64, "p": 109}, {"N": 128, "p": 109}, {"N": 64, "p": 163}],
+  "conditions (sealed)": [
+   {
+    "N": 12,
+    "p": 163
+   },
+   {
+    "N": 16,
+    "p": 163
+   },
+   {
+    "N": 40,
+    "p": 109
+   },
+   {
+    "N": 64,
+    "p": 109
+   },
+   {
+    "N": 128,
+    "p": 109
+   },
+   {
+    "N": 64,
+    "p": 163
+   }
+  ],
   "state_and_length": "FCC_N initial state lifted at p, T = 100, the same for both paths",
   "paths": {
    "CPU_W6_TRAJECTORY": "E2 W6 (GPU_PAIR_VECTOR_V1 W6E2: unchanged E2 pair workers on CPUs 1-5, 0, canonical reduction in the main) forces + CPU kick / drift; initial F + 100 steps",
@@ -122,6 +184,35 @@
   "SHORT_TRAJ_EXACT_MIXED": "exact and none of the above",
   "next_if_promising": "GPU_LONG_TRAJECTORY_V1 (T = 1000 with the service precision, long-run domain stops, precision retry with the GPU)"
  },
- "not_in_scope": ["T = 1000 official", "KDK on the GPU", "position / momentum update on the GPU", "cutoff", "neighbour list", "atomic", "reduction change", "automatic GPU selector", "neural network", "precision policy change", "FAMILY_MAX change", "block-rule re-learning", "master merge"],
- "claims_forbidden": ["100-step exactness implies 1000-step or long-run exactness", "block 32 is generally best", "unmeasured N belong to the CPU or GPU region", "a REFUSED run is a failure of physics"]
+ "not_in_scope": [
+  "T = 1000 official",
+  "KDK on the GPU",
+  "position / momentum update on the GPU",
+  "cutoff",
+  "neighbour list",
+  "atomic",
+  "reduction change",
+  "automatic GPU selector",
+  "neural network",
+  "precision policy change",
+  "FAMILY_MAX change",
+  "block-rule re-learning",
+  "master merge"
+ ],
+ "claims_forbidden": [
+  "100-step exactness implies 1000-step or long-run exactness",
+  "block 32 is generally best",
+  "unmeasured N belong to the CPU or GPU region",
+  "a REFUSED run is a failure of physics"
+ ],
+ "amendment_1_before_code_seal": {
+  "order": "protocol fb9ceb4 -> bundle f26ec88 (built and committed before traj.py / campaign.py existed; checker.py and analyze.py were drafted during the bundle build) -> runner, campaign, tests -> desktop pre-seal runs -> this code seal",
+  "replica_lift_disclosure": "the bundle replica passes an already-interval input (P3_MULTI_UNPROVEN's x = [6, 6.5]) through the lift unchanged; LI.c accepts only rationals; every rational input is lifted exactly as stream.run",
+  "bundle_facts": "the 4 replica runs with a verified V2 Vast reference (N12 / N16 T = 1000 p = 163, N40 / N64 T = 100 p = 109) end equal to it; probes: P3_MULTI_VIOLATED m = 1050 and P3_MULTI_UNPROVEN m = 650 stop at state 7 pair 0, N12_MULTI_PAIR (atoms 3, 4) m = 910 stops VIOLATED at state 7 pair 30, P3_F0_VIOLATED at state 0 (both p)",
+  "fault_2_note": "recomputing F_s gives identical endpoints (determinism); it is detected only by the force evaluation count (T + 2 ... 2T + 1 instead of T + 1), as sealed",
+  "fault_4_note": "implemented as the label 5 missing with T - 1 physical steps; detected by step_indices_contiguous and the per-step digests",
+  "desktop_results_before_seal (RTX 4060, not official)": "tests/test_gpu_short_trajectory_v1.py 20 PASS (all 16 faults detected; first divergence located exactly: faults 10 / 11 / 12 at step 3 atom 0 x upper, fault 9 at step 5 F1, fault 15 at step 2 F1, fault 14 = endpoints equal / digest serialization differs); full campaign S10 + S100: 40 / 40 OK trajectories and 8 / 8 stops exact, 1162 steps compared / 0 mismatch, 248 checkpoints equal and self-consistent, layouts identical, S100 prefix = S10, the checker's own N12 / N16 state 500 = bundle; only seal_clean failed (uncommitted code)",
+  "perf_dry_run": "desktop, N12 p163 and N40 p109, T = 5, 1 warm + 1 cold repetition: code path only (load 245-418 %; numbers not used). A first dry-run attempt hung because my ad-hoc script lacked a __main__ guard (Windows spawn re-ran it in the W6 workers); I stopped my own process and reran with the guard",
+  "launcher": "experiments/gpu_short_trajectory_v1/vast_job.sh: tests -> S10 -> checker gate -> S100 -> checker gate -> perf -> analysis -> grace -> self-stop"
+ }
 }
