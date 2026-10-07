@@ -1,0 +1,106 @@
+{
+ "verdict": "EVIDENCE OK",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_trajectory_equals_reference": [
+   4,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "run_state_known": [
+   60,
+   0
+  ],
+  "run_settings_clean": [
+   60,
+   0
+  ],
+  "own_F0_equals_recorded_F_s": [
+   12,
+   0
+  ],
+  "own_step_equals_recorded_next_state": [
+   12,
+   0
+  ],
+  "C0_runner_inputs_equal_bundle": [
+   60,
+   0
+  ],
+  "C0_gpu_position_echo_q0": [
+   60,
+   0
+  ],
+  "status_equal": [
+   60,
+   0
+  ],
+  "C1_F0": [
+   60,
+   0
+  ],
+  "C2_p_half": [
+   60,
+   0
+  ],
+  "C3_q1": [
+   60,
+   0
+  ],
+  "C4_F1": [
+   60,
+   0
+  ],
+  "C5_p1": [
+   60,
+   0
+  ],
+  "C3_gpu_position_echo_q1": [
+   58,
+   0
+  ],
+  "C6_endpoints_key": [
+   60,
+   0
+  ],
+  "C6_decide": [
+   60,
+   0
+  ],
+  "own_probe_equals_bundle_outcome": [
+   8,
+   0
+  ],
+  "layouts_identical": [
+   20,
+   0
+  ],
+  "layouts_complete": [
+   12,
+   0
+  ],
+  "state_present": [
+   20,
+   0
+  ]
+ },
+ "issues": [],
+ "stats": {
+  "steps_exact": 54,
+  "steps_mismatch": 0,
+  "stops_exact": 6,
+  "stops_mismatch": 0,
+  "refused": 0,
+  "runs": 60
+ }
+}

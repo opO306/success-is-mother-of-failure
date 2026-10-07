@@ -1,0 +1,258 @@
+{
+ "what": "desktop RTX 4060 (Windows) run of the sealed code, correctness only, vs the official Vast RTX 3090 (Linux) run; hashes of all checkpoints per run",
+ "env": {
+  "head": "34cedbdd5c0944fa396e9faa6eace2e224340a9c",
+  "status_porcelain": "",
+  "sealed_sources_dirty": false,
+  "nvidia_smi": "NVIDIA GeForce RTX 4060, 617.14, 8188 MiB, 8.9",
+  "arch": "sm_89",
+  "platform": "win32",
+  "mpmath": "1.3.0",
+  "mpmath_backend": "python"
+ },
+ "checker_verdict": "EVIDENCE OK",
+ "identical_runs": 60,
+ "total_runs": 60,
+ "runs": {
+  "main0__b128_g0.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main0__b256_g0.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main0__b32_g0.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main0__b32_g1.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main0__b32_g7.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main0__b64_g0.json.gz": {
+   "desktop": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0",
+   "vast": "228645d183fe8997b6a1aa79136de8fdadf60ac46caf5acfd9a69f9364cfb8d0"
+  },
+  "main10__b128_g0.json.gz": {
+   "desktop": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba",
+   "vast": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba"
+  },
+  "main10__b256_g0.json.gz": {
+   "desktop": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba",
+   "vast": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba"
+  },
+  "main10__b32_g0.json.gz": {
+   "desktop": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba",
+   "vast": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba"
+  },
+  "main10__b64_g0.json.gz": {
+   "desktop": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba",
+   "vast": "24198c826097753afa5657493242773c53d073fddd5fad55209ebfb31627a7ba"
+  },
+  "main11__b128_g0.json.gz": {
+   "desktop": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd",
+   "vast": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd"
+  },
+  "main11__b256_g0.json.gz": {
+   "desktop": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd",
+   "vast": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd"
+  },
+  "main11__b32_g0.json.gz": {
+   "desktop": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd",
+   "vast": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd"
+  },
+  "main11__b64_g0.json.gz": {
+   "desktop": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd",
+   "vast": "d28dbe59e65609e885d28590490c789d41b58c290522f72992f4a23c7f578cdd"
+  },
+  "main1__b128_g0.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main1__b256_g0.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main1__b32_g0.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main1__b32_g1.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main1__b32_g7.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main1__b64_g0.json.gz": {
+   "desktop": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54",
+   "vast": "fb91a12174681de19ae29fd43dce9e83cc64822a7d0358a62a104f6881fbce54"
+  },
+  "main2__b128_g0.json.gz": {
+   "desktop": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17",
+   "vast": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17"
+  },
+  "main2__b256_g0.json.gz": {
+   "desktop": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17",
+   "vast": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17"
+  },
+  "main2__b32_g0.json.gz": {
+   "desktop": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17",
+   "vast": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17"
+  },
+  "main2__b64_g0.json.gz": {
+   "desktop": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17",
+   "vast": "5cf8e1a5d8a2d387308dc1b6a44af48d6e59467ee979db19641890f657f7ef17"
+  },
+  "main3__b128_g0.json.gz": {
+   "desktop": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1",
+   "vast": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1"
+  },
+  "main3__b256_g0.json.gz": {
+   "desktop": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1",
+   "vast": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1"
+  },
+  "main3__b32_g0.json.gz": {
+   "desktop": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1",
+   "vast": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1"
+  },
+  "main3__b64_g0.json.gz": {
+   "desktop": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1",
+   "vast": "a3481c70da9ad1e86b071aaccb628cfaa2c1a21a36ec42df010b0c13e7480ad1"
+  },
+  "main4__b128_g0.json.gz": {
+   "desktop": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec",
+   "vast": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec"
+  },
+  "main4__b256_g0.json.gz": {
+   "desktop": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec",
+   "vast": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec"
+  },
+  "main4__b32_g0.json.gz": {
+   "desktop": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec",
+   "vast": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec"
+  },
+  "main4__b64_g0.json.gz": {
+   "desktop": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec",
+   "vast": "38470381ed1e1f5e0015e40afbb3790c30d0ae555bc9c3ea4260df79ba4b60ec"
+  },
+  "main5__b128_g0.json.gz": {
+   "desktop": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e",
+   "vast": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e"
+  },
+  "main5__b256_g0.json.gz": {
+   "desktop": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e",
+   "vast": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e"
+  },
+  "main5__b32_g0.json.gz": {
+   "desktop": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e",
+   "vast": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e"
+  },
+  "main5__b64_g0.json.gz": {
+   "desktop": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e",
+   "vast": "7a1e673f2e5ab1420a9aeb0c8ee26a2803ff4a273c24298e218b224cc193290e"
+  },
+  "main6__b128_g0.json.gz": {
+   "desktop": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c",
+   "vast": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c"
+  },
+  "main6__b256_g0.json.gz": {
+   "desktop": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c",
+   "vast": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c"
+  },
+  "main6__b32_g0.json.gz": {
+   "desktop": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c",
+   "vast": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c"
+  },
+  "main6__b64_g0.json.gz": {
+   "desktop": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c",
+   "vast": "0bbbb438fb567f6e44e20efdce7053e5d55bea23032a899068b23c8a7f8efc3c"
+  },
+  "main7__b128_g0.json.gz": {
+   "desktop": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6",
+   "vast": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6"
+  },
+  "main7__b256_g0.json.gz": {
+   "desktop": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6",
+   "vast": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6"
+  },
+  "main7__b32_g0.json.gz": {
+   "desktop": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6",
+   "vast": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6"
+  },
+  "main7__b64_g0.json.gz": {
+   "desktop": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6",
+   "vast": "ed81336c5c9fec5a3764fbb974fcb58384e1e134dcd22fde12917c3be88705f6"
+  },
+  "main8__b128_g0.json.gz": {
+   "desktop": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a",
+   "vast": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a"
+  },
+  "main8__b256_g0.json.gz": {
+   "desktop": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a",
+   "vast": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a"
+  },
+  "main8__b32_g0.json.gz": {
+   "desktop": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a",
+   "vast": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a"
+  },
+  "main8__b64_g0.json.gz": {
+   "desktop": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a",
+   "vast": "23fa5fce851d44e56d493aa9ae868e3561d7cfca75b04f5aef9c229ca3f7051a"
+  },
+  "main9__b128_g0.json.gz": {
+   "desktop": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5",
+   "vast": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5"
+  },
+  "main9__b256_g0.json.gz": {
+   "desktop": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5",
+   "vast": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5"
+  },
+  "main9__b32_g0.json.gz": {
+   "desktop": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5",
+   "vast": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5"
+  },
+  "main9__b64_g0.json.gz": {
+   "desktop": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5",
+   "vast": "faecd06b8b6c1fc2ed1a2ffc86fdd249144e9aa40c1fff2376d2ee254ec73ae5"
+  },
+  "test0__b32_g0.json.gz": {
+   "desktop": "6b820c7cba99efb5a47cb35dfd8be93ff50f763b7006fc638199206fdcd47471",
+   "vast": "6b820c7cba99efb5a47cb35dfd8be93ff50f763b7006fc638199206fdcd47471"
+  },
+  "test1__b32_g0.json.gz": {
+   "desktop": "0f812b82bb17a733d35a551e66a0aef0d949e6d904d1129b2bcffe30adea92a0",
+   "vast": "0f812b82bb17a733d35a551e66a0aef0d949e6d904d1129b2bcffe30adea92a0"
+  },
+  "test2__b32_g0.json.gz": {
+   "desktop": "6ba4893baa19c55e85e19a21c02a241a4192c4b440227cd7e1a78db78ad68636",
+   "vast": "6ba4893baa19c55e85e19a21c02a241a4192c4b440227cd7e1a78db78ad68636"
+  },
+  "test3__b32_g0.json.gz": {
+   "desktop": "6cb331d61fbdea1e0f816ab621f79d70a7f827f084920fdc4a33d58340bdab35",
+   "vast": "6cb331d61fbdea1e0f816ab621f79d70a7f827f084920fdc4a33d58340bdab35"
+  },
+  "test4__b32_g0.json.gz": {
+   "desktop": "27e6cd9811cf0da8d500df1f0f1fe647a690f9074f2f62be694778edaa1246bd",
+   "vast": "27e6cd9811cf0da8d500df1f0f1fe647a690f9074f2f62be694778edaa1246bd"
+  },
+  "test5__b32_g0.json.gz": {
+   "desktop": "0f812b82bb17a733d35a551e66a0aef0d949e6d904d1129b2bcffe30adea92a0",
+   "vast": "0f812b82bb17a733d35a551e66a0aef0d949e6d904d1129b2bcffe30adea92a0"
+  },
+  "test6__b32_g0.json.gz": {
+   "desktop": "baabc08f1a7123357cd293ad8fafac642bf89524d185ef82866736267c29e70e",
+   "vast": "baabc08f1a7123357cd293ad8fafac642bf89524d185ef82866736267c29e70e"
+  },
+  "test7__b32_g0.json.gz": {
+   "desktop": "a4bee2379291f4ab0b0d1f206461101a8a8b7ec583deff0d66b79a0653fbed3b",
+   "vast": "a4bee2379291f4ab0b0d1f206461101a8a8b7ec583deff0d66b79a0653fbed3b"
+  }
+ }
+}

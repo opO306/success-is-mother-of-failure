@@ -1,0 +1,14 @@
+JOB_START 2026-10-07T06:43:13Z head 34cedbdd5c0944fa396e9faa6eace2e224340a9c
+== pytest (REMOTE LINUX related set)
+..................                                                       [100%]
+18 passed in 6.84s
+CAMPAIGN_EXIT rc=0 2026-10-07T06:43:44Z
+EVIDENCE OK {} [] {'steps_exact': 54, 'steps_mismatch': 0, 'stops_exact': 6, 'stops_mismatch': 0, 'refused': 0, 'runs': 60}
+ONE_STEP_PROMISING {'steps_exact': 54, 'steps_mismatch': 0, 'stops_exact': 6, 'stops_mismatch': 0, 'refused': 0, 'runs': 60} {'CPU_confirmed': [], 'TIE': [], 'GPU_confirmed': [40, 64, 128], 'UNKNOWN': 'every unmeasured N'} {12: 'GPU_WIN', 16: 'GPU_WIN', 64: 'GPU_WIN'}
+N12 p163: GPU 7.8 W6 8.2 ratio 0.956 GPU_WIN | init GPU 22 W6 491
+N16 p163: GPU 8.8 W6 15.3 ratio 0.578 GPU_WIN | init GPU 23 W6 465
+N40 p109: GPU 7.7 W6 84.5 ratio 0.091 GPU_WIN | init GPU 22 W6 532
+N64 p109: GPU 8.8 W6 216.6 ratio 0.041 GPU_WIN | init GPU 23 W6 685
+N128 p109: GPU 12.9 W6 883.5 ratio 0.015 GPU_WIN | init GPU 25 W6 1325
+N64 p163: GPU 11.8 W6 229.8 ratio 0.052 GPU_WIN | init GPU 24 W6 687
+DONE_MARKER 2026-10-07T06:43:54Z grace 1800s

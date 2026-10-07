@@ -1,0 +1,28 @@
+device NVIDIA GeForce RTX 3090
+state main0 N40 p109 MAIN: OK None None decide [-1708494179998, 339 (6 layouts)
+state main1 N40 p109 MAIN: OK None None decide [-7857359328096, 151 (6 layouts)
+state main2 N40 p109 MAIN: OK None None decide [-13354683447864, 24 (4 layouts)
+state main3 N64 p109 MAIN: OK None None decide [-1647793715856, 339 (4 layouts)
+state main4 N64 p109 MAIN: OK None None decide [-7459596771492, 151 (4 layouts)
+state main5 N64 p109 MAIN: OK None None decide [-12512919104477, 24 (4 layouts)
+state main6 N12 p163 MAIN: OK None None decide [-12529196159743, 26 (4 layouts)
+state main7 N12 p163 MAIN: OK None None decide [18313982464702, -15 (4 layouts)
+state main8 N12 p163 MAIN: OK None None decide [3951543008815, 6017 (4 layouts)
+state main9 N16 p163 MAIN: OK None None decide [-14361053050097, 22 (4 layouts)
+state main10 N16 p163 MAIN: OK None None decide [-9538246604390, -44 (4 layouts)
+state main11 N16 p163 MAIN: OK None None decide [-35440402671093, -1 (4 layouts)
+state test0 N3 p109 PROBE_NORMAL: OK None None decide [-101141229423, 1011 (1 layouts)
+state test1 N3 p109 PROBE_F0_VIOLATED: DOMAIN_STOP_VIOLATED F0 0 decide None (1 layouts)
+state test2 N3 p109 PROBE_F1_UNPROVEN: DOMAIN_STOP_UNPROVEN F1 0 decide None (1 layouts)
+state test3 N3 p109 PROBE_F1_VIOLATED: DOMAIN_STOP_VIOLATED F1 0 decide None (1 layouts)
+state test4 N3 p163 PROBE_NORMAL: OK None None decide [-101141229423, 1011 (1 layouts)
+state test5 N3 p163 PROBE_F0_VIOLATED: DOMAIN_STOP_VIOLATED F0 0 decide None (1 layouts)
+state test6 N3 p163 PROBE_F1_UNPROVEN: DOMAIN_STOP_UNPROVEN F1 0 decide None (1 layouts)
+state test7 N3 p163 PROBE_F1_VIOLATED: DOMAIN_STOP_VIOLATED F1 0 decide None (1 layouts)
+perf N12 p163: steady GPU 7.8 ms (force 7.6) | W6 8.2 ms -> 0.956 GPU_WIN | equal True | init GPU 22 W6 491 | load 0% ['0.41', '0.35', '0.34']
+perf N16 p163: steady GPU 8.8 ms (force 8.5) | W6 15.3 ms -> 0.578 GPU_WIN | equal True | init GPU 23 W6 465 | load 0% ['0.41', '0.35', '0.34']
+perf N40 p109: steady GPU 7.7 ms (force 7.0) | W6 84.5 ms -> 0.091 GPU_WIN | equal True | init GPU 22 W6 532 | load 0% ['0.37', '0.34', '0.34']
+perf N64 p109: steady GPU 8.8 ms (force 7.8) | W6 216.6 ms -> 0.041 GPU_WIN | equal True | init GPU 23 W6 685 | load 0% ['0.37', '0.34', '0.34']
+perf N128 p109: steady GPU 12.9 ms (force 10.6) | W6 883.5 ms -> 0.015 GPU_WIN | equal True | init GPU 25 W6 1325 | load 0% ['0.34', '0.34', '0.33']
+perf N64 p163: steady GPU 11.8 ms (force 10.8) | W6 229.8 ms -> 0.052 GPU_WIN | equal True | init GPU 24 W6 687 | load 1.0% ['0.80', '0.43', '0.37']
+finished
