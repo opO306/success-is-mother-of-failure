@@ -185,5 +185,11 @@
    "12": "index echo"
   },
   "perf_dry_run": "desktop, batches 128 and 780, 1 repetition, to exercise the code path only; not used (the desktop was loaded by another session's processes). A first attempt launched from a stdin script hung because Windows spawn cannot re-import a stdin __main__; that process (mine) was stopped; the campaign runs as a module and is unaffected"
+ },
+ "amendment_2_official_host_change (designer decision, before any official run)": {
+  "decision": "official performance host changed from Vast 52763629 (Ryzen 9 5950X + RTX 3090; resources_unavailable) to Vast 52763685 (Ryzen Threadripper PRO 3975WX + RTX 3090). Every CPU and GPU baseline is measured from scratch on the new host; absolute performance is never compared across hosts",
+  "host_as_checked": "64 logical CPUs visible (32 cores x 2 SMT, one NUMA node), cgroup cpu.max 1536000/100000 (= 15.36 CPUs), cpuset 0-63; CPUs 0-5 are cores 0-5 (SMT siblings 32-37 unused by this job); RTX 3090 24 GB, driver 565.57.01, nvcc 12.8 (sm_86), g++; venv python 3.12.3, mpmath 1.3.0 pure-python backend, psutil 7.2.2; nice 0; 8 GB disk",
+  "shared_host_disclosure": "/proc/loadavg before the run was 4.99 / 9.62 / 15.56 with no busy process in this container: the physical host appears shared with other tenants. The job records /proc/loadavg every 10 s during the campaign (outside the sealed code, in the launcher) and the report states it; no result is excluded on this basis unless the sealed rules say so",
+  "unchanged": "code (b6a77ba), sample bundle, layouts, batch sizes, decision rules"
  }
 }
