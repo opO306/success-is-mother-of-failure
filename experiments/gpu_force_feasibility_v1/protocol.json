@@ -1,7 +1,12 @@
 {
  "gate": "GPU_FORCE_FEASIBILITY_V1 (G0) - is there a realistic path to evaluate the E2 scalar G(R^2) interval on a GPU without changing the meaning of the current world?",
  "date": "2026-10-07",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "G(R^2) SCALAR ONLY - NO VECTOR IMPULSE, NO REDUCTION, NO KDK, NO TRAJECTORY ON GPU"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "G(R^2) SCALAR ONLY - NO VECTOR IMPULSE, NO REDUCTION, NO KDK, NO TRAJECTORY ON GPU"
+ ],
  "baseline": {
   "parent": "claude/experience-start-p-v2 @ 1a73d95 (= origin, checked after fetch)",
   "master": "15ae151 = origin/master",
@@ -36,7 +41,13 @@
  "g0_scope": {
   "gpu_computes": "for a batch of R^2 intervals at one precision p: G(R^2) interval (or the domain refusal) - nothing else",
   "cpu_does": "trajectory, R^2 collection, encoding, constants (model), decoding, independent comparison",
-  "not_done": ["vector impulse", "pair reduction", "KDK", "trajectory", "Selector integration"]
+  "not_done": [
+   "vector impulse",
+   "pair reduction",
+   "KDK",
+   "trajectory",
+   "Selector integration"
+  ]
  },
  "gpu_design": {
   "program": "the per-call operation sequence of RwForce.__call__ is recorded once per p by a tracer that runs the frozen RwForce.__call__ with symbolic values (rwforce.iv and rwforce._pos are replaced only in memory during tracing and restored; no file changes). Ops: SQRT, DIV, MUL, ADD, SUB, NEG, EXP, REQUIRE_POS (domain obligation). Registers are re-used by a liveness pass. The tracer is checked by evaluating its program with mpmath iv on the host and comparing with RwForce on every sample (host replay)",
@@ -55,7 +66,26 @@
  },
  "sample_bundle": {
   "trajectories": [
-   {"N": 40, "T": 100, "p": 109}, {"N": 64, "T": 100, "p": 109}, {"N": 12, "T": 1000, "p": 163}, {"N": 16, "T": 1000, "p": 163}
+   {
+    "N": 40,
+    "T": 100,
+    "p": 109
+   },
+   {
+    "N": 64,
+    "T": 100,
+    "p": 109
+   },
+   {
+    "N": 12,
+    "T": 1000,
+    "p": 163
+   },
+   {
+    "N": 16,
+    "T": 1000,
+    "p": 163
+   }
   ],
   "how": "run the unchanged E2 serial loop (stream.run through the same force swap as multiatom_parallel_v1.run_serial) with the force wrapped by a recorder that only observes: call c of the run is step c // P, pair pairs[c % P] (canonical order, every step evaluates every pair once when all are PROVEN); at steps 0, T/10, T/2 and T every pair's R^2 interval is recorded together with the CPU G interval the run itself produced",
   "identity_check": "each recorded run's final readout (outcome, completed_steps, stop, stop_step, cells, endpoints_key, initial digest) must equal the verified serial reference of the same (N, T, p) in docs/active/experience_start_p_v2/vast_run (Linux) - otherwise the bundle is not built",
@@ -113,6 +143,47 @@
   "next_if_promising": "GPU_PAIR_VECTOR_V1 (d, R^2, G, (H*G)*d on the GPU) - not started in this stage"
  },
  "questions_to_answer": 12,
- "not_in_scope": ["whole trajectory on GPU", "KDK on GPU", "canonical reduction change", "atom force reduction on GPU", "GPU in the Selector", "FAMILY_MAX change", "precision policy change", "physics change", "cutoff", "neighbour list", "float64 fallback", "neural selector", "PyTorch", "editing frozen CUDA code", "master merge"],
- "claims_forbidden": ["a GPU interval narrower than the CPU interval is 'more accurate'", "THROUGHPUT_PROBE speed is trajectory speed", "kernel time alone is the GPU speed", "bit identity on the samples is a proof"]
+ "not_in_scope": [
+  "whole trajectory on GPU",
+  "KDK on GPU",
+  "canonical reduction change",
+  "atom force reduction on GPU",
+  "GPU in the Selector",
+  "FAMILY_MAX change",
+  "precision policy change",
+  "physics change",
+  "cutoff",
+  "neighbour list",
+  "float64 fallback",
+  "neural selector",
+  "PyTorch",
+  "editing frozen CUDA code",
+  "master merge"
+ ],
+ "claims_forbidden": [
+  "a GPU interval narrower than the CPU interval is 'more accurate'",
+  "THROUGHPUT_PROBE speed is trajectory speed",
+  "kernel time alone is the GPU speed",
+  "bit identity on the samples is a proof"
+ ],
+ "amendment_1_before_code_seal": {
+  "order_disclosure": "the CUDA library, tracer and host (g0.cu, compile_plan.py, gpu_host.py) were written while the sample builder ran, and one synthetic smoke (7 synthetic R^2 values x p 64/109/128/163/192, all bit-identical to the CPU) was evaluated before the bundle commit dd55c41; the bundle content is fixed by this protocol and produced by samples.py without any GPU input; no bundle sample was evaluated on the GPU before dd55c41",
+  "desktop_smoke_after_bundle_seal": "RTX 4060, full sealed bundle: main 11,928 / 11,928 EXACT in all 12 layouts (outputs bit-identical across layouts), test-only p 64/128/192 768 / 768 EXACT, domain probes 6 / 6 DOMAIN_UNPROVEN with no obligation bits; only seal_clean failed (uncommitted code)",
+  "checker_changes_before_seal": "runs may cover a subset prefix (tests); the official evidence requires full subsets (run_covers_subset); a device REFUSED is counted separately and is not by itself a checker failure (as stated in 'correctness_hard_gate'); CPU intervals are recomputed lazily per used sample",
+  "fault_results_on_the_fixture (150 p109 + 60 p163 + 3 probes)": {
+   "1": "all 150 p109 UNSOUND",
+   "2": "all UNSOUND",
+   "3": "78 UNSOUND, 72 still containing (SOUND_WIDE) - containment alone would not reveal every corruption",
+   "4": "all UNSOUND",
+   "5": "40 UNSOUND, 110 still EXACT",
+   "6": "14 UNSOUND, 136 EXACT",
+   "7": "obligation mask incomplete on every sample",
+   "8": "with 8 work limbs the correct code refuses all 150 (REFUSED_DEVICE_WIDTH); with the check disabled all 150 UNSOUND",
+   "9": "pair count",
+   "10": "block-64 run differs from block-32 run and 77 checks UNSOUND",
+   "11": "input echo differs from the bundle (the altered sample itself still contained the CPU interval)",
+   "12": "index echo"
+  },
+  "perf_dry_run": "desktop, batches 128 and 780, 1 repetition, to exercise the code path only; not used (the desktop was loaded by another session's processes). A first attempt launched from a stdin script hung because Windows spawn cannot re-import a stdin __main__; that process (mine) was stopped; the campaign runs as a module and is unaffected"
+ }
 }
