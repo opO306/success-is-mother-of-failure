@@ -1,0 +1,146 @@
+{
+ "verdict": "EVIDENCE OK",
+ "phase": "s100",
+ "counts": {
+  "bundle_hash_matches_sealed_file": [
+   1,
+   0
+  ],
+  "bundle_replica_equals_verified_reference": [
+   6,
+   0
+  ],
+  "seal_clean": [
+   1,
+   0
+  ],
+  "env_bundle_sha": [
+   1,
+   0
+  ],
+  "own_initial_equals_bundle_q0_p0": [
+   14,
+   0
+  ],
+  "own_steps_equal_bundle_replica": [
+   16,
+   0
+  ],
+  "own_outcome_equals_bundle": [
+   16,
+   0
+  ],
+  "own_full_equals_bundle": [
+   88,
+   0
+  ],
+  "own_read_equals_bundle": [
+   16,
+   0
+  ],
+  "own_start_state_equals_bundle_q0_p0": [
+   2,
+   0
+  ],
+  "run_known": [
+   48,
+   0
+  ],
+  "run_settings_clean": [
+   48,
+   0
+  ],
+  "C0_runner_inputs_equal_bundle": [
+   48,
+   0
+  ],
+  "stop_equal": [
+   48,
+   0
+  ],
+  "step_indices_contiguous": [
+   48,
+   0
+  ],
+  "step_count_equal": [
+   48,
+   0
+  ],
+  "per_step_digests_equal": [
+   48,
+   0
+  ],
+  "force_evaluations_reuse": [
+   48,
+   0
+  ],
+  "executor_persistent_in_trajectory": [
+   48,
+   0
+  ],
+  "completed_steps_equal": [
+   48,
+   0
+  ],
+  "checkpoint_present": [
+   248,
+   0
+  ],
+  "checkpoint_endpoints_equal": [
+   248,
+   0
+  ],
+  "digest_self_consistent": [
+   248,
+   0
+  ],
+  "final_read_equal": [
+   40,
+   0
+  ],
+  "partial_step_after_stop_has_no_F1_p1": [
+   6,
+   0
+  ],
+  "refusal_run_refused": [
+   1,
+   0
+  ],
+  "layouts_identical": [
+   24,
+   0
+  ],
+  "S100_prefix_equals_S10": [
+   8,
+   0
+  ],
+  "S10_layouts_complete": [
+   8,
+   0
+  ],
+  "S100_present": [
+   8,
+   0
+  ],
+  "probe_present": [
+   8,
+   0
+  ],
+  "refusal_run_present": [
+   1,
+   0
+  ]
+ },
+ "issues": [],
+ "stats": {
+  "runs": 48,
+  "traj_exact": 40,
+  "traj_mismatch": 0,
+  "stops_exact": 8,
+  "stops_mismatch": 0,
+  "refused": 1,
+  "steps_compared": 1162,
+  "steps_mismatch": 0
+ },
+ "first_divergence": []
+}

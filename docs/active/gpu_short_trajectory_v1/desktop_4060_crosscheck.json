@@ -1,0 +1,28 @@
+{
+ "desktop": {
+  "device": "NVIDIA GeForce RTX 4060",
+  "runs_dir": "desktop pre-seal run at the code-seal tree (amendment 1), not committed"
+ },
+ "vast": {
+  "device": "NVIDIA GeForce RTX 3090",
+  "runs_dir": "docs/active/gpu_short_trajectory_v1/vast_run/runs"
+ },
+ "compared_fields": [
+  "steps",
+  "full",
+  "read",
+  "status",
+  "stop_state",
+  "stop_pair",
+  "completed_steps",
+  "force_evals",
+  "dump",
+  "echo_q0",
+  "echo_p0"
+ ],
+ "files_compared": 49,
+ "identical": 49,
+ "different": [],
+ "only_desktop": [],
+ "only_vast": []
+}

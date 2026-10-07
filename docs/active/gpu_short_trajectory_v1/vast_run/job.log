@@ -1,0 +1,19 @@
+JOB_START 2026-10-07T07:40:26Z head 111f668d5169a294e4ad3e0b716f1030bb0e9348
+== pytest (REMOTE LINUX related set)
+....................                                                     [100%]
+20 passed in 8.85s
+== S10 07:40:35
+EVIDENCE OK {} [] {'runs': 40, 'traj_exact': 32, 'traj_mismatch': 0, 'stops_exact': 8, 'stops_mismatch': 0, 'refused': 1, 'steps_compared': 362, 'steps_mismatch': 0}
+== S100 07:41:33
+EVIDENCE OK {} [] {'runs': 48, 'traj_exact': 40, 'traj_mismatch': 0, 'stops_exact': 8, 'stops_mismatch': 0, 'refused': 1, 'steps_compared': 1162, 'steps_mismatch': 0}
+== PERF 07:49:27
+== FINISHED 08:10:12
+JOB_EXIT rc=0 2026-10-07T08:10:12Z
+SHORT_TRAJ_PROMISING {'runs': 48, 'traj_exact': 40, 'traj_mismatch': 0, 'stops_exact': 8, 'stops_mismatch': 0, 'refused': 1, 'steps_compared': 1162, 'steps_mismatch': 0} {'CPU_confirmed': [], 'TIE': [], 'GPU_confirmed': [40, 64, 128], 'UNKNOWN': 'every unmeasured N'} {'CPU_confirmed': [], 'TIE': [12], 'GPU_confirmed': [16, 64], 'UNKNOWN': 'every unmeasured N'}
+N12 p163: warm GPU 785 W6 780 ms ratio 1.006 TIE | cold GPU 898 W6 1279 ratio 0.702
+N16 p163: warm GPU 819 W6 1413 ms ratio 0.580 GPU_WIN | cold GPU 936 W6 1896 ratio 0.494
+N40 p109: warm GPU 727 W6 8580 ms ratio 0.085 GPU_WIN | cold GPU 844 W6 9098 ratio 0.093
+N64 p109: warm GPU 890 W6 23166 ms ratio 0.038 GPU_WIN | cold GPU 1000 W6 22896 ratio 0.044
+N128 p109: warm GPU 1222 W6 89209 ms ratio 0.014 GPU_WIN | cold GPU 1345 W6 89590 ratio 0.015
+N64 p163: warm GPU 1152 W6 23220 ms ratio 0.050 GPU_WIN | cold GPU 1260 W6 23899 ratio 0.053
+DONE_MARKER 2026-10-07T08:10:12Z grace 1800s

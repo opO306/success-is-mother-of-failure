@@ -1,0 +1,84 @@
+device NVIDIA GeForce RTX 3090
+N12_p163_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 89 ms
+N12_p163_s500 T10 b256: OK stop None pair None completed 10 evals 11 dump None 90 ms
+N16_p163_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 94 ms
+N16_p163_s500 T10 b256: OK stop None pair None completed 10 evals 11 dump None 95 ms
+N40_p109_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 97 ms
+N64_p109_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 119 ms
+N128_p109_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 188 ms
+N64_p163_s0 T10 b256: OK stop None pair None completed 10 evals 11 dump None 151 ms
+N12_MULTI_PAIR_p109 T10 b32: DOMAIN_STOP_VIOLATED stop 7 pair 30 completed 6 evals 8 dump None 62 ms
+P3_F0_VIOLATED_p109 T10 b32: DOMAIN_STOP_VIOLATED stop 0 pair 0 completed 0 evals 1 dump None 9 ms
+P3_MULTI_UNPROVEN_p109 T10 b32: DOMAIN_STOP_UNPROVEN stop 7 pair 0 completed 6 evals 8 dump None 42 ms
+P3_MULTI_VIOLATED_p109 T10 b32: DOMAIN_STOP_VIOLATED stop 7 pair 0 completed 6 evals 8 dump None 42 ms
+N12_MULTI_PAIR_p163 T10 b32: DOMAIN_STOP_VIOLATED stop 7 pair 30 completed 6 evals 8 dump None 81 ms
+P3_F0_VIOLATED_p163 T10 b32: DOMAIN_STOP_VIOLATED stop 0 pair 0 completed 0 evals 1 dump None 12 ms
+P3_MULTI_UNPROVEN_p163 T10 b32: DOMAIN_STOP_UNPROVEN stop 7 pair 0 completed 6 evals 8 dump None 59 ms
+P3_MULTI_VIOLATED_p163 T10 b32: DOMAIN_STOP_VIOLATED stop 7 pair 0 completed 6 evals 8 dump None 58 ms
+refusal run: REFUSED_DEVICE_PRECISION
+finished s10
+device NVIDIA GeForce RTX 3090
+N12_p163_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 865 ms
+N12_p163_s500 T100 b32: OK stop None pair None completed 100 evals 101 dump None 818 ms
+N16_p163_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 849 ms
+N16_p163_s500 T100 b32: OK stop None pair None completed 100 evals 101 dump None 850 ms
+N40_p109_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 806 ms
+N64_p109_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 967 ms
+N128_p109_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 1459 ms
+N64_p163_s0 T100 b32: OK stop None pair None completed 100 evals 101 dump None 1236 ms
+finished s100
+  N12 p163 warm rep 0: GPU 797 W6 779 ms
+  N12 p163 warm rep 1: GPU 784 W6 780 ms
+  N12 p163 warm rep 2: GPU 785 W6 783 ms
+  N12 p163 warm rep 3: GPU 785 W6 780 ms
+  N12 p163 warm rep 4: GPU 785 W6 782 ms
+  N12 p163 cold rep 0: GPU 898 W6 1279 ms
+  N12 p163 cold rep 1: GPU 889 W6 1257 ms
+  N12 p163 cold rep 2: GPU 922 W6 1282 ms
+perf N12 p163: warm GPU 785 ms | W6 780 ms -> 1.006 TIE | cold GPU 898 W6 1279 | equal True | load 0% ['1.43', '1.69', '1.30']
+  N16 p163 warm rep 0: GPU 831 W6 1409 ms
+  N16 p163 warm rep 1: GPU 809 W6 1413 ms
+  N16 p163 warm rep 2: GPU 824 W6 1413 ms
+  N16 p163 warm rep 3: GPU 808 W6 1407 ms
+  N16 p163 warm rep 4: GPU 819 W6 1413 ms
+  N16 p163 cold rep 0: GPU 950 W6 1892 ms
+  N16 p163 cold rep 1: GPU 919 W6 1896 ms
+  N16 p163 cold rep 2: GPU 936 W6 1897 ms
+perf N16 p163: warm GPU 819 ms | W6 1413 ms -> 0.580 GPU_WIN | cold GPU 936 W6 1896 | equal True | load 1.0% ['2.00', '1.82', '1.36']
+  N40 p109 warm rep 0: GPU 727 W6 8570 ms
+  N40 p109 warm rep 1: GPU 706 W6 8558 ms
+  N40 p109 warm rep 2: GPU 742 W6 8595 ms
+  N40 p109 warm rep 3: GPU 706 W6 8580 ms
+  N40 p109 warm rep 4: GPU 757 W6 8600 ms
+  N40 p109 cold rep 0: GPU 844 W6 9089 ms
+  N40 p109 cold rep 1: GPU 815 W6 9136 ms
+  N40 p109 cold rep 2: GPU 878 W6 9098 ms
+perf N40 p109: warm GPU 727 ms | W6 8580 ms -> 0.085 GPU_WIN | cold GPU 844 W6 9098 | equal True | load 1.0% ['2.91', '2.04', '1.44']
+  N64 p109 warm rep 0: GPU 890 W6 23123 ms
+  N64 p109 warm rep 1: GPU 827 W6 23126 ms
+  N64 p109 warm rep 2: GPU 901 W6 23289 ms
+  N64 p109 warm rep 3: GPU 831 W6 23166 ms
+  N64 p109 warm rep 4: GPU 908 W6 23212 ms
+  N64 p109 cold rep 0: GPU 1004 W6 22896 ms
+  N64 p109 cold rep 1: GPU 935 W6 22719 ms
+  N64 p109 cold rep 2: GPU 1000 W6 22946 ms
+perf N64 p109: warm GPU 890 ms | W6 23166 ms -> 0.038 GPU_WIN | cold GPU 1000 W6 22896 | equal True | load 1.0% ['3.69', '2.66', '1.72']
+  N128 p109 warm rep 0: GPU 1249 W6 89102 ms
+  N128 p109 warm rep 1: GPU 1174 W6 89460 ms
+  N128 p109 warm rep 2: GPU 1222 W6 89499 ms
+  N128 p109 warm rep 3: GPU 1172 W6 89123 ms
+  N128 p109 warm rep 4: GPU 1241 W6 89209 ms
+  N128 p109 cold rep 0: GPU 1345 W6 89753 ms
+  N128 p109 cold rep 1: GPU 1294 W6 89561 ms
+  N128 p109 cold rep 2: GPU 1350 W6 89590 ms
+perf N128 p109: warm GPU 1222 ms | W6 89209 ms -> 0.014 GPU_WIN | cold GPU 1345 W6 89590 | equal True | load 0% ['5.29', '3.95', '2.41']
+  N64 p163 warm rep 0: GPU 1163 W6 23286 ms
+  N64 p163 warm rep 1: GPU 1082 W6 23220 ms
+  N64 p163 warm rep 2: GPU 1152 W6 23192 ms
+  N64 p163 warm rep 3: GPU 1083 W6 23253 ms
+  N64 p163 warm rep 4: GPU 1167 W6 23185 ms
+  N64 p163 cold rep 0: GPU 1267 W6 23899 ms
+  N64 p163 cold rep 1: GPU 1190 W6 23765 ms
+  N64 p163 cold rep 2: GPU 1260 W6 24047 ms
+perf N64 p163: warm GPU 1152 ms | W6 23220 ms -> 0.050 GPU_WIN | cold GPU 1260 W6 23899 | equal True | load 2.0% ['4.91', '5.40', '4.12']
+finished perf
