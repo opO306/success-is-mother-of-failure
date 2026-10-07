@@ -188,5 +188,6 @@
   "one Vast machine result holds elsewhere",
   "bit identity is a proof",
   "Vast timings equal laptop timings"
- ]
+ ],
+ "amendment_1_before_any_evaluation_run": "Before the code seal: (1) desktop tests (18 PASS) used the scratch request N = 6, T = 100 and the anchor; (2) on the Vast node, the same tests passed under Linux with the shim (REMOTE LINUX related set, 18 PASS), and a dry campaign on N = 6, T = 100 (not an evaluation request) gave BASE64 64 -> 107, FAMILY_MIN 106 and FAMILY_MAX 109 first-pass DECIDED (the same as V1 amendment 1), every pass bit-identical to its serial reference, the cross-platform anchor N = 8, T = 100, p = 107 IDENTICAL to the laptop serial pass; (3) the cost-only smoke N = 64, T = 3, p = 64 took W6 e2e 1.21 s / CPU 5.04 s and serial e2e 4.36 s / CPU 4.32 s (outcome not looked at). Defect found by the dry run and fixed before the seal: the placement check read the CPU mask of the campaign process after it had pinned itself to CPU 0; it now reads the container cpuset (0-31). Transport note: GNU tar under the node's proot cannot create directories; the evaluation code is taken by git clone of a bundle (no overlay)."
 }
