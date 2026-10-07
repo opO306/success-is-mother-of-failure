@@ -1,0 +1,16 @@
+{"probe": "P3_F0_VIOLATED_p109", "m": 0, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 0, "stop_pair": 0, "wall_s": 1.8}
+{"probe": "P3_MULTI_VIOLATED_p109", "m": 1050, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 7, "stop_pair": 0, "wall_s": 1.8}
+{"probe": "P3_MULTI_UNPROVEN_p109", "m": 650, "status": "DOMAIN_STOP_UNPROVEN", "stop_state": 7, "stop_pair": 0, "wall_s": 1.8}
+{"probe": "P3_F0_VIOLATED_p163", "m": 0, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 0, "stop_pair": 0, "wall_s": 1.9}
+{"probe": "P3_MULTI_VIOLATED_p163", "m": 1050, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 7, "stop_pair": 0, "wall_s": 1.9}
+{"probe": "P3_MULTI_UNPROVEN_p163", "m": 650, "status": "DOMAIN_STOP_UNPROVEN", "stop_state": 7, "stop_pair": 0, "wall_s": 1.9}
+{"N": 12, "p": 163, "last": 1000, "tie": true, "wall_s": 90.2}
+{"N": 40, "p": 109, "last": 100, "tie": true, "wall_s": 103.1}
+{"N": 16, "p": 163, "last": 1000, "tie": true, "wall_s": 155.8}
+{"probe": "N12_MULTI_PAIR_p109", "m": 910, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 7, "stop_pair": 30, "wall_s": 161.3}
+{"probe": "N12_MULTI_PAIR_p163", "m": 910, "status": "DOMAIN_STOP_VIOLATED", "stop_state": 7, "stop_pair": 30, "wall_s": 167.4}
+{"N": 64, "p": 109, "last": 100, "tie": true, "wall_s": 234.8}
+{"N": 64, "p": 163, "last": 100, "tie": null, "wall_s": 243.5}
+{"N": 128, "p": 109, "last": 100, "tie": null, "wall_s": 695.2}
+main 8 probes 8 sha256 2bca7c26307df9ceeda0786accd7db570173917823b0d6c9e70cfffc2abeba00 bytes 1415387
+exit 0
