@@ -1,7 +1,12 @@
 {
  "gate": "GPU_PAIR_VECTOR_V1 - Gate A: does the GPU compute every pair's 3-D impulse J = (h*g)*d exactly as the CPU E2? Gate B (only if A passes): does an in-GPU canonical atom reduction give the CPU's per-atom force F endpoint for endpoint?",
  "date": "2026-10-07",
- "classification": ["SURVEY_ONLY", "NOT CERTIFIED", "NO PRODUCTION PROMOTION", "FORCES ONLY - NO MOMENTUM / POSITION UPDATE, NO KDK, NO TRAJECTORY ON GPU"],
+ "classification": [
+  "SURVEY_ONLY",
+  "NOT CERTIFIED",
+  "NO PRODUCTION PROMOTION",
+  "FORCES ONLY - NO MOMENTUM / POSITION UPDATE, NO KDK, NO TRAJECTORY ON GPU"
+ ],
  "baseline": {
   "parent": "claude/gpu-force-feasibility-v1 @ 92eaaff (= origin, checked after fetch)",
   "master": "15ae151 = origin/master",
@@ -36,7 +41,12 @@
  },
  "gate_A": {
   "gpu": "input: the N x 3 position intervals of one state (exact dyadic words); device: canonical pair table (i, j) by pair id; kernel 1 per pair: d, r2, domain status (exact comparison with R_MIN2 = a / b, uploaded as integers); kernel 2 per pair: G (G0 program interpreter, only for PROVEN pairs); kernel 3 per pair: J[k] = (h*g)*d[k], each k computing h*g as the source does; output per pair: status, pair id echo, obligation mask, device precision echo, r2, G, J0, J1, J2",
-  "classes": {"PAIR_EXACT": "domain status equal and all 6 endpoints of J equal", "PAIR_SOUND_ONLY": "status equal, every component contains the CPU interval, some endpoint differs", "PAIR_UNSOUND": "some component does not contain the CPU interval", "DOMAIN_MISMATCH": "status differs"},
+  "classes": {
+   "PAIR_EXACT": "domain status equal and all 6 endpoints of J equal",
+   "PAIR_SOUND_ONLY": "status equal, every component contains the CPU interval, some endpoint differs",
+   "PAIR_UNSOUND": "some component does not contain the CPU interval",
+   "DOMAIN_MISMATCH": "status differs"
+  },
   "pass": "PAIR_UNSOUND = 0, DOMAIN_MISMATCH = 0, no missing / reordered pair, all layouts identical; target PAIR_EXACT 100 %. If EXACT breaks, the cause is investigated before any performance number is used",
   "A1_correctness_path": "all pair outputs (incl. r2 and G) copied back and decoded",
   "A2_performance_path": "host position encode, H2D, kernel d/r2, kernel G, kernel J, D2H of J records, host decode (+ the host canonical reduction of the decoded J to F, reported separately) - CUDA events between the three kernels"
@@ -68,13 +78,41 @@
    "GPU_B_ATOM_REDUCE": "encode positions, H2D, 4 kernels, D2H of N x 3 F, decode"
   },
   "combinations (sealed; information value over a full cartesian product)": [
-   {"N": 40, "p": 109, "state": "bundle N=40 step 50"},
-   {"N": 64, "p": 109, "state": "bundle N=64 step 50"},
-   {"N": 96, "p": 109, "state": "FCC_N initial state (step 0, lifted at p)"},
-   {"N": 128, "p": 109, "state": "FCC_N initial state (step 0, lifted at p)"},
-   {"N": 12, "p": 163, "state": "bundle N=12 step 500"},
-   {"N": 16, "p": 163, "state": "bundle N=16 step 500"},
-   {"N": 64, "p": 163, "state": "FCC_N initial state (step 0, lifted at p): the p effect at the same N"}
+   {
+    "N": 40,
+    "p": 109,
+    "state": "bundle N=40 step 50"
+   },
+   {
+    "N": 64,
+    "p": 109,
+    "state": "bundle N=64 step 50"
+   },
+   {
+    "N": 96,
+    "p": 109,
+    "state": "FCC_N initial state (step 0, lifted at p)"
+   },
+   {
+    "N": 128,
+    "p": 109,
+    "state": "FCC_N initial state (step 0, lifted at p)"
+   },
+   {
+    "N": 12,
+    "p": 163,
+    "state": "bundle N=12 step 500"
+   },
+   {
+    "N": 16,
+    "p": 163,
+    "state": "bundle N=16 step 500"
+   },
+   {
+    "N": 64,
+    "p": 163,
+    "state": "FCC_N initial state (step 0, lifted at p): the p effect at the same N"
+   }
   ],
   "repetitions": "GPU warm median of 5 (first call per size discarded), cold once per p in a fresh process; CPU_W6 median of 3 after spawn",
   "resource_sweep": "after correctness only: block 32, 64, 128, 256 (grid = ceil) for N = 64 and N = 128 at p = 109; outputs must be identical; recorded, no rule changed",
@@ -83,11 +121,19 @@
  },
  "gpu_execution_plan_record": "every run stores a GpuExecutionPlan {block_size, grid_blocks, batch_size (= pair count), pair_storage_mode, atom_reduction_mode, precision} with wall, per-kernel times, encode, decode, memory and correctness - data only, no learning",
  "fault_injections": [
-  "1 dx sign reversed (device)", "2 dy taken from another pair (device)", "3 dz component of J not written (device)",
-  "4 h*(g*d) instead of (h*g)*d (device)", "5 one R^2 term missing (device)", "6 K.domain check removed (device; detected on the domain probe states)",
-  "7 one pair output dropped (host)", "8 two pair outputs swapped (host)", "9 + / - reversed in the atom reduction (device)",
-  "10 atom reduction order changed: (a, j) pairs before (i, a) pairs (device)", "11 layout-dependent (unordered) reduction order: start rotated by block index (device)",
-  "12 two atom outputs swapped (host)", "13 p altered: the program uploaded at p = 128 for a p = 109 state (host)",
+  "1 dx sign reversed (device)",
+  "2 dy taken from another pair (device)",
+  "3 dz component of J not written (device)",
+  "4 h*(g*d) instead of (h*g)*d (device)",
+  "5 one R^2 term missing (device)",
+  "6 K.domain check removed (device; detected on the domain probe states)",
+  "7 one pair output dropped (host)",
+  "8 two pair outputs swapped (host)",
+  "9 + / - reversed in the atom reduction (device)",
+  "10 atom reduction order changed: (a, j) pairs before (i, a) pairs (device)",
+  "11 layout-dependent (unordered) reduction order: start rotated by block index (device)",
+  "12 two atom outputs swapped (host)",
+  "13 p altered: the program uploaded at p = 128 for a p = 109 state (host)",
   "14 device overflow treated as success (reduced work limbs with the poison check off, as G0 fault 8)"
  ],
  "decision_rules_sealed": {
@@ -99,6 +145,32 @@
   "next_if_promising": "GPU_ONE_STEP_V1 (one full KDK step compared CPU vs GPU) - not started here"
  },
  "questions_to_answer": 12,
- "not_in_scope": ["neural network", "self-evolving selector", "choosing physical GPU cores", "atomic reduction", "unordered reduction", "new physics", "cutoff", "neighbour list", "FAMILY_MAX change", "precision policy change", "momentum / position update", "KDK", "trajectory on GPU", "master merge"],
- "claims_forbidden": ["bit identity on the samples is a proof", "THROUGHPUT numbers are trajectory speed", "kernel time alone is GPU speed"]
+ "not_in_scope": [
+  "neural network",
+  "self-evolving selector",
+  "choosing physical GPU cores",
+  "atomic reduction",
+  "unordered reduction",
+  "new physics",
+  "cutoff",
+  "neighbour list",
+  "FAMILY_MAX change",
+  "precision policy change",
+  "momentum / position update",
+  "KDK",
+  "trajectory on GPU",
+  "master merge"
+ ],
+ "claims_forbidden": [
+  "bit identity on the samples is a proof",
+  "THROUGHPUT numbers are trajectory speed",
+  "kernel time alone is GPU speed"
+ ],
+ "amendment_1_before_code_seal": {
+  "order_disclosure": "pv1.cu, pv_host.py, campaign.py, checker.py, analyze.py and the tests were written while the state bundle was being built; no GPU code touched a bundle state before the bundle commit 8a2e280; states and steps were fixed by this protocol",
+  "gate_order": "the device computes gate A (kernels 1-3) and gate B (kernel 4) in the same launch sequence; gate B results are judged only after gate A is found exact on the whole bundle (analysis: A_FAIL short-circuits)",
+  "desktop_results_before_seal": "RTX 4060: 18 tests PASS (14 fault injections detected); full bundle in 12 layouts: 13,502 / 13,502 pair impulses PAIR_EXACT (incl. r2, G, obligations), 1,842 / 1,842 atom force components exact, 0 domain mismatches (probe states: VIOLATED and UNPROVEN at pair 1 as the CPU), all layouts bit-identical; only seal_clean failed (uncommitted code)",
+  "position_echo": "a pv_echo_positions call (device position buffer copied back) was added so that the GPU input positions are compared with the bundle exactly (protocol item 3)",
+  "perf_dry_run": "desktop, N = 40 and 64 at p = 109, 1 CPU repetition, to exercise the code path only (desktop timings are not used)"
+ }
 }
