@@ -1,0 +1,387 @@
+{
+  "scope": "DERIVED_GIT_BYTE_PRESERVATION_CHECK",
+  "historical_crlf_lf_files": 75,
+  "all_only_crlf_lf": true,
+  "all_baseline_git_blobs_unchanged": true,
+  "new_raw_artifact_files_checked": 192,
+  "new_raw_artifact_mismatches": [],
+  "rows": [
+    {
+      "path": "a_numeric/profiles.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric/vm.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/README.md",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/__init__.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/anvm_core.hpp",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/b0_serial.cpp",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/b1_parallel.cpp",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/b2_cuda.cu",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/harness.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_numeric_native/l2.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "a_reference/ar2_lang2024.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/closeout.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/control_20261008/control_receipt.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/control_20261008/independent_status.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/run_20261008/guardian_receipt.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/run_20261008/independent_final_status.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "docs/active/adaptive_execution_verification_v0/run_20261008/offline_authorization.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v0/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v0/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v0/dag.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v0/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "exact_expression_gate_v1/paths.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_v1/profiles/perf_ea9efe481c72ae99.json.sha256",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_v1/service.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_verification_v0/code_seal.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_verification_v0/protocol_seal.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/adaptive_execution_verification_v0/source_manifest.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/e2_pair_parallel_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/e2_pair_parallel_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/experience_start_p_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/experience_start_p_v1/policies.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/experience_start_p_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/formula_repro_b_v0/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/formula_repro_b_v0/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/formula_repro_b_v0/harness.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/formula_repro_b_v0/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/formula_repro_b_v0/transform_checks.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_long_trajectory_v1/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_long_trajectory_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_long_trajectory_v1/long.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_long_trajectory_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_long_trajectory_v1/vast_job.sh",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_short_trajectory_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/gpu_short_trajectory_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/analyze.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/e2gate.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/run.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/multiatom_parallel_v1/scenarios.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/evaluator_adapter.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/policies.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a1/runner.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/evaluator_adapter.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/frozen_policy_params_a1.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/precision_pilot_a2t/runner.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/adapter.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/campaign.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/rules.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/runner.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/rwforce.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/rewrite_pilot_a3/symbolic.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/w5_placement_v1/checker.py",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    },
+    {
+      "path": "experiments/w5_placement_v1/protocol.json",
+      "only_crlf_to_lf": true,
+      "git_blob_unchanged_from_baseline": true
+    }
+  ],
+  "authoritative_runtime_source": "SEALED_RAW_SOURCE_ZIP; Git checkout line ending policy is not this raw capsule",
+  "source_working_bytes_sha_verified": true
+}
