@@ -40,6 +40,9 @@ demo의 최초 비용 공백은 3방법 모두 UNKNOWN이었다. 검사/승격 �
 GPU 후보 자격을 얻지 않는다. 재시도 비용과 ORIGINAL_STATE 조건도 확인했다.
 결함 주입 원본과 거부 원장까지 1,318개 파일을 byte 검증해 ZIP에 보존했다.
 [결함 원본 포함 증거 ZIP](adaptive_execution_learning_v1/run_20261008/evidence_attempt1.zip).
+증거 폴더에는 별도 `-text` Git attributes를 적용해 자동 줄바꿈 변환을 차단했다.
+Git 저장 바이트도 closeout에 고정한 증거 49개 hash와 모두 일치함을 확인했다.
+최초 저장 시 자동 변환 문제와 raw byte 복구 commit을 이력에 남겼으며 원격 원본은 보존했다.
 시험 임시 경로 이름이 잘려 최초 export 경로 확인이 1회 실패한 기록도 보존했다.
 시험/증거 내용은 바꾸지 않았고 실제 경로를 확인한 뒤 회수했다.
 
