@@ -1,0 +1,2 @@
+# Preserve administrative JSON bytes; CRLF is an intentional line ending.
+*.json -text whitespace=cr-at-eol
