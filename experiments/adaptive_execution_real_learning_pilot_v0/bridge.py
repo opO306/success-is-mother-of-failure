@@ -36,7 +36,9 @@ def deadline(seconds):
 def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reason='',seconds=480):
     from pathlib import Path
     directory=Path(directory); directory.mkdir(parents=True,exist_ok=True)
-    require_live_session(session); check_seals()
+    require_live_session(session)
+    start_cpu=cpu_clock(gpu); start=time.monotonic_ns(); load_before=list(os.getloadavg())
+    check_seals()
     if session['code_manifest_sha256']!=raw_hash(HERE/'code_seal.json'): raise ValueError('CODE_SEAL_MISMATCH')
     # Import execution authority only inside the explicitly authorized capture path.
     from experiments.adaptive_execution_v1 import service as SVC
@@ -44,7 +46,6 @@ def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reaso
     N,T=session['N'],session['T']; initial=initial_state(N)
     strategy={'SERIAL':'FIXED_SERIAL','W6':'FIXED_W6','GPU':'FIXED_GPU','LEGACY':'ADAPTIVE'}[method]
     run_id=f'{session["session_id"]}/{method}/{repeat}'
-    start_cpu=cpu_clock(gpu); start=time.monotonic_ns()
     try:
         with deadline(seconds):
             svc=SVC.run_request({'id':run_id,'N':N,'T':T,'start':'FIXED_START:163'},strategy,session['env'],None,store,
@@ -65,7 +66,8 @@ def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reaso
           selection={'requested_method':method,'reason':reason,'plan':first,
                      'profile_snapshot':None if snapshot is None or snapshot.profile_bytes is None else hashlib.sha256(snapshot.profile_bytes).hexdigest()},
           observation={'origin':'OS_MONOTONIC_AND_PROCESS_CPU','pid':os.getpid(),'start_wall_ns':start,
-                       'end_wall_ns':end,'wall_ns':end-start,'cpu_ns':sum(deltas.values()),'cpu_deltas_ns':deltas},
+                       'end_wall_ns':end,'wall_ns':end-start,'cpu_ns':sum(deltas.values()),'cpu_deltas_ns':deltas,
+                       'host_load_before':load_before,'host_load_after':list(os.getloadavg())},
           correctness_level='EXECUTOR_UNVERIFIED; INDEPENDENT_REPLAY_REQUIRED')
     write_new(directory/f'{method}_{repeat}.json',obj)
     return obj

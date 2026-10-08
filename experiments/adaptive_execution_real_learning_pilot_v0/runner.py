@@ -47,12 +47,14 @@ class Pilot:
                 or armed.get('machine_id')!=ticket['machine_id'] or armed.get('country')!=ticket['country']
                 or host.get('machine_id')!=ticket['machine_id'] or host.get('country')!=ticket['country']
                 or host.get('actual_status')!='running' or Decimal(str(host['dph_total']))>Decimal('0.25')
+                or Decimal(str(host['dph_total']))>Decimal(str(ticket['hourly_usd']))
                 or ticket.get('approve_research_profile') is not True): raise ValueError('HOST_GUARDIAN_OR_MANAGER_APPROVAL_REFUSED')
         if offline.get('status')!='PASS' or offline.get('code_seal_sha256')!=self.code or offline.get('physics_calls')!=0 or offline.get('gpu_calls')!=0:
             raise ValueError('MOCK_GATE_NOT_PASSED')
         age=(datetime.now(timezone.utc)-datetime.fromisoformat(armed['armed_utc'])).total_seconds()
         if not 0<=age<=180 or armed['deadline_seconds']>3240: raise ValueError('GUARDIAN_ARMING_STALE')
         self.deadline=time.monotonic()+armed['deadline_seconds']-age-30
+        self.rate=Decimal(str(host['dph_total']))
         self.started=time.monotonic_ns(); self.start_cpu=bridge.cpu_clock(); self.book=costs.Book(self.root/'costs')
         # Separate research roots exist before the first completion record. Same UID is disclosed.
         self.ruler=Ed25519PrivateKey.generate()
@@ -146,6 +148,13 @@ class Pilot:
                     replay=read(path/'replay.json')
                 # STOP immediately on disagreement, before the next experiment.
                 self.charged('verification_signing_management',lambda:validate_record(obj,session,replay))
+                if len(records)>=2:
+                    # Planning estimate uses only this session; it is not VERIFIED selection knowledge.
+                    estimate=max(x['observation']['wall_ns'] for x in records)*(11-len(records))*5//4
+                    remaining=int((self.deadline-time.monotonic())*10**9)
+                    write_new(path/f'budget_after_{len(records):02d}.json',dict(
+                         estimate_ns=estimate,remaining_ns=remaining,kind='UNVERIFIED_CURRENT_SESSION_PLANNING_ONLY'))
+                    if estimate>remaining: raise TimeoutError('MEASURED_BUDGET_RISK_STOP')
         # Independent reader process computes the receipt; controller never fabricates its approval result.
         self.charged('verification_signing_management',lambda:self.inspect(path))
         def promote():
@@ -212,8 +221,8 @@ class Pilot:
         cpu=bridge.cpu_clock(); total_cpu=sum(cpu[k]-self.start_cpu[k] for k in cpu); total_wall=time.monotonic_ns()-self.started
         self.book.charge('job_total',total_wall,total_cpu)
         result=dict(status=status,stages=reports,total_wall_ns=total_wall,total_cpu_ns=total_cpu,
-                  hourly_usd=self.ticket['hourly_usd'],billing_level='RATE_ESTIMATE_ONLY_NO_BILLING_RECEIPT',
-                  estimated_job_usd=str(Decimal(str(self.ticket['hourly_usd']))*Decimal(total_wall)/Decimal(3600*10**9)),
+                  hourly_usd=str(self.rate),approved_hourly_cap_usd=self.ticket['hourly_usd'],billing_level='RATE_ESTIMATE_ONLY_NO_BILLING_RECEIPT',
+                  estimated_job_usd=str(self.rate*Decimal(total_wall)/Decimal(3600*10**9)),
                   shutdown='EXTERNAL_GUARDIAN_CONFIRMATION_REQUIRED',production='NOT_CONNECTED')
         result['whole_job_recovery_by_goal']={}
         for report in reports:
