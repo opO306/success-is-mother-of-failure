@@ -1,0 +1,14 @@
+{
+  "allocation_seconds": 480,
+  "allocation_start_utc": "2026-10-08T12:17:20.420601+00:00",
+  "approval_reference": "user_reply_call_795c1551452041189ec0e4a9f50ece0d_approval_20261008",
+  "country": "FR",
+  "explicit_user_approval": true,
+  "gpu_calls": 0,
+  "hourly_cap_usd": "0.25",
+  "instance_id": 54815136,
+  "machine_id": 56006,
+  "physics_calls": 0,
+  "scope": "EVIDENCE_OFFLINE_ONLY",
+  "total_cap_usd": "0.10"
+}

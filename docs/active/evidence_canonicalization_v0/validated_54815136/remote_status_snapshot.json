@@ -1,0 +1,15 @@
+{
+  "code_seal_sha256": "d87f1ad19d5f228ccb9db825dc7360e9805a051282093fca2537041e92efd0ca",
+  "cpu_ns": 7448955000,
+  "failed": 0,
+  "gpu_calls": 0,
+  "historical_status": "HISTORICAL_REVIEW_COMPLETE",
+  "manager_approval": "PENDING",
+  "new_physics_calls": 0,
+  "original_status": "REAL_LEARNING_FAIL",
+  "production": "NOT_CONNECTED",
+  "skipped": 0,
+  "status": "EVIDENCE_FORMAT_V0_READY",
+  "tests": 202,
+  "wall_ns": 9158495250
+}

@@ -1,3 +1,5 @@
+[증거 지문·경량 검증 V0 제한 결과](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_RESULTS.md): 2026-10-08 EVIDENCE_FORMAT_V0_READY / HISTORICAL_REVIEW_COMPLETE / NOT_PRODUCTION. 원격202개/10원본 별도 검사관 판독/50비용표본 통과, 새 물리·GPU·재계산0. 기존 REAL_LEARNING_FAIL·첫 관문 실패 불변, 관리자PENDING/프로필0, 로컬 FULL·실제학습/OS/수식 검증 미완료. 아래 준비와 과거 상태는 보존한다.
+
 [증거 지문·경량 검증 V0](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md): 2026-10-08 SOURCE_PREPARED / TEST_EXECUTION_PENDING / NOT_PRODUCTION. INITIAL_STATE_CANON_V2·저장 즉시 판독·기존 검사관의 읽기 전용 재검토·관리자 경계 구현, 새 봉인/ZIP 보존 확인. 동적194개·독립 내용 판독·1% 비용은 미확인, 기존 REAL_LEARNING_FAIL 불변.
 
 [실측 A 최종 상태](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 REAL_LEARNING_FAIL / NOT_PRODUCTION. 원격142 passed/skip0, 실제SERIAL/W6각5회·새 CPU재현1회. 별도 검사관INITIAL_HASH로승격거부/원본보존/학습 후 요청·프로필0. 회수 후FAILED STOP_CONFIRMED/freshactual=exited. 실제 학습 개선·복귀·비용회수·수식/OS독립성 미확인. 아래 준비와 과거 결과는 당시 상태다.

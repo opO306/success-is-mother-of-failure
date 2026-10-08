@@ -1,0 +1,81 @@
+{
+  "scope": "DERIVED_ADMIN_ANALYSIS_OF_RECOVERED_RAW_OUTPUT",
+  "tests": 202,
+  "failed": 0,
+  "skipped": 0,
+  "gate_wall_ns": 9158495250,
+  "gate_cpu_ns": 7448955000,
+  "historical_records": 10,
+  "historical_verdict": "VERIFIED_CONTENT",
+  "classification": "FORMAT_EQUIVALENT",
+  "original_status": "REAL_LEARNING_FAIL",
+  "manager_approval": "PENDING",
+  "profile_activation": "NONE",
+  "cost_samples": 50,
+  "cost_components": {
+    "canonical_hash_ns": {
+      "min": 362913,
+      "median": 377030,
+      "max": 399092
+    },
+    "legacy_hash_ns": {
+      "min": 367873,
+      "median": 383647.5,
+      "max": 396447
+    },
+    "save_ns": {
+      "min": 2188370,
+      "median": 2766088,
+      "max": 12503951
+    },
+    "reread_ns": {
+      "min": 621878,
+      "median": 666668,
+      "max": 692142
+    },
+    "lightweight_check_ns": {
+      "min": 3935256,
+      "median": 4081445,
+      "max": 4246670
+    },
+    "observer_write_ns": {
+      "min": 1148854,
+      "median": 1457894,
+      "max": 1966646
+    },
+    "total_ns": {
+      "min": 10893045,
+      "median": 11864736,
+      "max": 65085890
+    },
+    "traced_peak_bytes": {
+      "min": 343421,
+      "median": 345255,
+      "max": 1996452
+    },
+    "rss_delta_bytes": {
+      "min": 0,
+      "median": 0,
+      "max": 86016
+    },
+    "additional_record_bytes": {
+      "min": 677,
+      "median": 678,
+      "max": 683
+    }
+  },
+  "maximum_paired_overhead_percent": 0.10230944433672612,
+  "combined_allocation_window_seconds": "203.5469999999911",
+  "combined_time_charge_upper_estimate_usd": "0.00761165262962931",
+  "invoice_verified": false,
+  "transfer_storage_fees_verified": false,
+  "first_failed_cpu_measured": false,
+  "first_compute_debit_seconds": 20,
+  "second_compute_limit_seconds": 100,
+  "source_code_sha256": "d87f1ad19d5f228ccb9db825dc7360e9805a051282093fca2537041e92efd0ca",
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "replay_calls": 0,
+  "raw_output_preserved_files": 146,
+  "admin_log_note": "REMOTE_194_TEST_GATE_STARTED is inherited label in transport controller; exact junit and source constant independently show202 cases"
+}

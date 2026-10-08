@@ -1,3 +1,5 @@
+**증거 지문·경량 검증 V0 결과:** [보고서](docs/active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_RESULTS.md), experiments/evidence_canonicalization_v0/ 및 기존 pilot의 증거 연결부. 관련202개 원격통과, 독립 내용 재검토10건/계측50표본 통과. 증거 docs/active/evidence_canonicalization_v0/attempt1_54815136/(첫 실패 불변), validated_54815136/(최종115원격파일+외부자료146파일), source_ce36083d/(507소스/ZIP508). 기존 REAL_LEARNING_FAIL 유지, 관리자승인/프로필활성화 없음. 아래 준비 안내는 역사 상태다.
+
 **증거 지문·경량 검증 V0:** experiments/evidence_canonicalization_v0/ — INITIAL_STATE_CANON_V2·엄격한 저장 재판독·historical pins·별도 정정 자료·비용 계측·승인 대기 원격 gate. 기존 pilot 검사관/관리자 연결부에 명시적 새 manifest 적용, 계산기 수정 없음. tests/test_evidence_canonicalization_v0.py 52개 준비, 관련 합계194개 미실행. [현재 상태](docs/active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md).
 
 [실측 A 결과와 원본](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 France54815136에서 관련142개 통과 후 실제10측정·새 CPU재현1회. INITIAL_HASH 저장/재판독 결함으로 경험승격 거부, REAL_LEARNING_FAIL. 원본은 docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136/; 코드 수정 없이 보존, FAILED actual=exited. 아래 준비 상태는 당시 기록이다.
