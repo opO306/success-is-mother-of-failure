@@ -1,0 +1,17 @@
+{
+  "baseline": "284f655c",
+  "changes": "refuse further guest work when supervisor/controller completion marker exists",
+  "files": {
+    ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "controller.py": "d62b88b3d32e3bd72045cd5f7f92b83272050ce393aa0e16a49f853a4a2241f8",
+    "guest_gate.py": "cb588aa756fa07b5996ec7615e085d76cf88cfc2a736f68648f8ed340360278a",
+    "guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "guest_source_verify.py": "35a95ef874cc86dfabe080a5bfa9e5ba29195962a4e75c8531cb8c6d5b212c54",
+    "static_review.py": "1f4587d61a80cbe2b2f246f096e5b17bae68a7db22baf66bcdf0e5b43a94f337",
+    "supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57"
+  },
+  "schema": "TABLET_ADMIN_TRANSPORT_SEAL",
+  "scope": "ADMINISTRATIVE_ONLY; NEW_WINDOW_APPROVAL_REQUIRED",
+  "supersedes_for_future_execution": "transport_seal_v2.json"
+}

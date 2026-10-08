@@ -1,0 +1,102 @@
+{
+  "scope": "AST_RAW_HASH_AND_MANUAL_CONTROL_FLOW_REVIEW_ONLY",
+  "observed_utc": "2026-10-08T16:05:00.976645+00:00",
+  "project_imports": 0,
+  "transport_execution": 0,
+  "remote_commands": 0,
+  "dynamic_tests": 0,
+  "paid_actions": 0,
+  "baseline": "284f655c",
+  "observed_failure_count_unchanged": 3,
+  "findings": [],
+  "parsed_python_files": [
+    "controller.py",
+    "guest_gate.py",
+    "guest_probe.py",
+    "guest_recover.py",
+    "guest_source_verify.py",
+    "static_review.py",
+    "supervisor.py"
+  ],
+  "reviewed_python_sha256": {
+    "controller.py": "d62b88b3d32e3bd72045cd5f7f92b83272050ce393aa0e16a49f853a4a2241f8",
+    "guest_gate.py": "cb588aa756fa07b5996ec7615e085d76cf88cfc2a736f68648f8ed340360278a",
+    "guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "guest_source_verify.py": "35a95ef874cc86dfabe080a5bfa9e5ba29195962a4e75c8531cb8c6d5b212c54",
+    "static_review.py": "1f4587d61a80cbe2b2f246f096e5b17bae68a7db22baf66bcdf0e5b43a94f337",
+    "supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57"
+  },
+  "reused_ast_identical": {
+    "A_resume.utc": true,
+    "A_resume.canonical": true,
+    "A_resume.sha": true,
+    "A_resume.write": true,
+    "guardian.Cli": true,
+    "guardian.confirm_stop": true
+  },
+  "local_transport_project_imports": 0,
+  "shell_true_dispatches": 0,
+  "guest_container_environment_source": "actual PID1 value, not expected-id literal",
+  "posix_lexical_roundtrip_vectors": 3,
+  "roundtrip_scope": "stdlib tokenization only; no real SSH invocation",
+  "control_flow_entry_lines": {
+    "local_preflight": 61,
+    "control": 178,
+    "recover": 210,
+    "validate_result": 253,
+    "execute": 279
+  },
+  "successful_reference": {
+    "raw_files_rechecked": 111,
+    "recovery_receipt": true,
+    "stop_receipt": true,
+    "controller_sha256": "317d5f91cf08678d8079a9dd30ac3b7bf2dcf25f40aa7a38ce611a61e2474f37"
+  },
+  "sealed_sources": [
+    {
+      "manifest": "protocol_seal.json",
+      "files": 4,
+      "mismatches": [],
+      "manifest_sha256": "76e26c9e3bd81ca9f01f229a81838d6287b4692c322b5316c64a2c30f1fb3d79"
+    },
+    {
+      "manifest": "preservation_manifest.json",
+      "files": 794,
+      "mismatches": [],
+      "manifest_sha256": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3"
+    },
+    {
+      "manifest": "code_seal.json",
+      "files": 812,
+      "mismatches": [],
+      "manifest_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09"
+    }
+  ],
+  "source_zip": {
+    "entries": 813,
+    "raw_mismatches": [],
+    "sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392"
+  },
+  "previous_failure_evidence": {
+    "files": 34,
+    "raw_mismatches": [],
+    "failed_attempts": 3
+  },
+  "local_prerequisites": {
+    "ssh_path": "C:\\WINDOWS\\System32\\OpenSSH\\ssh.EXE",
+    "scp_path": "C:\\WINDOWS\\System32\\OpenSSH\\scp.EXE",
+    "existing_key_file": true,
+    "existing_cli_file": true,
+    "cached_host_key_present": true
+  },
+  "static_checks_status": "PASS",
+  "runtime_validation_status": "NOT_EXECUTED",
+  "limitations": [
+    "AST checks are not a complete proof of exception/control behavior",
+    "No fake-execution failure injection or remote run",
+    "Live server/key/runtime/latency not revalidated",
+    "Generic guardian plus absolute supervisor is newly composed and unexecuted",
+    "No guarantee of OS scheduling, remote outage or successful evidence recovery"
+  ]
+}

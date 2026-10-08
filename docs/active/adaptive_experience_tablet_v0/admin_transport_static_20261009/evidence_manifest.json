@@ -1,0 +1,33 @@
+{
+  "scope": "ADMINISTRATIVE_STATIC_PREPARATION_EVIDENCE",
+  "status": "ADMIN_TRANSPORT_STATIC_READY",
+  "runtime": "NOT_EXECUTED",
+  "baseline": "284f655c",
+  "files": {
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/approval_UNAPPROVED_TEMPLATE.json": "a0bbc349ea14e3d25fa7837448d36baae6f2599fb841280eb823f51bcbac40da",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/approval_UNAPPROVED_TEMPLATE_v2.json": "fe5023d6fb8e552329c3f6488c9c646735a594545e02ec9b709811e2b283b324",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/approval_UNAPPROVED_TEMPLATE_v3.json": "e3598ff0cc7f6fb37f034f8ed4c20d6e481ecfa345b84412f110d9f976630bba",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/change_inventory.json": "db5395804133bfd247b387841fe91cf4dbcf2be32fe4cae9871167503357ff80",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/controller.py": "d62b88b3d32e3bd72045cd5f7f92b83272050ce393aa0e16a49f853a4a2241f8",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/failure_matrix.json": "9273693a8edd7c33d34e7902aa2a9c6c875e9dba88981cf2204214cf5b80b406",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/guest_gate.py": "cb588aa756fa07b5996ec7615e085d76cf88cfc2a736f68648f8ed340360278a",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/guest_source_verify.py": "35a95ef874cc86dfabe080a5bfa9e5ba29195962a4e75c8531cb8c6d5b212c54",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/README.md": "2639573a8b311eb1b6b1276d9f5111c57f5760000d41efe8d3ed1ab277de8aff",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/static_review.py": "1f4587d61a80cbe2b2f246f096e5b17bae68a7db22baf66bcdf0e5b43a94f337",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/static_review_result.json": "e2a1c45c3b77e73ebb90959ef91dceabf891acaa4afde0445808a6824c05c706",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/static_review_result_v3.json": "e715dedc62fb473257207011ad2e061e7ab7dcada13df45d3c00dc1e9d8ea5c2",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/static_review_result_v4.json": "4c39d339c74d15554a483f5ff00dcddaa83d26716259ba385e40ec8e8e7689c6",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/static_review_v2_failure.json": "8e32dccebe3f2d2dade9c9f0de15bc29ae4cb46db6b16b68ab3dcb826291243d",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal.json": "39dafb1c8112c225a7ebd612c1e0edded028247f6e3ac8c5e6a8d5c0279d833e",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v2.json": "21b73ad1afb799eaee6709433ef369b016c0e023b80e1d3772010aeed50c7cf2",
+    "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v3.json": "753c2f1407e7f42e54b5d344513228f736811716475c7bb777fba8c1b1953352"
+  },
+  "top_level_report": "docs/active/ADAPTIVE_EXPERIENCE_TABLET_V0_ADMIN_TRANSPORT_STATIC_READY_2026-10-09.md",
+  "top_level_report_hash_not_in_raw_manifest": "Human Markdown report is Git text; raw sealed administrative artifacts are in -text directory",
+  "historical_paid_failures": 3,
+  "new_window_authorized": false
+}

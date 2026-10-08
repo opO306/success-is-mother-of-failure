@@ -1,0 +1,9 @@
+{
+  "scope": "STATIC_REVIEW_HELPER_ONLY; NO_TRANSPORT_EXECUTION",
+  "error": "AttributeError: 'list' object has no attribute 'out'",
+  "cause": "lexical vector loop rebound argparse args variable",
+  "correction": "rename lexical vector variable to lexical_args",
+  "raw_error_location": "tool output; no separate raw stderr file",
+  "prior_paid_failure_count": 3,
+  "paid_actions": 0
+}
