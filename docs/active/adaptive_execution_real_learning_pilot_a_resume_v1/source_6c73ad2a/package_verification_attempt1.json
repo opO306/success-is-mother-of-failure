@@ -1,0 +1,11 @@
+{
+  "status": "STATIC_SCANNER_REFUSED; ZIP_BYTES_WERE_VALID",
+  "reason": "Scanner incorrectly required __init__.py for existing Python namespace packages",
+  "namespace_packages": [
+    "experiments/evidence_canonicalization_v0",
+    "experiments/multiatom_parallel_v1"
+  ],
+  "source_zip_sha256": "458a1d9e38964c45021d58ae5c91c1b669e9a3bbbd9782b43d5b6b308b8b2cbd",
+  "source_changes": 0,
+  "dynamic_tests": 0
+}
