@@ -208,6 +208,27 @@ def test_bad_reference_is_preserved_and_rebuild_never_approves_it(archive):
     assert original!=ref.read_bytes()
 
 
+def test_many_damaged_references_do_not_inflate_or_hide_valid_experience(archive):
+    tablet,root,roots,_=archive
+    for i in range(1000):
+        (tablet.directory/'references'/f'{i:064x}.json').write_bytes(b'corrupt-preserved')
+    result=catalog.Tablet.rebuild(tablet.directory,root,roots)
+    assert len(result['refused'])==1000 and len(result['entries'])==1
+    assert len(catalog.Tablet(tablet.directory,root,roots).search(request()))==1
+
+
+def test_unmeasured_but_executable_w3_requires_calibration(archive):
+    tablet,root,_,entry=archive
+    assert policy.classify(tablet.load(entry),request(),qualified(environment(4)),read(root/'A/session.json'),method='W3')=='NEEDS_CALIBRATION'
+
+
+@pytest.mark.parametrize('fault',['escape','absolute'])
+def test_archive_reference_cannot_escape_provisioned_root(archive,fault):
+    tablet,_,_,_=archive
+    relative='../outside/session.json' if fault=='escape' else str(ROOT/'CURRENT_STATE.md')
+    with pytest.raises(ValueError): tablet.register(relative,PROFILE,'manager/events/event_000000.json')
+
+
 def test_supplied_index_metadata_is_not_authority(archive):
     tablet,_,_,entry=archive; bad=copy.deepcopy(entry); bad['key']['actual_p']=64
     with pytest.raises(ValueError): tablet.load(bad)
