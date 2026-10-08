@@ -249,3 +249,81 @@ def test_guardian_budget_exception_refuses_widening(fault):
     elif fault=='cap': auth['hourly_cap_usd']='0.29'
     else: auth['deadline_seconds']=3240
     with pytest.raises(ValueError): guardian.hourly_cap(auth)
+
+
+def a_armed():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    return dict(status='ARMED',outside_guest=True,instance_id=123,machine_id=56006,country='FR',
+                armed_utc='2026-10-08T00:00:00+00:00',allocation_start_utc='2026-10-08T00:00:00+00:00',
+                safety_policy_sha256=a_safety.policy_hash(),deadline_seconds=3420)
+
+
+def test_a_absolute_budget_has_three_separate_deadlines():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    assert a_safety.remaining(a_armed(),now_utc='2026-10-08T00:10:00+00:00')==dict(compute=2640,handoff=2820,allocation=3000)
+
+
+@pytest.mark.parametrize('fault',['policy','future_start','deadline','expired'])
+def test_a_budget_refuses_invalid_origin_or_extension(fault):
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    armed=a_armed(); now='2026-10-08T00:10:00+00:00'
+    if fault=='policy': armed['safety_policy_sha256']='0'*64
+    elif fault=='future_start': armed['allocation_start_utc']='2026-10-09T00:00:00+00:00'
+    elif fault=='deadline': armed['deadline_seconds']=3600
+    else: now='2026-10-08T01:00:00+00:00'
+    with pytest.raises(ValueError): a_safety.remaining(armed,now_utc=now)
+
+
+def a_heartbeat(armed):
+    from experiments.adaptive_execution_real_learning_pilot_v0.common import digest
+    return dict(status='CONTROL_OK',instance_id=123,machine_id=56006,country='FR',armed_digest=digest(armed),
+                sequence=2,observed_utc='2026-10-08T00:10:00+00:00',control_checked_utc='2026-10-08T00:09:50+00:00')
+
+
+def test_a_heartbeat_validates_current_outside_control():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    armed=a_armed()
+    assert a_safety.validate_heartbeat(a_heartbeat(armed),armed,now_utc='2026-10-08T00:10:05+00:00',minimum_sequence=1)==2
+
+
+@pytest.mark.parametrize('fault',['status','instance','machine','armed','stale','future','sequence','control_stale'])
+def test_a_heartbeat_faults_stop_before_new_compute(fault):
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    armed=a_armed(); pulse=a_heartbeat(armed)
+    if fault=='status': pulse['status']='CONTROL_LOST'
+    elif fault=='instance': pulse['instance_id']=999
+    elif fault=='machine': pulse['machine_id']=999
+    elif fault=='armed': pulse['armed_digest']='0'*64
+    elif fault=='stale': pulse['observed_utc']='2026-10-08T00:08:00+00:00'
+    elif fault=='future': pulse['observed_utc']='2026-10-08T00:11:00+00:00'
+    elif fault=='sequence': pulse['sequence']=0
+    else: pulse['control_checked_utc']='2026-10-08T00:08:00+00:00'
+    with pytest.raises(ValueError): a_safety.validate_heartbeat(pulse,armed,now_utc='2026-10-08T00:10:05+00:00',minimum_sequence=1)
+
+
+def test_a_whole_allocation_cost_never_claims_runner_only_recovery():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    result=a_safety.allocation_cost(1000,100,20,'0.2',start_known=True)
+    assert result['cost']['break_even_reuses']==11 and result['cost']['cost_status']=='COST_NOT_YET_RECOVERED'
+    assert result['billing']=='UNCONFIRMED' and result['CPU_MIN']=='OUTSIDE_A_SCOPE'
+    assert a_safety.allocation_cost(1000,100,20,'0.2',start_known=False)['cost']['cost_status']=='UNKNOWN_ALLOCATION_START'
+
+
+@pytest.mark.parametrize('fault',['negative','missing_time','price','interval'])
+def test_a_allocation_accounting_rejects_invalid_cost(fault):
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    total,baseline,learned,price=1000,100,20,'0.2'
+    if fault=='negative': total=-1
+    elif fault=='missing_time': total=None
+    elif fault=='price': price='NaN'
+    else: total=10
+    with pytest.raises(ValueError): a_safety.allocation_cost(total,baseline,learned,price,start_known=True)
+
+
+def test_a_preparatory_offline_ticket_cannot_authorize_physics():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    ticket=dict(scope='OFFLINE_ONLY',instance_id=123,machine_id=56006,country='FR',explicit_user_approval=True,
+                safety_policy_sha256=a_safety.policy_hash(),hourly_cap_usd='0.25',physics_calls=0,gpu_calls=0)
+    assert a_safety.offline_lease(ticket,a_armed())
+    ticket['physics_calls']=1
+    with pytest.raises(ValueError): a_safety.offline_lease(ticket,a_armed())
