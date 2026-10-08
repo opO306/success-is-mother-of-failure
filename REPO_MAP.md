@@ -20,6 +20,12 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 
 ## 계통
 
+**적응형 실행 경험 검증 V0:** `experiments/adaptive_execution_verification_v0/` —
+V1을 보존한 오프라인 경험 수집·UNKNOWN/CANDIDATE/VERIFIED 원장·독립 원본 판독·
+별도 버전 프로필·요청 snapshot/복귀·종료 mock 프로토타입. production 연결 없음.
+시험 `tests/test_adaptive_execution_verification_v0.py`는 작성/미실행이며 로컬 계산 금지.
+[설계·봉인·상태](docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md).
+
 **독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet
 Gaussian full-CI static reference pilot. A-world 실행 경로와 분리한다.
 `tests/test_h2_static_pilot.py`는 dependency-light 구조/결함 주입 시험,

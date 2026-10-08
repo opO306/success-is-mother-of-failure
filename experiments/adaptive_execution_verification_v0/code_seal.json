@@ -1,0 +1,25 @@
+{
+  "schema": "aev0-code-seal",
+  "protocol_commit": "f135cd92",
+  "execution_status": "NOT_EXECUTED",
+  "hash_mode": "raw_bytes_sha256",
+  "files": {
+    "docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0_DESIGN.md": "62520baa1e568fc011a8931e70c75ed5b35d3559b8c816a06f521fcfcddff50c",
+    "experiments/adaptive_execution_v1/selector.py": "258a26c63a1c1ddf8f829354ddd4e12a8368ecf08b19a5258c2f96f1078c6232",
+    "experiments/adaptive_execution_verification_v0/__init__.py": "a25b202e26c8e69da4e8e803ed3880e9033d890a59377dbf6ac2c8fab4d67294",
+    "experiments/adaptive_execution_verification_v0/collector.py": "b7aea67e87b8350f57bb6e6fea052759ca015dd501b667fda353215a76a107f4",
+    "experiments/adaptive_execution_verification_v0/common.py": "57b0f28f45b93b16591b9c9a5731a57bf4b742db15f3be6b8dec3dfe510ea118",
+    "experiments/adaptive_execution_verification_v0/exploration.py": "1c00d12f5079d539ce7722a38abd3654f57f583de5a5dbfce01bd2889f1c82cb",
+    "experiments/adaptive_execution_verification_v0/journal.py": "c5cd12ddd9cd73a3b86c5086ac2a65176317cffe3e06693b593a5f49797c79ef",
+    "experiments/adaptive_execution_verification_v0/manager.py": "85313e6bc0c9066ba5a317d294da15853226a796ac8b634ed82f159658c70808",
+    "experiments/adaptive_execution_verification_v0/offline.py": "96fdfba7570dbaeacf0295d8a92aecb640eaf88c33819795ae686edbe6e328aa",
+    "experiments/adaptive_execution_verification_v0/protocol_seal.json": "361db8b05d8572afdaeb1cca2063a9413dd8580d763ec263d1373efa1b622d21",
+    "experiments/adaptive_execution_verification_v0/protocol.json": "de5e76c6b7b6f9beda4810f819f5b260cf44e3f36b087d6a9e5b0be9c1dd21b9",
+    "experiments/adaptive_execution_verification_v0/REMOTE_RUNBOOK.md": "9b44704f53a6910e38338ec6e8585d30887064e6e7172b0f36c4b5daf6d518aa",
+    "experiments/adaptive_execution_verification_v0/selector.py": "ea5cfa9ac1f322549298d9b84df74d3974901a6c378da879659620f02ec0f81a",
+    "experiments/adaptive_execution_verification_v0/shutdown.py": "54b59db06c7c134aa138e92ba7788c3535a9ff588a39ff1a10b400a8b887e3d7",
+    "experiments/adaptive_execution_verification_v0/source_manifest.json": "c1583e8b2c55d88e3d105e1bea36a6a82efdf1ff7f8d8ad6f439a5b72581528d",
+    "experiments/adaptive_execution_verification_v0/verifier.py": "40319e1a44df5a406d48908446c18d039ee860399a021a4ee1d776041f8633d4",
+    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52"
+  }
+}

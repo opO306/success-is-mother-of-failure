@@ -1,5 +1,9 @@
 # 프로젝트 문서 안내
 
+[ADAPTIVE_EXECUTION_VERIFICATION_V0](active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md):
+프로토콜·예산·승격 기준을 먼저 봉인한 오프라인 경험 검증의 제한 구현 준비.
+V1과 원본 보존, 시험/재현 미실행, production 미적용. 로컬 계산 금지·원격 승인 대기.
+
 [Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
 
 [고정 핵 H₂ static reference pilot](active/H2_STATIC_REFERENCE_PILOT_V1.md)은

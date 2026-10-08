@@ -8,6 +8,10 @@
 
 ## 현재 활성 A / C1-B1
 
+[ADAPTIVE_EXECUTION_VERIFICATION_V0](active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md):
+2026-10-08 별도 실행 기술 연구. 프로토콜·예산·승격 기준 봉인, 제한 구현 소스 준비,
+원격 시험 승인 대기. V1/원본 보존, 수식 독립성·실제 종료 제어 미해결, production 미적용.
+
 [Exact Expression Gate V1](active/EXACT_EXPRESSION_GATE_V1.md)·[증거](active/exact_expression_gate_v1/verdict.json):
 SURVEY_ONLY, COMPARISON_COMPLETE(승자 없음). V0의 도메인 소거·비교 결함 수정, C_stream 추가. 승격 아님.
 
