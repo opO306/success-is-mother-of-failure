@@ -3,6 +3,7 @@ import ast
 import copy
 import hashlib
 import json
+from dataclasses import replace, FrozenInstanceError
 from pathlib import Path
 
 import pytest
@@ -70,6 +71,36 @@ def test_new_session_candidate_and_missing_information(tmp_path):
     assert record["measurement_kind"] == "SYNTHETIC_TEST_ONLY"
 
 
+def test_real_records_collect_but_cannot_be_promoted(tmp_path, authority):
+    paths = panel(tmp_path / "raw")
+    for path in paths:
+        obj = read(path); obj["measurement_kind"] = "OBSERVED_REAL"
+        path.write_bytes(canonical(obj))
+    ingest = collector.Ingest(tmp_path / "executor")
+    candidate = ingest.collect(paths)
+    receipt = inspector.inspect_and_sign(candidate, authority[0])
+    ingest.record_receipt(candidate, receipt)
+    assert receipt["body"]["errors"] == ["REAL_SESSION_ATTESTATION_ADAPTER_REQUIRED"]
+    assert ingest.history()[-1]["payload"]["state"] == "CANDIDATE"
+
+
+def test_all_retry_attempts_charged_and_original_state_required(tmp_path, authority):
+    paths = panel(tmp_path / "raw")
+    for path in paths:
+        obj = read(path)
+        prior = dict(obj["attempts"][0], p=78, cpu_ns=1000000, wall_ns=1000000, status="PRECISION_RETRY")
+        obj["attempts"].insert(0, prior)
+        obj["aggregate_cpu_ns"] += 1000000; obj["wall_ns"] += 1000000
+        path.write_bytes(canonical(obj))
+    ingest = collector.Ingest(tmp_path / "executor")
+    candidate = ingest.collect(paths)
+    assert inspector.inspect_and_sign(candidate, authority[0])["body"]["verdict"] == "VERIFIED"
+    obj = read(paths[-1]); obj["attempts"][0]["start"] = "PREVIOUS_APPROXIMATE_STATE"
+    paths[-1].write_bytes(canonical(obj))
+    altered = collector.derive(paths)
+    assert inspector.inspect_and_sign(altered, authority[0])["body"]["errors"] == ["ORIGINAL_STATE_MISMATCH"]
+
+
 def test_learning_next_request_and_both_objectives(tmp_path, authority):
     reg, ingest, candidate, receipt, profile, before = setup_flow(tmp_path, authority)
     assert receipt["body"]["verdict"] == "VERIFIED"
@@ -85,9 +116,37 @@ def test_learning_next_request_and_both_objectives(tmp_path, authority):
     assert selector.choose(candidate["scope"], reg.begin_request("CPU_MIN"), eligible)["method"] == "LEGACY_V1"
     reg.activate(approval(authority[1], reg, profile["id"], "CPU_MIN", "cpu"))
     assert selector.choose(candidate["scope"], reg.begin_request("CPU_MIN"), eligible)["method"] == "GPU_HYBRID"
-    reg.activate(approval(authority[1], reg, "LEGACY", "WALL_MIN", "rollback"))
+    reg.rollback(approval(authority[1], reg, "LEGACY", "WALL_MIN", "rollback"))
     assert selector.choose(candidate["scope"], reg.begin_request("WALL_MIN"), eligible)["method"] == "LEGACY_V1"
     assert selector.choose(candidate["scope"], wall, eligible)["method"] == "GPU_HYBRID"
+
+
+def test_snapshot_is_immutable_and_modified_copy_is_refused(tmp_path, authority):
+    reg, _, candidate, _, profile, _ = setup_flow(tmp_path, authority)
+    reg.activate(approval(authority[1], reg, profile["id"]))
+    snapshot = reg.begin_request("WALL_MIN")
+    with pytest.raises(FrozenInstanceError): snapshot.goal = "CPU_MIN"
+    forged = json.loads(snapshot.profile_bytes)
+    forged["rows"][0]["observations"][0]["wall_ns"] = 1
+    with pytest.raises(ValueError, match="SNAPSHOT_INTEGRITY"):
+        selector.choose(candidate["scope"], replace(snapshot, profile_bytes=canonical(forged)), ["CPU_SERIAL", "GPU_HYBRID"])
+
+
+def test_provisioned_root_replacement_refused(tmp_path, authority):
+    reg, _, _, _, _, _ = setup_flow(tmp_path, authority)
+    changed = replace(authority[2], inspector_public_hex="00" * 32)
+    with pytest.raises(ValueError, match="TRUST_ROOT_REPLACEMENT"):
+        manager.Registry(reg.directory, changed)
+
+
+def test_concurrent_manager_operation_refused(tmp_path, authority):
+    import fcntl
+    reg, _, _, _, profile, _ = setup_flow(tmp_path, authority)
+    with (reg.directory / "manager_writer.lock").open("ab") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        with pytest.raises(ValueError, match="CONCURRENT_MANAGER"):
+            reg.activate(approval(authority[1], reg, profile["id"]))
+    assert reg.version() == "GENESIS"
 
 
 def test_new_session_can_reverse_cpu_preference(tmp_path, authority):
@@ -107,7 +166,7 @@ def test_two_profiles_rollback_to_previous_verified(tmp_path, authority):
     newer = ingest.collect(paths)
     prof_b = reg.admit(newer, inspector.inspect_and_sign(newer, authority[0]))
     reg.activate(approval(authority[1], reg, prof_b["id"], decision_id="b"))
-    reg.activate(approval(authority[1], reg, profile["id"], decision_id="back_a"))
+    reg.rollback(approval(authority[1], reg, profile["id"], decision_id="back_a"))
     assert reg.begin_request("WALL_MIN").profile_bytes == old.profile_bytes
     assert selector.choose(newer["scope"], reg.begin_request("WALL_MIN"), ["CPU_SERIAL", "GPU_HYBRID"])["method"] == "LEGACY_V1"
 
