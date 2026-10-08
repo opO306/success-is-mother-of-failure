@@ -45,6 +45,16 @@ def test_numeric_strings_are_never_normalized():
     assert FP.parse_bytes(FP.content_bytes(a))==a
 
 
+def test_original_fraction_strings_are_exact_and_not_reduced():
+    a={'q':[['0','5']], 'p':[['-6/7','-1/7']]}; b=copy.deepcopy(a); b['p'][0][0]='-12/14'
+    assert FP.parse_bytes(FP.content_bytes(a))==a
+    assert FP.content_hash(a)!=FP.content_hash(b)
+
+
+def test_zero_denominator_string_is_refused_without_numeric_conversion():
+    with pytest.raises(ValueError): FP.content_hash({'q':[['0']], 'p':[['1/000']]})
+
+
 @pytest.mark.parametrize('raw',[b'{"q":[],"q":[],"p":[]}',b'{"q":[],"p":[],"x":{"a":1,"a":2}}',b'{"q":NaN,"p":[]}'])
 def test_duplicate_or_nonfinite_json_is_refused(raw):
     with pytest.raises(ValueError): FP.parse_bytes(raw)
@@ -108,6 +118,8 @@ def test_first_bad_persisted_record_prevents_replay_and_next_calculation(tmp_pat
     with pytest.raises(ValueError): pilot.stage({'id':'A','N':14,'T':1000,'goal':'WALL_MIN','methods':['SERIAL','W6']})
     assert calls==['service']  # First mocked call only; replay and next expensive calls are zero.
     assert list((tmp_path/'A/measurement').glob('*.json'))
+    rejection=read(next((tmp_path/'A/measurement/evidence_rejections').glob('*.json')))
+    assert rejection['reason']=='LEGACY_INITIAL_HASH'
 
 
 def test_existing_inspector_has_no_producer_import_or_arbitrary_repair_api():
@@ -123,7 +135,8 @@ def test_all_original_raw_pins_and_old_failure_are_unchanged():
     assert p['verified_raw_files']==68
 
 
-def test_historical_reader_rederives_all_ten_records_without_physics():
+def test_historical_reader_rederives_all_ten_records_without_physics(monkeypatch):
+    monkeypatch.setattr(inspector.CK,'own_pass',lambda *a,**kw:(_ for _ in ()).throw(AssertionError('NEW_PHYSICS_FORBIDDEN')))
     report=inspector.review_historical()
     assert report['verdict']=='VERIFIED_CONTENT' and report['classification']=='FORMAT_EQUIVALENT'
     assert len(report['records'])==10 and report['new_physics_calls']==report['independent_replays']==0
@@ -158,6 +171,15 @@ def test_tampered_correction_or_signature_is_refused(tmp_path,fault):
     assert mgr.rejections.history()
 
 
+def test_even_signed_false_content_claim_is_rederived_and_rejected(tmp_path):
+    judge,ruler,roots,receipt=signed_review()
+    receipt['body']['records'][0]['content_sha256']='0'*64
+    receipt['signature']=judge.sign(b'REAL_PILOT_RECEIPT\0'+canonical(receipt['body'])).hex()
+    cert=correction.derive(receipt,roots.inspector)
+    mgr=governance.Manager(tmp_path/'manager',tmp_path/'witness',roots,ruler)
+    with pytest.raises(ValueError,match='CORRECTION_RECORD_BINDING'): mgr.review_correction(cert)
+
+
 def test_explicit_signed_correction_review_keeps_legacy_and_original_failure(tmp_path):
     judge,ruler,roots,receipt=signed_review(); cert=correction.derive(receipt,roots.inspector)
     mgr=governance.Manager(tmp_path/'manager',tmp_path/'witness',roots,ruler)
@@ -169,6 +191,21 @@ def test_explicit_signed_correction_review_keeps_legacy_and_original_failure(tmp
     assert mgr.choose(mgr.begin('WALL_MIN',s),s)=='LEGACY'
     assert not list((mgr.directory/'profiles').glob('*.json'))
     assert history.load_originals()['original_status']=='REAL_LEARNING_FAIL'
+
+
+@pytest.mark.parametrize('fault',['unsigned_manager','wrong_goal','wrong_id','profile_activation','replay'])
+def test_bad_manager_correction_approval_is_rejected_and_preserved(tmp_path,fault):
+    judge,ruler,roots,receipt=signed_review(); cert=correction.derive(receipt,roots.inspector)
+    mgr=governance.Manager(tmp_path/'manager',tmp_path/'witness',roots,ruler)
+    body=mgr.approval_body('LEGACY','WALL_MIN','one','TEST_ONLY explicit review'); body['correction_id']=digest(cert)
+    if fault=='wrong_goal': body['goal']='CPU_MIN'
+    elif fault=='wrong_id': body['correction_id']='0'*64
+    elif fault=='profile_activation': body['profile_id']='0'*64
+    approval={'body':body,'signature':ruler.sign(b'REAL_PILOT_APPROVAL\0'+canonical(body)).hex()}
+    if fault=='unsigned_manager': approval['signature']=''
+    if fault=='replay': mgr.approve_correction(cert,approval)
+    with pytest.raises(ValueError): mgr.approve_correction(cert,approval)
+    assert mgr.rejections.history() and (mgr.directory/'STOP.json').exists()
 
 
 @pytest.mark.parametrize('fault',['session','source','initial','precision','environment'])
@@ -194,7 +231,9 @@ def test_mock_bridge_serialized_record_uses_explicit_versions(tmp_path,monkeypat
     from experiments.adaptive_execution_v1 import service
     p=history.load_originals(); obj,s=fixture(); s['origin']='OBSERVED_REAL'; s['code_manifest_sha256']=runner.code_check()
     monkeypatch.setattr(bridge,'require_live_session',lambda _:None)
-    monkeypatch.setattr(service,'run_request',lambda *a,**kw:copy.deepcopy(p['records'][0]['service']))
+    def mock_service(request,*args,**kw):
+        result=copy.deepcopy(p['records'][0]['service']); result['run_id']=result['request_id']=request['id']; return result
+    monkeypatch.setattr(service,'run_request',mock_service)
     record=bridge.capture(tmp_path,s,'SERIAL',0,None,reason='MOCK_ONLY')
     assert record==read(tmp_path/'SERIAL_0.json')
     FP.validate_fingerprints(record)

@@ -1,0 +1,10 @@
+{
+  "scope": "Clarify exact finite numeric strings before any V2 execution or code seal",
+  "original_protocol_preserved": true,
+  "observed_original": "N14 original momentum uses -6/7 and -1/7 Fraction strings",
+  "allowed": "ASCII signed decimal/exponent strings or signed integer numerator slash unsigned nonzero integer denominator strings",
+  "zero_denominator": "reject all-zero denominator text without converting numeric values",
+  "normalization": "none; -6/7 and -12/14 differ; no float, Decimal or Fraction conversion",
+  "canonical_bytes_and_legacy_hash_rules": "unchanged",
+  "new_physics_or_dynamic_tests_before_amendment": 0
+}
