@@ -1,0 +1,2 @@
+# Raw failure tracebacks include original trailing spaces; preserve their bytes.
+** -text -whitespace

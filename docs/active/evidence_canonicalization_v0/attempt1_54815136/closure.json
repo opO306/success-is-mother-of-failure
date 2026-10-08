@@ -1,0 +1,13 @@
+{
+  "allocation_window_seconds": "94.45299999999406",
+  "gate_returncode": 2,
+  "gpu_calls": 0,
+  "invoice_verified": false,
+  "new_physics_calls": 0,
+  "recovery_verified": true,
+  "source_zip_sha256": "a9ca1b08451e915205d6c2a0c0b5da57e26a349e0cd38c94fd068bc0e80037ab",
+  "stop_confirmed": true,
+  "time_charge_upper_estimate_usd": "0.003532075765431877367569444444",
+  "transfer_storage_fees_verified": false,
+  "trigger": "FAILED"
+}

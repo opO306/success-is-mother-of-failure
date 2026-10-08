@@ -1,0 +1,8 @@
+{
+  "code_seal_sha256": "8ad79b9e4655ef29ea1ab14f94cfa863db8f7c3214e39ebdea201d341f6e79de",
+  "gpu_calls": 0,
+  "new_physics_calls": 0,
+  "original_status": "REAL_LEARNING_FAIL",
+  "reason": "EVIDENCE_OFFLINE_PHASE_FAILED:tests",
+  "status": "EVIDENCE_FORMAT_FAIL"
+}

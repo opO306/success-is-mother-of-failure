@@ -1,0 +1,11 @@
+{
+  "actual_status": "running",
+  "dph_total": 0.13462222222222225,
+  "geolocation": "France, FR",
+  "id": 54815136,
+  "intended_status": "running",
+  "label": "adaptive-A-20261008-8d4115e5",
+  "machine_id": 56006,
+  "ssh_host": "ssh9.vast.ai",
+  "ssh_port": 26992
+}

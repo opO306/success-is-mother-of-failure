@@ -1,0 +1,14 @@
+{
+  "allocation_start_utc": "2026-10-08T12:06:10.031724+00:00",
+  "approval_reference": "user_reply_call_795c1551452041189ec0e4a9f50ece0d_approval_20261008",
+  "code_seal_sha256": "8ad79b9e4655ef29ea1ab14f94cfa863db8f7c3214e39ebdea201d341f6e79de",
+  "country": "FR",
+  "explicit_user_approval": true,
+  "gate": "EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0",
+  "gpu_calls": 0,
+  "instance_id": 54815136,
+  "machine_id": 56006,
+  "physics_calls": 0,
+  "policy_sha256": "2ffe33d67f2d2e6483f9629e0fb4e0a94c2d7f020a75e6b006aeebacb9344bc1",
+  "scope": "EVIDENCE_OFFLINE_ONLY"
+}

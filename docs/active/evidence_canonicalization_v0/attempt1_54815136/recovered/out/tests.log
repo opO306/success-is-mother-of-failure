@@ -1,0 +1,66 @@
+........................................................................ [ 37%]
+..........................................F............................. [ 74%]
+..................................................                       [100%]
+=================================== FAILURES ===================================
+_______ test_completion_bridge_mock_only_candidate_is_not_real_evidence ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-1/test_completion_bridge_mock_on0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x757d981aa6c0>
+
+    def test_completion_bridge_mock_only_candidate_is_not_real_evidence(tmp_path,monkeypatch):
+        from experiments.adaptive_execution_v1 import service
+        from experiments.adaptive_execution_real_learning_pilot_v0.common import raw_hash,HERE,ns,code_manifest_path
+        from experiments.evidence_canonicalization_v0.fingerprints import CONTENT_VERSION,policy_hash
+        records,oldsession,replays=contract_panel(); original=copy.deepcopy(records[-1]['service'])
+        original['run_id']=original['request_id']=oldsession['session_id']+'/W6/0'
+        session=dict(oldsession,origin='OBSERVED_REAL',test_only=True,boot_id='MOCK_BOOT',
+                     code_manifest_sha256=raw_hash(code_manifest_path()),evidence_version=2,
+                     initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash())
+        with pytest.raises(ValueError): bridge.require_live_session(session)
+        # Test explicitly bypasses ONLY execution authorization; no calculator runs, no receipts are signed.
+        monkeypatch.setattr(bridge,'require_live_session',lambda _:None)
+        monkeypatch.setattr(service,'run_request',lambda *args,**kwargs:copy.deepcopy(original))
+        clocks=iter([{'controller':0,'waited_children':0,'live_gpu':0},
+                     {'controller':1,'waited_children':ns(original['service_cpu_s']),'live_gpu':0}])
+        monkeypatch.setattr(bridge,'cpu_clock',lambda gpu=None:next(clocks))
+>       record=bridge.capture(tmp_path,session,'W6',0,None,reason='MOCK_TEST_ONLY; NOT_NEW_EXPERIENCE')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_adaptive_execution_real_learning_pilot_v0.py:225: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/adaptive_execution_real_learning_pilot_v0/bridge.py:77: in capture
+    saved,metrics=save_and_check(directory/f'{method}_{repeat}.json',obj,session,writer=write_new)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/evidence_canonicalization_v0/fingerprints.py:129: in save_and_check
+    t=time.monotonic_ns(); validate_saved(saved,record,session)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+saved = {'code_manifest_sha256': '8ad79b9e4655ef29ea1ab14f94cfa863db8f7c3214e39ebdea201d341f6e79de', 'correctness_level': 'EXECUTOR_UNVERIFIED; INDEPENDENT_REPLAY_REQUIRED', 'evidence_version': 2, 'goal': 'WALL_MIN', ...}
+expected = {'kind': 'OBSERVED_REAL', 'state': 'CANDIDATE', 'run_id': 'HISTORICAL_CONTRACT_ONLY/W6/0', 'session_id': 'HISTORICAL_CONTRACT_ONLY', ...}
+session = {'origin': 'OBSERVED_REAL', 'session_id': 'HISTORICAL_CONTRACT_ONLY', 'env': {'allowed_cpus': [0, 1, 2, 3, 4, 5, ...],...0:1', '10': '0:10', '100': '0:36', ...}, 'cpu_model': 'AMD Ryzen Threadripper PRO 3995WX 64-Cores', ...}, 'N': 14, ...}
+
+    def validate_saved(saved,expected,session):
+        validate_fingerprints(saved)
+        if (type(session.get('evidence_version')) is not int or session['evidence_version']!=2
+                or session.get('initial_content_version')!=CONTENT_VERSION or session.get('evidence_policy_sha256')!=policy_hash()):
+            raise ValueError('SESSION_EVIDENCE_VERSION_OR_POLICY')
+        if canonical(saved)!=canonical(expected): raise ValueError('SAVED_MEMORY_CONTENT_MISMATCH')
+        from hashlib import sha256
+        sh=sha256(canonical(session)).hexdigest()
+        if (saved.get('session_id')!=session['session_id'] or saved.get('session_sha256')!=sh
+                or saved.get('code_manifest_sha256')!=session['code_manifest_sha256']
+                or saved.get('state')!='CANDIDATE' or saved.get('goal')!=session['goal']
+                or saved.get('method') not in session['methods']): raise ValueError('SAVED_REQUEST_BINDING')
+        service=saved['service']; start=service['start_decision']
+        if ((service['N'],service['T'])!=(session['N'],session['T']) or service['env_id']!=session['env']['env_id']
+                or service['run_id']!=saved['run_id'] or service['request_id']!=saved['run_id']
+                or len(saved['initial_state']['q'])!=session['N'] or start['start']!='FIXED_START:163'
+                or start['start_p']!=163 or start['initial_state_digest']!=saved['initial_sha256']):
+>           raise ValueError('SAVED_INPUT_OR_START')
+E           ValueError: SAVED_INPUT_OR_START
+
+experiments/evidence_canonicalization_v0/fingerprints.py:96: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_adaptive_execution_real_learning_pilot_v0.py::test_completion_bridge_mock_only_candidate_is_not_real_evidence
+1 failed, 193 passed in 7.57s

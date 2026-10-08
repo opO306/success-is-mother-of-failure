@@ -1,0 +1,16 @@
+{
+  "allocation_start_utc": "2026-10-08T12:06:10.031724+00:00",
+  "approval_reference": "user_reply_call_795c1551452041189ec0e4a9f50ece0d_approval_20261008",
+  "completion_marker": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\.codex\\artifacts\\evidence-canonicalization-v0\\run_20261008_approved\\completion.json",
+  "country": "FR",
+  "deadline_seconds": 300,
+  "exclusive": true,
+  "experiment_scope": "EVIDENCE_OFFLINE_ONLY",
+  "explicit_user_approval": true,
+  "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+  "hourly_cap_usd": "0.25",
+  "instance_id": 54815136,
+  "machine_id": 56006,
+  "scope": "STOP_CONTROL_ONLY",
+  "total_cap_usd": "0.10"
+}
