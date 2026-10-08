@@ -1,0 +1,33 @@
+{
+  "status": "STATIC_PREPARATION_CHECKED; DYNAMIC_TESTS_NOT_RUN",
+  "observed_utc": "2026-10-08T13:21:18.851239+00:00",
+  "baseline": "37a5abd3",
+  "source_commit": "5cefccf4ef7e746279f61a6974608fabe3683c71",
+  "protected_raw_files": 663,
+  "protected_mismatches": 0,
+  "ast_syntax": "PASS_PARSE_ONLY_NO_IMPORT",
+  "test_case_counts": {
+    "tests/test_adaptive_execution_verification_v0.py": 24,
+    "tests/test_adaptive_execution_learning_v1.py": 53,
+    "tests/test_adaptive_execution_real_learning_pilot_v0.py": 65,
+    "tests/test_evidence_canonicalization_v0.py": 60,
+    "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py": 52
+  },
+  "expected_remote_total": 254,
+  "local_dynamic_tests": 0,
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "paid_start_or_rental_calls": 0,
+  "concept_review": {
+    "first_call": "SERIAL_0",
+    "gate_before_W6": "SAVE_REREAD_FRESH_REPLAY_SIGNED_EXISTING_INSPECTOR",
+    "inspectors": 1,
+    "fresh_replays": 1,
+    "learned_requests": 1,
+    "rollback_physics_calls": 0,
+    "authority": "SAME_UID_NO_OS_ISOLATION",
+    "formula": "UNRESOLVED_SHARED_RWFORCE",
+    "real_loop": "UNCONFIRMED"
+  },
+  "local_full": "NOT_RUN_USER_PROHIBITS_LOCAL_DYNAMIC_EXECUTION; OFFICIAL_INTEGRATION_BASELINE_NOT_UPDATED"
+}
