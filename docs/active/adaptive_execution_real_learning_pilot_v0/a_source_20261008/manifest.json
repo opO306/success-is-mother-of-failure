@@ -1,0 +1,15 @@
+{
+  "schema": "A-source-prepared-evidence",
+  "mode": "REMOTE_OFFLINE_GATE_PENDING",
+  "tests_planned": 142,
+  "tests_executed": 0,
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "automatic_rental_or_start": false,
+  "source_commit": "8d4115e5",
+  "files": {
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_source_20261008/prior_code_seal_d3ee98fd.json": "561578c779a6b0f3bfcaf2f2cadea62f0d27cdec09cd707a17d27b546cf50b67",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_source_20261008/source_8d4115e5.zip": "72577a4b61d30b359479f6493878532211a72f82d86786c3788f21c7bd10ff19",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md": "97f4d6dfdb33835ad5c1491a6c8e8847b6f878a99eb65c54fc412a494afce5a8"
+  }
+}

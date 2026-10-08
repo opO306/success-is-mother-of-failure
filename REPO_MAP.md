@@ -1,3 +1,5 @@
+[실측 A 안전 보강 소스](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.
+
 # 저장소 지도
 
 **적응형 경험 학습 V1 현재:** experiments/adaptive_execution_learning_v1/ 및 신규 시험53개, 과거 V0 24개와 원격77 passed. 합성 경험/검사관 서명/목표별 승인/snapshot/복귀/STOP 오프라인 검증, 실제 종료 훅·production 없음. 원본·결함 증거는 docs/active/adaptive_execution_learning_v1/. [보고서](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md).
