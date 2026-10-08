@@ -1,0 +1,9 @@
+{
+  "schema": "TABLET_V0_PROTOCOL_SEAL",
+  "files": {
+    "experiments/adaptive_experience_tablet_v0/protocol.json": "f03bc97a79e1a22ece4964270032d8829f7a208e961c09806c8f7bc10351013c",
+    "experiments/adaptive_experience_tablet_v0/preservation_manifest.json": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3",
+    "docs/active/ADAPTIVE_EXPERIENCE_TABLET_AND_CPU_ROUTE_V0_PROTOCOL.md": "0e74802cea6e8fa0f4bdbce8dd5676647947443a7226ed54d77478fcd63f7a52",
+    "docs/active/adaptive_experience_tablet_v0/original_user_request.txt": "bef2d64ec6423a34a2fc9e781ee3956438912a547726617f37e14ed27be13037"
+  }
+}

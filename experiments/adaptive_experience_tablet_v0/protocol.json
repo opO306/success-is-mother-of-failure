@@ -1,0 +1,56 @@
+{
+  "schema": "ADAPTIVE_EXPERIENCE_TABLET_CPU_ROUTE_V0",
+  "baseline": "2fa56010",
+  "mode": "RESEARCH_ONLY; NOT_PRODUCTION; SOURCE_PREPARATION",
+  "catalog": {
+    "format": "rebuildable JSON index plus immutable per-profile references",
+    "authority": "NONE; externally provisioned public roots; existing inspector receipt and manager approval only",
+    "supported_evidence": "A_RESUME_V1 signed real cost receipt; exactly SERIAL/W6 five observations per method",
+    "test_evidence": "existing governance OFFLINE_CONTRACT_ONLY profiles; never current real performance",
+    "deduplication": "profile id and session sha plus goal; duplicate profiles do not add confidence",
+    "max_reference_bytes": 1048576,
+    "max_matches": 64,
+    "index_integrity": "STOP on mismatch; explicit rebuild preserves originals; index grants no approval",
+    "normal_lookup": "exact problem key dictionary lookup; load/hash selected references and signed raw dependencies only",
+    "audit": "registration/rebuild separate; no full archive scan per request"
+  },
+  "problem_key": ["N", "T", "start_p", "actual_p", "goal", "physics", "numeric", "source_sha256"],
+  "routes": {
+    "reuse": ["selector.placements", "selector.check_request", "AdaptivePlan.execution_plan", "adapters.validate_plan", "adapters.executed_matches"],
+    "methods": ["SERIAL", "W3", "W4", "W6"],
+    "platform": "Linux only in V0; other operating systems and heterogeneous core classes not qualified",
+    "unknown_topology": "REFUSED; partial core identification does not qualify parallel routes",
+    "quota": "explicit quota observation required: observed finite positive or observed unlimited",
+    "hybrid_cpu": "homogeneous attestation required; UNKNOWN rejected",
+    "W6": "six distinct physical cores; main CPU equals last worker CPU",
+    "W3_W4": "candidate plans only; learning service connection NOT_IMPLEMENTED",
+    "selection": "CPU_MIN SERIAL; no current manager-approved session snapshot -> SERIAL; W3/W4 never auto activated"
+  },
+  "states": ["CURRENT_SESSION_VERIFIED", "TRANSFER_HINT_ONLY", "NEEDS_CALIBRATION", "INCOMPATIBLE", "REFUSED"],
+  "current_performance": "OBSERVED_REAL; exact session digest; exact env id; exact problem key; existing manager owns snapshot profile and chooses it; no conversion by model name or env id",
+  "study": "reuse existing knowledge.value; conservative benefit lower bound; supplied verified baseline; expected reuses/budget/risk required; execution_authorized always false",
+  "benchmark": {
+    "sizes": [100, 1000, 10000],
+    "repeats": 31,
+    "index_lookup_median_ns_target": 10000000,
+    "metrics": ["lookup wall median/max", "lookup process CPU", "route generation wall/CPU", "tracemalloc peak delta", "serialized index bytes", "per-reference bytes"],
+    "measurement_scope": "synthetic key search only; full selected evidence verification measured separately; not physics performance",
+    "environment": "approved Linux offline process, one permitted CPU, record platform/Python/CPU/affinity/quota before benchmark"
+  },
+  "offline": {
+    "existing_tests": 254,
+    "test_files": ["tests/test_adaptive_execution_verification_v0.py", "tests/test_adaptive_execution_learning_v1.py", "tests/test_adaptive_execution_real_learning_pilot_v0.py", "tests/test_evidence_canonicalization_v0.py", "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py", "tests/test_adaptive_experience_tablet_v0.py"],
+    "expected_tests": "static expansion stored in code_seal.json; actual JUnit required",
+    "cpu_affinity_count": 1,
+    "wall_seconds": 120,
+    "aggregate_cpu_seconds": 120,
+    "address_space_bytes": 536870912,
+    "physics_calls": 0,
+    "gpu_calls": 0,
+    "fail_error_skip": "STOP; preserve outputs; at most three attempts without budget reset",
+    "authorization": "fresh human approval, pinned source/protocol, outside-guest guardian required; no local dynamic tests"
+  },
+  "remote_proposal": {"instance": "NOT_SELECTED", "platform": "Linux", "cpu": 1, "allocation_seconds": 600, "compute_seconds": 120, "recovery_deadline_seconds": 420, "stop_confirmation_seconds": 180, "hourly_usd_max": "0.25", "total_usd_max": "0.05", "memory_bytes": 536870912, "automatic_execution": false},
+  "limitations": ["UNRESOLVED_SHARED_RWFORCE", "NO_OS_AUTHORITY_ISOLATION", "FORMAL_INTEGRATION_REGRESSION_PENDING", "RAW_REFERENCES_REQUIRE_ARCHIVE_ROOT_RELOCATION", "SIGNED_GUEST_ENV_NOT_HARDWARE_ATTESTATION", "OFFLINE_COUNTS_AND_COSTS_UNMEASURED_UNTIL_APPROVAL"],
+  "forbidden": ["LOCAL_PROJECT_IMPORT_OR_DYNAMIC_TESTS", "NEW_PHYSICS", "CALCULATOR_CHANGES", "GPU_WORKERS", "KEY_STORAGE_OR_SIGNING", "AUTOMATIC_PROMOTION", "PAID_EXECUTION_WITHOUT_FRESH_APPROVAL", "PRODUCTION_CONNECTION", "CHANGE_ENV_ID_SEMANTICS", "CHANGE_P_OR_P2_OR_CPU_MIN_RULE", "GITHUB_PUSH", "MASTER_MERGE"]
+}
