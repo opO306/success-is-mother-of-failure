@@ -1,0 +1,62 @@
+{
+  "gate": "ADAPTIVE_EXECUTION_LEARNING_V1",
+  "schema": 1,
+  "baseline": "0f4450e889f33f437c1cafaf68966a3590c64bc3",
+  "branch": "codex/adaptive-execution-learning-v1",
+  "mode": "OFFLINE_TEST_ONLY",
+  "authorization": {"file_preparation_and_local_commits": true, "local_compute": false, "paid_execution": false, "push_or_master_merge": false},
+  "budget": {
+    "authorized_compute_jobs": 0, "authorized_paid_usd": "0", "new_trajectories": 0, "gpu_calls": 0,
+    "remote_proposal": {"workers": 1, "wall_seconds": 120, "aggregate_cpu_seconds": 120, "memory_mib": 512, "max_attempts": 3, "max_hourly_usd": "0.25", "max_total_usd": "0.10", "max_allocated_minutes": 10},
+    "inputs": {"max_records": 64, "max_record_bytes": 4194304, "max_total_bytes": 33554432},
+    "overflow": "STOP_WITH_PARTIAL_EVIDENCE; no enlargement or automatic next experiment"
+  },
+  "experience": {
+    "states": ["UNKNOWN", "CANDIDATE", "VERIFIED"],
+    "scope_key": ["request_type", "N", "T", "p", "initial_state_sha256", "request_fingerprint", "physics", "numeric", "evaluator", "environment", "session_id"],
+    "fields": ["initial_state", "method", "choice_reason", "wall_ns", "aggregate_cpu_ns", "attempts", "result", "precision", "domain", "correctness_evidence", "source_sha256", "measurement_kind"],
+    "slow_correct": "VALID_CORRECT_BUT_COST_INFORMATION_INCOMPLETE; never correctness error based on time",
+    "refusal": "append refusal and retain original candidate; integrity/result mismatch latches STOP; no automatic retry"
+  },
+  "promotion": {
+    "minimum_repeats_per_method": 5, "maximum_spread_ratio": "1.25",
+    "required": ["sealed protocol and protected historical evidence", "unique run ids", "one exact scope and session", "same measurement kind", "original initial-state digest", "all attempts accounted with ORIGINAL_STATE starts", "effective precision equals declared final precision", "unchanged exact result and domain", "existing GPU/CPU eligibility", "positive integer wall and aggregate CPU timings", "aggregate CPU equals sum of every attempt CPU", "wall includes every attempt wall", "serial baseline and full result equality", "independent rederivation equals candidate", "signed inspector receipt against provisioned public key", "separate signed manager activation approval"],
+    "cost_scope": "SESSION_EXECUTION_COST_ONLY",
+    "synthetic_scope": "SYNTHETIC_TEST_ONLY; never actual performance evidence",
+    "real_promotion": "REFUSED until external correctness/session attestation adapter and operational keys are approved",
+    "formula_independence": "UNRESOLVED_SHARED_RWFORCE; INDEPENDENT_FORMULA_VERIFICATION_V0 is a separate follow-up"
+  },
+  "gpu_eligibility": {"architectures": ["sm_86", "sm_89"], "precisions": [64, 73, 78, 109, 128, 161, 163, 166, 192], "N_by_T": {"1000": [12, 16, 40], "100": [12, 16, 40, 64, 128]}, "profile": "GPU_V1", "block": 32},
+  "selection": {
+    "goals": ["WALL_MIN", "CPU_MIN"], "wall_tie_ratio": "1.05",
+    "WALL_MIN": "minimum median full service wall; within 5 percent tie: aggregate CPU, workers, method",
+    "CPU_MIN": "minimum median aggregate CPU; tie: wall, workers, method",
+    "activation": "TEST_ONLY signed approval binds profile, goal, manager predecessor/version, decision id and reason; candidate cannot activate",
+    "snapshot": "immutable bytes fixed at request start; executor receives snapshot only",
+    "rollback": "signed activation of any prior admitted profile or LEGACY; failed rollback keeps prior active version and latches STOP",
+    "fallback": "LEGACY_V1 on missing objective, exact scope/session mismatch or no eligible comparison",
+    "production": "always REFUSED in V1 limited implementation"
+  },
+  "value_assessment": {
+    "net_gain_ns": "confirmed_reuse_count * per_request_gain_lower_ns - measurement_upper_ns - verification_upper_ns - learning_upper_ns",
+    "required": ["goal", "gain_lower_ns", "reuse_count", "measurement_upper_ns", "verification_upper_ns", "learning_upper_ns", "risk", "correctness_eligible", "resource_allowance_ns", "resource_required_ns"],
+    "unknown": "DEFER_INFORMATION_NEEDED",
+    "positive_low_risk_with_resources": "PROPOSE_ONLY; execution_authorized=false",
+    "actual_net_profit": "UNCONFIRMED until actual measurement/verification/learning costs and realized reuse are measured; synthetic profit is not real profit"
+  },
+  "authority": {
+    "inspector": "independent reader; Ed25519 receipt signer; never imports collector, manager, selector or physics executors",
+    "manager": "public inspector key provisioned before collection; separate public manager-approval key; no caller-supplied receipt hashes or replacement keys",
+    "executor": "append candidates and consume snapshot; holds no approval or inspector private keys",
+    "test_roots": "ephemeral TEST_ONLY identities provisioned in isolated test fixture before ingest; no production issuer bundled",
+    "OS_limit": "same UID/Python/filesystem is not an authority boundary; privileged implementer can replace roots/code; no claim of adversarial OS isolation",
+    "operational_followup": ["separate OS principals/ACLs and read-only pinned roots", "inspector private key external signer", "manager user approval signer separate from executor", "append-only remote witness for truncation/fork detection", "atomic serialized activation and concurrency service", "session attestation and trusted timing/correctness adapters"]
+  },
+  "safety": {
+    "preserve": ["V0", "V1", "GPU V1", "physics", "rounding", "interval arithmetic", "P2", "restart from original state", "GPU domain", "old results", "official baseline"],
+    "vast": "reuse pinned V0 external guardian; DEADLINE/COMPLETED live exit evidence exists; long communications outage and actual FAILED stop remain unverified; fresh exact-instance authorization and ARMED receipt required before any paid run",
+    "automatic_vast_start": false,
+    "test_groups": ["historical V0 preservation", "new synthetic session ingest and unknown gaps", "signed verified next-request learning and rollback", "fault injection"],
+    "STOP": ["evidence integrity failure", "result mismatch", "failed rollback", "budget overflow"]
+  }
+}

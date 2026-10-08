@@ -1,0 +1,9 @@
+{
+  "schema": "ael1-protocol-seal",
+  "mode": "raw_bytes_sha256",
+  "files": {
+    "experiments/adaptive_execution_learning_v1/protocol.json": "2a587c4f083bfd0e15ff356c5d157dd23d5c47f0a391fa14b6931f3f907be540",
+    "experiments/adaptive_execution_learning_v1/preservation_manifest.json": "a812b3947866c84e59dd09c9cae528004779ff6df67f71d1a776275a7bce2230",
+    "docs/active/ADAPTIVE_EXECUTION_LEARNING_V1_DESIGN.md": "8da28fa82d9505bf7b48e1f35a6b3d96eba3e6b514fb0496be38969ae51a46b5"
+  }
+}
