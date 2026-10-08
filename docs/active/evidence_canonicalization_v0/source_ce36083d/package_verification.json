@@ -1,0 +1,17 @@
+{
+  "scope": "REVISION_RAW_SOURCE_VERIFIED_ONLY",
+  "source_commit": "dc82e85dd3cf18945dfa8f964ffce712c5ca198e",
+  "seal_commit": "ce36083d",
+  "code_seal_sha256": "d87f1ad19d5f228ccb9db825dc7360e9805a051282093fca2537041e92efd0ca",
+  "zip_sha256": "8700e9daac97bbe4b78fa2b07b55bfdda45ed444da8aa1ba6165c4ac94a69dc7",
+  "zip_bytes": 17931865,
+  "sealed_files": 507,
+  "zip_entries": 508,
+  "tests_expected": 202,
+  "remaining_gate_seconds": 100,
+  "remaining_allocation_max_seconds": 480,
+  "guardian_seconds": 240,
+  "approval_reference": "user_reply_call_795c1551452041189ec0e4a9f50ece0d_approval_20261008",
+  "old_failure_preserved": true,
+  "criteria_relaxed": false
+}
