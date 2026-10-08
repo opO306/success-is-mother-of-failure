@@ -10,7 +10,7 @@ HERE=Path(__file__).resolve().parent
 
 def code_manifest_path():
     # Explicit new source version; no inference or fallback to the historical seal.
-    return ROOT/'experiments/evidence_canonicalization_v0/code_seal.json'
+    return ROOT/'experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json'
 
 
 def public(key):
@@ -25,6 +25,8 @@ def verify(key,domain,envelope):
 
 
 def check_seals():
+    from experiments.adaptive_execution_real_learning_pilot_a_resume_v1.policy import check_protocol
+    check_protocol()
     from experiments.evidence_canonicalization_v0.policy import check_policy
     check_policy()
     from .a_safety import policy

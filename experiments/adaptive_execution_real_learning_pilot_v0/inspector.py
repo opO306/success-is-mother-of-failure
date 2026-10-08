@@ -8,6 +8,7 @@ from experiments.adaptive_execution_v1 import checker as CK
 from experiments.multiatom_parallel_v1 import scenarios as SC
 from .common import HERE, ROOT, canonical, digest, read, raw_hash, write_new, check_seals, ns,code_manifest_path
 from experiments.evidence_canonicalization_v0 import fingerprints as FP,history
+from experiments.adaptive_execution_real_learning_pilot_a_resume_v1 import evidence as RESUME,policy as RP
 
 
 def initial_state(N):
@@ -77,6 +78,7 @@ def validate_record(obj,session,replays,*,contract_only=False,_legacy_review=Fal
             require(session.get('evidence_version')==2 and session.get('initial_content_version')==FP.CONTENT_VERSION
                     and session.get('evidence_policy_sha256')==FP.policy_hash(),'SESSION_EVIDENCE_VERSION_OR_POLICY')
             FP.validate_fingerprints(obj)
+            if session.get('resume_protocol_sha256'): FP.validate_saved(obj,obj,session)
         require(session.get('boot_id') and session.get('hostname') and session.get('instance_id') and session.get('machine_id'),'HOST_ID_REQUIRED')
     return {'method':obj['method'],'wall_ns':wall,'cpu_ns':cpu}
 
@@ -105,18 +107,69 @@ def validate_panel(records,session,replays,*,contract_only=False,_legacy_review=
 
 
 def inspect_directory(directory):
-    check_seals(); directory=Path(directory); session=read(directory/'session.json')
+    check_seals(); directory=Path(directory); session=RESUME.strict_read(directory/'session.json')
     require(session['origin']=='OBSERVED_REAL','REAL_ORIGIN_REQUIRED')
     require(session['code_manifest_sha256']==raw_hash(code_manifest_path()),'CODE_SEAL_MISMATCH')
     for relative,expected in read(code_manifest_path())['files'].items():
         require(raw_hash(ROOT/relative)==expected,'SOURCE_INTEGRITY:'+relative)
     paths=sorted((directory/'measurement').glob('*.json')); require(len(paths)==10,'MISSING_REPEAT')
     require(sum(p.stat().st_size for p in paths)<=64*1024*1024,'EVIDENCE_SIZE_CAP')
-    replay=read(directory/'replay.json')
-    report=validate_panel([read(path) for path in paths],session,replay)
+    replay=RESUME.strict_read(directory/'replay.json')
+    records=[RESUME.strict_read(path) for path in paths]
+    if 'resume_protocol_sha256' in session: resume_scope(session,replay)
+    report=validate_panel(records,session,replay)
+    originals=[directory/'session.json',directory/'replay.json']
+    if 'resume_protocol_sha256' in session:
+        require(session['resume_protocol_sha256']==RP.protocol_hash(),'RESUME_POLICY_MIX')
+        samples={method:[] for method in session['methods']}
+        for obj in records:
+            row,files=RESUME.read_cost(directory/'measurement',obj,session)
+            samples[obj['method']].append(row); originals.extend(files)
+        rows=[]
+        for method,group in sorted(samples.items()):
+            for metric in ('wall_ns','cpu_ns'):
+                values=[x[metric] for x in group]
+                require(min(values)>0 and max(values)*4<=min(values)*5,'FULL_REQUEST_SPREAD_NOT_READY')
+            rows.append(dict(method=method,wall_ns=int(statistics.median(x['wall_ns'] for x in group)),
+                             cpu_ns=int(statistics.median(x['cpu_ns'] for x in group)),repeats=5))
+        report.update(rows=rows,resume_protocol_sha256=RP.protocol_hash(),cost_basis=RP.protocol()['profile_cost_basis'])
+    else: originals.extend(paths)
     report['stage']=directory.name
-    report['raw_files']={str(path.relative_to(directory)):raw_hash(path) for path in [directory/'session.json',directory/'replay.json',*paths]}
+    report['raw_files']={path.relative_to(directory).as_posix():raw_hash(path) for path in originals}
     return report
+
+
+def inspect_result(directory,first=False):
+    """Same inspector, actual originals, one signed result gate; not a cost promotion."""
+    check_seals(); directory=Path(directory); session=RESUME.strict_read(directory/'session.json')
+    require(session.get('resume_protocol_sha256')==RP.protocol_hash(),'RESUME_POLICY_MIX')
+    require(session['code_manifest_sha256']==raw_hash(code_manifest_path()),'CODE_SEAL_MISMATCH')
+    for relative,expected in read(code_manifest_path())['files'].items():
+        require(raw_hash(ROOT/relative)==expected,'SOURCE_INTEGRITY:'+relative)
+    location=directory/('measurement' if first else 'next_request'); files=sorted(location.glob('*.json'))
+    require(len(files)==1,'FIRST_OR_NEXT_EVIDENCE_COUNT')
+    obj=RESUME.strict_read(files[0]); replay=RESUME.strict_read(directory/'replay.json')
+    resume_scope(session,replay)
+    if first:
+        require(obj['method']=='SERIAL' and obj['repeat']==0 and obj['selection']['requested_method']=='SERIAL','FIRST_EXPLICIT_SERIAL_REQUIRED')
+    validate_record(obj,session,replay)
+    row,costfiles=RESUME.read_cost(location,obj,session)
+    originals=[directory/'session.json',directory/'replay.json',*costfiles]
+    return dict(verdict='REAL_SESSION_FIRST_RESULT_CHECKED' if first else 'REAL_SESSION_RESULT_CHECKED',
+            errors=[],scope='RESEARCH_ONLY',real_cost_evidence=False,method=obj['method'],repeat=obj['repeat'],
+            session_sha256=digest(session),code_manifest_sha256=session['code_manifest_sha256'],
+            resume_protocol_sha256=RP.protocol_hash(),record_sha256=raw_hash(files[0]),full_request_cost=row,
+            raw_files={p.relative_to(directory).as_posix():raw_hash(p) for p in originals},
+            formula_independence='UNRESOLVED_SHARED_RWFORCE')
+
+
+def inspect_first(directory): return inspect_result(directory,first=True)
+
+
+def resume_scope(session,replay):
+    require((session.get('N'),session.get('T'),session.get('goal'),session.get('methods'))
+            ==(14,1000,'WALL_MIN',['SERIAL','W6']),'RESUME_A_ONLY_SESSION')
+    require(set(replay)=={'14/1000/163'},'RESUME_REPLAY_UNIQUE_CONDITION')
 
 
 def review_original_record(obj,panel,raw_sha256):
@@ -177,9 +230,13 @@ def main():
         if command=={'operation':'CLOSE'}: return
         target=(root/command['stage']).resolve()
         try:
-            require(command['operation'] in ('INSPECT','CHECK_NEXT') and command['stage'] in ('A','B') and target.parent==root,'INSPECTOR_REQUEST_SCOPE')
+            require(command['operation'] in ('INSPECT','CHECK_NEXT','CHECK_FIRST') and command['stage'] in ('A','B') and target.parent==root,'INSPECTOR_REQUEST_SCOPE')
             if command['operation']=='INSPECT':
                 report=inspect_directory(target); output=target/'receipt.json'
+            elif command['operation']=='CHECK_FIRST':
+                report=inspect_first(target); output=target/'first_result_receipt.json'
+            elif RESUME.strict_read(target/'session.json').get('resume_protocol_sha256'):
+                report=inspect_result(target); output=target/'next_request_receipt.json'
             else:
                 check_seals(); session=read(target/'session.json'); files=sorted((target/'next_request').glob('*.json'))
                 require(len(files)==1,'NEXT_REQUEST_EVIDENCE_COUNT')

@@ -9,6 +9,7 @@ from experiments.adaptive_execution_real_learning_pilot_v0 import runner, inspec
 from experiments.adaptive_execution_real_learning_pilot_v0.common import canonical, digest, public, read, write_new, raw_hash
 from experiments.evidence_canonicalization_v0 import history, fingerprints as FP
 from experiments.adaptive_execution_real_learning_pilot_a_resume_v1 import policy, evidence, offline
+from experiments.adaptive_execution_real_learning_pilot_a_resume_v1 import heartbeat_relay
 
 
 def saved_fixture(tmp_path,method='SERIAL',repeat=0):
@@ -19,6 +20,8 @@ def saved_fixture(tmp_path,method='SERIAL',repeat=0):
     obj=copy.deepcopy(old); obj.update(session_sha256=digest(s),code_manifest_sha256=s['code_manifest_sha256'])
     obj['service']['start_decision'].update(start='FIXED_START:163',start_p=163)
     obj['selection']['requested_method']=method
+    obj['run_id']=s['session_id']+'/'+method+'/'+str(repeat)
+    obj['service']['run_id']=obj['service']['request_id']=obj['run_id']
     obj=FP.stamp(obj); directory=tmp_path/'measurement'; directory.mkdir(exist_ok=True)
     def capture():
         return FP.save_and_check(directory/f'{method}_{repeat}.json',obj,s,writer=write_new)
@@ -36,7 +39,10 @@ def saved_fixture(tmp_path,method='SERIAL',repeat=0):
     cost_path=directory/'request_costs'/f'{method}_{repeat}.json'; write_new(cost_path,cost)
     replay=copy.deepcopy(panel['replays'])
     for r in replay.values(): r.update(session_sha256=digest(s),code_manifest_sha256=s['code_manifest_sha256'])
-    write_new(tmp_path/'session.json',s); write_new(tmp_path/'replay.json',replay)
+    if not (tmp_path/'session.json').exists():
+        write_new(tmp_path/'session.json',s); write_new(tmp_path/'replay.json',replay)
+    else:
+        assert read(tmp_path/'session.json')==s and read(tmp_path/'replay.json')==replay
     return record,s,replay,cost_path
 
 
@@ -48,7 +54,7 @@ def test_full_request_cost_includes_stored_file_work(tmp_path):
     assert len(files)==3 and path.name in {p.name for p in files}
 
 
-@pytest.mark.parametrize('fault',['raw','metric_raw','session','source','protocol','clock','cpu','delta','scope','overhead','negative','boolean'])
+@pytest.mark.parametrize('fault',['raw','metric_raw','session','source','protocol','clock','cpu','delta','scope','overhead','negative','boolean','run_id'])
 def test_request_cost_faults_are_refused_and_preserved(tmp_path,fault):
     obj,s,_,path=saved_fixture(tmp_path); bad=read(path)
     fields={'raw':'record_sha256','metric_raw':'metrics_sha256','session':'session_sha256',
@@ -63,6 +69,7 @@ def test_request_cost_faults_are_refused_and_preserved(tmp_path,fault):
         bad['wall_ns']=obj['observation']['wall_ns']+bad['additional_wall_ns']
         bad['end_wall_ns']=bad['start_wall_ns']+bad['wall_ns']
     elif fault=='negative': bad['additional_cpu_ns']=-1
+    elif fault=='run_id': bad['run_id']='past-session/SERIAL/0'
     else: bad['cpu_ns']=True
     path.write_bytes(canonical(bad))
     with pytest.raises(ValueError): evidence.read_cost(path.parent.parent,obj,s)
@@ -174,3 +181,80 @@ def test_runner_first_success_has_exact_ten_calls_and_one_gate():
                              lambda obj:gates.append(obj),lambda obj:None)
     assert calls==[tuple(x) for x in policy.protocol()['order']] and len(records)==10
     assert gates==[records[0]]
+
+
+@pytest.mark.parametrize('target',['/tmp/heartbeat.json','../heartbeat.json','/workspace/x/../../heartbeat.json','/workspace/heartbeat.json','/workspace/x/private.json'])
+def test_heartbeat_relay_cannot_write_outside_named_task_status(target):
+    with pytest.raises(ValueError): heartbeat_relay.guest_target(target)
+
+
+def test_heartbeat_relay_transports_exact_bytes_without_execution_authority():
+    calls=[]; raw=b'{"sequence":1,"status":"CONTROL_OK"}'
+    def run(argv,**kwargs):
+        calls.append((argv,kwargs)); return type('Result',(),dict(returncode=0))()
+    heartbeat_relay.forward(['ssh','root@mock'],'/workspace/resume-test/heartbeat.json',raw,run=run)
+    assert calls[0][1]['input']==raw and calls[0][1]['timeout']==12
+    assert 'heartbeat.json' in calls[0][0][-1]
+
+
+def test_fresh_offline_arm_digest_cannot_use_past_approval(monkeypatch):
+    from experiments.adaptive_execution_real_learning_pilot_v0 import a_safety
+    monkeypatch.setattr(a_safety,'offline_lease',lambda *args:True)
+    monkeypatch.setattr(offline.platform,'system',lambda:'Linux')
+    armed=dict(approval_reference='fresh human approval',guardian_sha256=raw_hash(runner.HERE/'guardian.py'))
+    ticket=dict(gate=policy.protocol()['gate'],approval_reference=armed['approval_reference'],instance_id=54815136,
+                code_seal_sha256='code',resume_protocol_sha256=policy.protocol_hash(),fresh_run_id='OLD_ARM_DIGEST')
+    with pytest.raises(ValueError,match='NOT_AUTHORIZED'): offline.authorize(ticket,armed,'code',54815136)
+
+
+def test_existing_inspector_uses_ten_full_request_costs(tmp_path):
+    path=tmp_path/'A'; path.mkdir()
+    for method,rep in policy.protocol()['order']: saved_fixture(path,method,rep)
+    body=inspector.inspect_directory(path)
+    assert body['cost_basis']==policy.protocol()['profile_cost_basis'] and len(body['raw_files'])==32
+    assert body['rows'][0]['cpu_ns']==63_296_036_010
+    assert body['rows'][1]['cpu_ns']==67_026_706_010
+    assert all(read(p)['state']=='CANDIDATE' for p in (path/'measurement').glob('*.json'))
+
+
+def test_full_request_rows_learn_and_rollback_only_in_contract_mode(tmp_path):
+    path=tmp_path/'A'; path.mkdir()
+    for method,rep in policy.protocol()['order']: _,session,_,_=saved_fixture(path,method,rep)
+    body=inspector.inspect_directory(path)
+    # Explicitly restrict this synthetic rewrapping to contract authority, never a real approval.
+    body.update(verdict='CONTRACT_VALIDATED',real_cost_evidence=False,scope='OFFLINE_CONTRACT_ONLY')
+    judge,ruler=Ed25519PrivateKey.generate(),Ed25519PrivateKey.generate()
+    mgr=governance.Manager(tmp_path/'manager',tmp_path/'witness',
+            governance.Roots.for_contract(judge.public_key(),ruler.public_key()),ruler)
+    before=mgr.begin('WALL_MIN',session)
+    profile=mgr.admit(dict(body=body,signature=judge.sign(b'REAL_PILOT_RECEIPT\0'+canonical(body)).hex()))
+    def approve(target,decision):
+        b=mgr.approval_body(target,'WALL_MIN',decision,'OFFLINE TEST ONLY')
+        return dict(body=b,signature=ruler.sign(b'REAL_PILOT_APPROVAL\0'+canonical(b)).hex())
+    mgr.activate(approve(profile['id'],'activate'))
+    after=mgr.begin('WALL_MIN',session)
+    assert mgr.choose(after,session)=='W6' and mgr.choose(before,session)=='LEGACY'
+    other=dict(session,session_id='different-session')
+    assert mgr.choose(mgr.begin('WALL_MIN',other),other)=='LEGACY'
+    mgr.rollback(approve('LEGACY','rollback'))
+    assert mgr.choose(mgr.begin('WALL_MIN',session),session)=='LEGACY' and mgr.choose(after,session)=='W6'
+
+
+@pytest.mark.parametrize('fault',['normal','broken_pipe','already_exited','timeout'])
+def test_inspector_cleanup_preserves_stop_even_when_reader_exits(fault):
+    import subprocess
+    class Process:
+        returncode=2 if fault=='already_exited' else None
+        def __init__(self): self.stdin=self; self.terminated=False; self.waits=0
+        def poll(self): return self.returncode
+        def write(self,text):
+            if fault=='broken_pipe': raise BrokenPipeError('reader already closed')
+        def flush(self): pass
+        def wait(self,timeout):
+            self.waits+=1
+            if fault=='timeout' and self.waits==1: raise subprocess.TimeoutExpired('mock',timeout)
+            self.returncode=2 if fault=='broken_pipe' else 0
+            return self.returncode
+        def terminate(self): self.terminated=True
+    process=Process(); runner.close_inspector(process)
+    assert process.poll() is not None and process.terminated==(fault=='timeout')

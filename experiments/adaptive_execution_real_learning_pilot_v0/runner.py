@@ -14,10 +14,11 @@ from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from .common import HERE,ROOT,canonical,digest,read,write_new,raw_hash,check_seals,public,code_manifest_path
 from . import bridge,governance,knowledge,costs,a_safety
+from experiments.adaptive_execution_real_learning_pilot_a_resume_v1 import policy as RP,evidence as RE,offline as RO
 
 
 def authorize(ticket,stage,code,*,instance_id,platform_name):
-    if (platform_name!='Linux' or ticket.get('gate')!='ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0'
+    if (platform_name!='Linux' or ticket.get('gate') not in ('ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0', 'ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_A_RESUME_V1')
             or ticket.get('scope')!='REAL_RESEARCH' or ticket.get('explicit_user_approval') is not True
             or not ticket.get('approval_reference') or str(ticket.get('instance_id'))!=str(instance_id)
             or not ticket.get('machine_id') or not ticket.get('country') or stage not in ticket.get('stages',[])
@@ -37,10 +38,33 @@ def code_check():
 def signed(key,domain,body): return {'body':body,'signature':key.sign(domain+canonical(body)).hex()}
 
 
+def collect_a(capture,first_gate,after_record):
+    """No second capture until the saved first result passes the separate inspector."""
+    records=[]
+    for method,repeat in RP.protocol()['order']:
+        obj=capture(method,repeat); records.append(obj)
+        if len(records)==1: first_gate(obj)
+        after_record(obj)
+    return records
+
+
+def close_inspector(process):
+    if process.poll() is not None: return
+    try:
+        process.stdin.write(json.dumps({'operation':'CLOSE'})+'\n'); process.stdin.flush()
+    except (BrokenPipeError,OSError): pass  # Keep the already recorded STOP reason.
+    try: process.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        process.terminate(); process.wait(timeout=10)
+
+
 class Pilot:
     def __init__(self,ticket,host,armed,offline,out):
         self.code=code_check(); self.ticket=ticket; self.root=Path(out); self.root.mkdir(parents=True,exist_ok=False)
         authorize(ticket,'A',self.code,instance_id=host['id'],platform_name=platform.system())
+        if (ticket.get('gate')!=RP.protocol()['gate'] or ticket.get('resume_protocol_sha256')!=RP.protocol_hash()
+                or ticket.get('fresh_run_id')!=a_safety.armed_digest(armed)):
+            raise ValueError('FRESH_A_RESUME_APPROVAL_REQUIRED')
         if str(host['id'])!=os.environ.get('CONTAINER_ID'): raise ValueError('ACTUAL_CONTAINER_INSTANCE_MISMATCH')
         if (str(armed.get('instance_id'))!=str(host['id']) or armed.get('status')!='ARMED'
                 or armed.get('outside_guest') is not True or armed.get('guardian_sha256')!=raw_hash(HERE/'guardian.py')
@@ -50,8 +74,7 @@ class Pilot:
                 or host.get('actual_status')!='running' or Decimal(str(host['dph_total']))>Decimal('0.25')
                 or Decimal(str(host['dph_total']))>Decimal(str(ticket['hourly_usd']))
                 or ticket.get('approve_research_profile') is not True): raise ValueError('HOST_GUARDIAN_OR_MANAGER_APPROVAL_REFUSED')
-        if offline.get('status')!='PASS' or offline.get('code_seal_sha256')!=self.code or offline.get('physics_calls')!=0 or offline.get('gpu_calls')!=0:
-            raise ValueError('MOCK_GATE_NOT_PASSED')
+        RO.validate_status(offline,self.code,read(code_manifest_path())['expected_tests'])
         if ticket.get('stages')!=['A'] or ticket.get('safety_policy_sha256')!=a_safety.policy_hash():
             raise ValueError('A_ONLY_SAFETY_APPROVAL_REQUIRED')
         self.armed=armed; self.heartbeat_path=Path(ticket['heartbeat_path']); self.heartbeat_sequence=0
@@ -104,10 +127,11 @@ class Pilot:
         self.inspector_process.stdin.write(json.dumps({'operation':operation,'stage':path.name})+'\n'); self.inspector_process.stdin.flush()
         with bridge.deadline(self.seconds()): response=json.loads(self.inspector_process.stdout.readline())
         write_new(path/(operation+'_process.json'),response)
-        expected='REAL_SESSION_COST_CHECKED' if operation=='INSPECT' else 'REAL_SESSION_RESULT_CHECKED'
-        receipt_path=path/('receipt.json' if operation=='INSPECT' else 'next_request_receipt.json')
+        expected=RE.VERDICTS[operation]
+        receipt_path=path/RE.RECEIPTS[operation]
         if response.get('verdict')!=expected or response.get('receipt_sha256')!=raw_hash(receipt_path):
             raise ValueError('INDEPENDENT_INSPECTOR_REFUSED')
+        RE.check_receipt(self.roots.inspector,RE.strict_read(receipt_path),path,RE.strict_read(path/'session.json'),operation)
 
     def child(self,module,directory,stdin=None):
         env=dict(os.environ); env['PYTHONPATH']=str(ROOT)
@@ -122,6 +146,8 @@ class Pilot:
 
     def stage(self,spec):
         stage=spec['id']; authorize(self.ticket,stage,self.code,instance_id=self.ticket['instance_id'],platform_name=platform.system())
+        if stage!='A' or (spec['N'],spec['T'],spec['goal'],spec['methods'])!=(14,1000,'WALL_MIN',['SERIAL','W6']):
+            raise ValueError('RESUME_A_ONLY')
         path=self.root/stage; path.mkdir(); self.seconds()
         cost_start=self.book.total()
         cost_start_index=len(self.book.events.history())
@@ -134,12 +160,18 @@ class Pilot:
         session=dict(origin='OBSERVED_REAL',session_id=str(uuid.uuid4()),N=spec['N'],T=spec['T'],goal=spec['goal'],
               methods=spec['methods'],env=env,hostname=platform.node(),boot_id=Path('/proc/sys/kernel/random/boot_id').read_text().strip(),
               instance_id=self.ticket['instance_id'],machine_id=self.ticket['machine_id'],code_manifest_sha256=self.code,
-              evidence_version=2,initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash())
+              evidence_version=2,initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash(),
+              resume_protocol_sha256=RP.protocol_hash())
         write_new(path/'session.json',session); write_new(path/'knowledge_before.json',knowledge.gaps(session))
         write_new(path/'learning_value_before.json',dict(knowledge.value(),
                   execution_basis='EXPLICIT_USER_RESEARCH_PILOT_SCOPE; NOT_AUTOMATIC_VALUE_APPROVAL'))
         store=EXP.load_store(); before=self.mgr.begin(session['goal'],session)
         if self.mgr.choose(before,session)!='LEGACY': raise ValueError('HISTORICAL_PROFILE_IMPORTED')
+        # Policy probe is not a trajectory. The first measured call is explicitly SERIAL.
+        if self.ticket.get('resume_protocol_sha256'):
+            legacy_plan=SEL.select(spec['N'],spec['T'],163,session['goal'],env,perf=None).record()
+            write_new(path/'legacy_selector_before.json',legacy_plan)
+            if legacy_plan['backend']!='CPU_SERIAL': raise ValueError('LEGACY_SERIAL_BASELINE_NOT_CONFIRMED')
         if stage=='B':
             if not SEL.gpu_eligible(12,1000,163,env,False)[0]: raise ValueError('CURRENT_GPU_NOT_ELIGIBLE')
             def prepare():
@@ -149,28 +181,29 @@ class Pilot:
                 if not self.gpu.ready: raise ValueError('GPU_NOT_READY')
                 write_new(path/'gpu_prepare.json',{'arch':arch,'hello':self.gpu.hello})
             self.charged('GPU_prepare',prepare)
-        records=[]; replay=None
-        for rep in range(5):
-            order=session['methods'] if rep%2==0 else list(reversed(session['methods']))
-            for method in order:
-                code_check(); requested='LEGACY' if rep==0 and method=='SERIAL' else method
-                def measure():
-                    return bridge.capture(path/'measurement',session,requested,rep,store,gpu=self.gpu,
-                              snapshot=before,reason='LEGACY fresh-session request' if requested=='LEGACY' else 'USER_AUTHORIZED_EXPERIMENT',seconds=self.seconds())
-                # Capture rereads the saved file; failure raises before the replay or next call.
-                obj=self.charged('measurement',measure); records.append(obj)
-                if replay is None:
-                    self.charged('independent_replay',lambda:self.child('experiments.adaptive_execution_real_learning_pilot_v0.replay_worker',path))
-                    replay=read(path/'replay.json')
-                # STOP immediately on disagreement, before the next experiment.
-                self.charged('verification_signing_management',lambda:validate_record(obj,session,replay))
-                if len(records)>=2:
-                    # Planning estimate uses only this session; it is not VERIFIED selection knowledge.
-                    estimate=max(x['observation']['wall_ns'] for x in records)*(11-len(records))*5//4
-                    remaining=int((self.deadline-time.monotonic())*10**9)
-                    write_new(path/f'budget_after_{len(records):02d}.json',dict(
-                         estimate_ns=estimate,remaining_ns=remaining,kind='UNVERIFIED_CURRENT_SESSION_PLANNING_ONLY'))
-                    if estimate>remaining: raise TimeoutError('MEASURED_BUDGET_RISK_STOP')
+        if stage!='A': raise ValueError('RESUME_A_ONLY')
+        replay=None; seen=[]
+        def capture(method,rep,directory,snapshot,reason,category):
+            code_check()
+            return self.charged(category,lambda:RE.capture_cost(directory,session,method,rep,
+                lambda:bridge.capture(directory,session,method,rep,store,gpu=self.gpu,snapshot=snapshot,
+                             reason=reason,seconds=self.seconds()),lambda:bridge.cpu_clock(self.gpu)))
+        def first_gate(obj):
+            nonlocal replay
+            self.charged('independent_replay',lambda:self.child('experiments.adaptive_execution_real_learning_pilot_v0.replay_worker',path))
+            replay=RE.strict_read(path/'replay.json')
+            self.charged('first_independent_inspection',lambda:self.inspect(path,'CHECK_FIRST'))
+        def after_record(obj):
+            seen.append(obj)
+            self.charged('verification_signing_management',lambda:validate_record(obj,session,replay))
+            estimate=max(x['observation']['wall_ns'] for x in seen)*(11-len(seen))*5//4
+            remaining=int((self.deadline-time.monotonic())*10**9)
+            write_new(path/f'budget_after_{len(seen):02d}.json',dict(estimate_ns=estimate,remaining_ns=remaining,
+                       kind='UNVERIFIED_CURRENT_SESSION_PLANNING_ONLY'))
+            if estimate>remaining: raise TimeoutError('MEASURED_BUDGET_RISK_STOP')
+        records=collect_a(lambda method,rep:capture(method,rep,path/'measurement',before,
+                         'EXPLICIT_SERIAL_FIRST_GATE' if method=='SERIAL' and rep==0 else 'USER_AUTHORIZED_EXPERIMENT',
+                         'measurement'),first_gate,after_record)
         # Independent reader process computes the receipt; controller never fabricates its approval result.
         self.charged('verification_signing_management',lambda:self.inspect(path))
         def promote():
@@ -181,17 +214,21 @@ class Pilot:
         after=self.mgr.begin(session['goal'],session); choice=self.mgr.choose(after,session)
         if self.mgr.choose(before,session)!='LEGACY': raise ValueError('MID_REQUEST_PROFILE_SWAP')
         write_new(path/'knowledge_after.json',knowledge.gaps(session,session['methods']))
-        learned=self.charged('learned_request',lambda:bridge.capture(path/'next_request',session,choice,5,store,
-                   gpu=self.gpu,snapshot=after,reason='APPROVED_FRESH_SESSION_RESEARCH_PROFILE',seconds=self.seconds()))
+        learned=capture(choice,5,path/'next_request',after,'APPROVED_FRESH_SESSION_RESEARCH_PROFILE','learned_request')
         self.charged('verification_signing_management',lambda:validate_record(learned,session,replay))
         self.charged('verification_signing_management',lambda:self.inspect(path,'CHECK_NEXT'))
         def rollback():
             self.mgr.rollback(self.approval('LEGACY',session['goal'],stage+'-rollback'))
             if self.mgr.choose(self.mgr.begin(session['goal'],session),session)!='LEGACY': raise ValueError('ROLLBACK_FAILED')
             if self.mgr.choose(after,session)!=choice: raise ValueError('IN_FLIGHT_SNAPSHOT_CHANGED')
+            plan=SEL.select(spec['N'],spec['T'],163,session['goal'],env,perf=None).record()
+            if plan['backend']!='CPU_SERIAL': raise ValueError('LEGACY_SELECTOR_ROLLBACK_FAILED')
+            write_new(path/'legacy_selector_after_rollback.json',plan)
         self.charged('rollback',rollback)
         metric='wall_ns' if session['goal']=='WALL_MIN' else 'cpu_ns'
-        baseline=records[0]['observation'][metric]; measured=learned['observation'][metric]
+        before_cost,_=RE.read_cost(path/'measurement',records[0],session)
+        after_cost,_=RE.read_cost(path/'next_request',learned,session)
+        baseline=before_cost[metric]; measured=after_cost[metric]
         # The first serial observation is the baseline request, not learning overhead a second time.
         stagecost=self.book.total(); overhead=stagecost[metric]-cost_start[metric]-baseline-measured
         verify_cost=sum(x['payload'][metric] for x in self.book.events.history()[cost_start_index:]
@@ -203,7 +240,9 @@ class Pilot:
         improved=choice!='SERIAL' and measured<baseline
         report=dict(status='REAL_LEARNING_LOOP_VALIDATED' if improved else 'REAL_LEARNING_NOT_READY',
                 stage=stage,goal=session['goal'],before_method='SERIAL',after_method=choice,
-                before_observation=records[0]['observation'],after_observation=learned['observation'],
+                before_observation=before_cost,after_observation=after_cost,
+                before_calculation_observation=records[0]['observation'],after_calculation_observation=learned['observation'],
+                cost_scope=RP.protocol()['request_cost_scope'],first_gate='SIGNED_FIRST_RESULT_CHECKED',fresh_replays=1,
                 profile_id=profile['id'],cost=analysis,rollback='NEXT_REQUEST_LEGACY_CONFIRMED',
                 formula_independence='UNRESOLVED_SHARED_RWFORCE',production='NOT_CONNECTED')
         write_new(path/'stage_report.json',report)
@@ -214,7 +253,7 @@ class Pilot:
         watch=Watch(self.deadline,self.control_check); watch.start()
         reports=[]
         try:
-            for spec in read(HERE/'protocol.json')['stages']:
+            for spec in [RP.protocol()['stage']]:
                 if spec['id'] not in self.ticket['stages']: continue
                 if spec['id']=='B' and (not reports or reports[0]['status']!='REAL_LEARNING_LOOP_VALIDATED'):
                     raise ValueError('A_NOT_PASSED_B_REFUSED')
@@ -229,10 +268,7 @@ class Pilot:
                 self.gpu.close()
                 if self.gpu.proc.is_alive(): self.gpu.proc.terminate(); self.gpu.proc.join(timeout=5)
                 self.gpu=None
-            if self.inspector_process.poll() is None:
-                self.inspector_process.stdin.write(json.dumps({'operation':'CLOSE'})+'\n'); self.inspector_process.stdin.flush()
-                try: self.inspector_process.wait(timeout=10)
-                except subprocess.TimeoutExpired: self.inspector_process.terminate(); self.inspector_process.wait(timeout=10)
+            close_inspector(self.inspector_process)
             self.inspector_log.close()
         cpu=bridge.cpu_clock(); total_cpu=sum(cpu[k]-self.start_cpu[k] for k in cpu); total_wall=time.monotonic_ns()-self.started
         self.book.charge('job_total',total_wall,total_cpu)

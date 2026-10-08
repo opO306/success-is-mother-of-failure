@@ -69,6 +69,11 @@ class Manager:
                 or body.get('code_manifest_sha256')!=raw_hash(code_manifest_path()) or not body.get('raw_files')):
             raise ValueError('REAL_RECEIPT_CODE_OR_RAW_BINDING')
         if self.roots.mode=='RESEARCH_ONLY':
+            from experiments.adaptive_execution_real_learning_pilot_a_resume_v1 import evidence as RESUME,policy as RP
+            session=RESUME.strict_read(self.directory.parent/body['stage']/'session.json') if body.get('stage') in ('A','B') else {}
+            if session.get('resume_protocol_sha256'):
+                if body.get('cost_basis')!=RP.protocol()['profile_cost_basis']: raise ValueError('RESUME_COST_BASIS')
+                RESUME.check_receipt(self.roots.inspector,receipt,self.directory.parent/body['stage'],session,'INSPECT')
             if body.get('stage') not in ('A','B'): raise ValueError('RECEIPT_STAGE_REFUSED')
             evidence=(self.directory.parent/body['stage']).resolve()
             for relative,expected_hash in body['raw_files'].items():

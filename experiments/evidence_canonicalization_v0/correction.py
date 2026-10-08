@@ -2,7 +2,7 @@
 from . import history
 from .policy import HERE,raw_hash
 from .fingerprints import policy_hash
-from experiments.adaptive_execution_real_learning_pilot_v0.common import canonical,digest,verify
+from experiments.adaptive_execution_real_learning_pilot_v0.common import canonical,digest,verify,code_manifest_path
 
 
 def derive(receipt,inspector_public):
@@ -10,7 +10,7 @@ def derive(receipt,inspector_public):
     b=receipt['body']
     if (b.get('verdict')!='VERIFIED_CONTENT' or b.get('classification')!='FORMAT_EQUIVALENT'
             or b.get('scope')!='HISTORICAL_REVIEW_ONLY' or b.get('original_status')!='REAL_LEARNING_FAIL'
-            or b.get('review_code_sha256')!=raw_hash(HERE/'code_seal.json') or b.get('policy_sha256')!=policy_hash() or b.get('new_physics_calls')!=0
+            or b.get('review_code_sha256')!=raw_hash(code_manifest_path()) or b.get('policy_sha256')!=policy_hash() or b.get('new_physics_calls')!=0
             or b.get('independent_replays')!=0 or b.get('formula_independence')!='UNRESOLVED_SHARED_RWFORCE'):
         raise ValueError('CORRECTION_RECEIPT_SCOPE')
     body={k:b[k] for k in ('session_sha256','goal','original_source_sha256','original_manifest_sha256',

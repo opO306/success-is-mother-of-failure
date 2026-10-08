@@ -74,6 +74,9 @@ def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reaso
                        'host_load_before':load_before,'host_load_after':list(os.getloadavg())},
           correctness_level='EXECUTOR_UNVERIFIED; INDEPENDENT_REPLAY_REQUIRED')
     from experiments.evidence_canonicalization_v0.fingerprints import save_and_check,write_metrics
+    light_cpu_start=resource.getrusage(resource.RUSAGE_SELF)
     saved,metrics=save_and_check(directory/f'{method}_{repeat}.json',obj,session,writer=write_new)
+    light_cpu_end=resource.getrusage(resource.RUSAGE_SELF)
+    metrics['save_reread_cpu_ns']=ns(light_cpu_end.ru_utime+light_cpu_end.ru_stime)-ns(light_cpu_start.ru_utime+light_cpu_start.ru_stime)
     write_metrics(directory/'evidence_metrics'/f'{method}_{repeat}.json',metrics,writer=write_new)
     return saved  # Actual strict reread, never the pre-storage memory object.
