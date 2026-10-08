@@ -1,0 +1,37 @@
+{
+  "schema": "aev0-external-stop-control",
+  "instance_id": 54645489,
+  "status": "STOP_CONFIRMED",
+  "trigger": "DEADLINE",
+  "outside_guest": true,
+  "local_numerical_execution": false,
+  "guardian_sha256": "e53b46ea989aee29e4965d24690c13156e392e7af8de0b266384de5927ce21e8",
+  "approval_reference": "User provided SSH endpoint in response to request for Vast stop-control inspection before offline validation, 2026-10-08",
+  "events": [
+    {
+      "event": "ARMED",
+      "actual_status": "running",
+      "intended_status": "running",
+      "dph_total": 0.18888888888888888,
+      "at_utc": "2026-10-08T05:46:01.9104751Z"
+    },
+    {
+      "event": "STOP_REQUEST_ERROR",
+      "attempt": 0,
+      "error_type": "ArgumentException"
+    },
+    {
+      "event": "STATE_OBSERVED",
+      "actual_status": "running",
+      "intended_status": "stopped",
+      "at_utc": "2026-10-08T05:46:23.8923211Z"
+    },
+    {
+      "event": "STATE_OBSERVED",
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "at_utc": "2026-10-08T05:46:28.3894634Z"
+    }
+  ],
+  "observed_at_utc": "2026-10-08T05:46:28.3896636Z"
+}

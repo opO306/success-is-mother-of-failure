@@ -1,12 +1,14 @@
 # 현재 상태
 
-**ADAPTIVE_EXECUTION_VERIFICATION_V0 준비(2026-10-08):**
+**ADAPTIVE_EXECUTION_VERIFICATION_V0 오프라인 검증(2026-10-08):**
 [설계·봉인·제한 구현 상태](docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md).
 별도 `codex/adaptive-execution-verification-v0`, V1/원본/GPU V1/물리/반올림/P2 보존.
 프로토콜·예산·승격 기준을 구현 전 `f135cd92`로 봉인. 경험 수집·별도 원본 판독 검사·
-오프라인 프로필·다음 요청 snapshot/복귀 구현 소스 작성. NOT_EXECUTED / NOT_VALIDATED / NOT_PRODUCTION.
-로컬 시험·계산 금지에 따라 원격 승인 대기, 새 VERIFIED 0개. 자동 종료 실제 제어·외부 guardian 및
-RwForce 독립 수식 검증 미해결. master merge/push 없음, 기존 Gate·공식 시험 기준선 불변.
+오프라인 프로필·다음 요청 snapshot/복귀 구현. Vast 원격 시험 24 passed/0.61초, 35개 기록 별도 판독
+VERIFIED/errors 0. 과거 세션 비용 프로필 1개, OFFLINE_VALIDATED_ONLY / NOT_PRODUCTION.
+외부 guardian DEADLINE·COMPLETED actual=exited 확인, 초기 CLI 응답 형식 오류 1건 보존 후 수정.
+RwForce 독립 수식·OS 권한 격리·실서비스 연결 미해결. 로컬 수치 실행·새 궤적·GPU 호출 0,
+master merge/push 없음, 기존 Gate·공식 시험 기준선 불변.
 
 **최종 갱신:** 2026-10-03 — 현재 상태 대시보드. 과거 기록은 [상태 역사](docs/history/PROJECT_STATE_HISTORY_THROUGH_2026-09-27.md)에 원문 전체를 보존한다.
 

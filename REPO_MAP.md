@@ -23,7 +23,8 @@ B-classic 구현·문서·시험은 비교군/연구 자산으로 보존한다. 
 **적응형 실행 경험 검증 V0:** `experiments/adaptive_execution_verification_v0/` —
 V1을 보존한 오프라인 경험 수집·UNKNOWN/CANDIDATE/VERIFIED 원장·독립 원본 판독·
 별도 버전 프로필·요청 snapshot/복귀·종료 mock 프로토타입. production 연결 없음.
-시험 `tests/test_adaptive_execution_verification_v0.py`는 작성/미실행이며 로컬 계산 금지.
+시험 `tests/test_adaptive_execution_verification_v0.py`는 Vast 원격 24 passed(0.61초), 로컬 실행 없음.
+외부 Vast 관리 제어 `external_guardian.ps1`의 DEADLINE/COMPLETED 실제 종료 확인은 별도 기록이다.
 [설계·봉인·상태](docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md).
 
 **독립 전자구조 연구:** `electronic_pilot/` — 고정 proton 2·전자 2의 singlet

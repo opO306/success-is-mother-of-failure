@@ -1,6 +1,49 @@
 # ADAPTIVE_EXECUTION_VERIFICATION_V0 — 제한 구현 준비 상태
 
+## 원격 검증 완료 후 현재 상태 — 2026-10-08
+
+**OFFLINE_VALIDATED_ONLY / NOT_PRODUCTION / NOT_FORMALLY_CERTIFIED.**
+설계자 지정 Vast 54645489에서 봉인 코드 `6bca97f4`를 그대로 실행했다.
+새 오프라인 시험 **24 passed, 0.61초**, 실패/error/skip 없음. 첫 실행 exit 0.
+별도 검사기는 35개 서비스 원본·7개 방식별 측정 묶음의 정확한 요청·결과·비용 기록을
+다시 판독해 VERIFIED, errors 0을 기록했다. 비용 프로필 1개를 오프라인으로 만들었다.
+새 궤적·GPU 호출·로컬 수치 실행·production 적용은 모두 0이다.
+
+| exact 요청 조건 | WALL_MIN 오프라인 추천 | CPU_MIN 오프라인 추천 |
+|---|---|---|
+| R1: N12, T1000, p163 | GPU_HYBRID | GPU_HYBRID |
+| R7: N14, T1000, p163 | CPU_PARALLEL/W6 | CPU_SERIAL |
+
+이 추천은 새 서버 성능을 측정한 결과가 아니라 **지정된 과거 세션의 검증된 기록**에서
+나온다. R7의 기존 직렬 선택은 정확성을 유지한 비용 정보 공백으로 남긴다.
+CPU_MIN은 GPU의 aggregate CPU 시간 자료를 배울 수 있음을 보였고, V1 always-serial은 불변이다.
+프로필 적용 전 snapshot은 계속 V1을 쓰고, 다음 snapshot만 새 추천을 사용했으며,
+복귀 후 다음 요청은 LEGACY_V1_PROFILE로 돌아갔다. 실제 서비스에는 연결하지 않았다.
+
+[원격 시험 로그](adaptive_execution_verification_v0/run_20261008/output_attempt1/tests.log),
+[검증 영수증](adaptive_execution_verification_v0/run_20261008/output_attempt1/verification_receipt.json),
+[추천 기록](adaptive_execution_verification_v0/run_20261008/output_attempt1/shadow_recommendations.json),
+[최종 상태](adaptive_execution_verification_v0/run_20261008/output_attempt1/status.json)를 보존한다.
+권한 분리는 모듈·파일·명시적 pins 수준이고 OS 계정/ACL/서명 격리는 여전히 미구현이다.
+RwForce 공유 수식 문제는 미해결이며, VERIFIED는 HISTORICAL_SESSION_EXECUTION_COST_ONLY다.
+현재 서버가 과거 비용 프로필을 실제 요청에 사용할 자격을 새로 얻었다는 뜻이 아니다.
+
+종료는 [별도 제어 점검](ADAPTIVE_EXECUTION_VERIFICATION_V0_CONTROL_2026-10-08.md)에서
+DEADLINE 실제 확인 후 진행했다. 원격 검증 전에 수정한 외부 감시기를 걸었고,
+증거 회수 뒤 COMPLETED 신호로 실제 종료했다. 수정 경로는 CLI 응답 처리 오류 없이
+**actual=exited / intended=stopped**를 확인했다. 별도 마지막 API 조회도 같은 상태다.
+V1/GPU 원본 job.sh는 보존하며, 유료 실행에 옛 ps 부하 검사를 재사용하지 않는다.
+장기 네트워크/관리 호스트 실패와 실제 FAILED 종료 분기는 아직 별도 운영 검증이 필요하다.
+
+LOCAL FULL 생략 / 신규 오프라인 관련 시험 24개로 대체 / 기존 실행 코드·fixture·물리·
+수치 계약·GPU V1·반올림·P2 불변, 로컬 시험 금지. V1 전체 실제 계산 회귀 시험은
+실행하지 않았다. 공식 시험 기준선·기존 Gate·production 상태를 갱신하지 않는다.
+
+## 사전 준비 당시 기록 — 커밋 6bca97f4, 아래 미실행 표기는 당시 상태
+
 2026-10-08. **IMPLEMENTED_SOURCE / NOT_EXECUTED / NOT_VALIDATED / NOT_PRODUCTION.**
+후속 [실제 종료 제어 점검](ADAPTIVE_EXECUTION_VERIFICATION_V0_CONTROL_2026-10-08.md)은 DEADLINE 종료 확인과
+CLI 응답 처리 오류 1건을 별도 보존한다. 아래 NOT_EXECUTED는 수치 시험·오프라인 재현의 상태다.
 시험·오프라인 재현을 아직 실행하지 않았다. 검증된 새 경험 0개, 새 프로필 활성화 0개다.
 Vast 시작·유료 계산·로컬 시험·궤적·GPU 실행 0회다. 물리 수식 독립성은 미해결이다.
 

@@ -1,0 +1,38 @@
+{
+  "schema": "aev0-external-stop-control",
+  "instance_id": 54645489,
+  "status": "STOP_CONFIRMED",
+  "trigger": "COMPLETED",
+  "outside_guest": true,
+  "local_numerical_execution": false,
+  "guardian_sha256": "10ddb2fe46ecb3e40cfbc4827be5f6dadae3034255c2e3c956c74ac7f1043030",
+  "approval_reference": "User replied server restarted and same SSH endpoint, authorizing sealed offline verification continuation on 2026-10-08",
+  "events": [
+    {
+      "event": "ARMED",
+      "actual_status": "running",
+      "intended_status": "running",
+      "dph_total": 0.18888888888888888,
+      "at_utc": "2026-10-08T05:50:04.7508733Z"
+    },
+    {
+      "event": "STOP_REQUEST",
+      "attempt": 0,
+      "cli_exit": 0,
+      "at_utc": "2026-10-08T05:51:26.1259111Z"
+    },
+    {
+      "event": "STATE_OBSERVED",
+      "actual_status": "running",
+      "intended_status": "stopped",
+      "at_utc": "2026-10-08T05:51:30.5877345Z"
+    },
+    {
+      "event": "STATE_OBSERVED",
+      "actual_status": "exited",
+      "intended_status": "stopped",
+      "at_utc": "2026-10-08T05:51:34.9860831Z"
+    }
+  ],
+  "observed_at_utc": "2026-10-08T05:51:34.9862899Z"
+}
