@@ -119,6 +119,21 @@ def test_signed_original_is_searchable_but_foreign_session_is_hint(archive):
     assert entry['repeats']=={'SERIAL':5,'W6':5}
 
 
+def test_current_session_requires_existing_manager_checked_snapshot(archive):
+    tablet,root,roots,entry=archive; exp=tablet.load(entry); session=read(root/'A/session.json')
+    from experiments.adaptive_execution_real_learning_pilot_v0.common import Ledger
+    manager=object.__new__(governance.Manager)  # Existing read surface: no private key or activation.
+    manager.directory=root/'manager'; manager.roots=roots; manager.events=Ledger(manager.directory/'events')
+    manager.head=root/'controller_witness/signed_head.json'
+    snapshot=governance.Snapshot('WALL_MIN',digest(session),exp.profile_bytes)
+    info=qualified(session['env'])
+    assert policy.classify(exp,request(),info,session,manager=manager,snapshot=snapshot)=='CURRENT_SESSION_VERIFIED'
+    assert policy.safe_method('WALL_MIN',routes.candidates(request(),info),experience=exp,request=request(),
+                              host_info=info,session=session,manager=manager,snapshot=snapshot)=='W6'
+    altered=replace(snapshot,session_sha256='0'*64)
+    assert policy.classify(exp,request(),info,session,manager=manager,snapshot=altered)=='NEEDS_CALIBRATION'
+
+
 @pytest.mark.parametrize('fault',['raw','receipt_signature','approval_signature','profile','session','wrong_root'])
 def test_corrupt_evidence_cannot_become_a_trusted_hit(archive,fault):
     tablet,root,roots,entry=archive
