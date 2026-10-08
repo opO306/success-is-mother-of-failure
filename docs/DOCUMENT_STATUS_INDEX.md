@@ -1,3 +1,5 @@
+[ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 오프라인 결과](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_OFFLINE_RESULTS.md): 2026-10-08 OFFLINE_CONTRACT_GATE_PASS / 122 passed(24+53+45), 실패 원본 보존. 새 물리/GPU 0, 새 서버 DEADLINE·COMPLETED actual=exited 확인. REAL_LEARNING_NOT_READY / 실제 개선·전체 과금·장기 통신 장애·RwForce 독립성 미확인. 아래 준비 기록은 당시 상태다.
+
 [ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 준비](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0.md): 프로토콜 선봉인, 실제 경험·독립 검사관·연구 승인·다음 실행·복귀 연결부 준비. SOURCE_PREPARED / 신규 시험·유료 계산 승인 대기 / 실제 개선·독립 수식 검증 미확인.
 
 # 문서 분류와 이동 경로표 — 2026-09-27

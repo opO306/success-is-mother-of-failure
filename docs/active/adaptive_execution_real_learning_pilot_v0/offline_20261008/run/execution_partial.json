@@ -1,0 +1,66 @@
+{
+  "state": "SECOND_ATTEMPT_RETURNED_ZERO_EVIDENCE_RECOVERY_PENDING",
+  "instance_id": 52763685,
+  "machine_id": 3448,
+  "country": "NO",
+  "initial_code_seal": "7d1740bcb9ecdb046b6e74f58f2a5f4e6a3ce00849671dc7496dcb2e31bd8a0c",
+  "corrected_code_seal": "561578c779a6b0f3bfcaf2f2cadea62f0d27cdec09cd707a17d27b546cf50b67",
+  "attempt1": {
+    "actual_shutdown": "OUTSIDE_GUEST_CONFIRMATION_REQUIRED",
+    "code_seal_sha256": "7d1740bcb9ecdb046b6e74f58f2a5f4e6a3ce00849671dc7496dcb2e31bd8a0c",
+    "cpu_ns": 3769172000,
+    "failed": 28,
+    "gpu_calls": 0,
+    "mode": "OFFLINE_CONTRACT_ONLY",
+    "physics_calls": 0,
+    "skipped": 0,
+    "status": "STOP_TEST_GATE_FAILURE",
+    "tests": 122,
+    "wall_ns": 5165632194
+  },
+  "attempt1_cause": "Historical N14/N12 replay JSON missing from sealed package; files preserved, added by hash",
+  "attempt2_command_exit": 0,
+  "attempt2_detailed_result": "NOT_YET_RECOVERED",
+  "guardian": {
+    "events": [
+      {
+        "attempt": 0,
+        "elapsed": 2.7659999999887077,
+        "event": "STOP_REQUEST"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 5.405999999988126,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 12.796999999991385,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 20.140999999988708,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "exited",
+        "elapsed": 27.515999999988708,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      }
+    ],
+    "external_warning": false,
+    "instance_id": 52763685,
+    "manual_confirmation_required": false,
+    "status": "STOP_CONFIRMED",
+    "trigger": "DEADLINE"
+  },
+  "new_physics_calls": 0,
+  "gpu_calls": 0,
+  "production": "NOT_CONNECTED",
+  "billing": "UNVERIFIED_NO_BILLING_RECEIPT"
+}

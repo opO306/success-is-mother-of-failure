@@ -1,0 +1,1 @@
+{"actual_shutdown":"OUTSIDE_GUEST_CONFIRMATION_REQUIRED","code_seal_sha256":"7d1740bcb9ecdb046b6e74f58f2a5f4e6a3ce00849671dc7496dcb2e31bd8a0c","cpu_ns":3769172000,"failed":28,"gpu_calls":0,"mode":"OFFLINE_CONTRACT_ONLY","physics_calls":0,"skipped":0,"status":"STOP_TEST_GATE_FAILURE","tests":122,"wall_ns":5165632194}

@@ -1,0 +1,15 @@
+{
+  "scope": "STOP_CONTROL_ONLY",
+  "exclusive": true,
+  "explicit_user_approval": true,
+  "approval_reference": "2026-10-08 user reply: 오프라인 예산 정정과 새 서버 종료 승인",
+  "instance_id": 52763685,
+  "machine_id": 3448,
+  "country": "NO",
+  "guardian_sha256": "cb3f2a7ddba34665ed9f5914acca055aadb7cba59eec62619738049e1aad2470",
+  "completion_marker": "C:\\Users\\zun24\\성공은 실패의 어머니\\.codex\\artifacts\\adaptive-execution-real-learning-pilot-v0\\run_4bfa43ec\\completion.json",
+  "deadline_seconds": 240,
+  "experiment_scope": "OFFLINE_ONLY",
+  "hourly_cap_usd": "0.28",
+  "budget_amendment_sha256": "daa8ec8f9b73deb3f5d212841372725aac522cc1154eb385766b7744d4a54173"
+}

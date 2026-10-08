@@ -1,0 +1,127 @@
+{
+  "status": "OFFLINE_CONTRACT_GATE_PASS",
+  "real_learning_state": "REAL_LEARNING_NOT_READY",
+  "mode": "OFFLINE_CONTRACT_ONLY",
+  "date": "2026-10-08",
+  "instance_id": 52763685,
+  "machine_id": 3448,
+  "geolocation": "Norway, NO",
+  "cpu_model": "AMD Ryzen Threadripper PRO 3975WX 32-Cores",
+  "gpu_name": "RTX 3090",
+  "runtime": "/workspace/venv/bin/python",
+  "source_commit": "d3ee98fd",
+  "code_seal_sha256": "561578c779a6b0f3bfcaf2f2cadea62f0d27cdec09cd707a17d27b546cf50b67",
+  "passed": 122,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "groups": {
+    "verification_v0": 24,
+    "learning_v1": 53,
+    "real_pilot_v0": 45
+  },
+  "junit_seconds": "4.381",
+  "console_seconds": "4.39",
+  "runner_wall_ns": 4666754680,
+  "runner_cpu_ns": 3353710000,
+  "attempt1_status": "STOP_TEST_GATE_FAILURE",
+  "attempt1_passed": 94,
+  "attempt1_failed": 28,
+  "attempt1_failure_cause": "Two old replay fixture files omitted from transport dependency manifest; originals unchanged",
+  "attempt1_raw_preserved": true,
+  "both_attempts_runner_wall_ns": 9832386874,
+  "both_attempts_runner_cpu_ns": 7122882000,
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "production_activation": false,
+  "independent_new_cost_verification": "NOT_EXECUTED",
+  "formula_independence": "UNRESOLVED_SHARED_RWFORCE",
+  "real_performance_gain": "UNCONFIRMED",
+  "real_net_profit": "UNCONFIRMED",
+  "original_protocol_unchanged": true,
+  "old_instance_54645489_touched": false,
+  "guardian_deadline_actual": {
+    "events": [
+      {
+        "attempt": 0,
+        "elapsed": 2.7659999999887077,
+        "event": "STOP_REQUEST"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 5.405999999988126,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 12.796999999991385,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 20.140999999988708,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "exited",
+        "elapsed": 27.515999999988708,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      }
+    ],
+    "external_warning": false,
+    "instance_id": 52763685,
+    "manual_confirmation_required": false,
+    "status": "STOP_CONFIRMED",
+    "trigger": "DEADLINE"
+  },
+  "guardian_completed_actual": {
+    "events": [
+      {
+        "attempt": 0,
+        "elapsed": 2.9060000000026776,
+        "event": "STOP_REQUEST"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 5.48399999999674,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "running",
+        "elapsed": 13.171999999991385,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      },
+      {
+        "actual_status": "exited",
+        "elapsed": 20.796999999991385,
+        "event": "OBSERVED",
+        "intended_status": "stopped"
+      }
+    ],
+    "external_warning": false,
+    "instance_id": 52763685,
+    "manual_confirmation_required": false,
+    "status": "STOP_CONFIRMED",
+    "trigger": "COMPLETED"
+  },
+  "final_actual_status": "exited",
+  "hourly_displayed_usd": "0.2696296296296296",
+  "offline_only_hourly_cap_usd": "0.28",
+  "total_approved_cap_usd": "0.10",
+  "real_research_hourly_cap_unchanged_usd": "0.25",
+  "billing_confirmation": "UNVERIFIED_NO_BILLING_RECEIPT",
+  "memory_enforcement": "512MiB RLIMIT_AS per process; aggregate peak RSS not recorded",
+  "limits": [
+    "actual new CPU/GPU experience not measured",
+    "long network outage shutdown not verified",
+    "actual physics FAILED shutdown not verified",
+    "same UID does not provide adversarial OS isolation",
+    "future GPU readiness/current driver/current nvcc not checked"
+  ]
+}
