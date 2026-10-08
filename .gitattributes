@@ -2,3 +2,8 @@
 docs/active/C1B1_REPLAY_VERIFIER_PRODUCTION_APPROVAL_V1.json text eol=lf
 docs/active/c1b1_trusted_test_origins_v1/*.json text eol=lf
 docs/active/C1B1_REPLAY_VERIFIER_APPROVED_TEST_HISTORIES_V1.json text eol=lf
+# Adaptive learning seals use exact LF bytes; V0 original files remain untouched.
+experiments/adaptive_execution_learning_v1/** text eol=lf
+tests/test_adaptive_execution_learning_v1.py text eol=lf
+docs/active/ADAPTIVE_EXECUTION_LEARNING_V1*.md text eol=lf
+docs/active/adaptive_execution_learning_v1/** text eol=lf
