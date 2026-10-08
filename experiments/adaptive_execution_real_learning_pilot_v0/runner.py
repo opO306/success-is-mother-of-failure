@@ -12,7 +12,7 @@ from datetime import datetime,timezone
 from decimal import Decimal
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from .common import HERE,ROOT,canonical,digest,read,write_new,raw_hash,check_seals,public
+from .common import HERE,ROOT,canonical,digest,read,write_new,raw_hash,check_seals,public,code_manifest_path
 from . import bridge,governance,knowledge,costs,a_safety
 
 
@@ -28,10 +28,10 @@ def authorize(ticket,stage,code,*,instance_id,platform_name):
 
 
 def code_check():
-    check_seals(); seal=read(HERE/'code_seal.json')
+    check_seals(); seal=read(code_manifest_path())
     for path,expected in seal['files'].items():
         if raw_hash(ROOT/path)!=expected: raise ValueError('SOURCE_INTEGRITY:'+path)
-    return raw_hash(HERE/'code_seal.json')
+    return raw_hash(code_manifest_path())
 
 
 def signed(key,domain,body): return {'body':body,'signature':key.sign(domain+canonical(body)).hex()}
@@ -130,9 +130,11 @@ class Pilot:
         env=self.charged('environment_prepare',ENV.collect)
         if not SEL.cpu_verified(env) or 'W6' not in SEL.placements(env):
             raise ValueError('CPU_CORRECTNESS_OR_SIX_PHYSICAL_CORE_QUOTA_PREFLIGHT_REFUSED')
+        from experiments.evidence_canonicalization_v0.fingerprints import CONTENT_VERSION,policy_hash
         session=dict(origin='OBSERVED_REAL',session_id=str(uuid.uuid4()),N=spec['N'],T=spec['T'],goal=spec['goal'],
               methods=spec['methods'],env=env,hostname=platform.node(),boot_id=Path('/proc/sys/kernel/random/boot_id').read_text().strip(),
-              instance_id=self.ticket['instance_id'],machine_id=self.ticket['machine_id'],code_manifest_sha256=self.code)
+              instance_id=self.ticket['instance_id'],machine_id=self.ticket['machine_id'],code_manifest_sha256=self.code,
+              evidence_version=2,initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash())
         write_new(path/'session.json',session); write_new(path/'knowledge_before.json',knowledge.gaps(session))
         write_new(path/'learning_value_before.json',dict(knowledge.value(),
                   execution_basis='EXPLICIT_USER_RESEARCH_PILOT_SCOPE; NOT_AUTOMATIC_VALUE_APPROVAL'))
@@ -155,6 +157,7 @@ class Pilot:
                 def measure():
                     return bridge.capture(path/'measurement',session,requested,rep,store,gpu=self.gpu,
                               snapshot=before,reason='LEGACY fresh-session request' if requested=='LEGACY' else 'USER_AUTHORIZED_EXPERIMENT',seconds=self.seconds())
+                # Capture rereads the saved file; failure raises before the replay or next call.
                 obj=self.charged('measurement',measure); records.append(obj)
                 if replay is None:
                     self.charged('independent_replay',lambda:self.child('experiments.adaptive_execution_real_learning_pilot_v0.replay_worker',path))

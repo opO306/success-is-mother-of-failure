@@ -6,12 +6,16 @@ import resource
 import signal
 import time
 from contextlib import contextmanager
-from .common import check_seals,raw_hash,HERE,write_new,digest,ns
+from .common import check_seals,raw_hash,HERE,write_new,digest,ns,code_manifest_path
 
 
 def require_live_session(session):
     if session.get('origin')!='OBSERVED_REAL' or session.get('test_only') or os.name!='posix': raise ValueError('REAL_SESSION_REQUIRED')
     if not session.get('session_id') or not session.get('boot_id'): raise ValueError('SESSION_ID_REQUIRED')
+    from experiments.evidence_canonicalization_v0.fingerprints import CONTENT_VERSION,policy_hash
+    if (type(session.get('evidence_version')) is not int or session['evidence_version']!=2
+            or session.get('initial_content_version')!=CONTENT_VERSION or session.get('evidence_policy_sha256')!=policy_hash()):
+        raise ValueError('SESSION_EVIDENCE_VERSION_OR_POLICY')
 
 
 def cpu_clock(gpu=None):
@@ -39,7 +43,7 @@ def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reaso
     require_live_session(session)
     start_cpu=cpu_clock(gpu); start=time.monotonic_ns(); load_before=list(os.getloadavg())
     check_seals()
-    if session['code_manifest_sha256']!=raw_hash(HERE/'code_seal.json'): raise ValueError('CODE_SEAL_MISMATCH')
+    if session['code_manifest_sha256']!=raw_hash(code_manifest_path()): raise ValueError('CODE_SEAL_MISMATCH')
     # Import execution authority only inside the explicitly authorized capture path.
     from experiments.adaptive_execution_v1 import service as SVC
     from .inspector import initial_state
@@ -62,12 +66,14 @@ def capture(directory,session,method,repeat,store,*,gpu=None,snapshot=None,reaso
     obj=dict(kind='OBSERVED_REAL',state='CANDIDATE',run_id=run_id,session_id=session['session_id'],
           session_sha256=digest(session),code_manifest_sha256=session['code_manifest_sha256'],repeat=repeat,
           method=observed,goal=session['goal'],initial_state=initial,
-          initial_sha256=hashlib.sha256(json.dumps(initial).encode()).hexdigest(),service=svc,
+          service=svc,
           selection={'requested_method':method,'reason':reason,'plan':first,
                      'profile_snapshot':None if snapshot is None or snapshot.profile_bytes is None else hashlib.sha256(snapshot.profile_bytes).hexdigest()},
           observation={'origin':'OS_MONOTONIC_AND_PROCESS_CPU','pid':os.getpid(),'start_wall_ns':start,
                        'end_wall_ns':end,'wall_ns':end-start,'cpu_ns':sum(deltas.values()),'cpu_deltas_ns':deltas,
                        'host_load_before':load_before,'host_load_after':list(os.getloadavg())},
           correctness_level='EXECUTOR_UNVERIFIED; INDEPENDENT_REPLAY_REQUIRED')
-    write_new(directory/f'{method}_{repeat}.json',obj)
-    return obj
+    from experiments.evidence_canonicalization_v0.fingerprints import save_and_check,write_metrics
+    saved,metrics=save_and_check(directory/f'{method}_{repeat}.json',obj,session,writer=write_new)
+    write_metrics(directory/'evidence_metrics'/f'{method}_{repeat}.json',metrics,writer=write_new)
+    return saved  # Actual strict reread, never the pre-storage memory object.

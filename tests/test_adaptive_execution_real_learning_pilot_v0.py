@@ -208,10 +208,13 @@ def test_actual_controller_has_no_inspector_private_key_or_arbitrary_sign_api():
 
 def test_completion_bridge_mock_only_candidate_is_not_real_evidence(tmp_path,monkeypatch):
     from experiments.adaptive_execution_v1 import service
-    from experiments.adaptive_execution_real_learning_pilot_v0.common import raw_hash,HERE,ns
+    from experiments.adaptive_execution_real_learning_pilot_v0.common import raw_hash,HERE,ns,code_manifest_path
+    from experiments.evidence_canonicalization_v0.fingerprints import CONTENT_VERSION,policy_hash
     records,oldsession,replays=contract_panel(); original=copy.deepcopy(records[-1]['service'])
+    original['run_id']=original['request_id']=oldsession['session_id']+'/W6/0'
     session=dict(oldsession,origin='OBSERVED_REAL',test_only=True,boot_id='MOCK_BOOT',
-                 code_manifest_sha256=raw_hash(HERE/'code_seal.json'))
+                 code_manifest_sha256=raw_hash(code_manifest_path()),evidence_version=2,
+                 initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash())
     with pytest.raises(ValueError): bridge.require_live_session(session)
     # Test explicitly bypasses ONLY execution authorization; no calculator runs, no receipts are signed.
     monkeypatch.setattr(bridge,'require_live_session',lambda _:None)

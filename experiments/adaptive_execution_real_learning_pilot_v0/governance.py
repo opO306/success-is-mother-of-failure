@@ -1,7 +1,7 @@
 """Research-only signed profiles and signed separate controller witness. No production."""
 from dataclasses import dataclass
 from pathlib import Path
-from .common import Ledger,canonical,digest,read,write_new,public,verify,HERE,raw_hash
+from .common import Ledger,canonical,digest,read,write_new,public,verify,HERE,raw_hash,code_manifest_path
 
 
 @dataclass(frozen=True)
@@ -66,7 +66,7 @@ class Manager:
                 or body.get('protocol_sha256')!=raw_hash(HERE/'protocol.json')):
             raise ValueError('INVALID_RECEIPT_SCOPE')
         if self.roots.mode=='RESEARCH_ONLY' and (body.get('scope')!='RESEARCH_ONLY'
-                or body.get('code_manifest_sha256')!=raw_hash(HERE/'code_seal.json') or not body.get('raw_files')):
+                or body.get('code_manifest_sha256')!=raw_hash(code_manifest_path()) or not body.get('raw_files')):
             raise ValueError('REAL_RECEIPT_CODE_OR_RAW_BINDING')
         if self.roots.mode=='RESEARCH_ONLY':
             if body.get('stage') not in ('A','B'): raise ValueError('RECEIPT_STAGE_REFUSED')
@@ -126,6 +126,32 @@ class Manager:
                 raise ValueError('ROLLBACK_TARGET_NOT_PREVIOUS')
             self.activate(approval)
         except Exception as error: self._reject('ROLLBACK',approval,error); self._stop('ROLLBACK_FAILED'); raise ValueError(str(error)) from error
+
+    def review_correction(self,certificate):
+        from experiments.evidence_canonicalization_v0 import correction
+        try:
+            self._check()
+            if self.roots.mode!='RESEARCH_ONLY': raise ValueError('CORRECTION_REVIEW_SCOPE')
+            return correction.validate(certificate,self.roots.inspector)
+        except Exception as error:
+            self._reject('CORRECTION_REVIEW',certificate,error)
+            raise ValueError(str(error)) from error
+
+    def approve_correction(self,certificate,approval):
+        """Signed metadata review; no new performance profile or existing-profile change."""
+        try:
+            reviewed=self.review_correction(certificate)
+            verify(self.roots.manager,b'REAL_PILOT_APPROVAL\0',approval); b=approval['body']
+            if (b.get('profile_id')!='LEGACY' or b.get('correction_id')!=reviewed['certificate_sha256']
+                    or b.get('goal')!=reviewed['goal'] or any(e['payload']['body']['profile_id']!='LEGACY' for e in self._check())):
+                raise ValueError('CORRECTION_CANNOT_ACTIVATE_OR_CHANGE_PROFILE')
+            self.activate(approval)
+            write_new(self.directory/'correction_approvals'/f"{reviewed['certificate_sha256']}.json",
+                  dict(certificate_sha256=reviewed['certificate_sha256'],approval=approval,
+                       scope='APPROVED_HISTORICAL_REVIEW_ONLY',profile_activation='NONE',original_status='REAL_LEARNING_FAIL'))
+        except Exception as error:
+            self._reject('CORRECTION_APPROVE',approval,error); self._stop('INVALID_CORRECTION_APPROVAL')
+            raise ValueError(str(error)) from error
 
     def begin(self,goal,session):
         if goal not in ('CPU_MIN','WALL_MIN'): raise ValueError('GOAL_REFUSED')

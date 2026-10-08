@@ -8,6 +8,11 @@ ROOT=Path(__file__).resolve().parents[2]
 HERE=Path(__file__).resolve().parent
 
 
+def code_manifest_path():
+    # Explicit new source version; no inference or fallback to the historical seal.
+    return ROOT/'experiments/evidence_canonicalization_v0/code_seal.json'
+
+
 def public(key):
     return key.public_bytes(Encoding.Raw,PublicFormat.Raw).hex()
 
@@ -20,6 +25,8 @@ def verify(key,domain,envelope):
 
 
 def check_seals():
+    from experiments.evidence_canonicalization_v0.policy import check_policy
+    check_policy()
     from .a_safety import policy
     policy()
     for relative,expected in read(HERE/'protocol_seal.json')['files'].items():

@@ -6,7 +6,8 @@ import statistics
 from pathlib import Path
 from experiments.adaptive_execution_v1 import checker as CK
 from experiments.multiatom_parallel_v1 import scenarios as SC
-from .common import HERE, ROOT, canonical, digest, read, raw_hash, write_new, check_seals, ns
+from .common import HERE, ROOT, canonical, digest, read, raw_hash, write_new, check_seals, ns,code_manifest_path
+from experiments.evidence_canonicalization_v0 import fingerprints as FP,history
 
 
 def initial_state(N):
@@ -18,7 +19,7 @@ def require(condition,reason):
     if not condition: raise ValueError(reason)
 
 
-def validate_record(obj,session,replays,*,contract_only=False):
+def validate_record(obj,session,replays,*,contract_only=False,_legacy_review=False):
     """Checks one original record, without producer imports or trusting its summary."""
     expected='OFFLINE_CONTRACT_FIXTURE' if contract_only else 'OBSERVED_REAL'
     require(obj['kind']==expected and session['origin']==expected,'REAL_ORIGIN_REQUIRED')
@@ -68,18 +69,25 @@ def validate_record(obj,session,replays,*,contract_only=False):
         require(observation['origin']=='OS_MONOTONIC_AND_PROCESS_CPU' and observation['pid']>0,'OBSERVATION_ORIGIN')
         require(observation['end_wall_ns']-observation['start_wall_ns']==wall,'WALL_CLOCK_INTEGRITY')
         require(sum(observation['cpu_deltas_ns'].values())==cpu,'CPU_CLOCK_INTEGRITY')
-        require(obj['initial_sha256']==hashlib.sha256(json.dumps(obj['initial_state']).encode()).hexdigest(),'INITIAL_HASH')
+        if _legacy_review:
+            # Only the pinned historical reader invokes this. Normal live operations never infer V1.
+            require('evidence_version' not in obj and 'initial_content_sha256' not in obj,'HISTORICAL_VERSION_MIX')
+            require(obj['initial_sha256']==FP.legacy_hash(obj['initial_state']),'LEGACY_INITIAL_HASH')
+        else:
+            require(session.get('evidence_version')==2 and session.get('initial_content_version')==FP.CONTENT_VERSION
+                    and session.get('evidence_policy_sha256')==FP.policy_hash(),'SESSION_EVIDENCE_VERSION_OR_POLICY')
+            FP.validate_fingerprints(obj)
         require(session.get('boot_id') and session.get('hostname') and session.get('instance_id') and session.get('machine_id'),'HOST_ID_REQUIRED')
     return {'method':obj['method'],'wall_ns':wall,'cpu_ns':cpu}
 
 
-def validate_panel(records,session,replays,*,contract_only=False):
+def validate_panel(records,session,replays,*,contract_only=False,_legacy_review=False):
     require(len(records)==10,'MISSING_REPEAT')
     samples={method:[] for method in session['methods']}; ids=set(); repeats=set()
     for obj in records:
         require(obj['run_id'] not in ids and (obj['method'],obj['repeat']) not in repeats,'DUPLICATE_RECORD')
         ids.add(obj['run_id']); repeats.add((obj['method'],obj['repeat']))
-        samples[obj['method']].append(validate_record(obj,session,replays,contract_only=contract_only))
+        samples[obj['method']].append(validate_record(obj,session,replays,contract_only=contract_only,_legacy_review=_legacy_review))
     rows=[]
     for method,group in sorted(samples.items()):
         require({rep for met,rep in repeats if met==method}==set(range(5)),'REPEAT_IDENTITY')
@@ -99,8 +107,8 @@ def validate_panel(records,session,replays,*,contract_only=False):
 def inspect_directory(directory):
     check_seals(); directory=Path(directory); session=read(directory/'session.json')
     require(session['origin']=='OBSERVED_REAL','REAL_ORIGIN_REQUIRED')
-    require(session['code_manifest_sha256']==raw_hash(HERE/'code_seal.json'),'CODE_SEAL_MISMATCH')
-    for relative,expected in read(HERE/'code_seal.json')['files'].items():
+    require(session['code_manifest_sha256']==raw_hash(code_manifest_path()),'CODE_SEAL_MISMATCH')
+    for relative,expected in read(code_manifest_path())['files'].items():
         require(raw_hash(ROOT/relative)==expected,'SOURCE_INTEGRITY:'+relative)
     paths=sorted((directory/'measurement').glob('*.json')); require(len(paths)==10,'MISSING_REPEAT')
     require(sum(p.stat().st_size for p in paths)<=64*1024*1024,'EVIDENCE_SIZE_CAP')
@@ -111,14 +119,59 @@ def inspect_directory(directory):
     return report
 
 
+def review_original_record(obj,panel,raw_sha256):
+    require(raw_sha256 in panel['record_raw_hashes'],'PROVENANCE_UNKNOWN')
+    index=panel['record_raw_hashes'].index(raw_sha256)
+    require(canonical(obj)==canonical(panel['records'][index]),'CONTENT_MISMATCH')
+    require(obj['initial_state']==initial_state(panel['session']['N']),'CONTENT_MISMATCH')
+    validate_record(obj,panel['session'],panel['replays'],_legacy_review=True)
+    legacy=FP.legacy_hash(obj['initial_state']); content=FP.content_hash(obj['initial_state'])
+    reread=hashlib.sha256(json.dumps(obj['initial_state']).encode()).hexdigest()
+    require(legacy==obj['initial_sha256'] and reread!=legacy,'LEGACY_FORMAT_RELATION')
+    return dict(source_path=panel['record_paths'][index],raw_sha256=raw_sha256,legacy_sha256=legacy,
+            legacy_version=FP.LEGACY_VERSION,content_sha256=content,content_version=FP.CONTENT_VERSION,
+            reread_order_sha256=reread,classification='FORMAT_EQUIVALENT',replay_errors=[])
+
+
+def review_historical():
+    check_seals(); panel=history.load_originals()
+    rows=[review_original_record(obj,panel,raw) for obj,raw in zip(panel['records'],panel['record_raw_hashes'])]
+    checked=validate_panel(panel['records'],panel['session'],panel['replays'],_legacy_review=True)
+    return dict(verdict='VERIFIED_CONTENT',classification='FORMAT_EQUIVALENT',scope='HISTORICAL_REVIEW_ONLY',
+            original_status='REAL_LEARNING_FAIL',session_sha256=digest(panel['session']),goal=panel['session']['goal'],
+            original_source_sha256=panel['original_source_sha256'],original_manifest_sha256=panel['original_manifest_sha256'],
+            original_zip_sha256=panel['original_zip_sha256'],review_code_sha256=raw_hash(code_manifest_path()),
+            policy_sha256=FP.policy_hash(),records=rows,cost_rows_review_only=checked['rows'],
+            formula_independence='UNRESOLVED_SHARED_RWFORCE',new_physics_calls=0,independent_replays=0,
+            replay_use='EXACT_PINNED_ORIGINAL_SESSION_REPLAY',manager_approval='PENDING',
+            profile_activation='NONE',original_failed_loop='NOT_RECLASSIFIED')
+
+
 def main():
     import sys
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
     from .common import public
-    parser=argparse.ArgumentParser(); parser.add_argument('--serve',required=True,type=Path); args=parser.parse_args()
+    parser=argparse.ArgumentParser(); modes=parser.add_mutually_exclusive_group(required=True)
+    modes.add_argument('--serve',type=Path); modes.add_argument('--review-history',action='store_true')
+    parser.add_argument('--out',type=Path); args=parser.parse_args()
     # The inspector creates and retains its own key before collection. There is no sign-arbitrary-body API.
-    check_seals(); key=Ed25519PrivateKey.generate(); root=args.serve.resolve()
-    print(json.dumps({'inspector_public_key':public(key.public_key()),'code_manifest_sha256':raw_hash(HERE/'code_seal.json')}),flush=True)
+    check_seals(); key=Ed25519PrivateKey.generate()
+    if args.review_history:
+        if args.out is None: raise ValueError('EXCLUSIVE_REVIEW_OUTPUT_REQUIRED')
+        args.out.mkdir(parents=True,exist_ok=False)
+        write_new(args.out/'review_roots.json',dict(inspector_public_key=public(key.public_key()),
+                    code_manifest_sha256=raw_hash(code_manifest_path()),scope='HISTORICAL_REVIEW_ONLY; SAME_UID'))
+        try:
+            report=review_historical()
+        except Exception as error:
+            message=str(error); classification='CONTENT_MISMATCH' if 'CONTENT_MISMATCH' in message else 'PROVENANCE_UNKNOWN'
+            write_new(args.out/'review_refused.json',dict(verdict=classification,reason=message,original_status='REAL_LEARNING_FAIL'))
+            return 2
+        write_new(args.out/'historical_review_receipt.json',dict(body=report,
+                    signature=key.sign(b'REAL_PILOT_RECEIPT\0'+canonical(report)).hex()))
+        return 0
+    root=args.serve.resolve()
+    print(json.dumps({'inspector_public_key':public(key.public_key()),'code_manifest_sha256':raw_hash(code_manifest_path())}),flush=True)
     for line in sys.stdin:
         command=json.loads(line)
         if command=={'operation':'CLOSE'}: return
