@@ -1,0 +1,26 @@
+JOB_START calibrate 2026-10-08T01:29:16Z head e9557db91f2627f78a9a528344b89027c8ae9bbd dirty=[]
+== pytest (REMOTE LINUX related set) 01:29:16
+..........................                                               [100%]
+============================= slowest 8 durations ==============================
+32.42s setup    tests/test_adaptive_execution_v1.py::test_fixture_choices_and_meaning
+32.07s call     tests/test_adaptive_execution_v1.py::test_F7_retry_from_last_state
+28.05s call     tests/test_adaptive_execution_v1.py::test_F5_forged_next_p
+16.16s call     tests/test_adaptive_execution_v1.py::test_device_refusal_and_error_fall_back_to_cpu
+8.00s call     tests/test_adaptive_execution_v1.py::test_F12_device_error_hidden
+1.17s call     tests/test_adaptive_execution_v1.py::test_F6_failed_pass_deleted
+0.83s call     tests/test_adaptive_execution_v1.py::test_F3_unsupported_p_moved
+0.82s call     tests/test_adaptive_execution_v1.py::test_F4_model_at_other_p
+26 passed in 122.67s (0:02:02)
+== ENV 01:31:19
+== GATE100 01:31:23
+GATE100 12 163 DECIDED DECIDED True
+GATE100 16 163 DECIDED DECIDED True
+GATE100 16 109 DECIDED DECIDED True
+GATE100 16 64 UNDECIDED_AT_PRECISION UNDECIDED_AT_PRECISION True
+GATE100 40 109 DECIDED DECIDED True
+GATE100_PASSED
+== CALIBRATE 01:33:45
+PERF_PROFILE 8f7ffe2632a15cdfd362ce499dfdd4f361a371bd04f6417efb6cf7cfce33abee 19 rows
+== FINISHED 01:56:20
+JOB_EXIT rc=0 2026-10-08T01:56:20Z
+DONE_MARKER 2026-10-08T01:56:20Z grace 2400s

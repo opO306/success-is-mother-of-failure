@@ -1,0 +1,190 @@
+{
+ "R1": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 163,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "FAMILY_MAX",
+  "start": 163
+ },
+ "R2": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 163,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "FAMILY_MAX",
+  "start": 163
+ },
+ "R3": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 64,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "BASE64",
+  "start": 64
+ },
+ "R4": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 64,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "BASE64",
+  "start": 64
+ },
+ "R5": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 107,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "GPU_INELIGIBLE:P_UNSUPPORTED:107,N_OUTSIDE:8@T100,T100_NOT_CONNECTED",
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "EXACT_MEMORY",
+  "start": 107
+ },
+ "R6": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 162,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "GPU_INELIGIBLE:P_UNSUPPORTED:162",
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "FIXED_START",
+  "start": 162
+ },
+ "R7": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 163,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "GPU_INELIGIBLE:N_OUTSIDE:14@T1000",
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "FAMILY_MAX",
+  "start": 163
+ },
+ "R8": {
+  "plan": {
+   "backend": "CPU_SERIAL",
+   "env_id": "8e071e0c23cdfffe925cf544d285f2264322c3cefab0c13b8561b9e50b6c1164",
+   "evaluator": "rw:R1+R2",
+   "evidence_ids": [],
+   "extra": [],
+   "goal": "WALL_MIN",
+   "gpu_block": null,
+   "gpu_profile": null,
+   "main_cpu": 0,
+   "p": 109,
+   "placement_id": "5b31a52ebc461a96fcb3a0d18265daad5009b87e95e1d61973c0c7576f1cfe03",
+   "reasons": [
+    "GPU_INELIGIBLE:T100_NOT_CONNECTED",
+    "NO_PERF_PROFILE"
+   ],
+   "strategy": "ADAPTIVE",
+   "worker_count": 0,
+   "worker_cpus": []
+  },
+  "source": "EXACT_MEMORY",
+  "start": 109
+ }
+}
