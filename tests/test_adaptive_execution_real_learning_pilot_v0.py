@@ -212,6 +212,8 @@ def test_completion_bridge_mock_only_candidate_is_not_real_evidence(tmp_path,mon
     from experiments.evidence_canonicalization_v0.fingerprints import CONTENT_VERSION,policy_hash
     records,oldsession,replays=contract_panel(); original=copy.deepcopy(records[-1]['service'])
     original['run_id']=original['request_id']=oldsession['session_id']+'/W6/0'
+    # This mock answers capture's FIXED_START request, not the historical CHAIN request.
+    original['start_decision']['start']='FIXED_START:163'
     session=dict(oldsession,origin='OBSERVED_REAL',test_only=True,boot_id='MOCK_BOOT',
                  code_manifest_sha256=raw_hash(code_manifest_path()),evidence_version=2,
                  initial_content_version=CONTENT_VERSION,evidence_policy_sha256=policy_hash())

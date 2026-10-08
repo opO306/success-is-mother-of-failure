@@ -250,3 +250,26 @@ def test_old_source_ticket_cannot_authorize_new_live_capture(tmp_path,monkeypatc
     _,s=fixture(); s['origin']='OBSERVED_REAL'; s['code_manifest_sha256']='11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309'
     monkeypatch.setattr(bridge,'require_live_session',lambda _:None)
     with pytest.raises(ValueError,match='CODE_SEAL'): bridge.capture(tmp_path,s,'SERIAL',0,None)
+
+
+def test_saved_record_refuses_chain_start_for_fixed_start_request(tmp_path):
+    obj,session=fixture(); obj['service']['start_decision']['start']='CHAIN'
+    with pytest.raises(ValueError,match='SAVED_INPUT_OR_START'):
+        FP.save_and_check(tmp_path/'wrong_start.json',obj,session,writer=write_new)
+    assert (tmp_path/'wrong_start.json').exists()
+    assert read(tmp_path/'evidence_rejections/wrong_start.json')['reason']=='SAVED_INPUT_OR_START'
+
+
+@pytest.mark.parametrize('seconds',[0,-1,121,True,'100',None])
+def test_retry_budget_cannot_widen_or_remove_limits(seconds):
+    from experiments.evidence_canonicalization_v0.offline import gate_seconds
+    from experiments.evidence_canonicalization_v0.policy import check_policy
+    with pytest.raises(ValueError,match='REMAINING_BUDGET_CANNOT_WIDEN'):
+        gate_seconds({'remaining_seconds':seconds},check_policy())
+
+
+def test_retry_budget_narrows_and_default_preserves_sealed_cap():
+    from experiments.evidence_canonicalization_v0.offline import gate_seconds
+    from experiments.evidence_canonicalization_v0.policy import check_policy
+    assert gate_seconds({'remaining_seconds':100},check_policy())==100
+    assert gate_seconds({},check_policy())==120
