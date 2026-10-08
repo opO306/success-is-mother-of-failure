@@ -1,0 +1,7 @@
+{
+  "baseline": "62154878",
+  "files": {
+    "experiments/evidence_canonicalization_v0/protocol.json": "2ffe33d67f2d2e6483f9629e0fb4e0a94c2d7f020a75e6b006aeebacb9344bc1",
+    "docs/active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_PROTOCOL.md": "3e836efc1e8e601204ad6386f7232df333c42c670c2f82656b58084b65aaf1d5"
+  }
+}

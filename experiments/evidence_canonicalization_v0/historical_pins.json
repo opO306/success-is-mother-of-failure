@@ -1,0 +1,14 @@
+{
+  "baseline": "62154878",
+  "root": "docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136",
+  "original_status": "REAL_LEARNING_FAIL",
+  "original_source_sha256": "11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309",
+  "pins": {
+    "experiments/adaptive_execution_real_learning_pilot_v0/code_seal.json": "11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_source_20261008/source_8d4115e5.zip": "72577a4b61d30b359479f6493878532211a72f82d86786c3788f21c7bd10ff19",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136/raw_remote.zip": "fdcd5db93a2bf66b935bd4f07f4fb1db78aa61970b4dbbc43983d992be0f7c24",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136/raw_remote_manifest.json": "c5287aeb14cca2be8e225150e75a4635f0cb660ba20cab45c8689ccfc00c5828",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136/preservation_manifest.json": "a843bad378e0d6d8fe29b26e11df3bbd823dbe194753cdcc35450589832d8f06",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md": "eb59814aa15421fd359cca6ccae8c02ce5a50e9182f3e5b1886c99e52bb67af2"
+  }
+}
