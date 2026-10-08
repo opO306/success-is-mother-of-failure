@@ -11,6 +11,7 @@ from pathlib import Path
 from .common import ROOT,HERE,read,write_new,raw_hash
 from .runner import code_check
 from .bridge import deadline,cpu_clock
+from . import a_safety
 
 
 def main():
@@ -22,17 +23,10 @@ def main():
             or not ticket.get('approval_reference') or ticket.get('code_seal_sha256')!=code
             or str(ticket.get('instance_id'))!=os.environ.get('CONTAINER_ID')
             or ticket.get('physics_calls')!=0 or ticket.get('gpu_calls')!=0): raise ValueError('OFFLINE_NOT_AUTHORIZED')
-    if ticket.get('budget_amendment_sha256')!=raw_hash(HERE/'offline_budget_amendment_52763685.json'):
-        raise ValueError('OFFLINE_AMENDMENT_NOT_AUTHORIZED')
-    amendment=read(HERE/'offline_budget_amendment_52763685.json')
-    if (str(ticket['instance_id'])!=str(amendment['instance_id']) or ticket.get('machine_id')!=amendment['machine_id']
-            or ticket.get('country')!=amendment['country'] or ticket.get('hourly_cap_usd')!=amendment['hourly_cap_usd']):
-        raise ValueError('OFFLINE_AMENDMENT_SCOPE_REFUSED')
     armed=read(args.authorization.parent/'armed.json')
-    if (armed.get('status')!='ARMED' or armed.get('outside_guest') is not True
-            or armed.get('instance_id')!=amendment['instance_id']
-            or armed.get('guardian_sha256')!=raw_hash(HERE/'guardian.py')
-            or armed.get('budget_amendment_sha256')!=ticket['budget_amendment_sha256']): raise ValueError('EXTERNAL_GUARDIAN_NOT_ARMED')
+    a_safety.offline_lease(ticket,armed)
+    if armed.get('guardian_sha256')!=raw_hash(HERE/'guardian.py'): raise ValueError('EXTERNAL_GUARDIAN_NOT_ARMED')
+    a_safety.validate_heartbeat(read(ticket['heartbeat_path']),armed)
     args.out.mkdir(parents=True,exist_ok=False); start=time.monotonic_ns(); cpu=cpu_clock()
     resource.setrlimit(resource.RLIMIT_CPU,(120,120)); resource.setrlimit(resource.RLIMIT_AS,(512*1024**2,)*2)
     resource.setrlimit(resource.RLIMIT_CORE,(0,0)); os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
@@ -47,7 +41,7 @@ def main():
         suites=ET.parse(args.out/'junit.xml').getroot().findall('.//testcase')
         skipped=sum(x.find('skipped') is not None for x in suites)
         failed=sum(x.find('failure') is not None or x.find('error') is not None for x in suites)
-        status='PASS' if result.returncode==0 and skipped==0 and failed==0 and len(suites)==122 else 'STOP_TEST_GATE_FAILURE'
+        status='PASS' if result.returncode==0 and skipped==0 and failed==0 and len(suites)==a_safety.policy()['offline_expected_tests'] else 'STOP_TEST_GATE_FAILURE'
         code_check(); end=cpu_clock(); wall=time.monotonic_ns()-start; aggregate=sum(end[k]-cpu[k] for k in cpu)
         if wall>120*10**9 or aggregate>120*10**9: status='STOP_BUDGET'
         write_new(args.out/'status.json',dict(status=status,tests=len(suites),failed=failed,skipped=skipped,

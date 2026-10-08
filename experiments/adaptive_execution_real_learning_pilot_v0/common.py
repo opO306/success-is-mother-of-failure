@@ -20,6 +20,8 @@ def verify(key,domain,envelope):
 
 
 def check_seals():
+    from .a_safety import policy
+    policy()
     for relative,expected in read(HERE/'protocol_seal.json')['files'].items():
         if raw_hash(ROOT/relative)!=expected: raise ValueError('PROTOCOL_INTEGRITY:'+relative)
     for relative,expected in read(HERE/'protected_manifest.json')['files'].items():

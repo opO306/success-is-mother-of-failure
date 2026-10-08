@@ -6,13 +6,14 @@ import platform
 import subprocess
 import sys
 import time
+import threading
 import uuid
 from datetime import datetime,timezone
 from decimal import Decimal
 from pathlib import Path
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from .common import HERE,ROOT,canonical,digest,read,write_new,raw_hash,check_seals,public
-from . import bridge,governance,knowledge,costs
+from . import bridge,governance,knowledge,costs,a_safety
 
 
 def authorize(ticket,stage,code,*,instance_id,platform_name):
@@ -51,9 +52,13 @@ class Pilot:
                 or ticket.get('approve_research_profile') is not True): raise ValueError('HOST_GUARDIAN_OR_MANAGER_APPROVAL_REFUSED')
         if offline.get('status')!='PASS' or offline.get('code_seal_sha256')!=self.code or offline.get('physics_calls')!=0 or offline.get('gpu_calls')!=0:
             raise ValueError('MOCK_GATE_NOT_PASSED')
-        age=(datetime.now(timezone.utc)-datetime.fromisoformat(armed['armed_utc'])).total_seconds()
-        if not 0<=age<=180 or armed['deadline_seconds']>3240: raise ValueError('GUARDIAN_ARMING_STALE')
-        self.deadline=time.monotonic()+armed['deadline_seconds']-age-30
+        if ticket.get('stages')!=['A'] or ticket.get('safety_policy_sha256')!=a_safety.policy_hash():
+            raise ValueError('A_ONLY_SAFETY_APPROVAL_REQUIRED')
+        self.armed=armed; self.heartbeat_path=Path(ticket['heartbeat_path']); self.heartbeat_sequence=0
+        self.control_lock=threading.Lock()
+        limits=a_safety.remaining(armed)
+        self.deadline=time.monotonic()+limits['compute']
+        self.control_check()
         self.rate=Decimal(str(host['dph_total']))
         self.started=time.monotonic_ns(); self.start_cpu=bridge.cpu_clock(); self.book=costs.Book(self.root/'costs')
         # Separate research roots exist before the first completion record. Same UID is disclosed.
@@ -70,7 +75,13 @@ class Pilot:
         self.mgr=governance.Manager(self.root/'manager',self.root/'controller_witness',self.roots,self.ruler)
         self.gpu=None
 
+    def control_check(self):
+        with self.control_lock:
+            self.heartbeat_sequence=a_safety.validate_heartbeat(read(self.heartbeat_path),self.armed,
+                                          minimum_sequence=self.heartbeat_sequence)
+
     def seconds(self):
+        self.control_check()
         remaining=self.deadline-time.monotonic()
         if remaining<10: raise TimeoutError('ALLOCATION_BUDGET_STOP')
         import psutil
@@ -117,6 +128,8 @@ class Pilot:
         from experiments.adaptive_execution_v1 import environment as ENV,experience as EXP,selector as SEL,adapters as AD
         from .inspector import validate_record
         env=self.charged('environment_prepare',ENV.collect)
+        if not SEL.cpu_verified(env) or 'W6' not in SEL.placements(env):
+            raise ValueError('CPU_CORRECTNESS_OR_SIX_PHYSICAL_CORE_QUOTA_PREFLIGHT_REFUSED')
         session=dict(origin='OBSERVED_REAL',session_id=str(uuid.uuid4()),N=spec['N'],T=spec['T'],goal=spec['goal'],
               methods=spec['methods'],env=env,hostname=platform.node(),boot_id=Path('/proc/sys/kernel/random/boot_id').read_text().strip(),
               instance_id=self.ticket['instance_id'],machine_id=self.ticket['machine_id'],code_manifest_sha256=self.code)
@@ -195,7 +208,7 @@ class Pilot:
 
     def run(self):
         from .resources import Watch
-        watch=Watch(self.deadline); watch.start()
+        watch=Watch(self.deadline,self.control_check); watch.start()
         reports=[]
         try:
             for spec in read(HERE/'protocol.json')['stages']:
@@ -231,8 +244,8 @@ class Pilot:
             whole=total_wall if metric=='wall_ns' else total_cpu
             result['whole_job_recovery_by_goal'][report['goal']]=costs.recovery(overhead_ns=max(0,whole-baseline-learned),
                          baseline_ns=baseline,learned_ns=learned,observed_reuses=1)
-        if status=='REAL_LEARNING_LOOP_VALIDATED' and all(x['realized_net_ns']>0 for x in result['whole_job_recovery_by_goal'].values()):
-            result['status']='REAL_LEARNING_COST_USEFUL'
+        result['allocation_cost_status']='EXTERNAL_ALLOCATION_CLOSEOUT_REQUIRED'
+        result['whole_job_recovery_scope']='RUNNER_ONLY_PROVISIONAL; NOT_WHOLE_ALLOCATION'
         write_new(self.root/'report.json',result); return result
 
 

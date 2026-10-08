@@ -7,8 +7,8 @@ import psutil
 
 
 class Watch:
-    def __init__(self,deadline):
-        self.deadline=deadline; self.done=threading.Event(); self.reason=None
+    def __init__(self,deadline,control_check=None):
+        self.deadline=deadline; self.control_check=control_check; self.done=threading.Event(); self.reason=None
     def start(self):
         def failed(signum,frame): raise RuntimeError(self.reason or 'RESOURCE_MONITOR_STOP')
         self.old=signal.signal(signal.SIGUSR1,failed)
@@ -17,6 +17,7 @@ class Watch:
         proc=psutil.Process()
         while not self.done.wait(1):
             try:
+                if self.control_check is not None: self.control_check()
                 members=[proc,*proc.children(recursive=True)]
                 rss=0
                 for member in members:
