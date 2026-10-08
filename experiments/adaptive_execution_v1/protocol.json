@@ -1,0 +1,198 @@
+{
+ "gate": "ADAPTIVE_EXECUTION_V1",
+ "date": "2026-10-08",
+ "classification": "survey_only execution-integration research; no physics, numerics, rounding, CUDA arithmetic or precision policy is changed. Sealed before any code of this experiment.",
+ "branch": "claude/adaptive-execution-v1 (parent 436e2ff = claude/gpu-long-trajectory-v1, main checkout, no worktree, no push, no merge)",
+ "goal": "Connect the verified executors (CPU E2 serial, CPU E2 W-worker parallel, GPU_V1 hybrid) behind one service that picks the execution plan from the request and the environment. The selector may change only HOW a pass is executed (backend, worker count, CPU placement, GPU block); it never changes the evaluator, the precision p, the P2 rule, the readout or the outcome.",
+
+ "starting_state_checked": {
+  "head": "436e2ff", "master": "15ae151", "worktree": "clean", "gpu_contract": "GPU_LONG_TRAJECTORY_V1 section 6 (GPU_V1_READY)",
+  "structural_problems_confirmed_in_code": {
+   "A_cpu_selector_hardware": "selector_service_v1.selector._supported_topology accepts exactly 6 logical = 6 physical CPUs without SMT, cores 0..5; worker_count() is a laptop rule (T=100: N<=4 serial, 5<=N<12 W4, N>=12 W6; T=1000: N=3 W3, N>=4 W6) and was wrong at N=8 T=100 (W6 6.1% faster than the chosen W4). It is not reused as a rule; only ExecutionPlan and the runners are reused.",
+   "B_gpu_long_t1000_only": "gpu_long_trajectory_v1.long.long_pass loops over the module constant T = 1000 and has no T argument. gpu_short_trajectory_v1.traj.hybrid_trajectory takes T but returns no pass_record (it has 'read' = decide / endpoints_key and checkpoint states) and uses CHECKS[100] for T = 100. Both are frozen; neither is edited nor monkey-patched (no module global is changed).",
+   "C_gpu_precision": "GPU support set {64, 73, 78, 109, 128, 161, 163, 166, 192} (gpu_long_trajectory_v1.support.SEALED_EXT_P). support.ExtPV.upload widens gpu_host.SUPPORTED_P (a module global) for the duration of one upload call.",
+   "D_host_dependent_performance": "N12 p163 T1000 GPU / CPU W6 = 0.41 on Vast 54645489 (4060 Ti) but 0.80 on Vast 52763685 (3090); 100-step N12 on 52763629 was a TIE.",
+   "E_found_while_reading": "long.long_pass maps a mid-pass GPU refusal (REFUSED_DEVICE_WIDTH / REFUSED_DEVICE_PRECISION from encode or the device) into readout(stop_kind = 'REFUSED_...'), and multiatom_parallel_v1.run._readout maps an unknown stop to outcome UNDECIDED_AT_PRECISION. Unhandled, P2 would treat a device refusal as missing precision and raise p. The adapter must classify GPU statuses itself (rule 'gpu_status_classes')."
+  }
+ },
+
+ "modules": {
+  "environment.py": "collects the environment record and env_id (rule 'environment')",
+  "profiles.py": "loads the sealed correctness profile (this protocol, section 'correctness_profile') and sealed per-environment performance profiles (rule 'performance_profile'); hash-checked at load; read-only",
+  "selector.py": "pure function: (pass request view, environment record, correctness profile, performance profile or None, goal) -> AdaptivePlan or refusal; never sees a pass record",
+  "adapters.py": "re-checks every plan against the environment and the correctness profile before execution; CPU: the unchanged experiments/w5_placement_v1/run.py in a fresh process per pass (ExecutionPlan, multiatom_parallel_v1.run.run_serial / e2_pair_parallel_v1.run.run_parallel); GPU: one dedicated GPU worker process that owns one gpu_long_trajectory_v1.long.LongExecutor and serves one request at a time",
+  "service.py": "one request from start p to a final status: start p decision, P2 loop, per-pass selection, adapter, GPU-status classification, CPU fallback, ledger",
+  "experience.py": "start-p chain over the sealed EXPERIENCE_START_P_V2 store (read-only) and candidate records (never read by any policy)",
+  "campaign.py": "phases env / gate100 / calibrate / evaluate / replay; fault switches for the tests only",
+  "checker.py": "independent checker (rule 'checker')",
+  "analyze.py": "tables and the verdict by 'decision_rules_sealed'"
+ },
+
+ "reused_unchanged": {
+  "precision_policy": "experiments/precision_pilot_a1/policies.next_p('P2', None, history, T)",
+  "experience_store": "experiments/experience_start_p_v2: training_bundle.json, sha256 ec19eda9c6966be265709398480b4de4aa6bfcdb1ddb38de5f5f9d0602283ae3 (11 exact keys, 2 families: T=1000 FAMILY_MAX 163, T=100 FAMILY_MAX 109); ExperienceStore, fingerprint, family_key, current_contracts from experience_start_p_v1/v2",
+  "cpu_runner": "experiments/w5_placement_v1/run.py (fresh process per pass) -> plan.execute -> multiatom_parallel_v1.run.run_serial (CPU_SERIAL) or e2_pair_parallel_v1.run.run_parallel (CPU_PARALLEL)",
+  "gpu_t1000": "gpu_long_trajectory_v1.long.LongExecutor, long_pass, initial, readout",
+  "gpu_t100": "gpu_short_trajectory_v1.traj.hybrid_trajectory driven with a long.LongExecutor (ExtPV upload, device precision echo), pass record built by long.readout from the T = 100 checkpoint state (connection gate 'gate100' must pass first)",
+  "execution_plan": "experiments/w5_placement_v1/plan.ExecutionPlan for CPU passes (unchanged dataclass); the AdaptivePlan is a wrapper that carries the extra fields"
+ },
+
+ "environment": {
+  "fields": ["platform", "os_release", "python", "mpmath_version", "mpmath_backend", "cpu_model", "logical_cpus", "physical_cores", "smt_enabled", "allowed_cpus (process affinity)", "cpu_quota (Linux cgroup cpu.max or cfs_quota/period, else null)", "core_of_cpu for every allowed CPU (Linux /sys .../topology core_id + physical_package_id; Windows GetLogicalProcessorInformationEx)", "gpu: name, driver, memory, compute capability (nvidia-smi) or null", "nvcc release or null", "contract hashes: physics, numeric (experience_start_p_v1.current_contracts), gpu_sources (LF sha256 of pv1.cu, g0.cu, gpu_host.py, pv_host.py, compile_plan.py, support.py, long.py, one_step.py, traj.py)"],
+  "env_id": "sha256 of the canonical JSON of every field above except volatile ones (hostname, time, load). It identifies a hardware / software configuration, not a physical machine: two machines with the same configuration share an env_id (disclosed limitation; their performance may still differ).",
+  "cpu_correctness_key": "(mpmath_version, mpmath_backend, physics hash, numeric hash)",
+  "gpu_correctness_key": "(gpu_sources hash table, arch sm_XY from the compute capability, mpmath_version, mpmath_backend)",
+  "a_matching_env_id_proves_nothing_about_correctness": "correctness comes only from the correctness profile; env_id only selects a performance profile"
+ },
+
+ "correctness_profile": {
+  "CPU_E2": {
+   "evaluator": "rw:R1+R2",
+   "verified_mpmath": [["1.3.0", "python"]],
+   "physics_contract_hash": "must equal the sealed experience bundle's (5d76fa2a...)",
+   "numeric_contract_hash": "must equal the sealed experience bundle's (85653a0a...)",
+   "T_domain": {"100": "N >= 2", "1000": "N >= 3"},
+   "N_max": 128,
+   "note": "CPU E2 is the reference executor; in an environment whose cpu_correctness_key does not match, every request is REFUSED_UNVERIFIED_ENVIRONMENT (fail-closed)."
+  },
+  "GPU_V1": {
+   "contract": "GPU_LONG_TRAJECTORY_V1 section 6: GPU computes the per-atom force (pair -> G -> J -> canonical per-atom sum), the CPU owns kick / drift; block 32; model re-upload only when p changes",
+   "support_p": [64, 73, 78, 109, 128, 161, 163, 166, 192],
+   "verified_arch": ["sm_86", "sm_89"],
+   "verified_mpmath": [["1.3.0", "python"]],
+   "gpu_sources_sha256_lf": "recorded from GPU_LONG_TRAJECTORY_V1 vast_run/env.json source table and re-hashed at code seal; any difference -> GPU refused",
+   "domain_T1000_N": [12, 16, 40],
+   "domain_T100_N": [12, 16, 40, 64, 128],
+   "domain_T100_condition": "only if 'gate100' passes on the host before evaluation; otherwise T = 100 is CPU-only in V1 and is reported as not connected",
+   "evidence": "T1000: N12 / N16 at p 64,73,78,161,163,166 and N40 at p109 (GPU_LONG); T100: N12 / N16 p163, N40 / N64 / N128 p109, N64 p163 (GPU_SHORT). N values between or outside these are UNKNOWN and are not GPU domain (no interpolation).",
+   "outside": "p not in support_p, N or T outside the domain, unverified arch / mpmath / sources, no GPU -> the pass runs on the CPU at exactly the requested p (never moved to a supported p)",
+   "level": "numerically validated candidate (bit-identical on sealed trajectories and services); not formally certified for all inputs"
+  }
+ },
+
+ "gpu_status_classes": {
+  "OK": "pass completed; outcome from long.readout",
+  "DOMAIN_STOP_VIOLATED / DOMAIN_STOP_UNPROVEN": "physics domain stop; outcome DOMAIN_VIOLATED_PROVEN / DOMAIN_UNPROVEN, a P2 input",
+  "REFUSED_* (device width, device precision, encode)": "DEVICE_REFUSAL event: not a P2 input; the same p is re-run on CPU serial (fallback reason DEVICE_REFUSAL); the event is kept in the ledger",
+  "exception from the GPU worker / dead worker / CUDA error": "DEVICE_ERROR event: not a P2 input; same p re-run on CPU serial; event kept; any correctness anomaly is reported separately and never folded into the outcome",
+  "precision echo mismatch (device_p != requested p, or device_p_echo != [p])": "GPU_PRECISION_MISMATCH: the pass is INVALID_EVIDENCE (final); never silently re-run",
+  "computation mismatch": "only detectable by the independent replay (checker); a mismatch makes the run ADAPTIVE_FAIL"
+ },
+
+ "start_p": {
+  "chain": "EXACT_MEMORY if the sealed store has a VERIFIED exact success for fingerprint(physics, numeric, evaluator, initial_state_digest, T): start = its lowest_observed_success_p; else FAMILY_MAX of family_key(T, evaluator, physics, numeric); else 64. No interpolation over T; no new policy.",
+  "other_start_modes (baselines / tests)": {"BASE64": 64, "FAMILY_MAX": "family max only", "FIXED_START:<p>": "a sealed test request whose first p is given (used for p = 162)"},
+  "fingerprint_checks_before_use": "initial_state_digest is the exact-fraction digest of scenarios.initial(N) (multiatom_parallel_v1.run.initial_digest) and must be the same whatever p the pass will use; fingerprints must differ when N, T, evaluator, physics or numeric hash differ (unit tests)",
+  "store_is_read_only": "the sealed bundle hash is checked at load; no record of this experiment is ever added to it; new records go to candidates/ as UNVERIFIED"
+ },
+
+ "placement": {
+  "candidates": "SERIAL (main on the first allowed CPU), W3, W4, W6",
+  "rule": "worker CPUs = the first W allowed CPUs (ascending number) that lie on pairwise distinct physical cores, taking at most one logical CPU per core (SMT siblings unused). W3 / W4: main on a further distinct core (W + 1 cores). W6: main shares the core of worker 6 (the W5_PLACEMENT_V1 layout, 6 cores). A placement is VALID only if all its CPUs are allowed, the cores are distinct, and the number of cores it uses <= floor(cpu_quota) when a quota exists.",
+  "invalid": "an invalid placement is not a candidate; if no parallel placement is valid only SERIAL remains",
+  "placement_id": "sha256 of (W, main CPU, worker CPUs, core of each); a performance row is usable only if its placement_id equals the placement computed now in the same env_id"
+ },
+
+ "performance_profile": {
+  "unit": "one row per (env_id, N, T, strategy) with strategy in SERIAL / W3 / W4 / W6 / GPU: p_measured, placement_id, per-repeat end-to-end pass wall seconds and CPU seconds (all processes of the pass), GPU worker startup separately, load average per repeat",
+  "measured_in": "phase 'calibrate' on the official host, committed (sealed) before 'evaluate'",
+  "calibration_classes": [{"N": 12, "T": 1000, "p": 163}, {"N": 16, "T": 1000, "p": 163}, {"N": 8, "T": 100, "p": 107}, {"N": 16, "T": 100, "p": 109}],
+  "calibration_repeats": 3,
+  "p_assumption_A_P": "a row measured at p_measured is used for every p of the same (N, T) class. This is an explicit sealed assumption (relative order of strategies does not change with p in 64..192); the evaluation measures fixed strategies at several p and reports whether the order changes. It is not interpolation over N or T: an unmeasured (N, T) class has no row.",
+  "never_mixed": "rows of another env_id are never used; the GPU_LONG Vast perf numbers stay as reference only"
+ },
+
+ "selector": {
+  "inputs": "N, T, p, goal, environment record, correctness profile, performance profile of env_id (or none)",
+  "refusals": "cpu_correctness_key unverified -> REFUSED_UNVERIFIED_ENVIRONMENT; T or N outside CPU_E2 domain -> UNSUPPORTED_REQUEST",
+  "gpu_eligible": "GPU present AND gpu_correctness_key verified AND p in support_p AND N in domain of T AND (T = 1000 or gate100 passed)",
+  "WALL_MIN": "no performance profile for env_id -> SERIAL (reason NO_PERF_PROFILE). (N, T) class without rows -> SERIAL (reason PERF_CLASS_UNMEASURED). Else candidates = SERIAL + valid parallel placements with a row + GPU if eligible with a row; pick the smallest median pass wall; a candidate within 5% of the smallest median (relative to the smaller) ties with it and the tie is broken by the smaller median CPU seconds, then by fewer workers. GPU is never chosen without an eligible GPU row.",
+  "CPU_MIN": "SERIAL always (sealed conservative rule from the CPU-only comparisons); the GPU CPU time is measured and reported, not used in V1",
+  "plan_fields": ["evaluator", "p", "backend (CPU_SERIAL | CPU_PARALLEL | GPU_HYBRID)", "worker_count", "main_cpu", "worker_cpus", "placement_id", "gpu_profile (GPU_V1)", "gpu_block (32)", "goal", "reasons", "evidence_ids (profile hashes, row ids)", "env_id"],
+  "no_feedback": "the selector never receives a pass record; nothing it learns during the evaluation changes a later choice"
+ },
+
+ "service": {
+  "loop": "p0 = start p; later p = P2(history) unchanged; every pass from the original (q0, p0) at that p (GPU: long.initial(N, p) fresh per pass; CPU: a fresh process); per pass: plan = selector (or the fixed baseline plan), adapter re-check, execution, classification; MAX_PASSES 24; CAP as P2",
+  "fallback": "a GPU plan refused by the adapter, a DEVICE_REFUSAL or a DEVICE_ERROR -> the same p on CPU serial; the ledger keeps both the event and the CPU pass; the label of the service is GPU_FULL_RETRY / GPU_WITH_CPU_FALLBACK / CPU_ONLY",
+  "gpu_serialization": "exactly one GPU worker process per service host; the client holds a lock and sends one request at a time; the support-set widening of ExtPV happens only inside that process",
+  "ledger_per_pass": ["request_id", "initial_state_digest", "env_id", "start decision (policy, source, store sha)", "plan + reasons + evidence ids", "requested_p", "effective_p (CPU iv.prec / GPU device_p and echo)", "outcome / stop / stop_step / completed_steps / cells / endpoints_key", "pass wall s", "CPU s of every process of the pass", "GPU device time where reported", "GPU prepare / upload ms", "events (refusal, device error)", "selector wall ms"],
+  "ledger_per_service": ["final status", "final p", "p sequence", "execution label", "service wall s", "service CPU s", "GPU worker startup (reported separately; the worker is warm across services)", "source hashes"]
+ },
+
+ "verification_costs_separated": {
+  "service_cost": "what the service does per request: selection, passes, readout, ledger. No replay.",
+  "independent_replay_cost": "the checker recomputes every distinct (N, T, p) pass with its own KDK and its own force code (gpu_short_trajectory_v1.checker.my_forces: no GPU, no stream.run, no runner import) and compares outcome, stop, stop_step, completed_steps, cells and endpoints_key; measured and reported separately; it is part of the evaluation, not of the service",
+  "levels": "evaluation passes are REPLAY-CHECKED for this experiment only; this is not formal soundness and not the REPLAY_VERIFIED grade of the A three-layer contract"
+ },
+
+ "requests (sealed evaluation set)": [
+  {"id": "R1", "N": 12, "T": 1000, "start": "CHAIN", "role": "CPU / GPU boundary (seen class)"},
+  {"id": "R2", "N": 16, "T": 1000, "start": "CHAIN", "role": "GPU-favoured (seen class)"},
+  {"id": "R3", "N": 12, "T": 1000, "start": "BASE64", "role": "P2 retries 64 -> 73 -> 161 expected (seen class)"},
+  {"id": "R4", "N": 16, "T": 1000, "start": "BASE64", "role": "P2 retries 64 -> 78 -> 166 expected (seen class)"},
+  {"id": "R5", "N": 8, "T": 100, "start": "CHAIN", "role": "old selector error class (EXACT_MEMORY 107; GPU outside domain and p) (seen class)"},
+  {"id": "R6", "N": 12, "T": 1000, "start": "FIXED_START:162", "role": "GPU-unsupported p -> exact CPU fallback (seen class, unseen p)"},
+  {"id": "R7", "N": 14, "T": 1000, "start": "CHAIN", "role": "N outside GPU domain and unmeasured performance class (unseen)"},
+  {"id": "R8", "N": 16, "T": 100, "start": "CHAIN", "role": "EXACT_MEMORY 109 at T = 100; GPU only if gate100 passed (seen class)"}
+ ],
+ "start_p_expected_from_store": {"R1": "FAMILY_MAX 163", "R2": "FAMILY_MAX 163", "R5": "EXACT_MEMORY 107", "R7": "FAMILY_MAX 163", "R8": "EXACT_MEMORY 109"},
+ "environment_cases": {
+  "U1_perf_unknown": "R1 with a performance profile lookup for an env_id that has no profile (simulated by the campaign: the real env record with a sealed-different perf key) -> expected WALL_MIN SERIAL, GPU not chosen",
+  "U2_gpu_unverified": "R1 with the environment record's GPU arch replaced by 'sm_75' (simulated) -> GPU ineligible -> CPU plan",
+  "U3_cpu_unverified": "R1 with mpmath_backend replaced by 'gmpy' (simulated) -> REFUSED_UNVERIFIED_ENVIRONMENT, no pass",
+  "U4_real_local": "the designer's desktop (Windows, Ryzen 5 5600 6C/12T SMT, RTX 4060 sm_89) is a real environment without a performance profile: a small local smoke (R5 only, and R1 selection without execution) shows the real behaviour; it is not performance evidence",
+  "gpu_forced_outside": "a plan that forces GPU for R5 (N8 T100 p107), R6 (p162), R7 (N14) is given to the adapter directly -> REFUSED_GPU_OUTSIDE_PROFILE before any execution"
+ },
+ "strategies": {
+  "ADAPTIVE_WALL": "selector, goal WALL_MIN (repeats 5)",
+  "ADAPTIVE_CPU": "selector, goal CPU_MIN (repeat 1: its plans are SERIAL by rule; this run checks plans and records CPU time; its cost is otherwise FIXED_SERIAL's)",
+  "FIXED_SERIAL": "every pass CPU_SERIAL (repeats 5)",
+  "FIXED_W6": "every pass W6 if the host has a valid W6 placement (repeats 5)",
+  "FIXED_GPU": "every pass GPU, only for requests whose every expected pass is inside the GPU profile (R1-R4, R8 if gate100 passed); never run outside (repeats 5)"
+ },
+ "order_and_repeats": "repeat 1 of every (request, strategy) is the correctness run; the checker (replay) gates before repeats 2..5; in each repeat the strategy order is rotated by the repeat index; /proc/loadavg every 10 s and before / after each service; records of later repeats must be bit-identical in outcome fields to repeat 1",
+ "seen_vs_unseen": "seen = (N, T) class in the calibration set (R1-R6, R8); unseen = R7; reported separately",
+
+ "official_host": "Vast 52763685 (RTX 3090 sm_86, Threadripper PRO 3975WX, about 16 effective CPUs under a cgroup quota, 64 logical visible). Two jobs: job 1 = tests + env + gate100 + calibrate (stop after a grace period); commit of the calibration profile (seal) locally; job 2 = tests + env (must equal the sealed env_id, else stop) + gate100 + evaluate repeat 1 + replay + checker gate + repeats 2..5 + analysis; each job stops the instance itself. A host change needs an amendment before any official run.",
+ "cost_estimates_before_run": {
+  "development_and_tests": "local, light (single-core, low priority); no local full test suite",
+  "calibration": "about 15 min (estimate)",
+  "evaluation": "about 26 min per repeat (5 strategies, 8 requests) + ADAPTIVE_CPU once about 10 min; 5 repeats about 2.2-2.6 h (estimate; serial E2 at N16 T1000 dominates)",
+  "replay": "about 12 distinct passes, own KDK, parallel workers: about 5-15 min",
+  "vast": "about 3.5 h total at about 0.27 USD/h: about 1 USD",
+  "evidence_size": "per pass record without per-step digests about 2-5 KB; GPU passes keep their per-step digests (about 0.6 MB per T1000 pass) only in repeat 1; total under 100 MB compressed",
+  "selector_cost": "measured per pass (wall ms) and reported"
+ },
+
+ "checker": {
+  "independence": "imports none of environment, profiles, selector, adapters, service, experience, campaign of this experiment, and no GPU code; reads the evidence JSON and the sealed files",
+  "checks": ["start p from the sealed bundle by its own reading of the JSON (exact -> family max -> 64)", "bundle sha256 = sealed; candidates never listed as a source", "env_id recomputed from the recorded env fields; env_id of every pass = the run's env_id", "performance profile hash = sealed; rows used by the selector exist, have the same env_id and placement_id", "GPU eligibility re-derived from its own copy of support_p and domain; every GPU pass inside it; every refused / out-of-profile case not executed on GPU", "placement re-derived from the env record (distinct cores, allowed, quota); executed CPU placement = selected placement", "executed plan (runner record) = selected plan (backend, W, CPUs, p)", "WALL_MIN / CPU_MIN choice re-derived from the profile rows with its own rule code", "next p re-derived with its own P2 code", "every pass starts from the original state: CPU initial_sha256 = own digest; GPU echo_q0 / echo_p0 = own lifted initial at p", "requested_p = effective_p = device_p, device echo = [p]", "pass indices continuous; first p = start p; no missing pass file", "final results and endpoints = own replay at the same (N, T, p)", "repeats 2..5 outcome fields identical to repeat 1", "performance tables only compare rows of one env_id and only rows whose correctness passed", "every GPU worker event in the worker log appears in the ledger"]
+ },
+ "fault_injections (tests only; the checker must detect each)": {
+  "F1": "unknown environment disguised as verified (env record fields changed after selection, env_id kept)",
+  "F2": "performance row of another env_id reused",
+  "F3": "unsupported p silently changed to a supported one (162 run on GPU as 163, record says 162)",
+  "F4": "GPU model uploaded at another p than the requested one (device_p / echo != requested p)",
+  "F5": "next p forged (P2 output + 1)",
+  "F6": "a failed pass deleted from the ledger",
+  "F7": "a retry started from the previous pass's last state",
+  "F8": "wrong CPU placement (two workers on SMT siblings of one core, or a CPU outside the affinity)",
+  "F9": "a final endpoint changed by one ulp",
+  "F10": "an evaluation record added to the sealed experience bundle (store hash changes or a candidate used as a source)",
+  "F11": "a correctness failure shown as a performance success (a pass with a mismatching endpoint kept in the performance table)",
+  "F12": "a GPU device error removed from the ledger",
+  "F13": "executed plan differs from the selected plan (W4 run, W6 recorded)"
+ },
+
+ "decision_rules_sealed": {
+  "ADAPTIVE_FAIL": "any of: a result whose computational meaning changed (replay mismatch, endpoint or outcome difference between strategies at the same p); a GPU pass outside the correctness profile accepted as normal; a precision disguise; a retry not from the original state; a wrong stop or outcome; an evidence integrity failure (checker not EVIDENCE OK)",
+  "gain_metrics": "on seen requests (R1-R6, R8): G_W6 = sum of ADAPTIVE_WALL median service wall / sum of FIXED_W6 medians; G_best = sum ADAPTIVE_WALL / min(sum FIXED_SERIAL, sum FIXED_W6) (the best uniform CPU baseline the service could use without a selector). Per request: oracle = smallest median among the strategies run for it; ratio = ADAPTIVE_WALL / oracle.",
+  "ADAPTIVE_V1_READY": "no FAIL; GPU support / refusal rules held in every case (incl. environment cases and forced-GPU refusals); placement checks passed; P2 and start-p meaning preserved; checker EVIDENCE OK; G_best <= 0.85 (practical gain) and no big cost deterioration: sum of ADAPTIVE_WALL medians over seen requests <= 1.10 x sum of the per-request oracle medians + 0.5 s per ADAPTIVE_WALL pass (selection and noise allowance)",
+  "ADAPTIVE_EXACT_NOT_USEFUL": "no FAIL but G_best > 0.85 or the deterioration bound fails",
+  "counterexamples": "every request with ratio > 1.10 is listed as a cost-policy counterexample with its cause (unmeasured class, p assumption, noise); unseen requests (R7) and environment cases are reported separately and do not enter G_best; rules are not changed during the evaluation"
+ },
+
+ "not_in_scope": ["GPU 5-7.5 ms per-step floor", "rewriting the 221-op G program", "GPU stage specialists / pipelines", "in-DRAM compute", "neural or regression predictors", "machine-code tracing", "automatic certification of an unseen CPU / GPU environment (ADAPTIVE_EXECUTION_VERIFICATION_V0)", "any physics, rounding, precision-policy change", "random / speculative execution", "merge to master", "push"],
+ "claims_forbidden": ["formal soundness of GPU_V1 or of the service", "REPLAY_VERIFIED grade in the sense of the A three-layer contract", "performance of an environment that was not measured", "that an env_id match proves correctness", "that T = 1000 evidence covers longer trajectories"]
+}
