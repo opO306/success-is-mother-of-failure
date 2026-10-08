@@ -5,7 +5,7 @@ from functools import wraps
 from pathlib import Path
 from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
-from .core import Ledger, canonical, check_frozen, digest, read, stop, stopped, write_new
+from .core import Ledger, canonical, check_frozen, digest, raw_hash, read, stop, stopped, write_new
 
 
 @dataclass(frozen=True)
@@ -97,7 +97,6 @@ class Registry:
             check_frozen()
             self._receipt(candidate, receipt)
             # Sources must still match the signed manifest at manager handoff.
-            from .core import raw_hash
             for source in candidate["sources"]:
                 if raw_hash(source["path"]) != source["sha256"]:
                     raise ValueError("SOURCE_INTEGRITY")
@@ -136,6 +135,9 @@ class Registry:
                 or profile["scope"] != profile["candidate"]["scope"] or profile["rows"] != profile["candidate"]["rows"]
                 or profile["candidate_sha256"] != digest(profile["candidate"])):
             raise ValueError("PROFILE_INTEGRITY")
+        for source in profile["candidate"]["sources"]:
+            if raw_hash(source["path"]) != source["sha256"]:
+                raise ValueError("SOURCE_INTEGRITY")
         return raw
 
     def owns(self, profile, candidate_sha256):

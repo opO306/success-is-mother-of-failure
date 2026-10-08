@@ -225,6 +225,23 @@ def test_integrity_failure_stops_ingest(tmp_path, authority):
         ingest.collect(panel(tmp_path / "next"))
 
 
+def test_source_tamper_after_activation_stops_next_request(tmp_path, authority):
+    reg, _, candidate, _, profile, _ = setup_flow(tmp_path, authority)
+    reg.activate(approval(authority[1], reg, profile["id"]))
+    path = Path(candidate["sources"][0]["path"])
+    path.write_bytes(path.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="SOURCE_INTEGRITY"): reg.begin_request("WALL_MIN")
+    with pytest.raises(ValueError, match="STOP_NEW_REQUEST"): reg.begin_request("CPU_MIN")
+
+
+def test_information_gaps_require_manager_admission(tmp_path, authority):
+    reg, _, candidate, _, profile, _ = setup_flow(tmp_path, authority)
+    methods = ["CPU_SERIAL", "CPU_PARALLEL/W6", "GPU_HYBRID"]
+    untrusted = dict(profile, id="00" * 32)
+    assert collector.gaps(candidate, candidate["scope"], methods, [untrusted], registry=reg)["state"] == "UNKNOWN"
+    assert collector.gaps(candidate, candidate["scope"], methods, [profile], registry=reg)["unknown_methods"] == []
+
+
 @pytest.mark.parametrize("fault", ["unsigned", "forged_key", "modified_body", "wrong_verifier", "wrong_protocol", "wrong_candidate"])
 def test_forged_inspector_approval_blocked(tmp_path, authority, fault):
     reg, _, candidate, receipt, _, _ = setup_flow(tmp_path, authority)

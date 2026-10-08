@@ -9,11 +9,11 @@
     ".gitattributes": "f3c75b00568a47d2dcec963d5520f25dea746b85fdb34de9b50b3c2c53e07097",
     "docs/active/ADAPTIVE_EXECUTION_LEARNING_V1_DESIGN.md": "8da28fa82d9505bf7b48e1f35a6b3d96eba3e6b514fb0496be38969ae51a46b5",
     "experiments/adaptive_execution_learning_v1/__init__.py": "31a136559c022f0d576d6fa1b59acb194ede3157fcc15226d8aa5f226f97532a",
-    "experiments/adaptive_execution_learning_v1/collector.py": "d0338812b59c697a1e3341ff2fc3215c28e6442f1db1df9f8c7525b425cf7765",
+    "experiments/adaptive_execution_learning_v1/collector.py": "da8ec380ba04db1ead16ffac7fecb78023ef890e28ad6575f232eed71ade6ca5",
     "experiments/adaptive_execution_learning_v1/core.py": "e3cb6034c514622ca31e4f574801e3e4b16ed517b8516026496d37388dfee57b",
-    "experiments/adaptive_execution_learning_v1/demo.py": "def1c41373d63898e9a444976336e14163658c756220f791fba1ad5073f3abeb",
+    "experiments/adaptive_execution_learning_v1/demo.py": "aadb6182226d10d365bea86db171e8bed419ea4668881e631d3d4d54bcd86bd3",
     "experiments/adaptive_execution_learning_v1/inspector.py": "9a0520d9774746f4205ee64a80a1ff42b8994dcb4b031cea7a426c6f510c8d70",
-    "experiments/adaptive_execution_learning_v1/manager.py": "be1123933f45d3901a16d485c3f7a18c84cde8006618f9acd978c8a150686d6f",
+    "experiments/adaptive_execution_learning_v1/manager.py": "2bf8ac3d77670dfc123240c6cb1eb9cf504fad2ff7dc35b3e2eb6f4dbfafe97b",
     "experiments/adaptive_execution_learning_v1/offline.py": "db6e1ffda3d8710fb2f98af090ad6d6b8196197435d04ac04ec0f3187c7ee6d2",
     "experiments/adaptive_execution_learning_v1/preservation_manifest.json": "a812b3947866c84e59dd09c9cae528004779ff6df67f71d1a776275a7bce2230",
     "experiments/adaptive_execution_learning_v1/protocol_seal.json": "0b9e8f58144c8b650c6fa85def22aeaa867225d4ab2cba2bffaaea1229725048",
@@ -22,6 +22,7 @@
     "experiments/adaptive_execution_learning_v1/selector.py": "8ee488bfce726c634067d5d940e565fae39b0c3941af0b032115fd4e34f04ca5",
     "experiments/adaptive_execution_learning_v1/synthetic.py": "72e5e089376aa33eb08ac8d8b1f326ac0db1094a66ee5825114486632b351d39",
     "experiments/adaptive_execution_learning_v1/value.py": "73db811d8541ac9c1de61b0d22d2eeb4c4de046747fddf0862fabc165eb32f60",
-    "tests/test_adaptive_execution_learning_v1.py": "4c968dd2c6ebd0ce29ec21ffa55bf6cb9bdc875fff4dc9f806691b8e9400f925"
-  }
+    "tests/test_adaptive_execution_learning_v1.py": "26d1352c48c7ab7e1008e410dc21db6c4b5e0993e5fe746367ef4b3e0a563862"
+  },
+  "predecessor_code_seal_sha256": "4a178ea46d2b2a3b478f3041f1e34db49dab97df23007e533265b5b53857196f"
 }

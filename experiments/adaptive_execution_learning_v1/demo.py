@@ -29,6 +29,7 @@ def run_demo(directory):
     profile = registry.admit(candidate, receipt)
     ingest.mark_verified(candidate, profile, registry)
     write_new(directory / "verified_test_profile.json", profile)
+    write_new(directory / "gaps_after.json", collector.gaps(candidate, candidate["scope"], ["CPU_SERIAL", "CPU_PARALLEL/W6", "GPU_HYBRID"], [profile], registry=registry))
     def activate(target, goal, name, rollback=False):
         body = {"schema": "ael1-activation", "mode": "TEST_ONLY", "profile_id": target, "goal": goal,
                 "predecessor": registry.version(), "decision_id": name, "reason": "TEST_ONLY simulated manager approval"}

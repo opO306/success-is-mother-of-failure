@@ -40,11 +40,13 @@ def eligible(scope, method):
             and scope.get("environment", {}).get("gpu_arch") in gpu["architectures"])
 
 
-def gaps(candidate, scope, methods, verified_profiles):
+def gaps(candidate, scope, methods, verified_profiles, *, registry=None):
     # Candidates, unsigned profiles and other sessions do not count as known cost knowledge.
     known = set()
+    from .manager import Registry
     for profile in verified_profiles:
-        if profile.get("state") == "VERIFIED" and profile.get("scope") == scope:
+        if (isinstance(registry, Registry) and registry.owns(profile, profile.get("candidate_sha256"))
+                and profile.get("state") == "VERIFIED" and profile.get("scope") == scope):
             known.update(row["method"] for row in profile["rows"])
     unsupported = sorted(method for method in methods if not eligible(scope, method))
     unknown = sorted(method for method in methods if method not in known and method not in unsupported)
