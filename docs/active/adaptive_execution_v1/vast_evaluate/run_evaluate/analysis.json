@@ -1,0 +1,1389 @@
+{
+ "env_id": "ea9efe481c72ae99882aa816a6228134bc573c3b84bafe5ae00addb7291e368a",
+ "cpu_model": "AMD Ryzen Threadripper PRO 3995WX 64-Cores",
+ "gpu": {
+  "arch": "sm_89",
+  "compute_cap": "8.9",
+  "driver": "565.57.01",
+  "memory": "16380 MiB",
+  "name": "NVIDIA GeForce RTX 4060 Ti"
+ },
+ "checker": {
+  "checker_verdict_gate": {
+   "verdict": "EVIDENCE OK",
+   "errors": [],
+   "notes": [],
+   "n_services": 40,
+   "replayed_keys": 16,
+   "gate100_passed": true,
+   "phase": "gate"
+  },
+  "checker_verdict_final": {
+   "verdict": "EVIDENCE OK",
+   "errors": [],
+   "notes": [],
+   "n_services": 156,
+   "replayed_keys": 16,
+   "gate100_passed": true,
+   "phase": "final"
+  }
+ },
+ "gate100_passed": true,
+ "table": {
+  "R1": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 6.948443027911708,
+    "wall_all_s": [
+     7.24,
+     6.928,
+     6.924,
+     6.948,
+     6.961
+    ],
+    "cpu_med_s": 6.943387244000007,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.198,
+     0.223,
+     0.205,
+     0.204,
+     0.171
+    ]
+   },
+   "FIXED_GPU": {
+    "n": 5,
+    "wall_med_s": 6.95351741486229,
+    "wall_all_s": [
+     6.916,
+     6.982,
+     6.954,
+     6.966,
+     6.943
+    ],
+    "cpu_med_s": 6.947914777999998,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.138,
+     0.182,
+     0.137,
+     0.132,
+     0.133
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 77.73314606794156,
+    "wall_all_s": [
+     77.733,
+     78.265,
+     77.491,
+     78.346,
+     76.917
+    ],
+    "cpu_med_s": 77.698799143,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.099,
+     0.115,
+     0.118,
+     0.121,
+     0.121
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 15.4231150271371,
+    "wall_all_s": [
+     15.391,
+     15.423,
+     15.473,
+     15.423,
+     15.474
+    ],
+    "cpu_med_s": 78.44714452900001,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.235,
+     0.123,
+     0.133,
+     0.119,
+     0.116
+    ]
+   }
+  },
+  "R2": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 7.433202801970765,
+    "wall_all_s": [
+     7.428,
+     7.447,
+     7.425,
+     7.433,
+     7.465
+    ],
+    "cpu_med_s": 7.425855404999993,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.179,
+     0.216,
+     0.223,
+     0.21,
+     0.213
+    ]
+   },
+   "FIXED_GPU": {
+    "n": 5,
+    "wall_med_s": 7.463193031959236,
+    "wall_all_s": [
+     7.463,
+     7.469,
+     7.456,
+     7.475,
+     7.445
+    ],
+    "cpu_med_s": 7.456606711999999,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.123,
+     0.146,
+     0.132,
+     0.229,
+     0.133
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 140.14719448401593,
+    "wall_all_s": [
+     140.147,
+     139.919,
+     139.115,
+     140.764,
+     140.471
+    ],
+    "cpu_med_s": 140.09748242,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.097,
+     0.118,
+     0.119,
+     0.13,
+     0.118
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 27.5239191330038,
+    "wall_all_s": [
+     27.3,
+     27.613,
+     27.524,
+     28.915,
+     27.487
+    ],
+    "cpu_med_s": 142.218749337,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.097,
+     0.117,
+     0.115,
+     0.135,
+     0.116
+    ]
+   }
+  },
+  "R3": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 15.315395222045481,
+    "wall_all_s": [
+     15.319,
+     15.31,
+     15.328,
+     15.31,
+     15.315
+    ],
+    "cpu_med_s": 15.29474839900007,
+    "p_sequence": [
+     64,
+     73,
+     161
+    ],
+    "backends": [
+     "GPU_HYBRID",
+     "GPU_HYBRID",
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.171,
+     0.18,
+     0.187,
+     0.204,
+     0.224,
+     0.218,
+     0.205,
+     0.221,
+     0.223,
+     0.205,
+     0.219,
+     0.225,
+     0.204,
+     0.219,
+     0.223
+    ]
+   },
+   "FIXED_GPU": {
+    "n": 5,
+    "wall_med_s": 15.353589482838288,
+    "wall_all_s": [
+     15.509,
+     15.32,
+     15.354,
+     15.338,
+     15.355
+    ],
+    "cpu_med_s": 15.330329015999965,
+    "p_sequence": [
+     64,
+     73,
+     161
+    ],
+    "backends": [
+     "GPU_HYBRID",
+     "GPU_HYBRID",
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.132,
+     0.145,
+     0.151,
+     0.11,
+     0.144,
+     0.15,
+     0.132,
+     0.146,
+     0.151,
+     0.135,
+     0.145,
+     0.158,
+     0.111,
+     0.146,
+     0.152
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 224.6835917381104,
+    "wall_all_s": [
+     223.761,
+     225.041,
+     224.016,
+     224.815,
+     224.684
+    ],
+    "cpu_med_s": 224.570106329,
+    "p_sequence": [
+     64,
+     73,
+     161
+    ],
+    "backends": [
+     "CPU_SERIAL",
+     "CPU_SERIAL",
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.097,
+     0.118,
+     0.115,
+     0.117,
+     0.14,
+     0.119,
+     0.119,
+     0.142,
+     0.14,
+     0.117,
+     0.144,
+     0.141,
+     0.119,
+     0.285,
+     0.283
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 44.857841548044235,
+    "wall_all_s": [
+     44.742,
+     44.895,
+     44.632,
+     45.469,
+     44.858
+    ],
+    "cpu_med_s": 225.619828259,
+    "p_sequence": [
+     64,
+     73,
+     161
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6",
+     "CPU_PARALLEL/W6",
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.128,
+     0.139,
+     0.139,
+     0.119,
+     0.16,
+     0.12,
+     0.127,
+     0.145,
+     0.153,
+     0.119,
+     0.143,
+     0.146,
+     0.119,
+     0.146,
+     0.148
+    ]
+   }
+  },
+  "R4": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 16.795201109955087,
+    "wall_all_s": [
+     16.903,
+     16.836,
+     16.762,
+     16.762,
+     16.795
+    ],
+    "cpu_med_s": 16.77386348899995,
+    "p_sequence": [
+     64,
+     78,
+     166
+    ],
+    "backends": [
+     "GPU_HYBRID",
+     "GPU_HYBRID",
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.176,
+     0.189,
+     0.189,
+     0.208,
+     0.232,
+     0.224,
+     0.219,
+     0.22,
+     0.23,
+     0.211,
+     0.225,
+     0.23,
+     0.211,
+     0.235,
+     0.229
+    ]
+   },
+   "FIXED_GPU": {
+    "n": 5,
+    "wall_med_s": 16.86152410786599,
+    "wall_all_s": [
+     16.862,
+     16.78,
+     16.916,
+     16.806,
+     17.004
+    ],
+    "cpu_med_s": 16.781138516999988,
+    "p_sequence": [
+     64,
+     78,
+     166
+    ],
+    "backends": [
+     "GPU_HYBRID",
+     "GPU_HYBRID",
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.133,
+     0.151,
+     0.125,
+     0.131,
+     0.144,
+     0.15,
+     0.133,
+     0.146,
+     0.151,
+     0.13,
+     0.144,
+     0.151,
+     0.137,
+     0.149,
+     0.167
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 395.6122547839768,
+    "wall_all_s": [
+     395.348,
+     400.879,
+     394.546,
+     396.139,
+     395.612
+    ],
+    "cpu_med_s": 395.489152175,
+    "p_sequence": [
+     64,
+     78,
+     166
+    ],
+    "backends": [
+     "CPU_SERIAL",
+     "CPU_SERIAL",
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.099,
+     0.12,
+     0.121,
+     0.118,
+     0.141,
+     0.143,
+     0.117,
+     0.143,
+     0.14,
+     0.117,
+     0.176,
+     0.161,
+     0.118,
+     0.255,
+     0.147
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 77.22823284217156,
+    "wall_all_s": [
+     77.597,
+     77.228,
+     77.166,
+     76.99,
+     77.758
+    ],
+    "cpu_med_s": 399.239610987,
+    "p_sequence": [
+     64,
+     78,
+     166
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6",
+     "CPU_PARALLEL/W6",
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.118,
+     0.15,
+     0.154,
+     0.127,
+     0.142,
+     0.143,
+     0.115,
+     0.145,
+     0.143,
+     0.117,
+     0.177,
+     0.14,
+     0.118,
+     0.122,
+     0.121
+    ]
+   }
+  },
+  "R5": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 1.0494028821121901,
+    "wall_all_s": [
+     1.057,
+     1.049,
+     1.048,
+     1.046,
+     1.051
+    ],
+    "cpu_med_s": 4.198903359,
+    "p_sequence": [
+     107
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.15,
+     0.181,
+     0.182,
+     0.18,
+     0.151
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 3.365842266008258,
+    "wall_all_s": [
+     3.38,
+     3.376,
+     3.359,
+     3.358,
+     3.366
+    ],
+    "cpu_med_s": 3.348673571,
+    "p_sequence": [
+     107
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.099,
+     0.117,
+     0.095,
+     0.116,
+     0.096
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 1.0505307249259204,
+    "wall_all_s": [
+     1.087,
+     1.051,
+     1.051,
+     1.047,
+     1.047
+    ],
+    "cpu_med_s": 4.198230193,
+    "p_sequence": [
+     107
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.095,
+     0.239,
+     0.115,
+     0.115,
+     0.118
+    ]
+   }
+  },
+  "R6": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 15.505712567130104,
+    "wall_all_s": [
+     15.568,
+     15.506,
+     15.494,
+     15.387,
+     15.52
+    ],
+    "cpu_med_s": 78.40843679199999,
+    "p_sequence": [
+     162
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.186,
+     0.185,
+     0.183,
+     0.178,
+     0.185
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 77.76466250210069,
+    "wall_all_s": [
+     78.116,
+     77.733,
+     77.818,
+     77.175,
+     77.765
+    ],
+    "cpu_med_s": 77.733217808,
+    "p_sequence": [
+     162
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.267,
+     0.118,
+     0.118,
+     0.116,
+     0.097
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 15.516774486983195,
+    "wall_all_s": [
+     15.417,
+     15.699,
+     16.316,
+     15.389,
+     15.517
+    ],
+    "cpu_med_s": 78.507013509,
+    "p_sequence": [
+     162
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.117,
+     0.116,
+     0.115,
+     0.116,
+     0.098
+    ]
+   }
+  },
+  "R7": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 106.88177307811566,
+    "wall_all_s": [
+     106.645,
+     107.602,
+     107.08,
+     106.405,
+     106.882
+    ],
+    "cpu_med_s": 106.844690425,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.137,
+     0.143,
+     0.138,
+     0.138,
+     0.176
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 106.68336113006808,
+    "wall_all_s": [
+     106.683,
+     106.95,
+     107.331,
+     106.614,
+     105.822
+    ],
+    "cpu_med_s": 106.63875493,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.116,
+     0.116,
+     0.117,
+     0.135,
+     0.25
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 21.51939804898575,
+    "wall_all_s": [
+     21.538,
+     21.49,
+     21.374,
+     21.542,
+     21.519
+    ],
+    "cpu_med_s": 107.28897853699999,
+    "p_sequence": [
+     163
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.117,
+     0.121,
+     0.115,
+     0.118,
+     0.154
+    ]
+   }
+  },
+  "R8": {
+   "ADAPTIVE_WALL": {
+    "n": 5,
+    "wall_med_s": 0.5922583618666977,
+    "wall_all_s": [
+     0.64,
+     0.592,
+     0.591,
+     0.59,
+     0.635
+    ],
+    "cpu_med_s": 0.5873100930000135,
+    "p_sequence": [
+     109
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.202,
+     0.209,
+     0.207,
+     0.205,
+     0.211
+    ]
+   },
+   "FIXED_GPU": {
+    "n": 5,
+    "wall_med_s": 0.6296801420394331,
+    "wall_all_s": [
+     0.612,
+     0.634,
+     0.636,
+     0.63,
+     0.602
+    ],
+    "cpu_med_s": 0.6254281129999981,
+    "p_sequence": [
+     109
+    ],
+    "backends": [
+     "GPU_HYBRID"
+    ],
+    "status": "DECIDED",
+    "label": "GPU_FULL_RETRY",
+    "selector_ms": [
+     0.132,
+     0.131,
+     0.136,
+     0.108,
+     0.136
+    ]
+   },
+   "FIXED_SERIAL": {
+    "n": 5,
+    "wall_med_s": 13.787401234963909,
+    "wall_all_s": [
+     13.787,
+     13.794,
+     13.83,
+     13.688,
+     13.694
+    ],
+    "cpu_med_s": 13.767503991,
+    "p_sequence": [
+     109
+    ],
+    "backends": [
+     "CPU_SERIAL"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.12,
+     0.117,
+     0.119,
+     0.119,
+     0.118
+    ]
+   },
+   "FIXED_W6": {
+    "n": 5,
+    "wall_med_s": 3.022958611138165,
+    "wall_all_s": [
+     2.999,
+     3.009,
+     3.023,
+     3.029,
+     3.023
+    ],
+    "cpu_med_s": 14.638222643999999,
+    "p_sequence": [
+     109
+    ],
+    "backends": [
+     "CPU_PARALLEL/W6"
+    ],
+    "status": "DECIDED",
+    "label": "CPU_ONLY",
+    "selector_ms": [
+     0.118,
+     0.118,
+     0.129,
+     0.118,
+     0.138
+    ]
+   }
+  }
+ },
+ "per_request": {
+  "R1": {
+   "oracle_s": 6.948443027911708,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 6.948443027911708,
+   "ratio": 1.0
+  },
+  "R2": {
+   "oracle_s": 7.433202801970765,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 7.433202801970765,
+   "ratio": 1.0
+  },
+  "R3": {
+   "oracle_s": 15.315395222045481,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 15.315395222045481,
+   "ratio": 1.0
+  },
+  "R4": {
+   "oracle_s": 16.795201109955087,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 16.795201109955087,
+   "ratio": 1.0
+  },
+  "R5": {
+   "oracle_s": 1.0494028821121901,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 1.0494028821121901,
+   "ratio": 1.0
+  },
+  "R6": {
+   "oracle_s": 15.505712567130104,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 15.505712567130104,
+   "ratio": 1.0
+  },
+  "R7": {
+   "oracle_s": 21.51939804898575,
+   "oracle_label": "FIXED_W6",
+   "adaptive_s": 106.88177307811566,
+   "ratio": 4.9667640718766854
+  },
+  "R8": {
+   "oracle_s": 0.5922583618666977,
+   "oracle_label": "ADAPTIVE_WALL",
+   "adaptive_s": 0.5922583618666977,
+   "ratio": 1.0
+  }
+ },
+ "cpu_med": {
+  "R1": {
+   "ADAPTIVE_WALL": 6.943387244000007,
+   "FIXED_GPU": 6.947914777999998,
+   "FIXED_SERIAL": 77.698799143,
+   "FIXED_W6": 78.44714452900001
+  },
+  "R2": {
+   "ADAPTIVE_WALL": 7.425855404999993,
+   "FIXED_GPU": 7.456606711999999,
+   "FIXED_SERIAL": 140.09748242,
+   "FIXED_W6": 142.218749337
+  },
+  "R3": {
+   "ADAPTIVE_WALL": 15.29474839900007,
+   "FIXED_GPU": 15.330329015999965,
+   "FIXED_SERIAL": 224.570106329,
+   "FIXED_W6": 225.619828259
+  },
+  "R4": {
+   "ADAPTIVE_WALL": 16.77386348899995,
+   "FIXED_GPU": 16.781138516999988,
+   "FIXED_SERIAL": 395.489152175,
+   "FIXED_W6": 399.239610987
+  },
+  "R5": {
+   "ADAPTIVE_WALL": 4.198903359,
+   "FIXED_SERIAL": 3.348673571,
+   "FIXED_W6": 4.198230193
+  },
+  "R6": {
+   "ADAPTIVE_WALL": 78.40843679199999,
+   "FIXED_SERIAL": 77.733217808,
+   "FIXED_W6": 78.507013509
+  },
+  "R7": {
+   "ADAPTIVE_WALL": 106.844690425,
+   "FIXED_SERIAL": 106.63875493,
+   "FIXED_W6": 107.28897853699999
+  },
+  "R8": {
+   "ADAPTIVE_WALL": 0.5873100930000135,
+   "FIXED_GPU": 0.6254281129999981,
+   "FIXED_SERIAL": 13.767503991,
+   "FIXED_W6": 14.638222643999999
+  }
+ },
+ "seen": [
+  "R1",
+  "R2",
+  "R3",
+  "R4",
+  "R5",
+  "R6",
+  "R8"
+ ],
+ "unseen": [
+  "R7"
+ ],
+ "sums": {
+  "adaptive": 63.63961597299203,
+  "fixed_w6": 184.62337237340398,
+  "fixed_serial": 933.0940930771176,
+  "best_uniform_cpu": 184.62337237340398,
+  "oracle": 63.63961597299203,
+  "adaptive_passes": 11,
+  "deterioration_bound": 75.50357757029124
+ },
+ "G_W6": 0.3446996723918562,
+ "G_best": 0.3446996723918562,
+ "counterexamples": [
+  {
+   "request": "R7",
+   "oracle_s": 21.51939804898575,
+   "oracle_label": "FIXED_W6",
+   "adaptive_s": 106.88177307811566,
+   "ratio": 4.9667640718766854
+  }
+ ],
+ "cases": {
+  "R1__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    163
+   ],
+   "wall_s": 77.94550822814927,
+   "cpu_s": 77.906334784,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R2__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    163
+   ],
+   "wall_s": 140.7471705880016,
+   "cpu_s": 140.691272978,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R3__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    64,
+    73,
+    161
+   ],
+   "wall_s": 223.75271494290791,
+   "cpu_s": 223.639986489,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ],
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ],
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R4__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    64,
+    78,
+    166
+   ],
+   "wall_s": 397.2421200959943,
+   "cpu_s": 397.078667711,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ],
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ],
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R5__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    107
+   ],
+   "wall_s": 3.3603013451211154,
+   "cpu_s": 3.342745455,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R6__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    162
+   ],
+   "wall_s": 77.75715485797264,
+   "cpu_s": 77.715899339,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R7__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    163
+   ],
+   "wall_s": 107.68714550207369,
+   "cpu_s": 107.639560679,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "R8__ADAPTIVE_CPU": {
+   "status": "DECIDED",
+   "p_sequence": [
+    109
+   ],
+   "wall_s": 13.869371491018683,
+   "cpu_s": 13.849356422,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "SEALED_CPU_MIN_RULE_SERIAL"
+     ]
+    ]
+   ]
+  },
+  "U1": {
+   "status": "DECIDED",
+   "p_sequence": [
+    163
+   ],
+   "wall_s": 77.55699931713752,
+   "cpu_s": 77.519651362,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "NO_PERF_PROFILE"
+     ]
+    ]
+   ]
+  },
+  "U2": {
+   "status": "DECIDED",
+   "p_sequence": [
+    163
+   ],
+   "wall_s": 77.85458066104911,
+   "cpu_s": 77.817441053,
+   "plans": [
+    [
+     "CPU_SERIAL",
+     0,
+     [
+      "GPU_INELIGIBLE:ARCH_UNVERIFIED:sm_75",
+      "NO_PERF_PROFILE"
+     ]
+    ]
+   ]
+  },
+  "U3": {
+   "status": "REFUSED_UNVERIFIED_ENVIRONMENT",
+   "p_sequence": [],
+   "wall_s": 1.3474840670824051e-05,
+   "cpu_s": 0.0,
+   "plans": []
+  }
+ },
+ "forced_gpu": [
+  {
+   "N": 8,
+   "T": 100,
+   "adapter_violations": [
+    "GPU_P",
+    "GPU_DOMAIN"
+   ],
+   "executed": false,
+   "id": "R5",
+   "p": 107,
+   "worker_status": "REFUSED_BY_WORKER:GPU_P,GPU_DOMAIN"
+  },
+  {
+   "N": 12,
+   "T": 1000,
+   "adapter_violations": [
+    "GPU_P"
+   ],
+   "executed": false,
+   "id": "R6",
+   "p": 162,
+   "worker_status": "REFUSED_BY_WORKER:GPU_P"
+  },
+  {
+   "N": 14,
+   "T": 1000,
+   "adapter_violations": [
+    "GPU_DOMAIN"
+   ],
+   "executed": false,
+   "id": "R7",
+   "p": 163,
+   "worker_status": "REFUSED_BY_WORKER:GPU_DOMAIN"
+  }
+ ],
+ "env_cases_ok": true,
+ "forced_gpu_refused": true,
+ "adaptive_cpu_all_serial": true,
+ "p_assumption_order": {
+  "N12_T1000_p163": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N16_T1000_p163": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N12_T1000_p64": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N12_T1000_p73": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N12_T1000_p161": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N16_T1000_p64": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N16_T1000_p78": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N16_T1000_p166": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N8_T100_p107": [
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N12_T1000_p162": [
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N14_T1000_p163": [
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ],
+  "N16_T100_p109": [
+   "FIXED_GPU",
+   "FIXED_W6",
+   "FIXED_SERIAL"
+  ]
+ },
+ "replay": {
+  "n": 16,
+  "total_s": 1158.4130375320092
+ },
+ "verdict": "ADAPTIVE_V1_READY"
+}

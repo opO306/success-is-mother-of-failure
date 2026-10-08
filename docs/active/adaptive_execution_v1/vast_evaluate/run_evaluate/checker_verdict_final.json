@@ -1,0 +1,9 @@
+{
+ "verdict": "EVIDENCE OK",
+ "errors": [],
+ "notes": [],
+ "n_services": 156,
+ "replayed_keys": 16,
+ "gate100_passed": true,
+ "phase": "final"
+}

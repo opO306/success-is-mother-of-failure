@@ -1,0 +1,164 @@
+[
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r3/R1__FIXED_GPU",
+  "seq": 0,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r3/R1__ADAPTIVE_WALL",
+  "seq": 1,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r3/R2__FIXED_GPU",
+  "seq": 2,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r3/R2__ADAPTIVE_WALL",
+  "seq": 3,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r3/R3__FIXED_GPU",
+  "seq": 4,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 73,
+  "request_id": "r3/R3__FIXED_GPU",
+  "seq": 5,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 161,
+  "request_id": "r3/R3__FIXED_GPU",
+  "seq": 6,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r3/R3__ADAPTIVE_WALL",
+  "seq": 7,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 73,
+  "request_id": "r3/R3__ADAPTIVE_WALL",
+  "seq": 8,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 161,
+  "request_id": "r3/R3__ADAPTIVE_WALL",
+  "seq": 9,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r3/R4__FIXED_GPU",
+  "seq": 10,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 78,
+  "request_id": "r3/R4__FIXED_GPU",
+  "seq": 11,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 166,
+  "request_id": "r3/R4__FIXED_GPU",
+  "seq": 12,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r3/R4__ADAPTIVE_WALL",
+  "seq": 13,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 78,
+  "request_id": "r3/R4__ADAPTIVE_WALL",
+  "seq": 14,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 166,
+  "request_id": "r3/R4__ADAPTIVE_WALL",
+  "seq": 15,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 100,
+  "error": null,
+  "p": 109,
+  "request_id": "r3/R8__FIXED_GPU",
+  "seq": 16,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 100,
+  "error": null,
+  "p": 109,
+  "request_id": "r3/R8__ADAPTIVE_WALL",
+  "seq": 17,
+  "status": "OK"
+ }
+]

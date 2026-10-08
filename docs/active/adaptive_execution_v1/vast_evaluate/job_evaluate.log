@@ -1,0 +1,47 @@
+JOB_START evaluate 2026-10-08T01:57:22Z head d3d5f0316bec47d747092ab520da65ecc3b4c0da dirty=[]
+== pytest (REMOTE LINUX related set) 01:57:22
+..........................                                               [100%]
+============================= slowest 8 durations ==============================
+32.35s setup    tests/test_adaptive_execution_v1.py::test_fixture_choices_and_meaning
+32.03s call     tests/test_adaptive_execution_v1.py::test_F7_retry_from_last_state
+28.40s call     tests/test_adaptive_execution_v1.py::test_F5_forged_next_p
+16.13s call     tests/test_adaptive_execution_v1.py::test_device_refusal_and_error_fall_back_to_cpu
+8.00s call     tests/test_adaptive_execution_v1.py::test_F12_device_error_hidden
+1.18s call     tests/test_adaptive_execution_v1.py::test_F6_failed_pass_deleted
+0.89s call     tests/test_adaptive_execution_v1.py::test_F3_unsupported_p_moved
+0.85s call     tests/test_adaptive_execution_v1.py::test_F4_model_at_other_p
+26 passed in 122.73s (0:02:02)
+== ENV 01:59:25
+== GATE100 01:59:29
+GATE100 12 163 DECIDED DECIDED True
+GATE100 16 163 DECIDED DECIDED True
+GATE100 16 109 DECIDED DECIDED True
+GATE100 16 64 UNDECIDED_AT_PRECISION UNDECIDED_AT_PRECISION True
+GATE100 40 109 DECIDED DECIDED True
+GATE100_PASSED
+== EVALUATE r1 02:01:53
+== CHECKER GATE (replay) 02:46:16
+REPLAY 8 100 107 DECIDED 3.3s
+REPLAY 12 100 163 DECIDED 7.9s
+REPLAY 12 1000 64 DOMAIN_UNPROVEN 72.3s
+REPLAY 12 1000 73 UNDECIDED_AT_PRECISION 73.3s
+REPLAY 12 1000 161 DECIDED 77.4s
+REPLAY 12 1000 162 DECIDED 77.5s
+REPLAY 12 1000 163 DECIDED 78.1s
+REPLAY 14 1000 163 DECIDED 105.9s
+REPLAY 16 100 64 UNDECIDED_AT_PRECISION 13.2s
+REPLAY 16 100 109 DECIDED 13.6s
+REPLAY 16 100 163 DECIDED 14.3s
+REPLAY 16 1000 64 DOMAIN_UNPROVEN 119.7s
+REPLAY 16 1000 78 UNDECIDED_AT_PRECISION 133.6s
+REPLAY 16 1000 163 DECIDED 139.1s
+REPLAY 16 1000 166 DECIDED 141.0s
+REPLAY 40 100 109 DECIDED 88.1s
+EVIDENCE OK 0 errors
+== EVALUATE r2-5 02:48:51
+== CHECKER FINAL 04:26:34
+EVIDENCE OK 0 errors
+ADAPTIVE_V1_READY G_best 0.3446996723918562 G_W6 0.3446996723918562 counterexamples 1
+== FINISHED checker_rc=0 04:26:36
+JOB_EXIT rc=0 2026-10-08T04:26:36Z
+DONE_MARKER 2026-10-08T04:26:36Z grace 600s

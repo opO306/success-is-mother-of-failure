@@ -1,0 +1,11 @@
+{
+ "init": {
+  "context_ms": 489.217595,
+  "executor_create_ms": 492.43045202456415
+ },
+ "pid": 5280,
+ "ready": true,
+ "spawn_to_ready_s": 0.6048427619971335,
+ "startup_cpu_s": 0.256864486,
+ "startup_ms": 524.8835750389844
+}

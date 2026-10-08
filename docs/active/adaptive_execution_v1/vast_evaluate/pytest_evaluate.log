@@ -1,0 +1,11 @@
+..........................                                               [100%]
+============================= slowest 8 durations ==============================
+32.35s setup    tests/test_adaptive_execution_v1.py::test_fixture_choices_and_meaning
+32.03s call     tests/test_adaptive_execution_v1.py::test_F7_retry_from_last_state
+28.40s call     tests/test_adaptive_execution_v1.py::test_F5_forged_next_p
+16.13s call     tests/test_adaptive_execution_v1.py::test_device_refusal_and_error_fall_back_to_cpu
+8.00s call     tests/test_adaptive_execution_v1.py::test_F12_device_error_hidden
+1.18s call     tests/test_adaptive_execution_v1.py::test_F6_failed_pass_deleted
+0.89s call     tests/test_adaptive_execution_v1.py::test_F3_unsupported_p_moved
+0.85s call     tests/test_adaptive_execution_v1.py::test_F4_model_at_other_p
+26 passed in 122.73s (0:02:02)

@@ -1,0 +1,22 @@
+{
+ "N": 16,
+ "T": 1000,
+ "attempt_p": 64,
+ "backend": "GPU_HYBRID",
+ "cells": null,
+ "completed_steps": 917,
+ "cpu_s": 4.286990560999996,
+ "endpoint_digest": null,
+ "env_id": "ea9efe481c72ae99882aa816a6228134bc573c3b84bafe5ae00addb7291e368a",
+ "evaluator": "rw:R1+R2",
+ "initial_state_digest": "f96efebe350ffd48d8f7ac5dd31cae3aae1088147345c895c5a623fe80ba6c52",
+ "outcome": "DOMAIN_UNPROVEN",
+ "record_sha256": "acce685851c708442b576412ca46e99a482badb44aa2e631f1c4db5bfaffd855",
+ "request_fingerprint": "28ed95eb725b55871e0303eb49c65461929b8540969cd853fc2940b2f0bb5326",
+ "run_id": "r1/R4__ADAPTIVE_WALL#pass0",
+ "schema_version": "adaptive-candidate-v1",
+ "stop": "UNPROVEN",
+ "stop_step": 918,
+ "verification_status": "UNVERIFIED",
+ "wall_s": 4.294557427987456
+}

@@ -1,0 +1,36 @@
+[
+ {
+  "N": 8,
+  "T": 100,
+  "adapter_violations": [
+   "GPU_P",
+   "GPU_DOMAIN"
+  ],
+  "executed": false,
+  "id": "R5",
+  "p": 107,
+  "worker_status": "REFUSED_BY_WORKER:GPU_P,GPU_DOMAIN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "adapter_violations": [
+   "GPU_P"
+  ],
+  "executed": false,
+  "id": "R6",
+  "p": 162,
+  "worker_status": "REFUSED_BY_WORKER:GPU_P"
+ },
+ {
+  "N": 14,
+  "T": 1000,
+  "adapter_violations": [
+   "GPU_DOMAIN"
+  ],
+  "executed": false,
+  "id": "R7",
+  "p": 163,
+  "worker_status": "REFUSED_BY_WORKER:GPU_DOMAIN"
+ }
+]

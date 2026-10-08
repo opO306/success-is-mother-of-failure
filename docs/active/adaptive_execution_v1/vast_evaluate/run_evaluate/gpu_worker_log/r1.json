@@ -1,0 +1,191 @@
+[
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r1/R1__ADAPTIVE_WALL",
+  "seq": 0,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r1/R1__FIXED_GPU",
+  "seq": 1,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r1/R2__ADAPTIVE_WALL",
+  "seq": 2,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "r1/R2__FIXED_GPU",
+  "seq": 3,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r1/R3__ADAPTIVE_WALL",
+  "seq": 4,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 73,
+  "request_id": "r1/R3__ADAPTIVE_WALL",
+  "seq": 5,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 161,
+  "request_id": "r1/R3__ADAPTIVE_WALL",
+  "seq": 6,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r1/R3__FIXED_GPU",
+  "seq": 7,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 73,
+  "request_id": "r1/R3__FIXED_GPU",
+  "seq": 8,
+  "status": "OK"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 161,
+  "request_id": "r1/R3__FIXED_GPU",
+  "seq": 9,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r1/R4__ADAPTIVE_WALL",
+  "seq": 10,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 78,
+  "request_id": "r1/R4__ADAPTIVE_WALL",
+  "seq": 11,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 166,
+  "request_id": "r1/R4__ADAPTIVE_WALL",
+  "seq": 12,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 64,
+  "request_id": "r1/R4__FIXED_GPU",
+  "seq": 13,
+  "status": "DOMAIN_STOP_UNPROVEN"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 78,
+  "request_id": "r1/R4__FIXED_GPU",
+  "seq": 14,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 1000,
+  "error": null,
+  "p": 166,
+  "request_id": "r1/R4__FIXED_GPU",
+  "seq": 15,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 100,
+  "error": null,
+  "p": 109,
+  "request_id": "r1/R8__ADAPTIVE_WALL",
+  "seq": 16,
+  "status": "OK"
+ },
+ {
+  "N": 16,
+  "T": 100,
+  "error": null,
+  "p": 109,
+  "request_id": "r1/R8__FIXED_GPU",
+  "seq": 17,
+  "status": "OK"
+ },
+ {
+  "N": 8,
+  "T": 100,
+  "error": null,
+  "p": 107,
+  "request_id": "forced_R5",
+  "seq": 18,
+  "status": "REFUSED_BY_WORKER:GPU_P,GPU_DOMAIN"
+ },
+ {
+  "N": 12,
+  "T": 1000,
+  "error": null,
+  "p": 162,
+  "request_id": "forced_R6",
+  "seq": 19,
+  "status": "REFUSED_BY_WORKER:GPU_P"
+ },
+ {
+  "N": 14,
+  "T": 1000,
+  "error": null,
+  "p": 163,
+  "request_id": "forced_R7",
+  "seq": 20,
+  "status": "REFUSED_BY_WORKER:GPU_DOMAIN"
+ }
+]

@@ -1,0 +1,22 @@
+{
+ "N": 12,
+ "T": 1000,
+ "attempt_p": 64,
+ "backend": "CPU_SERIAL",
+ "cells": null,
+ "completed_steps": 995,
+ "cpu_s": 73.616023266,
+ "endpoint_digest": null,
+ "env_id": "ea9efe481c72ae99882aa816a6228134bc573c3b84bafe5ae00addb7291e368a",
+ "evaluator": "rw:R1+R2",
+ "initial_state_digest": "777409707ce180fdffbcfd6c1f7dfe341a53262f6d4bd9d5e3de0af3115b627b",
+ "outcome": "DOMAIN_UNPROVEN",
+ "record_sha256": "ddab4754a89fb612be091636a9136efe39f9cca0cf8fbb79dbf1aec65f4c068e",
+ "request_fingerprint": "8b6eb7c31b8ecd1506ac52a1f0e6f308e54bc481c3aad40347704aaa2df34329",
+ "run_id": "r2/R3__FIXED_SERIAL#pass0",
+ "schema_version": "adaptive-candidate-v1",
+ "stop": "UNPROVEN",
+ "stop_step": 996,
+ "verification_status": "UNVERIFIED",
+ "wall_s": 73.64880677498877
+}
