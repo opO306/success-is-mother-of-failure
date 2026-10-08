@@ -1,0 +1,9 @@
+{
+  "schema": "A_RESUME_V1_PROTOCOL_SEAL",
+  "baseline": "37a5abd3",
+  "files": {
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/protocol.json": "36ca06d984a791e491a25f377f34448a4cb88ad6716a2b09190a4b44d80f22c1",
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/protected_history.json": "7bc6791a5420fb201bccbad48e42c94c7afc0d956638312546324cdaf869497a",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_A_RESUME_V1_PROTOCOL.md": "00722359e74614fd7a3cf874d5acfb3b84786e9c876a7e9e42c137cca026cb01"
+  }
+}
