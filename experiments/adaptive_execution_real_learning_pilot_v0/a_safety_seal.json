@@ -1,0 +1,7 @@
+{
+  "schema": "A-safety-supplement-seal",
+  "files": {
+    "experiments/adaptive_execution_real_learning_pilot_v0/a_safety_policy.json": "ccebe3799fca39ee1fe746eab224e652c8520fdf78934b7b1202f81686a6c2a9",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SAFETY_ADR.md": "82587589b5ed6a170703f2da810106cb81f630668abfa720527941feef379780"
+  }
+}
