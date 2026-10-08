@@ -1,0 +1,36 @@
+{
+  "gate": "ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0",
+  "baseline": "b2c6c0fc652173ee6eff8cad28ac97ea342d7123",
+  "mode": "ISOLATED_RESEARCH_ONLY; NOT_PRODUCTION; NOT_FORMULA_CERTIFIED",
+  "authorization": {"preparation": true, "local_tests_or_physics": false, "paid_execution": false, "automatic_vast_start": false, "push_or_master_merge": false},
+  "stages": [
+    {"id": "A", "N": 14, "T": 1000, "p": 163, "goal": "WALL_MIN", "methods": ["SERIAL", "W6"]},
+    {"id": "B", "N": 12, "T": 1000, "p": 163, "goal": "CPU_MIN", "methods": ["SERIAL", "GPU"], "requires": "A fully passed and separately authorized scope includes B; GPU eligibility rechecked"}
+  ],
+  "repeats": 5,
+  "order": "even repeat SERIAL then alternative; odd repeat alternative then SERIAL; no concurrent campaigns",
+  "maximum_spread_ratio": "1.25",
+  "precision": "FIXED_START:163 uses existing start interface; existing P2 unchanged; any new precision key requires independent replay and stays outside the p163 cost profile",
+  "result_validation": "existing independent V1 checker own_pass for each distinct actual N,T,p; full outcome/cells/interval endpoints compare; shared RwForce unresolved",
+  "record": "OBSERVED_REAL; raw unmodified V1 service + exact initial state + process/host/session observation + source hashes + all attempts; auto candidate after completion",
+  "receipt": "REAL_SESSION_COST_CHECKED; RESEARCH_ONLY; never rename SYNTHETIC_TEST_ONLY",
+  "trust": "two research Ed25519 identities provisioned before run; signer rederives raw evidence; explicit signed goal-specific manager approval; same OS identity is not adversarial isolation",
+  "selection": "request-start immutable profile; learned method calls unchanged V1 fixed service; legacy first/rollback uses unchanged V1 select with perf=None; no historical cost import",
+  "ledger": "reuse hash chain plus separate signed witness head; verify count and head before reads/appends; missing witness/tail deletion STOP; same-account witness replacement not OS-secure",
+  "cost": {
+    "objective_wall": "outer full request monotonic time",
+    "objective_cpu": "controller process CPU + waited-child CPU delta + live GPU worker CPU delta; all attempts included",
+    "service_cpu": "separate original service reported attempt CPU; must equal sum of every attempt; observed CPU reconciled within max(50ms,1 percent) accounting clock tolerance",
+    "gpu_startup": "build and persistent worker preparation separately charged once; never interpreted as energy",
+    "book": ["environment_prepare", "measurement", "independent_replay", "verification_signing_management", "learned_request", "rollback", "GPU_prepare", "job_total", "host_hourly_price_and_billing_level"],
+    "recovery": "ceil(total objective-specific preparation+measurement+verification+learning overhead / positive per-reuse objective saving); baseline measurement not double counted; one learned request gives realized partial profit",
+    "unknown_future_reuse": "UNCONFIRMED; positive modelled break-even is not realized net profit"
+  },
+  "budget": {"authorized_paid_usd": "0", "hourly_cap_usd": "0.25", "total_cap_usd": "0.25", "allocation_seconds": 3600, "compute_deadline_seconds": 3240, "confirmation_seconds": 180, "handoff_reserve_seconds": 180, "per_call_seconds": 480, "memory_mib": 2048, "max_cpu_workers": 6, "max_attempts": 3, "input_files": 256, "input_total_mib": 64, "offline_proposal": {"wall_seconds": 120, "aggregate_cpu_seconds": 120, "memory_mib": 512, "workers": 1, "physics_calls": 0, "gpu_calls": 0}},
+  "guardian": "new outside-guest Python stop controller; exact exclusive lease; COMPLETED/FAILED/DEADLINE; stop retries at most3; poll up to180s; intended stopped alone never success; warning artifact+manual confirmation on timeout; same policy fake-clock tests required before paid physics",
+  "outcomes": ["REAL_LEARNING_FAIL", "REAL_LEARNING_LOOP_VALIDATED", "REAL_LEARNING_COST_USEFUL", "REAL_LEARNING_NOT_READY"],
+  "cost_status": ["COST_NOT_YET_RECOVERED", "UNCONFIRMED", "RECOVERED_FOR_OBSERVED_REUSES"],
+  "STOP": ["result mismatch", "raw evidence or source integrity", "tail deletion", "invalid approval", "unknown failed-attempt cost", "unsupported GPU request", "budget risk", "failed rollback", "A failed or not ready before B"],
+  "live_limits": ["long network outage untested", "actual FAILED shutdown untested", "OS key isolation absent", "RwForce formula independence unresolved"],
+  "preserve": ["adaptive V1", "verification V0", "learning V1", "all original evidence", "physics", "CPU/GPU formulas", "interval rounding", "P2", "GPU domain", "official baseline"]
+}

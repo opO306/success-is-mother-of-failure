@@ -1,0 +1,8 @@
+{
+  "schema": "real-pilot-protocol-seal",
+  "files": {
+    "experiments/adaptive_execution_real_learning_pilot_v0/protocol.json": "0b8ed8e9502e0499b01b17a0199acabb42538107c48f68024b52109fcbfdf364",
+    "experiments/adaptive_execution_real_learning_pilot_v0/protected_manifest.json": "f504d606eff4597877504a0471aa3331de3b50d84651f206909cc578b9171a57",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_DESIGN.md": "f255ef995e92975aa449630046ee4c163395aa78f787f7f461b81ff178871f82"
+  }
+}
