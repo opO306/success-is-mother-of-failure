@@ -1,5 +1,8 @@
 # 프로젝트 문서 안내
 
+[ADAPTIVE_EXECUTION_LEARNING_V1 원격 결과](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): V0 24+신규53=77 passed, 합성 새 세션 경험 학습·독립 판독·서명/승인·복귀 확인. 실제 성능 이득/서비스 미확인. guardian 확인 시간 초과 원본과 별도 exited 확인을 구분해 보존.
+
+
 [ADAPTIVE_EXECUTION_LEARNING_V1](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): 새 세션 합성 학습 순환의 설계 선봉인·제한 구현 소스 준비. TEST_ONLY 서명·독립 판독·목표별 승인·복귀. 시험/원격 자원 승인 대기, 기존 V0/V1·원본 보존, production 차단.
 
 

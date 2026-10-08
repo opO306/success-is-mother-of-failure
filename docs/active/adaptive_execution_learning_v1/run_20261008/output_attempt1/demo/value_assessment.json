@@ -1,0 +1,1 @@
+{"actual_net_profit":"UNCONFIRMED","execution_authorized":false,"goal":"CPU_MIN","missing":["gain_lower_ns","reuse_count","measurement_upper_ns","verification_upper_ns","learning_upper_ns","risk","correctness_eligible","resource_allowance_ns","resource_required_ns"],"status":"DEFER_INFORMATION_NEEDED"}

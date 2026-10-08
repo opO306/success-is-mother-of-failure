@@ -1,5 +1,94 @@
 # ADAPTIVE_EXECUTION_LEARNING_V1 — 설계·제한 구현 상태
 
+## 현재 결과 — 2026-10-08 원격 제한 검증 완료
+
+**OFFLINE_TEST_VALIDATED_ONLY / TEST_ONLY / NOT_PRODUCTION.**
+실제 새 세션의 물리 비용 측정·서비스 연결·운영 키/OS 격리는 하지 않았다.
+이번 새 경험은 합성 비용과 과거 결과 payload를 가진 새 입력이며 실제 성능 증거가 아니다.
+RwForce 공유 미해결과 `INDEPENDENT_FORMULA_VERIFICATION_V0` 후속 범위를 유지한다.
+
+설계자 별도 승인으로 기존 인스턴스 54645489에서 CPU 0에 단일 worker를 고정해 실행했다.
+**77 passed / failures 0 / errors 0 / skips 0, console 4.27초**.
+기존 V0 24개 + 신규 V1 53개, 첫 시험 시도에서 통과했다. JUnit 시험 본체 시간은 4.238초다.
+시험과 demo를 포함한 제한 runner wall 4.789초, 누적 CPU 4.053초.
+Python 3.12.3 / pytest 9.1.1 / cryptography 49.0.0, 자동 설치 없음.
+로컬 수치 계산/시험 0, 새 물리 궤적 0, GPU 호출 0, production 활성화 0.
+
+[원격 closeout](adaptive_execution_learning_v1/closeout_20261008.json) ·
+[시험 원문](adaptive_execution_learning_v1/run_20261008/output_attempt1/tests.log) ·
+[학습/복귀 권고](adaptive_execution_learning_v1/run_20261008/output_attempt1/demo/recommendations.json) ·
+[합성 경험 검사관 영수증](adaptive_execution_learning_v1/run_20261008/output_attempt1/demo/inspector_receipt.json).
+
+### 구분한 세 가지 시험
+
+| 구분 | 관찰한 결과 |
+|---|---|
+| 과거 경험 재현 | V0 24개 회귀, 기존 35개 서비스·7개 비용 묶음 유지; 보호 100개 파일 raw hash 불변 |
+| 새 경험 후보 생성 | 새 합성 세션 입력 15개 생성·UNKNOWN/CANDIDATE 보존; 원장 갱신만으로 활성화 없음 |
+| 검증 후 학습 | 독립 원본 판독·검사관 서명 → VERIFIED TEST_ONLY 프로필 1개 → 별도 WALL/CPU 승인 → 다음 요청 권고 변경 |
+
+demo의 최초 비용 공백은 3방법 모두 UNKNOWN이었다. 검사/승격 뒤 같은 합성 세션에서
+3방법 비용은 알려진 상태가 됐지만 재사용·실현 이득·독립 힘 수식은 계속 UNKNOWN이다.
+시작된 요청은 LEGACY snapshot을 유지했고, 새 요청 WALL_MIN/CPU_MIN은 GPU_HYBRID를
+권고했다. 복귀 뒤 새 WALL 요청은 LEGACY, 다른 세션도 LEGACY를 사용했다.
+별도 합성 비용 panel에서는 WALL은 GPU, CPU_MIN은 직렬을 선택해 두 목표를 구별했다.
+이 숫자에서 선택이 개선됐다는 의미이며 실제 GPU 실행이나 실제 시간 절감은 아니다.
+
+악성 서명·공개키 교체·잘못된 승인·승인 재사용·후보/원본/프로필/snapshot 변조·
+다른 환경/세션 혼합·중복/반복 부족·CPU/wall 미계상·정밀도/영역/결과 불일치·
+복귀 실패·동시 manager 요청 거부 시험이 통과했다. N14는 CPU 방법만 학습하며
+GPU 후보 자격을 얻지 않는다. 재시도 비용과 ORIGINAL_STATE 조건도 확인했다.
+결함 주입 원본과 거부 원장까지 1,318개 파일을 byte 검증해 ZIP에 보존했다.
+[결함 원본 포함 증거 ZIP](adaptive_execution_learning_v1/run_20261008/evidence_attempt1.zip).
+시험 임시 경로 이름이 잘려 최초 export 경로 확인이 1회 실패한 기록도 보존했다.
+시험/증거 내용은 바꾸지 않았고 실제 경로를 확인한 뒤 회수했다.
+
+### 독립 검증의 정확한 범위
+
+새 검사관의 별도 원본 판독·서명 확인·관리자 승인 경계를 실행으로 확인했다.
+합성 경험 15개에 `VERIFIED / errors=[] / SYNTHETIC_TEST_ONLY` 영수증이 나왔다.
+이는 독립 판독 코드의 제한 검증이며 별도 사람의 독립 감사나 OS 권한 격리 증거가 아니다.
+동일 계정의 구현자/root에 대한 위조 불가능성, 실제 비용의 참값, 수식 독립성,
+계산 정확성의 새 인증은 주장하지 않는다. 운영 승격은 여전히 차단한다.
+
+### 설계자의 12가지 완료 질문
+
+| 질문 | 현재 판정 |
+|---|---|
+| 1. 새 경험 수집 | 구현됨·시험됨. 입력 ingest 가능, 계산기 종료 훅 자동 연결은 미구현 |
+| 2. 모르는 부분 구별 | 시험됨. exact scope/session 비용 공백과 GPU unsupported 분리; 느림을 오류로 처리하지 않음 |
+| 3. 학습 가치 평가 | 시험됨. 비용/재사용/위험/자원 부족은 보류, 제안은 실행 권한을 주지 않음 |
+| 4. 미검증 사용 차단 | 시험됨. 고정 공개키의 검사 서명·별도 관리자 승인 필요; production 사용은 전면 차단 |
+| 5. 검증 뒤 다음 선택 개선 | 합성 비용 조건에서 시험됨. 실제 새로운 계산의 성능 향상은 미확인 |
+| 6. CPU_MIN/WALL_MIN 교육 | 시험됨. 목표별 승인과 순위 분리, GPU CPU 감소를 세션 밖으로 일반화하지 않음 |
+| 7. 환경/세션 재사용 방지 | 시험됨. 다른 환경/세션/초기 상태/정밀도/크기는 LEGACY fallback |
+| 8. 잘못된 경험 거부·보존 | 시험됨. 원본·거부·서명·STOP 기록을 ZIP에 보존 |
+| 9. 이전 프로필 복귀 | 시험됨. 이전 VERIFIED/LEGACY 승인 복귀, 실패 시 기존 버전 보존·새 요청 STOP |
+| 10. 정확성 변경 여부 | 보호 100개 파일 hash 불변, V0 회귀 통과. 물리/GPU/P2/반올림/기준선 변경 없음 |
+| 11. 비용보다 실제 이득이 큰가 | 아직 미확인. 실제 측정·검증·학습 비용과 실제 재사용 이득의 결산 필요 |
+| 12. 서비스 연결 전 필요 | 실제 종료 훅, 세션/정확성 증명 어댑터, 운영 서명·OS 격리·외부 원장 증인, 종료 확인 지연 보강, 별도 승인 실측/결산 |
+
+### 종료 제어와 예산의 별도 결과
+
+기존 수정 guardian hash와 외부 `ARMED`를 실행 전에 확인했다.
+현재 hourly API 값은 $0.18888888888888888로 승인 cap $0.25보다 낮았다.
+총 결제 금액은 영수증이 없어 미확인이다. 결제 확정 비용이나 실제 계산 이득을 추정해 단정하지 않는다.
+
+**이번 guardian 원본 결과는 `STOP_UNCONFIRMED`다.** COMPLETED 뒤 stop 요청을 3회
+보냈지만 자체 6회 확인 구간에서는 actual=running/intended=stopped였다.
+별도 API 재조회에서 `actual=exited / intended=stopped`를 확인했다(06:33:49 UTC).
+감시기 영수증을 성공으로 다시 쓰지 않았다. 이번 종료 확인 지연은 별도 운영 제한이다.
+다음 유료 실행 전, 제한 시간 안의 stop 수렴을 확인하는 추가 관찰/경고 경로를 보강해야 한다.
+장기 통신 장애·실제 FAILED 종료·제어 호스트 장애는 여전히 미검증이다.
+[감시기 원본](adaptive_execution_learning_v1/run_20261008/guardian_receipt.json) ·
+[별도 최종 상태](adaptive_execution_learning_v1/run_20261008/independent_final_status.json).
+
+LOCAL FULL 생략 / 관련 원격 시험77개로 대체 / 새 오프라인 namespace·시험·문서만 추가,
+기존 실행 코드·공용 수치·동결 계약·fixture 변경 없음. 공식 기준선 불변.
+로컬 커밋으로 보존, GitHub push/master merge 없음. 이후 실제 계산 단계 자동 시작 없음.
+
+## 아래는 실행 전 준비 상태의 원문 — 현재 결과와 구별
+
 2026-10-08 / SOURCE_PREPARED / TEST_EXECUTION_PENDING / NOT_PRODUCTION.
 
 **아직 시험을 실행하지 않았다.** 로컬 계산·시험 금지를 유지했고,

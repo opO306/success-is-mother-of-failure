@@ -1,5 +1,8 @@
 # 현재 상태
 
+**ADAPTIVE_EXECUTION_LEARNING_V1 원격 제한 검증(2026-10-08):** [결과·한계](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md). V0 24+V1 53=77 passed/4.27초/실패·error·skip0. 새 합성 세션15기록 독립 판독·TEST_ONLY 서명승격·목표별 다음 요청 학습/복귀 확인. 실제 새 물리/GPU/production0, 보호100파일 hash불변. 이번 guardian STOP_UNCONFIRMED 원본 보존 후 별도 API actual=exited 확인; 다음 유료 실행 전 확인 지연 보강 필요. 실제 이득·운영 OS격리·RwForce 수식 미확인.
+
+
 **ADAPTIVE_EXECUTION_LEARNING_V1 소스 준비(2026-10-08):** [설계·봉인·제한 구현](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md). 기준 0f4450e8, 새 codex/adaptive-execution-learning-v1. 프로토콜 선봉인/시험 먼저 작성/TEST_ONLY 서명 기반 새 경험 순환. 동적 시험은 원격 승인 대기, production 미적용. 기존 V0/V1·원본100개 raw hash 보존, 로컬 계산/시험0·push/merge 없음.
 
 

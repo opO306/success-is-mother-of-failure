@@ -1,0 +1,9 @@
+{
+  "scope": "STOP_CONTROL_ONLY",
+  "explicit_user_approval": true,
+  "exclusive": true,
+  "instance_id": 54645489,
+  "approval_reference": "2026-10-08 user approval: same server started, V1 bounded offline tests and shutdown",
+  "guardian_sha256": "10ddb2fe46ecb3e40cfbc4827be5f6dadae3034255c2e3c956c74ac7f1043030",
+  "completion_marker": "C:\\Users\\zun24\\.codex\\artifacts\\adaptive-execution-learning-v1\\run_20261008\\completion.json"
+}

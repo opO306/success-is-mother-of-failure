@@ -1,0 +1,10 @@
+{
+  "gate": "ADAPTIVE_EXECUTION_LEARNING_V1",
+  "scope": "OFFLINE_ONLY",
+  "explicit_user_approval": true,
+  "approval_reference": "2026-10-08 user: 승인 — 같은 서버 켰음",
+  "instance_id": "54645489",
+  "code_seal_sha256": "11a0a713ebf2e704da59a1cbc032b102b953f13afdcbe58a3ac75b8910c23560",
+  "new_trajectories": 0,
+  "gpu_calls": 0
+}

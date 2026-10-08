@@ -1,0 +1,1 @@
+{"choice_assessment":"VALID_CORRECT_BUT_COST_INFORMATION_INCOMPLETE","known_methods":["CPU_PARALLEL/W6","CPU_SERIAL","GPU_HYBRID"],"state":"VERIFIED","unknown_methods":[],"unknown_other":["confirmed future reuse","realized net gain","independent RwForce formula validation"],"unsupported_methods":[]}

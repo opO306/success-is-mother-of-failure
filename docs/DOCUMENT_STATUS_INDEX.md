@@ -1,5 +1,8 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ADAPTIVE_EXECUTION_LEARNING_V1 원격 검증](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): OFFLINE_TEST_VALIDATED_ONLY / TEST_ONLY / NOT_PRODUCTION. 77 passed, 신규 합성15기록 승격/다음 요청/복귀. 별도 OS감사·실제 이득·수식 독립성 없음. 이번 종료 확인 지연은 후속 보강 관문.
+
+
 [ADAPTIVE_EXECUTION_LEARNING_V1](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): 2026-10-08 SOURCE_PREPARED / TEST_EXECUTION_PENDING / NOT_PRODUCTION. 프로토콜 선봉인, 새 namespace만 제한 구현. 실제 이득·OS 권한 격리·RwForce 수식 검증 미확인.
 
 

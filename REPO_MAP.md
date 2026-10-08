@@ -1,5 +1,8 @@
 # 저장소 지도
 
+**적응형 경험 학습 V1 현재:** experiments/adaptive_execution_learning_v1/ 및 신규 시험53개, 과거 V0 24개와 원격77 passed. 합성 경험/검사관 서명/목표별 승인/snapshot/복귀/STOP 오프라인 검증, 실제 종료 훅·production 없음. 원본·결함 증거는 docs/active/adaptive_execution_learning_v1/. [보고서](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md).
+
+
 **적응형 경험 학습 V1:** experiments/adaptive_execution_learning_v1/ — 새 입력 후보 원장·독립 판독·TEST_ONLY 별도 서명/목표별 승인·snapshot/복귀/STOP. tests/test_adaptive_execution_learning_v1.py 준비, 아직 미실행. 기존 V0/V1·물리 변경 없음. [상태](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md).
 
 
