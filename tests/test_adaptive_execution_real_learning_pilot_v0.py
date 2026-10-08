@@ -224,3 +224,28 @@ def test_completion_bridge_mock_only_candidate_is_not_real_evidence(tmp_path,mon
     assert record['service']==original and record['initial_state']==records[-1]['initial_state']
     with pytest.raises(ValueError,match='TEST_ONLY_SESSION_REFUSED'):
         inspector.validate_record(record,session,replays)
+
+
+def approved_offline_lease():
+    from experiments.adaptive_execution_real_learning_pilot_v0.common import HERE,raw_hash
+    return dict(experiment_scope='OFFLINE_ONLY',instance_id=52763685,machine_id=3448,country='NO',
+                deadline_seconds=240,hourly_cap_usd='0.28',budget_amendment_sha256=raw_hash(HERE/'offline_budget_amendment_52763685.json'))
+
+
+def test_guardian_default_price_limit_remains_sealed():
+    assert guardian.hourly_cap({})==0.25
+
+
+def test_guardian_user_approved_offline_exception_only():
+    assert guardian.hourly_cap(approved_offline_lease())==0.28
+
+
+@pytest.mark.parametrize('fault',['instance','scope','hash','cap','deadline'])
+def test_guardian_budget_exception_refuses_widening(fault):
+    auth=approved_offline_lease()
+    if fault=='instance': auth['instance_id']=54645489
+    elif fault=='scope': auth['experiment_scope']='REAL_RESEARCH'
+    elif fault=='hash': auth['budget_amendment_sha256']='0'*64
+    elif fault=='cap': auth['hourly_cap_usd']='0.29'
+    else: auth['deadline_seconds']=3240
+    with pytest.raises(ValueError): guardian.hourly_cap(auth)
