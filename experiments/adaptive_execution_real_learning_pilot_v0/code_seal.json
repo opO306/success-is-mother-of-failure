@@ -1,9 +1,9 @@
 {
   "schema": "real-learning-pilot-code-seal",
-  "source_commit": "5a42710430a8b84896db7ab7953606148735d3e6",
+  "source_commit": "c453a58da44343a2b32d78e3509f1c1d43fcb8fa",
   "protocol_commit": "8a2f06c8",
   "budget_amendment_commit": "c42c1db9",
-  "prior_code_seal_sha256": "44be659f7eadbf757850f942dece2898f8368e15b4044ba652ecbd88a9fea6b6",
+  "prior_code_seal_sha256": "7d1740bcb9ecdb046b6e74f58f2a5f4e6a3ce00849671dc7496dcb2e31bd8a0c",
   "mode": "RESEARCH_ONLY",
   "execution_status": "NOT_EXECUTED",
   "hash_mode": "raw_bytes_sha256",
@@ -184,7 +184,7 @@
     "experiments/adaptive_execution_real_learning_pilot_v0/bridge.py": "1c441b5d4b9f8eb4d63c47618422b4a7374a3f9a9f692b4a8412707ba823763c",
     "experiments/adaptive_execution_real_learning_pilot_v0/common.py": "10e676f4bcef2060adc632625df92b43764d2cbb08524869e894ac599f886474",
     "experiments/adaptive_execution_real_learning_pilot_v0/costs.py": "1af96a5788e92882410809dba510110bdd3d4614fe53580b06730b2cb0b90a81",
-    "experiments/adaptive_execution_real_learning_pilot_v0/execution_dependencies.json": "16ffe07c07733ed85b182952c56d09b7b36e4f82d3e1b2a8a10778b7cbea3ed6",
+    "experiments/adaptive_execution_real_learning_pilot_v0/execution_dependencies.json": "b0b5888c2deaeb727652d5cf066817792037c2ef67cf7a98797c9478297d3b4b",
     "experiments/adaptive_execution_real_learning_pilot_v0/fixtures.py": "05070a3a41f521108e9554401e1c073894dd7374f3d93f0a3114069e1ffcbf57",
     "experiments/adaptive_execution_real_learning_pilot_v0/governance.py": "675e703c263b0e7c13db8d150bce2f22472eef8b06b4cd607094549335d93335",
     "experiments/adaptive_execution_real_learning_pilot_v0/guardian.py": "cb3f2a7ddba34665ed9f5914acca055aadb7cba59eec62619738049e1aad2470",
@@ -339,6 +339,8 @@
     "tests/.gitattributes": "0c41c4a116aa274f75eb36e5e2f2c12cea3961a8b924574f13daae37cc9fb309",
     "tests/test_adaptive_execution_learning_v1.py": "26d1352c48c7ab7e1008e410dc21db6c4b5e0993e5fe746367ef4b3e0a563862",
     "tests/test_adaptive_execution_real_learning_pilot_v0.py": "90869f762e4672fc7d937d3e66b05f081999e0a7037a4ef191c059df1f42cb09",
-    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52"
+    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52",
+    "docs/active/adaptive_execution_v1/vast_evaluate/run_evaluate/replay/N14_T1000_p163.json": "e3cb05fa0ab6880e8dfe4ddea1e65a2cacc229587e00bf7662b43e39a0e7016e",
+    "docs/active/adaptive_execution_v1/vast_evaluate/run_evaluate/replay/N12_T1000_p163.json": "0ca3741a147e36f450a12ad38a50a9f5b3f62bfa75eb7e1b519a03e3e3d84740"
   }
 }
