@@ -1,0 +1,607 @@
+{
+  "scope": "AST_LITERAL_EXPANSION_ONLY; NOT_PYTEST_COLLECTION_OR_EXECUTION",
+  "files": [
+    {
+      "file": "tests/test_adaptive_execution_verification_v0.py",
+      "functions": 16,
+      "expanded": 24,
+      "rows": [
+        {
+          "test": "test_historical_panel_and_honest_scope",
+          "expanded": 1
+        },
+        {
+          "test": "test_experience_transitions_and_refusals_are_preserved",
+          "expanded": 1
+        },
+        {
+          "test": "test_candidate_forgery_is_refused",
+          "expanded": 7
+        },
+        {
+          "test": "test_original_source_mutation_detected",
+          "expanded": 1
+        },
+        {
+          "test": "test_manager_requires_separate_pins",
+          "expanded": 1
+        },
+        {
+          "test": "test_next_request_activation_and_rollback",
+          "expanded": 1
+        },
+        {
+          "test": "test_candidate_and_unpinned_profile_cannot_activate",
+          "expanded": 1
+        },
+        {
+          "test": "test_scope_and_eligibility_fail_closed",
+          "expanded": 1
+        },
+        {
+          "test": "test_immutable_observations_and_exclusive_outputs",
+          "expanded": 1
+        },
+        {
+          "test": "test_activation_chain_tampering_detected",
+          "expanded": 1
+        },
+        {
+          "test": "test_exploration_requires_information_and_never_launches",
+          "expanded": 1
+        },
+        {
+          "test": "test_remote_runner_requires_explicit_bound_authorization",
+          "expanded": 1
+        },
+        {
+          "test": "test_stop_does_not_scan_ps_and_confirms_exact_instance",
+          "expanded": 3
+        },
+        {
+          "test": "test_stop_failure_wrong_instance_and_no_lease",
+          "expanded": 1
+        },
+        {
+          "test": "test_timeout_stop_still_confirms_delivered_request",
+          "expanded": 1
+        },
+        {
+          "test": "test_verifier_import_boundary_and_v1_cpu_min_preserved",
+          "expanded": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_execution_learning_v1.py",
+      "functions": 24,
+      "expanded": 53,
+      "rows": [
+        {
+          "test": "test_preservation_and_old_panel",
+          "expanded": 1
+        },
+        {
+          "test": "test_new_session_candidate_and_missing_information",
+          "expanded": 1
+        },
+        {
+          "test": "test_real_records_collect_but_cannot_be_promoted",
+          "expanded": 1
+        },
+        {
+          "test": "test_all_retry_attempts_charged_and_original_state_required",
+          "expanded": 1
+        },
+        {
+          "test": "test_learning_next_request_and_both_objectives",
+          "expanded": 1
+        },
+        {
+          "test": "test_snapshot_is_immutable_and_modified_copy_is_refused",
+          "expanded": 1
+        },
+        {
+          "test": "test_provisioned_root_replacement_refused",
+          "expanded": 1
+        },
+        {
+          "test": "test_concurrent_manager_operation_refused",
+          "expanded": 1
+        },
+        {
+          "test": "test_new_session_can_reverse_cpu_preference",
+          "expanded": 1
+        },
+        {
+          "test": "test_two_profiles_rollback_to_previous_verified",
+          "expanded": 1
+        },
+        {
+          "test": "test_no_scope_reuse",
+          "expanded": 5
+        },
+        {
+          "test": "test_inspector_refuses_and_keeps_faults",
+          "expanded": 15
+        },
+        {
+          "test": "test_integrity_failure_stops_ingest",
+          "expanded": 1
+        },
+        {
+          "test": "test_source_tamper_after_activation_stops_next_request",
+          "expanded": 1
+        },
+        {
+          "test": "test_information_gaps_require_manager_admission",
+          "expanded": 1
+        },
+        {
+          "test": "test_forged_inspector_approval_blocked",
+          "expanded": 6
+        },
+        {
+          "test": "test_bad_manager_approval_blocked",
+          "expanded": 7
+        },
+        {
+          "test": "test_failed_rollback_stops_new_requests",
+          "expanded": 1
+        },
+        {
+          "test": "test_profile_and_ledger_tamper_detected",
+          "expanded": 1
+        },
+        {
+          "test": "test_n14_cpu_learning_never_enables_gpu",
+          "expanded": 1
+        },
+        {
+          "test": "test_cost_proposal_is_not_authorization",
+          "expanded": 1
+        },
+        {
+          "test": "test_collector_cannot_self_promote",
+          "expanded": 1
+        },
+        {
+          "test": "test_inspector_import_boundary",
+          "expanded": 1
+        },
+        {
+          "test": "test_offline_gate_refuses_local_and_unsigned_authorization",
+          "expanded": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_execution_real_learning_pilot_v0.py",
+      "functions": 24,
+      "expanded": 65,
+      "rows": [
+        {
+          "test": "test_guardian_late_actual_exit_confirmed",
+          "expanded": 3
+        },
+        {
+          "test": "test_guardian_never_claims_unconfirmed_success",
+          "expanded": 3
+        },
+        {
+          "test": "test_original_sources_and_replay_boundary",
+          "expanded": 1
+        },
+        {
+          "test": "test_fixture_validates_only_as_contract",
+          "expanded": 1
+        },
+        {
+          "test": "test_bad_real_evidence_contract_refused",
+          "expanded": 12
+        },
+        {
+          "test": "test_signed_contract_profile_next_request_and_rollback",
+          "expanded": 1
+        },
+        {
+          "test": "test_authority_and_journal_faults_stop",
+          "expanded": 7
+        },
+        {
+          "test": "test_learning_cost_not_recovered_after_one_reuse",
+          "expanded": 1
+        },
+        {
+          "test": "test_pilot_requires_stage_and_machine_authorization",
+          "expanded": 1
+        },
+        {
+          "test": "test_information_gap_does_not_relabel_correct_slow_choice",
+          "expanded": 1
+        },
+        {
+          "test": "test_cpu_min_historical_contract_is_separate_goal",
+          "expanded": 1
+        },
+        {
+          "test": "test_secondary_evidence_integrity",
+          "expanded": 4
+        },
+        {
+          "test": "test_actual_controller_has_no_inspector_private_key_or_arbitrary_sign_api",
+          "expanded": 1
+        },
+        {
+          "test": "test_completion_bridge_mock_only_candidate_is_not_real_evidence",
+          "expanded": 1
+        },
+        {
+          "test": "test_guardian_default_price_limit_remains_sealed",
+          "expanded": 1
+        },
+        {
+          "test": "test_guardian_user_approved_offline_exception_only",
+          "expanded": 1
+        },
+        {
+          "test": "test_guardian_budget_exception_refuses_widening",
+          "expanded": 5
+        },
+        {
+          "test": "test_a_absolute_budget_has_three_separate_deadlines",
+          "expanded": 1
+        },
+        {
+          "test": "test_a_budget_refuses_invalid_origin_or_extension",
+          "expanded": 4
+        },
+        {
+          "test": "test_a_heartbeat_validates_current_outside_control",
+          "expanded": 1
+        },
+        {
+          "test": "test_a_heartbeat_faults_stop_before_new_compute",
+          "expanded": 8
+        },
+        {
+          "test": "test_a_whole_allocation_cost_never_claims_runner_only_recovery",
+          "expanded": 1
+        },
+        {
+          "test": "test_a_allocation_accounting_rejects_invalid_cost",
+          "expanded": 4
+        },
+        {
+          "test": "test_a_preparatory_offline_ticket_cannot_authorize_physics",
+          "expanded": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/test_evidence_canonicalization_v0.py",
+      "functions": 28,
+      "expanded": 60,
+      "rows": [
+        {
+          "test": "test_content_hash_ignores_mapping_key_order",
+          "expanded": 1
+        },
+        {
+          "test": "test_legacy_hash_exactly_recreates_q_then_p",
+          "expanded": 1
+        },
+        {
+          "test": "test_meaningful_array_or_digit_changes_are_detected",
+          "expanded": 4
+        },
+        {
+          "test": "test_numeric_strings_are_never_normalized",
+          "expanded": 1
+        },
+        {
+          "test": "test_original_fraction_strings_are_exact_and_not_reduced",
+          "expanded": 1
+        },
+        {
+          "test": "test_zero_denominator_string_is_refused_without_numeric_conversion",
+          "expanded": 1
+        },
+        {
+          "test": "test_duplicate_or_nonfinite_json_is_refused",
+          "expanded": 3
+        },
+        {
+          "test": "test_invalid_state_schema_is_refused",
+          "expanded": 6
+        },
+        {
+          "test": "test_live_evidence_cannot_remove_or_downgrade_versions",
+          "expanded": 5
+        },
+        {
+          "test": "test_real_file_save_reread_checks_both_fingerprints",
+          "expanded": 1
+        },
+        {
+          "test": "test_raw_file_hash_detects_whitespace_even_when_content_matches",
+          "expanded": 1
+        },
+        {
+          "test": "test_first_bad_persisted_record_prevents_replay_and_next_calculation",
+          "expanded": 1
+        },
+        {
+          "test": "test_existing_inspector_has_no_producer_import_or_arbitrary_repair_api",
+          "expanded": 1
+        },
+        {
+          "test": "test_all_original_raw_pins_and_old_failure_are_unchanged",
+          "expanded": 1
+        },
+        {
+          "test": "test_historical_reader_rederives_all_ten_records_without_physics",
+          "expanded": 1
+        },
+        {
+          "test": "test_historical_provenance_requires_exact_raw_and_session",
+          "expanded": 3
+        },
+        {
+          "test": "test_tampered_correction_or_signature_is_refused",
+          "expanded": 4
+        },
+        {
+          "test": "test_even_signed_false_content_claim_is_rederived_and_rejected",
+          "expanded": 1
+        },
+        {
+          "test": "test_explicit_signed_correction_review_keeps_legacy_and_original_failure",
+          "expanded": 1
+        },
+        {
+          "test": "test_bad_manager_correction_approval_is_rejected_and_preserved",
+          "expanded": 5
+        },
+        {
+          "test": "test_replay_reuse_never_crosses_bound_conditions",
+          "expanded": 5
+        },
+        {
+          "test": "test_overhead_has_actual_file_metrics_and_never_replays",
+          "expanded": 1
+        },
+        {
+          "test": "test_mock_bridge_serialized_record_uses_explicit_versions",
+          "expanded": 1
+        },
+        {
+          "test": "test_new_source_seal_is_explicit_and_old_seal_is_preserved",
+          "expanded": 1
+        },
+        {
+          "test": "test_old_source_ticket_cannot_authorize_new_live_capture",
+          "expanded": 1
+        },
+        {
+          "test": "test_saved_record_refuses_chain_start_for_fixed_start_request",
+          "expanded": 1
+        },
+        {
+          "test": "test_retry_budget_cannot_widen_or_remove_limits",
+          "expanded": 6
+        },
+        {
+          "test": "test_retry_budget_narrows_and_default_preserves_sealed_cap",
+          "expanded": 1
+        }
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py",
+      "functions": 18,
+      "expanded": 52,
+      "rows": [
+        {
+          "test": "test_full_request_cost_includes_stored_file_work",
+          "expanded": 1
+        },
+        {
+          "test": "test_request_cost_faults_are_refused_and_preserved",
+          "expanded": 13
+        },
+        {
+          "test": "test_saved_result_tampering_is_refused_by_existing_inspector",
+          "expanded": 1
+        },
+        {
+          "test": "test_first_inspector_reads_one_serial_and_new_session_replay",
+          "expanded": 1
+        },
+        {
+          "test": "test_first_gate_failure_stops_before_w6",
+          "expanded": 6
+        },
+        {
+          "test": "test_first_receipt_wrong_approval_cannot_continue",
+          "expanded": 7
+        },
+        {
+          "test": "test_correct_first_receipt_is_not_manager_promotion",
+          "expanded": 1
+        },
+        {
+          "test": "test_old_or_incomplete_offline_gate_is_refused",
+          "expanded": 5
+        },
+        {
+          "test": "test_receipt_raw_binding_detects_later_whitespace_edit",
+          "expanded": 1
+        },
+        {
+          "test": "test_resume_protocol_excludes_gpu_and_preserves_old_seals",
+          "expanded": 1
+        },
+        {
+          "test": "test_runner_has_explicit_first_gate_before_remaining_samples",
+          "expanded": 1
+        },
+        {
+          "test": "test_runner_first_success_has_exact_ten_calls_and_one_gate",
+          "expanded": 1
+        },
+        {
+          "test": "test_heartbeat_relay_cannot_write_outside_named_task_status",
+          "expanded": 5
+        },
+        {
+          "test": "test_heartbeat_relay_transports_exact_bytes_without_execution_authority",
+          "expanded": 1
+        },
+        {
+          "test": "test_fresh_offline_arm_digest_cannot_use_past_approval",
+          "expanded": 1
+        },
+        {
+          "test": "test_existing_inspector_uses_ten_full_request_costs",
+          "expanded": 1
+        },
+        {
+          "test": "test_full_request_rows_learn_and_rollback_only_in_contract_mode",
+          "expanded": 1
+        },
+        {
+          "test": "test_inspector_cleanup_preserves_stop_even_when_reader_exits",
+          "expanded": 4
+        }
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "functions": 30,
+      "expanded": 66,
+      "rows": [
+        {
+          "test": "test_route_candidates_obey_physical_core_needs",
+          "expanded": 5
+        },
+        {
+          "test": "test_smt_siblings_do_not_supply_six_physical_cores",
+          "expanded": 1
+        },
+        {
+          "test": "test_noncontiguous_affinity_and_w6_main_sharing_are_preserved",
+          "expanded": 1
+        },
+        {
+          "test": "test_quota_is_not_rounded_up",
+          "expanded": 5
+        },
+        {
+          "test": "test_changed_affinity_invalidates_previous_plan",
+          "expanded": 1
+        },
+        {
+          "test": "test_unqualified_host_refuses_optimistic_routes",
+          "expanded": 6
+        },
+        {
+          "test": "test_actual_recorded_placement_mismatch_is_refused",
+          "expanded": 1
+        },
+        {
+          "test": "test_unknown_hardware_details_stay_unknown_without_changing_env_id",
+          "expanded": 1
+        },
+        {
+          "test": "test_signed_original_is_searchable_but_foreign_session_is_hint",
+          "expanded": 1
+        },
+        {
+          "test": "test_current_session_requires_existing_manager_checked_snapshot",
+          "expanded": 1
+        },
+        {
+          "test": "test_corrupt_evidence_cannot_become_a_trusted_hit",
+          "expanded": 6
+        },
+        {
+          "test": "test_same_cpu_or_env_never_automatically_grants_current_authority",
+          "expanded": 3
+        },
+        {
+          "test": "test_problem_contract_and_goal_mixing_are_refused",
+          "expanded": 7
+        },
+        {
+          "test": "test_unavailable_w6_is_incompatible",
+          "expanded": 1
+        },
+        {
+          "test": "test_gpu_experience_cannot_be_applied_to_cpu",
+          "expanded": 1
+        },
+        {
+          "test": "test_duplicate_experience_does_not_inflate_count",
+          "expanded": 1
+        },
+        {
+          "test": "test_corrupt_index_stops_and_explicit_rebuild_preserves_originals",
+          "expanded": 1
+        },
+        {
+          "test": "test_bad_reference_is_preserved_and_rebuild_never_approves_it",
+          "expanded": 1
+        },
+        {
+          "test": "test_many_damaged_references_do_not_inflate_or_hide_valid_experience",
+          "expanded": 1
+        },
+        {
+          "test": "test_unmeasured_but_executable_w3_requires_calibration",
+          "expanded": 1
+        },
+        {
+          "test": "test_archive_reference_cannot_escape_provisioned_root",
+          "expanded": 2
+        },
+        {
+          "test": "test_supplied_index_metadata_is_not_authority",
+          "expanded": 1
+        },
+        {
+          "test": "test_search_result_mutation_does_not_change_live_index",
+          "expanded": 1
+        },
+        {
+          "test": "test_only_selected_reference_files_are_opened",
+          "expanded": 1
+        },
+        {
+          "test": "test_rollback_and_old_snapshot_remain_existing_manager_semantics",
+          "expanded": 1
+        },
+        {
+          "test": "test_tablet_does_not_activate_or_select_w6_without_current_snapshot",
+          "expanded": 1
+        },
+        {
+          "test": "test_learning_information_or_budget_gap_never_executes",
+          "expanded": 4
+        },
+        {
+          "test": "test_positive_learning_value_is_only_a_proposal",
+          "expanded": 1
+        },
+        {
+          "test": "test_no_evidence_means_calibration_needed",
+          "expanded": 1
+        },
+        {
+          "test": "test_offline_status_cannot_claim_validation_without_all_gates",
+          "expanded": 7
+        }
+      ]
+    }
+  ]
+}

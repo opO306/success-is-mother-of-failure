@@ -1,0 +1,19 @@
+{
+  "scope": "READ_ONLY_WINDOWS_CIM_AND_CURRENT_POWERSHELL_AFFINITY",
+  "cpu": {
+    "Name": "AMD Ryzen 5 5600 6-Core Processor              ",
+    "NumberOfCores": 6,
+    "NumberOfLogicalProcessors": 12,
+    "Architecture": 9
+  },
+  "os": {
+    "Caption": "Microsoft Windows 11 Home",
+    "Version": "10.0.26200"
+  },
+  "powershell_process_affinity_mask": 4095,
+  "per_logical_cpu_core_mapping": "UNKNOWN_NOT_COLLECTED",
+  "cgroup_quota": "NOT_APPLICABLE_WINDOWS",
+  "cache_numa_isa": "UNKNOWN",
+  "V0_route_qualification": "REFUSED_WINDOWS_NOT_QUALIFIED",
+  "timestamp_kst": "2026-10-09T00:02:39.2338501+09:00"
+}

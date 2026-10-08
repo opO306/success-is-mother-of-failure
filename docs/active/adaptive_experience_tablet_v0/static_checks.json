@@ -1,0 +1,401 @@
+{
+  "status": "STATIC_SOURCE_CHECK_ONLY",
+  "syntax_files": [
+    "experiments/adaptive_experience_tablet_v0/catalog.py",
+    "experiments/adaptive_experience_tablet_v0/host.py",
+    "experiments/adaptive_experience_tablet_v0/offline.py",
+    "experiments/adaptive_experience_tablet_v0/policy.py",
+    "experiments/adaptive_experience_tablet_v0/routes.py",
+    "experiments/adaptive_experience_tablet_v0/__init__.py",
+    "tests/test_adaptive_experience_tablet_v0.py"
+  ],
+  "protected_files": 794,
+  "protected_raw_mismatches": [],
+  "expected_tests_from_ast": 320,
+  "imports": [
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "copy"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "hashlib"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "os"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "dataclasses",
+      "names": [
+        "dataclass"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "pathlib",
+      "names": [
+        "Path"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0",
+      "names": [
+        "governance"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "canonical",
+        "digest",
+        "raw_hash",
+        "write_new",
+        "verify",
+        "Ledger"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_a_resume_v1",
+      "names": [
+        "evidence"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/catalog.py",
+      "module": "experiments.evidence_canonicalization_v0.fingerprints",
+      "names": [
+        "parse_bytes"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/host.py",
+      "module": "copy"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/host.py",
+      "module": "math"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/host.py",
+      "module": "experiments.adaptive_execution_v1",
+      "names": [
+        "environment"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "argparse"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "copy"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "hashlib"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "os"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "platform"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "subprocess"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "sys"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "time"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "tracemalloc"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "xml.etree.ElementTree"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "datetime",
+      "names": [
+        "datetime",
+        "timezone"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "decimal",
+      "names": [
+        "Decimal"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "pathlib",
+      "names": [
+        "Path"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "canonical",
+        "digest",
+        "raw_hash",
+        "write_new",
+        "ROOT"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.evidence_canonicalization_v0.fingerprints",
+      "names": [
+        "parse_bytes"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": ".catalog",
+      "names": [
+        "Tablet"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": ".",
+      "names": [
+        "routes",
+        "host"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.adaptive_execution_v1",
+      "names": [
+        "environment"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "psutil"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "resource"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "psutil"
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.resources",
+      "names": [
+        "Watch"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.bridge",
+      "names": [
+        "deadline",
+        "cpu_clock"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": ".catalog",
+      "names": [
+        "Tablet"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/offline.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.governance",
+      "names": [
+        "Roots"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": "decimal",
+      "names": [
+        "Decimal",
+        "InvalidOperation"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0",
+      "names": [
+        "knowledge"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "canonical",
+        "digest"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_a_resume_v1",
+      "names": [
+        "evidence"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": "experiments.evidence_canonicalization_v0.fingerprints",
+      "names": [
+        "parse_bytes"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": ".catalog",
+      "names": [
+        "Experience",
+        "problem_key"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/policy.py",
+      "module": ".",
+      "names": [
+        "routes"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/routes.py",
+      "module": "dataclasses",
+      "names": [
+        "replace"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/routes.py",
+      "module": "experiments.adaptive_execution_v1",
+      "names": [
+        "selector",
+        "adapters"
+      ]
+    },
+    {
+      "file": "experiments/adaptive_experience_tablet_v0/routes.py",
+      "module": ".host",
+      "names": [
+        "qualified"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "copy"
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "json"
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "shutil"
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "dataclasses",
+      "names": [
+        "replace"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "pathlib",
+      "names": [
+        "Path"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "pytest"
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "cryptography.hazmat.primitives.asymmetric.ed25519",
+      "names": [
+        "Ed25519PrivateKey"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0",
+      "names": [
+        "governance"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "canonical",
+        "digest",
+        "public",
+        "read",
+        "write_new"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_execution_v1",
+      "names": [
+        "environment"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_experience_tablet_v0",
+      "names": [
+        "catalog",
+        "host",
+        "routes",
+        "policy",
+        "offline"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "Ledger"
+      ]
+    },
+    {
+      "file": "tests/test_adaptive_experience_tablet_v0.py",
+      "module": "experiments.adaptive_execution_real_learning_pilot_v0.common",
+      "names": [
+        "HERE",
+        "raw_hash"
+      ]
+    }
+  ],
+  "local_project_imports": 0,
+  "dynamic_tests_executed": 0,
+  "new_physics_calls": 0,
+  "gpu_calls": 0,
+  "paid_remote_actions": 0
+}
