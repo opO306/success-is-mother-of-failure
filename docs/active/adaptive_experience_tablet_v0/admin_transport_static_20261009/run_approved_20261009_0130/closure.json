@@ -1,0 +1,1 @@
+{"actual_stop_confirmed":true,"allocation_start_utc":"2026-10-08T16:30:47.727238+00:00","auto_retry":false,"gate_returncode":2,"gpu_calls":0,"local_dynamic_tests":0,"no_new_physics":true,"prior_failed_attempts":3,"reason":"ValueError('REMOTE_OFFLINE_EXIT:2')","recovery_verified":true,"status":"UNRESOLVED","trigger":"FAILED"}

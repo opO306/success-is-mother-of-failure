@@ -1,0 +1,1 @@
+{"checks":[{"files":4,"manifest":"protocol_seal.json","mismatches":[]},{"files":794,"manifest":"preservation_manifest.json","mismatches":[]},{"files":812,"manifest":"code_seal.json","mismatches":[]}],"observed_utc":"2026-10-08T16:30:45.280475+00:00","zip_sha256":"ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392"}

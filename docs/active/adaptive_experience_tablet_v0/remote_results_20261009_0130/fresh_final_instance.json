@@ -1,0 +1,10 @@
+{
+  "id": 54815136,
+  "machine_id": 56006,
+  "actual_status": "exited",
+  "intended_status": "stopped",
+  "geolocation": "France, FR",
+  "dph_total": 0.13462222222222225,
+  "ssh_host": "ssh9.vast.ai",
+  "ssh_port": 26992
+}

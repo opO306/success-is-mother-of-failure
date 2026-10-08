@@ -1,0 +1,1 @@
+{"status": "RAW_SOURCE_VERIFIED", "entries": 813, "versions": {"mpmath": "1.3.0", "psutil": "7.2.2", "cryptography": "49.0.0", "pytest": "9.1.1"}, "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]", "mpmath_backend": "python"}

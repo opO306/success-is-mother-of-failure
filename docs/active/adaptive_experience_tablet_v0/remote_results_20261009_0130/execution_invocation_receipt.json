@@ -1,0 +1,11 @@
+{
+  "scope": "SHELL_TRANSPORT_INVOCATION_RECEIPT",
+  "execution_session_id": 21920,
+  "tool_shell_exit_code": 1,
+  "remote_gate_exit_code": 2,
+  "remote_gate_status": "TEST_GATE_STOP",
+  "controller_closure_status": "UNRESOLVED",
+  "server_stop_confirmed": true,
+  "automatic_retry": false,
+  "note": "PowerShell tool shell exit code and remote gate exit code are distinct; closure and remote gate receipt preserved"
+}
