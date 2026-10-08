@@ -1,0 +1,12 @@
+{
+  "scope": "AST_ONLY_NO_REPOSITORY_IMPORT_OR_TEST_EXECUTION",
+  "parsed_files": 26,
+  "static_test_case_counts": {
+    "test_adaptive_execution_verification_v0.py": 24,
+    "test_adaptive_execution_learning_v1.py": 53,
+    "test_adaptive_execution_real_learning_pilot_v0.py": 65,
+    "test_evidence_canonicalization_v0.py": 52
+  },
+  "total_static_cases": 194,
+  "tests_executed": 0
+}

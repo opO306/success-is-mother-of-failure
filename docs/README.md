@@ -1,3 +1,5 @@
+[증거 지문·경량 검증 V0 소스 준비](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md): 2026-10-08 SOURCE_PREPARED / 시험·과거 재검토·비용 계측 승인 대기. 새 코드 봉인465파일/ZIP466 raw 대조, 기존 보호/실패 원본 보존. 새52개+기존142개 시험 준비, 통과 보고 아님. 유료 실행·새 물리/GPU0, 원래 REAL_LEARNING_FAIL 불변.
+
 [실측 A 결과](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 REAL_LEARNING_FAIL / NOT_PRODUCTION. 원격142 passed 뒤 실제 CPU각5회·새 재현 완료, INITIAL_HASH 거부/후보보존/승격·학습 요청0. 원본 회수 후 FAILED actual=exited, 전체 시간요금 추정$0.048729/교육비 미회수. 아래 준비·과거 결과는 당시 상태다.
 
 [실측 A 안전 보강 소스](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.

@@ -1,0 +1,22 @@
+{
+  "status": "SOURCE_PACKAGE_RAW_VERIFIED_ONLY",
+  "checked_utc": "2026-10-08T11:55:50.5723814Z",
+  "branch": "codex/evidence-canonicalization-lightweight-v0",
+  "code_seal_commit": "d4b65b0039289bfe1754c08ce03e414fa2f8bc9c",
+  "source_commit": "c3243b5bc54fb57aa44a091722aaf1e8b1ef6647",
+  "code_seal_sha256": "8ad79b9e4655ef29ea1ab14f94cfa863db8f7c3214e39ebdea201d341f6e79de",
+  "policy_sha256": "2ffe33d67f2d2e6483f9629e0fb4e0a94c2d7f020a75e6b006aeebacb9344bc1",
+  "zip_path": "docs/active/evidence_canonicalization_v0/source_d4b65b00/source_d4b65b00.zip",
+  "zip_sha256": "a9ca1b08451e915205d6c2a0c0b5da57e26a349e0cd38c94fd068bc0e80037ab",
+  "zip_bytes": 9034131,
+  "sealed_files": 465,
+  "zip_verified_entries": 466,
+  "protected_verified_files": 282,
+  "original_verified_files": 105,
+  "tests_executed": 0,
+  "new_physics_calls": 0,
+  "gpu_calls": 0,
+  "historical_semantic_review": "PENDING",
+  "overhead_measurement": "PENDING",
+  "original_status": "REAL_LEARNING_FAIL"
+}

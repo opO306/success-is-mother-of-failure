@@ -1,0 +1,18 @@
+{
+  "scope": "READ_ONLY_NO_START_OR_RENT",
+  "queried_utc": "2026-10-08T12:00:08.9662516Z",
+  "instance": {
+    "id": 54815136,
+    "machine_id": 56006,
+    "actual_status": "exited",
+    "intended_status": "stopped",
+    "geolocation": "France, FR",
+    "cpu_name": "AMD Ryzen 9 3900X 12-Core Processor",
+    "cpu_cores": 24,
+    "cpu_cores_effective": 24.0,
+    "dph_total": 0.13462222222222225,
+    "ssh_host": "ssh9.vast.ai",
+    "ssh_port": 26992,
+    "label": "adaptive-A-20261008-8d4115e5"
+  }
+}
