@@ -1,0 +1,5 @@
+{"allocation_age_s":172.877012,"deadline_seconds":239,"event":"GUARDIAN_ARMED","observed_utc":"2026-10-08T15:34:02.638502+00:00"}
+{"allocation_age_s":175.849039,"event":"REMOTE_EXIT","observed_utc":"2026-10-08T15:34:05.610529+00:00","phase":"guest_probe","returncode":0}
+{"allocation_age_s":175.856858,"error":"ValueError('GUEST_SCOPE_OR_DEPENDENCY_RUNTIME')","event":"ADMIN_OR_GATE_ERROR","observed_utc":"2026-10-08T15:34:05.618348+00:00"}
+{"allocation_age_s":175.859371,"event":"STOP_MARKER","observed_utc":"2026-10-08T15:34:05.620861+00:00","trigger":"FAILED"}
+{"actual_stop_confirmed":true,"allocation_age_s":191.209434,"event":"CLOSED","gate_returncode":null,"observed_utc":"2026-10-08T15:34:20.970924+00:00","recovered":false}

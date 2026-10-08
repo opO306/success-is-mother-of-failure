@@ -1,0 +1,9 @@
+{
+  "scope": "THIRD_AND_LAST_ADMINISTRATIVE_ATTEMPT; SOURCE_PROTOCOL_UNCHANGED; ORIGINAL_ALLOCATION_START_RETAINED",
+  "controller_sha256": "0cd62c4f3b4ef4034dc4b3a23b211e5e18ddec6318932c7390fa8e025b092aec",
+  "changes": [
+    "Actual container id from /proc/1/environ instead of SSH shell environment",
+    "Pass verified container id into guest entrypoint environment",
+    "Bounded same-instance restart after confirmed exited; same original budget window"
+  ]
+}

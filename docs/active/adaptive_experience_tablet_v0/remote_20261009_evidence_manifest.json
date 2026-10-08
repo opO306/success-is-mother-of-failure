@@ -1,0 +1,61 @@
+{
+  "schema": "TABLET_V0_REMOTE_ADMINISTRATIVE_FAILURE_EVIDENCE",
+  "observed_utc": "2026-10-08T15:39:47.765197+00:00",
+  "status": "REMOTE_EXECUTION_REFUSED_BEFORE_TEST",
+  "instance_id": 54815136,
+  "tests": "NOT_EXECUTED",
+  "benchmarks": "NOT_EXECUTED",
+  "post_attempt_sealed_checks": [
+    {
+      "manifest": "protocol_seal.json",
+      "files": 4,
+      "mismatches": []
+    },
+    {
+      "manifest": "preservation_manifest.json",
+      "files": 794,
+      "mismatches": []
+    },
+    {
+      "manifest": "code_seal.json",
+      "files": 812,
+      "mismatches": []
+    }
+  ],
+  "files": {
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/administrative_controller_seal.json": "4bf9e94e660c815a274a354cb5bdb3bd1e55042779db273042d15465ddd955d9",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/armed.json": "b0fde174a5211173d5f6eb37e113cec92cc7def7610f17f6dc660dac19454f13",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/closure.json": "eb6682bdc86a5041844b1f574b990e7e367bb64c97aca4867cc4ff2132b6dc69",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/completion.json": "8469ab358b8ce2a2d3d541cee088f88a0d086c466447e264457aa5e37ad173ca",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/controller.py": "d725a1e936491678d21d7afb6e7ecd379f2a00f8dafdd3348eb8e8b643498c61",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/events.jsonl": "522de95a96fe463c2b287e407a38549ddb318045785279c3473b475c6e3018b7",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/final_instance.json": "fc00b7834356116180d6ba219f63a59ba00e8a72a514885c91cbac56b4f94f1f",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/final_instance.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/final_instance.stdout": "430948f3c9c610b023eadc6c50fdf88cf3adea280a0c2b25a10609eb3741b054",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/fresh_instance.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/fresh_instance.stdout": "7fbbf2b430b75a0d5557cb8e405dc6fabc441f8a0f33d0b90cdaee0495189584",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guardian.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guardian.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guardian_pid.json": "f10c7db0e03b2a448a95ed652fd38fe8202dea046284565ef41d65992e0313a7",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guest_probe.json": "1e2cc51967e66c8e4ab1654fc3ccf914eeff8940a3d69e0838cba30c91728c3a",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guest_probe.stderr": "d706517e218d8f674357eaa851b4ff69b5b9ee1eb6dca2df554ba92f1731c306",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guest_probe.stdout": "9d33dac2e8a40fffe239dc7799d35651f9d7aa91aadbf10ba2412b74cdac4650",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/human_authorization.json": "7cb3cf5197d249d067e26d6920c8c7236e272cd5de314f9170206b81ae9484f2",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/lease.json": "5694a314187cf822a7a21d3783dad3e90b0f5ace2ce12e296f51b875ef80aca9",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/previous_instance_readonly.json": "9da5a24e08052b81090425fff7082f4f6e33bad4c0e10466552e678aaa97fa4b",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/previous_instance_readonly.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/previous_instance_readonly.stdout": "76cb785c027274fcbfe2831912dd85edff9c746ff060dbccdafc58d10d1098fb",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/probe_attempt1_failure.json": "d79effef8409087be91a0c433509e09f9026575ff86a68bcae8f9be3c39f7aa5",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/source_preflight.json": "cc866a1e1093033c4fa3a2ae649c00068ebfc835c09fb20a2f00d69545211d76",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guardian/armed.json": "608cd29c9d796780b6f26eb6434f264267afb5df35873593e54f12c8e1de8d9b",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_preflight/guardian/final.json": "dd5978100917c337da3cefe6027118f8f2708d9917f32e9f6fc33fb5f47a5169",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/administrative_controller_seal.json": "bf02ac6551cf7442cb58b0732b3bad3ad912be67deab8b4b6f5090bc5fb174c6",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/closure.json": "645f47f46a4bc5379c22cba1fb9c595c6597abcb8015b89d931d0fff2859ab47",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/controller.py": "0cd62c4f3b4ef4034dc4b3a23b211e5e18ddec6318932c7390fa8e025b092aec",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/events.jsonl": "3a1cb76f60676ce07b4d9c5929ee7365a819a755f5b6e952df9c841483932b2e",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/final_instance.json": "be6da6199f785efeae80a611bc61636df28d3b37fb160745ca94a90e78f9c558",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/final_instance.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/final_instance.stdout": "bc1e17aa452ba8337cad6d6b9fb057d93bd4d84652e329e01a3fd5e64212a9ac",
+    "docs/active/adaptive_experience_tablet_v0/remote_20261009_attempt3/source_preflight.json": "cc866a1e1093033c4fa3a2ae649c00068ebfc835c09fb20a2f00d69545211d76"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "status": "SEALED_SOURCE_AND_PACKAGE_INTEGRITY_CONFIRMED",
+  "observed_utc": "2026-10-08T15:31:09.761490+00:00",
+  "manifests": [
+    {
+      "manifest": "protocol_seal.json",
+      "files": 4,
+      "raw_mismatches": []
+    },
+    {
+      "manifest": "preservation_manifest.json",
+      "files": 794,
+      "raw_mismatches": []
+    },
+    {
+      "manifest": "code_seal.json",
+      "files": 812,
+      "raw_mismatches": []
+    }
+  ],
+  "code_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09",
+  "protocol_sha256": "f03bc97a79e1a22ece4964270032d8829f7a208e961c09806c8f7bc10351013c",
+  "zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+  "zip_entries": 813,
+  "server_selection": "PENDING_USER_INSTANCE_ID; SEALED_PROTOCOL_NOT_SELECTED",
+  "caps": {
+    "instance": "NOT_SELECTED",
+    "platform": "Linux",
+    "cpu": 1,
+    "allocation_seconds": 600,
+    "compute_seconds": 120,
+    "recovery_deadline_seconds": 420,
+    "stop_confirmation_seconds": 180,
+    "hourly_usd_max": "0.25",
+    "total_usd_max": "0.05",
+    "memory_bytes": 536870912,
+    "automatic_execution": false
+  },
+  "local_project_imports": 0,
+  "dynamic_tests": 0,
+  "paid_mutations": 0
+}

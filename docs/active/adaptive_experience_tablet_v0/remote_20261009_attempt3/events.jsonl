@@ -1,0 +1,2 @@
+{"allocation_age_s":275.77414,"error":"ValueError('PACKAGE_OR_REMAINING_ALLOCATION')","event":"ADMIN_OR_GATE_ERROR","observed_utc":"2026-10-08T15:35:45.535630+00:00"}
+{"actual_stop_confirmed":true,"allocation_age_s":278.173727,"event":"CLOSED","gate_returncode":null,"observed_utc":"2026-10-08T15:35:47.935217+00:00","recovered":false}

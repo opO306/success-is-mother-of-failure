@@ -1,0 +1,9 @@
+{
+  "scope": "SSH_ADMINISTRATIVE_PROBE_BEFORE_PROJECT_EXECUTION",
+  "result": "REMOTE_PYTHON_SYNTAX_ERROR_FROM_POWERSHELL_QUOTING",
+  "project_imports": 0,
+  "tests": 0,
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "correction": "Use subprocess argv and shlex.quote transport in new administrative controller; sealed sources unchanged"
+}

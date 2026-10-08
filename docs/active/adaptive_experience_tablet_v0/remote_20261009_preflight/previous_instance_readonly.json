@@ -1,0 +1,12 @@
+{
+  "id": 54815136,
+  "machine_id": 56006,
+  "country": null,
+  "geolocation": "France, FR",
+  "actual_status": "running",
+  "intended_status": "running",
+  "dph_total": 0.13462222222222225,
+  "ssh_host": "ssh9.vast.ai",
+  "ssh_port": 26992,
+  "scope": "READ_ONLY_PREVIOUS_SERVER; NOT_ASSUMED_AUTHORIZED_FOR_THIS_RUN"
+}
