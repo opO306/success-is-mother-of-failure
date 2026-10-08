@@ -1,0 +1,42 @@
+{
+  "observed_utc": "2026-10-08T08:42:44.1931618Z",
+  "source": "Vast CLI read-only API",
+  "query": "cpu_cores_effective>=12 dph<=0.25 reliability>=0.98 cpu_arch=amd64; on-demand; storage 5 GiB; selected locally from current full results",
+  "paid_execution_approved": false,
+  "offers": [
+    {
+      "id": 37282264,
+      "machine_id": 38258,
+      "geolocation": "Argentina, AR",
+      "cpu_name": "AMD Ryzen 5 5600X 6-Core Processor",
+      "cpu_cores": 12,
+      "cpu_cores_effective": 12.0,
+      "cpu_ram": 32009,
+      "dph_total": 0.08805555555555555,
+      "dph_base": 0.08666666666666667,
+      "storage_cost": 0.19999999999999998,
+      "reliability": 0.9932051,
+      "rentable": true,
+      "gpu_name": "Q RTX 4000",
+      "inet_up_cost": 0.013020833333333334,
+      "inet_down_cost": 0.013020833333333334
+    },
+    {
+      "id": 53170012,
+      "machine_id": 56006,
+      "geolocation": "France, FR",
+      "cpu_name": "AMD Ryzen 9 3900X 12-Core Processor",
+      "cpu_cores": 24,
+      "cpu_cores_effective": 24.0,
+      "cpu_ram": 15889,
+      "dph_total": 0.13180555555555556,
+      "dph_base": 0.12933333333333333,
+      "storage_cost": 0.3560000000000001,
+      "reliability": 0.9935973,
+      "rentable": true,
+      "gpu_name": "RTX 3060 Ti",
+      "inet_up_cost": 0.0026666666666666666,
+      "inet_down_cost": 0.0013333333333333333
+    }
+  ]
+}

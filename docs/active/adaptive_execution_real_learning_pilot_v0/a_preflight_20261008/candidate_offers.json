@@ -1,0 +1,7 @@
+{
+  "observed_utc": "2026-10-08T08:41:11.2966783Z",
+  "source": "Vast CLI read-only API",
+  "query": "exact offer ids; on-demand; storage 5 GiB",
+  "paid_execution_approved": false,
+  "offers": []
+}

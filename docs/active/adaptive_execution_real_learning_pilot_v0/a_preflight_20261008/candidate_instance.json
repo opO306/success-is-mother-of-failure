@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-10-08T08:41:08.8331428Z",
+  "kind": "EXISTING_STOPPED_INSTANCE",
+  "id": 52731349,
+  "machine_id": 51436,
+  "geolocation": "Thailand, TH",
+  "cpu_name": "Core™ Ultra 7 265K",
+  "api_logical_cpu_count": 20,
+  "api_effective_vcpu": 20.0,
+  "api_cpu_ram_raw": 64007,
+  "dph_total": 0.16074074074074074,
+  "actual_status": "exited",
+  "intended_status": "stopped",
+  "exclusive_use": "USER_CONFIRMATION_PENDING",
+  "guest_affinity_core_topology_quota": "UNCONFIRMED",
+  "paid_execution_approved": false
+}

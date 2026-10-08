@@ -1,0 +1,12 @@
+{
+  "schema": "real-learning-A-preflight-raw-evidence",
+  "files": {
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/candidate_instance.json": "48b0762937b03eed03f8d5d91fa8f3d61a5db375acdbeb45a74597e596c228bf",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/candidate_offers_snapshot.json": "751b03d9b91ef3c970504fecd404ad7e580440c33b261b429ce0e50447c76179",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/candidate_offers.json": "ba0f74b2cbfcfe68e90a1863ce2ecf6989287acff74879a9c02ccfe9db32afd7",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/preflight.json": "b7a39b4ab7eb830b9366918f333459a3762660441f57db11910b832efa761d54",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/USER_REQUEST.txt": "398267c0aee16035216f2820c0b53685b7d6849b69bdf29647b0b0044d687acd",
+    "docs/active/adaptive_execution_real_learning_pilot_v0/a_preflight_20261008/user_steering.json": "57465abdeb5cd3b63842f84a4e95047f0dc347c8b58d01355e346d80843bd173",
+    "docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_PREFLIGHT.md": "c6038b4c423663038185ed641a24ff99fc4329670272a468716c1f8944d4e977"
+  }
+}

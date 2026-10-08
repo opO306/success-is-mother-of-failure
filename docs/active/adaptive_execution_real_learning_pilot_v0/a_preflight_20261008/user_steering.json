@@ -1,0 +1,8 @@
+{
+  "source": "direct user reply 2026-10-08",
+  "question_target_instance": 52731349,
+  "raw_answer": "누가 사용중이라는데 왜 그럼? 뭐 필요한거 있음? CPU 풀로 다쓰는 서버 찾아야 하나?",
+  "decision": "EXCLUDE_SHARED_INSTANCE_FROM_A_CANDIDATES",
+  "instance_start_authorized": false,
+  "new_rental_authorized": false
+}
