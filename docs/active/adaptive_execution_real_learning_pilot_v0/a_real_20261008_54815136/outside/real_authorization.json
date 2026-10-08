@@ -1,0 +1,17 @@
+{
+  "gate": "ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0",
+  "scope": "REAL_RESEARCH",
+  "explicit_user_approval": true,
+  "approval_reference": "2026-10-08 user: 우선 후보대로 ㄱㄱ; 대여 니가 직접해봐",
+  "code_seal_sha256": "11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309",
+  "instance_id": 54815136,
+  "machine_id": 56006,
+  "country": "FR",
+  "stages": [
+    "A"
+  ],
+  "safety_policy_sha256": "ccebe3799fca39ee1fe746eab224e652c8520fdf78934b7b1202f81686a6c2a9",
+  "hourly_usd": "0.25",
+  "heartbeat_path": "/workspace/rlp_A_8d4115e5/heartbeat.json",
+  "approve_research_profile": true
+}

@@ -1,0 +1,16 @@
+{
+  "id": 54815136,
+  "machine_id": 56006,
+  "geolocation": "France, FR",
+  "cpu_name": "AMD Ryzen 9 3900X 12-Core Processor",
+  "cpu_cores_effective": 24.0,
+  "cpu_ram": 15889,
+  "dph_total": 0.13462222222222225,
+  "actual_status": "running",
+  "intended_status": "running",
+  "ssh_host": "ssh9.vast.ai",
+  "ssh_port": 26992,
+  "public_ipaddr": "82.64.67.178",
+  "ports": null,
+  "status_msg": "success, running ubuntu_24.04/ssh"
+}

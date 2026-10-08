@@ -1,3 +1,5 @@
+[실측 A 현재 결과](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 REAL_LEARNING_FAIL / NOT_PRODUCTION. 사용자 승인 France54815136/machine56006, 원격142 passed/skip0 뒤 N14 SERIAL/W6 각5회와 새 CPU재현1회 완료. 별도 검사관 INITIAL_HASH(저장 키 순서 결함)로 승격 거부; 후보 원본 보존/활성화·학습 후 요청0/복귀 미도달. 회수68파일 raw 일치 후 FAILED guardian STOP_CONFIRMED, fresh API actual=exited. 보수적 전체창21분43.087초·요금추정$0.048729/실청구 미확인·교육비 미회수. 아래 준비·과거 결과는 당시 상태로 보존한다.
+
 [실측 A 안전 보강 소스](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.
 
 # 현재 상태

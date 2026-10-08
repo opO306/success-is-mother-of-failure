@@ -1,3 +1,5 @@
+[실측 A 최종 상태](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 REAL_LEARNING_FAIL / NOT_PRODUCTION. 원격142 passed/skip0, 실제SERIAL/W6각5회·새 CPU재현1회. 별도 검사관INITIAL_HASH로승격거부/원본보존/학습 후 요청·프로필0. 회수 후FAILED STOP_CONFIRMED/freshactual=exited. 실제 학습 개선·복귀·비용회수·수식/OS독립성 미확인. 아래 준비와 과거 결과는 당시 상태다.
+
 [실측 A 안전 보강 소스](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.
 
 [ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 실측 A 준비](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_PREFLIGHT.md): 2026-10-08 후보 가격·CPU 배분·봉인 ZIP 확인. 계산/회수/정지 기한 분리·감시기 지속 확인·전체 할당 비용 보완 필요. A 유료 호스트 미승인 / 실제 계산·B·GPU 0 / 기존 결과 보존.

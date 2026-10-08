@@ -1,0 +1,18 @@
+{
+  "scope": "STOP_CONTROL_ONLY",
+  "exclusive": true,
+  "explicit_user_approval": true,
+  "approval_reference": "2026-10-08 user: 우선 후보대로 ㄱㄱ; 대여 니가 직접해봐",
+  "instance_id": 54815136,
+  "machine_id": 56006,
+  "country": "FR",
+  "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+  "completion_marker": "C:\\Users\\zun24\\성공은 실패의 어머니\\.codex\\artifacts\\adaptive-execution-real-learning-pilot-v0\\A_run\\completion.json",
+  "deadline_seconds": 3420,
+  "stages": [
+    "A"
+  ],
+  "safety_policy_sha256": "ccebe3799fca39ee1fe746eab224e652c8520fdf78934b7b1202f81686a6c2a9",
+  "allocation_start_utc": "2026-10-08T09:07:26.3657058Z",
+  "allocation_start_provenance": "BEFORE_AUTHORIZED_RENTAL_API_CALL"
+}

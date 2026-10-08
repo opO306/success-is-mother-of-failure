@@ -1,0 +1,12 @@
+{
+  "id": 54815136,
+  "machine_id": 56006,
+  "geolocation": "France, FR",
+  "actual_status": "exited",
+  "intended_status": "stopped",
+  "dph_total": 0.13462222222222225,
+  "storage_cost": 0.3560000000000001,
+  "inet_up_billed": 1034.24,
+  "inet_down_billed": 27238.4,
+  "observed_utc": "2026-10-08T09:29:09.4529213Z"
+}

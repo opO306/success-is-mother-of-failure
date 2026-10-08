@@ -1,3 +1,5 @@
+[실측 A 결과와 원본](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 France54815136에서 관련142개 통과 후 실제10측정·새 CPU재현1회. INITIAL_HASH 저장/재판독 결함으로 경험승격 거부, REAL_LEARNING_FAIL. 원본은 docs/active/adaptive_execution_real_learning_pilot_v0/a_real_20261008_54815136/; 코드 수정 없이 보존, FAILED actual=exited. 아래 준비 상태는 당시 기록이다.
+
 [실측 A 안전 보강 소스](docs/active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.
 
 # 저장소 지도

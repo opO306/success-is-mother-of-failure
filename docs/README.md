@@ -1,3 +1,5 @@
+[실측 A 결과](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_RESULTS.md): 2026-10-08 REAL_LEARNING_FAIL / NOT_PRODUCTION. 원격142 passed 뒤 실제 CPU각5회·새 재현 완료, INITIAL_HASH 거부/후보보존/승격·학습 요청0. 원본 회수 후 FAILED actual=exited, 전체 시간요금 추정$0.048729/교육비 미회수. 아래 준비·과거 결과는 당시 상태다.
+
 [실측 A 안전 보강 소스](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_SOURCE_PREPARED.md): 2026-10-08 원래 기준11272b13 보존, 보충 기준 선봉인·신규20시험 먼저 작성·소스340파일/전달ZIP341 raw 일치. 원격142개 관문 대기, 실제 계산/서비스0, 사용자 서버 준비 대기.
 
 [ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 실측 A 준비](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0_A_PREFLIGHT.md): 2026-10-08 후보 가격·CPU 배분·봉인 ZIP 확인. 계산/회수/정지 기한 분리·감시기 지속 확인·전체 할당 비용 보완 필요. A 유료 호스트 미승인 / 실제 계산·B·GPU 0 / 기존 결과 보존.

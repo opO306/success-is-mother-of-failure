@@ -1,0 +1,16 @@
+Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.
+Have fun!
+72577a4b61d30b359479f6493878532211a72f82d86786c3788f21c7bd10ff19  source.zip
+SOURCE 11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309
+NUMERIC 1.3.0 python
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/rlp_A_8d4115e5/source/experiments/adaptive_execution_real_learning_pilot_v0/offline.py", line 56, in <module>
+    if __name__=='__main__': raise SystemExit(main())
+                                              ^^^^^^
+  File "/workspace/rlp_A_8d4115e5/source/experiments/adaptive_execution_real_learning_pilot_v0/offline.py", line 27, in main
+    a_safety.offline_lease(ticket,armed)
+  File "/workspace/rlp_A_8d4115e5/source/experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py", line 69, in offline_lease
+    raise ValueError('A_OFFLINE_SCOPE_REFUSED')
+ValueError: A_OFFLINE_SCOPE_REFUSED

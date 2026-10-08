@@ -1,0 +1,3 @@
+Welcome to vast.ai. If authentication fails, try again after a few seconds, and double check your ssh key.
+Have fun!
+{"actual_shutdown":"OUTSIDE_GUEST_CONFIRMATION_REQUIRED","code_seal_sha256":"11a4e4495597f0810a39e9c1d665ad69c02f0b2cc4d640e04bdf2256fd9a3309","cpu_ns":2727328000,"failed":0,"gpu_calls":0,"mode":"OFFLINE_CONTRACT_ONLY","physics_calls":0,"skipped":0,"status":"PASS","tests":142,"wall_ns":4106296514}

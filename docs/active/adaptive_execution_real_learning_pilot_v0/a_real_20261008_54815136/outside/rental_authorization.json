@@ -1,0 +1,17 @@
+{
+  "approval_reference": "2026-10-08 user: 우선 후보대로 ㄱㄱ; 대여 니가 직접해봐",
+  "offer_id": 53170012,
+  "machine_id": 56006,
+  "country": "FR",
+  "stages": [
+    "A"
+  ],
+  "hourly_cap_usd": "0.25",
+  "total_cap_usd": "0.25",
+  "allocation_start_utc": "2026-10-08T09:07:26.3657058Z",
+  "allocation_start_provenance": "BEFORE_AUTHORIZED_RENTAL_API_CALL",
+  "image": "ubuntu:24.04",
+  "disk_gib": 5,
+  "GPU_physics_calls": 0,
+  "explicit_rental_start_authorized": true
+}

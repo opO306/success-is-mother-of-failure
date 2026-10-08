@@ -1,0 +1,5 @@
+{
+  "success": true,
+  "new_contract": 54815136,
+  "credential_fields": "OMITTED"
+}
