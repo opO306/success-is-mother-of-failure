@@ -307,6 +307,8 @@
     "experiments/w5_placement_v1/run.py": "bad88888efe173bb5cd320a846914fd191cf3d98e0e12e4604b2dd13b5b1808c",
     "experiments/w5_placement_v1/topology.py": "e929c370b2c8b838bb75bd0e4880a969680527cd37d2ae1590d24c50edea153a",
     "tests/test_adaptive_execution_learning_v1.py": "26d1352c48c7ab7e1008e410dc21db6c4b5e0993e5fe746367ef4b3e0a563862",
-    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52"
+    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52",
+    "docs/active/adaptive_execution_v1/vast_evaluate/run_evaluate/replay/N14_T1000_p163.json": "e3cb05fa0ab6880e8dfe4ddea1e65a2cacc229587e00bf7662b43e39a0e7016e",
+    "docs/active/adaptive_execution_v1/vast_evaluate/run_evaluate/replay/N12_T1000_p163.json": "0ca3741a147e36f450a12ad38a50a9f5b3f62bfa75eb7e1b519a03e3e3d84740"
   }
 }
