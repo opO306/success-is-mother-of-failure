@@ -1,0 +1,33 @@
+{
+  "baseline": "2fa56010",
+  "scope": "NEW_FILES_ONLY",
+  "tracked_baseline_modified": 0,
+  "new_files": [
+    "docs/active/ADAPTIVE_EXPERIENCE_TABLET_AND_CPU_ROUTE_V0_PREPARED.md",
+    "docs/active/ADAPTIVE_EXPERIENCE_TABLET_AND_CPU_ROUTE_V0_PROTOCOL.md",
+    "docs/active/adaptive_experience_tablet_v0/.gitattributes",
+    "docs/active/adaptive_experience_tablet_v0/local_hardware_readonly.json",
+    "docs/active/adaptive_experience_tablet_v0/original_user_request.txt",
+    "docs/active/adaptive_experience_tablet_v0/source_7b264a42/package_manifest.json",
+    "docs/active/adaptive_experience_tablet_v0/source_7b264a42/source_7b264a42.zip",
+    "docs/active/adaptive_experience_tablet_v0/static_checks.json",
+    "docs/active/adaptive_experience_tablet_v0/static_test_inventory.json",
+    "experiments/adaptive_experience_tablet_v0/.gitattributes",
+    "experiments/adaptive_experience_tablet_v0/REMOTE_RUNBOOK.md",
+    "experiments/adaptive_experience_tablet_v0/__init__.py",
+    "experiments/adaptive_experience_tablet_v0/catalog.py",
+    "experiments/adaptive_experience_tablet_v0/code_seal.json",
+    "experiments/adaptive_experience_tablet_v0/host.py",
+    "experiments/adaptive_experience_tablet_v0/offline.py",
+    "experiments/adaptive_experience_tablet_v0/policy.py",
+    "experiments/adaptive_experience_tablet_v0/preservation_manifest.json",
+    "experiments/adaptive_experience_tablet_v0/protocol.json",
+    "experiments/adaptive_experience_tablet_v0/protocol_seal.json",
+    "experiments/adaptive_experience_tablet_v0/routes.py",
+    "tests/test_adaptive_experience_tablet_v0.py"
+  ],
+  "local_full": "NOT_EXECUTED; USER_LOCAL_DYNAMIC_PROHIBITION; REMOTE_RELATED_GATE_PENDING",
+  "dynamic_PASS_FAIL_ERROR_SKIP": "NOT_RUN",
+  "git_push": false,
+  "master_merge": false
+}
