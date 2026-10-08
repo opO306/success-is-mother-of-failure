@@ -1,0 +1,9 @@
+{
+  "schema": "aev0-protocol-seal",
+  "hash_mode": "raw_bytes_sha256",
+  "files": {
+    "experiments/adaptive_execution_verification_v0/protocol.json": "de5e76c6b7b6f9beda4810f819f5b260cf44e3f36b087d6a9e5b0be9c1dd21b9",
+    "experiments/adaptive_execution_verification_v0/source_manifest.json": "c1583e8b2c55d88e3d105e1bea36a6a82efdf1ff7f8d8ad6f439a5b72581528d",
+    "docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0_DESIGN.md": "62520baa1e568fc011a8931e70c75ed5b35d3559b8c816a06f521fcfcddff50c"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "gate": "ADAPTIVE_EXECUTION_VERIFICATION_V0",
+  "date": "2026-10-08",
+  "schema": 1,
+  "classification": "OFFLINE_RESEARCH_ONLY; NOT_PRODUCTION; NOT_REPLAY_VERIFIED; NOT_FORMALLY_CERTIFIED",
+  "parent_head": "97178f04a1b22321faa8b4db592140b0a7da20e2",
+  "branch": "codex/adaptive-execution-verification-v0",
+  "authorization": {
+    "file_preparation_and_git": true,
+    "local_tests_or_calculations": false,
+    "vast_start_or_paid_execution": false,
+    "push_or_master_merge": false
+  },
+  "preserve": ["ADAPTIVE_EXECUTION_V1", "all original evidence", "GPU_V1", "physics", "numeric contracts", "rounding", "P2", "start-p bundle"],
+  "initial_evidence": {
+    "directory": "docs/active/adaptive_execution_v1/vast_evaluate/run_evaluate",
+    "requests": {"R1": {"N": 12, "T": 1000, "p": 163, "strategies": ["ADAPTIVE_WALL", "FIXED_SERIAL", "FIXED_W6", "FIXED_GPU"]}, "R7": {"N": 14, "T": 1000, "p": 163, "strategies": ["ADAPTIVE_WALL", "FIXED_SERIAL", "FIXED_W6"]}},
+    "repeats": [1, 2, 3, 4, 5],
+    "expected_service_files": 35,
+    "source_budget": {"max_files": 48, "max_total_bytes": 16777216, "max_file_bytes": 4194304},
+    "numeric_replay": "none; compare full stored result payloads and inherit pinned historical checker verdict with disclosed shared RwForce limitation"
+  },
+  "experiment_budget": {
+    "authorized_compute_jobs": 0,
+    "authorized_paid_usd": "0",
+    "new_trajectories": 0,
+    "gpu_calls": 0,
+    "proposal_only_remote": {"workers": 1, "wall_seconds": 120, "cpu_seconds": 120, "max_rss_mib": 512, "tests": "new stdlib offline unit/fault tests only; V1 selection tests without trajectory/hardware collection; sealed evidence reread", "max_attempts": 3},
+    "proposal_only_paid": {"max_hourly_usd": "0.25", "max_total_usd": "0.10", "max_allocated_minutes": 10, "requires_explicit_user_authorization": true, "requires_exclusive_instance_and_verified_stop_control": true},
+    "overflow": "STOP; preserve partial output; no automatic enlargement or next experiment"
+  },
+  "states": {"UNKNOWN": "missing exact-scope information; no invented estimate", "CANDIDATE": "observations linked to immutable sources; never an official choice input", "VERIFIED": "scope-limited execution-cost experience admitted from an independently produced, hash-pinned receipt"},
+  "axes": ["rule_compliance", "correctness_evidence", "performance_information", "measurement_validity", "formula_independence"],
+  "slow_correct_choice": "VALID_CORRECT_BUT_COST_INFORMATION_INCOMPLETE; never NUMERICAL_ERROR merely for being slower",
+  "knowledge_key": ["env_id", "evidence_session", "request_fingerprint", "initial_state_digest", "N", "T", "p", "physics", "numeric", "evaluator"],
+  "promotion": {
+    "schema": "aev0-cost-receipt",
+    "scope": "HISTORICAL_SESSION_EXECUTION_COST_ONLY",
+    "minimum_repeats": 5,
+    "required": ["protocol and source seals", "complete expected evidence set", "historical EVIDENCE OK with no errors", "same exact request key", "requested p = effective p = plan p", "one original-state pass only", "all full result fields identical to serial control", "eligible existing V1 executor and valid placement", "strictly positive finite timing", "pass CPU accounting = service CPU accounting", "consistent measurement scope", "repeat spread acceptable", "separate verifier source identity", "manager-pinned receipt digest"],
+    "maximum_spread_ratio": "1.25",
+    "cost_metric": {"WALL_MIN": "service_wall_s including pass process costs, excluding reused GPU startup", "CPU_MIN": "service_cpu_s summed over all executed attempts; GPU power/energy unmeasured"},
+    "unknown_machine_reuse": "historical session binding is mandatory; same env_id alone cannot activate on a new physical host/session",
+    "formula_independence": "UNRESOLVED_SHARED_RWFORCE; separate independent formula-verification task; never complete independent physics verification",
+    "failure": "keep CANDIDATE with REFUSED or INVALID_MEASUREMENT receipt; preserve observations; no replacement or auto retry"
+  },
+  "exploration": {
+    "lower_bound_net_gain": "per_request_gain_lower_ns * confirmed_reuse_count - measurement_upper_ns - verification_upper_ns",
+    "cost_units": "objective-specific ns; CPU_MIN uses aggregate CPU ns, WALL_MIN uses wall ns; monetary budget is a separate hard cap",
+    "unknown_gain_reuse_cost_or_risk": "DEFER_INFORMATION_NEEDED",
+    "risk": "only LOW and already-verified executor eligibility may produce PROPOSE; MISMATCH -> STOP; otherwise DEFER",
+    "positive_net_gain": "PROPOSE_ONLY; never launches a job",
+    "observations_are_not_predictions": "historical median difference may motivate a proposal but is not a guaranteed future gain"
+  },
+  "selection": {
+    "mode": "OFFLINE_SHADOW_ONLY",
+    "admissible_backends": ["CPU_SERIAL", "CPU_PARALLEL", "GPU_HYBRID"],
+    "wall_tie_ratio": "1.05",
+    "wall_tiebreak": ["median CPU ns", "worker count", "backend name"],
+    "cpu_min": "new opt-in profile may rank verified aggregate CPU observations; legacy V1 always-serial rule stays intact",
+    "fallback": "LEGACY_V1_PROFILE on no receipt, scope mismatch, ineligible backend, missing baseline, disabled profile or stale session",
+    "activation": "rule-manager selects immutable receipt-pinned profile; selector reads request-start snapshot; candidate ingest cannot activate",
+    "rollback": "append activation event selecting LEGACY_V1_PROFILE; all receipts and previous versions retained"
+  },
+  "authority": {
+    "rule_manager": "owns protocol, trusted source/receipt identities and activation; cannot issue verification verdict",
+    "execution_selector": "reads only activated immutable VERIFIED profile; cannot promote or change rules or execute in V0",
+    "independent_verifier": "reads sealed evidence and rules, writes receipt; no import of manager/collector/selector/V1 execution modules; no activation authority",
+    "v0_security_limit": "separate modules, files and explicit trusted digest handoff; OS users, signed identities and ACL isolation not implemented; Python call access is not a security boundary"
+  },
+  "vast_stop_gate": {
+    "old_failure": "global ps pcpu scan mistook its own ps process for busy work",
+    "v0_fix": "no ps or global CPU scan; stop only exact instance covered by exclusive user-authorized lease; job completion/failure/deadline all request stop",
+    "control": "bounded 3 stop requests and 6 status reads; require exact instance id and observed stopped/exited state; no blind success",
+    "external_guardian": "required before paid computation to survive guest kill/network loss; no automatic job until proven",
+    "current_status": "SOURCE_FIX_AND_MOCK_TESTS_PENDING_EXECUTION; LIVE_STOP_AND_EXTERNAL_GUARDIAN_UNVERIFIED; PAID_COMPUTATION_BLOCKED"
+  }
+}
