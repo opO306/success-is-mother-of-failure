@@ -18,11 +18,15 @@
 | 시험 먼저 작성 | `d222055c` | 합성 새 세션·학습/복귀·결함 주입 계약 |
 | 제한 구현 | `9e7842bf` | 수집·독립 판독·서명·목표별 승인·snapshot·STOP |
 | 실행 소스 봉인 | `0d59cdd0` | 준비 코드/시험 raw SHA-256 pin |
+| 정적 검토 보강·재봉인 | `48848fd0` | 활성 후 원본 재확인·승격된 지식만 공백 해소·추가 결함 시험 |
 
 [설계](ADAPTIVE_EXECUTION_LEARNING_V1_DESIGN.md)와
 [프로토콜](../../experiments/adaptive_execution_learning_v1/protocol.json)은 구현 전 봉인했다.
-실행 코드 seal SHA-256:
-`4a178ea46d2b2a3b478f3041f1e34db49dab97df23007e533265b5b53857196f`.
+최신 실행 코드 seal SHA-256:
+`11a0a713ebf2e704da59a1cbc032b102b953f13afdcbe58a3ac75b8910c23560`
+
+최초 코드 pin `4a178ea46d2b2a3b478f3041f1e34db49dab97df23007e533265b5b53857196f`과
+그 ZIP은 실행되지 않은 준비 이력으로 보존한다. 코드 seal에는 predecessor pin을 기록했다.
 
 ## 구현됨
 

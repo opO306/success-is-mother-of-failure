@@ -1,0 +1,17 @@
+{
+  "schema": "ael1-source-preparation",
+  "baseline": "0f4450e8",
+  "latest_code_commit": "48848fd0",
+  "code_seal_sha256": "11a0a713ebf2e704da59a1cbc032b102b953f13afdcbe58a3ac75b8910c23560",
+  "zip_sha256": "ad7dc63591bb68cb9af4ddba80b91a3cc949452efd7dc05685f4dddb148f2d63",
+  "zip_path": "C:\\Users\\zun24\\.codex\\artifacts\\adaptive-execution-learning-v1\\offline_bundle_48848fd0.zip",
+  "zip_bytes": 1201454,
+  "byte_verified_entries": 118,
+  "protected_files": 100,
+  "static_diff_check": "PASS",
+  "test_functions": 24,
+  "parameterized_cases_expected": 53,
+  "tests_status": "NOT_EXECUTED",
+  "local_numerical_execution": false,
+  "paid_execution_authorized": false
+}
