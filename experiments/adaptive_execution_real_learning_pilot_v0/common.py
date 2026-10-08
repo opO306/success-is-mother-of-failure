@@ -24,6 +24,8 @@ def check_seals():
         if raw_hash(ROOT/relative)!=expected: raise ValueError('PROTOCOL_INTEGRITY:'+relative)
     for relative,expected in read(HERE/'protected_manifest.json')['files'].items():
         if raw_hash(ROOT/relative)!=expected: raise ValueError('PROTECTED_INTEGRITY:'+relative)
+    for relative,expected in read(HERE/'offline_budget_amendment_seal.json')['files'].items():
+        if raw_hash(ROOT/relative)!=expected: raise ValueError('OFFLINE_AMENDMENT_INTEGRITY:'+relative)
 
 
 def ns(value):

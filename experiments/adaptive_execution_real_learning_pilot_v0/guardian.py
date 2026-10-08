@@ -11,6 +11,22 @@ from datetime import datetime,timezone
 from pathlib import Path
 
 
+def hourly_cap(auth):
+    """Default unchanged; only the sealed, user-approved offline lease may use 0.28."""
+    if 'budget_amendment_sha256' not in auth: return 0.25
+    path=Path(__file__).parent/'offline_budget_amendment_52763685.json'
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=auth['budget_amendment_sha256']:
+        raise ValueError('BUDGET_AMENDMENT_INTEGRITY')
+    amendment=json.loads(path.read_bytes())
+    if (amendment['explicit_user_approval'] is not True or amendment['scope']!='OFFLINE_ONLY'
+            or auth.get('experiment_scope')!='OFFLINE_ONLY'
+            or any(auth.get(k)!=amendment[k] for k in ('instance_id','machine_id','country','hourly_cap_usd'))
+            or not 1<=int(auth.get('deadline_seconds',0))<=amendment['guardian_deadline_seconds']
+            or amendment['hourly_cap_usd']!='0.28' or amendment['physics_calls']!=0 or amendment['gpu_calls']!=0):
+        raise ValueError('BUDGET_AMENDMENT_SCOPE_REFUSED')
+    return 0.28
+
+
 def confirm_stop(control, instance, trigger, *, confirm_seconds=180, now=time.monotonic, sleep=time.sleep):
     if trigger not in ('COMPLETED','FAILED','DEADLINE') or not 1<=confirm_seconds<=180:
         raise ValueError('CONTROL_SCOPE_REFUSED')
@@ -55,6 +71,7 @@ def main():
             or auth.get('completion_marker')!=str(args.marker)):
         raise ValueError('EXCLUSIVE_LEASE_REFUSED')
     instance=int(auth['instance_id']); deadline=int(auth['deadline_seconds'])
+    cap=hourly_cap(auth)
     if not 1<=deadline<=3240: raise ValueError('DEADLINE_BUDGET')
     args.out.mkdir(exist_ok=False,parents=True)
     control=Cli(args.cli,instance)
@@ -63,7 +80,7 @@ def main():
     try:
         state=control.show()
         country=state.get('country') or str(state.get('geolocation','')).rsplit(',',1)[-1].strip()
-        if int(state['id'])!=instance or float(state['dph_total'])>0.25 or state['actual_status']!='running':
+        if int(state['id'])!=instance or float(state['dph_total'])>cap or state['actual_status']!='running':
             raise ValueError('INITIAL_INSTANCE_OR_PRICE_REFUSED')
         if state.get('machine_id')!=auth.get('machine_id') or country!=auth.get('country'):
             raise ValueError('INITIAL_MACHINE_OR_COUNTRY_REFUSED')
@@ -71,6 +88,8 @@ def main():
                    confirmation_seconds=180,hourly_usd=state['dph_total'],approval_reference=auth['approval_reference'],
                    armed_utc=datetime.now(timezone.utc).isoformat(),guardian_sha256=auth['guardian_sha256'],
                    machine_id=state.get('machine_id'),country=country)
+        armed['hourly_cap_usd']=cap
+        armed['budget_amendment_sha256']=auth.get('budget_amendment_sha256')
         save('armed.json',armed); stop_at=time.monotonic()+deadline; trigger='DEADLINE'
         while time.monotonic()<stop_at:
             if args.marker.exists():
