@@ -1,0 +1,13 @@
+{
+  "status": "FAILED_BEFORE_ARMING",
+  "reason": "Administrative controller parsed non-JSON start/stop command acknowledgement as JSON",
+  "guardian_armed": false,
+  "offline_tests": 0,
+  "physics_calls": 0,
+  "gpu_calls": 0,
+  "actual_shutdown": "exited",
+  "original_controller_sha256": "3e1c1a6a8dbacfd0a5483e8de35362ead45fe07bbb04a26629ffc7f5e3be372e",
+  "evidence_retained": true,
+  "observed_utc": "2026-10-08T13:39:55.760229+00:00",
+  "retry_scope": "SAME_HUMAN_APPROVAL_SAME_SEALED_SOURCE_SAME_ORIGINAL_60_MINUTE_BUDGET"
+}

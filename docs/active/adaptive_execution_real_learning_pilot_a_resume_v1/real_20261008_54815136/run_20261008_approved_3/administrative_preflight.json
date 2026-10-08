@@ -1,0 +1,9 @@
+{
+  "scope": "AST_AND_COMMAND_STRING_CHECK_ONLY",
+  "embedded_scripts": 5,
+  "embedded_nul": 0,
+  "project_imports": 0,
+  "local_dynamic_tests": 0,
+  "original_budget_clock": "run_20261008_approved_1/allocation_start.json",
+  "controller_sha256": "317d5f91cf08678d8079a9dd30ac3b7bf2dcf25f40aa7a38ce611a61e2474f37"
+}

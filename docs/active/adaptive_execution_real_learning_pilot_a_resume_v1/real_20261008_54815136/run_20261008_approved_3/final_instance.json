@@ -1,0 +1,1 @@
+{"actual_status":"exited","country":"FR","cpu_cores":24,"cpu_cores_effective":24.0,"cpu_name":"AMD Ryzen 9 3900X 12-Core Processor","cpu_ram":15889,"dph_total":0.13462222222222225,"id":54815136,"image_uuid":"ubuntu:24.04","intended_status":"stopped","machine_id":56006,"ssh_host":"ssh9.vast.ai","ssh_port":26992}

@@ -1,0 +1,13 @@
+{"monotonic_ns":87301515000000,"observed_utc":"2026-10-08T13:39:59.401096+00:00","phase":"restart_and_wait","status":"PHASE_BEGIN"}
+{"instance_id":54815136,"monotonic_ns":87321562000000,"observed_utc":"2026-10-08T13:40:19.449408+00:00","status":"OUTSIDE_GUARDIAN_ARMED"}
+{"end_ns":87321562000000,"monotonic_ns":87321562000000,"observed_utc":"2026-10-08T13:40:19.449408+00:00","phase":"restart_and_wait","start_ns":87301515000000,"status":"PHASE_END"}
+{"monotonic_ns":87321562000000,"observed_utc":"2026-10-08T13:40:19.449408+00:00","phase":"guest_prepare_and_upload","status":"PHASE_BEGIN"}
+{"end_ns":87321578000000,"monotonic_ns":87321578000000,"observed_utc":"2026-10-08T13:40:19.452921+00:00","phase":"guest_prepare_and_upload","start_ns":87321562000000,"status":"PHASE_END"}
+{"monotonic_ns":87321578000000,"observed_utc":"2026-10-08T13:40:19.452921+00:00","reason":"ValueError:embedded null character","status":"CONTROLLER_STOP"}
+{"monotonic_ns":87321578000000,"observed_utc":"2026-10-08T13:40:19.452921+00:00","phase":"recovery_and_hash","status":"PHASE_BEGIN"}
+{"monotonic_ns":87324625000000,"name":"package_evidence","observed_utc":"2026-10-08T13:40:22.506701+00:00","returncode":1,"status":"TRANSPORT_EXIT"}
+{"monotonic_ns":87324625000000,"observed_utc":"2026-10-08T13:40:22.507706+00:00","reason":"RuntimeError:REMOTE_PHASE_FAILED:package_evidence","status":"RECOVERY_FAILED"}
+{"end_ns":87324625000000,"monotonic_ns":87324625000000,"observed_utc":"2026-10-08T13:40:22.508707+00:00","phase":"recovery_and_hash","start_ns":87321578000000,"status":"PHASE_END"}
+{"monotonic_ns":87324625000000,"observed_utc":"2026-10-08T13:40:22.508707+00:00","phase":"stop_confirmation","status":"PHASE_BEGIN"}
+{"end_ns":87371453000000,"monotonic_ns":87371453000000,"observed_utc":"2026-10-08T13:41:09.336476+00:00","phase":"stop_confirmation","start_ns":87324625000000,"status":"PHASE_END"}
+{"actual_status":"exited","allocation_wall_ns":187063000000,"monotonic_ns":87371453000000,"observed_utc":"2026-10-08T13:41:09.338208+00:00","status":"CONTROLLER_CLOSED","trigger":"FAILED"}

@@ -1,0 +1,1 @@
+{"code_seal_sha256":"ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60","cpu_ns":19509216000,"failed":0,"gpu_calls":0,"mode":"OFFLINE_CONTRACT_ONLY","physics_calls":0,"resume_protocol_sha256":"36ca06d984a791e491a25f377f34448a4cb88ad6716a2b09190a4b44d80f22c1","skipped":0,"status":"PASS","tests":254,"wall_ns":21371138478}

@@ -1,0 +1,7 @@
+{"monotonic_ns":87184390000000,"observed_utc":"2026-10-08T13:38:02.271909+00:00","phase":"restart_and_wait","status":"PHASE_BEGIN"}
+{"end_ns":87187015000000,"monotonic_ns":87187015000000,"observed_utc":"2026-10-08T13:38:04.898358+00:00","phase":"restart_and_wait","start_ns":87184390000000,"status":"PHASE_END"}
+{"monotonic_ns":87187015000000,"observed_utc":"2026-10-08T13:38:04.898358+00:00","reason":"JSONDecodeError:Expecting value: line 1 column 1 (char 0)","status":"CONTROLLER_STOP"}
+{"monotonic_ns":87187015000000,"observed_utc":"2026-10-08T13:38:04.899357+00:00","phase":"recovery_and_hash","status":"PHASE_BEGIN"}
+{"end_ns":87187015000000,"monotonic_ns":87187015000000,"observed_utc":"2026-10-08T13:38:04.899357+00:00","phase":"recovery_and_hash","start_ns":87187015000000,"status":"PHASE_END"}
+{"monotonic_ns":87187015000000,"observed_utc":"2026-10-08T13:38:04.900360+00:00","phase":"stop_confirmation","status":"PHASE_BEGIN"}
+{"end_ns":87189531000000,"monotonic_ns":87189531000000,"observed_utc":"2026-10-08T13:38:07.404156+00:00","phase":"stop_confirmation","start_ns":87187015000000,"status":"PHASE_END"}
