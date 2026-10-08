@@ -1,5 +1,8 @@
 # 문서 분류와 이동 경로표 — 2026-09-27
 
+[ADAPTIVE_EXECUTION_LEARNING_V1](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): 2026-10-08 SOURCE_PREPARED / TEST_EXECUTION_PENDING / NOT_PRODUCTION. 프로토콜 선봉인, 새 namespace만 제한 구현. 실제 이득·OS 권한 격리·RwForce 수식 검증 미확인.
+
+
 [Combined production opt-in 승격](active/C1B1_COMBINED_PRODUCTION_PROMOTION_V1.md)·[독립 감사](active/C1B1_COMBINED_PROMOTION_AUDIT_V1.md): Combined만 fast_combined 연결, 기존 fast/REF 유지. FULL3903+1/차등/closure/CPU 개선 PASS, production-only Top10 및 미해결 범위 기록. 로컬 브랜치, mainline merge/push 없음.
 
 현재 상태는 [CURRENT_STATE.md](../CURRENT_STATE.md), 읽는 순서는 [문서 안내](README.md)를 본다.

@@ -1,5 +1,8 @@
 # 저장소 지도
 
+**적응형 경험 학습 V1:** experiments/adaptive_execution_learning_v1/ — 새 입력 후보 원장·독립 판독·TEST_ONLY 별도 서명/목표별 승인·snapshot/복귀/STOP. tests/test_adaptive_execution_learning_v1.py 준비, 아직 미실행. 기존 V0/V1·물리 변경 없음. [상태](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md).
+
+
 작업 대상을 빠르게 찾기 위한 지도다. 저장소 전체를 검색하지 말고 여기서 범위를 정한 뒤 해당 디렉터리만 읽는다.
 
 **규모(과거 집계):** 32,795 파일 / 4.3GB — 이 중 4.2GB가 `runs/`(실험 결과)다. 코드+문서는 67MB. 현재 규모를 재집계한 값은 아니다.

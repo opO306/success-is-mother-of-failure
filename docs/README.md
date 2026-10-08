@@ -1,5 +1,8 @@
 # 프로젝트 문서 안내
 
+[ADAPTIVE_EXECUTION_LEARNING_V1](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): 새 세션 합성 학습 순환의 설계 선봉인·제한 구현 소스 준비. TEST_ONLY 서명·독립 판독·목표별 승인·복귀. 시험/원격 자원 승인 대기, 기존 V0/V1·원본 보존, production 차단.
+
+
 [ADAPTIVE_EXECUTION_VERIFICATION_V0](active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md):
 프로토콜·예산·승격 기준을 먼저 봉인한 오프라인 경험 검증의 제한 구현 준비.
 V1과 원본 보존, 원격 오프라인 시험24개·35개 원본 판독 통과, production 미적용.

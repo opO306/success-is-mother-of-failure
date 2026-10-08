@@ -1,5 +1,8 @@
 # 현재 상태
 
+**ADAPTIVE_EXECUTION_LEARNING_V1 소스 준비(2026-10-08):** [설계·봉인·제한 구현](docs/active/ADAPTIVE_EXECUTION_LEARNING_V1.md). 기준 0f4450e8, 새 codex/adaptive-execution-learning-v1. 프로토콜 선봉인/시험 먼저 작성/TEST_ONLY 서명 기반 새 경험 순환. 동적 시험은 원격 승인 대기, production 미적용. 기존 V0/V1·원본100개 raw hash 보존, 로컬 계산/시험0·push/merge 없음.
+
+
 **ADAPTIVE_EXECUTION_VERIFICATION_V0 오프라인 검증(2026-10-08):**
 [설계·봉인·제한 구현 상태](docs/active/ADAPTIVE_EXECUTION_VERIFICATION_V0.md).
 별도 `codex/adaptive-execution-verification-v0`, V1/원본/GPU V1/물리/반올림/P2 보존.
