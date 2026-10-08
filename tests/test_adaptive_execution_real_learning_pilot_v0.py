@@ -160,3 +160,67 @@ def test_pilot_requires_stage_and_machine_authorization():
     assert authorize(ticket,'A','code',instance_id='123',platform_name='Linux')['machine_id']==1234
     with pytest.raises(ValueError): authorize(ticket,'B','code',instance_id='123',platform_name='Linux')
     with pytest.raises(ValueError): authorize(ticket,'A','code',instance_id='123',platform_name='Windows')
+
+
+def test_information_gap_does_not_relabel_correct_slow_choice():
+    from experiments.adaptive_execution_real_learning_pilot_v0.knowledge import gaps,value
+    _,session,_=contract_panel()
+    gap=gaps(session,['SERIAL'])
+    assert gap['unknown']==['W6'] and gap['judgment']=='CORRECT_LEGACY_CHOICE_IS_NOT_AN_ERROR'
+    assert value(saving_ns=10)['decision']=='DEFER_INFORMATION_NEEDED'
+    proposal=value(saving_ns=100,confirmed_reuses=5,measurement_ns=200,verification_ns=100,accuracy_in_scope=True,available_ns=1000)
+    assert proposal['decision']=='PROPOSE_EXPERIMENT' and not proposal['execution_authorized']
+
+
+def test_cpu_min_historical_contract_is_separate_goal(tmp_path):
+    records,session,replays=contract_panel(N=12,goal='CPU_MIN')
+    report=inspector.validate_panel(records,session,replays,contract_only=True)
+    judge,ruler=Ed25519PrivateKey.generate(),Ed25519PrivateKey.generate()
+    roots=governance.Roots.for_contract(judge.public_key(),ruler.public_key())
+    mgr=governance.Manager(tmp_path/'manager',tmp_path/'witness',roots,ruler)
+    profile=mgr.admit({'body':report,'signature':judge.sign(b'REAL_PILOT_RECEIPT\0'+canonical(report)).hex()})
+    body=mgr.approval_body(profile['id'],'CPU_MIN','cpu','historical contract only')
+    mgr.activate({'body':body,'signature':ruler.sign(b'REAL_PILOT_APPROVAL\0'+canonical(body)).hex()})
+    assert mgr.choose(mgr.begin('CPU_MIN',session),session)=='GPU'
+    assert mgr.choose(mgr.begin('WALL_MIN',session),session)=='LEGACY'
+    assert report['real_cost_evidence'] is False
+
+
+@pytest.mark.parametrize('fault',['attempt_cost','service_cost','negative_clock','initial_digest'])
+def test_secondary_evidence_integrity(fault):
+    records,session,replays=contract_panel(); obj=records[-1]; s=obj['service']
+    if fault=='attempt_cost': s['passes'][0]['attempts'][0]['result']['cpu_s']=None
+    elif fault=='service_cost': s['service_cpu_s']=1
+    elif fault=='negative_clock': obj['observation']['cpu_ns']=-1
+    else: s['start_decision']['initial_state_digest']='0'*64
+    with pytest.raises(ValueError): inspector.validate_panel(records,session,replays,contract_only=True)
+
+
+def test_actual_controller_has_no_inspector_private_key_or_arbitrary_sign_api():
+    from experiments.adaptive_execution_real_learning_pilot_v0 import runner
+    source=Path(runner.__file__).read_text(encoding='utf-8')
+    assert 'self.judge' not in source and 'private_bytes' not in source
+    assert "'INSPECT'" in source and "'CHECK_NEXT'" in source
+    checker=Path(inspector.__file__).read_text(encoding='utf-8')
+    assert 'key=Ed25519PrivateKey.generate()' in checker
+    assert 'from_private_bytes' not in checker
+
+
+def test_completion_bridge_mock_only_candidate_is_not_real_evidence(tmp_path,monkeypatch):
+    from experiments.adaptive_execution_v1 import service
+    from experiments.adaptive_execution_real_learning_pilot_v0.common import raw_hash,HERE,ns
+    records,oldsession,replays=contract_panel(); original=copy.deepcopy(records[-1]['service'])
+    session=dict(oldsession,origin='OBSERVED_REAL',test_only=True,boot_id='MOCK_BOOT',
+                 code_manifest_sha256=raw_hash(HERE/'code_seal.json'))
+    with pytest.raises(ValueError): bridge.require_live_session(session)
+    # Test explicitly bypasses ONLY execution authorization; no calculator runs, no receipts are signed.
+    monkeypatch.setattr(bridge,'require_live_session',lambda _:None)
+    monkeypatch.setattr(service,'run_request',lambda *args,**kwargs:copy.deepcopy(original))
+    clocks=iter([{'controller':0,'waited_children':0,'live_gpu':0},
+                 {'controller':1,'waited_children':ns(original['service_cpu_s']),'live_gpu':0}])
+    monkeypatch.setattr(bridge,'cpu_clock',lambda gpu=None:next(clocks))
+    record=bridge.capture(tmp_path,session,'W6',0,None,reason='MOCK_TEST_ONLY; NOT_NEW_EXPERIENCE')
+    assert record['state']=='CANDIDATE' and (tmp_path/'W6_0.json').exists()
+    assert record['service']==original and record['initial_state']==records[-1]['initial_state']
+    with pytest.raises(ValueError,match='TEST_ONLY_SESSION_REFUSED'):
+        inspector.validate_record(record,session,replays)

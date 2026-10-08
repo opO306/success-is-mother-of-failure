@@ -1,3 +1,5 @@
+[ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 준비](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0.md): 프로토콜 선봉인, 실제 경험·독립 검사관·연구 승인·다음 실행·복귀 연결부 준비. SOURCE_PREPARED / 신규 시험·유료 계산 승인 대기 / 실제 개선·독립 수식 검증 미확인.
+
 # 프로젝트 문서 안내
 
 [ADAPTIVE_EXECUTION_LEARNING_V1 원격 결과](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): V0 24+신규53=77 passed, 합성 새 세션 경험 학습·독립 판독·서명/승인·복귀 확인. 실제 성능 이득/서비스 미확인. guardian 확인 시간 초과 원본과 별도 exited 확인을 구분해 보존.

@@ -1,3 +1,5 @@
+[ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0 준비](active/ADAPTIVE_EXECUTION_REAL_LEARNING_PILOT_V0.md): 프로토콜 선봉인, 실제 경험·독립 검사관·연구 승인·다음 실행·복귀 연결부 준비. SOURCE_PREPARED / 신규 시험·유료 계산 승인 대기 / 실제 개선·독립 수식 검증 미확인.
+
 # 문서 분류와 이동 경로표 — 2026-09-27
 
 [ADAPTIVE_EXECUTION_LEARNING_V1 원격 검증](active/ADAPTIVE_EXECUTION_LEARNING_V1.md): OFFLINE_TEST_VALIDATED_ONLY / TEST_ONLY / NOT_PRODUCTION. 77 passed, 신규 합성15기록 승격/다음 요청/복귀. 별도 OS감사·실제 이득·수식 독립성 없음. 이번 종료 확인 지연은 후속 보강 관문.
