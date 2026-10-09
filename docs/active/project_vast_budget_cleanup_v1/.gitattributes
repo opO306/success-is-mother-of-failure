@@ -1,0 +1,5 @@
+# V12/V12.2/V12.3 seals hash exact working bytes (mixed CRLF/LF); never convert them.
+# Kept here, not in the root .gitattributes, whose bytes are pinned by experiments/adaptive_experience_tablet_v0 seals.
+revision_v12/** -text
+revision_v12_2/** -text
+revision_v12_3/** -text

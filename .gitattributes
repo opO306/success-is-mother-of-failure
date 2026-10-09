@@ -7,7 +7,3 @@ experiments/adaptive_execution_learning_v1/** text eol=lf
 tests/test_adaptive_execution_learning_v1.py text eol=lf
 docs/active/ADAPTIVE_EXECUTION_LEARNING_V1*.md text eol=lf
 docs/active/adaptive_execution_learning_v1/** text eol=lf
-# Vast cleanup V12/V12.2/V12.3 seals hash the exact working bytes (mixed CRLF/LF); never convert them.
-docs/active/project_vast_budget_cleanup_v1/revision_v12/** -text
-docs/active/project_vast_budget_cleanup_v1/revision_v12_2/** -text
-docs/active/project_vast_budget_cleanup_v1/revision_v12_3/** -text
