@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "files": 34,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_20261009_evidence_manifest.json",
+      "manifest_sha256": "2a28bda04f346a2d05a2bb1c40a67e518ede2ca559d4181bc0e203e31b25489e",
+      "mismatches": []
+    },
+    {
+      "files": 89,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_results_20261009_0130/evidence_manifest.json",
+      "manifest_sha256": "86e0f15989e78f74e38f17fc72622e29c62e0e0b17e9a074616d4a6d0f6aff0a",
+      "mismatches": []
+    }
+  ],
+  "new_independent_verification": false,
+  "resets": 0,
+  "status": "AUTHOR_RAW_HASH_CHECK_ONLY"
+}

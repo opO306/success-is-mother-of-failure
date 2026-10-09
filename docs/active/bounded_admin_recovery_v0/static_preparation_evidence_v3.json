@@ -1,0 +1,153 @@
+{
+  "ast_checks": [
+    {
+      "path": "experiments/bounded_admin_recovery_v0/package_gate.py",
+      "prepared_cases": 0,
+      "raw_sha256": "426882452e57c391707cc424ce7fcbaf479e352b6c97f25ac20dd2650047a319",
+      "syntax": "AST_PARSE_ONLY",
+      "test_functions": []
+    },
+    {
+      "path": "experiments/bounded_admin_recovery_v0/planning.py",
+      "prepared_cases": 0,
+      "raw_sha256": "0590b325e47b6c1d74b27543f88bdbcb1de8369dd1deeb2fe448033d02d56759",
+      "syntax": "AST_PARSE_ONLY",
+      "test_functions": []
+    },
+    {
+      "path": "experiments/bounded_admin_recovery_v0/__init__.py",
+      "prepared_cases": 0,
+      "raw_sha256": "99c5e1297dd40c831f62de02c3a0efb716bb88706fabb102eb97bcfb21271ad7",
+      "syntax": "AST_PARSE_ONLY",
+      "test_functions": []
+    },
+    {
+      "path": "tests/test_bounded_admin_recovery_v0.py",
+      "prepared_cases": 95,
+      "raw_sha256": "754a17c674df3d336cad2e2c0d815781c9386e192ca140b94293b1d977430bc5",
+      "syntax": "AST_PARSE_ONLY",
+      "test_functions": [
+        {
+          "name": "test_missing_seal_detected_even_when_all_its_references_present",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_add_exact_existing_seal_preserves_original",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_candidate_cannot_relax_original_or_add_unapproved_paths",
+          "prepared_cases": 7
+        },
+        {
+          "name": "test_original_integrity_faults_are_not_missing_file_recovery",
+          "prepared_cases": 8
+        },
+        {
+          "name": "test_seal_reference_hash_conflict_is_integrity_error",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_unlisted_runtime_reference_remains_incomplete",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_ambiguous_manifest_json_cannot_hide_binding",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_candidate_inventory_without_external_pin_is_refused",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_all_verified_facts_only_produce_review_candidate",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_forbidden_or_mixed_error_never_recovers",
+          "prepared_cases": 8
+        },
+        {
+          "name": "test_recovery_preconditions_fail_closed",
+          "prepared_cases": 51
+        },
+        {
+          "name": "test_self_attested_or_altered_receipt_does_not_override_external_pin",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_absent_independent_receipt_is_refused",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_modified_policy_is_not_accepted_as_external_authority",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_json_boolean_cannot_reset_integer_caps",
+          "prepared_cases": 1
+        },
+        {
+          "name": "test_full_rerun_requires_exact_all_pass_cases",
+          "prepared_cases": 9
+        },
+        {
+          "name": "test_prepared_full_rerun_acceptance_does_not_grant_execution",
+          "prepared_cases": 1
+        }
+      ]
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/prepare_static.py",
+      "prepared_cases": 0,
+      "raw_sha256": "5a499edc5272fa53d7a8e0cfc0e29103dd420a024ef9ceb2a1caad180ca4694a",
+      "syntax": "AST_PARSE_ONLY",
+      "test_functions": []
+    }
+  ],
+  "dynamic_tests": 0,
+  "historical_authority_code_sha256": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60",
+  "historical_authority_raw_sha256": "ad913281ca6ae041f46421ba289fc393c6d171a762b6c95dae2d43b7c33a8df8",
+  "historical_status": "REMOTE_TEST_GATE_FAILED / UNRESOLVED",
+  "historical_success_authority": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_offline/authorization_used.json",
+  "independent_new_recovery_verification": "NOT_PERFORMED",
+  "missing_seal": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json",
+  "missing_seal_raw_sha256": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60",
+  "old_seal_reference_mismatches": [],
+  "old_seal_references": 683,
+  "old_seal_references_missing": [],
+  "original_zip_member_mismatches": [],
+  "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+  "package_repairs": 0,
+  "paid_executions": 0,
+  "prepared_test_cases": 95,
+  "prior_admin_failures": 3,
+  "project_imports": 0,
+  "protected_checks": [
+    {
+      "files": 4,
+      "manifest": "experiments/adaptive_experience_tablet_v0/protocol_seal.json",
+      "mismatches": [],
+      "raw_sha256": "76e26c9e3bd81ca9f01f229a81838d6287b4692c322b5316c64a2c30f1fb3d79"
+    },
+    {
+      "files": 794,
+      "manifest": "experiments/adaptive_experience_tablet_v0/preservation_manifest.json",
+      "mismatches": [],
+      "raw_sha256": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3"
+    },
+    {
+      "files": 812,
+      "manifest": "experiments/adaptive_experience_tablet_v0/code_seal.json",
+      "mismatches": [],
+      "raw_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09"
+    },
+    {
+      "files": 8,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v3.json",
+      "mismatches": [],
+      "raw_sha256": "753c2f1407e7f42e54b5d344513228f736811716475c7bb777fba8c1b1953352"
+    }
+  ],
+  "status": "STATIC_PREPARATION_ONLY; DYNAMIC_FAULT_TESTS_NOT_RUN"
+}

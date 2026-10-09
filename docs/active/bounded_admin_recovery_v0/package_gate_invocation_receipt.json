@@ -1,0 +1,12 @@
+{
+  "operation": "READ_ONLY_ORIGINAL_ZIP_STATIC_DEPENDENCY_GATE",
+  "final_source": "experiments/bounded_admin_recovery_v0/package_gate.py",
+  "contract_sha256": "6acc46f15620f0f4e41d5ba881b5d73fe584adf115d5e24ac6532639661213af",
+  "result": "docs/active/bounded_admin_recovery_v0/original_package_gate_result_v2.json",
+  "process_exit_code": 2,
+  "meaning": "INCOMPLETE: known missing runtime seal; execution must remain blocked",
+  "project_imports": 0,
+  "dynamic_tests": 0,
+  "paid_actions": 0,
+  "code_was_changed_on_server": false
+}

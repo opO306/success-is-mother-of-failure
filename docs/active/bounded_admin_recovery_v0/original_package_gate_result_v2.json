@@ -1,0 +1,18 @@
+{
+  "candidate": false,
+  "dynamic_tests": 0,
+  "entries": 813,
+  "errors": [],
+  "execution_authorized": false,
+  "extracted_files": 0,
+  "manifest_references": 2673,
+  "missing": [
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json"
+  ],
+  "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+  "project_imports": 0,
+  "scope": "EXPLICIT_RUNTIME_DEPENDENCIES_ONLY; DYNAMIC_COMPLETENESS_NOT_PROVEN",
+  "status": "INCOMPLETE",
+  "verified_member_hashes": 813,
+  "zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392"
+}

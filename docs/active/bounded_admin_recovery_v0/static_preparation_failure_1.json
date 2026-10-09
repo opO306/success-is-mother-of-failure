@@ -1,0 +1,13 @@
+{
+  "status": "LOCAL_STATIC_PREPARATION_SCRIPT_FAILED; NOT_A_PROJECT_TEST",
+  "command": "python -B docs/active/bounded_admin_recovery_v0/prepare_static.py",
+  "exit_code": 1,
+  "operation": "count prepared parametrized test cases without importing tests",
+  "error": "ValueError: malformed node or string on line 198: ast.BinOp",
+  "cause": "ast.literal_eval does not evaluate the string multiplication expression in the parametrization fixture",
+  "fix": "count outer AST List/Tuple elements without evaluating any fixture expression",
+  "outputs_already_created_and_preserved": ["dependency_contract.json", "original_320_case_inventory.json"],
+  "paid_executions": 0,
+  "project_dynamic_tests": 0,
+  "historical_remote_failure_counts_reset": false
+}

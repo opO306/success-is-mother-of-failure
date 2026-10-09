@@ -1,0 +1,11 @@
+{
+  "baseline": "394d16c9",
+  "execution_authorized": false,
+  "files": {
+    "docs/active/bounded_admin_recovery_v0/BOUNDED_ADMIN_RECOVERY_V0.md": "9cb245812b4d9dbfbae74b3618b80ea0a992a9e71a40bd923bd475391d69f54d",
+    "docs/active/bounded_admin_recovery_v0/dependency_contract.json": "6acc46f15620f0f4e41d5ba881b5d73fe584adf115d5e24ac6532639661213af",
+    "docs/active/bounded_admin_recovery_v0/original_320_case_inventory.json": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "experiments/bounded_admin_recovery_v0/protocol.json": "8e0b746e862bf87b530ef08d917e061df8e72bedbde32e825cab8be1895fd77a"
+  },
+  "schema": "BOUNDED_ADMIN_RECOVERY_V0_PREPARATION_PROTOCOL_SEAL"
+}

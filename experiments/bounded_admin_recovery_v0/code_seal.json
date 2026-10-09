@@ -1,0 +1,23 @@
+{
+  "baseline": "394d16c9",
+  "execution_authorized": false,
+  "files": {
+    "docs/active/BOUNDED_ADMIN_RECOVERY_V0.md": "9cb245812b4d9dbfbae74b3618b80ea0a992a9e71a40bd923bd475391d69f54d",
+    "docs/active/BOUNDED_ADMIN_RECOVERY_V0_PREPARATION_2026-10-09.md": "e22b562e04170117da13a52395db68b9356989c62e6d13f420e8caffee0e4aba",
+    "docs/active/bounded_admin_recovery_v0/dependency_contract.json": "6acc46f15620f0f4e41d5ba881b5d73fe584adf115d5e24ac6532639661213af",
+    "docs/active/bounded_admin_recovery_v0/original_320_case_inventory.json": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "docs/active/bounded_admin_recovery_v0/prepare_static.py": "88ef246b559141297975647b61812d0674acfe2993bdf0495a92d159b248eeac",
+    "docs/active/bounded_admin_recovery_v0/seal_preparation.py": "031fdb1da5a51a6fe17cc516d759253d29e7881aab9eb2f3493bc5a7b56014ed",
+    "experiments/bounded_admin_recovery_v0/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "experiments/bounded_admin_recovery_v0/__init__.py": "99c5e1297dd40c831f62de02c3a0efb716bb88706fabb102eb97bcfb21271ad7",
+    "experiments/bounded_admin_recovery_v0/package_gate.py": "426882452e57c391707cc424ce7fcbaf479e352b6c97f25ac20dd2650047a319",
+    "experiments/bounded_admin_recovery_v0/planning.py": "0590b325e47b6c1d74b27543f88bdbcb1de8369dd1deeb2fe448033d02d56759",
+    "experiments/bounded_admin_recovery_v0/protocol.json": "8e0b746e862bf87b530ef08d917e061df8e72bedbde32e825cab8be1895fd77a",
+    "experiments/bounded_admin_recovery_v0/protocol_seal.json": "5e96b438faebb699f6469f0469afa5cca3ead1b7576aec959d3248d07eba55b3",
+    "tests/bounded_admin_recovery_v0/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py": "0b195266deb578d56af4241c33abfa87e4debac55cfd7d6757b1581fab445015"
+  },
+  "prepared_tests": 95,
+  "schema": "BOUNDED_ADMIN_RECOVERY_V0_PREPARATION_CODE_SEAL",
+  "status": "STATIC_PREPARATION_ONLY; DYNAMIC_FAULT_TESTS_NOT_RUN"
+}

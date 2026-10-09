@@ -1,0 +1,52 @@
+{
+  "baseline": "394d16c9",
+  "original_inventory": "docs/active/adaptive_experience_tablet_v0/source_7b264a42/package_manifest.json",
+  "original_inventory_sha256": "d4a788c31002d0080779d3fc16a1fc138c46ffaaa2cb26db5cb3a581bfd1ea68",
+  "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+  "required_files": {
+    "experiments/adaptive_execution_learning_v1/core.py": "e3cb6034c514622ca31e4f574801e3e4b16ed517b8516026496d37388dfee57b",
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/policy.py": "6efe01574d997b9983529fc0b80cd4e74e5e68eadb092984c6b6ead5b9680e8e",
+    "experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py": "98277d8c910c1413e0094efe76b1f8c21ba8857cc3a5fab74f6c77b65e76e579",
+    "experiments/adaptive_execution_real_learning_pilot_v0/common.py": "db9c55f7b4dde3037c75732913f92c61b188fc125002ef088e89cf57cc74bc22",
+    "experiments/adaptive_execution_real_learning_pilot_v0/runner.py": "073bdbf69746343e207acb98181f82f3c07c7450896b13d3470502323651c1d6",
+    "experiments/adaptive_execution_verification_v0/common.py": "57b0f28f45b93b16591b9c9a5731a57bf4b742db15f3be6b8dec3dfe510ea118",
+    "experiments/adaptive_execution_verification_v0/verifier.py": "40319e1a44df5a406d48908446c18d039ee860399a021a4ee1d776041f8633d4",
+    "experiments/adaptive_experience_tablet_v0/catalog.py": "0933554dc4da81863475a248e4439c0b9981e63a5653d3985294ad54dfa1365e",
+    "experiments/adaptive_experience_tablet_v0/offline.py": "7d5b0f6be163085e9bc53abd53e54dcab1f5d8ebf179118551377fd4332b79e9",
+    "experiments/evidence_canonicalization_v0/policy.py": "14eda2e858bb3d27414c0d9e2e729f946b7735cd398405cf16b303f2648483a6",
+    "tests/test_adaptive_execution_learning_v1.py": "26d1352c48c7ab7e1008e410dc21db6c4b5e0993e5fe746367ef4b3e0a563862",
+    "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py": "3d60d13e6328689fa53f391e0cc9693d953a8f8e3a53ef706f57dc717ce8ab94",
+    "tests/test_adaptive_execution_real_learning_pilot_v0.py": "5a6209960d4f2680955916ed0d89dd4064b1d50bfab37c3b99ab0510c306b45d",
+    "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52",
+    "tests/test_adaptive_experience_tablet_v0.py": "41b7c97f031ad8f305b94463cf2a90f8feef3181c1127c4430a32acc328add67",
+    "tests/test_evidence_canonicalization_v0.py": "fe08783accb24535983190e8c483a218212eeacaf751a36bdeaca4ad04bbe201"
+  },
+  "review": "A_SOURCE_HISTORICAL_MANIFEST_IS_NOT_AN_EXECUTION_SEAL",
+  "runtime_manifests": {
+    "experiments/adaptive_execution_learning_v1/preservation_manifest.json": "a812b3947866c84e59dd09c9cae528004779ff6df67f71d1a776275a7bce2230",
+    "experiments/adaptive_execution_learning_v1/protocol_seal.json": "0b9e8f58144c8b650c6fa85def22aeaa867225d4ab2cba2bffaaea1229725048",
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60",
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/protected_history.json": "7bc6791a5420fb201bccbad48e42c94c7afc0d956638312546324cdaf869497a",
+    "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/protocol_seal.json": "d60abea0ece271afb82a2ab6af8227115dbb2258b76d5c0c09404b259d7cc5eb",
+    "experiments/adaptive_execution_real_learning_pilot_v0/a_safety_seal.json": "258cea9008e19830e0c9fc86d7ea2d27c162f1698e1aa3e1fb28b49d9fa7ef7c",
+    "experiments/adaptive_execution_real_learning_pilot_v0/offline_budget_amendment_seal.json": "d5f8bf26639cca2ce8bdfc90616b12690d58ad06d231eef67a8159298a6c3e6d",
+    "experiments/adaptive_execution_real_learning_pilot_v0/protected_manifest.json": "f504d606eff4597877504a0471aa3331de3b50d84651f206909cc578b9171a57",
+    "experiments/adaptive_execution_real_learning_pilot_v0/protocol_seal.json": "56e49d8cc482d514f8beb3aa931072945a7d5ac2d1da6b0e789b2e99a31a341a",
+    "experiments/adaptive_execution_verification_v0/protocol_seal.json": "361db8b05d8572afdaeb1cca2063a9413dd8580d763ec263d1373efa1b622d21",
+    "experiments/adaptive_experience_tablet_v0/code_seal.json": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09",
+    "experiments/adaptive_experience_tablet_v0/preservation_manifest.json": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3",
+    "experiments/adaptive_experience_tablet_v0/protocol_seal.json": "76e26c9e3bd81ca9f01f229a81838d6287b4692c322b5316c64a2c30f1fb3d79",
+    "experiments/evidence_canonicalization_v0/numeric_string_amendment_seal.json": "b00864eefc15f81b6c7ef81589774eec451eac8aec43a85644966d9d0060626e",
+    "experiments/evidence_canonicalization_v0/protocol_seal.json": "cb9eb688bff8d714d6a2da08cc49ca15adbd67bb206e972b8a9d9dd3e8e4d11b"
+  },
+  "schema": "BOUNDED_ADMIN_PACKAGE_DEPENDENCIES_V0",
+  "scope": "REVIEWED_EXECUTION_SEALS_AND_THEIR_FILES; DYNAMIC_COMPLETENESS_NOT_PROVEN",
+  "test_files": [
+    "tests/test_adaptive_execution_verification_v0.py",
+    "tests/test_adaptive_execution_learning_v1.py",
+    "tests/test_adaptive_execution_real_learning_pilot_v0.py",
+    "tests/test_evidence_canonicalization_v0.py",
+    "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py",
+    "tests/test_adaptive_experience_tablet_v0.py"
+  ]
+}
