@@ -1,0 +1,28 @@
+{
+  "A_started": false,
+  "actual_provider_execution_fee_confirmed": false,
+  "actual_stop_confirmed": true,
+  "all_raw_and_archive_hashes_match": true,
+  "extra_confirmation_files": 2,
+  "files": {
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/.gitignore": "1ed91f1b7a516e6c233cf51fed5fd97bd478ef42d08b1a84ea485e130df46240",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/human_approvals/b_95_20261009_075708.json": "a9c75353858cb8c97446e9c0812fc5d9a1a6991b9ebb325e9d298a5a15552759",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/REPORT.md": "48828aaa6e6e9b6b5e6e002a68e2ac44b5407aaad5403488cb29322203952339",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/allocation_start.json": "42352bc84215c8a5299c495464679bb8df6ae2cbd03a4c96ac612ca453627b1f",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/closure.json": "43cc465328a51ed0b2ac965ea0217d0a8b7a116e46ac3aea4bbeba4980ae147b",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/completion.json": "a31159555e241f17c203decf681a9aa074ec5ce90b9e00cf672f033dc7e3a092",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/external_final_confirmation.json": "20303a2cbcd9915a64a9925de12043546bccb9e3db2706000709b6f4e696b41e",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/final_instance_safe_summary.json": "01b532c7787dd8abfdc4db48803a2a66e0dcdf7909b8c1b93dea654ef52e2436",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/raw_evidence_manifest.json": "f44c50c52d1aaa5a72d3e6850aab9105947d168501854ae047d7f9f4d79ece3d",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/result_summary.json": "8cd0e650b5dc5cea3e4eef2bdad1b1e12ffd14dd762382bc843803557d8476b4",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/source_preflight.json": "75ed7b8af166bf59039fa1874918b8aba1aee52857427b4b129bb4f2de008515",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/supervisor_final.json": "328cb54c4aa29c145ea6f829c4400fc26874b6a092489bacfa6ea205e66315bd",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/remote_result_b_95_20261009_075708/supervisor_ready.json": "57b54870901552714aef6095b46fb5040942f39a9340dcf347fda1c47328e957"
+  },
+  "paid_restart_requests": 1,
+  "project_test_executions": 0,
+  "raw_primary_files": 58,
+  "schema": "B_START_GATE_RESULT_EVIDENCE_SEAL_V1",
+  "static_preparation_files_unchanged": 24,
+  "status": "DEADLINE; B95_NOT_EXECUTED; UNRESOLVED"
+}

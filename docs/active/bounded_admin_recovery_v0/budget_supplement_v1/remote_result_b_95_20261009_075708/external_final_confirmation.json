@@ -1,0 +1,15 @@
+{
+  "actual": "exited",
+  "instance_id": 54815136,
+  "intended": "stopped",
+  "machine_id": 56006,
+  "new_restart": false,
+  "observed_utc": "2026-10-09T08:06:17.956327+00:00",
+  "provider_execution_fee_confirmed": false,
+  "raw_files": {
+    "external_final_confirmation.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "external_final_confirmation.stdout": "e67369172110b424e973c5bc8409ca79c009c427ca58d360acd43708e0093015"
+  },
+  "raw_root": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\b_95_20261009_075708",
+  "readonly": true
+}

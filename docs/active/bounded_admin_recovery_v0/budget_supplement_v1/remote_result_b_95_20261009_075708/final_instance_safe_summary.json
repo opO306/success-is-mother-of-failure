@@ -1,0 +1,12 @@
+{
+  "actual_status": "exited",
+  "dph_total": 0.13462222222222225,
+  "geolocation": "France, FR",
+  "id": 54815136,
+  "image_uuid": "ubuntu:24.04",
+  "intended_status": "stopped",
+  "machine_id": 56006,
+  "ssh_host": "ssh9.vast.ai",
+  "ssh_port": 26992,
+  "status_msg": "success, running ubuntu_24.04/ssh"
+}

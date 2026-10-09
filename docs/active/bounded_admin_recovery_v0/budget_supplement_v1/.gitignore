@@ -1,0 +1,6 @@
+# Runtime API receipts may contain access tokens. Preserve raw locally, track hashes and safe summaries.
+/readonly_20261009_075553/
+/local_invocation_failure_20261009_0757/
+/approved_driver_b_95_20261009_075708/
+/transport/run_b_95_20261009_075708/
+/post_stop_billing_b_95_20261009_075708/
