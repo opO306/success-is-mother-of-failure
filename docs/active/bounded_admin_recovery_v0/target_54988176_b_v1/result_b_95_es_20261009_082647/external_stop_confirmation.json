@@ -1,0 +1,11 @@
+{
+  "actual_status": "exited",
+  "distinction": "Appended external confirmation; original controller STOP_UNCONFIRMED receipt unchanged because no supervisor ownership was acquired",
+  "instance_id": 54988176,
+  "intended_status": "stopped",
+  "machine_id": 150665,
+  "observed_utc": "2026-10-09T08:28:15.205381+00:00",
+  "preparation_stop_request_raw_sha256": "82d769af78b17be6e6ff68936b2ac3b35b896d67c9ebf7084ba7e592020f98e6",
+  "preparation_stopped_raw_sha256": "7e8970417a9e8d5133b8e8c0c856002de23845512c3ec8eee82e7e9348701fa7",
+  "provider_final_raw_sha256": "d844024c65120adef4bbb51ceaeddeab9f6c0fde79154fcabc638701062b2c77"
+}

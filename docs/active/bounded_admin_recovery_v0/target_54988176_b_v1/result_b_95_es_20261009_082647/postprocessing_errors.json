@@ -1,0 +1,18 @@
+{
+  "errors": [
+    {
+      "attempt": 1,
+      "error": "KeyError ports: PowerShell selected output null but raw JSON omits key",
+      "fix": "Use membership to assert raw omitted field; precise report wording"
+    },
+    {
+      "attempt": 2,
+      "error": "Old budget seal keys are repo-relative, report assembler used budget-directory base",
+      "fix": "Resolve exact manifest keys from repo root; preserve files, reject mismatches"
+    }
+  ],
+  "remote_test_retry": 0,
+  "scope": "REPORT_ASSEMBLY_ONLY; NOT_REMOTE_RETRY",
+  "sealed_transport_changed": false,
+  "server_calls_due_to_report_corrections": 0
+}

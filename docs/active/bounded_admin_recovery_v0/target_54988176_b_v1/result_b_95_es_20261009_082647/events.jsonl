@@ -1,0 +1,2 @@
+{"event":"TRANSPORT_EXIT","log_prefix":"C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\bounded_admin_recovery_v0\\target_54988176_b_v1\\transport\\run_b_95_es_20261009_082647\\001_initial_instance","monotonic_ns":154957109000000,"observed_utc":"2026-10-09T08:27:37.637245+00:00","phase":"initial_instance","returncode":0}
+{"event":"CONTROLLER_STOP","monotonic_ns":154957109000000,"observed_utc":"2026-10-09T08:27:37.645787+00:00","reason":"ValueError('EXACT_INSTANCE_API_BINDING')"}

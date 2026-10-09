@@ -1,0 +1,20 @@
+{
+  "actual_stop_external_confirmed": true,
+  "files": {
+    "REPORT.md": "cb8113ead48fbbc87abba9500b01c4098fb7bf6d53cc7948e43a42874bc1d4cf",
+    "closure.json": "e479dd006a0f7747dd6af413ad874d7dc794b83512872c4c78e0e76ee0949118",
+    "events.jsonl": "cfa77ece0474c93ae15734eeed896ac3e15856219fe62b032df30bde75a3325a",
+    "external_stop_confirmation.json": "c5b281783093a18d565c5397aefc3b20535fa6784f5b562b4454f3b90a258f5a",
+    "human_authorization.json": "3b1b7366c815d31bfd19589dff2f321fb092bb71f185f8b917d941f6fb43b2eb",
+    "integrity_verification.json": "30ff81b40f9e3cb73dd0cd473f9b7f14b955022bb6c380971b79245e500d6647",
+    "postprocessing_errors.json": "27cf45540a5e3b19b65864e94882718e490f688ac8587b31b861173129b3849c",
+    "provider_cost_observation.json": "c2df519adfe5d0cc14f5a0975026a9af80cbf187dcb23a163ea5f4d3c970f383",
+    "raw_evidence_manifest.json": "67fb07d2cad67d23d42523cec7daaf154dca37692c798ff065ec4aa29a6a1271",
+    "result_summary.json": "50ca7d5e837f6406c938d41b534d2c1af86e3904d48b76e4eb3a40d6fd68adca",
+    "source_preflight.json": "3e4cc75e4c541803a3916b6effd04e5bcdc17546fd35eb0a1b96e59b4b45f80d"
+  },
+  "original_transport_seal_sha256": "a8d2dd765938c4970f3bb38b8d5505e4da9b9ffe24d4174872c9c7d86c781dfb",
+  "schema": "NEW_TARGET_B_PRESTART_FAILURE_EVIDENCE_SEAL_V1",
+  "status": "ADMIN_TRANSPORT_PRESTART_FAILED / UNRESOLVED",
+  "tests_executed": 0
+}

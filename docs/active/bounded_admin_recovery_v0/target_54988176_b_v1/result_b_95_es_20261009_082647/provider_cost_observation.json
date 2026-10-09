@@ -1,0 +1,118 @@
+{
+  "actual_B_trial_execution_fee_confirmed": false,
+  "attribution": "Provider day totals; includes preexisting server time; not exact B trial fee; old FR day execution line 0.000 is rounded day data, not a per-attempt receipt",
+  "count": 6,
+  "pagination_complete": true,
+  "provider_charge_type_gpu": "Provider rental line label; does not mean project GPU computation occurred",
+  "query": "invoices-v1 charges instance 2026-10-09..2026-10-10; latest first; 100",
+  "raw_sha256": "9d081131d1232159563b49d84c5a2f954cc942a2540eddd6e096aacf288f5abe",
+  "selected_instance_rows": [
+    {
+      "amount": 0.021,
+      "description": "Instance 54988176 Charges - 1 day",
+      "end": 1791504000,
+      "items": [
+        {
+          "amount": 0.02,
+          "description": "0.125 hours at $0.159/hour",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "gpu"
+        },
+        {
+          "amount": 0.001,
+          "description": "0.272 hours at $0.003/hour",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "disk"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (download)",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "bwd"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (upload)",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "bwu"
+        }
+      ],
+      "metadata": {
+        "template_id": 741058
+      },
+      "source": "instance-54988176",
+      "start": 1791504000,
+      "type": "instance"
+    },
+    {
+      "amount": 0.034,
+      "description": "Instance 54815136 Charges - 1 day",
+      "end": 1791504000,
+      "items": [
+        {
+          "amount": 0.0,
+          "description": "GPU",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "gpu"
+        },
+        {
+          "amount": 0.034,
+          "description": "8.470 hours at $0.004/hour",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "disk"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (download)",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "bwd"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (upload)",
+          "end": 1791504000,
+          "items": [],
+          "metadata": {},
+          "source": null,
+          "start": 1791504000,
+          "type": "bwu"
+        }
+      ],
+      "metadata": {
+        "label": "adaptive-A-20261008-8d4115e5"
+      },
+      "source": "instance-54815136",
+      "start": 1791504000,
+      "type": "instance"
+    }
+  ],
+  "total": 6
+}

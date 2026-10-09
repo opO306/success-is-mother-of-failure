@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "files": 16,
+      "label": "original_B_16",
+      "mismatches": [],
+      "seal_sha256": "80fe6f1893bd20422ab87bf0b092b082853443d1ee5c6b5bef289002d1b3222c"
+    },
+    {
+      "files": 812,
+      "label": "original_tablet_812",
+      "mismatches": [],
+      "seal_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09"
+    },
+    {
+      "files": 794,
+      "label": "tablet_preservation_794",
+      "mismatches": [],
+      "seal_sha256": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3"
+    },
+    {
+      "files": 10,
+      "label": "new_transport_10",
+      "mismatches": [],
+      "seal_sha256": "a8d2dd765938c4970f3bb38b8d5505e4da9b9ffe24d4174872c9c7d86c781dfb"
+    },
+    {
+      "files": 17,
+      "label": "preparation",
+      "mismatches": [],
+      "seal_sha256": "6b7d8a81d069cb18eff83e5085fcb1b72f512e0d245896602db3f12fcfa93260"
+    },
+    {
+      "files": 24,
+      "label": "old_budget_preparation",
+      "mismatches": [],
+      "seal_sha256": "8de68b7a0daf2ef924fbac5d50c4d99bc38ba6e351064df8ae3b41f7296334e3"
+    }
+  ],
+  "status": "LOCAL_RAW_HASH_CHECK_ONLY; NOT_INDEPENDENT_AUTHORITY_CERTIFICATION"
+}
