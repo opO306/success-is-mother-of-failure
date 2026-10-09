@@ -1,0 +1,62 @@
+{
+  "current_day_rows": [
+    {
+      "amount": 0.192,
+      "items": [
+        {
+          "amount": 0.16,
+          "description": "0.601 hours at $0.267/hour",
+          "type": "gpu"
+        },
+        {
+          "amount": 0.032,
+          "description": "10.700 hours at $0.003/hour",
+          "type": "disk"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (download)",
+          "type": "bwd"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (upload)",
+          "type": "bwu"
+        }
+      ],
+      "source": "instance-52763685"
+    },
+    {
+      "amount": 0.027,
+      "items": [
+        {
+          "amount": 0.02,
+          "description": "0.125 hours at $0.159/hour",
+          "type": "gpu"
+        },
+        {
+          "amount": 0.007,
+          "description": "2.502 hours at $0.003/hour",
+          "type": "disk"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (download)",
+          "type": "bwd"
+        },
+        {
+          "amount": 0.0,
+          "description": "Bandwidth (upload)",
+          "type": "bwu"
+        }
+      ],
+      "source": "instance-54988176"
+    }
+  ],
+  "individual_actual_execution_fee_usd": null,
+  "observed_utc": "2026-10-09T10:42:53.398016+00:00",
+  "provider_query_complete": true,
+  "raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_20261009_103957\\charges_after.json",
+  "raw_sha256": "ccddfd1f5530ea61ced98a1775b0cc5ae539b3c64203a16225cec4e2f521bda2",
+  "role": "READONLY_PROVIDER_DAILY_AFTER_ADMIN; NOT_EXACT_INDIVIDUAL_FEE"
+}

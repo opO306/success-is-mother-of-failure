@@ -1,0 +1,293 @@
+{
+  "cases": [
+    {
+      "id": "admin_simulation_tests.AdministrativeEntryTests.test_actual_admin_entry_scope_and_hash",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 21069061
+    },
+    {
+      "id": "admin_simulation_tests.AdministrativeEntryTests.test_admin_false_scope_refused",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 14848091
+    },
+    {
+      "id": "admin_simulation_tests.AdministrativeEntryTests.test_admin_result_raw_counterexamples",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 47612936
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_clock_drift",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 79207014
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_container_mismatch",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 41460286
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_delayed_ports",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 99566259
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_final_api_error",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 98277726
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_final_missing",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 97929016
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_final_price_violation",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 105796847
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_final_wrong_machine",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 96298084
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_gate_failure",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 98305891
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_guard_lost_during_gate",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 87658801
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_guardian_dead_pid",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 43464924
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_guardian_not_armed",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 44885968
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_late_clock_drift",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 107972240
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_marker_during_api",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 47600323
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_marker_during_download",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 100953267
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_normal",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 98390711
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_partial_evidence",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 120325240
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_ports_never_ready",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 221751736
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_queued_initial",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 14017687
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_recovery_corrupt",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 114499210
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_recovery_disconnect",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 128766079
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_result_skip",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 126870436
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_ssh_fail",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 53164618
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_stop_api_failure",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 140716316
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_stop_during_control",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 46808612
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_stop_unconfirmed",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 204522553
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_supervisor_exited",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 27457177
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_supervisor_not_ready",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 25043162
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_wrong_initial_id",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 12369162
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_wrong_running_port",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 31171957
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_zip_mismatch",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 61962151
+    },
+    {
+      "id": "admin_simulation_tests.ExecutionTests.test_zip_missing",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 61502841
+    },
+    {
+      "id": "admin_simulation_tests.GuestCodeTests.test_actual_gate_identity_ticket_boundary",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 13941693
+    },
+    {
+      "id": "admin_simulation_tests.GuestCodeTests.test_actual_package_verifier",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 24115704
+    },
+    {
+      "id": "admin_simulation_tests.GuestCodeTests.test_actual_pid1_probe",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 1682689
+    },
+    {
+      "id": "admin_simulation_tests.GuestCodeTests.test_actual_raw_recovery_pack",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 1340621
+    },
+    {
+      "id": "admin_simulation_tests.NewNORunningTargetTests.test_actual_controller_adopts_without_start",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 338639262
+    },
+    {
+      "id": "admin_simulation_tests.NewNORunningTargetTests.test_no_cap_and_running_adoption_binding",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 6328012
+    },
+    {
+      "id": "admin_simulation_tests.NewNORunningTargetTests.test_no_original_guardian_hourly_gate",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 3254528
+    },
+    {
+      "id": "admin_simulation_tests.OutsideControlTests.test_actual_supervisor_and_guardian_main",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 46829913
+    },
+    {
+      "id": "admin_simulation_tests.OutsideControlTests.test_checked_cli_real_confirm_stop",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 9613630
+    },
+    {
+      "id": "admin_simulation_tests.StateContractTests.test_callsite_inventory",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 15363217
+    },
+    {
+      "id": "admin_simulation_tests.StateContractTests.test_counterexample_matrix",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 3145030
+    },
+    {
+      "id": "admin_simulation_tests.StateContractTests.test_original_failure_reproduced",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 7073656
+    },
+    {
+      "id": "admin_simulation_tests.StateContractTests.test_package_bytes_and_unapproved_main",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 8636037
+    },
+    {
+      "id": "admin_simulation_tests.StateContractTests.test_state_matrix",
+      "message": null,
+      "outcome": "PASS",
+      "wall_ns": 1714940
+    }
+  ],
+  "role": "TEST_ONLY"
+}

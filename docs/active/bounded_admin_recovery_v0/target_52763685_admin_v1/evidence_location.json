@@ -1,0 +1,9 @@
+{
+  "no_raw_removed": true,
+  "private_api_response_reason": "May contain provider access tokens; preserve bytes outside Git. Public exact SHA and safe projection retained.",
+  "private_root": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_20261009_103957",
+  "public_result": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\bounded_admin_recovery_v0\\target_52763685_admin_v1\\actual_admin_result",
+  "raw_files": 2142,
+  "raw_transport": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_20261009_103957\\transport_raw",
+  "source_zip_immutable": true
+}

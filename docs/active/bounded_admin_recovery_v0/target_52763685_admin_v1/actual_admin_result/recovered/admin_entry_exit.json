@@ -1,0 +1,15 @@
+{
+  "A320_executed": false,
+  "B95_executed": false,
+  "actual_container_id": "52763685",
+  "aggregate_cpu_seconds": 1.887512616,
+  "aggregate_peak_rss_bytes": 56643584,
+  "cpu_affinity": [
+    0
+  ],
+  "error": null,
+  "gpu_calls": 0,
+  "new_physics_calls": 0,
+  "returncode": 0,
+  "wall_seconds": 3.599478017538786
+}

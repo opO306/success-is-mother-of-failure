@@ -1,0 +1,53 @@
+test_actual_admin_entry_scope_and_hash (admin_simulation_tests.AdministrativeEntryTests.test_actual_admin_entry_scope_and_hash) ... ok
+test_admin_false_scope_refused (admin_simulation_tests.AdministrativeEntryTests.test_admin_false_scope_refused) ... ok
+test_admin_result_raw_counterexamples (admin_simulation_tests.AdministrativeEntryTests.test_admin_result_raw_counterexamples) ... ok
+test_clock_drift (admin_simulation_tests.ExecutionTests.test_clock_drift) ... ok
+test_container_mismatch (admin_simulation_tests.ExecutionTests.test_container_mismatch) ... ok
+test_delayed_ports (admin_simulation_tests.ExecutionTests.test_delayed_ports) ... ok
+test_final_api_error (admin_simulation_tests.ExecutionTests.test_final_api_error) ... ok
+test_final_missing (admin_simulation_tests.ExecutionTests.test_final_missing) ... ok
+test_final_price_violation (admin_simulation_tests.ExecutionTests.test_final_price_violation) ... ok
+test_final_wrong_machine (admin_simulation_tests.ExecutionTests.test_final_wrong_machine) ... ok
+test_gate_failure (admin_simulation_tests.ExecutionTests.test_gate_failure) ... ok
+test_guard_lost_during_gate (admin_simulation_tests.ExecutionTests.test_guard_lost_during_gate) ... ok
+test_guardian_dead_pid (admin_simulation_tests.ExecutionTests.test_guardian_dead_pid) ... ok
+test_guardian_not_armed (admin_simulation_tests.ExecutionTests.test_guardian_not_armed) ... ok
+test_late_clock_drift (admin_simulation_tests.ExecutionTests.test_late_clock_drift) ... ok
+test_marker_during_api (admin_simulation_tests.ExecutionTests.test_marker_during_api) ... ok
+test_marker_during_download (admin_simulation_tests.ExecutionTests.test_marker_during_download) ... ok
+test_normal (admin_simulation_tests.ExecutionTests.test_normal) ... ok
+test_partial_evidence (admin_simulation_tests.ExecutionTests.test_partial_evidence) ... ok
+test_ports_never_ready (admin_simulation_tests.ExecutionTests.test_ports_never_ready) ... ok
+test_queued_initial (admin_simulation_tests.ExecutionTests.test_queued_initial) ... ok
+test_recovery_corrupt (admin_simulation_tests.ExecutionTests.test_recovery_corrupt) ... ok
+test_recovery_disconnect (admin_simulation_tests.ExecutionTests.test_recovery_disconnect) ... ok
+test_result_skip (admin_simulation_tests.ExecutionTests.test_result_skip) ... ok
+test_ssh_fail (admin_simulation_tests.ExecutionTests.test_ssh_fail) ... ok
+test_stop_api_failure (admin_simulation_tests.ExecutionTests.test_stop_api_failure) ... ok
+test_stop_during_control (admin_simulation_tests.ExecutionTests.test_stop_during_control) ... ok
+test_stop_unconfirmed (admin_simulation_tests.ExecutionTests.test_stop_unconfirmed) ... ok
+test_supervisor_exited (admin_simulation_tests.ExecutionTests.test_supervisor_exited) ... ok
+test_supervisor_not_ready (admin_simulation_tests.ExecutionTests.test_supervisor_not_ready) ... ok
+test_wrong_initial_id (admin_simulation_tests.ExecutionTests.test_wrong_initial_id) ... ok
+test_wrong_running_port (admin_simulation_tests.ExecutionTests.test_wrong_running_port) ... ok
+test_zip_mismatch (admin_simulation_tests.ExecutionTests.test_zip_mismatch) ... ok
+test_zip_missing (admin_simulation_tests.ExecutionTests.test_zip_missing) ... ok
+test_actual_gate_identity_ticket_boundary (admin_simulation_tests.GuestCodeTests.test_actual_gate_identity_ticket_boundary) ... ok
+test_actual_package_verifier (admin_simulation_tests.GuestCodeTests.test_actual_package_verifier) ... ok
+test_actual_pid1_probe (admin_simulation_tests.GuestCodeTests.test_actual_pid1_probe) ... ok
+test_actual_raw_recovery_pack (admin_simulation_tests.GuestCodeTests.test_actual_raw_recovery_pack) ... ok
+test_actual_controller_adopts_without_start (admin_simulation_tests.NewNORunningTargetTests.test_actual_controller_adopts_without_start) ... ok
+test_no_cap_and_running_adoption_binding (admin_simulation_tests.NewNORunningTargetTests.test_no_cap_and_running_adoption_binding) ... ok
+test_no_original_guardian_hourly_gate (admin_simulation_tests.NewNORunningTargetTests.test_no_original_guardian_hourly_gate) ... ok
+test_actual_supervisor_and_guardian_main (admin_simulation_tests.OutsideControlTests.test_actual_supervisor_and_guardian_main) ... ok
+test_checked_cli_real_confirm_stop (admin_simulation_tests.OutsideControlTests.test_checked_cli_real_confirm_stop) ... ok
+test_callsite_inventory (admin_simulation_tests.StateContractTests.test_callsite_inventory) ... ok
+test_counterexample_matrix (admin_simulation_tests.StateContractTests.test_counterexample_matrix) ... ok
+test_original_failure_reproduced (admin_simulation_tests.StateContractTests.test_original_failure_reproduced) ... ok
+test_package_bytes_and_unapproved_main (admin_simulation_tests.StateContractTests.test_package_bytes_and_unapproved_main) ... ok
+test_state_matrix (admin_simulation_tests.StateContractTests.test_state_matrix) ... ok
+
+----------------------------------------------------------------------
+Ran 48 tests in 3.207s
+
+OK

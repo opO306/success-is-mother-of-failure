@@ -1,0 +1,25 @@
+{
+  "A320_executed": false,
+  "B95_executed": false,
+  "blocked_attempts": [],
+  "cpu_affinity": [
+    0
+  ],
+  "cpu_ns": 1195090497,
+  "error": null,
+  "errors": 0,
+  "expected_tests": 48,
+  "failed": 0,
+  "gpu_calls": 0,
+  "independent_authority_certification": false,
+  "memory_limit_bytes": 536870912,
+  "new_physics_calls": 0,
+  "peak_rss_bytes": 36728832,
+  "real_provider_calls_inside_simulation": 0,
+  "real_subprocess_calls_inside_simulation": 0,
+  "role": "ADMIN_TRANSPORT_CPU_SIMULATION_ONLY; NOT_B95_OR_A320",
+  "skipped": 0,
+  "status": "PASS",
+  "tests": 48,
+  "wall_ns": 3236843640
+}

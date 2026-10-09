@@ -1,0 +1,89 @@
+{
+  "A320_authorized": false,
+  "B95_authorized": false,
+  "additional_discretionary_rounding_reserve_usd": "0.002",
+  "allocation_clock_cap_fee_usd": "0.006375097477777777777777777778",
+  "campaign_total_cap_usd": "0.10",
+  "conservative_spent_bound_usd": "0.06691355611111111111111111111",
+  "first_adoption_allocation_seconds": "81.965539",
+  "first_readonly_NO_day_total_usd": "0.054",
+  "future_full_600s_025_fits_current_conservative_ledger": false,
+  "individual_actual_execution_fee_usd": null,
+  "method": "Retain prior spent; reserve max(allocation clock cap fee, wider provider baseline-to-after daily total delta plus0.002 discretionary reserve). Wider interval includes pre-adoption preparation; not an exact per-trial fee or certified invoice allocation.",
+  "new_ADMIN_completed_windows": 1,
+  "new_ADMIN_failed_windows": 0,
+  "new_admin_campaign_charge_reserve_usd": "0.020",
+  "observed_utc": "2026-10-09T10:42:53.398016+00:00",
+  "original_B_or_A_600s_at_025_reserve_usd": "0.04166666666666666666666666667",
+  "pre_adoption_NO_day_total_usd": "0.174",
+  "pre_adoption_running_charge_limitation": "User server was already running throughout readonly/preparation. Those earlier costs are disclosed separately; no claim entire preparation/account expenditure was under0.05/0.10.",
+  "previous_ledger_sha256": "aa62122e31d235e3147d4a9c85687db11d212f9926b5b8c58d70520dff8e8179",
+  "prior_failures": {
+    "ADMIN_resource_unavailable": 1,
+    "B_paid_start_deadline": 1,
+    "Spain_B_prestart": 1,
+    "historical_admin": 3,
+    "local_wrong_filename": 1,
+    "tablet_gate": 1
+  },
+  "prior_spent_bound_usd": "0.04691355611111111111111111111",
+  "provider_current_day_NO_after": {
+    "amount": 0.192,
+    "items": [
+      {
+        "amount": 0.16,
+        "description": "0.601 hours at $0.267/hour",
+        "type": "gpu"
+      },
+      {
+        "amount": 0.032,
+        "description": "10.700 hours at $0.003/hour",
+        "type": "disk"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (download)",
+        "type": "bwd"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (upload)",
+        "type": "bwu"
+      }
+    ],
+    "source": "instance-52763685"
+  },
+  "provider_current_day_NO_before": {
+    "amount": 0.174,
+    "items": [
+      {
+        "amount": 0.143,
+        "description": "0.536 hours at $0.267/hour",
+        "type": "gpu"
+      },
+      {
+        "amount": 0.031,
+        "description": "10.623 hours at $0.003/hour",
+        "type": "disk"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (download)",
+        "type": "bwd"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (upload)",
+        "type": "bwu"
+      }
+    ],
+    "source": "instance-52763685"
+  },
+  "provider_interval_total_delta_usd": "0.018",
+  "provider_query_complete": true,
+  "provider_raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_20261009_103957\\charges_after.json",
+  "provider_raw_sha256": "ccddfd1f5530ea61ced98a1775b0cc5ae539b3c64203a16225cec4e2f521bda2",
+  "remaining_campaign_reserve_usd": "0.03308644388888888888888888889",
+  "role": "CURRENT_PROVIDER_READONLY_AND_PRESERVED_COST_BOUND",
+  "storage_continues_after_stopped": true
+}

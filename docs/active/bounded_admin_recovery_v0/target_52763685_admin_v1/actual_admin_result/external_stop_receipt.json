@@ -1,0 +1,12 @@
+{
+  "actual_status": "exited",
+  "country": "NO",
+  "instance_id": 52763685,
+  "intended_status": "stopped",
+  "machine_id": 3448,
+  "observed_hourly_usd": "0.2696296296296296",
+  "observed_utc": "2026-10-09T10:42:53.396505+00:00",
+  "raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_20261009_103957\\external_final_instance.json",
+  "raw_sha256": "5d22184757be8445d279dfc02f4f0bba2acb14889f309e44ee5a7ba29e135e0c",
+  "role": "FRESH_EXTERNAL_PROVIDER_READONLY_STOP_CONFIRMATION"
+}
