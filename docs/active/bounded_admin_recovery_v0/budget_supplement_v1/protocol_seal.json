@@ -1,0 +1,7 @@
+{
+  "execution_authorized": false,
+  "files": {
+    "budget_protocol.json": "16db1a2dae38d2fc9d5713e9340b966257611da49ae6856529d9e59d7f126f43"
+  },
+  "schema": "BUDGET_SUPPLEMENT_SCOPE_PRESEAL_V1"
+}
