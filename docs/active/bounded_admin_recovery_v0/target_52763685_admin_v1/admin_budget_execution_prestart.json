@@ -1,0 +1,52 @@
+{
+  "A320_authorized": false,
+  "B95_authorized": false,
+  "additional_prior_spain_daily_cost_bound_usd": "0.002",
+  "campaign_total_cap_usd": "0.10",
+  "conservative_after_full_window_usd": "0.09358022277777777777777777778",
+  "conservative_spent_bound_usd": "0.04691355611111111111111111111",
+  "individual_actual_execution_fee_usd": null,
+  "max_this_window_usd": "0.04666666666666666666666666667",
+  "method": "Retain prior conservative bound plus prior Spain daily charge increase. NO already-running user workload and readonly preparation charges shown separately; new ADMIN allocation starts once at adoption and is never reset.",
+  "observed_utc": "2026-10-09T10:38:00.644414+00:00",
+  "pre_adoption_NO_current_day_daily": {
+    "amount": 0.174,
+    "items": [
+      {
+        "amount": 0.143,
+        "description": "0.536 hours at $0.267/hour",
+        "type": "gpu"
+      },
+      {
+        "amount": 0.031,
+        "description": "10.623 hours at $0.003/hour",
+        "type": "disk"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (download)",
+        "type": "bwd"
+      },
+      {
+        "amount": 0.0,
+        "description": "Bandwidth (upload)",
+        "type": "bwu"
+      }
+    ],
+    "source": "instance-52763685"
+  },
+  "previous_ledger_sha256": "c4fb17ecd5f9af6faa382a18a4f9ef0f8b538a3ec1d8621d6ca770b905185b4c",
+  "previous_spent_bound_usd": "0.04491355611111111111111111111",
+  "prior_failures": {
+    "ADMIN_resource_unavailable": 1,
+    "B_paid_start_deadline": 1,
+    "Spain_B_prestart": 1,
+    "historical_admin": 3,
+    "local_wrong_filename": 1,
+    "tablet_gate": 1
+  },
+  "provider_query_complete": true,
+  "provider_raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_final_prestart_20261009_103755\\charges.json",
+  "provider_raw_sha256": "7aa7077db66ae818c10c932310813153bff0b56d288b87c3b1e5a45715c17b1a",
+  "role": "CURRENT_PROVIDER_READONLY_AND_PRESERVED_COST_BOUND"
+}

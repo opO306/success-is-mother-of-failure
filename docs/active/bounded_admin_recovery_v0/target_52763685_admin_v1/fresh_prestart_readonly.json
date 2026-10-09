@@ -1,0 +1,166 @@
+{
+  "observed_utc": "2026-10-09T10:36:54.380997+00:00",
+  "role": "READONLY_PRE_ADOPTION_PROVIDER_EVIDENCE",
+  "private_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_prestart_20261009_103232",
+  "instance": {
+    "id": 52763685,
+    "machine_id": 3448,
+    "actual_status": "running",
+    "intended_status": "running",
+    "dph_total": 0.2696296296296296,
+    "ssh_host": "ssh2.vast.ai",
+    "ssh_port": 13684,
+    "public_ipaddr": "81.166.162.13",
+    "ports": {
+      "10100/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12450"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12450"
+        }
+      ],
+      "10200/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12452"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12452"
+        }
+      ],
+      "1111/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12458"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12458"
+        }
+      ],
+      "12476/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12476"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12476"
+        }
+      ],
+      "22/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12408"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12408"
+        }
+      ],
+      "6006/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12467"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12467"
+        }
+      ],
+      "8080/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12485"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12485"
+        }
+      ],
+      "8384/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12426"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12426"
+        }
+      ]
+    },
+    "country": "NO"
+  },
+  "query_complete": true,
+  "daily_rows": [
+    {
+      "source": "instance-52763685",
+      "amount": 1.006,
+      "items": [
+        {
+          "type": "gpu",
+          "amount": 0.475,
+          "description": "1.782 hours at $0.267/hour"
+        },
+        {
+          "type": "disk",
+          "amount": 0.528,
+          "description": "178.350 hours at $0.003/hour"
+        },
+        {
+          "type": "bwd",
+          "amount": 0.003,
+          "description": "0.2 GB Downloaded at $0.012/GB"
+        },
+        {
+          "type": "bwu",
+          "amount": 0.0,
+          "description": "Bandwidth (upload)"
+        }
+      ]
+    },
+    {
+      "source": "instance-54988176",
+      "amount": 0.027,
+      "items": [
+        {
+          "type": "gpu",
+          "amount": 0.02,
+          "description": "0.125 hours at $0.159/hour"
+        },
+        {
+          "type": "disk",
+          "amount": 0.007,
+          "description": "2.402 hours at $0.003/hour"
+        },
+        {
+          "type": "bwd",
+          "amount": 0.0,
+          "description": "Bandwidth (download)"
+        },
+        {
+          "type": "bwu",
+          "amount": 0.0,
+          "description": "Bandwidth (upload)"
+        }
+      ]
+    }
+  ],
+  "raw_sha256": {
+    "instance": "6d83de14dd869b323ba68f6a40e7673c0e98ac85e12b63826588a588106319a3",
+    "charges": "c1cf1edb6c200621f47cada0adf644385351feee2e22c7353e7978c62dbc5910",
+    "charges_v1": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "charges_v1_default_window": "42bd95a861a6261e5c863194e97f6acc44e272e7224ccc77252c44122e87b87f"
+  },
+  "derivation_failures": [
+    "Deprecated invoices list differs from invoices-v1 metadata.",
+    "Static derivation assumed instance list, refused without API.",
+    "Vast CLI single start-date default-end TypeError before network; documented helper inspected; default date window used."
+  ],
+  "trial_attempts": 0,
+  "automatic_trial_retries": 0
+}

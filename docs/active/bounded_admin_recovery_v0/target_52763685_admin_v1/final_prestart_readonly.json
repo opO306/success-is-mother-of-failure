@@ -1,0 +1,157 @@
+{
+  "observed_utc": "2026-10-09T10:38:00.644414+00:00",
+  "role": "READONLY_CURRENT_DAY_PRE_ADOPTION_PROVIDER",
+  "private_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_no_final_prestart_20261009_103755",
+  "provider_query_complete": true,
+  "raw_sha256": {
+    "instance": "f49c822985216bf3337a708f3208bcbad1ccdfeaa72671ad13c4ba9e85d26372",
+    "charges": "7aa7077db66ae818c10c932310813153bff0b56d288b87c3b1e5a45715c17b1a"
+  },
+  "instance": {
+    "id": 52763685,
+    "machine_id": 3448,
+    "actual_status": "running",
+    "intended_status": "running",
+    "dph_total": 0.2696296296296296,
+    "ssh_host": "ssh2.vast.ai",
+    "ssh_port": 13684,
+    "public_ipaddr": "81.166.162.13",
+    "ports": {
+      "10100/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12450"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12450"
+        }
+      ],
+      "10200/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12452"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12452"
+        }
+      ],
+      "1111/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12458"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12458"
+        }
+      ],
+      "12476/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12476"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12476"
+        }
+      ],
+      "22/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12408"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12408"
+        }
+      ],
+      "6006/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12467"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12467"
+        }
+      ],
+      "8080/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12485"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12485"
+        }
+      ],
+      "8384/tcp": [
+        {
+          "HostIp": "0.0.0.0",
+          "HostPort": "12426"
+        },
+        {
+          "HostIp": "::",
+          "HostPort": "12426"
+        }
+      ]
+    }
+  },
+  "country": "NO",
+  "daily_rows": [
+    {
+      "source": "instance-52763685",
+      "amount": 0.174,
+      "items": [
+        {
+          "type": "gpu",
+          "amount": 0.143,
+          "description": "0.536 hours at $0.267/hour"
+        },
+        {
+          "type": "disk",
+          "amount": 0.031,
+          "description": "10.623 hours at $0.003/hour"
+        },
+        {
+          "type": "bwd",
+          "amount": 0.0,
+          "description": "Bandwidth (download)"
+        },
+        {
+          "type": "bwu",
+          "amount": 0.0,
+          "description": "Bandwidth (upload)"
+        }
+      ]
+    },
+    {
+      "source": "instance-54988176",
+      "amount": 0.027,
+      "items": [
+        {
+          "type": "gpu",
+          "amount": 0.02,
+          "description": "0.125 hours at $0.159/hour"
+        },
+        {
+          "type": "disk",
+          "amount": 0.007,
+          "description": "2.425 hours at $0.003/hour"
+        },
+        {
+          "type": "bwd",
+          "amount": 0.0,
+          "description": "Bandwidth (download)"
+        },
+        {
+          "type": "bwu",
+          "amount": 0.0,
+          "description": "Bandwidth (upload)"
+        }
+      ]
+    }
+  ]
+}

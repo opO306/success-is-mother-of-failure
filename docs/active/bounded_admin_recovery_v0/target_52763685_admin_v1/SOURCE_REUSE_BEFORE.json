@@ -1,0 +1,22 @@
+{
+  "notes": "Copy before target-only changes; existing sealed source and failures stay untouched; current hourly exception explicit human approved.",
+  "original_45_tests_sha256": "936be7a2dfcfc91842de0f7dbe2eda857230028253e11777e4e702b2f75fd2f5",
+  "original_files": {
+    "prepare_candidate.py": "a65ef9a335c148a4714af0e6f419974a9d8050510466b60cd73b95df083fcf96",
+    "prepare_inputs.py": "91d53b028950f71fd9ceff52fc1509fdb8c5d8214a5e5675a62215ec43305cd5",
+    "prepare_packet.py": "fe6187c3584e9383c0802e89edad0af6c2a7db3935beb0be3588443a5b38092e",
+    "tests/test_admin_transport.py": "936be7a2dfcfc91842de0f7dbe2eda857230028253e11777e4e702b2f75fd2f5",
+    "transport/admin_bootstrap.py": "be498587106f50932c64978dd028129a5b47f62cd22114058ff555d4004654e3",
+    "transport/controller.py": "1b71f2bdcf4da2aa93231f0271189ed87a81d994ac89bf7db77f46387f8cdaa4",
+    "transport/guardian_driver.py": "1a2ba8b5f66118da8f212178dde9364f141c87a475213fb4728683c86e287a37",
+    "transport/guest_gate.py": "63b010161e894157d2e8b4d58af19b4db057025bb0643c0ae6d1d846cba42794",
+    "transport/guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "transport/guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "transport/guest_source_verify.py": "961c3ae6fd62eff408d145b09811fd217b3b014e7620f508d9b172628f916bf3",
+    "transport/remote_admin_entry.py": "8310348e891b29904dcd7319535e1ceb0ce1d6662eddcea9d777161148dc52ec",
+    "transport/state_contract.py": "a361141a27af264e955fdf28610d5a94722996a5ab58dabb00ac5a87da02cb20",
+    "transport/supervisor.py": "55b0fee869b68221ca3401039122e1438987afbf4afe41cc6126c908589ac005"
+  },
+  "previous_source_commit": "42cf0b27912db273927153aa65aaa389f8c28ed4",
+  "previous_source_namespace": "docs\\active\\bounded_admin_recovery_v0\\state_contract_v1"
+}

@@ -1,0 +1,11 @@
+{
+  "approval": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\bounded_admin_recovery_v0\\target_52763685_admin_v1\\human_approval_admin_no_20261009_103957.json",
+  "approval_sha256": "9af28f3eed22841a203030a60062c3400ed9d2a29a74e282611dc8259602cfd4",
+  "entry": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\bounded_admin_recovery_v0\\target_52763685_admin_v1\\transport\\admin_bootstrap.py",
+  "expected_output": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\bounded_admin_recovery_v0\\target_52763685_admin_v1\\transport\\run_admin_no_20261009_103957",
+  "kind": "ADMIN_ONLY",
+  "restart_requests_authorized": 0,
+  "run_id": "admin_no_20261009_103957",
+  "source_zip_sha256": "1568db4b584335726be3a5d12a68bdef8f4c2aa2367fe5c5d03646cbddf41206",
+  "trial_attempts_authorized": 1
+}

@@ -1,0 +1,32 @@
+{
+  "daily_total": 0.054,
+  "individual_new_trial_fee": null,
+  "instance_id": 52763685,
+  "items": [
+    {
+      "amount": 0.024,
+      "description": "0.090 hours at $0.267/hour",
+      "type": "gpu"
+    },
+    {
+      "amount": 0.03,
+      "description": "10.167 hours at $0.003/hour",
+      "type": "disk"
+    },
+    {
+      "amount": 0.0,
+      "description": "Bandwidth (download)",
+      "type": "bwd"
+    },
+    {
+      "amount": 0.0,
+      "description": "Bandwidth (upload)",
+      "type": "bwu"
+    }
+  ],
+  "new_trial_executed": false,
+  "provider_query_complete": true,
+  "raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\target_52763685_readonly_20261009_100644\\charges.json",
+  "raw_sha256": "a98e96ab102abb2766bacccac5bf2fa686dceae600a7b35e6ea0248cbaf587f3",
+  "role": "READONLY_PROVIDER_DAILY_BASELINE; NOT_NEW_TEST_COST"
+}

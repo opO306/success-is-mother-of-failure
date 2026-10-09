@@ -1,0 +1,93 @@
+{
+  "actual_status": "running",
+  "dph_total": 0.16162962962962962,
+  "geolocation": "Spain, ES",
+  "id": 54988176,
+  "intended_status": "running",
+  "machine_id": 150665,
+  "ports": {
+    "10100/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40448"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40448"
+      }
+    ],
+    "10200/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40468"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40468"
+      }
+    ],
+    "1111/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40495"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40495"
+      }
+    ],
+    "22/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40470"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40470"
+      }
+    ],
+    "40481/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40481"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40481"
+      }
+    ],
+    "6006/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40475"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40475"
+      }
+    ],
+    "8080/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40476"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40476"
+      }
+    ],
+    "8384/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "40492"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "40492"
+      }
+    ]
+  },
+  "public_ipaddr": "188.245.20.75",
+  "ssh_host": "ssh5.vast.ai",
+  "ssh_port": 23876
+}
