@@ -1,0 +1,14 @@
+{
+  "accepted": true,
+  "actual_human_answer": "같은 서버 60분 한도·재개 1회 승인, 총 $2 유지",
+  "actual_question": "총예산 $2 증액은 기존 장부에 반영했습니다. 같은 서버 55040957 / machine 53859를 1회 재개하기 위해, 최초 임대 시각 기준 종료 한도를 40분에서 60분으로 늘려도 될까요? 고정 종료 시각은 2026-10-10 00:52:25 KST이며, A320의 서버 시간은 기존 20분을 유지합니다. 제 재개 코드의 예산 정산·종료 예외 검토와 수정에 시간이 누적돼 40분 창의 실행 여유가 소모됐습니다. 준비 코드는 완료했고 새 B 서버를 임대하지 않습니다. 추가 20분의 보수 비용은 약 $0.02025이며, 최초 20분 대비 전체 연장 예약은 약 $0.04049로 승인된 총 $2 안입니다. 기존 로그·임대 시각·예약을 보존하고 B95 종료·삭제·정산 후 원래 A320을 이어갑니다.",
+  "human_signature": false,
+  "instance_id": 55040957,
+  "machine_id": 53859,
+  "no_new_b_instance": true,
+  "original_allocation_utc": "2026-10-09T14:52:25.075503+00:00",
+  "requested_absolute_maximum_seconds": 3600,
+  "requested_hard_end_utc": "2026-10-09T15:52:25.075503+00:00",
+  "role": "ACTUAL_USER_REPLY_AUTHORIZES_EXACT_ONE_RESTART_FIRST_SIXTY_MINUTE_LIMIT",
+  "total_budget_cap_usd": "2.00"
+}

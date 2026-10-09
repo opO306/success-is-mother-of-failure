@@ -1,0 +1,26 @@
+{
+  "automatic_paid_restart": false,
+  "cap_time_amendment_path": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\project_vast_budget_cleanup_v1\\revision_v6\\cap_time_amendment.json",
+  "cap_time_amendment_sha256": "163e9ae386d68559e0e19423f0cdb968a7dc9d3c0af2e98327559c146e71d751",
+  "cleanup_seconds": 220,
+  "current_instance_user_hold": false,
+  "dynamic_tests_authorized": true,
+  "held_instance_id": 55016060,
+  "lease_seconds": 1200,
+  "prelease_setup_loss_consent": {
+    "accepted": true,
+    "named_files": [
+      "runtime_setup.log",
+      "runtime_ready"
+    ],
+    "raw_path": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\project_vast_budget_cleanup_v1\\revision_v5_2\\authorization_request.txt",
+    "raw_sha256": "4378d76ccb4d4e356a90d376021b46b15a771e698ffbc929749710688342dc29",
+    "scope": "SETUP_NAMED_CREATED_ONLY_NO_UNKNOWN_NO_IMPORTANT_RAW"
+  },
+  "recovery_attempts": 3,
+  "recovery_seconds": 180,
+  "schema": "FINITE_SETUP_CLOSURE_V2",
+  "time_extension_path": "C:\\Users\\zun24\\\uc131\uacf5\uc740 \uc2e4\ud328\uc758 \uc5b4\uba38\ub2c8\\docs\\active\\project_vast_budget_cleanup_v1\\revision_v7\\actual_time_extension_authorization.json",
+  "time_extension_sha256": "e66f41555f3c84cc7b7433d1a92107d565a9fada8f1525bea3f9eae829c70f07",
+  "transfer_mode": "SCP_O"
+}

@@ -1,0 +1,12 @@
+{
+  "question": "같은 Vast 55040957 / machine 53859에서 B95를 완료하도록 최초 임대 시각 기준 사용 한도를 20분에서 40분으로 한 번 연장할까요? 현재 서버는 정지했고 ADMIN·B95·A320은 미실행입니다. 기존 20분 창은 준비·전달 실패와 조사로 소모되어, 남은 시간에 관리 검증·B95·회수·종료의 최대 시간을 모두 확보할 수 없습니다. 연장분의 보수 예약은 약 $0.02025이며 총예산 $1은 그대로 유지합니다. 새 서버를 임대하지 않고, 최초 임대 시각·기존 예약·실패 원본을 보존하며 새 절대 종료 시각을 기록합니다. 원래 NEXT 계획의 1,200초 서버 시간 경계를 늘리는 결정만 필요합니다.",
+  "actual_user_answer": "총 예산 2달러로 올릴게 그러니 테스트 이어서 ㄱㄱ",
+  "requested_owner": {
+    "instance_id": 55040957,
+    "machine_id": 53859
+  },
+  "interpreted_total_cap_usd": "2.00",
+  "interpreted_original_clock_maximum_seconds": 2400,
+  "interpretation": "ANSWER_TO_EXACT_SAME_SERVER_TIME_EXTENSION_QUESTION_AUTHORIZES_CONTINUE_WITH_INCREASED_CAP",
+  "human_signature": false
+}

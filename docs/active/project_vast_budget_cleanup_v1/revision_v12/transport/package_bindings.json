@@ -1,0 +1,42 @@
+{
+  "A": {
+    "addition_path": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json",
+    "addition_sha256": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60",
+    "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/tablet_814.zip",
+    "case_inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/case_inventory_320.json",
+    "case_inventory_sha256": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "code_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09",
+    "comparison": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/member_comparison.json",
+    "comparison_sha256": "dbeff323feaac57cc7b90bfa0c4b19866a4313904900832a659705a6d1ae44de",
+    "entries": 814,
+    "expected_tests": 320,
+    "extra_files": 1,
+    "inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/inventory.json",
+    "inventory_sha256": "0bb1631ffb6adaaea69eb3c7b15b07a29b19429a8b98b2cfe9c7e5086b4d22b3",
+    "original_files_preserved": 813,
+    "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+    "protocol_sha256": "f03bc97a79e1a22ece4964270032d8829f7a208e961c09806c8f7bc10351013c",
+    "uncompressed_bytes": 48642482,
+    "zip_sha256": "be06c9a7b8cc31c1e414b03f85485a9bb5e9e69226e34f1917553fac2673f4ff"
+  },
+  "B": {
+    "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/admin_policy_95.zip",
+    "code_sha256": "f6fa75dd65d9555d417352b98203eb3eb41202ad434296245b71c0da31ec1f47",
+    "entries": 10,
+    "expected_tests": 95,
+    "inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/inventory.json",
+    "inventory_sha256": "59632bab58b8df315794cd57708cdcea10aacc8f3bd91a6b08eb302639229619",
+    "local_code_seal": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/source_seal.json",
+    "original_policy_files": [
+      "experiments/bounded_admin_recovery_v0/__init__.py",
+      "experiments/bounded_admin_recovery_v0/package_gate.py",
+      "experiments/bounded_admin_recovery_v0/planning.py",
+      "experiments/bounded_admin_recovery_v0/protocol.json",
+      "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py"
+    ],
+    "protocol_sha256": "506dbcd747c5845dbdde92c1e27594ede7b97bcaa165d53ed4ed1f345d59b2ef",
+    "runtime_status": "NOT_EXECUTED;95_EXPECTED;0_OFFICIAL_PASSES",
+    "uncompressed_bytes": 48965,
+    "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+  }
+}

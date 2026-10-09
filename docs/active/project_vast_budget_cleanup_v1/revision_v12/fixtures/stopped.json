@@ -1,0 +1,11 @@
+{
+  "actual_status": "exited",
+  "dph_total": 0.16162962962962962,
+  "geolocation": "Spain, ES",
+  "id": 54988176,
+  "intended_status": "stopped",
+  "machine_id": 150665,
+  "public_ipaddr": "188.245.20.75",
+  "ssh_host": "ssh5.vast.ai",
+  "ssh_port": 23876
+}

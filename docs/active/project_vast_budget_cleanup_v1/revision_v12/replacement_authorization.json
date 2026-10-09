@@ -1,0 +1,22 @@
+{
+  "A_maximum_seconds": 1200,
+  "B_maximum_seconds": 1200,
+  "accept_whole_disk_unknown_loss": true,
+  "accepted": true,
+  "actual_disposal_approval_path": "C:\\Users\\zun24\\.codex\\evidence\\project_vast_budget_cleanup_v1_20261009\\next_execution_v5\\replacement_decision_55040957\\actual_approval.json",
+  "actual_disposal_approval_sha256": "ad1f156d80ce1307003e3106026a99fef5fa7bb53b2e8b269497507f376b8510",
+  "actual_question": "Vast 55040957 / machine 53859의 전체 8GB 디스크를 삭제하고, 사용 가능한 다른 서버에서 원래 B95→정리·정산→A320을 총 $2 안에서 이어가도 될까요? 같은 서버 재개 1회는 공급자 자원 부족으로 실행되지 않았으며 명시적 STOP은 수락됐습니다. 이 제어기의 ADMIN·B95·A320·검색·연구 계산 명령은 0회이고 실패 기록과 과거 준비 파일 원문 2개는 로컬에 있습니다. 현재 원격 준비 파일의 존재·내용, 부분 업로드 파일, 숨김 파일·나머지 디스크·외부 작성 파일은 미확인이며 삭제하면 영구 소실될 수 있습니다. 이 손실을 수용하는 정확한 대상 삭제만 1회 `--yes`로 요청하고 다른 기존 인스턴스는 건드리지 않습니다. 삭제·목록·볼륨·두 예약 정산을 확인한 뒤 새 B/A 서버를 각각 최대 20분 사용합니다. 현재 두 단계의 보수 예약 예상은 약 $0.08552, 기존 예약을 차감한 여유는 약 $1.41829입니다. 판단 패킷 SHA-256: ed41639988d156aeb8513a32bc7dca3f02adc91ba5ebfdbf741b1a0bff10f948. 이번 55040957의 미확인 데이터 소실과 동일 서버 밖으로의 전환은 앞선 같은 서버 재개 1회 범위에 없어서 이 두 범위의 확인이 필요합니다.",
+  "actual_user_answer": "55040957 전체 삭제·미확인 데이터 소실 수용, 다른 서버로 B95·A320 계속",
+  "decision_packet_sha256": "ed41639988d156aeb8513a32bc7dca3f02adc91ba5ebfdbf741b1a0bff10f948",
+  "fixed_disposal_helper_path": "C:\\Users\\zun24\\.codex\\evidence\\project_vast_budget_cleanup_v1_20261009\\next_execution_v5\\dispose_exact_55040957_once_pending.py",
+  "fixed_disposal_helper_sha256": "a360d40f465a13461390a2bae542c7996c7a3bb4144d158eb363fb4e11417c22",
+  "human_signature": false,
+  "instance_id": 55040957,
+  "machine_id": 53859,
+  "maximum_destroy_requests_for_55040957": 1,
+  "new_A_authorized": true,
+  "new_B_authorized": true,
+  "other_existing_instances_mutation_allowed": false,
+  "project_cap_usd": "2.00",
+  "role": "ACTUAL_USER_EXACT_WHOLE_DISK_UNKNOWN_LOSS_AND_REPLACEMENT_APPROVAL"
+}

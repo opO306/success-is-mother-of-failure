@@ -1,0 +1,97 @@
+{
+  "actual_status": "running",
+  "cpu_cores_effective": 16.0,
+  "cpu_name": "AMD Ryzen Threadripper PRO 3975WX 32-Cores",
+  "dph_total": 0.2696296296296296,
+  "geolocation": "Norway, NO",
+  "gpu_temp": 79.999924,
+  "gpu_util": 99.999908,
+  "id": 52763685,
+  "intended_status": "running",
+  "machine_id": 3448,
+  "ports": {
+    "10100/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12450"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12450"
+      }
+    ],
+    "10200/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12452"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12452"
+      }
+    ],
+    "1111/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12458"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12458"
+      }
+    ],
+    "12476/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12476"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12476"
+      }
+    ],
+    "22/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12408"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12408"
+      }
+    ],
+    "6006/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12467"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12467"
+      }
+    ],
+    "8080/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12485"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12485"
+      }
+    ],
+    "8384/tcp": [
+      {
+        "HostIp": "0.0.0.0",
+        "HostPort": "12426"
+      },
+      {
+        "HostIp": "::",
+        "HostPort": "12426"
+      }
+    ]
+  },
+  "public_ipaddr": "81.166.162.13",
+  "ssh_host": "ssh2.vast.ai",
+  "ssh_port": 13684
+}

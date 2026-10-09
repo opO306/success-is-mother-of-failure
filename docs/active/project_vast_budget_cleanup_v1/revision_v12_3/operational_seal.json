@@ -1,0 +1,32 @@
+{
+  "files": {
+    "revision_v12/finite_policy.json": "cb6678f3bb46d62edad717b884c6494dff1ef3c178d849957c5f7c8fc1766223",
+    "revision_v12/operational_seal.json": "ec2494f2f98e12ec8205ef936ae570823fa5b6302097fc9ab5216381a382802d",
+    "revision_v12/policy.json": "0a8d9cf517bda7862871d6795b2ad2b9d8d5d3f1133b42ee1ddcf23e0caf6310",
+    "revision_v12_2/admin_payload.zip": "d7c262f818f6deeea22e05b20165a37518c2d337dbea7940eb051929d9872446",
+    "revision_v12_2/admin_test_inventory.json": "3b379a295824c318cce6efae0a6c5e6af777346db70421031329f6e584ac6052",
+    "revision_v12_2/disconnect_launch.py": "85c0a6fa83758cd71c8619e3a740740c8e0e33f6861ce6b890a9865ae6057bba",
+    "revision_v12_2/guest_admin_runner.py": "da3c286b255bc8f2ec08d6746c27f732b14fee72cfc377f0b44d16234a7a443d",
+    "revision_v12_2/probe_runner.py": "e05a4d003b75410f9d3f64d370631b4ad1791cae3dbe0bf7ad115eb48479aaf1",
+    "revision_v12_2/read_retry.py": "18074c918538cca1152b3909780f63f937a570c313ff5516ba6c88ccadda2bde",
+    "revision_v12_2/test_read_retry.py": "bb6066ddabd020e7bbfb23d347aad5aba75f3f779cb64170690e47731eaa5562",
+    "revision_v12_2/test_transport_reads.py": "a22ed53a88cd5b90c4981de95c6d62d3a294129455f6965e19ec6cba9d9b4691",
+    "revision_v12_2/transport_reads.py": "41f9f9104157ec1d9b6a6f68b86dc38e77a81c117f1b970b1736ae2370080606",
+    "revision_v12_3/authority.py": "b65fd72e4243b4f492341a80c384c91c2542aeac6e4e3e90074cf5d85f3440a0",
+    "revision_v12_3/authorization_request.txt": "765377c7ab0814a6f0012aecb54cea0b2211d421c7743858c4e9dd71a9d6a807",
+    "revision_v12_3/closure.py": "3d0dc7b93c579fa27d974b2619481ccb2756857e5d75672aa387d16a1f0c0a3c",
+    "revision_v12_3/discard_owned.py": "7dcdf7d3408a7f484e8a3faf3e91d317dfc090231bc74f7c66dc10da40d0b154",
+    "revision_v12_3/fresh_owned.py": "d31427a86ea14b859be4f6c0151af63c277e1b31d89655aff6f4070a92b5f201",
+    "revision_v12_3/process_bridge.py": "fee9bd5e9947bc5a460fc2873851f1a4f0bd733fe78366d74f2d72f0e6047645",
+    "revision_v12_3/reads.py": "ce55621b1fe9f76d769b65d12ade7b04c26f698a4fd4bc743b1eddd3abc79068",
+    "revision_v12_3/seal.py": "2d35088d04317498eb81bade86421b7f5ef9c593ffaf807cfd16ef37b788a924",
+    "revision_v12_3/tests/conftest.py": "90444c48d450f85229659a30e5e84124ce9c9078b17377697ba45d61d7bd4469",
+    "revision_v12_3/tests/test_authority.py": "1a1c82c7964576bedf1d10ba3f85be702994500fb1b3445ec0c465a38e67c92c",
+    "revision_v12_3/tests/test_bridge_and_closure.py": "e1379f5fd172ffd124a5cc9e630cd112e23383608605029c6d70aa6a9961040e",
+    "revision_v12_3/tests/test_discard.py": "70ad8f85cbf65fa12bda492daf3f593f72621814d01a5f5e7f803adcba012498",
+    "revision_v12_3/tests/test_reads.py": "cc10e2a6b5df9b01306f82a074a3dd19f46cbc948e923983c43789e271319149",
+    "revision_v12_3/tests/test_wiring.py": "5acb3221c312aa3bbd28105bd5b409962fc4d280bb6466d90312cc57097eb11f"
+  },
+  "role": "STATIC_BYTES_ONLY_NOT_EXECUTION_PASS",
+  "schema": "V12_3_OPERATIONAL_SEAL"
+}

@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "actual_human_answer": null,
+  "instance_id": 55040957,
+  "machine_id": 53859,
+  "no_new_b_instance": true,
+  "original_allocation_utc": "2026-10-09T14:52:25.075503+00:00",
+  "requested_absolute_maximum_seconds": 3600,
+  "requested_hard_end_utc": "2026-10-09T15:52:25.075503+00:00",
+  "role": "PENDING_TIME_EXTENSION_NOT_AUTHORIZATION",
+  "total_budget_cap_usd": "2.00"
+}
