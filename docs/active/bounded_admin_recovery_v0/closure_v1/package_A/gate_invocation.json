@@ -1,0 +1,24 @@
+{
+  "argv": [
+    "python",
+    "-B",
+    "docs\\active\\bounded_admin_recovery_v0\\closure_v1\\package_gate_v1.py",
+    "--archive",
+    "docs\\active\\bounded_admin_recovery_v0\\closure_v1\\package_A\\tablet_814.zip",
+    "--original-inventory",
+    "docs/active/adaptive_experience_tablet_v0/source_7b264a42/package_manifest.json",
+    "--contract",
+    "docs\\active\\bounded_admin_recovery_v0\\closure_v1\\dependency_contract_v1.json",
+    "--contract-sha256",
+    "1cc9882f300000659f0e7890694c051fa2cd8feabae60bf4859d00c72e98d823",
+    "--candidate-inventory",
+    "docs\\active\\bounded_admin_recovery_v0\\closure_v1\\package_A\\inventory.json",
+    "--candidate-inventory-sha256",
+    "0bb1631ffb6adaaea69eb3c7b15b07a29b19429a8b98b2cfe9c7e5086b4d22b3",
+    "--out",
+    "docs\\active\\bounded_admin_recovery_v0\\closure_v1\\package_A\\package_gate_result.json"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "stdout": ""
+}

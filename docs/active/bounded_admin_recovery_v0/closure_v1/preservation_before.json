@@ -1,0 +1,51 @@
+{
+  "baseline": "352f9d1b09c24901a08adc6cf7d0af0a5f63fa5e",
+  "checks": [
+    {
+      "files": 4,
+      "manifest": "experiments/adaptive_experience_tablet_v0/protocol_seal.json",
+      "mismatches": [],
+      "raw_sha256": "76e26c9e3bd81ca9f01f229a81838d6287b4692c322b5316c64a2c30f1fb3d79"
+    },
+    {
+      "files": 794,
+      "manifest": "experiments/adaptive_experience_tablet_v0/preservation_manifest.json",
+      "mismatches": [],
+      "raw_sha256": "7535f1c38dd60c44ab0c0c75dfc92a64264ab1aaa4a6b181567bfa5e497b2ee3"
+    },
+    {
+      "files": 812,
+      "manifest": "experiments/adaptive_experience_tablet_v0/code_seal.json",
+      "mismatches": [],
+      "raw_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09"
+    },
+    {
+      "files": 8,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v3.json",
+      "mismatches": [],
+      "raw_sha256": "753c2f1407e7f42e54b5d344513228f736811716475c7bb777fba8c1b1953352"
+    },
+    {
+      "files": 16,
+      "manifest": "experiments/bounded_admin_recovery_v0/code_seal_v2.json",
+      "mismatches": [],
+      "raw_sha256": "80fe6f1893bd20422ab87bf0b092b082853443d1ee5c6b5bef289002d1b3222c"
+    },
+    {
+      "files": 34,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_20261009_evidence_manifest.json",
+      "mismatches": [],
+      "raw_sha256": "2a28bda04f346a2d05a2bb1c40a67e518ede2ca559d4181bc0e203e31b25489e"
+    },
+    {
+      "files": 89,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_results_20261009_0130/evidence_manifest.json",
+      "mismatches": [],
+      "raw_sha256": "86e0f15989e78f74e38f17fc72622e29c62e0e0b17e9a074616d4a6d0f6aff0a"
+    }
+  ],
+  "dynamic_tests": 0,
+  "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+  "paid_actions": 0,
+  "project_imports": 0
+}

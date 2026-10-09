@@ -1,0 +1,15 @@
+{
+  "expected_tests": 95,
+  "files": {
+    "admin_policy/guard.py": "12240e807cfb22f2d99c7a15774b0d0f62bd16450366efa5f4a38c79f363bd39",
+    "admin_policy/offline.py": "1b756ecbdb48f4c5aa3810e9fc4fed2319d5edce025e16c9e51dd3c9b062065c",
+    "admin_policy/protocol.json": "6600b320a9a23ba80dde87b8f454c7d28363943db1943059d2a429166172a51a",
+    "experiments/bounded_admin_recovery_v0/__init__.py": "99c5e1297dd40c831f62de02c3a0efb716bb88706fabb102eb97bcfb21271ad7",
+    "experiments/bounded_admin_recovery_v0/package_gate.py": "426882452e57c391707cc424ce7fcbaf479e352b6c97f25ac20dd2650047a319",
+    "experiments/bounded_admin_recovery_v0/planning.py": "0590b325e47b6c1d74b27543f88bdbcb1de8369dd1deeb2fe448033d02d56759",
+    "experiments/bounded_admin_recovery_v0/protocol.json": "8e0b746e862bf87b530ef08d917e061df8e72bedbde32e825cab8be1895fd77a",
+    "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py": "0b195266deb578d56af4241c33abfa87e4debac55cfd7d6757b1581fab445015"
+  },
+  "original_code_seal_sha256": "80fe6f1893bd20422ab87bf0b092b082853443d1ee5c6b5bef289002d1b3222c",
+  "schema": "BOUNDED_ADMIN_POLICY_TEST_SOURCE_SEAL"
+}

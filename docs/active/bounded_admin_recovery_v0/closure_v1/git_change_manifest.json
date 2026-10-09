@@ -1,0 +1,288 @@
+{
+  "baseline_commit": "352f9d1b09c24901a08adc6cf7d0af0a5f63fa5e",
+  "branch": "codex/adaptive-experience-tablet-cpu-route-v0",
+  "existing_modified_or_deleted": [],
+  "files": [
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/.gitattributes",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/FAILURE_REVIEW.md",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/REPORT.md",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/REVIEWER_CONFIRMATION.md",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/bind_transport.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/closure_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/dependency_contract_v1.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/dependency_path_review.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/finalize_evidence.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/git_change_manifest.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/gate_invocation.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/inventory.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/member_comparison.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/package_gate_result.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/tablet_814.zip",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/admin_policy_95.zip",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/harness_protocol.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/inventory.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/raw_scope_check.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/source_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v2/admin_policy_95.zip",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v2/harness_protocol.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v2/inventory.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v2/raw_scope_check.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v2/source_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/admin_policy_95.zip",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/harness_protocol.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/inventory.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/raw_scope_check.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/source_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/package_gate_v1.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/packages_final_summary.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/packages_summary.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/policy_harness/guard.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/policy_harness/offline.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/policy_harness/pytest.ini",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/prepare_packages.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/preservation_before.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/scope_protocol.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/scope_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/static_review_failure_1.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/static_review_result.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/static_review_v1.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/approval_UNAPPROVED_A.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/approval_UNAPPROVED_B.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/case_inventory_320.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/controller.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_gate.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_probe.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_recover.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_source_verify.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/package_bindings.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/reuse_origin.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/supervisor.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/transport_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v1/approval_UNAPPROVED_A.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v1/approval_UNAPPROVED_B.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v1/packages_final_summary.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v1/static_review_result.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v1/transport_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v2/approval_UNAPPROVED_A.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v2/approval_UNAPPROVED_B.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v2/packages_final_summary.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v2/static_review_result.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v2/transport_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v3/approval_UNAPPROVED_A.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v3/approval_UNAPPROVED_B.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v3/packages_final_summary.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/closure_v1/transport_draft_v3/transport_seal.json",
+      "status": "A"
+    }
+  ],
+  "final_commit": "Containing implementation commit; query actual HEAD after commit",
+  "final_worktree": "Query after commit; this record does not predict clean status",
+  "master_merge": false,
+  "push": false,
+  "scope_preseal_commit": "0701d448"
+}

@@ -1,0 +1,20 @@
+{
+  "dynamic_tests": 0,
+  "entries": 9,
+  "limitation": "DECLARED_IMPORTS_AND_PYTHON_AUDIT_HOOK; NOT_OS_ISOLATION",
+  "namespace_packages": [
+    "experiments",
+    "admin_policy"
+  ],
+  "no_root_conftest": true,
+  "original_tests_raw_unchanged": true,
+  "physics_and_GPU_imports_blocked_by_guard": true,
+  "preserved_original_files": {
+    "experiments/bounded_admin_recovery_v0/__init__.py": "99c5e1297dd40c831f62de02c3a0efb716bb88706fabb102eb97bcfb21271ad7",
+    "experiments/bounded_admin_recovery_v0/package_gate.py": "426882452e57c391707cc424ce7fcbaf479e352b6c97f25ac20dd2650047a319",
+    "experiments/bounded_admin_recovery_v0/planning.py": "0590b325e47b6c1d74b27543f88bdbcb1de8369dd1deeb2fe448033d02d56759",
+    "experiments/bounded_admin_recovery_v0/protocol.json": "8e0b746e862bf87b530ef08d917e061df8e72bedbde32e825cab8be1895fd77a",
+    "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py": "0b195266deb578d56af4241c33abfa87e4debac55cfd7d6757b1581fab445015"
+  },
+  "pytest_autoload": false
+}

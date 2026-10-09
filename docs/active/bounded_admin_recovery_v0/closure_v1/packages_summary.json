@@ -1,0 +1,19 @@
+{
+  "A": {
+    "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/tablet_814.zip",
+    "entries": 814,
+    "uncompressed_bytes": 48642482,
+    "zip_sha256": "be06c9a7b8cc31c1e414b03f85485a9bb5e9e69226e34f1917553fac2673f4ff"
+  },
+  "B": {
+    "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B/admin_policy_95.zip",
+    "entries": 9,
+    "protocol_sha256": "6600b320a9a23ba80dde87b8f454c7d28363943db1943059d2a429166172a51a",
+    "source_seal_sha256": "85b1ce74b0d5fe09f9e90af6c6c81e91b155a1583de1dd9f70af8e266a1f0981",
+    "zip_sha256": "15ee3ed96e0fb8ea4d8118dcc639f79f04cfaa401bb2ba716cca2b5f66c2402e"
+  },
+  "dynamic_tests": 0,
+  "original_closed_budget_reset": false,
+  "paid_actions": 0,
+  "status": "STATIC_ARTIFACTS_PREPARED; GATE_AND_SEPARATE_REVIEW_PENDING"
+}

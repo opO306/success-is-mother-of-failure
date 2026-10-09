@@ -1,0 +1,195 @@
+{
+  "generic_guardian_Cli_confirm_stop_AST_unchanged": true,
+  "limitations": "AST and raw hashes; does not demonstrate runtime refusal, shell/network behavior, OS isolation or termination",
+  "local_project_tests": 0,
+  "official_dynamic_policy_passes": 0,
+  "official_dynamic_tablet_passes": 0,
+  "package_gate_core_AST_unchanged": [
+    "sha",
+    "strict_json",
+    "digest",
+    "safe_name",
+    "hash_map",
+    "pinned_json",
+    "inspect_package"
+  ],
+  "packages": [
+    {
+      "entries": 814,
+      "inventory_sha256": "0bb1631ffb6adaaea69eb3c7b15b07a29b19429a8b98b2cfe9c7e5086b4d22b3",
+      "package_kind": "A",
+      "raw_bytes_verified": 48642482,
+      "zip_sha256": "be06c9a7b8cc31c1e414b03f85485a9bb5e9e69226e34f1917553fac2673f4ff"
+    },
+    {
+      "entries": 10,
+      "inventory_sha256": "59632bab58b8df315794cd57708cdcea10aacc8f3bd91a6b08eb302639229619",
+      "package_kind": "B",
+      "raw_bytes_verified": 48965,
+      "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+    }
+  ],
+  "paid_actions": 0,
+  "policy_test_functions": [
+    {
+      "function": "test_missing_seal_detected_even_when_all_its_references_present",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_add_exact_existing_seal_preserves_original",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_candidate_cannot_relax_original_or_add_unapproved_paths",
+      "static_expected_cases": 7
+    },
+    {
+      "function": "test_original_integrity_faults_are_not_missing_file_recovery",
+      "static_expected_cases": 8
+    },
+    {
+      "function": "test_seal_reference_hash_conflict_is_integrity_error",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_unlisted_runtime_reference_remains_incomplete",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_ambiguous_manifest_json_cannot_hide_binding",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_candidate_inventory_without_external_pin_is_refused",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_all_verified_facts_only_produce_review_candidate",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_forbidden_or_mixed_error_never_recovers",
+      "static_expected_cases": 8
+    },
+    {
+      "function": "test_recovery_preconditions_fail_closed",
+      "static_expected_cases": 51
+    },
+    {
+      "function": "test_self_attested_or_altered_receipt_does_not_override_external_pin",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_absent_independent_receipt_is_refused",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_modified_policy_is_not_accepted_as_external_authority",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_json_boolean_cannot_reset_integer_caps",
+      "static_expected_cases": 1
+    },
+    {
+      "function": "test_full_rerun_requires_exact_all_pass_cases",
+      "static_expected_cases": 9
+    },
+    {
+      "function": "test_prepared_full_rerun_acceptance_does_not_grant_execution",
+      "static_expected_cases": 1
+    }
+  ],
+  "policy_test_static_count": 95,
+  "preservation": [
+    {
+      "files": 4,
+      "manifest": "experiments/adaptive_experience_tablet_v0/protocol_seal.json",
+      "mismatches": []
+    },
+    {
+      "files": 794,
+      "manifest": "experiments/adaptive_experience_tablet_v0/preservation_manifest.json",
+      "mismatches": []
+    },
+    {
+      "files": 812,
+      "manifest": "experiments/adaptive_experience_tablet_v0/code_seal.json",
+      "mismatches": []
+    },
+    {
+      "files": 8,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v3.json",
+      "mismatches": []
+    },
+    {
+      "files": 16,
+      "manifest": "experiments/bounded_admin_recovery_v0/code_seal_v2.json",
+      "mismatches": []
+    },
+    {
+      "files": 34,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_20261009_evidence_manifest.json",
+      "mismatches": []
+    },
+    {
+      "files": 89,
+      "manifest": "docs/active/adaptive_experience_tablet_v0/remote_results_20261009_0130/evidence_manifest.json",
+      "mismatches": []
+    }
+  ],
+  "project_imports": 0,
+  "remote_calls": 0,
+  "status": "STATIC_CHECKS_MATCH_DECLARED_SCOPE",
+  "syntax_parsed_files": [
+    "docs/active/bounded_admin_recovery_v0/closure_v1/bind_transport.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/package_gate_v1.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/policy_harness/guard.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/policy_harness/offline.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/prepare_packages.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/static_review_v1.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/controller.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_gate.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_probe.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_recover.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/guest_source_verify.py",
+    "docs/active/bounded_admin_recovery_v0/closure_v1/transport/supervisor.py"
+  ],
+  "unapproved_templates": [
+    {
+      "kind": "A",
+      "status": "UNAPPROVED_FALSE_BITS_CONFIRMED; NO_RUNTIME_CALL"
+    },
+    {
+      "kind": "B",
+      "status": "UNAPPROVED_FALSE_BITS_CONFIRMED; NO_RUNTIME_CALL"
+    }
+  ],
+  "unchanged_controller_functions": [
+    "utc",
+    "canonical",
+    "sha",
+    "write",
+    "load"
+  ],
+  "unchanged_controller_methods": [
+    "run",
+    "show",
+    "py",
+    "upload"
+  ],
+  "verbatim_transport_files": [
+    {
+      "name": "supervisor.py",
+      "raw_sha256": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57"
+    },
+    {
+      "name": "guest_probe.py",
+      "raw_sha256": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a"
+    },
+    {
+      "name": "guest_recover.py",
+      "raw_sha256": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f"
+    }
+  ]
+}

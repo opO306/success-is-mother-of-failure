@@ -1,0 +1,13 @@
+{
+  "kind": "LOCAL_STDLIB_STATIC_REVIEW_ASSERTION",
+  "project_dynamic_test": false,
+  "paid_action": false,
+  "returncode": 1,
+  "file": "static_review_v1.py",
+  "line": 96,
+  "error": "AssertionError: assert len(method_retained)==4",
+  "cause": "The review still expected controller.show AST to equal the old version after the deliberate new campaign cost check was added.",
+  "correction": "Require raw unchanged run/py/upload AST and record show change explicitly; preserve all prior identity and per-window rate checks.",
+  "prior_admin_failed_attempts": 3,
+  "prior_remote_tablet_gate_attempts": 1
+}

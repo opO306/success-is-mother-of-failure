@@ -1,0 +1,17 @@
+{
+  "aggregate_cpu_seconds": 120,
+  "approval_required": true,
+  "cpu_affinity_count": 1,
+  "expected_tests": 95,
+  "external_receipt_fixture_scope": "SYNTHETIC_PINS_ONLY; NOT_REAL_INDEPENDENT_CERTIFICATION",
+  "gpu_calls": 0,
+  "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+  "memory_bytes": 536870912,
+  "mode": "TEST_ONLY; NOT_PRODUCTION",
+  "physics_calls": 0,
+  "pytest_configuration": "EXPLICIT_SEALED_PYTEST_INI_AND_CONFCUTDIR_ROOT",
+  "pytest_environment": "REMOVE_PYTEST_ADDOPTS_PYTEST_PLUGINS_PYTHONPATH; ROOT_ONLY",
+  "schema": "BOUNDED_ADMIN_POLICY_TEST_HARNESS_V1",
+  "test_file": "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py",
+  "wall_seconds": 120
+}

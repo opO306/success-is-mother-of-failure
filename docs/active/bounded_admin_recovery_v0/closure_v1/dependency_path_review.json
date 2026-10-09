@@ -1,0 +1,1633 @@
+{
+  "archive_prefix": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/",
+  "covered": [
+    "source/policy seals",
+    "A session/replay/measurement/raw-cost receipts",
+    "manager profiles/events/roots",
+    "controller witnessed signed head",
+    "test fixture copytree and file reads",
+    "runtime read/glob paths"
+  ],
+  "declared_signed_raw_bindings": [
+    {
+      "raw_sha256": "ad6decd0af56474616ceeb55688f9dac0a77194f7b77a1d17722d018160a2138",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/first_result_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "cc31c8715ca1f7b8eebbdb938c83804f6811d0c4ec3b76231c76d3b84aae8fba",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/first_result_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "cece6bf9463a9be0e5f9d26d91f9efadb48a29214cfb3a09a61b471b7abb5841",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/first_result_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "57a76204d10af847030803b99aa8c7454f13aec975f3fa1c458a40911b00d250",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/first_result_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/replay.json"
+    },
+    {
+      "raw_sha256": "3b91ba599226a477b1bd7461eac9c5a3c9a4fe84655da5151dcc894666184638",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/first_result_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/session.json"
+    },
+    {
+      "raw_sha256": "0a36bc7a8d8c37c1c6dcfadd38b2699456cb6333135daaa0b1d25f6e394d2943",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request/W6_5.json"
+    },
+    {
+      "raw_sha256": "fc40746297e3e6b69dec72cd114c01ff003f21f29d6fd56e9a352ab6f116a481",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request/evidence_metrics/W6_5.json"
+    },
+    {
+      "raw_sha256": "0a05821b771c9cf79264ab01603168412248e3857f5cb8913b9b74fb94d0fc73",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request/request_costs/W6_5.json"
+    },
+    {
+      "raw_sha256": "57a76204d10af847030803b99aa8c7454f13aec975f3fa1c458a40911b00d250",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/replay.json"
+    },
+    {
+      "raw_sha256": "3b91ba599226a477b1bd7461eac9c5a3c9a4fe84655da5151dcc894666184638",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/next_request_receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/session.json"
+    },
+    {
+      "raw_sha256": "ad6decd0af56474616ceeb55688f9dac0a77194f7b77a1d17722d018160a2138",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "5019b2eb85d564018b542437d79a7e7f633c70549ff0f026575ca58eebfd2b2f",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "8379c0e98ab825d3a19a8ba45f9bf55df5c8b69b08d7b70412a157f3c1c28ac9",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "0bf8c6ae9d6867a208296aaf365709c05d9f2c67ee35f3e9b9c5f7a837561ef1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "9b8ba05d57b1f90d3f1b5b92d61368dce9f072fc5872d08a3a106ecbb0d10e53",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "87bb2070f4f327d455675fff485bcf1aea596196d1a8b75a9380f9520c4829df",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_0.json"
+    },
+    {
+      "raw_sha256": "6ad3cfc409829298d2d621c5d3ba74981717147e49a938a79c78beb463b5b22b",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_1.json"
+    },
+    {
+      "raw_sha256": "dfaeadab847320d655a4e59593daf0acd55286f42fe684818f27ad0525baf710",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_2.json"
+    },
+    {
+      "raw_sha256": "24ad950faffa8b577048fd15c6ec06d207f9dfd9c700fc6202ed87d237137cc1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_3.json"
+    },
+    {
+      "raw_sha256": "d257db54943804b3d90384fdf099ecc7d6ecd3c2882e13646c1b26df1d0b3416",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_4.json"
+    },
+    {
+      "raw_sha256": "cc31c8715ca1f7b8eebbdb938c83804f6811d0c4ec3b76231c76d3b84aae8fba",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "427a5bd543fb194c61c41c9bd0033dc640ad83cece3b257f9f800e3bbcd54712",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "6826de5f4576c53ed61b5dea517044430c3396a3955fbaee6087c043ed10759d",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "d5a75537a0d5e58649df67cffc9ab5bbaa04f7fb390b25c5fb5de7f87b96522f",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "e5a8f26352c7ec8a36e684c9bdc4c8386f928d0ffe263aa196afc599f89519b6",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "e8a37f2af90c35da4d8893c1975607e07657a72eb947ce2037316e8181484ed1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_0.json"
+    },
+    {
+      "raw_sha256": "a1ce1d09c50d0702b88f410d1bfc9379ecfd96f1503157186d7ad9e73010380e",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_1.json"
+    },
+    {
+      "raw_sha256": "ca0f9807ce6ede494b717d43b31015d0caeb81dc114002c11815763409936ea9",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_2.json"
+    },
+    {
+      "raw_sha256": "f100fbfef308576afc8f63fd9c1185926fe04f2227453769b6801a281613ebd4",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_3.json"
+    },
+    {
+      "raw_sha256": "8b01a70c591989f8ded48f9cc4e4a011db7b904158ee17bd88a9affb0f4516b5",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_4.json"
+    },
+    {
+      "raw_sha256": "cece6bf9463a9be0e5f9d26d91f9efadb48a29214cfb3a09a61b471b7abb5841",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "189209770663ae40e3a7f0afe11ef57b9d3d2a7861d61a7104648f9cc1d6c1b7",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "6e2fe9e06026e1e1c4c99425317161569cd7a3acd4105786090a86477a49bffc",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "dbc168f9ac96c07c08413a8d67234fe1e01011f6051e6697f625e6cfe21ef416",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "052d736415e93fe4e25e719c6e260e9ce1bd07b3204a2a0419c212c985014b4e",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "81cc22a0145acf7a2aa041805ed7d8b22545fd7d90e747ff3916b2d1b2c830c4",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_0.json"
+    },
+    {
+      "raw_sha256": "f10d03291162f2ba67a4f6b4bbe3b57ee36a596988a836c62607ac5590f7ee73",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_1.json"
+    },
+    {
+      "raw_sha256": "588579fa9d2631917487d4548dddd736a35059ffec06a802fd46a2ca0acb5525",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_2.json"
+    },
+    {
+      "raw_sha256": "df8a1cb3338ae02c333c39dcd6682986e6c338a6fc252b42dbf9653b55c0c736",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_3.json"
+    },
+    {
+      "raw_sha256": "5c88eea306b14f4d64bda450c35837def8404218618a13a775ce277d5125e646",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_4.json"
+    },
+    {
+      "raw_sha256": "57a76204d10af847030803b99aa8c7454f13aec975f3fa1c458a40911b00d250",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/replay.json"
+    },
+    {
+      "raw_sha256": "3b91ba599226a477b1bd7461eac9c5a3c9a4fe84655da5151dcc894666184638",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/receipt.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/session.json"
+    },
+    {
+      "raw_sha256": "ad6decd0af56474616ceeb55688f9dac0a77194f7b77a1d17722d018160a2138",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "5019b2eb85d564018b542437d79a7e7f633c70549ff0f026575ca58eebfd2b2f",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "8379c0e98ab825d3a19a8ba45f9bf55df5c8b69b08d7b70412a157f3c1c28ac9",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "0bf8c6ae9d6867a208296aaf365709c05d9f2c67ee35f3e9b9c5f7a837561ef1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "9b8ba05d57b1f90d3f1b5b92d61368dce9f072fc5872d08a3a106ecbb0d10e53",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "87bb2070f4f327d455675fff485bcf1aea596196d1a8b75a9380f9520c4829df",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_0.json"
+    },
+    {
+      "raw_sha256": "6ad3cfc409829298d2d621c5d3ba74981717147e49a938a79c78beb463b5b22b",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_1.json"
+    },
+    {
+      "raw_sha256": "dfaeadab847320d655a4e59593daf0acd55286f42fe684818f27ad0525baf710",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_2.json"
+    },
+    {
+      "raw_sha256": "24ad950faffa8b577048fd15c6ec06d207f9dfd9c700fc6202ed87d237137cc1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_3.json"
+    },
+    {
+      "raw_sha256": "d257db54943804b3d90384fdf099ecc7d6ecd3c2882e13646c1b26df1d0b3416",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/W6_4.json"
+    },
+    {
+      "raw_sha256": "cc31c8715ca1f7b8eebbdb938c83804f6811d0c4ec3b76231c76d3b84aae8fba",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "427a5bd543fb194c61c41c9bd0033dc640ad83cece3b257f9f800e3bbcd54712",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "6826de5f4576c53ed61b5dea517044430c3396a3955fbaee6087c043ed10759d",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "d5a75537a0d5e58649df67cffc9ab5bbaa04f7fb390b25c5fb5de7f87b96522f",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "e5a8f26352c7ec8a36e684c9bdc4c8386f928d0ffe263aa196afc599f89519b6",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "e8a37f2af90c35da4d8893c1975607e07657a72eb947ce2037316e8181484ed1",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_0.json"
+    },
+    {
+      "raw_sha256": "a1ce1d09c50d0702b88f410d1bfc9379ecfd96f1503157186d7ad9e73010380e",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_1.json"
+    },
+    {
+      "raw_sha256": "ca0f9807ce6ede494b717d43b31015d0caeb81dc114002c11815763409936ea9",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_2.json"
+    },
+    {
+      "raw_sha256": "f100fbfef308576afc8f63fd9c1185926fe04f2227453769b6801a281613ebd4",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_3.json"
+    },
+    {
+      "raw_sha256": "8b01a70c591989f8ded48f9cc4e4a011db7b904158ee17bd88a9affb0f4516b5",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/evidence_metrics/W6_4.json"
+    },
+    {
+      "raw_sha256": "cece6bf9463a9be0e5f9d26d91f9efadb48a29214cfb3a09a61b471b7abb5841",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_0.json"
+    },
+    {
+      "raw_sha256": "189209770663ae40e3a7f0afe11ef57b9d3d2a7861d61a7104648f9cc1d6c1b7",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_1.json"
+    },
+    {
+      "raw_sha256": "6e2fe9e06026e1e1c4c99425317161569cd7a3acd4105786090a86477a49bffc",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_2.json"
+    },
+    {
+      "raw_sha256": "dbc168f9ac96c07c08413a8d67234fe1e01011f6051e6697f625e6cfe21ef416",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_3.json"
+    },
+    {
+      "raw_sha256": "052d736415e93fe4e25e719c6e260e9ce1bd07b3204a2a0419c212c985014b4e",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/SERIAL_4.json"
+    },
+    {
+      "raw_sha256": "81cc22a0145acf7a2aa041805ed7d8b22545fd7d90e747ff3916b2d1b2c830c4",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_0.json"
+    },
+    {
+      "raw_sha256": "f10d03291162f2ba67a4f6b4bbe3b57ee36a596988a836c62607ac5590f7ee73",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_1.json"
+    },
+    {
+      "raw_sha256": "588579fa9d2631917487d4548dddd736a35059ffec06a802fd46a2ca0acb5525",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_2.json"
+    },
+    {
+      "raw_sha256": "df8a1cb3338ae02c333c39dcd6682986e6c338a6fc252b42dbf9653b55c0c736",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_3.json"
+    },
+    {
+      "raw_sha256": "5c88eea306b14f4d64bda450c35837def8404218618a13a775ce277d5125e646",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/measurement/request_costs/W6_4.json"
+    },
+    {
+      "raw_sha256": "57a76204d10af847030803b99aa8c7454f13aec975f3fa1c458a40911b00d250",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/replay.json"
+    },
+    {
+      "raw_sha256": "3b91ba599226a477b1bd7461eac9c5a3c9a4fe84655da5151dcc894666184638",
+      "receipt": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/manager/profiles/b775509603dc3f07e578ccce4aea11021cee013c7eea8feb8268f01a8e91482f.json",
+      "signature_verification": "DEFERRED_TO_EXISTING_320_GATE",
+      "target": "docs/active/adaptive_execution_real_learning_pilot_a_resume_v1/real_20261008_54815136/run_20261008_approved_3/recovered/output_actual/A/session.json"
+    }
+  ],
+  "excluded_from_runtime_manifest_interpretation": [
+    "historical A-source shipping manifest"
+  ],
+  "execution_manifests": 15,
+  "historical_fixture_files": 99,
+  "notes": [
+    "Raw hashes checked; no new signature verifier or authority was created.",
+    "Dynamic/generated temp files and Linux topology paths are not package membership proof."
+  ],
+  "path_accesses": [
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 33,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "read(HERE / 'protocol.json')",
+      "line": 50,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "path.open('xb')",
+      "line": 43,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 55,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 58,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 81,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "(self.directory / 'writer.lock').open('ab')",
+      "line": 94,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 22,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "read(HERE / 'protocol_seal.json')",
+      "line": 54,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "read(HERE / 'preservation_manifest.json')",
+      "line": 57,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "self.directory.glob('event_*.json')",
+      "line": 80,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 85,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_learning_v1/core.py"
+    },
+    {
+      "expression": "strict_read(path)",
+      "line": 40,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "strict_read(metric)",
+      "line": 40,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "strict_read(record)",
+      "line": 40,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 9,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "(directory / location).glob('*.json')",
+      "line": 83,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(record)",
+      "line": 27,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(metrics)",
+      "line": 27,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(record)",
+      "line": 45,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(metric)",
+      "line": 46,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(path)",
+      "line": 80,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/evidence.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'protocol.json')",
+      "line": 9,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/policy.py"
+    },
+    {
+      "expression": "(HERE / 'protocol.json').read_bytes()",
+      "line": 21,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/policy.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 15,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/policy.py"
+    },
+    {
+      "expression": "(HERE / name).read_bytes()",
+      "line": 14,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/policy.py"
+    },
+    {
+      "expression": "(HERE / 'a_safety_seal.json').read_bytes()",
+      "line": 17,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py"
+    },
+    {
+      "expression": "(HERE / 'a_safety_policy.json').read_bytes()",
+      "line": 21,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py"
+    },
+    {
+      "expression": "(HERE / 'a_safety_policy.json').read_bytes()",
+      "line": 13,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py"
+    },
+    {
+      "expression": "(ROOT / relative).read_bytes()",
+      "line": 19,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/a_safety.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 35,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 37,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 39,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "read(HERE / 'protocol_seal.json')",
+      "line": 34,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "read(HERE / 'protected_manifest.json')",
+      "line": 36,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "read(HERE / 'offline_budget_amendment_seal.json')",
+      "line": 38,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/common.py"
+    },
+    {
+      "expression": "read(self.directory / 'profiles' / f'{target}.json')",
+      "line": 107,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "read(self.directory / 'roots.json')",
+      "line": 50,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "read(self.head)",
+      "line": 52,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 97,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "read(config)",
+      "line": 34,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'protocol.json')",
+      "line": 66,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "RESUME.strict_read(self.directory.parent / body['stage'] / 'session.json')",
+      "line": 73,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "raw_hash(code_manifest_path())",
+      "line": 69,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "raw_hash(path)",
+      "line": 81,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/governance.py"
+    },
+    {
+      "expression": "read(code_manifest_path())",
+      "line": 32,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "raw_hash(code_manifest_path())",
+      "line": 35,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "(self.root / 'inspector_stderr.log').open('xb')",
+      "line": 89,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(args.authorization)",
+      "line": 295,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(args.host_observation)",
+      "line": 295,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(args.guardian)",
+      "line": 295,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(args.offline_checks)",
+      "line": 295,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / path)",
+      "line": 34,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "RE.strict_read(receipt_path)",
+      "line": 134,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "RE.strict_read(path / 'session.json')",
+      "line": 134,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "RE.strict_read(path / 'replay.json')",
+      "line": 194,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'guardian.py')",
+      "line": 70,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(code_manifest_path())",
+      "line": 77,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(self.heartbeat_path)",
+      "line": 103,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "raw_hash(receipt_path)",
+      "line": 132,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "read(path / 'receipt.json')",
+      "line": 210,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "Path('/proc/sys/kernel/random/boot_id').read_text()",
+      "line": 161,
+      "resolution": "OS_OBSERVATION",
+      "source": "experiments/adaptive_execution_real_learning_pilot_v0/runner.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 24,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "read(root / 'experiments/adaptive_execution_verification_v0/protocol_seal.json')",
+      "line": 49,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "read(root / 'experiments/adaptive_execution_verification_v0/source_manifest.json')",
+      "line": 53,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "target.open('xb')",
+      "line": 43,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "read(root / 'experiments/adaptive_execution_verification_v0/protocol.json')",
+      "line": 54,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "(root / relative).read_bytes()",
+      "line": 51,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 66,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/common.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 24,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/verifier.py"
+    },
+    {
+      "expression": "Path(__file__).read_bytes()",
+      "line": 108,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/verifier.py"
+    },
+    {
+      "expression": "(root / relative).read_bytes()",
+      "line": 113,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/verifier.py"
+    },
+    {
+      "expression": "source.read_bytes()",
+      "line": 131,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_execution_verification_v0/verifier.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 20,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(stage / 'session.json')",
+      "line": 122,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(profile_path)",
+      "line": 122,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(approval_path)",
+      "line": 134,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 205,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "self.index_path.read_bytes()",
+      "line": 90,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(manager_dir / 'roots.json')",
+      "line": 123,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(stage / 'measurement' / f'{method}_{repeat}.json')",
+      "line": 143,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(profile_path)",
+      "line": 165,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(approval_path)",
+      "line": 166,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(manager_dir / 'roots.json')",
+      "line": 167,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(path)",
+      "line": 170,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "(obj.directory / 'references').glob('*.json')",
+      "line": 225,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "(self.directory / 'references').glob('*.json')",
+      "line": 82,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(head)",
+      "line": 85,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 111,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(stage / 'measurement/request_costs' / f'{method}_{i}.json')",
+      "line": 155,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 188,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(self._path(relative))",
+      "line": 210,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 228,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "(manager_dir / 'events').glob('event_*.json')",
+      "line": 169,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(head)",
+      "line": 223,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "obj.directory.glob('index_*.json')",
+      "line": 224,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/catalog.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'protocol.json')",
+      "line": 26,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'code_seal.json')",
+      "line": 35,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(args.authorization)",
+      "line": 125,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(args.armed)",
+      "line": 125,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 25,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(HERE / 'protocol.json')",
+      "line": 76,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / 'experiments/adaptive_execution_real_learning_pilot_v0/guardian.py')",
+      "line": 57,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(args.out / 'physics_guard.json')",
+      "line": 157,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "(args.out / 'tests.log').open('xb')",
+      "line": 150,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(HERE / 'code_seal.json')",
+      "line": 156,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(HERE / name)",
+      "line": 31,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "raw_hash(path)",
+      "line": 33,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(args.armed)",
+      "line": 144,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(original / 'A/session.json')",
+      "line": 165,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(original / 'manager/roots.json')",
+      "line": 163,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "Path('/proc/cpuinfo').read_text()",
+      "line": 111,
+      "resolution": "OS_OBSERVATION",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "read(HERE / 'protocol.json')",
+      "line": 151,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/adaptive_experience_tablet_v0/offline.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'protocol.json')",
+      "line": 12,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/evidence_canonicalization_v0/policy.py"
+    },
+    {
+      "expression": "(HERE / 'protocol.json').read_bytes()",
+      "line": 20,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/evidence_canonicalization_v0/policy.py"
+    },
+    {
+      "expression": "(HERE / name).read_bytes()",
+      "line": 17,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/evidence_canonicalization_v0/policy.py"
+    },
+    {
+      "expression": "Path(path).read_bytes()",
+      "line": 9,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/evidence_canonicalization_v0/policy.py"
+    },
+    {
+      "expression": "raw_hash(ROOT / relative)",
+      "line": 19,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "experiments/evidence_canonicalization_v0/policy.py"
+    },
+    {
+      "expression": "read(paths[0])",
+      "line": 69,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(paths[-1])",
+      "line": 98,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(ledger.directory / 'event_000000.json')",
+      "line": 295,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 77,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 90,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "(reg.directory / 'manager_writer.lock').open('ab')",
+      "line": 145,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(paths[-1])",
+      "line": 188,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "Path(inspector.__file__).read_text(encoding='utf-8')",
+      "line": 335,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(ROOT / 'experiments/adaptive_execution_learning_v1/protocol.json')",
+      "line": 24,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 220,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 232,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "p.read_bytes()",
+      "line": 290,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "paths[-1].read_bytes()",
+      "line": 204,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "Path(inspector.__file__).read_bytes()",
+      "line": 25,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(paths[-2])",
+      "line": 191,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_learning_v1.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 59,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "read(record)",
+      "line": 82,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "raw_hash(runner.code_manifest_path())",
+      "line": 18,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "raw_hash(directory / f'{method}_{repeat}.json')",
+      "line": 32,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "raw_hash(metrics_path)",
+      "line": 33,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 76,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 158,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "raw_hash(runner.HERE / 'guardian.py')",
+      "line": 204,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "read(tmp_path / 'session.json')",
+      "line": 45,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "read(tmp_path / 'replay.json')",
+      "line": 45,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "(path / 'measurement').glob('*.json')",
+      "line": 217,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "read(p)",
+      "line": 217,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py"
+    },
+    {
+      "expression": "Path(runner.__file__).read_text(encoding='utf-8')",
+      "line": 201,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "Path(inspector.__file__).read_text(encoding='utf-8')",
+      "line": 204,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "Path(inspector.__file__).read_text(encoding='utf-8')",
+      "line": 54,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "raw_hash(code_manifest_path())",
+      "line": 218,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'offline_budget_amendment_52763685.json')",
+      "line": 237,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "mgr.events.directory.glob('event_*.json')",
+      "line": 133,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_real_learning_pilot_v0.py"
+    },
+    {
+      "expression": "read(here / 'source_manifest.json')",
+      "line": 88,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 177,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "(ROOT / 'experiments/adaptive_execution_v1/selector.py').read_text()",
+      "line": 267,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "source.open('ab')",
+      "line": 99,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "(here / 'verifier.py').read_text()",
+      "line": 261,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "(tmp_path / 'profiles').glob('*.json')",
+      "line": 138,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_execution_verification_v0.py"
+    },
+    {
+      "expression": "shutil.copytree(ORIGINAL, target)",
+      "line": 48,
+      "resolution": "HISTORICAL_ARCHIVE_DECLARED",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 116,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 123,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 161,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "(root / 'A/session.json').read_bytes()",
+      "line": 194,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(index)",
+      "line": 195,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "ref.read_bytes()",
+      "line": 204,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(ORIGINAL / 'A/session.json')",
+      "line": 254,
+      "resolution": "HISTORICAL_ARCHIVE_DECLARED",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 272,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 141,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 156,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "ref.read_bytes()",
+      "line": 208,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(ORIGINAL / 'A/session.json')",
+      "line": 26,
+      "resolution": "HISTORICAL_ARCHIVE_DECLARED",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(target / 'manager/roots.json')",
+      "line": 49,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 143,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 173,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 178,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 183,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "(root / 'A/session.json').read_bytes()",
+      "line": 199,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "ref.read_bytes()",
+      "line": 206,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(root / 'A/session.json')",
+      "line": 222,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "raw_hash(HERE / 'protocol.json')",
+      "line": 258,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(ORIGINAL / 'A/session.json')",
+      "line": 38,
+      "resolution": "HISTORICAL_ARCHIVE_DECLARED",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 145,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 147,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(path)",
+      "line": 149,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_adaptive_experience_tablet_v0.py"
+    },
+    {
+      "expression": "read(next((tmp_path / 'A/measurement/evidence_rejections').glob('*.json')))",
+      "line": 121,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "Path(inspector.__file__).read_text(encoding='utf-8')",
+      "line": 126,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "read(tmp_path / 'record.json')",
+      "line": 88,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "path.read_bytes()",
+      "line": 95,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "(tmp_path / 'A/measurement').glob('*.json')",
+      "line": 120,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "read(tmp_path / 'SERIAL_0.json')",
+      "line": 238,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "raw_hash(code_manifest_path())",
+      "line": 245,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "(tmp_path / 'A/measurement/evidence_rejections').glob('*.json')",
+      "line": 121,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "(mgr.directory / 'profiles').glob('*.json')",
+      "line": 192,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "read(tmp_path / 'evidence_rejections/wrong_start.json')",
+      "line": 260,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    },
+    {
+      "expression": "(tmp_path / 'record.json').read_bytes()",
+      "line": 89,
+      "resolution": "FIXTURE_TEMP_OR_DYNAMIC_RUNTIME_ACCESS_REQUIRES_EXECUTION_REVIEW",
+      "source": "tests/test_evidence_canonicalization_v0.py"
+    }
+  ],
+  "status": "STATIC_DECLARED_ONLY; DYNAMIC_COMPLETENESS_NOT_PROVEN"
+}

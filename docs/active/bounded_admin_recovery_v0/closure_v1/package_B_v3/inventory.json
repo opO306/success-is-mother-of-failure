@@ -1,0 +1,22 @@
+{
+  "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/admin_policy_95.zip",
+  "entries": 10,
+  "files": {
+    "admin_policy/guard.py": "12240e807cfb22f2d99c7a15774b0d0f62bd16450366efa5f4a38c79f363bd39",
+    "admin_policy/offline.py": "935b1c76facdb516ec4530f2d1b33da0ee36f55a1960ab9c3a590bcc26de9c13",
+    "admin_policy/protocol.json": "506dbcd747c5845dbdde92c1e27594ede7b97bcaa165d53ed4ed1f345d59b2ef",
+    "admin_policy/pytest.ini": "713f986ee48be06ad4bff2a700d39514a9f69e34b3547af52366c0a274e30e5b",
+    "admin_policy/source_seal.json": "f6fa75dd65d9555d417352b98203eb3eb41202ad434296245b71c0da31ec1f47",
+    "experiments/bounded_admin_recovery_v0/__init__.py": "99c5e1297dd40c831f62de02c3a0efb716bb88706fabb102eb97bcfb21271ad7",
+    "experiments/bounded_admin_recovery_v0/package_gate.py": "426882452e57c391707cc424ce7fcbaf479e352b6c97f25ac20dd2650047a319",
+    "experiments/bounded_admin_recovery_v0/planning.py": "0590b325e47b6c1d74b27543f88bdbcb1de8369dd1deeb2fe448033d02d56759",
+    "experiments/bounded_admin_recovery_v0/protocol.json": "8e0b746e862bf87b530ef08d917e061df8e72bedbde32e825cab8be1895fd77a",
+    "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py": "0b195266deb578d56af4241c33abfa87e4debac55cfd7d6757b1581fab445015"
+  },
+  "protocol_sha256": "506dbcd747c5845dbdde92c1e27594ede7b97bcaa165d53ed4ed1f345d59b2ef",
+  "schema": "PACKAGE_B_ADMIN_POLICY_95",
+  "source_seal_sha256": "f6fa75dd65d9555d417352b98203eb3eb41202ad434296245b71c0da31ec1f47",
+  "status": "SOURCE_PREPARED_NOT_EXECUTED",
+  "uncompressed_bytes": 48965,
+  "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+}
