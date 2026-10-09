@@ -1,0 +1,110 @@
+{
+  "baseline": "d77e08d28fabdfd39a0615f5a76aaa4944208e67",
+  "branch": "codex/adaptive-experience-tablet-cpu-route-v0",
+  "existing_modified_or_deleted": [],
+  "files": [
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/.gitattributes",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/REPORT.md",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/budget_protocol.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/evidence_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/finalize_evidence.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/git_change_manifest.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/prepare_transport.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/preservation_before.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/protocol_seal.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/seal_transport.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/static_review.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/static_review_result.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/B_cost_confirmation_UNCONFIRMED.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/approval_UNAPPROVED_A.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/approval_UNAPPROVED_B.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/case_inventory_320.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/controller.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_gate.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_probe.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_recover.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_source_verify.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/package_bindings.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/reuse_origin.json",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/supervisor.py",
+      "status": "A"
+    },
+    {
+      "path": "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/transport_seal.json",
+      "status": "A"
+    }
+  ],
+  "master_merge": false,
+  "push": false,
+  "scope_preseal_commit": "527ea32c"
+}

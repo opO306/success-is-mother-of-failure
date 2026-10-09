@@ -1,0 +1,65 @@
+{
+  "budget_protocol_sha256": "16db1a2dae38d2fc9d5713e9340b966257611da49ae6856529d9e59d7f126f43",
+  "campaign_total_cap_usd": "0.10",
+  "each_total_cap_usd": "0.05",
+  "execution_authorized": false,
+  "files": {
+    "B_cost_confirmation_UNCONFIRMED.json": "a4776ad7859e60a9815aea4f357220624b8b455c17476740d4fef2635306bb0d",
+    "case_inventory_320.json": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "controller.py": "0e82d69287d12263a0fe22de049652950c8d044cbfa39b14397870f8542194e6",
+    "guest_gate.py": "63b010161e894157d2e8b4d58af19b4db057025bb0643c0ae6d1d846cba42794",
+    "guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "guest_source_verify.py": "961c3ae6fd62eff408d145b09811fd217b3b014e7620f508d9b172628f916bf3",
+    "package_bindings.json": "ab921ba949ff9f4a1721f5ce8c446d080718c26d02bcfb663b53de9e9e32bea7",
+    "reuse_origin.json": "57fc7c7a59e666f24b18365019fbc06af40e540bdf64e2b4d8bb8a2bf18f2a3b",
+    "supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57"
+  },
+  "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+  "original_scope_sha256": "da96a821a7aa8f6f9e2537959babf68420a0d7b8ac008b2c9751cee331ff8484",
+  "packages": {
+    "A": {
+      "addition_path": "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json",
+      "addition_sha256": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60",
+      "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/tablet_814.zip",
+      "case_inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/transport/case_inventory_320.json",
+      "case_inventory_sha256": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+      "code_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09",
+      "comparison": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/member_comparison.json",
+      "comparison_sha256": "dbeff323feaac57cc7b90bfa0c4b19866a4313904900832a659705a6d1ae44de",
+      "entries": 814,
+      "expected_tests": 320,
+      "extra_files": 1,
+      "inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/package_A/inventory.json",
+      "inventory_sha256": "0bb1631ffb6adaaea69eb3c7b15b07a29b19429a8b98b2cfe9c7e5086b4d22b3",
+      "original_files_preserved": 813,
+      "original_zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+      "protocol_sha256": "f03bc97a79e1a22ece4964270032d8829f7a208e961c09806c8f7bc10351013c",
+      "uncompressed_bytes": 48642482,
+      "zip_sha256": "be06c9a7b8cc31c1e414b03f85485a9bb5e9e69226e34f1917553fac2673f4ff"
+    },
+    "B": {
+      "archive": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/admin_policy_95.zip",
+      "code_sha256": "f6fa75dd65d9555d417352b98203eb3eb41202ad434296245b71c0da31ec1f47",
+      "entries": 10,
+      "expected_tests": 95,
+      "inventory": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/inventory.json",
+      "inventory_sha256": "59632bab58b8df315794cd57708cdcea10aacc8f3bd91a6b08eb302639229619",
+      "local_code_seal": "docs/active/bounded_admin_recovery_v0/closure_v1/package_B_v3/source_seal.json",
+      "original_policy_files": [
+        "experiments/bounded_admin_recovery_v0/__init__.py",
+        "experiments/bounded_admin_recovery_v0/package_gate.py",
+        "experiments/bounded_admin_recovery_v0/planning.py",
+        "experiments/bounded_admin_recovery_v0/protocol.json",
+        "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py"
+      ],
+      "protocol_sha256": "506dbcd747c5845dbdde92c1e27594ede7b97bcaa165d53ed4ed1f345d59b2ef",
+      "runtime_status": "NOT_EXECUTED;95_EXPECTED;0_OFFICIAL_PASSES",
+      "uncompressed_bytes": 48965,
+      "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+    }
+  },
+  "previous_transport_seal_sha256": "e40e3d59d7ee17685631b2a93d96e34d510bfe49779d98b8a1a42fcb6501e802",
+  "runtime_validation": "PENDING",
+  "schema": "PACKAGE_CLOSURE_BUDGET_SUPPLEMENT_TRANSPORT_SEAL_V1"
+}

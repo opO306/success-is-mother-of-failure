@@ -1,0 +1,77 @@
+{
+  "budget_protocol_sha256": "16db1a2dae38d2fc9d5713e9340b966257611da49ae6856529d9e59d7f126f43",
+  "campaign_cap_usd": "0.10",
+  "changed_Transport_methods": [
+    "show",
+    "execute"
+  ],
+  "changed_existing_function_copies": [
+    "validate_policy_receipt",
+    "local_preflight"
+  ],
+  "cost_confirmation_unconfirmed": true,
+  "each_cap_usd": "0.05",
+  "each_seconds": 600,
+  "exact_max_two_window_execution_fee_usd": {
+    "denominator": 12,
+    "numerator": 1
+  },
+  "execute_AST_only_budget_receipt_fields_change": true,
+  "limitations": "AST and raw hash checks only; no runtime refusal, provider billing authentication, supervisor/guardian dynamics or remote test demonstrated",
+  "local_project_dynamic_tests": 0,
+  "old_closure_files_unchanged": 68,
+  "packages": [
+    {
+      "entries": 814,
+      "kind": "A",
+      "raw_hashes_match": true,
+      "zip_sha256": "be06c9a7b8cc31c1e414b03f85485a9bb5e9e69226e34f1917553fac2673f4ff"
+    },
+    {
+      "entries": 10,
+      "kind": "B",
+      "raw_hashes_match": true,
+      "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+    }
+  ],
+  "paid_actions": 0,
+  "policy_gate_prefix_AST_unchanged": true,
+  "remote_calls": 0,
+  "separate_false_approval_templates": [
+    {
+      "execution_authorized": false,
+      "kind": "B",
+      "sha256": "c8208a17e4dbb0c811f3c1931b7f5bf1a13539a49c1bba2ddb47cd8f4e90e005"
+    },
+    {
+      "execution_authorized": false,
+      "kind": "A",
+      "sha256": "de0de448dc0ac63206254599f4dd05b61d8f70fdb2bedcbf555dfdd799d65ffe"
+    }
+  ],
+  "show_AST_only_campaign_cap_change": true,
+  "sole_added_runtime_function": "validate_B_cost_confirmation",
+  "status": "BUDGET_SUPPLEMENT_STATIC_READY",
+  "syntax_parsed_files": [
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/prepare_transport.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/seal_transport.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/static_review.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/controller.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_gate.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_probe.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_recover.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/guest_source_verify.py",
+    "docs/active/bounded_admin_recovery_v0/budget_supplement_v1/transport/supervisor.py"
+  ],
+  "transport_seal_sha256": "ea3acc4ddf5e3a34fb53d204059a603040ef1f51bc33fc7446ef5442f870e4b8",
+  "unchanged_transport_files": [
+    "case_inventory_320.json",
+    "guest_gate.py",
+    "guest_probe.py",
+    "guest_recover.py",
+    "guest_source_verify.py",
+    "package_bindings.json",
+    "reuse_origin.json",
+    "supervisor.py"
+  ]
+}
