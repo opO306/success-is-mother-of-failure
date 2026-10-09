@@ -1,0 +1,71 @@
+{
+  "schema": "BOUNDED_ADMIN_RECOVERY_V0_DYNAMIC_VALIDATION_AND_PACKAGE_CLOSURE_V1",
+  "baseline_commit": "352f9d1b09c24901a08adc6cf7d0af0a5f63fa5e",
+  "status": "PREPARATION_ONLY; NOT_PRODUCTION; PAID_EXECUTION_NOT_APPROVED",
+  "historical_status": "REMOTE_TEST_GATE_FAILED / UNRESOLVED",
+  "prior_administrative_failures": 3,
+  "prior_tablet_gate_attempts": 1,
+  "closed_failed_gate_sha256": "05cc34e1ef444a3de39cda56842fac9bc97635937b7f5bf51ff5eb3dee148f8b",
+  "original_package": {
+    "archive": "docs/active/adaptive_experience_tablet_v0/source_7b264a42/source_7b264a42.zip",
+    "zip_sha256": "ea24dd1ff2b70d4cfff56d0af9fa6d5b49f280322160189a9b132d0e0a480392",
+    "inventory": "docs/active/adaptive_experience_tablet_v0/source_7b264a42/package_manifest.json",
+    "inventory_sha256": "d4a788c31002d0080779d3fc16a1fc138c46ffaaa2cb26db5cb3a581bfd1ea68",
+    "entries": 813
+  },
+  "package_A": {
+    "purpose": "ORIGINAL_TABLET_320_AND_EXISTING_SYNTHETIC_BENCHMARK",
+    "expected_entries": 814,
+    "original_members": "SAME_PATH_SAME_RAW_BYTES_NO_REMOVAL",
+    "only_addition": {
+      "experiments/adaptive_execution_real_learning_pilot_a_resume_v1/code_seal.json": "ec1b50b4f32dc8cd3334aab6c6d063f340328fc2d24e73b8b16814052e6b5d60"
+    },
+    "original_code_seal_sha256": "18a76f0e2ea466b7a13e2066367cfc8d52ba6085be66045dacc062490ef08d09",
+    "original_protocol_sha256": "f03bc97a79e1a22ece4964270032d8829f7a208e961c09806c8f7bc10351013c",
+    "expected_tests": 320,
+    "case_identity": "EXACT_HISTORICAL_320_JUNIT_ID_SET",
+    "benchmark_sizes": [100, 1000, 10000],
+    "benchmark_repeats": 31,
+    "benchmark_start": "ONLY_AFTER_ALL_320_PASS",
+    "new_human_approval_must_bind_candidate_zip_and_inventory": true
+  },
+  "package_B": {
+    "purpose": "ISOLATED_SYNTHETIC_ADMIN_POLICY_FAULT_TESTS",
+    "original_preparation_code_seal_sha256": "80fe6f1893bd20422ab87bf0b092b082853443d1ee5c6b5bef289002d1b3222c",
+    "original_test_file": "tests/bounded_admin_recovery_v0/test_bounded_admin_recovery_v0.py",
+    "original_test_file_sha256": "0b195266deb578d56af4241c33abfa87e4debac55cfd7d6757b1581fab445015",
+    "expected_tests": 95,
+    "reuse_original_policy_gate_planner_tests_raw_bytes": true,
+    "extra_code": "REMOTE_ONLY_RESTRICTED_OFFLINE_RUNNER_AND_IMPORT_GUARD_IN_B_ONLY",
+    "no_B_files_in_A": true,
+    "fail_error_skip": 0
+  },
+  "dependency_review": "EXECUTION_SEAL_CLOSURE_PLUS_HISTORICAL_SIGNED_RAW_REFERENCES_PLUS_FIXTURE_AND_RUNTIME_PATH_AST_REVIEW; DYNAMIC_COMPLETENESS_NOT_PROVEN",
+  "transport": {
+    "reuse_seal": "docs/active/adaptive_experience_tablet_v0/admin_transport_static_20261009/transport_seal_v3.json",
+    "reuse_seal_sha256": "753c2f1407e7f42e54b5d344513228f736811716475c7bb777fba8c1b1953352",
+    "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+    "new_version_required": true,
+    "no_existing_checks_removed": true,
+    "separate_A_B_approval_templates": true,
+    "A_requires_verified_B_gate_before_start": true,
+    "automatic_transition_from_B_to_A": false,
+    "automatic_retry_or_field_repair": false
+  },
+  "proposed_windows": "TWO_SEPARATELY_EXPLICITLY_APPROVED_WINDOWS_B_THEN_A; NO_COMBINED_120_SECOND_PROOF_AVAILABLE; AGGREGATE_BUDGET_REQUIRES_HUMAN_DECISION",
+  "caps_each_only_if_approved": {
+    "allocation_seconds": 600,
+    "compute_wall_seconds": 120,
+    "aggregate_cpu_seconds": 120,
+    "cpu_affinity_count": 1,
+    "memory_bytes": 536870912,
+    "recovery_deadline_seconds": 420,
+    "stop_confirmation_seconds": 180,
+    "hourly_usd_max": "0.25",
+    "running_fee_usd_max": "0.05"
+  },
+  "before_paid_start": "FRESH_READ_ONLY_EXACT_TARGET_PRICE_STOPPED_STATE_SSH_RUNTIME_CHECK_THEN_NEW_EXPLICIT_HUMAN_APPROVAL",
+  "target_proposal_only": {"instance_id": 54815136, "machine_id": 56006, "country": "FR"},
+  "this_request_authorizes": ["LOCAL_RAW_BYTE_PACKAGING", "LOCAL_STDLIB_STATIC_AST_HASH_ZIP_ANALYSIS", "NEW_ADMIN_TRANSPORT_PREPARATION", "SEPARATE_REVIEW", "LOCAL_COMMITS"],
+  "this_request_does_not_authorize": ["LOCAL_PROJECT_IMPORTS_OR_DYNAMIC_TESTS", "PAID_START_RENTAL_OR_RESTART", "REMOTE_UPLOAD_OR_PROJECT_EXECUTION", "NEW_PHYSICS", "GPU", "GITHUB_PUSH", "MASTER_MERGE", "OPERATIONAL_AUTOMATIC_RECOVERY"]
+}

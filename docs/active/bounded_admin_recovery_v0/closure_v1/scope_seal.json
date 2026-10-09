@@ -1,0 +1,8 @@
+{
+  "baseline": "352f9d1b",
+  "files": {
+    "docs/active/bounded_admin_recovery_v0/closure_v1/scope_protocol.json": "da96a821a7aa8f6f9e2537959babf68420a0d7b8ac008b2c9751cee331ff8484"
+  },
+  "paid_approval": false,
+  "schema": "PACKAGE_CLOSURE_V1_SCOPE_SEAL"
+}
