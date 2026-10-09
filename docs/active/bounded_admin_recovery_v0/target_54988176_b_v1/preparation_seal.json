@@ -1,0 +1,23 @@
+{
+  "execution_authorized_by": "Explicit latest user request only",
+  "files": {
+    ".gitignore": "562c44007b6a3c6b9de4b4115adf0e5426f39022199d90435b440543efd4f6ba",
+    "budget_protocol.json": "16db1a2dae38d2fc9d5713e9340b966257611da49ae6856529d9e59d7f126f43",
+    "human_approvals/b_95_es_20261009_082647.json": "da8d7589c2090c7678b8570a03ed9c52b88c1a330f7328152996e9194150c168",
+    "source_preflight_static.json": "668a0fbfeac27dcc3085c193311e53aa898a7aec8c63872d9db1ae4ddf003281",
+    "static_review.json": "1d9a54a25f10aa0a390d72ee1a172aaf81d48dd931bfef798d17f1324a56f8be",
+    "target_protocol.json": "0d5eb00aebc6e31fdf24670fe4d63a900359804da1f8926126ecb76877f0861d",
+    "transport/B_cost_confirmation_UNCONFIRMED.json": "a4776ad7859e60a9815aea4f357220624b8b455c17476740d4fef2635306bb0d",
+    "transport/case_inventory_320.json": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "transport/controller.py": "4fdbd060957f9895adad7ac10cc38a4b33301f9325e8aaadf5c38c54642fe890",
+    "transport/guest_gate.py": "63b010161e894157d2e8b4d58af19b4db057025bb0643c0ae6d1d846cba42794",
+    "transport/guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "transport/guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "transport/guest_source_verify.py": "961c3ae6fd62eff408d145b09811fd217b3b014e7620f508d9b172628f916bf3",
+    "transport/package_bindings.json": "ab921ba949ff9f4a1721f5ce8c446d080718c26d02bcfb663b53de9e9e32bea7",
+    "transport/reuse_origin.json": "57fc7c7a59e666f24b18365019fbc06af40e540bdf64e2b4d8bb8a2bf18f2a3b",
+    "transport/supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57",
+    "transport/transport_seal.json": "a8d2dd765938c4970f3bb38b8d5505e4da9b9ffe24d4174872c9c7d86c781dfb"
+  },
+  "remote_tests_executed": 0
+}

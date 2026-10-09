@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "files": 4,
+      "manifest": "protocol_seal.json",
+      "mismatches": []
+    },
+    {
+      "files": 794,
+      "manifest": "preservation_manifest.json",
+      "mismatches": []
+    },
+    {
+      "files": 812,
+      "manifest": "code_seal.json",
+      "mismatches": []
+    },
+    {
+      "entries": 10,
+      "inventory_sha256": "59632bab58b8df315794cd57708cdcea10aacc8f3bd91a6b08eb302639229619",
+      "package_kind": "B",
+      "zip_sha256": "6613723aef35ea3929fd4110965014ceed5ba21ea04370622fc83a37d4f59acb"
+    }
+  ],
+  "status": "RAW_HASH_PACKAGE_APPROVAL_CHECKS_ONLY; NO_PROJECT_TESTS"
+}
