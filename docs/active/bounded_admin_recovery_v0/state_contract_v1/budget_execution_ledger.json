@@ -1,0 +1,32 @@
+{
+  "A320_authorized": false,
+  "B95_authorized": false,
+  "campaign_total_cap_usd": "0.10",
+  "conservative_after_one_future_full_window_usd": "0.08658022277777777777777777778",
+  "conservative_after_two_future_full_windows_usd": "0.1282468894444444444444444444",
+  "conservative_spent_bound_usd": "0.04491355611111111111111111111",
+  "fee_limitation": "Daily provider rows are rounded and include earlier user runtime. Unchanged daily execution row does not establish exact zero for this attempt.",
+  "individual_actual_execution_fee_usd": null,
+  "max_future_600s_reserve_usd": "0.04166666666666666666666666667",
+  "method": "Retain prior conservative cost plus max-rate complete ADMIN allocation despite no observed running. No reset; future B/A require refreshed ledger and separate approval.",
+  "new_admin_failed_restart_bound_usd": "0.004003134375",
+  "observed_utc": "2026-10-09T09:57:54.494777+00:00",
+  "previous_conservative_spent_bound_usd": "0.04091042173611111111111111111",
+  "previous_ledger_sha256": "c5a6a13337093e77195a4ad8ed48b84e6d4597aee1598e592f92f1baa6a35bf7",
+  "prior_failures": {
+    "ADMIN_resource_unavailable": 1,
+    "B_paid_start_deadline": 1,
+    "Spain_B_prestart": 1,
+    "historical_admin": 3,
+    "local_wrong_filename": 1,
+    "tablet_gate": 1
+  },
+  "provider_daily_disk_usd": "0.005",
+  "provider_daily_execution_usd": "0.02",
+  "provider_daily_total_usd": "0.025",
+  "provider_next_token": null,
+  "provider_query_complete": true,
+  "provider_raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_20261009_095328\\charges_after.json",
+  "provider_raw_sha256": "5c27457afc8ac4410c40c11100f2ac9bc54d5ceb26e4ae5eb041a4a769262e7e",
+  "role": "CURRENT_PROVIDER_READONLY_AND_PRESERVED_COST_BOUND"
+}

@@ -1,3 +1,5 @@
+**행정 운송 상태 계약 V1:** `docs/active/bounded_admin_recovery_v0/state_contract_v1/transport/`는 상태별 CLI 검사·기존 guardian 연결·ADMIN payload를 별도 버전으로 보존한다. `tests/`의 45개 행정 모의 사례는 실제 코드를 사용하고 외부 I/O만 격리한다. 유료 첫 시작은 자원 부족으로 시험 미실행; [결과/원본/한계](docs/active/bounded_admin_recovery_v0/state_contract_v1/RESULTS.md). 기존 B95/A320·계산 코드와 기존 실패 봉인은 변경하지 않았다.
+
 **증거 지문·경량 검증 V0 결과:** [보고서](docs/active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_RESULTS.md), experiments/evidence_canonicalization_v0/ 및 기존 pilot의 증거 연결부. 관련202개 원격통과, 독립 내용 재검토10건/계측50표본 통과. 증거 docs/active/evidence_canonicalization_v0/attempt1_54815136/(첫 실패 불변), validated_54815136/(최종115원격파일+외부자료146파일), source_ce36083d/(507소스/ZIP508). 기존 REAL_LEARNING_FAIL 유지, 관리자승인/프로필활성화 없음. 아래 준비 안내는 역사 상태다.
 
 **증거 지문·경량 검증 V0:** experiments/evidence_canonicalization_v0/ — INITIAL_STATE_CANON_V2·엄격한 저장 재판독·historical pins·별도 정정 자료·비용 계측·승인 대기 원격 gate. 기존 pilot 검사관/관리자 연결부에 명시적 새 manifest 적용, 계산기 수정 없음. tests/test_evidence_canonicalization_v0.py 52개 준비, 관련 합계194개 미실행. [현재 상태](docs/active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md).

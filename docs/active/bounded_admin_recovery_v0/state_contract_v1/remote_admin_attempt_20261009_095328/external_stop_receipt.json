@@ -1,0 +1,16 @@
+{
+  "role": "EXTERNAL_READONLY_STOP_RECEIPT",
+  "actual_stop_confirmed": true,
+  "observed_utc": "2026-10-09T09:56:13.136809+00:00",
+  "raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_20261009_095328\\external_final_instance.json",
+  "raw_sha256": "4b2284156fcd5fb418e8e0b98594a3b155e54380952c7e31bb487594e48feb63",
+  "projection": {
+    "id": 54988176,
+    "machine_id": 150665,
+    "geolocation": "Spain, ES",
+    "actual_status": "exited",
+    "intended_status": "stopped",
+    "dph_total": 0.16162962962962962
+  },
+  "ports_present": false
+}

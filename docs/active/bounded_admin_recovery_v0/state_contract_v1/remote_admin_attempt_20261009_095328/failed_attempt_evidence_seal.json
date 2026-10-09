@@ -1,0 +1,17 @@
+{
+  "files": {
+    "allocation_start.json": "884e3f15a93c5a98fca04325859c47bddbe227901efb7aef9eaffca3202f1c69",
+    "attempt_summary.json": "de9bd6d866555f96b9c18e4b445d3d3f6fbdcd243eb8e405370171870bb481cf",
+    "closure.json": "48e6456d9482fb1dc32f5ad2da658224ab621a9f66f700977f2fc446e9573509",
+    "completion.json": "0ac995889806c6f6f198f6e13530978923caef89559ad612e7f53b66239b095c",
+    "events.jsonl": "1506ef064ee1130c653bdccf93874023dd5f45d9a01ba3ad648be6d6ebd02a60",
+    "external_stop_receipt.json": "00f111581a231e443bde67bc32ce809b926de89b939a780379d616974b90e12e",
+    "preflight_verified.json": "03e610cb77ebfec0cb7a94894a264e1f45ba9491b15221ed5513f92113a8b61c",
+    "raw_evidence_inventory.json": "a1b7ffce492e7e603001e178c1e1b9516bff78fb939373ee675a80c65c133ae7",
+    "restart_reply.stdout": "291c2a19799c4c27d8235787a5df1b5fb3d43450ebb94c1b6d455c27604f6726",
+    "supervisor_final.json": "4851f00d599b620eab3f55f04cc567e90de2ea9f21bb533b610b434291b89b65",
+    "supervisor_ready.json": "61a54d7f2842ff2ffdc4f584f4efc3ab2fe34b1e815903157c108fd9565551b4"
+  },
+  "role": "FAILED_ATTEMPT_RAW_PRESERVATION_ONLY; NOT_READY_OR_EXECUTION_AUTHORITY",
+  "status": "UNRESOLVED"
+}

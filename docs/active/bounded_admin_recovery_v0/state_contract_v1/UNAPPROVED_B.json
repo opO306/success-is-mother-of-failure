@@ -1,0 +1,14 @@
+{
+  "A320_authorized": false,
+  "B95_passed": false,
+  "explicit_user_approval": false,
+  "new_window_separately_authorized": false,
+  "prior_admin_resource_unavailable_attempts": 1,
+  "required": [
+    "administrative dynamic gate validated",
+    "actual generic guardian ARM and transport recovery validated",
+    "fresh cost ledger plus separate explicit B approval"
+  ],
+  "restart_exact_instance_authorized": false,
+  "status": "BLOCKED_ADMIN_DYNAMIC_VALIDATION_NOT_EXECUTED"
+}

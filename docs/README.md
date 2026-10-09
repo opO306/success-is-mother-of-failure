@@ -1,3 +1,5 @@
+[행정 운송 상태 계약 V1 결과](active/bounded_admin_recovery_v0/state_contract_v1/RESULTS.md): 2026-10-09 UNRESOLVED. 구현/별도 정적 반례 검토 완료, 유료 첫 ADMIN 시작은 공급자 자원 부족; 45개 미실행, supervisor fallback과 실제 외부 stopped 확인. READY/B95/A320 합격 없음. [앞으로의 모든 구현 계획 표준](active/IMPLEMENTATION_CRITICAL_QUESTIONS_STANDARD_V1.md).
+
 [증거 지문·경량 검증 V0 결과](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_RESULTS.md): 2026-10-08 EVIDENCE_FORMAT_V0_READY / HISTORICAL_REVIEW_COMPLETE / NOT_PRODUCTION. 최종202 passed/skip0, 기존 검사관10건FORMAT_EQUIVALENT/내용검증, 비용50표본·기록별1% 통과. 첫193통과/1실패·원본 보존/검사기준 유지. 원래 REAL_LEARNING_FAIL 불변, 관리자승인PENDING/활성화0/새 물리·GPU0, freshexited 확인. 수식/OS격리·실제학습 개선 미확인. 아래 준비 기록은 당시 상태다.
 
 [증거 지문·경량 검증 V0 소스 준비](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md): 2026-10-08 SOURCE_PREPARED / 시험·과거 재검토·비용 계측 승인 대기. 새 코드 봉인465파일/ZIP466 raw 대조, 기존 보호/실패 원본 보존. 새52개+기존142개 시험 준비, 통과 보고 아님. 유료 실행·새 물리/GPU0, 원래 REAL_LEARNING_FAIL 불변.

@@ -1,3 +1,5 @@
+[행정 운송 상태 계약 V1](active/bounded_admin_recovery_v0/state_contract_v1/RESULTS.md): IMPLEMENTED / STATIC_PEER_REVIEWED / REMOTE_ADMIN_TEST_NOT_EXECUTED / UNRESOLVED. 2026-10-09 실제 첫 유료 시작 DEADLINE(공급자 자원 부족), STOP_CONFIRMED 및 fresh exited/stopped. 45행정·B95·A320 미실행, 기존 실패 불변. [공통 구현 의문·영향·반례 표준](active/IMPLEMENTATION_CRITICAL_QUESTIONS_STANDARD_V1.md)은 새 계획서에 필수 적용.
+
 [증거 지문·경량 검증 V0 제한 결과](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_RESULTS.md): 2026-10-08 EVIDENCE_FORMAT_V0_READY / HISTORICAL_REVIEW_COMPLETE / NOT_PRODUCTION. 원격202개/10원본 별도 검사관 판독/50비용표본 통과, 새 물리·GPU·재계산0. 기존 REAL_LEARNING_FAIL·첫 관문 실패 불변, 관리자PENDING/프로필0, 로컬 FULL·실제학습/OS/수식 검증 미완료. 아래 준비와 과거 상태는 보존한다.
 
 [증거 지문·경량 검증 V0](active/EVIDENCE_CANONICALIZATION_AND_LIGHTWEIGHT_VERIFICATION_V0_SOURCE_PREPARED.md): 2026-10-08 SOURCE_PREPARED / TEST_EXECUTION_PENDING / NOT_PRODUCTION. INITIAL_STATE_CANON_V2·저장 즉시 판독·기존 검사관의 읽기 전용 재검토·관리자 경계 구현, 새 봉인/ZIP 보존 확인. 동적194개·독립 내용 판독·1% 비용은 미확인, 기존 REAL_LEARNING_FAIL 불변.
