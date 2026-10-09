@@ -1,0 +1,44 @@
+{
+  "authorization_basis": "Latest user says here execute on pictured new instance; B95 scope carried from explicit B approval; one controlled restart following preparation stop",
+  "changes": [
+    "B-only configure rejects A before any API",
+    "exact new target ES + direct SSH22 port; API proxy metadata separately exact checked",
+    "/usr/bin/python3 observed 3.12.3 with installed pytest/psutil",
+    "retains failed prior B closure hash and 1 failed window plus local invocation failure",
+    "campaign reserves preparation .012 + failed B bound + two maximal 600s windows; no original seal edits"
+  ],
+  "controller_only_changed": true,
+  "failure_cases": {
+    "PID1 identity missing/mismatch": "Reject/stop/preserve; no code repair or test retry",
+    "SSH failure": "Reject/stop/preserve; no code repair or test retry",
+    "ZIP hash mismatch": "Reject/stop/preserve; no code repair or test retry",
+    "attempt A": "Reject/stop/preserve; no code repair or test retry",
+    "guardian unarmed": "Reject/stop/preserve; no code repair or test retry",
+    "missing prior failure/cost binding": "Reject/stop/preserve; no code repair or test retry",
+    "raw recovery failure": "Reject/stop/preserve; no code repair or test retry",
+    "time reserve insufficient": "Reject/stop/preserve; no code repair or test retry",
+    "wrong target/rate": "Reject/stop/preserve; no code repair or test retry"
+  },
+  "gpu_calls": 0,
+  "guardian_sha256": "2bd2dd3ea6f993c3234d77e963379f317015810d6af825bb74cab190f5750802",
+  "new_physics_calls": 0,
+  "no_local_project_dynamic_tests": true,
+  "status": "ADMIN_TRANSPORT_STATIC_READY; REMOTE_EXECUTION_NOT_YET_RUN",
+  "transport_seal_sha256": "a8d2dd765938c4970f3bb38b8d5505e4da9b9ffe24d4174872c9c7d86c781dfb",
+  "unchanged_raw_files": {
+    "B_cost_confirmation_UNCONFIRMED.json": "a4776ad7859e60a9815aea4f357220624b8b455c17476740d4fef2635306bb0d",
+    "case_inventory_320.json": "84d8eb313ad87afdd47dad4295820686bc70244b7eda23819eb84fc09c0ac8ce",
+    "guest_gate.py": "63b010161e894157d2e8b4d58af19b4db057025bb0643c0ae6d1d846cba42794",
+    "guest_probe.py": "0684ed74e0596731fb7eef6d1905f5e99ccaad173bb0275358d2f46b9dfd9a6a",
+    "guest_recover.py": "def1f71e063557230808ff69018ebe6e0ec8984bf5caf3364a26025c64691e4f",
+    "guest_source_verify.py": "961c3ae6fd62eff408d145b09811fd217b3b014e7620f508d9b172628f916bf3",
+    "package_bindings.json": "ab921ba949ff9f4a1721f5ce8c446d080718c26d02bcfb663b53de9e9e32bea7",
+    "reuse_origin.json": "57fc7c7a59e666f24b18365019fbc06af40e540bdf64e2b4d8bb8a2bf18f2a3b",
+    "supervisor.py": "205984492ec7eb5306ce6190f70c78b1c6057542c29a20c483adef0a23a13e57"
+  },
+  "unvalidated": [
+    "95 tests",
+    "new-target transport and stop linkage",
+    "provider actual billed fee"
+  ]
+}

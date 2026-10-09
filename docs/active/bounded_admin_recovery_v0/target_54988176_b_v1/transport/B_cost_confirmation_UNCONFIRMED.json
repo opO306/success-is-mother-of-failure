@@ -1,0 +1,19 @@
+{
+  "actual_execution_fee_usd": null,
+  "billing_scope": "EXECUTION_ONLY",
+  "budget_protocol_sha256": "16db1a2dae38d2fc9d5713e9340b966257611da49ae6856529d9e59d7f126f43",
+  "closure_sha256": null,
+  "confirmation_reference": null,
+  "confirmed_utc": null,
+  "cost_basis": "PROVIDER_REPORTED_EXECUTION_FEE",
+  "final_instance_sha256": null,
+  "full_invoice_verified": false,
+  "human_confirmation_text": null,
+  "human_confirmed": false,
+  "independent_provider_authentication": false,
+  "package_kind": "B",
+  "policy_gate_receipt_sha256": null,
+  "raw_files": {},
+  "schema": "B_POST_STOP_PROVIDER_EXECUTION_COST_CONFIRMATION_V1",
+  "status": "UNCONFIRMED_TEMPLATE; copy to exact B run after stop and human cost review; not execution authority"
+}
