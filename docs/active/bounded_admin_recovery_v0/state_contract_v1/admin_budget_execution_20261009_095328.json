@@ -1,0 +1,31 @@
+{
+  "A320_authorized": false,
+  "B95_authorized": false,
+  "additional_max_window_reserve_usd": "0.04166666666666666666666666667",
+  "campaign_total_cap_usd": "0.10",
+  "conservative_after_full_window_usd": "0.08257708840277777777777777778",
+  "conservative_spent_bound_usd": "0.04091042173611111111111111111",
+  "instance_id": 54988176,
+  "method": "Overcount whole current Spain daily total plus preserved old B bound and preparation reserve. Double counting is intentional. Individual actual execution fee remains unconfirmed. This bound authorizes only this ADMIN window; future B/A require refreshed remaining budget.",
+  "observed_utc": "2026-10-09T09:53:38.068636+00:00",
+  "prior_B_failed_window_bound_usd": "0.003910421736111111111111111111",
+  "prior_failures": {
+    "B_paid_start_deadline": 1,
+    "Spain_B_prestart": 1,
+    "historical_admin": 3,
+    "local_wrong_filename": 1,
+    "tablet_gate": 1
+  },
+  "prior_preparation_reserve_usd": "0.012",
+  "provider_daily_disk_usd": "0.004",
+  "provider_daily_execution_usd": "0.02",
+  "provider_daily_total_usd": "0.025",
+  "provider_next_token": null,
+  "provider_query_complete": true,
+  "provider_query_count": 6,
+  "provider_query_success": true,
+  "provider_query_total": 6,
+  "provider_raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_prestart_20261009_095328\\charges.json",
+  "provider_raw_sha256": "5ffa5b40f8d4e659a9447bfdb4d77e3a73195dd214bd0a2419091dee939e47ce",
+  "role": "CURRENT_PROVIDER_READONLY_AND_PRESERVED_COST_BOUND"
+}

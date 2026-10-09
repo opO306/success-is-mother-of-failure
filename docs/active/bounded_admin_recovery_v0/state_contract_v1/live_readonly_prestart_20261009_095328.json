@@ -1,0 +1,16 @@
+{
+  "ports_present": false,
+  "projection": {
+    "actual_status": "exited",
+    "dph_total": 0.16162962962962962,
+    "geolocation": "Spain, ES",
+    "id": 54988176,
+    "intended_status": "stopped",
+    "machine_id": 150665,
+    "public_ipaddr": "188.245.20.75",
+    "ssh_host": "ssh5.vast.ai",
+    "ssh_port": 23876
+  },
+  "raw_path": "C:\\Users\\zun24\\.codex\\evidence\\bounded_admin_recovery_v0\\admin_prestart_20261009_095328\\instance.json",
+  "raw_sha256": "8ae7163af039e281604bc5c1dc57f423a9a7f781fe242e572fcb97e70a33f726"
+}

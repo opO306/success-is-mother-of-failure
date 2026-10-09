@@ -1,0 +1,6 @@
+/transport/run_admin_*/
+/candidate_payload.zip
+/candidate_inventory.json
+/candidate_packet/
+/candidate_static_snapshot_1/*.zip
+/candidate_static_snapshot_1/candidate_inventory.json
