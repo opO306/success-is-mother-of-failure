@@ -13,10 +13,19 @@ PKG = Path(__file__).resolve().parents[1] / 'c1b1_method_bench'
 
 
 def quad_reference(V, mu, E, L, r1):
-    """Radial quadrature with r = r_turn + u^2 (no closed form used)."""
+    """Radial quadrature with r = r_turn + u^2 (no closed form used).
+
+    Run at 90 digits: a turning-point error d shifts the integral by O(sqrt(d)), so a 40-digit root
+    (d ~ 1e-40) limits the reference to ~1e-20 (S1 first run, 9 failures of ~5.6e-21 even for free flight).
+    """
+    with mm.workdps(90):
+        return [mm.mpf(x) for x in _quad_reference(V, mu, mm.mpf(E), mm.mpf(L), mm.mpf(r1))]
+
+
+def _quad_reference(V, mu, E, L, r1):
     g = lambda r: 2 * mu * (E - V(r)) - L * L / (r * r)
     lo, hi = mm.mpf('1e-6'), mm.mpf(R0)
-    for _ in range(400):
+    for _ in range(600):
         mid = (lo + hi) / 2
         if g(mid) > 0: hi = mid
         else: lo = mid
@@ -118,7 +127,7 @@ def test_planted_yoshida_swapped_weights_is_detected():
             q, p = methods.kdk(pot, q, p, c * h, mu)
         return q, p
     good = run(InvSquare(), 'yoshida4', 2 * DE, 6, 40)['err_sweep']
-    bad = run(InvSquare(), 'yoshida4', 2 * DE, 6, 40, step=swapped)
+    bad = run(InvSquare(), 'yoshida4', 2 * DE, 6, 40, step=swapped, max_steps=20000)   # net step < 0: never exits
     assert bad['status'] != 'ok' or bad['err_sweep'] > 1000 * good
 
 
