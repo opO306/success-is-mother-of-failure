@@ -44,3 +44,15 @@ def gradient_force(pot, q, h, mu):
     d1 = pot.dV(r)
     c = -d1 / r + h * h * d1 * pot.d2V(r) / (24 * mu * r)
     return [c * q[0], c * q[1]]
+
+
+class ExpWall:
+    """T4: V = A exp(-beta r), a steep repulsive wall (Born-Mayer type) for the high-energy pre-study.
+    Defaults: beta = 2 / bohr, V(6.3 bohr) = 1 De; no closed form, reference is c1b1_method_bench.quadref."""
+    name = 'T4_exp_wall'
+    def __init__(self, beta=2, r_one_de='6.3'):
+        self.beta = mm.mpf(beta)
+        self.A = DE * mm.exp(self.beta * mm.mpf(r_one_de))
+    def V(self, r): return self.A * mm.exp(-self.beta * r)
+    def dV(self, r): return -self.beta * self.V(r)
+    def d2V(self, r): return self.beta ** 2 * self.V(r)

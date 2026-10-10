@@ -42,3 +42,19 @@ def chin4a(pot, q, p, h, mu):
 METHODS = dict(kdk=kdk, yoshida4=yoshida4, chin4a=chin4a)
 # force evaluations per outer step (adjacent-step reuse not counted): kdk 2 (1 with reuse), yoshida 6 (3), chin 3 + 1 gradient
 COST = dict(kdk=1, yoshida4=3, chin4a=3)
+
+
+def adaptive_kdk(pot, q, p, h, mu, tol, h_min, h_ref=40):
+    """M4: step doubling on KDK. Compare one step h with two steps h/2 from the same state; accept the two
+    half steps when |dq| + |dp| h / mu <= tol * h / h_ref, otherwise split into two adaptive half steps.
+    Deterministic for the same inputs (exact mpmath comparisons on a fixed dyadic ladder down to h_min).
+    Not symplectic and not time-reversible (known cost of variable steps)."""
+    qc, pc = kdk(pot, q, p, h, mu)
+    qm, pm = kdk(pot, q, p, h / 2, mu)
+    qf, pf = kdk(pot, qm, pm, h / 2, mu)
+    err = mm.sqrt((qf[0] - qc[0]) ** 2 + (qf[1] - qc[1]) ** 2) + \
+        mm.sqrt((pf[0] - pc[0]) ** 2 + (pf[1] - pc[1]) ** 2) * h / mu
+    if err <= tol * h / h_ref or h / 2 < h_min:
+        return qf, pf
+    q1, p1 = adaptive_kdk(pot, q, p, h / 2, mu, tol, h_min, h_ref)
+    return adaptive_kdk(pot, q1, p1, h / 2, mu, tol, h_min, h_ref)
