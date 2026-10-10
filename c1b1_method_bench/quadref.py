@@ -22,11 +22,21 @@ def turning(pr2, r_start, r_low='0.005', scan=3000, bisect=320):
         prev = r
     else:
         raise ValueError('no turning point above r_low')
-    for _ in range(bisect):
-        mid = (lo + hi) / 2
-        if pr2(mid) > 0: hi = mid
-        else: lo = mid
-    return hi
+    # Bisect with 20 guard digits and accept hi only if p_r^2(hi) > 0 also at 40 guard digits: mpmath.quad raises
+    # the working precision internally, and a root fixed at the working precision gave p_r^2 < 0 there
+    # (S2 failure: T3, 2 De, b = 6, h = 40: +5.5e-60 at 60 digits, -2.4e-60 at 70+ digits).
+    with mm.workdps(mm.mp.dps + 20):
+        for _ in range(bisect + 70):
+            mid = (lo + hi) / 2
+            if pr2(mid) > 0: hi = mid
+            else: lo = mid
+        step = hi * mm.mpf(10) ** (-(mm.mp.dps - 2))
+    with mm.workdps(mm.mp.dps + 40):
+        for _ in range(1000):
+            if pr2(hi) > 0:
+                return hi
+            hi += step
+    raise ValueError('turning point not resolved at elevated precision')
 
 
 def legs(pr2, dtheta, dtime, r_start, r1):
@@ -36,7 +46,10 @@ def legs(pr2, dtheta, dtime, r_start, r1):
         s = mm.sqrt(R - rt)
         g = lambda u: 2 * u * f(rt + u * u, mm.sqrt(pr2(rt + u * u)))
         return mm.quad(g, [0, s / 8, s / 4, s / 2, s])
-    return leg(r_start, dtheta) + leg(r1, dtheta), leg(r_start, dtime) + leg(r1, dtime), rt
+    out = (leg(r_start, dtheta) + leg(r1, dtheta), leg(r_start, dtime) + leg(r1, dtime), rt)
+    if any(isinstance(x, mm.mpc) for x in out[:2]):
+        raise ValueError('complex quadrature: p_r^2 < 0 inside the integration range')   # fail closed
+    return out
 
 
 def reference(pot, mu, E, L, r1, r_start=R0):

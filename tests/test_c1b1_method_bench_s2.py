@@ -85,3 +85,18 @@ def test_planted_predictor_sign_fault_is_detected():
     with mm.workdps(60):
         bad = float(faulty(pot, MU, row['q0'], row['p0'], h, row['r_exit'])['sweep'] - true['sweep'])
     assert abs(row['d_sweep'] / bad - 1) > 0.2
+
+
+def test_s2_failure_case_now_real_and_matches_measurement():
+    """Regression for the S2 M7 error (T3 Coulomb, 2 De, b = 6, h = 40): result must be real and predict KDK."""
+    measured, predicted = _predict(Coulomb(), 2, 6, 40)
+    assert isinstance(predicted, float) and abs(measured / predicted - 1) < 0.01
+
+
+def test_complex_quadrature_fails_closed(monkeypatch):
+    """A turning point placed below the true root (p_r^2 < 0 near it) must raise, not return a complex number."""
+    pr2 = lambda r: 1 - 4 / (r * r)                       # true turning point r = 2
+    monkeypatch.setattr(quadref, 'turning', lambda f, r0: mm.mpf('1.9'))
+    with mm.workdps(40):
+        with pytest.raises(ValueError):
+            quadref.legs(pr2, lambda r, pr: 1 / pr, lambda r, pr: 1 / pr, mm.mpf(20), mm.mpf(20))
