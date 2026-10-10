@@ -29,7 +29,7 @@ def _quad_reference(V, mu, E, L, r1):
         mid = (lo + hi) / 2
         if g(mid) > 0: hi = mid
         else: lo = mid
-    rt = (lo + hi) / 2
+    rt = hi   # g(hi) > 0: the integrand stays real (run 2: midpoint gave g < 0 and a 1e-46 imaginary part)
     def leg(R, kind):
         f = lambda u: 2 * u * ((L / (rt + u * u) ** 2) if kind == 'angle' else mu) / mm.sqrt(g(rt + u * u))
         return mm.quad(f, [0, mm.sqrt(R - rt) / 4, mm.sqrt(R - rt)])
