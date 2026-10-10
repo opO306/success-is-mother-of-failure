@@ -56,3 +56,39 @@ class ExpWall:
     def V(self, r): return self.A * mm.exp(-self.beta * r)
     def dV(self, r): return -self.beta * self.V(r)
     def d2V(self, r): return self.beta ** 2 * self.V(r)
+
+
+RE = mm.mpf(71129) / 10000             # Ar2 equilibrium distance scale (bohr), bench only
+
+
+class Morse:
+    """T5: V = De[(1 - e^{-a(r-Re)})^2 - 1], well + wall + classical orbiting (a = 0.85 / bohr)."""
+    name = 'T5_morse'
+    def __init__(self, a='0.85'):
+        self.a = mm.mpf(a)
+    def _y(self, r): return mm.exp(-self.a * (r - RE))
+    def V(self, r):
+        y = self._y(r)
+        return DE * (y * y - 2 * y)
+    def dV(self, r):
+        y = self._y(r)
+        return 2 * self.a * DE * (y - y * y)
+    def d2V(self, r):
+        y = self._y(r)
+        return 2 * self.a ** 2 * DE * (2 * y * y - y)
+
+
+class LennardJones:
+    """T6: V = 4 De [(s/r)^12 - (s/r)^6], minimum at Re (s = Re / 2^(1/6)); well, wall, orbiting, r^-6 tail."""
+    name = 'T6_lennard_jones'
+    def __init__(self):
+        self.s = RE / mm.root(2, 6)
+    def V(self, r):
+        x = (self.s / r) ** 6
+        return 4 * DE * (x * x - x)
+    def dV(self, r):
+        x = (self.s / r) ** 6
+        return 4 * DE * (-12 * x * x + 6 * x) / r
+    def d2V(self, r):
+        x = (self.s / r) ** 6
+        return 4 * DE * (156 * x * x - 42 * x) / (r * r)

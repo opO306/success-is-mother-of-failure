@@ -43,13 +43,37 @@ def turning(pr2, r_start, r_low='0.005', scan=3000, bisect=320):
     raise ValueError('turning point not resolved at elevated precision')
 
 
+def minima(pr2, a, b, n=600, golden=240):
+    """Interior local minima of p_r^2 on (a, b): near-orbiting passes have a sharp peak of 1/p_r at the barrier top,
+    which the quadrature must see as a subinterval endpoint (S3)."""
+    rs = [a + (b - a) * mm.mpf(k) / n for k in range(n + 1)]
+    vs = [pr2(r) for r in rs]
+    out = []
+    phi = (mm.sqrt(5) - 1) / 2
+    for k in range(1, n):
+        if vs[k] < vs[k - 1] and vs[k] <= vs[k + 1]:
+            lo, hi = rs[k - 1], rs[k + 1]
+            for _ in range(golden):
+                c, d = hi - phi * (hi - lo), lo + phi * (hi - lo)
+                if pr2(c) < pr2(d): hi = d
+                else: lo = c
+            out.append((lo + hi) / 2)
+    return out
+
+
 def legs(pr2, dtheta, dtime, r_start, r1):
-    """Sweep and time from r_start in to the turning point and out to r1. dtheta/dtime take (r, p_r)."""
+    """Sweep and time from r_start in to the turning point and out to r1. dtheta/dtime take (r, p_r).
+    Fails closed when the quadrature error estimate exceeds 10^(-dps/2)."""
     rt = turning(pr2, r_start)
+    mins = minima(pr2, rt, max(r_start, r1))
     def leg(R, f):
         s = mm.sqrt(R - rt)
+        pts = sorted(set([mm.mpf(0), s / 8, s / 4, s / 2, s] + [mm.sqrt(m - rt) for m in mins if rt < m < R]))
         g = lambda u: 2 * u * f(rt + u * u, mm.sqrt(pr2(rt + u * u)))
-        return mm.quad(g, [0, s / 8, s / 4, s / 2, s])
+        val, err = mm.quad(g, pts, error=True)
+        if err > mm.mpf(10) ** (-(mm.mp.dps // 2)):
+            raise ValueError(f'quadrature error estimate {mm.nstr(err, 3)} too large')
+        return val
     out = (leg(r_start, dtheta) + leg(r1, dtheta), leg(r_start, dtime) + leg(r1, dtime), rt)
     if any(isinstance(x, mm.mpc) for x in out[:2]):
         raise ValueError('complex quadrature: p_r^2 < 0 inside the integration range')   # fail closed
