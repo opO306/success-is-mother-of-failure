@@ -119,6 +119,18 @@ P1이 계획에 주는 영향:
 
 출처(대표): [Berg & Moldover 2012](https://www.nist.gov/document/jpcrd412012rec043104pdf), [May–Berg–Moldover 2007](https://www.nist.gov/node/579646), [Sotiriadou et al. 2025](https://pmc.ncbi.nlm.nih.gov/articles/PMC12241276), [Lang et al.](https://arxiv.org/html/2304.14719v2), [Sharipov & Benites 2020](https://arxiv.org/pdf/2006.08687), [O'Hara & Smith 1969](https://ntrs.nasa.gov/api/citations/19690023570/downloads/19690023570.pdf), [Khrapak 2014](https://arxiv.org/pdf/1404.5476), [Kalos & Grosser 1972](https://cdnsciencepub.com/doi/10.1139/v72-139), [Hairer–Lubich–Wanner 2003](https://www.math.mcgill.ca/~gantumur/docs/down/gniverlet.pdf), [Preto & Tremaine 1999](https://arxiv.org/abs/astro-ph/9906322), [Huang & Leimkuhler 1997](https://whuang.ku.edu/research/paper/HL97.pdf), [Hernandez & Dehnen 2023](https://ar5iv.labs.arxiv.org/html/2301.06253), [TRACE 2024](https://arxiv.org/abs/2405.03800), [Rauch & Holman 1999](https://pages.astro.umd.edu/~rauch/papers/DynChaos.html), [Skeel 1993](https://opus4.kobv.de/opus4-zib/frontdoor/index/index/year/1991/docId/55).
 
+## 2-3. P3 실행 전 기록 (2026-10-11, 실행 전에 커밋)
+
+- 목적: 관측량(점성 Q^(2))이 산란각 오차에 얼마나 민감한지를 퍼텐셜과 관측량의 성질로만 구한다. **적분기(KDK·Yoshida)는 실행하지 않고 dt 오차값도 결합하지 않는다.** 결합은 P4 봉인 뒤 P5에서 한다.
+- 스크립트: `tools/c1b1_o1_accuracy_p3_sensitivity.py`(survey_only). χ는 독립 연속 기준 `c1b1_o1.continuous.scatter`(R=20 유한 출구)로 구한다. PES는 `c1b1_o1.model`(공개 십진 사양 독립 파서).
+- 산출: 에너지별 Q2(E)(b ∈ [0, 2Re], 경계 띠 |ρ|<0.01 제외), A(E)=2π∫|sin2χ| b db/Q2(띠 밖 균일 오차 1 rad당 상대 오차 상한 계수), B(E)=2π b_orb²/Q2(띠 상한 계수), 반 격자 Q2(적분 격자 오차 점검), 200/300/400 K에서 Ω(2,2) 가중치의 E<E_max·E>10 De 비율.
+- 에너지: 0.15/0.2/0.3/0.5/0.7/0.9/0.99 De(b_orb는 `c1b1_orbit_boundary_v3.json` 저장값), 1/2/5/10 De, survey_only 20/33/45 De.
+- 자체 점검: 강체구 χ=2acos(b/d)의 Q2=(2/3)πd²를 같은 적분 코드로 재현하지 못하면 실행 중단(상대 2e-3).
+- 한계(미리 공개): R=20 유한 출구 χ이며 χ∞가 아니다. b>2Re 꼬리와 경계 띠는 Q2에서 빠진다. 가중치 계산은 Q2를 로그 에너지 선형 보간·양끝 상수 외삽한 거친 값이다.
+- 실행 장소: 노트북(aic-labtop) WSL2. 이 PC에서는 실행하지 않는다.
+- 이미 공개된 dt40 값(실행 전 열람): `c1b1_dt_study_v1.json` HP dt40의 sweep 오차는 0.5–10 De, b ≤ 2Re에서 최대 절대 약 7e-6 rad(10 De, b=Re/2), 에너지가 커질수록 커지는 경향이다. P1·P2 중 이 PC에서 JSON 저장값의 뺄셈으로 확인했다(새 계산 아님).
+- 다른 자료 발견: `D:\reference\ar2_lang2024\S4_cross_sections*.txt`(Lang 보충자료, 양자 단면적과 ±σ판으로 추정. 내용 미확인). 같은 PES의 고전 Q2와 비교하면 E-QC 항을 구할 수 있을 가능성이 있다. 이번 P3 범위는 아니다.
+
 ## 3. 선택지 ④가 ③과 다른 점 (정직성 경계)
 
 ④의 결과가 "dt40으로 충분"이면 실질적으로 ③(합격 범위 재정의)과 같은 곳에 도달할 수 있다. 결과를 보고 합격선을 옮기는 일이 되지 않도록 다음을 지킨다.
