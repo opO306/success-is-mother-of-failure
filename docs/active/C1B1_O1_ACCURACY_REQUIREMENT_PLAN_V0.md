@@ -119,6 +119,19 @@ P1이 계획에 주는 영향:
 
 출처(대표): [Berg & Moldover 2012](https://www.nist.gov/document/jpcrd412012rec043104pdf), [May–Berg–Moldover 2007](https://www.nist.gov/node/579646), [Sotiriadou et al. 2025](https://pmc.ncbi.nlm.nih.gov/articles/PMC12241276), [Lang et al.](https://arxiv.org/html/2304.14719v2), [Sharipov & Benites 2020](https://arxiv.org/pdf/2006.08687), [O'Hara & Smith 1969](https://ntrs.nasa.gov/api/citations/19690023570/downloads/19690023570.pdf), [Khrapak 2014](https://arxiv.org/pdf/1404.5476), [Kalos & Grosser 1972](https://cdnsciencepub.com/doi/10.1139/v72-139), [Hairer–Lubich–Wanner 2003](https://www.math.mcgill.ca/~gantumur/docs/down/gniverlet.pdf), [Preto & Tremaine 1999](https://arxiv.org/abs/astro-ph/9906322), [Huang & Leimkuhler 1997](https://whuang.ku.edu/research/paper/HL97.pdf), [Hernandez & Dehnen 2023](https://ar5iv.labs.arxiv.org/html/2301.06253), [TRACE 2024](https://arxiv.org/abs/2405.03800), [Rauch & Holman 1999](https://pages.astro.umd.edu/~rauch/papers/DynChaos.html), [Skeel 1993](https://opus4.kobv.de/opus4-zib/frontdoor/index/index/year/1991/docId/55).
 
+## 2-2b. P2 보강 — Scite 재조사 (2026-10-11)
+
+- 도구 한계: Consensus는 연결됐지만 **월 30회 검색 한도가 이미 소진**되어 사용하지 못했다. Scite(검색·인용 맥락)와 웹 검색으로 수행했다. PDF는 열지 않았다.
+- 고전 vs 양자(Ar, 200–400 K): 여전히 **UNRESOLVED**. Kr에서 약 0.05%(Sharipov & Benites 2020 [Scite 본문 발췌]). Lang은 고전 결과(Vogel 등)가 150 K 이상에서 자기 불확도 밖이라고 했지만 퍼텐셜 차이가 섞여 있어 고전-양자 순수 효과로 읽을 수 없다.
+- 실험 불확도: Xiao et al. 2020(JPCRD)이 May 2007의 Ar 자료를 **0.038%로 재평가**했다 [초록 + Scite 맥락]. 2-2절의 "약 0.03–0.04%"와 일치한다. 이 논문에는 정정(correction)·정오표가 등록되어 있다(내용 미확인).
+- 반대 증거:
+  - Vogel et al. 2010(Mol. Phys.)에는 Scite에서 반박 인용이 3건 있다. 그중 하나는 ab initio 표의 243.15 K 불규칙점(Lin et al. 2013)이다.
+  - 가변 걸음은 효율을 크게 떨어뜨렸다는 보고가 있다(Calvo & Sanz-Serna 1993 [초록]).
+  - 다체 MD에서는 4차 방법이 비용 대비 Verlet보다 못하다는 결론이 있다(Toxvaerd 2012 [초록]). 다만 안정성이 걸음을 정하는 다체 MD의 결론이며, 정확도가 걸음을 정하는 두 물체 산란에는 그대로 적용되지 않는다.
+- 산란각 → 충돌 적분 정확도 요구를 명시한 문헌: 여전히 [미발견]. 맴도는 궤도 근처는 적분 격자를 더 촘촘히 해야 한다는 언급만 있다(Kim & Monroe 2010 [검색 요약]). HCB 표 오류는 에너지에 따라 다르고 중간 에너지에서 크다(Khrapak 2014 [Scite 발췌]).
+- 시험 문제 후보: 정밀 Lennard-Jones 기준은 Kim & Monroe 2014(J. Comput. Phys. 273:358)이다. 정밀도 서술은 출처마다 엇갈린다. r⁻⁴(Langevin)은 완전 타원적분 해가 가능하다는 것이 하위 조사의 유도이며 원문은 미확인이다.
+- 불안정성(Lyapunov) 기준 걸음 조절: [미발견].
+
 ## 2-3. P3 실행 전 기록 (2026-10-11, 실행 전에 커밋)
 
 - 목적: 관측량(점성 Q^(2))이 산란각 오차에 얼마나 민감한지를 퍼텐셜과 관측량의 성질로만 구한다. **적분기(KDK·Yoshida)는 실행하지 않고 dt 오차값도 결합하지 않는다.** 결합은 P4 봉인 뒤 P5에서 한다.
