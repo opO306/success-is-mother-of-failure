@@ -44,5 +44,42 @@
     "benchmark_rehearsal_non_official": {"register_seconds": 0.219, "benchmark_seconds": 2.672, "check_sources_seconds": 0.641,
       "total_wall_seconds": 3.532, "total_process_cpu_seconds": 3.516, "lookup_target_met": [true, true, true], "cpu_affinity": "1 core",
       "note": "Windows; os.sched_getaffinity supplied from psutil for this rehearsal only; different machine than Vast (Xeon E5-2620 v4 in V12.3)"}
+  },
+  "linux_wsl1": {
+    "approval": "user chose option 1 (WSL on remote PC), rebooted, logged in, enabled BIOS virtualization (2026-10-10)",
+    "setup": {"wsl_msi": "wsl.3.0.1.0.x64.msi from github.com/microsoft/WSL release 3.0.1, 367669248 bytes, sha256 28B1A0D013640A2AC95898EA705FA186E5B4FF767A1C1B49257161BC106599C6, Authenticode Valid (Microsoft Corporation)",
+              "distro": "ubuntu-24.04.5-wsl-amd64.wsl from releases.ubuntu.com (URL+sha256 from microsoft/WSL DistributionInfo.json), 388975696 bytes, sha256 bb415d824822c4b878125729af451a5d18fb13d1cf5cbed9a7393ad64ac6039e match",
+              "imported": "wsl --import Ubuntu-24.04 D:\\wsl\\ubuntu2404 --version 1 (kernel 4.4.0-26100-Microsoft = WSL1 translation layer, not a real Linux kernel)",
+              "python": "3.12.3 (GCC 13.3.0) venv /root/v124venv: pytest 8.3.5, psutil 6.1.1, mpmath 1.3.0 (backend python), cryptography 44.0.1; Vast V12.3 had Python 3.12.15 with the same four versions",
+              "windows_features": "Microsoft-Windows-Subsystem-Linux enabled (active after user reboot); VirtualMachinePlatform enabled with /norestart (pending next reboot, for optional WSL2)"},
+    "raw_originals_location": "D:\\v12_4_mock\\wsl1_outputs on aic-2DESK-TOP",
+    "outputs_manifest_sha256": "7b033663dcc02e0c9f313e38f70b30a3bd056dd4c6d8ec7e5406480f93b14c0c",
+    "outputs_manifest": {
+      "wsl1_guest_scenarios/scenarios.json": "1d2dfc441b4a841e3fb251bdae5d39598dce044f6061df3c7794342bd6f02242",
+      "wsl1_out_a320_orig/junit.xml": "3bec5456a9c4e5cbda317a7c11ea473c2385948e7c71ddc3bd0cac5940062b0c",
+      "wsl1_out_a320_orig/physics_guard.json": "6db17fd1f9ac4ea3008af9781e92584bc761bc355238be6a30e059d27a6f1a15",
+      "wsl1_out_a320_orig/result.json": "2585c1aa32763172d69c6cd1982e12fc997a0b7cdbe8ff34a246e642400c5d26",
+      "wsl1_out_a320_orig/tests.log": "3f5094535a8695852e3160029351164fbc3b9e5e0ad96276c19e3bd08cd7dd40",
+      "wsl1_out_a320_v2/junit.xml": "c287b702f9ecdd71b528420b023287fd024ac16edda891c6792eddc80388a8e1",
+      "wsl1_out_a320_v2/physics_guard.json": "6db17fd1f9ac4ea3008af9781e92584bc761bc355238be6a30e059d27a6f1a15",
+      "wsl1_out_a320_v2/result.json": "4eac101874a59834ee11875728e77b2a90f78fb3063461c8e7c6650cb3bf9af5",
+      "wsl1_out_a320_v2/tests.log": "8570d0ef4c88e0eee34f823b467730e9a1359af573bdb9741991e8dc30060eee",
+      "wsl1_out_orig_one/junit.xml": "937e41838e62e987d9abbc5033fc77b015bbeaa30773145509ab834be9673600",
+      "wsl1_out_orig_one/physics_guard.json": "6db17fd1f9ac4ea3008af9781e92584bc761bc355238be6a30e059d27a6f1a15",
+      "wsl1_out_orig_one/result.json": "fcdbf74d7cd24529acf104353cf55246ada3e7cb115060413f73a18feebdc04d",
+      "wsl1_out_orig_one/tests.log": "bc1f17e6e6d13c84bbbaddb0a3dfad63e8e06147d3f5e9ca02a83d0740fb7223",
+      "wsl1_out_rehearsal/rehearsal.json": "0fd6f639dbf47d7d39f521e2a1723fda3ea8ce916eca4cb1df56f55e0d9bafde"
+    },
+    "results": {
+      "a320_revision_2_full": {"tests": 320, "passed": 320, "failed": 0, "errors": 0, "skipped": 0, "ids_equal_case_inventory": true,
+                               "guard_blocked_attempts": [], "wall_seconds_one_cpu": 42.896, "pytest_reported": "320 passed in 42.66s"},
+      "a320_original_full_reproduces_vast": {"tests": 320, "passed": 319, "failed": ["tests.test_adaptive_experience_tablet_v0::test_only_selected_reference_files_are_opened"],
+                                             "errors": 0, "skipped": 0, "ids_equal_case_inventory": true, "vast_v12_3_result": "319 passed, same 1 failed"},
+      "original_single_test": "FAIL",
+      "guest_verifier_scenarios": {"v2_accepts_revision_2": true, "v2_refuses_original_package": true, "v2_refuses_swapped_upload": true,
+                                   "v2_refuses_tampered_member": true, "original_verifier_refuses_revision_2": true, "all_as_expected": true},
+      "benchmark_rehearsal_non_official": {"register_seconds": 0.442, "benchmark_seconds": 6.674, "check_sources_seconds": 0.428, "total_wall_seconds": 7.545,
+                                           "total_process_cpu_seconds": 7.359, "lookup_target_met": [true, true, true], "cpu_affinity": "1 core"}
+    }
   }
 }
