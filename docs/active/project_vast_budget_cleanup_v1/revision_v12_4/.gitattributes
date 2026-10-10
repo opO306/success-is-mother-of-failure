@@ -1,0 +1,2 @@
+# V12.4 seals hash exact working bytes; never convert line endings (root .gitattributes is pinned, not edited).
+* -text

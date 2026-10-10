@@ -1,0 +1,45 @@
+# V12.4 — A 묶음 2판·검문소 2판 작성과 무료 확인 결과 (2026-10-10, Claude 세션)
+
+계획: [V12_4_PACKAGE_A_V2_PLAN.md](V12_4_PACKAGE_A_V2_PLAN.md). 원격 증거 요약: [v12_4_remote_mock/remote_evidence_summary.json](v12_4_remote_mock/remote_evidence_summary.json).
+상태: **정적 준비 + 원격 PC(Windows) 부분 확인. 320개 전체의 무료 Linux 실행은 환경이 없어 미실행. 유료 실행 미승인·미실행.**
+
+## 한눈에
+
+| 항목 | 결과 |
+|---|---|
+| 2판 묶음 | `revision_v12_4/package_A_v2/tablet_814_v2.zip` SHA `93e8f08e…`. 원본 814개 중 **2개만** 다름(시험 파일 2줄, code_seal 번호 1줄). code_seal `18a76f0e…` → `10e8c73f…` |
+| 재현성 | 원격 PC(Python 3.12.10)에서 같은 빌더로 다시 만든 zip·장부·변경기록 번호가 이 PC(3.12.7)와 **완전히 같음** |
+| 검문소 2판 | `package_v2.py`, `guest_source_verify_v2.py`, `package_bindings_v2.json`. 2판 번호를 하드코딩 + 원본 보존 + "원본과의 차이가 정확히 승인된 2개" 확인 |
+| V12.4 봉인 | `revision_v12_4/operational_seal.json` (40개 파일, SHA `da976edc…`). 원격 사본에서 40/40 일치 |
+| 모의 시험(원격) | **52/52 통과**, 실패·오류·건너뜀 0 (2판 전용 20개 포함) |
+| 서버 안 검사 2판 실제 실행(원격, 가짜 경로) | 2판 통과 / 원본 거부 / 1바이트 변조 거부 / 업로드 바꿔치기 거부 / 원본 검사기는 2판 거부 — 5개 모두 기대대로 |
+| 고친 시험 반례 | 원본 묶음 → **실패**, 2판 → **통과** (같은 PC, 새로 풀고 봉인 3종 재검사) |
+| A320 320개 전체 | **원격 PC(Windows)에서 실행 불가.** 3개 시험 파일(177개)이 Linux 전용 `resource`를 불러 수집 단계 중단 |
+| Windows에서 돌 수 있는 143개 | 93 통과 / 50 실패 — 실패 50개 **전부** Linux 전용 `fcntl` 없음. 고친 시험은 통과 |
+| 검색 측정 예행(비공식) | 원격 PC 1코어에서 측정 2.67초, 봉인 재검사 0.64초, 합 3.53초. 목표(조회 중앙값 ≤10ms) 3개 크기 모두 충족 |
+
+## 무엇을 만들었나 (전부 새 경로, 원본 수정 0)
+
+- `revision_v12_4/` — V12.3 복사본 + 2판 연결. V12.3과의 차이:
+  - `authority.py`: 승인 형식 `V12_4_ACTUAL_BUNDLED_PAID_APPROVAL`, 사용 기록 폴더 `v12_4_paid_approval_use` (V12.3 승인 재사용 불가)
+  - `fresh_owned.py`: `package_v2` 연결 3줄, 임대·승인 사용 **전** 2판 사전 점검(`package_v2.preflight`), 기록 이름 `v12_4_admission_*`
+  - `process_bridge.py`: 감시기 프로세스에도 2판 회수 검사 연결
+  - `closure.py`, `reads.py`: 바이트 동일
+  - `seal.py`: 2판 파일·연결 대상 V12 파일까지 봉인
+  - 내부 기록 파일 이름 `v12_3_*`(예: `v12_3_admin_started.json`)은 closure 검사와 맞추려고 그대로 둠
+- `package_v2.py` — 연결점: controller의 configure / verify_local_package / py_once(서버 안 검사 프로그램 교체), campaign의 source_preflight / transport_binding, terminal_proof.require_terminal.
+- `package_A_v2/` — 빌더, 2판 zip, 장부, 변경 기록.
+- `v12_4_remote_mock/` — 원격 PC 실행 도구 2개와 증거 요약(봉인 밖, 판정 입력 아님).
+
+## 무엇이 확인되지 않았나
+
+- **2판 320개 전체가 Linux에서 통과하는지: 미확인.** 무료 Linux 환경(원격 PC·노트북 모두 WSL/Docker 없음)이 없다.
+  간접 근거: 812개 파일은 V12.3 유료 실행 때와 바이트 동일(그때 Linux에서 319 통과), 고친 시험은 Windows에서 통과·원인은 플랫폼 무관한 순서 실수.
+  그래도 "Linux 320/320"은 실제로 돌려 보기 전에는 주장하지 않는다.
+- Vast 기계에서 검색 측정이 120초 한도 안에 끝나는지: 미확인(추정: V12.3 시험 75.14초 + 측정 약 9초 내외).
+- 감시기 실제 사망·실제 SSH 단절 상황에서 2판 회수: 유료에서만 확인 가능.
+- 원격 PC 결과는 Windows·다른 CPU에서의 모의 확인이며 공식 판정이 아니다.
+
+## 별도 검토
+
+(아래 "별도 검토 기록" 절 참조)
