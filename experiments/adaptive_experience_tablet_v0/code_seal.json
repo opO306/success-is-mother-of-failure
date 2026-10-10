@@ -825,7 +825,7 @@
     "tests/test_adaptive_execution_real_learning_pilot_a_resume_v1.py": "3d60d13e6328689fa53f391e0cc9693d953a8f8e3a53ef706f57dc717ce8ab94",
     "tests/test_adaptive_execution_real_learning_pilot_v0.py": "5a6209960d4f2680955916ed0d89dd4064b1d50bfab37c3b99ab0510c306b45d",
     "tests/test_adaptive_execution_verification_v0.py": "4c78b1f7c26b83cf27f58fe411ffe25c7ae28753a9fec8812e6d4bf381166b52",
-    "tests/test_adaptive_experience_tablet_v0.py": "41b7c97f031ad8f305b94463cf2a90f8feef3181c1127c4430a32acc328add67",
+    "tests/test_adaptive_experience_tablet_v0.py": "7727af7d0742858a0660ba1ee01a9b8472e8bda9d5d17fb6f9aba4cf8e799238",
     "tests/test_evidence_canonicalization_v0.py": "fe08783accb24535983190e8c483a218212eeacaf751a36bdeaca4ad04bbe201"
   }
 }

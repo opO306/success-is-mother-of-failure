@@ -240,10 +240,10 @@ def test_search_result_mutation_does_not_change_live_index(archive):
 
 
 def test_only_selected_reference_files_are_opened(archive,monkeypatch):
-    tablet,_,_,_=archive; original=Path.read_bytes; accessed=[]
+    tablet,_,_,_=archive; query=request(); original=Path.read_bytes; accessed=[]
     def capture(path): accessed.append(path); return original(path)
     monkeypatch.setattr(Path,'read_bytes',capture)
-    hits=tablet.search(request())
+    hits=tablet.search(query)
     assert len(hits)==1 and accessed==[]
 
 
