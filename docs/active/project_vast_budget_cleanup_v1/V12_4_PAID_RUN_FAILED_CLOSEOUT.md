@@ -37,3 +37,10 @@
 
 - 정지 서버 55124485 처리: 원격에 남은 것은 관리 시험 원본(이미 회수·검증 `admin_verified.json`)과 V12 probe 입력 사본뿐이며 A320 자료는 없다. 폐기하려면 손실 목록 승인 방식(V12.3 `discard_owned.py`는 55069864 전용이라 새 도구 필요) 또는 사용자가 Vast 웹에서 직접 삭제 후 장부 정산 기록.
 - 다음 시도 여부와 수정 방향(위 6번).
+
+## 갱신: 정지 서버 삭제·정산 완료 (설계자 요청)
+
+- 설계자 원문: "정지 서버 삭제 하고 지금 무슨 측정 하는지 알려줘 잠을 안잤더니 집중력이나 그런게 떨어지네".
+- `C:\Users\zun24\.codex\evidence\project_vast_budget_cleanup_v1_20261009\discard_55124485.py`: 정확한 서버 확인 → 정지 재확인 → 삭제 요청 1회 → 목록에서 사라짐·저장소 변화 0·다른 서버 변화 0 → V12 원본 `reconcile_destroyed`로 장부 SETTLE·OBSERVE.
+- 기록 근거: `DESIGNER_REQUEST_LOSS_ACCEPTED_NOT_RECOVERY_VERIFIED`(원격 회수 검증으로 꾸미지 않음). 손실 목록은 `designer_discard/decision.json`.
+- 결과: `DESTROY_CONFIRMED`(시도 1회), 공급자 인스턴스 목록 비어 있음. 장부 보수 누적 경계 $0.953322, 진행 중 예약 0, 여유 **$1.046678**(최종 청구 아님).
