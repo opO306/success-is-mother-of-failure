@@ -21,11 +21,12 @@ def test_quadref_matches_closed_forms(pot, form):
 
 
 def test_quadref_t4_precision_stable():
+    """80 (default) vs 100 digits."""
     pot = ExpWall(); E = 20 * DE; L = 2 * mm.sqrt(2 * MU * E)
     a = quadref.reference(pot, MU, E, L, mm.mpf(20))
     old = quadref.DPS
     try:
-        quadref.DPS = 80
+        quadref.DPS = 100
         b = quadref.reference(pot, MU, E, L, mm.mpf(20))
     finally:
         quadref.DPS = old

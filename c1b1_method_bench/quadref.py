@@ -6,7 +6,7 @@ Hamiltonian H~ = H + h^2 H3 (M7 error predictor). Single accessible turning poin
 """
 import mpmath as mm
 
-DPS = 60
+DPS = 80
 R0 = 20
 
 
@@ -22,20 +22,24 @@ def turning(pr2, r_start, r_low='0.005', scan=3000, bisect=320):
         prev = r
     else:
         raise ValueError('no turning point above r_low')
-    # Bisect with 20 guard digits and accept hi only if p_r^2(hi) > 0 also at 40 guard digits: mpmath.quad raises
-    # the working precision internally, and a root fixed at the working precision gave p_r^2 < 0 there
-    # (S2 failure: T3, 2 De, b = 6, h = 40: +5.5e-60 at 60 digits, -2.4e-60 at 70+ digits).
+    # The returned point must stay above the root at ANY precision mpmath.quad later uses. A root fixed at the
+    # working precision gave p_r^2 < 0 at higher precision (S2: T3, 2 De, b = 6, h = 40), and an 80-digit root
+    # handed to a 60-digit integrand was rounded below the root (S2 fix attempt 1: silent tiny imaginary parts).
+    # So: bisect with guard digits, round to the working precision, then add a margin of 1e-(dps-10) relative.
+    # The sweep error this adds is O(sqrt(margin)) ~ 1e-35 at 80 digits.
     with mm.workdps(mm.mp.dps + 20):
         for _ in range(bisect + 70):
             mid = (lo + hi) / 2
             if pr2(mid) > 0: hi = mid
             else: lo = mid
-        step = hi * mm.mpf(10) ** (-(mm.mp.dps - 2))
-    with mm.workdps(mm.mp.dps + 40):
-        for _ in range(1000):
-            if pr2(hi) > 0:
-                return hi
-            hi += step
+    margin = mm.mpf(10) ** (-(mm.mp.dps - 10))
+    rt = +hi * (1 + margin)                       # unary + rounds to the working precision
+    for _ in range(1000):
+        with mm.workdps(mm.mp.dps + 40):
+            ok = pr2(rt) > 0
+        if ok:
+            return rt
+        rt = +rt * (1 + margin)
     raise ValueError('turning point not resolved at elevated precision')
 
 
