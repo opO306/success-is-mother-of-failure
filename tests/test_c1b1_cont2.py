@@ -36,7 +36,8 @@ def test_closed_forms(kind):
     pot = InvSquare() if kind == 'inv_square' else Coulomb()
     E, b = 2 * DE, 6
     mu, q, p, L = _bench_state(pot, E, b)
-    got = c2.scatter(pot.V, mu, q, p, 20, dps=40)
+    # dps 60: the design accuracy is 10^-(dps/2) (precision check); at dps 40 the observed error was 1.4e-28 (run 1)
+    got = c2.scatter(pot.V, mu, q, p, 20, dps=60)
     with mm.workdps(80):
         ref = getattr(exact, kind)(pot.alpha, mu, mm.mpf(E), L, 20, mm.mpf(20))
         assert abs(mm.mpf(got['sweep']) - ref['sweep']) < mm.mpf('1e-30')
@@ -76,18 +77,34 @@ def test_narrow_band_agrees_with_bench_reference(potname, frac, rho):
 
 
 def test_planted_missing_barrier_check_is_detected():
-    """Without the interior-minimum search V2 falls back to the grid bracket; at rho = +1e-8 it must then stop or
-    disagree with the bench reference (it must not silently agree by luck)."""
-    from c1b1_method_bench import quadref
-    pot, E, b = _narrow('T5_morse', '0.6', '1e-8')
-    mu, q, p, L = _bench_state(pot, E, b)
-    good = c2.scatter(pot.V, mu, q, p, 20, dps=40)
-    try:
-        bad = c2.scatter(pot.V, mu, q, p, 20, dps=40, use_minima=False)
-    except c2.Unresolved:
-        return
-    with mm.workdps(60):
-        assert abs(mm.mpf(bad['sweep']) - mm.mpf(good['sweep'])) > mm.mpf('1e-12')
+    """Without the interior-minimum search V2 falls back to the first non-positive grid bracket. Where that bracket is
+    the inner wall (the band at the barrier top fell between grid points), the result must stop or disagree; it must
+    not silently agree. Run 1 showed a grid point can land inside the band by chance (then the fallback is right), so
+    at least one of the rho > 0 inputs must actually exercise the inner-wall case."""
+    from c1b1_method_bench import orbit
+    from c1b1_method_bench.potentials import MU
+    exercised = 0
+    for potname, frac, rho in [x for x in NARROW if not x[2].startswith('-')]:
+        pot, E, b = _narrow(potname, frac, rho)
+        mu, q, p, L = _bench_state(pot, E, b)
+        with mm.workdps(60):
+            r_star = orbit.orbit(pot, MU, E)['r_star']
+            H = (p[0] ** 2 + p[1] ** 2) / (2 * mu) + pot.V(mm.mpf(20))
+            g = lambda r: 2 * mu * (H - pot.V(r)) - L * L / (r * r)
+            rt_bad, _ = c2.turning_point(g, mm.mpf(20), 40, use_minima=False)
+            rt_good, _ = c2.turning_point(g, mm.mpf(20), 40)
+            assert rt_good > r_star
+            if rt_bad > r_star:
+                continue                                   # a grid point landed inside the band: fallback was right
+        exercised += 1
+        good = c2.scatter(pot.V, mu, q, p, 20, dps=40)
+        try:
+            bad = c2.scatter(pot.V, mu, q, p, 20, dps=40, use_minima=False)
+        except c2.Unresolved:
+            continue
+        with mm.workdps(60):
+            assert abs(mm.mpf(bad['sweep']) - mm.mpf(good['sweep'])) > mm.mpf('1e-12')
+    assert exercised >= 1
 
 
 def test_deterministic_repeat():
