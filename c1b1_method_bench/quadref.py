@@ -2,7 +2,8 @@
 
 A one-degree-of-freedom description is enough: p_r^2(r), dtheta/dr and dt/dr as functions of r.
 Used for the true Hamiltonian H (T4 and later problems without a closed form) and for the KDK modified
-Hamiltonian H~ = H + h^2 H3 (M7 error predictor). Single accessible turning point only (no orbiting barrier).
+Hamiltonian H~ = H + h^2 H3 (M7 error predictor). The first turning point reached from outside is used; an orbiting
+barrier is handled by a split point at its top (S3) and by the narrow-band check in turning() (S3 fix).
 """
 import mpmath as mm
 
@@ -22,6 +23,15 @@ def turning(pr2, r_start, r_low='0.005', scan=3000, bisect=320):
         prev = r
     else:
         raise ValueError('no turning point above r_low')
+    # Just outside an orbiting barrier the forbidden band at the barrier top is ~sqrt(rho) wide and can be narrower
+    # than one scan step (S3: rho = +1e-6 band 0.43-0.78 steps; 3 of 6 inputs stepped over it to the inner wall).
+    # The band sits at an interior minimum of p_r^2, which the scan cannot miss as a basin: if the outermost such
+    # minimum above the bracket's low end is <= 0, the first root is between it and r_start (single crossing above
+    # it: a second crossing would need another non-positive minimum further out). The search starts at lo, not at
+    # the bracket top, because a band can also lie inside the bracket the scan just found.
+    neg = [m for m in minima(pr2, lo, mm.mpf(r_start)) if pr2(m) <= 0]
+    if neg:
+        lo, hi = max(neg), mm.mpf(r_start)
     # The returned point must stay above the root at ANY precision mpmath.quad later uses. A root fixed at the
     # working precision gave p_r^2 < 0 at higher precision (S2: T3, 2 De, b = 6, h = 40), and an 80-digit root
     # handed to a 60-digit integrand was rounded below the root (S2 fix attempt 1: silent tiny imaginary parts).
@@ -61,9 +71,9 @@ def minima(pr2, a, b, n=600, golden=240):
     return out
 
 
-def legs(pr2, dtheta, dtime, r_start, r1):
+def legs(pr2, dtheta, dtime, r_start, r1, time=True):
     """Sweep and time from r_start in to the turning point and out to r1. dtheta/dtime take (r, p_r).
-    Fails closed when the quadrature error estimate exceeds 10^(-dps/2)."""
+    Fails closed when the quadrature error estimate exceeds 10^(-dps/2). time=False skips the time legs (None)."""
     rt = turning(pr2, r_start)
     mins = minima(pr2, rt, max(r_start, r1))
     def leg(R, f):
@@ -74,24 +84,24 @@ def legs(pr2, dtheta, dtime, r_start, r1):
         if err > mm.mpf(10) ** (-(mm.mp.dps // 2)):
             raise ValueError(f'quadrature error estimate {mm.nstr(err, 3)} too large')
         return val
-    out = (leg(r_start, dtheta) + leg(r1, dtheta), leg(r_start, dtime) + leg(r1, dtime), rt)
+    out = (leg(r_start, dtheta) + leg(r1, dtheta), leg(r_start, dtime) + leg(r1, dtime) if time else None, rt)
     if any(isinstance(x, mm.mpc) for x in out[:2]):
         raise ValueError('complex quadrature: p_r^2 < 0 inside the integration range')   # fail closed
     return out
 
 
-def reference(pot, mu, E, L, r1, r_start=R0):
+def reference(pot, mu, E, L, r1, r_start=R0, time=True):
     """True-Hamiltonian scattering at finite radius (same output keys as c1b1_method_bench.exact)."""
     with mm.workdps(DPS):
         E, L, r1 = mm.mpf(E), mm.mpf(L), mm.mpf(r1)
         pr2 = lambda r: 2 * mu * (E - pot.V(r)) - L * L / (r * r)
-        sweep, time, rt = legs(pr2, lambda r, pr: L / (r * r * pr), lambda r, pr: mu / pr, mm.mpf(r_start), r1)
+        sweep, t, rt = legs(pr2, lambda r, pr: L / (r * r * pr), lambda r, pr: mu / pr, mm.mpf(r_start), r1, time)
         pr = mm.sqrt(pr2(r1)); pt = L / r1
         c, s = mm.cos(sweep), mm.sin(sweep)
-        return dict(sweep=sweep, time=time, r_turn=rt, p_out=[pr * c - pt * s, pr * s + pt * c])
+        return dict(sweep=sweep, time=t, r_turn=rt, p_out=[pr * c - pt * s, pr * s + pt * c])
 
 
-def kdk_modified(pot, mu, q0, p0, h, r1):
+def kdk_modified(pot, mu, q0, p0, h, r1, time=True):
     """Sweep/time along the flow of H~ = H + h^2 H3 (kick-drift-kick, Hairer-Lubich-Wanner 2003 corrected sign):
     H3 = U''(r) p_r^2 / (12 mu^2) + U'(r) L^2 / (12 mu^2 r^3) - U'(r)^2 / (24 mu)   (central force).
     Initial value H~0 from the integrator's own start state (q0, p0)."""
@@ -108,5 +118,5 @@ def kdk_modified(pot, mu, q0, p0, h, r1):
         pr2 = lambda r: (Ht - W(r)) / c(r)
         dtheta = lambda r, pr: (L / (mu * r * r) + h2 * d1(r) * L / (6 * mu * mu * r ** 3)) / (2 * c(r) * pr)
         dtime = lambda r, pr: 1 / (2 * c(r) * pr)
-        sweep, time, rt = legs(pr2, dtheta, dtime, r0, r1)
-        return dict(sweep=sweep, time=time, r_turn=rt)
+        sweep, t, rt = legs(pr2, dtheta, dtime, r0, r1, time)
+        return dict(sweep=sweep, time=t, r_turn=rt)
