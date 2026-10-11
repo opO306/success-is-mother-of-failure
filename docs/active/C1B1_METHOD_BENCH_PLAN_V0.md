@@ -589,7 +589,7 @@ production `a_reference/c1b1_two_atom.py:509,522`는 끝 반 걸음의 충격량
   - 충격: 성분마다 한 번 반올림
   - 이동: 원자마다 이동량 반올림. 상대 이동은 2·round(p d / 2μ)
   - 반올림은 가장 가까운 값, 동점은 짝수 쪽이다. 힘은 mpmath 60자리로 계산한 뒤 한 번 반올림한다. 동점에서 1e-30 단위 안이면 멈춘다(Undecided).
-  - KDK와 Chin 4A(차기 반 이동마다 반올림)를 지원한다. `fx_refine`은 S3c 사다리 규칙을 이 산술로 반복한다(refine.py는 S3c가 썼으므로 수정하지 않음).
+  - KDK와 Chin 4A(각 충격·반 이동마다 반올림)를 지원한다. `fx_refine`은 S3c 사다리 규칙을 이 산술로 반복한다(refine.py는 S3c가 썼으므로 수정하지 않음).
   - **production 코드와 비트 대조하지 않았다.** 이것이 한계다.
 - 측정 `tools/c1b1_method_bench_s3d.py`, 요약 `tools/c1b1_method_bench_s3d_summary.py`, 시험 `tests/test_c1b1_method_bench_s3d.py`
 
@@ -650,3 +650,6 @@ production `a_reference/c1b1_two_atom.py:509,522`는 끝 반 걸음의 충격량
    - 원인 1: 분수를 분자/분모로 명시 변환한다.
    - 원인 2: 실행 전에 E·L을 계산한다.
    - 판정 기준과 예측은 바꾸지 않았다.
+- 2차 시험(작업 `4d7569c7b55effd9`): S1–S3d **75 passed, 0 failed, 245.49 s**. 원본은 junit `s3d_tests_run2.xml`(`d9aaf671…`)과 로그 `s3d_tests_run2.log`(`9b672135…`)다. 노트북 파일 해시는 이 브랜치와 같다(fixedpoint `ccaea971…`, 측정 `610ce725…`). 3회 규칙에서 1회를 썼다.
+- 측정 작업 `440b8741348a7267`(4 workers)를 시작했다.
+- 기록 정정: 실행 전 기록의 "Chin 4A(차기 반 이동마다 반올림)"는 오타다. "각 충격·반 이동마다 반올림"이 맞고, 코드도 그렇게 되어 있다.
