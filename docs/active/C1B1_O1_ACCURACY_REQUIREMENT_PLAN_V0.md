@@ -1,6 +1,6 @@
 # C1-B1 O-1 필요 정확도 유도 계획 V0 (선택지 ④)
 
-2026-10-11. 상태: **계획서(proposal/design only). 계산·코드·시험 실행 0.**
+2026-10-11. 상태: **계획서(proposal/design only)로 시작했다.** 상태 정정(같은 날): 이 머리말은 작성 당시 기준이다. 이후 P1–P3를 수행했고(P3는 노트북 계산), P4 결정 1·2가 기록됐다. 방법 비교 S1–S3f(survey_only)를 실행했다(결과는 [방법 비교 계획](C1B1_METHOD_BENCH_PLAN_V0.md)). production 변경은 여전히 0이다.
 설계자 결정(2026-10-11): O-1 정확도 정책 선택지 ①~④ 중 **④ "필요 정확도부터 계산"**.
 양식: 공통 검토 표준 V1(`IMPLEMENTATION_CRITICAL_QUESTIONS_STANDARD_V1.md`, 2026-10-09 설계자 지시)의 A–H.
 그 표준 파일은 이 계획의 기준 커밋(origin/master `15ae1518`)에는 없고, 브랜치 `codex/adaptive-experience-tablet-cpu-route-v0`(커밋 `169f7df6`)에만 있다. 여기서는 그 내용을 따르고 파일을 옮기지 않는다.
