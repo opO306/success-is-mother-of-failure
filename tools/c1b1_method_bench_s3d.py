@@ -81,6 +81,7 @@ def compare(pot, E, b, method, j, fp, fm):
     with mm.workdps(40):
         q, p, _ = initial(pot, MU, mm.mpf(E), mm.mpf(b))
         f = fx.FxTrack(pot, q, p, j, method, fp, fm)
+        E0, L0 = rounded_EL(f)                  # of the rounded START state (S3d test run 1: was taken after the run)
         with mm.workdps(fx.FORCE_DPS):
             q0, p0 = f.q_mpf(), f.p_mpf()
         h = refine.Track(pot, q0, p0, j, MU, 40, chin4a if method == 'chin' else kdk)
@@ -92,7 +93,6 @@ def compare(pot, E, b, method, j, fp, fm):
         d_s = abs(f.sweep - h.sweep)
         d_t = abs(f.r() - h.r()) * MU / abs(h.pr()) / (n * 40)
         sf, sh = f.state(), h.state()
-    E0, L0 = rounded_EL(f)
     return dict(status='ok', tick=n, d_sweep=float(d_s), d_lag=float(d_t), signed_d_sweep=float(f.sweep - h.sweep),
                 fx=dict(sf, **true_err(pot, E0, L0, sf)), hp=dict(sh, **true_err(pot, E0, L0, sh)),
                 substeps=f.substeps + h.substeps)

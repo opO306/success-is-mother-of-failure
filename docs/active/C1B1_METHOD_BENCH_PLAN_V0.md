@@ -638,3 +638,15 @@ production `a_reference/c1b1_two_atom.py:509,522`는 끝 반 걸음의 충격량
 - **F 입증:** 시험(고운 격자 = HP, 동점 대칭, 격자 위 시작 상태, FX 사다리 = S3c 사다리, 요약 결함 주입) + 측정 + quadref.
 - **G 모름:** production 비트 동일성, 아르곤, 실제 힘 구간 판정(production은 구간으로 결정하고 이 재구현은 60자리 값으로 결정)
 - **H 권한:** 설계자 채팅 승인, 무료 노트북, Vast 없음, push 없음.
+
+## S3d 시험 1차 실행 실패 분석 (2026-10-11, 원인·영향·반례 관문, 3회 규칙 1회째)
+
+1. 최초 실패: 노트북 작업 `1425197f74061234`에서 **72 passed / 3 failed**(243.70 s). 원본은 junit `s3d_tests_run1.xml`(`aea9a854…`)과 로그 `s3d_tests_run1.log`(`57715c9c…`)다.
+2. 원인 1(확인): `fixedpoint.FxTrack._kick_raw`의 Chin 기울기 보정항이 `Fraction` 걸음 간격을 `mm.mpf(h)`로 바꾸려다 `TypeError`가 났다. 실패한 시험은 `test_fx_ladder_on_fine_grid_matches_s3c_ladder`, `test_deterministic_repeat`다. KDK 경로는 이 항을 쓰지 않아 통과했다.
+3. 원인 2(확인): 측정 도구 `compare()`가 반올림된 **시작** 상태의 E·L을 계산하는 `rounded_EL`을 실행이 끝난 뒤의 상태로 불렀다. 그래서 반경 = 20 확인(assert)에 걸렸다(`test_study_jobs_and_one_row`).
+4. 사전 검토 공백: Chin 경로를 직접 부르는 빠른 시험을 쓰기 전에 실행하지 않았다. 함수 이름이 시작 상태라는 것을 호출 위치에서 다시 확인하지 않았다.
+5. 영향: 둘 다 S3d 새 코드다. 고치지 않았다면 chin_lv·m8_fx 22개와 비교 작업 전부가 error였을 것이다. 측정 전이므로 결과 영향은 없다. S1–S3c 시험 72개는 통과했다.
+6. 수정:
+   - 원인 1: 분수를 분자/분모로 명시 변환한다.
+   - 원인 2: 실행 전에 E·L을 계산한다.
+   - 판정 기준과 예측은 바꾸지 않았다.

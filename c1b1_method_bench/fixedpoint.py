@@ -78,8 +78,9 @@ class FxTrack:
             r = mm.sqrt(q[0] ** 2 + q[1] ** 2)
             d1 = self.pot.dV(r)
             c = -d1 / r
-            if gradient:
-                c += mm.mpf(h) ** 2 * d1 * self.pot.d2V(r) / (24 * self.mu * r)
+            if gradient:                     # h is a Fraction: convert explicitly (S3d test run 1)
+                hh = mm.mpf(h.numerator) / h.denominator
+                c += hh ** 2 * d1 * self.pot.d2V(r) / (24 * self.mu * r)
             c *= mm.mpf(coef.numerator) / coef.denominator
             return [_round_mpf(c * x, self.fm) for x in q]
 
