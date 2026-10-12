@@ -95,6 +95,16 @@ def calc_lines(seed=20261012, n=2000):
         pp = [num(rnd.randint(60, 120)) for _ in range(2)]
         L.append(f'calc exitcheck {h(q[0])} {h(q[1])} {h(pp[0])} {h(pp[1])} {rnd.choice([0, 32, 64, 100])}')
         L.append(f'calc roundguard {h(num(rnd.randint(0, 300)))} {rnd.choice([0, 1, 2, 64, 200])}')
+    # review m3: the Knuth branch where the partial remainder's top limb equals the divisor's top limb (the divq path
+    # is not taken there), and one-limb division of an all-ones dividend by 2^64 - 1
+    for k in range(40):
+        v = (1 << 127) + (1 << 64) - 1 - rnd.randint(0, 1000)          # top limb 0x8000..., normalised (shift 0)
+        r = (1 << 127) + rnd.randint(0, 2 ** 63)                        # r < v, top limb equal to v's
+        assert r < v and r >> 64 == v >> 64
+        u = ((v * rnd.getrandbits(64 * (k % 5 + 1)) + r) << 64) | rnd.getrandbits(64)
+        L += [f'calc divmod {h(u)} {h(v)}', f'calc divmod {h(-u)} {h(v)}', f'calc divmod {h(u)} {h(-v)}']
+    for k in (1, 2, 13, 27):
+        L += [f'calc divmod {h(2 ** (64 * k) - 1)} {h(2 ** 64 - 1)}', f'calc divmod {h(2 ** (64 * k) - 1)} 1']
     L += ['calc divmod 5 0', 'calc isqrt -4', 'calc shl 1 -1', 'calc shr 1 -1', 'calc nosuchop',
           f'calc add {"f" * (16 * 28 + 1)} 1', f'calc add {"f" * (16 * 28)} 1', f'calc mul {"f" * (16 * 14)} {"f" * (16 * 14)}',
           f'calc mul {"f" * (16 * 14)} {"f" * (16 * 15)}', 'calc add 1g 1', 'calc add - 1', 'to 5', 'jet 5']

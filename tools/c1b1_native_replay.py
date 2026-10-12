@@ -133,10 +133,12 @@ def replay(inputs, rows, out, ids, workers=6, binary=None):
     payload = t7.load(inputs)                                         # seal + code + PES hash checks
     if hashlib.sha256(Path(rows).read_bytes()).hexdigest()[:16] != ROWS_SHA256:
         raise ValueError('T7 rows file hash mismatch')
+    built_here = binary is None
     binary = str(binary or build('-O2'))
     from c1b1_native.build import lf_sha256                          # C3b-1: tie the result to its source
     Path(str(out) + '.manifest.json').write_text(json.dumps(dict(
         track_cpp_lf_sha256=lf_sha256(ROOT / 'c1b1_native/track.cpp'), binary=binary, ids=ids,
+        binary_built_here_from_track_cpp=built_here,
         tool_lf_sha256=lf_sha256(__file__)), indent=1), encoding='utf-8')
     jobs = {j['id']: j for j in payload['jobs']}
     refs = {r['job']['id']: r for r in (json.loads(line) for line in open(rows, encoding='utf-8'))}
