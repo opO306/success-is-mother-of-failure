@@ -1,0 +1,7 @@
+{
+ "track_cpp_lf_sha256": "e999e989bbcb240d999eb887abfe20331a6cc06a7885b1132ca9290705287fa9",
+ "binary": "/tmp/c1b1_native_build/track_e999e989bbcb_O2_i0",
+ "ids": "S:1/2:-1e-10,S:1/2:1e-10,S:3/20:-1e-10,S:3/20:1e-10,S:9/10:-1e-10,S:9/10:1e-10,R:S:1/2:-1e-8,S:1/2:-1e-8,S:1/2:1e-8,S:3/20:-1e-8,S:3/20:1e-8,S:9/10:-1e-8,S:9/10:1e-8,S:1/2:-1e-6,S:1/2:1e-6,S:3/20:-1e-6,S:3/20:1e-6,S:9/10:-1e-6,S:9/10:1e-6,O:boundary_challenge,S:1/2:-1e-4,S:1/2:1e-4,S:3/20:-1e-4,S:3/20:1e-4,S:9/10:-1e-4,S:9/10:1e-4,O:boundary_pass,O:boundary_reflect,R:O:boundary_pass,O:s4d_passing,S:1/2:-1e-2,S:1/2:1e-2,S:3/20:-1e-2,S:3/20:1e-2,S:9/10:-1e-2,S:9/10:1e-2,H:20:0,H:20:71129/10000,H:20:71129/20000,H:33:0,H:33:71129/10000,H:33:71129/20000,H:45:0,H:45:71129/10000,H:45:71129/20000,O:high_energy,O:large_b,O:low_energy,O:ordinary,O:s4d_no_wall,O:small_b",
+ "binary_built_here_from_track_cpp": true,
+ "tool_lf_sha256": "9615431b21072050aa85f75f772287ef4d8fd9d62512f145a4eecb67b5808ffa"
+}
