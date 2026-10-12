@@ -23,6 +23,9 @@
 #ifndef INJECT
 #define INJECT 0      // fault injection for tests: 1 no gradient term, 2 kick rounds down, 3 ln2 bit 72 flipped,
 #endif                // 4 drift truncates, 5 turn count reversed, 6 exp guard 8 bits
+// C3b-1 (plan docs/active/C1B1_C3B_NATIVE_KERNEL_SPEED_PLAN_V0.md): exact refactor of the C3a source
+// (sealed copy c1b1_native/reference_c3a/track_c3a.cpp). Every value, refusal and error must stay the same;
+// -DCHECK_INVARIANTS adds a normal-form check on every operation result and a 'stats' command (largest limb counts).
 
 typedef unsigned __int128 u128;
 typedef __int128 i128;
@@ -34,6 +37,16 @@ struct Z { uint64_t d[NL]; int n; bool neg; };
 
 static inline Z zero() { Z z; z.n = 0; z.neg = false; return z; }
 static inline void trim(Z& a) { while (a.n > 0 && a.d[a.n - 1] == 0) a.n--; if (a.n == 0) a.neg = false; }
+#ifdef CHECK_INVARIANTS
+static int MAXN = 0, MAXSUM = 0;
+static void chk(const Z& a) {                        // normal form: no negative zero, top limb nonzero, in range
+    if (a.n < 0 || a.n > NL || (a.n == 0 && a.neg) || (a.n > 0 && a.d[a.n - 1] == 0)) fail("invariant");
+    if (a.n > MAXN) MAXN = a.n;
+}
+#define CHK(x) chk(x)
+#else
+#define CHK(x) ((void)0)
+#endif
 static Z from_i64(long long v) {
     Z z = zero();
     if (v) { z.neg = v < 0; z.d[0] = v < 0 ? (uint64_t)(-(v + 1)) + 1 : (uint64_t)v; z.n = 1; }
@@ -57,7 +70,7 @@ static Z mag_add(const Z& a, const Z& b) {
     for (int i = 0; i < x.n; i++) { c += (u128)x.d[i] + (i < y.n ? y.d[i] : 0); r.d[i] = (uint64_t)c; c >>= 64; }
     r.n = x.n;
     if (c) { if (r.n >= NL) fail("overflow add"); r.d[r.n++] = (uint64_t)c; }
-    return r;
+    CHK(r); return r;
 }
 static Z mag_sub(const Z& a, const Z& b) {           // |a| >= |b|
     Z r = zero(); uint64_t br = 0;
@@ -66,7 +79,7 @@ static Z mag_sub(const Z& a, const Z& b) {           // |a| >= |b|
         u128 t = (u128)a.d[i] - bi - br;
         r.d[i] = (uint64_t)t; br = (uint64_t)(t >> 64) ? 1 : 0;
     }
-    r.n = a.n; trim(r); return r;
+    r.n = a.n; trim(r); CHK(r); return r;
 }
 static Z add(const Z& a, const Z& b) {
     Z r;
@@ -76,7 +89,7 @@ static Z add(const Z& a, const Z& b) {
         if (c == 0) return zero();
         if (c > 0) { r = mag_sub(a, b); r.neg = a.neg; } else { r = mag_sub(b, a); r.neg = b.neg; }
     }
-    trim(r); return r;
+    trim(r); CHK(r); return r;
 }
 static inline Z neg(Z a) { if (a.n) a.neg = !a.neg; return a; }
 static inline Z absz(Z a) { a.neg = false; return a; }
@@ -84,6 +97,9 @@ static inline Z sub(const Z& a, const Z& b) { return add(a, neg(b)); }
 static Z mul(const Z& a, const Z& b) {
     if (!a.n || !b.n) return zero();
     if (a.n + b.n > NL) fail("overflow mul");
+#ifdef CHECK_INVARIANTS
+    if (a.n + b.n > MAXSUM) MAXSUM = a.n + b.n;
+#endif
     Z r = zero(); r.n = a.n + b.n;
     for (int i = 0; i < r.n; i++) r.d[i] = 0;
     for (int i = 0; i < a.n; i++) {
@@ -91,7 +107,7 @@ static Z mul(const Z& a, const Z& b) {
         for (int j = 0; j < b.n; j++) { c += (u128)a.d[i] * b.d[j] + r.d[i + j]; r.d[i + j] = (uint64_t)c; c >>= 64; }
         r.d[i + b.n] = (uint64_t)c;
     }
-    r.neg = a.neg != b.neg; trim(r); return r;
+    r.neg = a.neg != b.neg; trim(r); CHK(r); return r;
 }
 static Z shl(const Z& a, int s) {                    // magnitude shift, sign kept (exact)
     if (s < 0) fail("shl negative");
@@ -106,7 +122,7 @@ static Z shl(const Z& a, int s) {                    // magnitude shift, sign ke
     }
     while (n > 0 && t[n - 1] == 0) n--;
     if (n > NL) fail("overflow shl");
-    Z r = zero(); r.n = n; std::memcpy(r.d, t, 8 * n); r.neg = a.neg; return r;
+    Z r = zero(); r.n = n; std::memcpy(r.d, t, 8 * n); r.neg = a.neg; CHK(r); return r;
 }
 static Z mag_shr(const Z& a, int s, bool* lost) {    // truncating magnitude shift
     *lost = false; Z r = zero();
@@ -127,7 +143,19 @@ static Z shr(const Z& a, int s) {                    // floor(a / 2^s), as Pytho
     if (s < 0) fail("shr negative");
     bool lost; Z r = mag_shr(a, s, &lost);
     if (a.neg) { if (lost) r = mag_add(r, one()); r.neg = r.n > 0; }
-    return r;
+    CHK(r); return r;
+}
+// C3b-1: (hi:lo) / d with hi < d, so the quotient fits in 64 bits; the same values as the u128 '/' and '%'
+// (which compile to a libgcc call), computed with the hardware instruction on x86-64.
+static inline uint64_t div128(uint64_t hi, uint64_t lo, uint64_t d, uint64_t* rem) {
+#if defined(__x86_64__)
+    uint64_t q, r;
+    __asm__("divq %4" : "=a"(q), "=d"(r) : "a"(lo), "d"(hi), "rm"(d) : "cc");
+    *rem = r; return q;
+#else
+    u128 cur = ((u128)hi << 64) | lo;
+    *rem = (uint64_t)(cur % d); return (uint64_t)(cur / d);
+#endif
 }
 static void mag_divmod(const Z& u, const Z& v, Z& q, Z& r) {   // magnitudes, Knuth D (64-bit limbs)
     if (!v.n) fail("division by zero");
@@ -135,9 +163,9 @@ static void mag_divmod(const Z& u, const Z& v, Z& q, Z& r) {   // magnitudes, Kn
     if (mag_cmp(u, v) < 0) { r = absz(u); return; }
     int m = u.n, n = v.n;
     if (n == 1) {
-        u128 rem = 0;
-        for (int i = m - 1; i >= 0; i--) { u128 cur = (rem << 64) | u.d[i]; q.d[i] = (uint64_t)(cur / v.d[0]); rem = cur % v.d[0]; }
-        q.n = m; trim(q); r.d[0] = (uint64_t)rem; r.n = 1; trim(r); return;
+        uint64_t rem = 0;                            // rem < v.d[0] throughout
+        for (int i = m - 1; i >= 0; i--) q.d[i] = div128(rem, u.d[i], v.d[0], &rem);
+        q.n = m; trim(q); r.d[0] = rem; r.n = 1; trim(r); return;
     }
     int s = __builtin_clzll(v.d[n - 1]);
     uint64_t vn[NL], un[NL + 1];
@@ -148,7 +176,10 @@ static void mag_divmod(const Z& u, const Z& v, Z& q, Z& r) {   // magnitudes, Kn
     un[0] = u.d[0] << s;
     for (int j = m - n; j >= 0; j--) {
         u128 num = ((u128)un[j + n] << 64) | un[j + n - 1];
-        u128 qhat = num / vn[n - 1], rhat = num % vn[n - 1];
+        u128 qhat, rhat;
+        if (un[j + n] < vn[n - 1]) {                 // quotient fits in 64 bits: same values, hardware divide
+            uint64_t rr; qhat = div128(un[j + n], un[j + n - 1], vn[n - 1], &rr); rhat = rr;
+        } else { qhat = num / vn[n - 1]; rhat = num % vn[n - 1]; }
         while ((qhat >> 64) || qhat * vn[n - 2] > ((rhat << 64) | un[j + n - 2])) {
             qhat--; rhat += vn[n - 1];
             if (rhat >> 64) break;
@@ -179,7 +210,7 @@ static void divmod_floor(const Z& a, const Z& b, Z& q, Z& r) {  // Python divmod
     if (!sq) { q = qq; q.neg = false; r = rr; r.neg = rr.n ? a.neg : false; }
     else if (rr.n) { q = mag_add(qq, one()); q.neg = true; r = mag_sub(absz(b), rr); r.neg = b.neg && r.n; }
     else { q = qq; q.neg = q.n > 0; r = zero(); }
-    trim(q); trim(r);
+    trim(q); trim(r); CHK(q); CHK(r);
 }
 static Z floordiv(const Z& a, const Z& b) { Z q, r; divmod_floor(a, b, q, r); return q; }
 static Z isqrt(const Z& n) {                         // floor(sqrt(n)), as math.isqrt
@@ -196,7 +227,7 @@ static Z half_even(const Z& num, const Z& den) {     // c1b1_method_bench.fixedp
     Z q, r; divmod_floor(num, den, q, r);
     int c = cmp(shl(r, 1), den);
     if (c > 0 || (c == 0 && q.n && (q.d[0] & 1))) q = add(q, one());
-    return q;
+    CHK(q); return q;
 }
 static Z parse_hex(const std::string& s) {
     Z z = zero(); size_t i = 0; bool ng = false;
@@ -226,8 +257,16 @@ static int FP, FM, JLEV, P, W; static bool CHIN; static long long H0;
 static Z QR[2], PR[2], MU_D_NUM, MU_D_DEN, MU_K_MAN, LN2Q; static long long MU_K_EXP;
 static long long TICK = 0, SUBSTEPS = 0, EXIT_TICK = -1, TURNS = 0, KICKS = 0;
 static bool JVALID = false; static Z JC[2];
-struct Term { std::string name; int imin, kmin, kadd; std::vector<Z> a, alpha, C; Z eta; };
-static std::vector<Term> TERMS; static std::vector<Z> AC, BC;
+// C3b-1: c*m and c*m*(m-1) of the jet derivative sums made once at init. An entry whose product failed (overflow)
+// is marked !ok and the jet then evaluates the original expression, so the same error arises at the same point.
+struct Pre { Z v; bool ok; };
+static Pre premul(const Z& c, long long m) {
+    Pre r; r.ok = false;
+    try { r.v = mul(c, from_i64(m)); r.ok = true; } catch (const std::exception&) {}
+    return r;
+}
+struct Term { std::string name; int imin, kmin, kadd; std::vector<Z> a, alpha, C; Z eta; std::vector<Pre> a1, a2; };
+static std::vector<Term> TERMS; static std::vector<Z> AC, BC; static std::vector<Pre> AC1, AC2, BC1, BC2;
 
 // floor(exp(-X / 2^p) 2^p), X >= 0; ln2q = floor(ln2 2^(p+64))
 static Z exp_neg(const Z& X, int p, const Z& ln2q) {
@@ -247,7 +286,7 @@ static Z exp_neg(const Z& X, int p, const Z& ln2q) {
         sum = (n & 1) ? sub(sum, t) : add(sum, t);
     }
     for (int i = 0; i < S; i++) sum = shr(mul(sum, sum), Q);
-    return shr(sum, (int)kk + G);
+    Z out = shr(sum, (int)kk + G); CHK(out); return out;
 }
 
 struct Jet { Z v, d, dd; };
@@ -273,8 +312,12 @@ static Jet jet(const Z& R) {                         // c1b1_t7.lang_fx2.LangFor
                 int m = T.imin + i; const Z& c = T.a[j * count + i];
                 Pv = add(Pv, shr(mul(c, pw(m)), P));
                 if (m) {
-                    P1 = add(P1, shr(mul(mul(c, from_i64(m)), pw(m - 1)), P));
-                    if (m != 1) P2 = add(P2, shr(mul(mul(c, from_i64((long long)m * (m - 1))), pw(m - 2)), P));
+                    const Pre& c1 = T.a1[j * count + i];
+                    P1 = add(P1, shr(mul(c1.ok ? c1.v : mul(c, from_i64(m)), pw(m - 1)), P));
+                    if (m != 1) {
+                        const Pre& c2 = T.a2[j * count + i];
+                        P2 = add(P2, shr(mul(c2.ok ? c2.v : mul(c, from_i64((long long)m * (m - 1))), pw(m - 2)), P));
+                    }
                 }
             }
             Z alP = shr(mul(al, Pv), P), alP1 = shr(mul(al, P1), P);
@@ -285,7 +328,10 @@ static Jet jet(const Z& R) {                         // c1b1_t7.lang_fx2.LangFor
         const Z& eta = T.eta;
         Z x = shr(mul(eta, R), P), exn = exp_neg(x, P, LN2Q);
         int nmax = 2 * (T.kmin + (int)T.C.size() - 1) + T.kadd;
-        std::vector<Z> terms(nmax + 1), sums(nmax + 1);
+        Z tbuf[64], sbuf[64]; std::vector<Z> tvec, svec; Z* terms = tbuf; Z* sums = sbuf;   // C3b-1: no heap use
+        if (nmax < 0 || nmax + 1 > 64) {             // the original construction (same sizes, same errors)
+            tvec = std::vector<Z>(nmax + 1); svec = std::vector<Z>(nmax + 1); terms = tvec.data(); sums = svec.data();
+        }
         terms[0] = ONE; sums[0] = ONE;
         for (int m = 1; m <= nmax; m++) { terms[m] = floordiv(shr(mul(terms[m - 1], x), P), from_i64(m)); sums[m] = add(sums[m - 1], terms[m]); }
         Z eta2 = shr(mul(eta, eta), P);
@@ -299,14 +345,16 @@ static Jet jet(const Z& R) {                         // c1b1_t7.lang_fx2.LangFor
                 for (size_t jj = 0; jj < AC.size(); jj++) {
                     long long q = (long long)jj;
                     N = add(N, shr(mul(AC[jj], pw((int)q + 1)), P));
-                    N1 = add(N1, shr(mul(mul(AC[jj], from_i64(q + 1)), pw((int)q)), P));
-                    if (jj) N2 = add(N2, shr(mul(mul(AC[jj], from_i64((q + 1) * q)), pw((int)q - 1)), P));
+                    N1 = add(N1, shr(mul(AC1[jj].ok ? AC1[jj].v : mul(AC[jj], from_i64(q + 1)), pw((int)q)), P));
+                    if (jj) N2 = add(N2, shr(mul(AC2[jj].ok ? AC2[jj].v : mul(AC[jj], from_i64((q + 1) * q)),
+                                                 pw((int)q - 1)), P));
                 }
                 for (size_t jj = 0; jj < BC.size(); jj++) {
                     long long q = (long long)jj;
                     D = add(D, shr(mul(BC[jj], pw((int)q + 1)), P));
-                    D1 = add(D1, shr(mul(mul(BC[jj], from_i64(q + 1)), pw((int)q)), P));
-                    if (jj) D2 = add(D2, shr(mul(mul(BC[jj], from_i64((q + 1) * q)), pw((int)q - 1)), P));
+                    D1 = add(D1, shr(mul(BC1[jj].ok ? BC1[jj].v : mul(BC[jj], from_i64(q + 1)), pw((int)q)), P));
+                    if (jj) D2 = add(D2, shr(mul(BC2[jj].ok ? BC2[jj].v : mul(BC[jj], from_i64((q + 1) * q)),
+                                                 pw((int)q - 1)), P));
                 }
                 Z DD = shr(mul(D, D), P);
                 Z Wn = sub(shr(mul(N1, D), P), shr(mul(N, D1), P));
@@ -470,10 +518,19 @@ static void init() {
         int nal = (int)tok_ll(); for (int k = 0; k < nal; k++) T.alpha.push_back(tok_z());
         T.eta = tok_z();
         int nc = (int)tok_ll(); for (int k = 0; k < nc; k++) T.C.push_back(tok_z());
+        int count = (int)T.a.size() / 2;
+        for (size_t jj = 0; jj < T.a.size(); jj++) {                     // jet: c = a[j*count + i], m = imin + i
+            long long m = T.imin + (count ? (long long)(jj % (size_t)count) : 0);
+            T.a1.push_back(premul(T.a[jj], m));
+            T.a2.push_back(premul(T.a[jj], m * (m - 1)));
+        }
         TERMS.push_back(T);
     }
     int nA = (int)tok_ll(); AC.clear(); for (int k = 0; k < nA; k++) AC.push_back(tok_z());
     int nB = (int)tok_ll(); BC.clear(); for (int k = 0; k < nB; k++) BC.push_back(tok_z());
+    AC1.clear(); AC2.clear(); BC1.clear(); BC2.clear();
+    for (size_t k = 0; k < AC.size(); k++) { long long q = (long long)k; AC1.push_back(premul(AC[k], q + 1)); AC2.push_back(premul(AC[k], (q + 1) * q)); }
+    for (size_t k = 0; k < BC.size(); k++) { long long q = (long long)k; BC1.push_back(premul(BC[k], q + 1)); BC2.push_back(premul(BC[k], (q + 1) * q)); }
     if (tok() != "end") fail("init end");
     TICK = SUBSTEPS = TURNS = KICKS = 0; EXIT_TICK = -1; JVALID = false;
     print_state();
@@ -503,6 +560,10 @@ int main() {
                 std::string out = to_hex(t.v) + " " + to_hex(t.d) + " " + to_hex(t.dd);
                 std::cout << "ok " << out << "\n";
             }
+#ifdef CHECK_INVARIANTS
+            else if (cmd == "stats") { std::cout << "ok " << MAXN << " " << MAXSUM << "
+"; }
+#endif
             else if (cmd == "kickval") {
                 long long cn = tok_ll(), cd = tok_ll(); bool g = tok_ll() != 0;
                 Z c = kick_c(cn, cd, g); int s = P + FP - FM - 128;

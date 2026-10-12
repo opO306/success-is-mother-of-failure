@@ -6,14 +6,16 @@ SEALED c1b1_t7.ladder.pen_state (M10, tol 1e-9, j_max 6) plus the world KDK trac
 Both use the same one-shot sweep formula on their own integer state, so the whole world layer (every string included)
 must be equal; there is no tolerance in this comparison.
 
-  python tools/c1b1_native_panel.py run T7_INPUTS FIXTURE D0_RESULTS OUT.jsonl [WORKERS] [IDS]
+  python tools/c1b1_native_panel.py run T7_INPUTS FIXTURE D0_RESULTS OUT.jsonl [WORKERS] [IDS] [ENGINES]
   python tools/c1b1_native_panel.py summary OUT.jsonl SUMMARY.json
 
 run: checks the T7 seal (sealed code and PES hashes; the T7 jobs themselves are not used), rebuilds the panel with
      the D0 code (tools/c1b1_dot_d0.panel) and requires it to equal the inputs recorded in the D0 results file, and
      requires no panel start state to equal a T7 start state. Rows (one per input and engine) are appended to OUT.
      The sha256 of the files under test (native source, wrapper, reference track, force, this tool) is written to
-     OUT.manifest.json; track.cpp must be the C3a build source (e71293f2...). OUT must be a new file (rows are appended;
+     OUT.manifest.json; track.cpp must be an allowed source (C3a e71293f2..., or the committed C3b-1 source; hashes on
+     LF-normalised bytes). ENGINES (default py,native) may be 'native' alone (C3b-1 replay against the C3a-4 Python
+     rows, tools/c1b1_c3b_compare.py). OUT must be a new file (rows are appended;
      a rerun into the same file makes `summary` stop on duplicate rows).
 summary: pairs py/native rows per input. Verdict IDENTICAL / DIFFERENT / UNRESOLVED (either side refused) / ERROR
      (an error, or a missing row). Both sides stopping with the same 'no exit' message counts as IDENTICAL (status
@@ -30,7 +32,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 D0_SHA256 = '3a2acae7bebdc1ec'
-TRACK_CPP_SHA256 = 'e71293f22748f9c7'
+TRACK_CPP_SHA256 = 'e71293f22748f9c7'                 # C3a (C3a-4 ran with this)
+TRACK_CPP_ALLOWED = {TRACK_CPP_SHA256: 'C3a', 'a3d7098f0ae51f64': 'C3b-1'}
 UNDER_TEST = ['c1b1_native/track.cpp', 'c1b1_native/track.py', 'c1b1_native/reference.py', 'c1b1_native/build.py',
               'c1b1_t7/lang_fx2.py', 'tools/c1b1_native_panel.py', 'tools/c1b1_dot_d0.py']
 ENGINES = ('py', 'native')
@@ -191,7 +194,7 @@ def order_key(job, panel):
     return (ENGINES.index(job[1]), abs(Q(rho)) if rho else Q(1), job[0])
 
 
-def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None):
+def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None, engines=ENGINES):
     from c1b1_method_bench.runner import run_jobs
     from c1b1_native.build import build
     from c1b1_t7.lang import reference_potential
@@ -199,9 +202,11 @@ def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None):
     d0 = _load_tool('dotd0', 'c1b1_dot_d0.py')
     if Path(out).exists():
         raise FileExistsError(f'{out} exists; use a new file (failed-run files are kept as originals)')
-    shas = {f: hashlib.sha256((ROOT / f).read_bytes()).hexdigest() for f in UNDER_TEST}
-    if shas['c1b1_native/track.cpp'][:16] != TRACK_CPP_SHA256:
-        raise ValueError('track.cpp is not the C3a source (e71293f2...)')
+    shas = {f: hashlib.sha256((ROOT / f).read_bytes().replace(b'
+', b'
+')).hexdigest() for f in UNDER_TEST}
+    if shas['c1b1_native/track.cpp'][:16] not in TRACK_CPP_ALLOWED:
+        raise ValueError('track.cpp is not an allowed source (C3a e71293f2... or C3b-1)')
     payload = t7.load(t7_inputs)                                      # T7 seal: sealed code + PES unchanged
     if hashlib.sha256(Path(d0_path).read_bytes()).hexdigest()[:16] != D0_SHA256:
         raise ValueError('D0 results file hash mismatch')
@@ -215,11 +220,14 @@ def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None):
         raise ValueError('a panel start state equals a T7 start state (holdout)')
     binary = str(build('-O2'))
     chosen = PANEL_IDS if ids is None else ids.split(',')
-    work = sorted(((k, e, [str(x) for x in panel[k]['raw']], binary) for k in chosen for e in ENGINES),
+    if not set(engines) <= set(ENGINES) or not engines:
+        raise ValueError(f'engines {engines}')
+    work = sorted(((k, e, [str(x) for x in panel[k]['raw']], binary) for k in chosen for e in engines),
                   key=lambda job: order_key(job, panel))
     from c1b1_t7.lang import pes_path
     Path(str(out) + '.manifest.json').write_text(json.dumps(dict(
-        under_test_sha256=shas, t7_inputs_payload_sha256=t7.digest(payload), d0_sha256_prefix=D0_SHA256,
+        under_test_sha256=shas, track_source=TRACK_CPP_ALLOWED[shas['c1b1_native/track.cpp'][:16]],
+        engines=list(engines), t7_inputs_payload_sha256=t7.digest(payload), d0_sha256_prefix=D0_SHA256,
         fixture_sha256=hashlib.sha256(Path(fixture_path).read_bytes()).hexdigest(),
         pes_sha256=hashlib.sha256(pes_path().read_bytes()).hexdigest(), binary=binary, ids=chosen,
         python=sys.version.split()[0]), indent=1), encoding='utf-8')
@@ -230,7 +238,8 @@ def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None):
 if __name__ == '__main__':
     a = sys.argv
     if len(a) > 1 and a[1] == 'run':
-        run(a[2], a[3], a[4], a[5], int(a[6]) if len(a) > 6 else 6, a[7] if len(a) > 7 else None)
+        run(a[2], a[3], a[4], a[5], int(a[6]) if len(a) > 6 else 6, (a[7] or None) if len(a) > 7 else None,
+            tuple(a[8].split(',')) if len(a) > 8 else ENGINES)
     elif len(a) > 1 and a[1] == 'summary':
         summary(a[2], a[3])
     else:
