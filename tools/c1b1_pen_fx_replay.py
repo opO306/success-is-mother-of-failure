@@ -1,10 +1,12 @@
 """Cost plan C1 (survey_only): re-run sealed T7 jobs with the fixed-point jet (c1b1_t7.lang_fx.LangForceFX) and
 compare every world-layer state with the T7 rows bit for bit; plus an interleaved speed probe.
 
-  replay INPUTS ROWS OUT.jsonl IDS [WORKERS]   M10 (pen_state) + world_kdk with LangForceFX, same settings as T7;
+  replay INPUTS ROWS OUT.jsonl IDS [WORKERS] [FORCE]
+                                              M10 (pen_state) + world_kdk with FORCE (fx = LangForceFX, default;
+                                              fx2 = LangForceFX2, cost plan C1.1), same settings as T7;
                                               compare level0, every pair (estimates, C_state), out, out_base,
                                               world_kdk and per-track substeps; verification fields are ignored
-  speed  INPUTS OUT.json JOB TICKS [ROUNDS]     level 0 and level 1 tracks, LangForce vs LangForceFX alternating,
+  speed  INPUTS OUT.json JOB TICKS [ROUNDS]     level 0 and level 1 tracks, LangForce / LangForceFX / LangForceFX2,
                                               CPU per substep and raw-state equality (run alone on the machine)
 """
 import json
@@ -69,15 +71,22 @@ def run_world(job, force_cls, tol='1e-9', j_max=6):
     return res
 
 
-def one(args):
-    job, ref = args
+def force_class(name):
+    if name == 'fx2':
+        from c1b1_t7.lang_fx2 import LangForceFX2
+        return LangForceFX2
     from c1b1_t7.lang_fx import LangForceFX
+    return LangForceFX
+
+
+def one(args):
+    job, ref, force = args
     t0, w0 = time.process_time(), time.perf_counter()
     try:
-        res = run_world(job, LangForceFX)
+        res = run_world(job, force_class(force))
         a, b = world(res), world(ref)
         diffs = diff_paths(a, b)
-        row = dict(id=job['id'], identical=not diffs, diffs=diffs[:20], n_diffs=len(diffs),
+        row = dict(id=job['id'], force=force, identical=not diffs, diffs=diffs[:20], n_diffs=len(diffs),
                    fx_pen_cpu_s=res['pen_cpu_s'], t7_pen_cpu_s=ref.get('pen_cpu_s'),
                    fx_kdk_cpu_s=res['world_kdk']['cpu_s'], t7_kdk_cpu_s=ref['world_kdk'].get('cpu_s'),
                    force_evaluations=res['force_evaluations'], t7_force_evaluations=ref.get('force_evaluations'))
@@ -87,11 +96,11 @@ def one(args):
     return row
 
 
-def replay(inputs, rows, out, ids, workers=4):
+def replay(inputs, rows, out, ids, workers=4, force='fx'):
     from c1b1_method_bench.runner import run_jobs
     jobs = {j['id']: j for j in json.loads(Path(inputs).read_bytes())['payload']['jobs']}
     refs = {r['job']['id']: r for r in (json.loads(l) for l in open(rows, encoding='utf-8'))}
-    work = [(jobs[i], refs[i]) for i in ids.split(',')]
+    work = [(jobs[i], refs[i], force) for i in ids.split(',')]
     run_jobs(one, work, out, workers=workers, label='C1 replay ')
 
 
@@ -101,6 +110,7 @@ def speed(inputs, out, jid, ticks, rounds=3):
     from c1b1_t7.ladder import FxTrackX
     from c1b1_t7.lang import LangForce
     from c1b1_t7.lang_fx import LangForceFX
+    from c1b1_t7.lang_fx2 import LangForceFX2
     from c1b1_t7.state import MU, relative
     job = next(j for j in json.loads(Path(inputs).read_bytes())['payload']['jobs'] if j['id'] == jid)
     rows = []
@@ -111,7 +121,7 @@ def speed(inputs, out, jid, ticks, rounds=3):
             for j in (0, 1):
                 fp, fm = grid(j)
                 raws = {}
-                for cls in (LangForce, LangForceFX):
+                for cls in (LangForce, LangForceFX, LangForceFX2):
                     t = FxTrackX(cls(), q0, p0, j, 'chin', fp, fm, mu, 40, MU)
                     a = time.process_time()
                     t.run_to(ticks)
@@ -120,7 +130,7 @@ def speed(inputs, out, jid, ticks, rounds=3):
                     rows.append(dict(round=rnd, j=j, force=cls.__name__, substeps=t.substeps,
                                      us_per_substep=1e6 * dt / t.substeps))
                     print(rows[-1], flush=True)
-                rows.append(dict(round=rnd, j=j, raw_identical=raws['LangForce'] == raws['LangForceFX']))
+                rows.append(dict(round=rnd, j=j, raw_identical=raws['LangForce'] == raws['LangForceFX'] == raws['LangForceFX2']))
                 print(rows[-1], flush=True)
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(dict(job=jid, ticks=ticks, rows=rows), f, indent=1)
@@ -129,7 +139,7 @@ def speed(inputs, out, jid, ticks, rounds=3):
 if __name__ == '__main__':
     a = sys.argv
     if a[1] == 'replay':
-        replay(a[2], a[3], a[4], a[5], int(a[6]) if len(a) > 6 else 4)
+        replay(a[2], a[3], a[4], a[5], int(a[6]) if len(a) > 6 else 4, a[7] if len(a) > 7 else 'fx')
     elif a[1] == 'speed':
         speed(a[2], a[3], a[4], int(a[5]), int(a[6]) if len(a) > 6 else 3)
     else:

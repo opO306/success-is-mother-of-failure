@@ -1,4 +1,5 @@
-"""Cost plan C1: fixed-point Lang jet (c1b1_t7.lang_fx) agrees with the mpmath jet and gives bit-identical tracks."""
+"""Cost plan C1 / C1.1: fixed-point Lang jets (c1b1_t7.lang_fx, lang_fx2) agree with the mpmath jet and give
+bit-identical tracks."""
 import importlib.util
 import json
 from pathlib import Path
@@ -18,13 +19,21 @@ def _pes():
 RS = [mm.mpf(3) * (mm.mpf(10) ** (mm.mpf(k) / 40)) for k in range(41)]           # 3 ... 30 bohr, log grid
 
 
+def _cls(name):
+    if name == 'fx2':
+        from c1b1_t7.lang_fx2 import LangForceFX2
+        return LangForceFX2
+    from c1b1_t7.lang_fx import LangForceFX
+    return LangForceFX
+
+
+@pytest.mark.parametrize('force', ['fx', 'fx2'])
 @pytest.mark.parametrize('dps', [60, 68, 77])
-def test_fixed_point_jet_matches_mpmath_jet(dps):
+def test_fixed_point_jet_matches_mpmath_jet(dps, force):
     """|FX - exact| <= 2^-(W - 5) max(1, |value|), W = working precision bits (cost plan section 4.1)."""
     _pes()
     from c1b1_t7.lang import LangForce
-    from c1b1_t7.lang_fx import LangForceFX
-    ref, fx = LangForce(), LangForceFX()
+    ref, fx = LangForce(), _cls(force)()
     for r in RS:
         with mm.workdps(dps):
             rr = +r
@@ -36,10 +45,10 @@ def test_fixed_point_jet_matches_mpmath_jet(dps):
                 assert abs(g - w) <= mm.ldexp(max(1, abs(w)), -(W - 5)), (mm.nstr(rr, 8), dps)
 
 
-def test_fixed_point_cache_respects_precision():
+@pytest.mark.parametrize('force', ['fx', 'fx2'])
+def test_fixed_point_cache_respects_precision(force):
     _pes()
-    from c1b1_t7.lang_fx import LangForceFX
-    F = LangForceFX()
+    F = _cls(force)()
     with mm.workdps(20):
         a = F.dV(mm.mpf(7))
     with mm.workdps(60):
@@ -51,13 +60,14 @@ def test_fixed_point_cache_respects_precision():
 
 @pytest.mark.parametrize('j', [0, 1])
 def test_tracks_are_bit_identical(j):
-    """200 ticks of the T7 O:ordinary start on the M10 level-j grid: same raw state with either jet."""
+    """200 ticks of the T7 O:ordinary start on the M10 level-j grid: same raw state with all three jets."""
     _pes()
     from c1b1_method_bench.ladder2 import DPS
     from c1b1_method_bench.pen import grid
     from c1b1_t7.ladder import FxTrackX
     from c1b1_t7.lang import LangForce
     from c1b1_t7.lang_fx import LangForceFX
+    from c1b1_t7.lang_fx2 import LangForceFX2
     from c1b1_t7.state import MU, relative
     raw = next(r for r in json.loads((ROOT / 'docs/active/C1B1_O1_INPUTS_V1.json').read_bytes())['payload']['inputs']
                if r['id'] == 'ordinary')['raw']
@@ -66,11 +76,11 @@ def test_tracks_are_bit_identical(j):
         q0, p0 = relative(raw)
         mu = mm.mpf(MU.numerator) / MU.denominator
         out = []
-        for cls in (LangForce, LangForceFX):
+        for cls in (LangForce, LangForceFX, LangForceFX2):
             t = FxTrackX(cls(), q0, p0, j, 'chin', fp, fm, mu, 40, MU)
             t.run_to(200)
             out.append((t.qr, t.pr_, t.sweep))
-    assert out[0] == out[1]
+    assert out[0] == out[1] == out[2]
 
 
 def test_replay_comparison_ignores_only_verification_fields():

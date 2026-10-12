@@ -3,7 +3,8 @@
 One Ar input from the sealed T7 list (default O:ordinary), M10 level 0 (h = 40, grid (64, 96)) and level 1
 (h = 20, grid (68, 100)), N ticks each under cProfile, plus a plain timing of the main pieces in isolation:
 force jet, impulse rounding, drift, swept-angle update. Also reports whether gmpy2 backs mpmath.
-  python tools/c1b1_pen_cost_profile.py INPUTS_JSON OUT_PREFIX [JOB_ID] [TICKS]
+  python tools/c1b1_pen_cost_profile.py INPUTS_JSON OUT_PREFIX [JOB_ID] [TICKS] [fx]
+  (fx: use the fixed-point jet c1b1_t7.lang_fx.LangForceFX instead of c1b1_t7.lang.LangForce; cost plan C1)
 """
 import cProfile
 import io
@@ -28,8 +29,10 @@ def main():
     inputs, out = sys.argv[1], sys.argv[2]
     jid = sys.argv[3] if len(sys.argv) > 3 else 'O:ordinary'
     ticks = int(sys.argv[4]) if len(sys.argv) > 4 else 300
+    if len(sys.argv) > 5 and sys.argv[5] == 'fx':
+        from c1b1_t7.lang_fx import LangForceFX as LangForce
     job = next(j for j in json.loads(Path(inputs).read_bytes())['payload']['jobs'] if j['id'] == jid)
-    res = dict(job=jid, ticks=ticks, backend=mm.libmp.BACKEND, levels=[])
+    res = dict(job=jid, ticks=ticks, backend=mm.libmp.BACKEND, force=LangForce.__name__, levels=[])
     with mm.workdps(DPS):
         q0, p0 = relative(job['raw'])
         mu = mm.mpf(MU.numerator) / MU.denominator
