@@ -251,6 +251,21 @@ def test_exit_check(exe):
         P.close()
 
 
+def test_errors_are_clean_err_lines(exe):
+    """Test run 1 failure: calc printed 'ok ' before the operation threw ('ok err ...'). Every refusal or error
+    must arrive as one line starting with 'err' and nothing before it."""
+    P = Proc(exe)
+    try:
+        T = 20 << 104
+        for line in (f'calc exitcheck {h(T)} 0 1 0 104', 'calc divmod 5 0', 'calc isqrt -4',
+                     f'calc roundguard {h(2 ** 199)} 200', 'calc nosuchop', 'to 5'):
+            out = P(line)
+            assert out[0] == 'err' and 'ok' not in out, (line, out)
+        assert P('calc add 1 2') == ['ok', '3']
+    finally:
+        P.close()
+
+
 # ----------------------------------------------------------------- 6. kick tie guard
 def test_round_guard(exe):
     P = Proc(exe)

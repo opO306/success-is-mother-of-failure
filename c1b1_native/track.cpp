@@ -259,7 +259,8 @@ static Jet jet(const Z& R) {                         // c1b1_t7.lang_fx2.LangFor
     for (int m = 2; m <= 18; m++) pwn[m] = shr(mul(pwn[m - 1], IR), P);
     auto pw = [&](int m) -> const Z& {
         if (m >= 0) { if (m > 6) fail("power range"); return pwp[m]; }
-        if (-m > 18) fail("power range"); return pwn[-m];
+        if (-m > 18) fail("power range");
+        return pwn[-m];
     };
     Z v = zero(), d = zero(), dd = zero();
     for (const Term& T : TERMS) {
@@ -434,25 +435,26 @@ static std::string tok() { std::string s; if (!(std::cin >> s)) fail("eof"); ret
 static long long tok_ll() { return std::stoll(tok()); }
 static Z tok_z() { return parse_hex(tok()); }
 
-static void calc() {
-    std::string op = tok();
-    if (op == "add") { Z a = tok_z(), b = tok_z(); std::cout << "ok " << to_hex(add(a, b)) << "\n"; }
-    else if (op == "sub") { Z a = tok_z(), b = tok_z(); std::cout << "ok " << to_hex(sub(a, b)) << "\n"; }
-    else if (op == "mul") { Z a = tok_z(), b = tok_z(); std::cout << "ok " << to_hex(mul(a, b)) << "\n"; }
-    else if (op == "divmod") { Z a = tok_z(), b = tok_z(), q, r; divmod_floor(a, b, q, r); std::cout << "ok " << to_hex(q) << " " << to_hex(r) << "\n"; }
-    else if (op == "shl") { Z a = tok_z(); int s = (int)tok_ll(); std::cout << "ok " << to_hex(shl(a, s)) << "\n"; }
-    else if (op == "shr") { Z a = tok_z(); int s = (int)tok_ll(); std::cout << "ok " << to_hex(shr(a, s)) << "\n"; }
-    else if (op == "isqrt") { Z a = tok_z(); std::cout << "ok " << to_hex(isqrt(a)) << "\n"; }
-    else if (op == "halfeven") { Z a = tok_z(), b = tok_z(); std::cout << "ok " << to_hex(half_even(a, b)) << "\n"; }
-    else if (op == "expneg") { Z x = tok_z(); int p = (int)tok_ll(); Z l = tok_z(); std::cout << "ok " << to_hex(exp_neg(x, p, l)) << "\n"; }
-    else if (op == "exitcheck") { Z q[2], pp[2]; q[0] = tok_z(); q[1] = tok_z(); pp[0] = tok_z(); pp[1] = tok_z(); int fp = (int)tok_ll(); std::cout << "ok " << exit_check(q, pp, fp) << "\n"; }
+static void calc() {                        // the result is computed before anything is printed
+    std::string op = tok(), res;
+    if (op == "add") { Z a = tok_z(), b = tok_z(); res = to_hex(add(a, b)); }
+    else if (op == "sub") { Z a = tok_z(), b = tok_z(); res = to_hex(sub(a, b)); }
+    else if (op == "mul") { Z a = tok_z(), b = tok_z(); res = to_hex(mul(a, b)); }
+    else if (op == "divmod") { Z a = tok_z(), b = tok_z(), q, r; divmod_floor(a, b, q, r); res = to_hex(q) + " " + to_hex(r); }
+    else if (op == "shl") { Z a = tok_z(); int s = (int)tok_ll(); res = to_hex(shl(a, s)); }
+    else if (op == "shr") { Z a = tok_z(); int s = (int)tok_ll(); res = to_hex(shr(a, s)); }
+    else if (op == "isqrt") { Z a = tok_z(); res = to_hex(isqrt(a)); }
+    else if (op == "halfeven") { Z a = tok_z(), b = tok_z(); res = to_hex(half_even(a, b)); }
+    else if (op == "expneg") { Z x = tok_z(); int p = (int)tok_ll(); Z l = tok_z(); res = to_hex(exp_neg(x, p, l)); }
+    else if (op == "exitcheck") { Z q[2], pp[2]; q[0] = tok_z(); q[1] = tok_z(); pp[0] = tok_z(); pp[1] = tok_z(); int fp = (int)tok_ll(); res = std::to_string(exit_check(q, pp, fp)); }
     else if (op == "roundguard") {          // round(y / 2^s) with the kick tie guard
         Z y = tok_z(); int s = (int)tok_ll();
         Z unit = shl(one(), s), half = shl(one(), s - 1), q = shr(y, s), frac = sub(y, shl(q, s));
         if (cmp(mul(absz(sub(frac, half)), TEN30), unit) < 0) fail("refuse: tie");
-        std::cout << "ok " << to_hex(cmp(frac, half) > 0 ? add(q, one()) : q) << "\n";
+        res = to_hex(cmp(frac, half) > 0 ? add(q, one()) : q);
     }
     else fail("unknown calc op");
+    std::cout << "ok " << res << "\n";
 }
 static void init() {
     FP = (int)tok_ll(); FM = (int)tok_ll(); JLEV = (int)tok_ll();
@@ -496,11 +498,16 @@ int main() {
                 print_state();
             }
             else if (cmd == "to") { long long n = tok_ll(); while (TICK < n) advance_tick(); print_state(); }
-            else if (cmd == "jet") { Z R = tok_z(); Jet t = jet(R); std::cout << "ok " << to_hex(t.v) << " " << to_hex(t.d) << " " << to_hex(t.dd) << "\n"; }
+            else if (cmd == "jet") {                 // every answer is computed before anything is printed
+                Z R = tok_z(); Jet t = jet(R);
+                std::string out = to_hex(t.v) + " " + to_hex(t.d) + " " + to_hex(t.dd);
+                std::cout << "ok " << out << "\n";
+            }
             else if (cmd == "kickval") {
                 long long cn = tok_ll(), cd = tok_ll(); bool g = tok_ll() != 0;
                 Z c = kick_c(cn, cd, g); int s = P + FP - FM - 128;
-                std::cout << "ok " << to_hex(shr(mul(c, QR[0]), s)) << " " << to_hex(shr(mul(c, QR[1]), s)) << "\n";
+                std::string y0 = to_hex(shr(mul(c, QR[0]), s)), y1 = to_hex(shr(mul(c, QR[1]), s));
+                std::cout << "ok " << y0 << " " << y1 << "\n";
             }
             else fail("unknown command");
         } catch (const std::exception& e) {
