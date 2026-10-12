@@ -1,0 +1,240 @@
+===== O2pg_G1_0
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 46.15      0.06     0.06  1507837     0.04     0.04  mul(Z const&, Z const&)
+ 15.38      0.08     0.02  1427775     0.01     0.02  shr(Z const&, int)
+  7.69      0.09     0.01  1034563     0.01     0.03  add(Z const&, Z const&)
+  7.69      0.10     0.01   728239     0.01     0.01  mag_add(Z const&, Z const&)
+  7.69      0.11     0.01   655386     0.02     0.02  divmod_floor(Z const&, Z const&, Z&, Z&)
+  7.69      0.12     0.01   497058     0.02     0.02  mag_sub(Z const&, Z const&)
+  7.69      0.13     0.01   116049     0.09     0.09  shl(Z const&, int)
+  0.00      0.13     0.00    32014     0.00     0.00  cmp(Z const&, Z const&)
+  0.00      0.13     0.00    18009     0.00     3.53  exp_neg(Z const&, int, Z const&)
+  0.00      0.13     0.00     4000     0.00     0.12  half_even(Z const&, Z const&)
+  0.00      0.13     0.00     2001     0.00    61.97  jet(Z const&)
+  0.00      0.13     0.00     2001     0.00    63.85  kick(long long, long long, bool, Z*)
+  0.00      0.13     0.00     2001     0.00     0.66  isqrt(Z const&)
+  0.00      0.13     0.00     2001     0.00    63.18  kick_c(long long, long long, bool)
+  0.00      0.13     0.00     2000     0.00     1.04  drift(long long, long long)
+  0.00      0.13     0.00     1000     0.00   130.00  advance_tick()
+  0.00      0.13     0.00     1000     0.00   130.00  substep()
+--- primary call graph lines
+[1]    100.0    0.00    0.13                 main [1]
+[2]    100.0    0.00    0.13    1000         advance_tick() [2]
+[3]    100.0    0.00    0.13    1000         substep() [3]
+[4]     98.3    0.00    0.13    2001         kick(long long, long long, bool, Z*) [4]
+[5]     97.3    0.00    0.13    2001         kick_c(long long, long long, bool) [5]
+[6]     95.4    0.00    0.12    2001         jet(Z const&) [6]
+[7]     48.9    0.00    0.06   18009         exp_neg(Z const&, int, Z const&) [7]
+[8]     46.2    0.06    0.00 1507837         mul(Z const&, Z const&) [8]
+[9]     21.0    0.01    0.02 1034563         add(Z const&, Z const&) [9]
+[10]    17.2    0.02    0.00 1427775         shr(Z const&, int) [10]
+[11]     8.0    0.01    0.00  655386         divmod_floor(Z const&, Z const&, Z&, Z&) [11]
+[12]     7.7    0.01    0.00  728239         mag_add(Z const&, Z const&) [12]
+[13]     7.7    0.01    0.00  497058         mag_sub(Z const&, Z const&) [13]
+[14]     7.7    0.01    0.00  116049         shl(Z const&, int) [14]
+[15]     1.6    0.00    0.00    2000         drift(long long, long long) [15]
+[16]     1.0    0.00    0.00    2001         isqrt(Z const&) [16]
+===== O1noinline_pg_G1_0
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 28.57      0.02     0.02  1507837     0.01     0.01  mul(Z const&, Z const&)
+ 28.57      0.04     0.02   655386     0.03     0.03  mag_divmod(Z const&, Z const&, Z&, Z&)
+ 14.29      0.05     0.01   728239     0.01     0.01  mag_add(Z const&, Z const&)
+ 14.29      0.06     0.01   655386     0.02     0.05  divmod_floor(Z const&, Z const&, Z&, Z&)
+ 14.29      0.07     0.01   415744     0.02     0.02  neg(Z)
+  0.00      0.07     0.00  7017198     0.00     0.00  trim(Z&)
+  0.00      0.07     0.00  6589360     0.00     0.00  zero()
+  0.00      0.07     0.00  1427775     0.00     0.00  shr(Z const&, int)
+  0.00      0.07     0.00  1427775     0.00     0.00  mag_shr(Z const&, int, bool*)
+  0.00      0.07     0.00  1173131     0.00     0.00  mag_cmp(Z const&, Z const&)
+  0.00      0.07     0.00  1034563     0.00     0.01  add(Z const&, Z const&)
+  0.00      0.07     0.00   951870     0.00     0.00  from_i64(long long)
+  0.00      0.07     0.00   633377     0.00     0.05  floordiv(Z const&, Z const&)
+  0.00      0.07     0.00   497058     0.00     0.00  mag_sub(Z const&, Z const&)
+  0.00      0.07     0.00   413743     0.00     0.03  sub(Z const&, Z const&)
+  0.00      0.07     0.00   404202     0.00     0.00  std::vector<Z, std::allocator<Z> >::operator[](unsigned long)
+  0.00      0.07     0.00   212413     0.00     0.00  one()
+--- primary call graph lines
+[1]    100.0    0.00    0.07                 main [1]
+[2]    100.0    0.00    0.07    1000         advance_tick() [2]
+[3]    100.0    0.00    0.07    1000         substep() [3]
+[4]     99.4    0.00    0.07    2001         kick(long long, long long, bool, Z*) [4]
+[5]     98.8    0.00    0.07    2001         kick_c(long long, long long, bool) [5]
+[6]     96.6    0.00    0.07    2001         jet(Z const&) [6]
+[7]     64.9    0.00    0.05   18009         exp_neg(Z const&, int, Z const&) [7]
+[8]     43.1    0.01    0.02  655386         divmod_floor(Z const&, Z const&, Z&, Z&) [8]
+[9]     41.6    0.00    0.03  633377         floordiv(Z const&, Z const&) [9]
+[10]    28.6    0.02    0.00 1507837         mul(Z const&, Z const&) [10]
+[11]    28.6    0.02    0.00  655386         mag_divmod(Z const&, Z const&, Z&, Z&) [11]
+[12]    18.5    0.00    0.01  413743         sub(Z const&, Z const&) [12]
+[13]    14.3    0.01    0.00  415744         neg(Z) [13]
+[14]    14.3    0.01    0.00  728239         mag_add(Z const&, Z const&) [14]
+[15]    10.8    0.00    0.01 1034563         add(Z const&, Z const&) [15]
+[16]     3.3    0.00    0.00 1427775         shr(Z const&, int) [16]
+===== O2pg_G1_4
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 56.08      1.06     1.06 24445675     0.00     0.00  mul(Z const&, Z const&)
+ 12.70      1.30     0.24 10813224     0.00     0.00  divmod_floor(Z const&, Z const&, Z&, Z&)
+  9.52      1.48     0.18 16877483     0.00     0.00  add(Z const&, Z const&)
+  7.94      1.63     0.15 23165613     0.00     0.00  shr(Z const&, int)
+  4.23      1.71     0.08  8105251     0.00     0.00  mag_sub(Z const&, Z const&)
+  3.17      1.77     0.06    32001     0.00     0.06  jet(Z const&)
+  2.12      1.81     0.04   288009     0.00     0.00  exp_neg(Z const&, int, Z const&)
+  1.59      1.84     0.03  1856049     0.00     0.00  shl(Z const&, int)
+  1.06      1.86     0.02 11830978     0.00     0.00  mag_add(Z const&, Z const&)
+  1.06      1.88     0.02   512014     0.00     0.00  cmp(Z const&, Z const&)
+  0.53      1.89     0.01    32001     0.00     0.06  kick(long long, long long, bool, Z*)
+  0.00      1.89     0.00    64000     0.00     0.00  half_even(Z const&, Z const&)
+  0.00      1.89     0.00    32001     0.00     0.00  isqrt(Z const&)
+  0.00      1.89     0.00    32001     0.00     0.06  kick_c(long long, long long, bool)
+  0.00      1.89     0.00    32000     0.00     0.00  drift(long long, long long)
+  0.00      1.89     0.00    16000     0.00     0.12  substep()
+  0.00      1.89     0.00     1000     0.00     1.89  advance_tick()
+--- primary call graph lines
+[1]    100.0    0.00    1.89                 main [1]
+[2]    100.0    0.00    1.89   16000         substep() [2]
+[3]    100.0    0.00    1.89    1000         advance_tick() [3]
+[4]     99.0    0.01    1.86   32001         kick(long long, long long, bool, Z*) [4]
+[5]     97.6    0.00    1.84   32001         kick_c(long long, long long, bool) [5]
+[6]     95.6    0.06    1.75   32001         jet(Z const&) [6]
+[7]     56.1    1.06    0.00 24445675         mul(Z const&, Z const&) [7]
+[8]     50.5    0.04    0.91  288009         exp_neg(Z const&, int, Z const&) [8]
+[9]     14.5    0.18    0.09 16877483         add(Z const&, Z const&) [9]
+[10]    12.8    0.24    0.00 10813224         divmod_floor(Z const&, Z const&, Z&, Z&) [10]
+[11]     8.2    0.15    0.00 23165613         shr(Z const&, int) [11]
+[12]     4.2    0.08    0.00 8105251         mag_sub(Z const&, Z const&) [12]
+[13]     1.6    0.03    0.00 1856049         shl(Z const&, int) [13]
+[14]     1.5    0.00    0.03   32001         isqrt(Z const&) [14]
+[15]     1.1    0.02    0.00 11830978         mag_add(Z const&, Z const&) [15]
+[16]     1.1    0.02    0.00  512014         cmp(Z const&, Z const&) [16]
+===== O1noinline_pg_G1_4
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 45.76      0.81     0.81 24445675     0.00     0.00  mul(Z const&, Z const&)
+ 12.43      1.03     0.22 10813224     0.00     0.00  mag_divmod(Z const&, Z const&, Z&, Z&)
+  9.60      1.20     0.17 23165613     0.00     0.00  mag_shr(Z const&, int, bool*)
+  6.50      1.31     0.12 114790940     0.00     0.00  trim(Z&)
+  3.95      1.39     0.07 23165613     0.00     0.00  shr(Z const&, int)
+  3.39      1.45     0.06 16877483     0.00     0.00  add(Z const&, Z const&)
+  2.82      1.50     0.05  8105251     0.00     0.00  mag_sub(Z const&, Z const&)
+  2.54      1.54     0.04 107395564     0.00     0.00  zero()
+  1.69      1.57     0.03 10813224     0.00     0.00  divmod_floor(Z const&, Z const&, Z&, Z&)
+  1.69      1.60     0.03   288009     0.00     0.00  exp_neg(Z const&, int, Z const&)
+  1.13      1.62     0.02 11830978     0.00     0.00  mag_add(Z const&, Z const&)
+  1.13      1.64     0.02  6799857     0.00     0.00  neg(Z)
+  1.13      1.66     0.02  6767856     0.00     0.00  sub(Z const&, Z const&)
+  1.13      1.68     0.02  1856049     0.00     0.00  shl(Z const&, int)
+  1.13      1.70     0.02   192006     0.00     0.00  __gnu_cxx::__enable_if<!std::__is_scalar<Z>::__value, void>::__type std::__fill_a1<Z*, Z>(Z*, Z*, Z const&)
+  0.85      1.72     0.01 15558796     0.00     0.00  from_i64(long long)
+  0.56      1.73     0.01 19245156     0.00     0.00  mag_cmp(Z const&, Z const&)
+--- primary call graph lines
+[1]     99.2    0.00    1.75                 main [1]
+[2]     99.2    0.00    1.75   16000         substep() [2]
+[3]     99.2    0.00    1.75    1000         advance_tick() [3]
+[4]     98.4    0.00    1.74   32001         kick(long long, long long, bool, Z*) [4]
+[5]     97.8    0.00    1.73   32001         kick_c(long long, long long, bool) [5]
+[6]     96.3    0.00    1.70   32001         jet(Z const&) [6]
+[7]     53.9    0.03    0.92  288009         exp_neg(Z const&, int, Z const&) [7]
+[8]     47.7    0.81    0.03 24445675         mul(Z const&, Z const&) [8]
+[9]     18.0    0.03    0.29 10813224         divmod_floor(Z const&, Z const&, Z&, Z&) [9]
+[10]    17.4    0.00    0.31 10461215         floordiv(Z const&, Z const&) [10]
+[11]    15.9    0.07    0.21 23165613         shr(Z const&, int) [11]
+[12]    14.8    0.22    0.04 10813224         mag_divmod(Z const&, Z const&, Z&, Z&) [12]
+[13]    11.5    0.17    0.03 23165613         mag_shr(Z const&, int, bool*) [13]
+[14]     9.0    0.06    0.10 16877483         add(Z const&, Z const&) [14]
+[15]     6.5    0.12    0.00 114790940         trim(Z&) [15]
+[16]     5.9    0.02    0.08 6767856         sub(Z const&, Z const&) [16]
+===== O2pg_B6_4
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 56.61      1.07     1.07 24447744     0.00     0.00  mul(Z const&, Z const&)
+ 11.11      1.28     0.21 16877980     0.00     0.00  add(Z const&, Z const&)
+ 11.11      1.49     0.21 10814168     0.00     0.00  divmod_floor(Z const&, Z const&, Z&, Z&)
+  5.29      1.59     0.10 23166557     0.00     0.00  shr(Z const&, int)
+  4.76      1.68     0.09    32001     0.00     0.06  jet(Z const&)
+  4.23      1.76     0.08   288009     0.00     0.00  exp_neg(Z const&, int, Z const&)
+  3.17      1.82     0.06 11831357     0.00     0.00  mag_add(Z const&, Z const&)
+  2.65      1.87     0.05  8105559     0.00     0.00  mag_sub(Z const&, Z const&)
+  1.06      1.89     0.02  1856049     0.00     0.00  shl(Z const&, int)
+  0.00      1.89     0.00   510889     0.00     0.00  cmp(Z const&, Z const&)
+  0.00      1.89     0.00    64000     0.00     0.00  half_even(Z const&, Z const&)
+  0.00      1.89     0.00    32001     0.00     0.06  kick(long long, long long, bool, Z*)
+  0.00      1.89     0.00    32001     0.00     0.00  isqrt(Z const&)
+  0.00      1.89     0.00    32001     0.00     0.06  kick_c(long long, long long, bool)
+  0.00      1.89     0.00    32000     0.00     0.00  drift(long long, long long)
+  0.00      1.89     0.00    16000     0.00     0.12  substep()
+  0.00      1.89     0.00     1000     0.00     1.89  advance_tick()
+--- primary call graph lines
+[1]    100.0    0.00    1.89                 main [1]
+[2]    100.0    0.00    1.89   16000         substep() [2]
+[3]    100.0    0.00    1.89    1000         advance_tick() [3]
+[4]     99.2    0.00    1.87   32001         kick(long long, long long, bool, Z*) [4]
+[5]     98.6    0.00    1.86   32001         kick_c(long long, long long, bool) [5]
+[6]     97.3    0.09    1.75   32001         jet(Z const&) [6]
+[7]     56.6    1.07    0.00 24447744         mul(Z const&, Z const&) [7]
+[8]     51.1    0.08    0.89  288009         exp_neg(Z const&, int, Z const&) [8]
+[9]     16.1    0.21    0.09 16877980         add(Z const&, Z const&) [9]
+[10]    11.2    0.21    0.00 10814168         divmod_floor(Z const&, Z const&, Z&, Z&) [10]
+[11]     6.0    0.10    0.01 23166557         shr(Z const&, int) [11]
+[12]     3.2    0.06    0.00 11831357         mag_add(Z const&, Z const&) [12]
+[13]     2.6    0.05    0.00 8105559         mag_sub(Z const&, Z const&) [13]
+[14]     1.1    0.02    0.00 1856049         shl(Z const&, int) [14]
+[15]     0.7    0.00    0.01   32000         drift(long long, long long) [15]
+[16]     0.7    0.00    0.01   32001         isqrt(Z const&) [16]
+===== O1noinline_pg_B6_4
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 42.78      0.77     0.77 24447744     0.00     0.00  mul(Z const&, Z const&)
+  9.44      0.94     0.17 10814168     0.00     0.00  mag_divmod(Z const&, Z const&, Z&, Z&)
+  6.67      1.06     0.12 114798533     0.00     0.00  trim(Z&)
+  6.11      1.17     0.11 23166557     0.00     0.00  mag_shr(Z const&, int, bool*)
+  6.11      1.28     0.11 11831357     0.00     0.00  mag_add(Z const&, Z const&)
+  5.28      1.38     0.10 16877980     0.00     0.00  add(Z const&, Z const&)
+  3.89      1.45     0.07 23166557     0.00     0.00  shr(Z const&, int)
+  2.78      1.50     0.05 107402774     0.00     0.00  zero()
+  2.22      1.53     0.04  8105559     0.00     0.00  mag_sub(Z const&, Z const&)
+  2.22      1.57     0.04   288009     0.00     0.00  exp_neg(Z const&, int, Z const&)
+  1.94      1.61     0.04 19245188     0.00     0.00  mag_cmp(Z const&, Z const&)
+  1.67      1.64     0.03 15560513     0.00     0.00  from_i64(long long)
+  1.11      1.66     0.02 10814168     0.00     0.00  divmod_floor(Z const&, Z const&, Z&, Z&)
+  1.11      1.68     0.02  6800430     0.00     0.00  neg(Z)
+  1.11      1.70     0.02  6768429     0.00     0.00  sub(Z const&, Z const&)
+  1.11      1.72     0.02  1856049     0.00     0.00  shl(Z const&, int)
+  0.83      1.74     0.01 10462159     0.00     0.00  floordiv(Z const&, Z const&)
+--- primary call graph lines
+[1]    100.0    0.00    1.80                 main [1]
+[2]    100.0    0.00    1.80   16000         substep() [2]
+[3]    100.0    0.00    1.80    1000         advance_tick() [3]
+[4]     99.2    0.00    1.79   32001         kick(long long, long long, bool, Z*) [4]
+[5]     98.6    0.00    1.78   32001         kick_c(long long, long long, bool) [5]
+[6]     96.5    0.01    1.73   32001         jet(Z const&) [6]
+[7]     53.9    0.04    0.93  288009         exp_neg(Z const&, int, Z const&) [7]
+[8]     44.8    0.77    0.04 24447744         mul(Z const&, Z const&) [8]
+[9]     15.3    0.01    0.26 10462159         floordiv(Z const&, Z const&) [9]
+[10]    14.9    0.02    0.25 10814168         divmod_floor(Z const&, Z const&, Z&, Z&) [10]
+[11]    14.8    0.10    0.17 16877980         add(Z const&, Z const&) [11]
+[12]    14.4    0.07    0.19 23166557         shr(Z const&, int) [12]
+[13]    12.3    0.17    0.05 10814168         mag_divmod(Z const&, Z const&, Z&, Z&) [13]
+[14]     8.1    0.02    0.13 6768429         sub(Z const&, Z const&) [14]
+[15]     8.0    0.11    0.03 23166557         mag_shr(Z const&, int, bool*) [15]
+[16]     6.7    0.12    0.00 114798533         trim(Z&) [16]
