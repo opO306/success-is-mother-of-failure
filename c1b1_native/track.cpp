@@ -561,8 +561,7 @@ int main() {
                 std::cout << "ok " << out << "\n";
             }
 #ifdef CHECK_INVARIANTS
-            else if (cmd == "stats") { std::cout << "ok " << MAXN << " " << MAXSUM << "
-"; }
+            else if (cmd == "stats") { std::cout << "ok " << MAXN << " " << MAXSUM << "\n"; }
 #endif
             else if (cmd == "kickval") {
                 long long cn = tok_ll(), cd = tok_ll(); bool g = tok_ll() != 0;

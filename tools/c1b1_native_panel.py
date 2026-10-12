@@ -33,7 +33,7 @@ sys.path.insert(0, str(ROOT))
 
 D0_SHA256 = '3a2acae7bebdc1ec'
 TRACK_CPP_SHA256 = 'e71293f22748f9c7'                 # C3a (C3a-4 ran with this)
-TRACK_CPP_ALLOWED = {TRACK_CPP_SHA256: 'C3a', 'a3d7098f0ae51f64': 'C3b-1'}
+TRACK_CPP_ALLOWED = {TRACK_CPP_SHA256: 'C3a', 'e999e989bbcb240d': 'C3b-1'}
 UNDER_TEST = ['c1b1_native/track.cpp', 'c1b1_native/track.py', 'c1b1_native/reference.py', 'c1b1_native/build.py',
               'c1b1_t7/lang_fx2.py', 'tools/c1b1_native_panel.py', 'tools/c1b1_dot_d0.py']
 ENGINES = ('py', 'native')
@@ -202,9 +202,7 @@ def run(t7_inputs, fixture_path, d0_path, out, workers=6, ids=None, engines=ENGI
     d0 = _load_tool('dotd0', 'c1b1_dot_d0.py')
     if Path(out).exists():
         raise FileExistsError(f'{out} exists; use a new file (failed-run files are kept as originals)')
-    shas = {f: hashlib.sha256((ROOT / f).read_bytes().replace(b'
-', b'
-')).hexdigest() for f in UNDER_TEST}
+    shas = {f: hashlib.sha256((ROOT / f).read_bytes().replace(b'\r\n', b'\n')).hexdigest() for f in UNDER_TEST}
     if shas['c1b1_native/track.cpp'][:16] not in TRACK_CPP_ALLOWED:
         raise ValueError('track.cpp is not an allowed source (C3a e71293f2... or C3b-1)')
     payload = t7.load(t7_inputs)                                      # T7 seal: sealed code + PES unchanged
